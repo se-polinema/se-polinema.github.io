@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "about": "Tentang",
+    "research": "Penelitian",
+    "team": "Tim",
+    "news": "Berita",
+    "projects": "Proyek",
+    "publications": "Publikasi",
+    "gallery": "Galeri",
+    "partners": "Mitra",
+    "contact": "Kontak",
+    "blog": "Blog"
+  },
+  "hero": {
+    "title": "Software Engineering Laboratory",
+    "subtitle": "Jurusan Teknologi Informasi",
+    "tagline": "Membangun masa depan perangkat lunak, bersama.",
+    "cta": "Jelajahi Riset",
+    "statTeam": "Peneliti",
+    "statFocus": "Bidang Fokus",
+    "statProjects": "Proyek & Bertambah"
+  },
+  "about": {
+    "label": "Tentang Lab",
+    "heading": "Memajukan pendidikan dan riset rekayasa perangkat lunak",
+    "p1": "Laboratorium Rekayasa Perangkat Lunak adalah unit penelitian dan pengembangan di bawah Jurusan Teknologi Informasi Politeknik Negeri Malang. Kami menjadi pusat kolaborasi antara mahasiswa, dosen, dan mitra industri dalam proyek rekayasa perangkat lunak, inisiatif riset, dan inovasi.",
+    "p2": "Laboratorium kami menyediakan lingkungan di mana pengetahuan teoritis bertemu dengan aplikasi praktis. Melalui proyek langsung, lokakarya, dan riset kolaboratif, kami mempersiapkan generasi insinyur perangkat lunak berikutnya untuk mengatasi tantangan dunia nyata.",
+    "vision": {
+      "label": "Visi",
+      "text": "Menjadi laboratorium rekayasa perangkat lunak terkemuka yang mendorong inovasi, mendorong kolaborasi, dan menghasilkan riset serta talenta berdampak bagi lanskap teknologi global."
+    }
+  },
+  "research": {
+    "label": "Fokus Riset",
+    "heading": "Tujuh pilar rekayasa perangkat lunak"
+  },
+  "team": {
+    "label": "Tim Kami",
+    "heading": "Peneliti & Kontributor"
+  },
+  "news": {
+    "label": "Berita & Pengumuman",
+    "heading": "Pembaruan terbaru",
+    "viewAll": "Lihat Semua",
+    "readMore": "Baca selengkapnya",
+    "empty": "Belum ada berita atau pengumuman."
+  },
+  "projects": {
+    "label": "Proyek",
+    "heading": "Karya Kami",
+    "empty": "Proyek akan ditampilkan di sini. Kunjungi kembali nanti.",
+    "comingSoon": "Segera Hadir"
+  },
+  "publications": {
+    "label": "Publikasi",
+    "heading": "Hasil Riset",
+    "empty": "Publikasi akan dicantumkan di sini. Kunjungi kembali nanti.",
+    "comingSoon": "Segera Hadir"
+  },
+  "gallery": {
+    "label": "Galeri",
+    "heading": "Kegiatan Lab",
+    "empty": "Foto dan media akan muncul di sini. Kunjungi kembali nanti.",
+    "comingSoon": "Segera Hadir"
+  },
+  "partners": {
+    "label": "Mitra",
+    "heading": "Kolaborasi",
+    "empty": "Logo mitra akan ditampilkan di sini. Kunjungi kembali nanti.",
+    "comingSoon": "Segera Hadir"
+  },
+  "contact": {
+    "label": "Kontak",
+    "heading": "Hubungi Kami",
+    "address": "Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, Jawa Timur — Indonesia 65141",
+    "affiliation": "Jurusan Teknologi Informasi, Politeknik Negeri Malang",
+    "email": "se-lab@polinema.ac.id",
+    "mapTitle": "Temukan kami di Google Maps",
+    "socials": "Ikuti kami"
+  },
+  "footer": {
+    "tagline": "Unit riset di bawah Jurusan Teknologi Informasi, Politeknik Negeri Malang.",
+    "links": "Tautan Cepat",
+    "resources": "Sumber Daya",
+    "copyright": "Software Engineering Laboratory. Hak cipta dilindungi."
+  },
+  "blog": {
+    "heading": "Berita & Pengumuman",
+    "description": "Pembaruan dari Software Engineering Laboratory",
+    "published": "Diterbitkan",
+    "allCategories": "Semua",
+    "categoryAnnouncement": "Pengumuman",
+    "categoryNews": "Berita",
+    "categoryEvent": "Acara",
+    "noPosts": "Tidak ada postingan ditemukan",
+    "backToHome": "Kembali ke Beranda"
+  }
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "web-engineering",
+    "name": { "en": "Web Engineering", "id": "Rekayasa Web" },
+    "description": {
+      "en": "Modern full-stack web development, progressive web applications, and service-oriented architectures.",
+      "id": "Pengembangan web full-stack modern, progressive web applications, dan arsitektur berorientasi layanan."
+    }
+  },
+  {
+    "id": "mobile-development",
+    "name": { "en": "Mobile Development", "id": "Pengembangan Mobile" },
+    "description": {
+      "en": "Native and cross-platform mobile application development for Android and iOS ecosystems.",
+      "id": "Pengembangan aplikasi mobile native dan lintas platform untuk ekosistem Android dan iOS."
+    }
+  },
+  {
+    "id": "ui-ux-design",
+    "name": { "en": "UI/UX Design", "id": "Desain UI/UX" },
+    "description": {
+      "en": "User-centered interface design, interaction design patterns, and usability research methodologies.",
+      "id": "Desain antarmuka berpusat pengguna, pola desain interaksi, dan metodologi penelitian usability."
+    }
+  },
+  {
+    "id": "software-quality",
+    "name": { "en": "Software Quality & Testing", "id": "Kualitas & Pengujian Perangkat Lunak" },
+    "description": {
+      "en": "Automated testing frameworks, quality assurance processes, and software reliability engineering.",
+      "id": "Kerangka pengujian otomatis, proses penjaminan kualitas, dan rekayasa keandalan perangkat lunak."
+    }
+  },
+  {
+    "id": "data-science",
+    "name": { "en": "Data Science", "id": "Ilmu Data" },
+    "description": {
+      "en": "Data analytics, statistical modeling, big data processing, and information visualization.",
+      "id": "Analitik data, pemodelan statistik, pemrosesan big data, dan visualisasi informasi."
+    }
+  },
+  {
+    "id": "artificial-intelligence",
+    "name": { "en": "Artificial Intelligence", "id": "Kecerdasan Buatan" },
+    "description": {
+      "en": "Machine learning, natural language processing, computer vision, and intelligent systems.",
+      "id": "Pembelajaran mesin, pemrosesan bahasa alami, visi komputer, dan sistem cerdas."
+    }
+  },
+  {
+    "id": "cloud-devops",
+    "name": { "en": "Cloud Computing & DevOps", "id": "Komputasi Awan & DevOps" },
+    "description": {
+      "en": "Cloud infrastructure, containerization, CI/CD pipelines, and deployment automation.",
+      "id": "Infrastruktur cloud, kontainerisasi, pipeline CI/CD, dan otomatisasi deployment."
+    }
+  }
+]

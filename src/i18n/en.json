@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "about": "About",
+    "research": "Research",
+    "team": "Team",
+    "news": "News",
+    "projects": "Projects",
+    "publications": "Publications",
+    "gallery": "Gallery",
+    "partners": "Partners",
+    "contact": "Contact",
+    "blog": "Blog"
+  },
+  "hero": {
+    "title": "Software Engineering Laboratory",
+    "subtitle": "Jurusan Teknologi Informasi",
+    "tagline": "Building the future of software, together.",
+    "cta": "Explore Research",
+    "statTeam": "Researchers",
+    "statFocus": "Focus Areas",
+    "statProjects": "Projects & Counting"
+  },
+  "about": {
+    "label": "About the Lab",
+    "heading": "Advancing software engineering education and research",
+    "p1": "The Software Engineering Laboratory is a research and development unit under the Department of Information Technology at Politeknik Negeri Malang. We serve as a hub where students, faculty, and industry partners collaborate on software engineering projects, research initiatives, and innovation.",
+    "p2": "Our laboratory provides an environment where theoretical knowledge meets practical application. Through hands-on projects, workshops, and collaborative research, we prepare the next generation of software engineers to tackle real-world challenges.",
+    "vision": {
+      "label": "Vision",
+      "text": "To be a leading software engineering laboratory that drives innovation, fosters collaboration, and produces impactful research and talent for the global technology landscape."
+    }
+  },
+  "research": {
+    "label": "Research Focus",
+    "heading": "Seven pillars of software engineering"
+  },
+  "team": {
+    "label": "Our Team",
+    "heading": "Researchers & Contributors"
+  },
+  "news": {
+    "label": "News & Announcements",
+    "heading": "Latest updates",
+    "viewAll": "View All",
+    "readMore": "Read more",
+    "empty": "No news or announcements yet."
+  },
+  "projects": {
+    "label": "Projects",
+    "heading": "Our Work",
+    "empty": "Projects will be showcased here. Check back soon.",
+    "comingSoon": "Coming Soon"
+  },
+  "publications": {
+    "label": "Publications",
+    "heading": "Research Output",
+    "empty": "Publications will be listed here. Check back soon.",
+    "comingSoon": "Coming Soon"
+  },
+  "gallery": {
+    "label": "Gallery",
+    "heading": "Lab Activities",
+    "empty": "Photos and media will appear here. Check back soon.",
+    "comingSoon": "Coming Soon"
+  },
+  "partners": {
+    "label": "Partners",
+    "heading": "Collaborations",
+    "empty": "Partner logos will be displayed here. Check back soon.",
+    "comingSoon": "Coming Soon"
+  },
+  "contact": {
+    "label": "Contact",
+    "heading": "Get in touch",
+    "address": "Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, East Java — Indonesia 65141",
+    "affiliation": "Jurusan Teknologi Informasi, Politeknik Negeri Malang",
+    "email": "se-lab@polinema.ac.id",
+    "mapTitle": "Find us on Google Maps",
+    "socials": "Follow us"
+  },
+  "footer": {
+    "tagline": "A research unit under Jurusan Teknologi Informasi, Politeknik Negeri Malang.",
+    "links": "Quick Links",
+    "resources": "Resources",
+    "copyright": "Software Engineering Laboratory. All rights reserved."
+  },
+  "blog": {
+    "heading": "News & Announcements",
+    "description": "Updates from the Software Engineering Laboratory",
+    "published": "Published",
+    "allCategories": "All",
+    "categoryAnnouncement": "Announcement",
+    "categoryNews": "News",
+    "categoryEvent": "Event",
+    "noPosts": "No posts found",
+    "backToHome": "Back to Home"
+  }
+}

@@ -1,0 +1,25 @@
+---
+import '../styles/global.css'
+
+const { title = 'Software Engineering Laboratory' } = Astro.props as { title?: string }
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Software Engineering Laboratory — Jurusan Teknologi Informasi, Politeknik Negeri Malang. Advancing software engineering education and research." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+    <title>{title} | SE Lab — JTI Polinema</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

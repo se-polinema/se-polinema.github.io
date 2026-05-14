@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "titleId": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "announcement",
+        "news",
+        "event"
+      ]
+    },
+    "author": {
+      "default": "SE Lab",
+      "type": "string"
+    },
+    "lang": {
+      "default": "en",
+      "type": "string",
+      "enum": [
+        "en",
+        "id"
+      ]
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "image": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "excerptId": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "date",
+    "category"
+  ]
+}

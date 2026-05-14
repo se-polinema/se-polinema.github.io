@@ -1,0 +1,62 @@
+[
+  {
+    "id": "imam-fahrur-rozi",
+    "name": "Imam Fahrur Rozi",
+    "role": { "en": "Researcher", "id": "Peneliti" },
+    "interests": {
+      "en": [],
+      "id": []
+    },
+    "photo": "/images/team/imam-fahrur-rozi.jpg"
+  },
+  {
+    "id": "ridwan-rismanto",
+    "name": "Ridwan Rismanto",
+    "role": { "en": "Researcher", "id": "Peneliti" },
+    "interests": {
+      "en": [],
+      "id": []
+    },
+    "photo": "/images/team/ridwan-rismanto.jpg"
+  },
+  {
+    "id": "elok-hamdana",
+    "name": "Elok Hamdana",
+    "role": { "en": "Researcher", "id": "Peneliti" },
+    "interests": {
+      "en": [],
+      "id": []
+    },
+    "photo": "/images/team/elok-hamdana.jpg"
+  },
+  {
+    "id": "dian-hanifudin-subhi",
+    "name": "Dian Hanifudin Subhi",
+    "role": { "en": "Researcher", "id": "Peneliti" },
+    "interests": {
+      "en": [],
+      "id": []
+    },
+    "photo": "/images/team/dian-hanifudin-subhi.jpg"
+  },
+  {
+    "id": "moch-zawaruddin-abdullah",
+    "name": "Moch. Zawaruddin Abdullah",
+    "role": { "en": "Researcher", "id": "Peneliti" },
+    "interests": {
+      "en": [],
+      "id": []
+    },
+    "photo": "/images/team/moch-zawaruddin-abdullah.jpg"
+  },
+  {
+    "id": "ariadi-retno-tri-hayati-ririd",
+    "name": "Ariadi Retno Tri Hayati Ririd",
+    "role": { "en": "Researcher", "id": "Peneliti" },
+    "interests": {
+      "en": [],
+      "id": []
+    },
+    "photo": "/images/team/ariadi-retno-tri-hayati-ririd.jpg"
+  }
+]
