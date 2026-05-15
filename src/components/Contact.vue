@@ -19,9 +19,8 @@
             <div>
               <a
                 href="mailto:se-lab@polinema.ac.id"
-                class="inline-flex items-center gap-2 text-sm text-brand-navy hover:text-brand-yellow transition-colors"
+                class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-brand-navy text-white hover:bg-brand-navy/90 transition-colors"
               >
-                <span class="w-8 h-px bg-brand-navy/20" />
                 {{ t.contact.email }}
               </a>
             </div>
@@ -37,6 +36,7 @@
               height="100%"
               style="border:0"
               loading="lazy"
+              allowfullscreen
               referrerpolicy="no-referrer-when-downgrade"
             />
           </div>

@@ -25,12 +25,13 @@
           </div>
           <div>
             <h3 class="font-serif text-lg md:text-xl font-semibold text-brand-navy leading-snug">
-              <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-brand-navy/20 underline-offset-4">
+              <a v-if="publication.url" :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-brand-navy/20 underline-offset-4">
                 {{ publication.title }}
               </a>
+              <span v-else>{{ publication.title }}</span>
             </h3>
             <p class="mt-2 text-sm text-neutral-600 leading-relaxed">
-              {{ publication.authors.join(', ') }}
+              {{ publication.authors.slice(0, 3).join(', ') }}<span v-if="publication.authors.length > 3"> +{{ publication.authors.length - 3 }} more</span>
             </p>
             <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-500">
               <span class="font-mono uppercase tracking-wider">{{ publication.type }}</span>

@@ -15,7 +15,7 @@
         <div>
           <h4 class="font-mono text-xs uppercase tracking-wider text-white/40 mb-4">{{ t.footer.links }}</h4>
           <ul class="space-y-2">
-            <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.blog }}</a></li>
+            <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.news }}</a></li>
             <li><a href="/researchers" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.researchers }}</a></li>
             <li><a href="/publications" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.publications }}</a></li>
             <li><a href="/#research" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.research }}</a></li>
@@ -28,6 +28,7 @@
           <ul class="space-y-2">
             <li><a href="https://polinema.ac.id" target="_blank" rel="noopener" class="text-sm text-white/60 hover:text-white transition-colors">Polinema</a></li>
             <li><a href="https://jti.polinema.ac.id" target="_blank" rel="noopener" class="text-sm text-white/60 hover:text-white transition-colors">JTI Polinema</a></li>
+            <li><a href="https://github.com/se-polinema" target="_blank" rel="noopener" class="text-sm text-white/60 hover:text-white transition-colors">GitHub</a></li>
           </ul>
         </div>
       </div>

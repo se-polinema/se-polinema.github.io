@@ -18,19 +18,19 @@
           {{ t.hero.tagline }}
         </p>
 
-        <div class="flex flex-wrap gap-4 mb-10">
+        <div class="flex flex-wrap gap-3 mb-10">
           <a
             href="#research"
             @click.prevent="scrollTo('research')"
-            class="inline-flex items-center gap-2 text-sm font-medium text-brand-navy hover:text-brand-yellow transition-colors group"
+            class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-brand-navy text-white hover:bg-brand-navy/90 transition-colors"
           >
-            <span class="w-8 h-px bg-brand-navy/30 group-hover:bg-brand-yellow group-hover:w-12 transition-all" />
             {{ t.hero.cta }}
+            <span aria-hidden="true">→</span>
           </a>
-          <a href="/researchers" class="text-sm font-medium text-brand-navy/70 hover:text-brand-navy transition-colors">
+          <a href="/researchers" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-brand-navy border border-brand-navy/20 hover:border-brand-navy/50 transition-colors">
             {{ t.hero.researchersCta }}
           </a>
-          <a href="/publications" class="text-sm font-medium text-brand-navy/70 hover:text-brand-navy transition-colors">
+          <a href="/publications" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-brand-navy/70 hover:text-brand-navy border border-transparent hover:border-brand-navy/20 transition-colors">
             {{ t.hero.publicationsCta }}
           </a>
         </div>
@@ -46,7 +46,7 @@
         </aside>
       </div>
 
-      <div class="mt-auto pt-20 md:pt-32">
+      <div class="mt-16 md:mt-24">
         <div class="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl">
           <div class="border-t border-brand-navy/10 pt-4">
             <div class="font-serif text-3xl md:text-4xl font-bold text-brand-navy">6</div>

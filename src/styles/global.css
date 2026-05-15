@@ -25,6 +25,28 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-navy);
+    outline-offset: 3px;
+  }
+
+  .skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: var(--color-brand-navy);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: top 0.15s ease;
+  }
+
+  .skip-to-content:focus {
+    top: 1rem;
+  }
 }
 
 @layer components {

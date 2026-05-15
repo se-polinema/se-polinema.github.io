@@ -5,6 +5,8 @@ const {
   title = 'Software Engineering Laboratory',
   description = 'Software Engineering Laboratory — Jurusan Teknologi Informasi, Politeknik Negeri Malang. Advancing software engineering education and research.',
 } = Astro.props as { title?: string; description?: string }
+
+const fullTitle = `${title} | SE Lab — JTI Polinema`
 ---
 
 <!doctype html>
@@ -14,15 +16,30 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
 
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 
-    <title>{title} | SE Lab — JTI Polinema</title>
+    <title>{fullTitle}</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script is:inline>
+      try {
+        const lang = localStorage.getItem('se-lab-lang');
+        if (lang === 'id') document.documentElement.lang = 'id';
+      } catch {}
+    </script>
   </head>
   <body>
+    <a href="#hero" class="skip-to-content">Skip to content</a>
     <slot />
   </body>
 </html>

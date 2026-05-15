@@ -11,6 +11,7 @@
           v-for="(area, index) in research"
           :key="area.id"
           class="group border-t border-brand-navy/10 pt-6 hover:border-brand-yellow/40 transition-colors duration-300"
+          :class="{ 'md:col-span-2 md:max-w-[50%]': index === research.length - 1 && research.length % 2 !== 0 }"
         >
           <div class="flex items-start gap-4">
             <span class="font-mono text-sm text-brand-navy/25 tabular-nums min-w-[2ch] pt-0.5">

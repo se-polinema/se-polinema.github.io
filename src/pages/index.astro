@@ -9,6 +9,7 @@ import News from '../components/News.vue'
 import Publications from '../components/Publications.vue'
 import Contact from '../components/Contact.vue'
 import Footer from '../components/Footer.vue'
+import BackToTop from '../components/BackToTop.vue'
 import { getCollection } from 'astro:content'
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
@@ -66,4 +67,5 @@ const featuredPublications = (await getCollection('publications'))
     <Contact client:load />
   </main>
   <Footer client:load />
+  <BackToTop client:load />
 </Default>

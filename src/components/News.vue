@@ -11,7 +11,7 @@
         <a
           v-if="posts.length > 0"
           href="/blog"
-          class="hidden sm:inline-flex items-center gap-2 text-sm text-brand-navy/60 hover:text-brand-navy transition-colors"
+          class="inline-flex items-center gap-2 text-sm text-brand-navy/60 hover:text-brand-navy transition-colors"
         >
           {{ t.news.viewAll }}
           <span aria-hidden="true">&rarr;</span>
@@ -100,14 +100,11 @@ function categoryStyle(cat: string): string {
 }
 
 function categoryLabel(cat: string): string {
-  const labels: Record<string, string> = {
-    announcement: 'news.categoryAnnouncement',
-    news: 'news.categoryNews',
-    event: 'news.categoryEvent',
+  const map: Record<string, string> = {
+    announcement: t.value.blog.categoryAnnouncement,
+    news: t.value.blog.categoryNews,
+    event: t.value.blog.categoryEvent,
   }
-  const key = labels[cat] || 'news.categoryNews'
-  const [section, field] = key.split('.')
-  const result = (t.value as Record<string, any>)[section]?.[field]
-  return typeof result === 'string' ? result : cat
+  return map[cat] ?? cat
 }
 </script>
