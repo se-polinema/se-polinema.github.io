@@ -2,16 +2,17 @@
   <section id="news" class="py-20 md:py-32 bg-neutral-50">
     <div class="section-container">
       <div class="flex items-end justify-between mb-16">
-        <div>
+        <div class="relative overflow-hidden">
+          <span class="absolute -top-4 right-0 font-mono text-[8rem] font-bold text-primary/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">05</span>
           <div class="section-label">{{ t.news.label }}</div>
-          <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight">
+          <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight">
             {{ t.news.heading }}
           </h2>
         </div>
         <a
           v-if="posts.length > 0"
           href="/blog"
-          class="inline-flex items-center gap-2 text-sm text-brand-navy/60 hover:text-brand-navy transition-colors"
+          class="inline-flex items-center gap-2 text-sm text-primary/60 hover:text-primary transition-colors"
         >
           {{ t.news.viewAll }}
           <span aria-hidden="true">&rarr;</span>
@@ -22,7 +23,7 @@
         <article
           v-for="post in posts"
           :key="post.slug"
-          class="group bg-white border border-neutral-100 hover:border-brand-navy/10 transition-colors p-6"
+          class="group bg-white border border-neutral-100 hover:border-primary/10 transition-colors p-6"
         >
           <div class="flex items-center gap-3 mb-4">
             <span
@@ -39,8 +40,8 @@
             </time>
           </div>
 
-          <h3 class="font-serif text-lg font-semibold text-brand-navy mb-2 group-hover:text-brand-navy/80 transition-colors">
-            <a :href="'/blog/' + post.slug" class="hover:underline decoration-brand-navy/20 underline-offset-4">
+          <h3 class="font-serif text-lg font-semibold text-primary mb-2 group-hover:text-primary/80 transition-colors">
+            <a :href="'/blog/' + post.slug" class="hover:underline decoration-primary/20 underline-offset-4">
               {{ lang === 'id' && post.titleId ? post.titleId : post.title }}
             </a>
           </h3>
@@ -51,7 +52,7 @@
 
           <a
             :href="'/blog/' + post.slug"
-            class="text-xs font-medium text-brand-navy/50 hover:text-brand-navy transition-colors"
+            class="text-xs font-medium text-primary/50 hover:text-primary transition-colors"
           >
             {{ t.news.readMore }} &rarr;
           </a>
@@ -92,9 +93,9 @@ function formatDate(date: Date): string {
 
 function categoryStyle(cat: string): string {
   const styles: Record<string, string> = {
-    announcement: 'bg-brand-red/10 text-brand-red',
-    news: 'bg-brand-yellow/10 text-brand-navy',
-    event: 'bg-brand-purple/10 text-brand-purple',
+    announcement: 'bg-primary/10 text-primary',
+    news: 'bg-accent/15 text-primary',
+    event: 'bg-primary/10 text-primary',
   }
   return styles[cat] || 'bg-neutral-100 text-neutral-500'
 }

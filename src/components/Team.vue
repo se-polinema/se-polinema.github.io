@@ -1,49 +1,60 @@
 <template>
-  <section id="team" class="py-20 md:py-32 bg-white">
+  <section id="team" class="py-20 md:py-32 bg-neutral-50">
     <div class="section-container">
-      <div class="section-label">{{ t.team.label }}</div>
-      <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-16">
-        {{ t.team.heading }}
-      </h2>
+      <div class="relative overflow-hidden mb-16">
+        <span class="absolute -top-4 right-0 font-mono text-[8rem] font-bold text-primary/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">03</span>
+        <div class="section-label">{{ t.team.label }}</div>
+        <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight">
+          {{ t.team.heading }}
+        </h2>
+      </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           v-for="member in researchers"
           :key="member.id"
-          class="group border border-neutral-200 bg-neutral-50 p-5 hover:border-brand-navy/20 transition-colors"
+          class="group bg-white border border-neutral-100 hover:border-primary/15 hover:shadow-sm transition-all duration-300 overflow-hidden"
         >
-          <div class="flex items-start gap-4 mb-4">
-            <div class="relative h-24 w-20 shrink-0 bg-white border border-neutral-200 overflow-hidden">
-              <img :src="member.photo" :alt="member.name" class="h-full w-full object-cover grayscale contrast-110 transition duration-300 group-hover:grayscale-0" :style="{ objectPosition: member.photoPosition }" loading="lazy" />
-            </div>
-
-            <div>
-              <h3 class="font-serif text-base md:text-lg font-semibold text-brand-navy">
-                {{ member.name }}
-              </h3>
-              <p class="text-sm text-brand-navy/50 mt-0.5">
-                {{ lang === 'id' ? member.title.id : member.title.en }}
-              </p>
-            </div>
+          <!-- Full-width photo banner -->
+          <div class="relative aspect-[4/5] bg-neutral-100 overflow-hidden">
+            <img
+              :src="member.photo"
+              :alt="member.name"
+              class="w-full h-full object-cover grayscale transition duration-500 group-hover:grayscale-0"
+              :style="{ objectPosition: member.photoPosition }"
+              loading="lazy"
+            />
+            <!-- Accent sweep line on hover -->
+            <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </div>
 
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span v-for="item in member.expertise.slice(0, 3)" :key="item" class="text-[11px] font-mono uppercase tracking-wide text-brand-navy/60 bg-white border border-brand-navy/10 px-2 py-1">
-              {{ item }}
-            </span>
-            <span v-if="member.expertise.length > 3" class="text-[11px] font-mono text-brand-navy/40 px-2 py-1">
-              +{{ member.expertise.length - 3 }}
-            </span>
+          <!-- Card content -->
+          <div class="p-5">
+            <h3 class="font-serif text-lg font-semibold text-primary">
+              {{ member.name }}
+            </h3>
+            <p class="text-xs font-mono uppercase tracking-wider text-primary/40 mt-0.5 mb-4">
+              {{ lang === 'id' ? member.title.id : member.title.en }}
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span
+                v-for="item in member.expertise.slice(0, 3)"
+                :key="item"
+                class="text-[10px] font-mono uppercase tracking-wide text-primary/60 bg-primary/5 px-2 py-0.5"
+              >
+                {{ item }}
+              </span>
+              <span v-if="member.expertise.length > 3" class="text-[10px] font-mono text-primary/30 px-1 py-0.5">
+                +{{ member.expertise.length - 3 }}
+              </span>
+            </div>
+            <a
+              :href="`/researchers/${member.id}`"
+              class="inline-flex items-center gap-1.5 text-xs font-medium text-primary/50 hover:text-accent transition-colors"
+            >
+              {{ t.team.viewProfile }} →
+            </a>
           </div>
-
-          <p class="mt-4 text-sm text-neutral-600 leading-relaxed line-clamp-3">
-            {{ lang === 'id' ? member.shortBio.id : member.shortBio.en }}
-          </p>
-
-          <a :href="`/researchers/${member.id}`" class="inline-flex items-center gap-2 mt-5 text-sm font-medium text-brand-navy hover:text-brand-yellow transition-colors">
-            {{ t.team.viewProfile }}
-            <span aria-hidden="true">&rarr;</span>
-          </a>
         </div>
       </div>
     </div>

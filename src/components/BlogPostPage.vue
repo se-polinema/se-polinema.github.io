@@ -1,7 +1,7 @@
 <template>
   <article class="min-h-screen pt-24 pb-20 bg-white">
     <div class="section-container">
-      <a href="/blog" class="inline-flex items-center gap-2 text-sm text-brand-navy/60 hover:text-brand-navy transition-colors mb-8">
+      <a href="/blog" class="inline-flex items-center gap-2 text-sm text-primary/60 hover:text-primary transition-colors mb-8">
         &larr; {{ t.blog.backToBlog }}
       </a>
 
@@ -15,7 +15,7 @@
           </time>
         </div>
 
-        <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-8">
+        <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-8">
           {{ lang === 'id' && titleId ? titleId : title }}
         </h1>
 
@@ -49,9 +49,9 @@ function formatDate(date: Date): string {
 
 function categoryStyle(cat: string): string {
   const styles: Record<string, string> = {
-    announcement: 'bg-brand-red/10 text-brand-red',
-    news: 'bg-brand-yellow/10 text-brand-navy',
-    event: 'bg-brand-purple/10 text-brand-purple',
+    announcement: 'bg-primary/10 text-primary',
+    news: 'bg-accent/15 text-primary',
+    event: 'bg-primary/10 text-primary',
   }
   return styles[cat] || 'bg-neutral-100 text-neutral-500'
 }

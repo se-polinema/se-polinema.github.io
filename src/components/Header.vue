@@ -1,7 +1,7 @@
 <template>
   <header
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="mobileOpen ? 'bg-white border-b border-brand-navy/10' : scrolled ? 'bg-white/95 backdrop-blur-sm shadow-[0_1px_0_rgba(41,21,106,0.08)]' : 'bg-transparent'"
+    :class="mobileOpen ? 'bg-white border-b border-primary/10' : scrolled ? 'bg-white/95 backdrop-blur-sm shadow-[0_1px_0_rgba(0,78,162,0.08)]' : 'bg-transparent'"
   >
     <div class="section-container">
       <nav class="flex items-center justify-between h-16 md:h-20">
@@ -12,10 +12,10 @@
             class="h-8 md:h-10 w-auto shrink-0"
           />
           <div>
-            <div class="font-serif text-sm md:text-base font-semibold text-brand-navy leading-tight">
+            <div class="font-serif text-sm md:text-base font-semibold text-primary leading-tight">
               SE Lab
             </div>
-            <div class="text-[10px] md:text-xs text-brand-navy/50 leading-tight">
+            <div class="text-[10px] md:text-xs text-primary/50 leading-tight">
               JTI Polinema
             </div>
           </div>
@@ -26,7 +26,7 @@
             v-for="item in navItems"
             :key="item.id"
             :href="item.href"
-            class="text-sm text-brand-navy/70 hover:text-brand-navy transition-colors font-medium"
+            class="text-sm text-primary/70 hover:text-accent transition-colors font-medium"
             @click="handleNavClick($event, item)"
           >
             {{ item.label }}
@@ -36,12 +36,12 @@
         <div class="flex items-center gap-2">
           <button
             @click="toggleLang"
-            class="hidden lg:flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-brand-navy/60 hover:text-brand-navy transition-colors min-w-[44px] min-h-[44px] px-2 py-1 justify-center"
+            class="hidden lg:flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-primary/60 hover:text-primary transition-colors min-w-[44px] min-h-[44px] px-2 py-1 justify-center"
             :aria-label="lang === 'en' ? 'Switch to Indonesian' : 'Beralih ke Inggris'"
           >
-            <span :class="{ 'text-brand-navy font-semibold': lang === 'en' }">EN</span>
-            <span class="text-brand-navy/30">/</span>
-            <span :class="{ 'text-brand-navy font-semibold': lang === 'id' }">ID</span>
+            <span :class="{ 'text-accent font-semibold': lang === 'en' }">EN</span>
+            <span class="text-primary/30">/</span>
+            <span :class="{ 'text-accent font-semibold': lang === 'id' }">ID</span>
           </button>
 
           <button
@@ -50,15 +50,15 @@
             :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
           >
             <span
-              class="block w-5 h-px bg-brand-navy transition-all duration-300"
+              class="block w-5 h-px bg-primary transition-all duration-300"
               :class="mobileOpen ? 'rotate-45 translate-y-[5px]' : ''"
             />
             <span
-              class="block w-5 h-px bg-brand-navy transition-all duration-300"
+              class="block w-5 h-px bg-primary transition-all duration-300"
               :class="mobileOpen ? 'opacity-0' : ''"
             />
             <span
-              class="block w-5 h-px bg-brand-navy transition-all duration-300"
+              class="block w-5 h-px bg-primary transition-all duration-300"
               :class="mobileOpen ? '-rotate-45 -translate-y-[5px]' : ''"
             />
           </button>
@@ -69,8 +69,7 @@
     <Transition name="drawer">
       <div
         v-if="mobileOpen"
-        class="lg:hidden fixed inset-0 top-16 md:top-20 z-40 overflow-y-auto"
-        style="background-color: #29156A;"
+        class="lg:hidden fixed inset-0 top-16 md:top-20 z-40 overflow-y-auto bg-primary"
       >
         <nav class="flex flex-col px-6 pt-4 pb-8 gap-1">
           <a

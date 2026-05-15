@@ -1,66 +1,108 @@
 <template>
   <section id="hero" class="relative min-h-screen flex flex-col justify-center bg-neutral-50 overflow-hidden">
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #29156A 1px, transparent 1px); background-size: 24px 24px;" />
+    <!-- Graph-paper grid background -->
+    <div
+      class="absolute inset-0"
+      style="background-image: linear-gradient(rgba(0,78,162,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,78,162,0.04) 1px, transparent 1px); background-size: 32px 32px;"
+    />
 
     <div class="section-container relative z-10 pt-24 pb-16 flex flex-col justify-center min-h-screen">
-      <div class="max-w-4xl grid lg:grid-cols-[minmax(0,1fr)_16rem] gap-12 items-start">
+      <div class="max-w-5xl grid lg:grid-cols-[minmax(0,1fr)_21rem] gap-12 lg:gap-16 items-center">
+
+        <!-- Left: Main content -->
         <div>
-        <div class="flex items-center gap-3 mb-6">
-          <img src="/images/logo-jti.png" alt="JTI Polinema" class="h-8 w-auto opacity-80" />
-          <span class="text-xs font-mono uppercase tracking-[0.2em] text-brand-navy/50">{{ t.hero.subtitle }}</span>
+          <div class="flex items-center gap-3 mb-6">
+            <img src="/images/logo-jti.png" alt="JTI Polinema" class="h-8 w-auto opacity-80" />
+            <span class="text-xs font-mono uppercase tracking-[0.2em] text-primary/50">{{ t.hero.subtitle }}</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary leading-[1.05] mb-6">
+            {{ t.hero.title }}
+          </h1>
+
+          <p class="text-lg sm:text-xl text-primary/60 leading-relaxed max-w-xl mb-8">
+            {{ t.hero.tagline }}
+          </p>
+
+          <div class="flex flex-wrap gap-3 mb-10">
+            <a
+              href="#research"
+              @click.prevent="scrollTo('research')"
+              class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-primary text-white hover:bg-accent hover:text-primary transition-colors"
+            >
+              {{ t.hero.cta }}
+              <span aria-hidden="true">→</span>
+            </a>
+            <a href="/researchers" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary border border-primary/20 hover:border-primary/50 transition-colors">
+              {{ t.hero.researchersCta }}
+            </a>
+            <a href="/publications" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary/70 hover:text-primary border border-transparent hover:border-primary/20 transition-colors">
+              {{ t.hero.publicationsCta }}
+            </a>
+          </div>
+
+          <!-- Stats: mobile only — desktop sees them in the terminal -->
+          <div class="grid grid-cols-3 gap-4 max-w-xs lg:hidden">
+            <div class="border-t border-primary/10 pt-4">
+              <div class="font-serif text-3xl font-bold text-accent">6</div>
+              <div class="text-xs text-primary/50 mt-1">{{ t.hero.statTeam }}</div>
+            </div>
+            <div class="border-t border-primary/10 pt-4">
+              <div class="font-serif text-3xl font-bold text-accent">7</div>
+              <div class="text-xs text-primary/50 mt-1">{{ t.hero.statFocus }}</div>
+            </div>
+            <div class="border-t border-primary/10 pt-4">
+              <div class="font-serif text-3xl font-bold text-accent">20+</div>
+              <div class="text-xs text-primary/50 mt-1">{{ t.hero.statProjects }}</div>
+            </div>
+          </div>
         </div>
 
-        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-navy leading-[1.1] mb-6">
-          {{ t.hero.title }}
-        </h1>
-
-        <p class="text-lg sm:text-xl md:text-2xl text-brand-navy/70 leading-relaxed max-w-2xl mb-8">
-          {{ t.hero.tagline }}
-        </p>
-
-        <div class="flex flex-wrap gap-3 mb-10">
-          <a
-            href="#research"
-            @click.prevent="scrollTo('research')"
-            class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-brand-navy text-white hover:bg-brand-navy/90 transition-colors"
-          >
-            {{ t.hero.cta }}
-            <span aria-hidden="true">→</span>
-          </a>
-          <a href="/researchers" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-brand-navy border border-brand-navy/20 hover:border-brand-navy/50 transition-colors">
-            {{ t.hero.researchersCta }}
-          </a>
-          <a href="/publications" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-brand-navy/70 hover:text-brand-navy border border-transparent hover:border-brand-navy/20 transition-colors">
-            {{ t.hero.publicationsCta }}
-          </a>
-        </div>
-        </div>
-
-        <aside class="border-t border-brand-navy/10 pt-6 lg:pt-0 lg:border-t-0 lg:border-l lg:pl-8 lg:border-brand-navy/10">
-          <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-navy/40 mb-3">{{ t.hero.focusLabel }}</div>
-          <ul class="space-y-3 text-sm text-brand-navy/70 leading-relaxed">
-            <li>{{ t.hero.focusOne }}</li>
-            <li>{{ t.hero.focusTwo }}</li>
-            <li>{{ t.hero.focusThree }}</li>
-          </ul>
+        <!-- Right: Terminal block (desktop only) -->
+        <aside class="hidden lg:block self-center">
+          <div class="bg-[#0E1E3D] font-mono overflow-hidden shadow-2xl">
+            <!-- Title bar -->
+            <div class="flex items-center gap-1.5 px-4 py-2.5 bg-[#162032] border-b border-white/10">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#28CA41]" />
+              <span class="ml-3 text-white/30 text-xs tracking-wider">~/se-lab</span>
+            </div>
+            <!-- Terminal content -->
+            <div class="p-5 space-y-3 text-xs leading-relaxed">
+              <p>
+                <span class="text-accent">$</span>
+                <span class="text-white/50 ml-2">ls research/</span>
+              </p>
+              <div class="pl-2 space-y-1 text-white/65">
+                <p>├─ web-engineering/</p>
+                <p>├─ mobile-development/</p>
+                <p>├─ ui-ux-design/</p>
+                <p>├─ data-science/</p>
+                <p>├─ artificial-intelligence/</p>
+                <p>└─ cloud-devops/</p>
+              </div>
+              <p class="pt-1">
+                <span class="text-accent">$</span>
+                <span class="text-white/50 ml-2">cat stats.json</span>
+              </p>
+              <div class="pl-2 text-white/65 space-y-0.5">
+                <p><span class="text-accent/80">{</span></p>
+                <p class="pl-4">
+                  <span class="text-[#9CDCFE]">"researchers"</span><span class="text-white/40">: </span><span class="text-[#98C379]">6</span><span class="text-white/40">,</span>
+                </p>
+                <p class="pl-4">
+                  <span class="text-[#9CDCFE]">"focus_areas"</span><span class="text-white/40">: </span><span class="text-[#98C379]">7</span><span class="text-white/40">,</span>
+                </p>
+                <p class="pl-4">
+                  <span class="text-[#9CDCFE]">"publications"</span><span class="text-white/40">: </span><span class="text-[#CE9178]">"20+"</span>
+                </p>
+                <p><span class="text-accent/80">}</span></p>
+              </div>
+              <p class="text-accent animate-pulse select-none">▌</p>
+            </div>
+          </div>
         </aside>
-      </div>
-
-      <div class="mt-16 md:mt-24">
-        <div class="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl">
-          <div class="border-t border-brand-navy/10 pt-4">
-            <div class="font-serif text-3xl md:text-4xl font-bold text-brand-navy">6</div>
-            <div class="text-xs md:text-sm text-brand-navy/50 mt-1">{{ t.hero.statTeam }}</div>
-          </div>
-          <div class="border-t border-brand-navy/10 pt-4">
-            <div class="font-serif text-3xl md:text-4xl font-bold text-brand-navy">7</div>
-            <div class="text-xs md:text-sm text-brand-navy/50 mt-1">{{ t.hero.statFocus }}</div>
-          </div>
-          <div class="border-t border-brand-navy/10 pt-4">
-            <div class="font-serif text-3xl md:text-4xl font-bold text-brand-navy">20+</div>
-            <div class="text-xs md:text-sm text-brand-navy/50 mt-1">{{ t.hero.statProjects }}</div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -69,7 +111,7 @@
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
 
-const { lang, t } = useI18n()
+const { t } = useI18n()
 
 function scrollTo(id: string) {
   const el = document.getElementById(id)

@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-navy: #29156A;
-  --color-brand-purple: #845EFD;
-  --color-brand-red: #FF5248;
-  --color-brand-yellow: #FFB100;
-  --font-serif: 'Merriweather', 'Georgia', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --color-primary: #004EA2;
+  --color-accent: #F5A100;
+  --font-serif: 'DM Serif Display', 'Georgia', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --max-width-content: 1200px;
@@ -27,7 +25,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-navy);
+    outline: 2px solid var(--color-primary);
     outline-offset: 3px;
   }
 
@@ -37,7 +35,7 @@
     left: 1rem;
     z-index: 9999;
     padding: 0.5rem 1rem;
-    background: var(--color-brand-navy);
+    background: var(--color-primary);
     color: white;
     font-size: 0.875rem;
     font-weight: 500;
@@ -55,10 +53,12 @@
   }
 
   .section-divider {
-    @apply w-16 h-px bg-brand-navy/20 my-8;
+    @apply w-16 h-px bg-primary/20 my-8;
   }
 
   .section-label {
-    @apply text-xs font-mono uppercase tracking-[0.2em] text-brand-navy/60 mb-4;
+    @apply text-xs font-mono uppercase tracking-[0.2em] text-primary/60 mb-4;
+    padding-left: 0.625rem;
+    border-left: 2px solid var(--color-accent);
   }
 }

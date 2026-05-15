@@ -1,11 +1,11 @@
 <template>
-  <footer class="bg-brand-navy text-white py-16 md:py-20">
+  <footer class="bg-primary text-white py-16 md:py-20">
     <div class="section-container">
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
         <div class="sm:col-span-2 lg:col-span-2">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="/images/logo-jti.png" alt="JTI Polinema" class="h-6 w-auto brightness-0 invert opacity-70" />
-            <span class="font-serif text-lg font-semibold">Software Engineering Lab</span>
+          <div class="mb-4">
+            <div class="font-mono text-xs tracking-[0.2em] text-white/30 mb-1.5">{ SE Lab }</div>
+            <span class="font-serif text-xl font-semibold">Software Engineering Lab</span>
           </div>
           <p class="text-sm text-white/60 leading-relaxed max-w-md">
             {{ t.footer.tagline }}

@@ -1,8 +1,11 @@
 <template>
   <section id="contact" class="py-20 md:py-32 bg-white">
     <div class="section-container">
-      <div class="section-label">{{ t.contact.label }}</div>
-      <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-16">
+      <div class="relative overflow-hidden mb-0">
+        <span class="absolute -top-4 right-0 font-mono text-[8rem] font-bold text-primary/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">06</span>
+        <div class="section-label">{{ t.contact.label }}</div>
+      </div>
+      <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-16">
         {{ t.contact.heading }}
       </h2>
 
@@ -10,7 +13,7 @@
         <div>
           <div class="space-y-8">
             <div>
-              <div class="text-xs font-mono uppercase tracking-wider text-brand-navy/40 mb-2">{{ t.contact.affiliation }}</div>
+              <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-2">{{ t.contact.affiliation }}</div>
               <address class="text-neutral-600 not-italic leading-relaxed">
                 {{ t.contact.address }}
               </address>
@@ -19,7 +22,7 @@
             <div>
               <a
                 href="mailto:se-lab@polinema.ac.id"
-                class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-brand-navy text-white hover:bg-brand-navy/90 transition-colors"
+                class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-primary text-white hover:bg-accent hover:text-primary transition-colors"
               >
                 {{ t.contact.email }}
               </a>
