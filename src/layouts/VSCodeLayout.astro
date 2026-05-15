@@ -6,6 +6,7 @@ import TabBar from '../components/vscode/TabBar.vue'
 import BottomPanel from '../components/vscode/BottomPanel.vue'
 import StatusBar from '../components/vscode/StatusBar.vue'
 import MobileTopBar from '../components/vscode/MobileTopBar.vue'
+import MobileBottomNav from '../components/vscode/MobileBottomNav.vue'
 
 export interface Props {
   title: string
@@ -67,6 +68,7 @@ const { title, description } = Astro.props
       </div>
     </div>
 
+    <MobileBottomNav client:load />
     <StatusBar client:load />
   </div>
 </Default>
