@@ -20,8 +20,8 @@
       </button>
 
       <!-- News & Blog -->
-      <a
-        href="/blog"
+      <button
+        @click="setView('blog')"
         class="activity-btn"
         :class="activeSidebarView === 'blog' ? 'activity-active' : 'activity-inactive'"
         title="News & Blog"
@@ -31,7 +31,7 @@
           <circle cx="11" cy="11" r="8"/>
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
-      </a>
+      </button>
 
       <!-- Source Control / GitHub -->
       <button
@@ -50,8 +50,8 @@
       </button>
 
       <!-- Researchers -->
-      <a
-        href="/researchers"
+      <button
+        @click="setView('researchers')"
         class="activity-btn"
         :class="activeSidebarView === 'researchers' ? 'activity-active' : 'activity-inactive'"
         title="Researchers"
@@ -63,11 +63,11 @@
           <path d="M23 21v-2a4 4 0 00-3-3.87"/>
           <path d="M16 3.13a4 4 0 010 7.75"/>
         </svg>
-      </a>
+      </button>
 
       <!-- Publications -->
-      <a
-        href="/publications"
+      <button
+        @click="setView('publications')"
         class="activity-btn"
         :class="activeSidebarView === 'publications' ? 'activity-active' : 'activity-inactive'"
         title="Publications"
@@ -77,7 +77,7 @@
           <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
         </svg>
-      </a>
+      </button>
     </nav>
 
     <!-- Bottom: language toggle -->

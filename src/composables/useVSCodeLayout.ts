@@ -51,14 +51,27 @@ export function useVSCodeLayout() {
     panelOpen.value = true
   }
 
-  // Clicking the active icon toggles the sidebar; clicking a different icon switches view and opens
+  // Map views that belong to a dedicated page so setView can navigate when needed
+  const viewNav: Partial<Record<SidebarView, { href: string; page: string }>> = {
+    blog:         { href: '/blog',         page: 'news'         },
+    researchers:  { href: '/researchers',  page: 'researchers'  },
+    publications: { href: '/publications', page: 'publications' },
+  }
+
+  // Clicking the active icon toggles the sidebar.
+  // Clicking a different icon: navigate if on wrong page, otherwise switch view and open.
   function setView(view: SidebarView) {
     if (activeSidebarView.value === view) {
       sidebarOpen.value = !sidebarOpen.value
-    } else {
-      activeSidebarView.value = view
-      sidebarOpen.value = true
+      return
     }
+    const nav = viewNav[view]
+    if (nav && currentPage.value !== nav.page) {
+      window.location.href = nav.href
+      return
+    }
+    activeSidebarView.value = view
+    sidebarOpen.value = true
   }
 
   function initObserver(root: HTMLElement) {
