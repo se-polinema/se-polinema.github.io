@@ -1,7 +1,5 @@
 ---
-import Default from '../../layouts/Default.astro'
-import Header from '../../components/Header.vue'
-import Footer from '../../components/Footer.vue'
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import PublicationsArchive from '../../components/PublicationsArchive.vue'
 import PublicationsPageIntro from '../../components/PublicationsPageIntro.vue'
 import { getCollection } from 'astro:content'
@@ -27,14 +25,11 @@ const researchers = (await getCollection('researchers'))
   }))
 ---
 
-<Default title="Publications">
-  <Header client:load />
-  <main class="min-h-screen pt-24 pb-20 bg-white">
+<VSCodeLayout title="Publications">
+  <div class="py-12">
     <div class="section-container">
       <PublicationsPageIntro client:load />
-
       <PublicationsArchive client:load publications={publications} researchers={researchers} />
     </div>
-  </main>
-  <Footer client:load />
-</Default>
+  </div>
+</VSCodeLayout>

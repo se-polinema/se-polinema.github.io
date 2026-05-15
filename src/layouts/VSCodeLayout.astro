@@ -1,0 +1,39 @@
+---
+import Default from './Default.astro'
+import ActivityBar from '../components/vscode/ActivityBar.vue'
+import Sidebar from '../components/vscode/Sidebar.vue'
+import TabBar from '../components/vscode/TabBar.vue'
+import StatusBar from '../components/vscode/StatusBar.vue'
+import MobileTopBar from '../components/vscode/MobileTopBar.vue'
+
+export interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+---
+
+<Default title={title} description={description}>
+  <div
+    id="vscode-window"
+    class="fixed inset-0 flex flex-col"
+    style="background: #002D6B;"
+  >
+    <MobileTopBar client:load />
+
+    <div class="flex flex-1 overflow-hidden min-h-0">
+      <ActivityBar client:load />
+      <Sidebar client:load />
+
+      <div class="flex flex-col flex-1 overflow-hidden min-w-0">
+        <TabBar client:load />
+        <main id="editor" class="flex-1 overflow-y-auto bg-white">
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <StatusBar client:load />
+  </div>
+</Default>

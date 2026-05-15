@@ -1,7 +1,5 @@
 ---
-import Default from '../../layouts/Default.astro'
-import Header from '../../components/Header.vue'
-import Footer from '../../components/Footer.vue'
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogArchivePage from '../../components/BlogArchivePage.vue'
 import { getCollection } from 'astro:content'
 
@@ -17,12 +15,8 @@ const posts = allPosts
     category: post.data.category,
     date: post.data.date,
   }))
-
-
 ---
 
-<Default title="News Archive" description="News, announcements, and event updates from the Software Engineering Laboratory.">
-  <Header client:load />
+<VSCodeLayout title="News Archive" description="News, announcements, and event updates from the Software Engineering Laboratory.">
   <BlogArchivePage client:load posts={posts} />
-  <Footer client:load />
-</Default>
+</VSCodeLayout>

@@ -1,5 +1,5 @@
 <template>
-  <section id="hero" class="relative min-h-screen flex flex-col justify-center bg-neutral-50 overflow-hidden">
+  <section id="hero" class="relative flex flex-col justify-center bg-neutral-50 overflow-hidden" style="min-height: calc(100vh - 7rem);">
     <!-- Graph-paper grid background -->
     <div
       class="absolute inset-0"

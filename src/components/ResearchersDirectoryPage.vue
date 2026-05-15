@@ -1,5 +1,5 @@
 <template>
-  <main class="min-h-screen pt-24 pb-20 bg-white">
+  <main class="py-12 bg-white">
     <div class="section-container">
       <div class="max-w-3xl mb-12 md:mb-16">
         <div class="section-label">{{ t.team.label }}</div>

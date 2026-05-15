@@ -3,6 +3,9 @@
 @theme {
   --color-primary: #004EA2;
   --color-accent: #F5A100;
+  --color-vscode-activitybar: #002D6B;
+  --color-vscode-sidebar: #003A84;
+  --color-vscode-tabbar: #1E2D4E;
   --font-serif: 'DM Serif Display', 'Georgia', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;

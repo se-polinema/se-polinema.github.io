@@ -1,5 +1,5 @@
 <template>
-  <main class="min-h-screen pt-24 pb-20 bg-white">
+  <main class="py-12 bg-white">
     <div class="section-container">
       <a href="/researchers" class="inline-flex items-center gap-2 text-sm text-primary/60 hover:text-primary transition-colors mb-8">
         &larr; {{ t.team.backToResearchers }}

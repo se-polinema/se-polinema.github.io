@@ -1,7 +1,5 @@
 ---
-import Default from '../../layouts/Default.astro'
-import Header from '../../components/Header.vue'
-import Footer from '../../components/Footer.vue'
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import ResearchersDirectoryPage from '../../components/ResearchersDirectoryPage.vue'
 import { getCollection } from 'astro:content'
 
@@ -19,8 +17,6 @@ const researchers = (await getCollection('researchers'))
   }))
 ---
 
-<Default title="Researchers">
-  <Header client:load />
+<VSCodeLayout title="Researchers">
   <ResearchersDirectoryPage client:load researchers={researchers} />
-  <Footer client:load />
-</Default>
+</VSCodeLayout>
