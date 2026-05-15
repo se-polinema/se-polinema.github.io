@@ -3,7 +3,7 @@ import vue from '@astrojs/vue'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  site: 'https://se.polinema.github.io',
+  site: 'https://se-polinema.github.io',
   base: '/',
   integrations: [vue()],
   vite: {
