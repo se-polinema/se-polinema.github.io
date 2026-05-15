@@ -1,27 +1,11 @@
 <template>
   <section>
-    <div class="grid gap-4 md:grid-cols-3 mb-10 md:mb-12">
-      <label class="block">
+    <div class="mb-10 md:mb-12">
+      <label class="block max-w-xs">
         <span class="block text-xs font-mono uppercase tracking-wider text-primary/40 mb-2">{{ t.publications.filterResearcher }}</span>
         <select v-model="selectedResearcher" class="w-full border border-neutral-200 bg-neutral-50 px-3 py-3 text-sm text-primary focus:outline-none focus:border-primary/30">
           <option value="all">{{ t.publications.allResearchers }}</option>
           <option v-for="option in researcherOptions" :key="option.id" :value="option.id">{{ option.name }}</option>
-        </select>
-      </label>
-
-      <label class="block">
-        <span class="block text-xs font-mono uppercase tracking-wider text-primary/40 mb-2">{{ t.publications.filterYear }}</span>
-        <select v-model="selectedYear" class="w-full border border-neutral-200 bg-neutral-50 px-3 py-3 text-sm text-primary focus:outline-none focus:border-primary/30">
-          <option value="all">{{ t.publications.allYears }}</option>
-          <option v-for="year in years" :key="year" :value="String(year)">{{ year }}</option>
-        </select>
-      </label>
-
-      <label class="block">
-        <span class="block text-xs font-mono uppercase tracking-wider text-primary/40 mb-2">{{ t.publications.filterType }}</span>
-        <select v-model="selectedType" class="w-full border border-neutral-200 bg-neutral-50 px-3 py-3 text-sm text-primary focus:outline-none focus:border-primary/30">
-          <option value="all">{{ t.publications.allTypes }}</option>
-          <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
         </select>
       </label>
     </div>
@@ -66,6 +50,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { useVSCodeLayout } from '../composables/useVSCodeLayout'
 
 type Publication = {
   id: string
@@ -89,13 +74,10 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const { activeFilters } = useVSCodeLayout()
 
 const selectedResearcher = ref('all')
-const selectedYear = ref('all')
-const selectedType = ref('all')
 
-const years = computed(() => [...new Set(props.publications.map((publication) => publication.year))].sort((a, b) => b - a))
-const types = computed(() => [...new Set(props.publications.map((publication) => publication.type))].sort())
 const researcherOptions = computed(() => props.researchers)
 
 const researcherMap = computed(() => new Map(props.researchers.map((researcher) => [researcher.id, researcher.name])))
@@ -103,8 +85,8 @@ const researcherMap = computed(() => new Map(props.researchers.map((researcher) 
 const filteredPublications = computed(() => {
   return props.publications.filter((publication) => {
     const byResearcher = selectedResearcher.value === 'all' || publication.researchers.includes(selectedResearcher.value)
-    const byYear = selectedYear.value === 'all' || String(publication.year) === selectedYear.value
-    const byType = selectedType.value === 'all' || publication.type === selectedType.value
+    const byYear = !activeFilters.year || publication.year === activeFilters.year
+    const byType = !activeFilters.type || publication.type === activeFilters.type
     return byResearcher && byYear && byType
   })
 })

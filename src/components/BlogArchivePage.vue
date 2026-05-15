@@ -15,12 +15,12 @@
         </p>
       </div>
 
-      <div v-if="posts.length === 0" class="text-center py-20">
+      <div v-if="filteredPosts.length === 0" class="text-center py-20">
         <p class="text-neutral-400">{{ t.blog.noPosts }}</p>
       </div>
 
       <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article v-for="post in posts" :key="post.id" class="group bg-neutral-50 border border-neutral-100 hover:border-primary/10 transition-colors p-6">
+        <article v-for="post in filteredPosts" :key="post.id" class="group bg-neutral-50 border border-neutral-100 hover:border-primary/10 transition-colors p-6">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5" :class="categoryStyle(post.category)">
               {{ categoryLabel(post.category) }}
@@ -50,9 +50,11 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { useVSCodeLayout } from '../composables/useVSCodeLayout'
 
-defineProps<{
+const props = defineProps<{
   posts: Array<{
     id: string
     title: string
@@ -65,6 +67,11 @@ defineProps<{
 }>()
 
 const { lang, t } = useI18n()
+const { activeFilters } = useVSCodeLayout()
+
+const filteredPosts = computed(() =>
+  props.posts.filter(p => !activeFilters.category || p.category === activeFilters.category)
+)
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat(lang.value === 'id' ? 'id-ID' : 'en-US', {

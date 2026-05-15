@@ -1,17 +1,11 @@
 ---
-import Default from '../layouts/Default.astro'
-import ActivityBar from '../components/vscode/ActivityBar.vue'
-import Sidebar from '../components/vscode/Sidebar.vue'
-import TabBar from '../components/vscode/TabBar.vue'
-import StatusBar from '../components/vscode/StatusBar.vue'
-import MobileTopBar from '../components/vscode/MobileTopBar.vue'
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import Hero from '../components/Hero.vue'
 import About from '../components/About.vue'
 import Research from '../components/Research.vue'
 import Team from '../components/Team.vue'
 import News from '../components/News.vue'
 import Publications from '../components/Publications.vue'
-import Contact from '../components/Contact.vue'
 import { getCollection } from 'astro:content'
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
@@ -57,38 +51,11 @@ const featuredPublications = (await getCollection('publications'))
   }))
 ---
 
-<Default title="Software Engineering Laboratory">
-  <div
-    id="vscode-window"
-    class="fixed inset-0 flex flex-col"
-    style="background: #002D6B;"
-  >
-    <!-- Mobile top bar (hidden on desktop) -->
-    <MobileTopBar client:load />
-
-    <!-- Middle: activity bar + sidebar + editor -->
-    <div class="flex flex-1 overflow-hidden min-h-0">
-      <ActivityBar client:load />
-      <Sidebar client:load />
-
-      <!-- Editor column -->
-      <div class="flex flex-col flex-1 overflow-hidden min-w-0">
-        <TabBar client:load />
-
-        <!-- Scrollable editor area -->
-        <main id="editor" class="flex-1 overflow-y-auto bg-white">
-          <Hero client:load />
-          <About client:load />
-          <Research client:load />
-          <Team client:load researchers={featuredResearchers} />
-          <Publications client:load publications={featuredPublications} />
-          <News client:load posts={sortedPosts} />
-          <Contact client:load />
-        </main>
-      </div>
-    </div>
-
-    <!-- Status bar -->
-    <StatusBar client:load />
-  </div>
-</Default>
+<VSCodeLayout title="Software Engineering Laboratory">
+  <Hero client:load />
+  <About client:load />
+  <Research client:load />
+  <Team client:load researchers={featuredResearchers} />
+  <Publications client:load publications={featuredPublications} />
+  <News client:load posts={sortedPosts} />
+</VSCodeLayout>

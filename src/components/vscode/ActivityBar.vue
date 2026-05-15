@@ -4,13 +4,12 @@
     style="width: 48px; background: #002D6B;"
     aria-label="Activity Bar"
   >
-    <!-- Top: navigation icons -->
     <nav class="flex flex-col items-center flex-1 w-full">
-      <!-- Explorer (toggle sidebar) -->
+      <!-- Explorer -->
       <button
-        @click="toggleSidebar"
+        @click="setView('explorer')"
         class="activity-btn"
-        :class="sidebarOpen ? 'activity-active' : 'activity-inactive'"
+        :class="activeSidebarView === 'explorer' ? 'activity-active' : 'activity-inactive'"
         title="Explorer"
         aria-label="Toggle Explorer"
       >
@@ -20,10 +19,11 @@
         </svg>
       </button>
 
-      <!-- Search → Blog -->
+      <!-- News & Blog -->
       <a
         href="/blog"
-        class="activity-btn activity-inactive"
+        class="activity-btn"
+        :class="activeSidebarView === 'blog' ? 'activity-active' : 'activity-inactive'"
         title="News & Blog"
         aria-label="News and Blog"
       >
@@ -33,14 +33,13 @@
         </svg>
       </a>
 
-      <!-- Source Control → GitHub -->
-      <a
-        href="https://github.com/se-polinema"
-        target="_blank"
-        rel="noopener"
-        class="activity-btn activity-inactive"
-        title="GitHub"
-        aria-label="GitHub repository"
+      <!-- Source Control / GitHub -->
+      <button
+        @click="setView('github')"
+        class="activity-btn"
+        :class="activeSidebarView === 'github' ? 'activity-active' : 'activity-inactive'"
+        title="Source Control"
+        aria-label="GitHub repository info"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="6" y1="3" x2="6" y2="15"/>
@@ -48,12 +47,13 @@
           <circle cx="6" cy="18" r="3"/>
           <path d="M18 9a9 9 0 01-9 9"/>
         </svg>
-      </a>
+      </button>
 
       <!-- Researchers -->
       <a
         href="/researchers"
-        class="activity-btn activity-inactive"
+        class="activity-btn"
+        :class="activeSidebarView === 'researchers' ? 'activity-active' : 'activity-inactive'"
         title="Researchers"
         aria-label="Researchers directory"
       >
@@ -68,7 +68,8 @@
       <!-- Publications -->
       <a
         href="/publications"
-        class="activity-btn activity-inactive"
+        class="activity-btn"
+        :class="activeSidebarView === 'publications' ? 'activity-active' : 'activity-inactive'"
         title="Publications"
         aria-label="Publications archive"
       >
@@ -101,7 +102,7 @@
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 
-const { sidebarOpen, toggleSidebar } = useVSCodeLayout()
+const { activeSidebarView, setView } = useVSCodeLayout()
 const { lang, toggleLang } = useI18n()
 </script>
 

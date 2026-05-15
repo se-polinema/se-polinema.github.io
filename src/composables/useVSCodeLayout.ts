@@ -1,8 +1,19 @@
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+
+type SidebarView = 'explorer' | 'blog' | 'github' | 'researchers' | 'publications'
 
 const sidebarOpen = ref(true)
 const activeSection = ref('hero')
-const currentPage = ref('home') // 'home' | 'news' | 'publications' | 'researchers'
+const currentPage = ref('home')
+const panelOpen = ref(false)
+const activePanelTab = ref<'contact' | 'output' | 'problems'>('contact')
+const activeSidebarView = ref<SidebarView>('explorer')
+const activeFilters = reactive<{
+  category: string | null
+  year: number | null
+  type: string | null
+}>({ category: null, year: null, type: null })
+
 let initialized = false
 let observerInit = false
 
@@ -12,33 +23,61 @@ export function useVSCodeLayout() {
     sidebarOpen.value = window.innerWidth >= 1024
 
     const path = window.location.pathname
-    if (path.startsWith('/blog')) currentPage.value = 'news'
-    else if (path.startsWith('/publications')) currentPage.value = 'publications'
-    else if (path.startsWith('/researchers')) currentPage.value = 'researchers'
-    else currentPage.value = 'home'
+    if (path.startsWith('/blog')) {
+      currentPage.value = 'news'
+      activeSidebarView.value = 'blog'
+    } else if (path.startsWith('/publications')) {
+      currentPage.value = 'publications'
+      activeSidebarView.value = 'publications'
+    } else if (path.startsWith('/researchers')) {
+      currentPage.value = 'researchers'
+      activeSidebarView.value = 'researchers'
+    } else {
+      currentPage.value = 'home'
+      activeSidebarView.value = 'explorer'
+    }
   }
 
   function toggleSidebar() {
     sidebarOpen.value = !sidebarOpen.value
   }
 
+  function togglePanel() {
+    panelOpen.value = !panelOpen.value
+  }
+
+  function openPanel(tab: 'contact' | 'output' | 'problems') {
+    activePanelTab.value = tab
+    panelOpen.value = true
+  }
+
+  // Clicking the active icon toggles the sidebar; clicking a different icon switches view and opens
+  function setView(view: SidebarView) {
+    if (activeSidebarView.value === view) {
+      sidebarOpen.value = !sidebarOpen.value
+    } else {
+      activeSidebarView.value = view
+      sidebarOpen.value = true
+    }
+  }
+
   function initObserver(root: HTMLElement) {
     if (observerInit) return
     observerInit = true
-    const sections = root.querySelectorAll('section[id]')
-    if (!sections.length) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting)
-        if (!visible.length) return
-        const top = visible.reduce((a, b) =>
-          a.intersectionRatio > b.intersectionRatio ? a : b
-        )
-        activeSection.value = top.target.id
-      },
-      { root, threshold: [0, 0.25, 0.5, 0.75, 1] }
-    )
-    sections.forEach((el) => io.observe(el))
+
+    function updateActive() {
+      const sections = Array.from(root.querySelectorAll('section[id]')) as HTMLElement[]
+      if (!sections.length) return
+      const scrollTop = root.scrollTop
+      let current = sections[0]
+      for (const s of sections) {
+        if (s.offsetTop - 100 <= scrollTop) current = s
+      }
+      activeSection.value = current.id
+    }
+
+    root.addEventListener('scroll', updateActive, { passive: true })
+    updateActive()
   }
 
   function scrollTo(id: string) {
@@ -49,5 +88,19 @@ export function useVSCodeLayout() {
     }
   }
 
-  return { sidebarOpen, activeSection, currentPage, toggleSidebar, initObserver, scrollTo }
+  return {
+    sidebarOpen,
+    activeSection,
+    currentPage,
+    panelOpen,
+    activePanelTab,
+    activeSidebarView,
+    activeFilters,
+    toggleSidebar,
+    togglePanel,
+    openPanel,
+    setView,
+    initObserver,
+    scrollTo,
+  }
 }
