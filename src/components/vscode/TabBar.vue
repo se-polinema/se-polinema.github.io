@@ -1,5 +1,39 @@
 <template>
+  <!-- Workspace bar -->
   <div
+    class="hidden lg:flex items-center px-3 flex-shrink-0 relative"
+    style="height: 28px; background: #0B1628; border-bottom: 1px solid rgba(255,255,255,0.06);"
+  >
+    <!-- Workspace tab (centered absolutely) -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div
+        class="flex items-center gap-1.5 px-2 h-[18px] text-[11px] font-mono text-white/80"
+        style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 2px;"
+      >
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="color: #F5A100; flex-shrink: 0;">
+          <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+        </svg>
+        <span>SE Laboratory</span>
+      </div>
+    </div>
+
+    <!-- GitHub remote label (pushed to right) -->
+    <a
+      href="https://github.com/se-polinema"
+      target="_blank"
+      rel="noopener"
+      class="flex items-center gap-1 text-[11px] font-mono text-white/55 hover:text-white/85 transition-colors ml-auto"
+    >
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+      se-polinema
+    </a>
+  </div>
+
+  <!-- Tab strip (home only) -->
+  <div
+    v-if="currentPage === 'home'"
     class="hidden lg:flex items-end flex-shrink-0 overflow-x-auto"
     style="background: #1E2D4E; min-height: 35px;"
     role="tablist"
@@ -11,7 +45,7 @@
       @click="handleTab(tab)"
       role="tab"
       :aria-selected="isActiveTab(tab)"
-      class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 transition-colors duration-100"
+      class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 transition-colors duration-100 whitespace-nowrap"
       :class="isActiveTab(tab)
         ? 'bg-white text-primary border-t-[#F5A100]'
         : 'bg-transparent text-white/40 hover:text-white/70 hover:bg-white/5 border-transparent'"
@@ -21,30 +55,137 @@
       <span class="text-[10px] opacity-40 ml-0.5" aria-hidden="true">×</span>
     </button>
   </div>
+
+  <!-- Inner page header (non-home) -->
+  <div
+    v-else
+    class="hidden lg:flex items-center px-4 flex-shrink-0 gap-3"
+    style="height: 35px; background: #1E2D4E; border-bottom: 1px solid rgba(255,255,255,0.08);"
+  >
+    <!-- Back button for detail pages -->
+    <template v-if="isDetailPage">
+      <a
+        :href="backHref"
+        class="flex items-center gap-1 text-[11px] font-mono text-white/50 hover:text-white/85 transition-colors"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Back
+      </a>
+      <span class="w-px h-3.5 bg-white/15" />
+    </template>
+
+    <!-- Page icon + label -->
+    <div class="flex items-center gap-2">
+      <!-- Researchers: users/people icon -->
+      <svg v-if="currentPage === 'researchers'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: #F5A100; flex-shrink: 0;">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+        <path d="M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+      <!-- Publications: open book icon -->
+      <svg v-else-if="currentPage === 'publications'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: #F5A100; flex-shrink: 0;">
+        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+      </svg>
+      <!-- News: document with lines icon -->
+      <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: #F5A100; flex-shrink: 0;">
+        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>
+      <span class="text-[11px] font-mono text-white/65 tracking-wider uppercase">{{ innerPageLabel }}</span>
+    </div>
+  </div>
+
+  <!-- Breadcrumb bar -->
+  <div
+    class="hidden lg:flex items-center justify-between px-4 flex-shrink-0 select-none"
+    style="height: 26px; background: #162032; border-bottom: 1px solid rgba(255,255,255,0.05);"
+  >
+    <div class="flex items-center gap-0.5 text-[11px] font-mono">
+      <span
+        v-for="(part, i) in currentBreadcrumb.path"
+        :key="i"
+        class="flex items-center gap-0.5"
+      >
+        <span v-if="i > 0" class="text-white/35 mx-1">›</span>
+        <span :class="i === currentBreadcrumb.path.length - 1 ? 'text-white/80' : 'text-white/45'">
+          {{ part }}
+        </span>
+      </span>
+    </div>
+    <div class="flex items-center gap-4 text-[11px] font-mono text-white/45">
+      <span>Ln 1, Col 1</span>
+      <span>{{ currentBreadcrumb.lang }}</span>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 
-const { activeSection, currentPage, initObserver, scrollTo } = useVSCodeLayout()
+const { activeSection, currentPage, panelOpen, activePanelTab, initObserver, scrollTo, openPanel } = useVSCodeLayout()
+
+const isDetailPage = ref(false)
+const backHref = ref('')
 
 const tabs = [
-  { id: 'hero',         label: 'index.html',      ext: 'html', pageId: 'home',          href: '/' },
-  { id: 'about',        label: 'about.md',         ext: 'md',   pageId: 'home',          href: '/#about' },
-  { id: 'research',     label: 'research.json',    ext: 'json', pageId: 'home',          href: '/#research' },
-  { id: 'team',         label: 'team.md',          ext: 'md',   pageId: 'researchers',   href: '/researchers' },
-  { id: 'publications', label: 'publications.bib', ext: 'bib',  pageId: 'publications',  href: '/publications' },
-  { id: 'news',         label: 'news.md',          ext: 'md',   pageId: 'news',          href: '/blog' },
-  { id: 'contact',      label: 'contact.json',     ext: 'json', pageId: 'home',          href: '/#contact' },
+  { id: 'hero',         label: 'index.html',      ext: 'html', pageId: 'home',         href: '/' },
+  { id: 'about',        label: 'about.md',         ext: 'md',   pageId: 'home',         href: '/#about' },
+  { id: 'research',     label: 'research.json',    ext: 'json', pageId: 'home',         href: '/#research' },
+  { id: 'team',         label: 'team.md',          ext: 'md',   pageId: 'researchers',  href: '/researchers' },
+  { id: 'publications', label: 'publications.bib', ext: 'bib',  pageId: 'publications', href: '/publications' },
+  { id: 'news',         label: 'news.md',          ext: 'md',   pageId: 'news',         href: '/blog' },
+  { id: 'contact',      label: 'contact.json',     ext: 'json', pageId: '',             href: '' },
 ]
 
+const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
+  hero:         { path: ['se-lab', 'index.html'],                    lang: 'HTML'     },
+  about:        { path: ['se-lab', 'src', 'about.md'],               lang: 'Markdown' },
+  research:     { path: ['se-lab', 'src', 'research.json'],          lang: 'JSON'     },
+  team:         { path: ['se-lab', 'src', 'researchers', 'team.md'], lang: 'Markdown' },
+  publications: { path: ['se-lab', 'src', 'publications.bib'],       lang: 'BibTeX'   },
+  news:         { path: ['se-lab', 'src', 'news.md'],                lang: 'Markdown' },
+  contact:      { path: ['se-lab', 'contact.json'],                  lang: 'JSON'     },
+}
+
+const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
+  news:         { path: ['se-lab', 'src', 'news.md'],                lang: 'Markdown' },
+  publications: { path: ['se-lab', 'src', 'publications.bib'],       lang: 'BibTeX'   },
+  researchers:  { path: ['se-lab', 'src', 'researchers', 'team.md'], lang: 'Markdown' },
+}
+
+const innerPageLabel = computed(() => {
+  if (currentPage.value === 'researchers') return 'Researchers'
+  if (currentPage.value === 'publications') return 'Publications'
+  if (currentPage.value === 'news') return 'News'
+  return ''
+})
+
+const currentBreadcrumb = computed(() => {
+  if (panelOpen.value && activePanelTab.value === 'contact') {
+    return breadcrumbMap.contact
+  }
+  if (currentPage.value !== 'home') {
+    return pageBreadcrumbMap[currentPage.value] ?? breadcrumbMap.hero
+  }
+  return breadcrumbMap[activeSection.value] ?? breadcrumbMap.hero
+})
+
 function isActiveTab(tab: typeof tabs[0]): boolean {
+  if (tab.id === 'contact') {
+    return panelOpen.value && activePanelTab.value === 'contact'
+  }
   if (currentPage.value === 'home') return activeSection.value === tab.id
   return currentPage.value === tab.pageId
 }
 
 function handleTab(tab: typeof tabs[0]) {
+  if (tab.id === 'contact') {
+    openPanel('contact')
+    return
+  }
   if (currentPage.value === 'home') {
     scrollTo(tab.id)
   } else {
@@ -65,5 +206,9 @@ function dotColor(ext: string): string {
 onMounted(() => {
   const editor = document.getElementById('editor')
   if (editor) initObserver(editor)
+
+  const parts = window.location.pathname.split('/').filter(Boolean)
+  isDetailPage.value = parts.length > 1
+  backHref.value = '/' + (parts[0] ?? '')
 })
 </script>
