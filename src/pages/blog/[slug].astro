@@ -1,5 +1,8 @@
 ---
 import Default from '../../layouts/Default.astro'
+import Header from '../../components/Header.vue'
+import Footer from '../../components/Footer.vue'
+import BlogPostPage from '../../components/BlogPostPage.vue'
 import { getCollection, render } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -11,35 +14,14 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props
-const { title, date, category } = post.data
+const { title, titleId, date, category } = post.data
 const { Content } = await render(post)
 ---
 
-<Default title={title}>
-  <article class="min-h-screen pt-24 pb-20 bg-white">
-    <div class="section-container">
-      <a href="/blog" class="inline-flex items-center gap-2 text-sm text-brand-navy/60 hover:text-brand-navy transition-colors mb-8">
-        &larr; Back to Blog
-      </a>
-
-      <div class="max-w-2xl mx-auto">
-        <div class="flex items-center gap-3 mb-6">
-          <span class={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 ${category === 'announcement' ? 'bg-brand-red/10 text-brand-red' : category === 'event' ? 'bg-brand-purple/10 text-brand-purple' : 'bg-brand-yellow/10 text-brand-navy'}`}>
-            {category}
-          </span>
-          <time datetime={date.toISOString()} class="text-xs text-neutral-400">
-            {new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'long', year: 'numeric' }).format(date)}
-          </time>
-        </div>
-
-        <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-8">
-          {title}
-        </h1>
-
-        <div class="prose prose-neutral prose-lg max-w-none font-sans">
-          <Content />
-        </div>
-      </div>
-    </div>
-  </article>
+<Default title={title} description={post.data.excerpt ?? 'Software Engineering Laboratory news article.'}>
+  <Header client:load />
+  <BlogPostPage client:load title={title} titleId={titleId} date={date} category={category}>
+    <Content />
+  </BlogPostPage>
+  <Footer client:load />
 </Default>

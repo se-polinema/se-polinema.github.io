@@ -1,0 +1,52 @@
+---
+import Default from '../../layouts/Default.astro'
+import Header from '../../components/Header.vue'
+import Footer from '../../components/Footer.vue'
+import ResearcherProfilePage from '../../components/ResearcherProfilePage.vue'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const researchers = await getCollection('researchers')
+  return researchers.map((researcher) => ({
+    params: { id: researcher.id },
+    props: { researcher },
+  }))
+}
+
+const { researcher } = Astro.props
+
+const publications = (await getCollection('publications', ({ data }) =>
+  data.researchers.includes(researcher.id),
+)).sort((a, b) => b.data.year - a.data.year)
+  .map((publication) => ({
+    id: publication.id,
+    title: publication.data.title,
+    year: publication.data.year,
+    authors: publication.data.authors,
+    venue: publication.data.venue,
+    type: publication.data.type,
+    url: publication.data.url,
+  }))
+
+const researcherProfile = {
+  name: researcher.data.name,
+  photo: researcher.data.photo,
+  photoPosition: researcher.data.photoPosition,
+  title: researcher.data.title,
+  shortBio: researcher.data.shortBio,
+  profileBody: researcher.data.profileBody,
+  expertise: researcher.data.expertise,
+  researchInterests: researcher.data.researchInterests,
+  email: researcher.data.email,
+  googleScholarUrl: researcher.data.googleScholarUrl,
+  institutionalUrl: researcher.data.institutionalUrl,
+  orcidUrl: researcher.data.orcidUrl,
+  scopusUrl: researcher.data.scopusUrl,
+}
+---
+
+<Default title={researcher.data.name}>
+  <Header client:load />
+  <ResearcherProfilePage client:load researcher={researcherProfile} publications={publications} />
+  <Footer client:load />
+</Default>

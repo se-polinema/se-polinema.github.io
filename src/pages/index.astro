@@ -6,10 +6,7 @@ import About from '../components/About.vue'
 import Research from '../components/Research.vue'
 import Team from '../components/Team.vue'
 import News from '../components/News.vue'
-import Projects from '../components/Projects.vue'
 import Publications from '../components/Publications.vue'
-import Gallery from '../components/Gallery.vue'
-import Partners from '../components/Partners.vue'
 import Contact from '../components/Contact.vue'
 import Footer from '../components/Footer.vue'
 import { getCollection } from 'astro:content'
@@ -27,6 +24,34 @@ const sortedPosts = posts
     excerpt: post.data.excerpt,
     excerptId: post.data.excerptId,
   }))
+
+const featuredResearchers = (await getCollection('researchers'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .filter((researcher) => researcher.data.featured)
+  .slice(0, 6)
+  .map((researcher) => ({
+    id: researcher.id,
+    name: researcher.data.name,
+    photo: researcher.data.photo,
+    photoPosition: researcher.data.photoPosition,
+    title: researcher.data.title,
+    shortBio: researcher.data.shortBio,
+    expertise: researcher.data.expertise,
+  }))
+
+const featuredPublications = (await getCollection('publications'))
+  .sort((a, b) => b.data.year - a.data.year)
+  .filter((publication) => publication.data.featured)
+  .slice(0, 6)
+  .map((publication) => ({
+    id: publication.id,
+    title: publication.data.title,
+    year: publication.data.year,
+    authors: publication.data.authors,
+    venue: publication.data.venue,
+    type: publication.data.type,
+    url: publication.data.url,
+  }))
 ---
 
 <Default title="Software Engineering Laboratory">
@@ -35,12 +60,9 @@ const sortedPosts = posts
     <Hero client:load />
     <About client:load />
     <Research client:load />
-    <Team client:load />
+    <Team client:load researchers={featuredResearchers} />
+    <Publications client:load publications={featuredPublications} />
     <News client:load posts={sortedPosts} />
-    <Projects client:load />
-    <Publications client:load />
-    <Gallery client:load />
-    <Partners client:load />
     <Contact client:load />
   </main>
   <Footer client:load />

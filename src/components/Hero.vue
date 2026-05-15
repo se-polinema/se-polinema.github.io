@@ -3,7 +3,8 @@
     <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #29156A 1px, transparent 1px); background-size: 24px 24px;" />
 
     <div class="section-container relative z-10 pt-24 pb-16 flex flex-col justify-center min-h-screen">
-      <div class="max-w-3xl">
+      <div class="max-w-4xl grid lg:grid-cols-[minmax(0,1fr)_16rem] gap-12 items-start">
+        <div>
         <div class="flex items-center gap-3 mb-6">
           <img src="/images/logo-jti.png" alt="JTI Polinema" class="h-8 w-auto opacity-80" />
           <span class="text-xs font-mono uppercase tracking-[0.2em] text-brand-navy/50">{{ t.hero.subtitle }}</span>
@@ -17,18 +18,32 @@
           {{ t.hero.tagline }}
         </p>
 
-        <p v-if="lang === 'id'" class="text-base sm:text-lg text-brand-navy/50 mb-10 max-w-2xl">
-          Membangun masa depan perangkat lunak, bersama.
-        </p>
+        <div class="flex flex-wrap gap-4 mb-10">
+          <a
+            href="#research"
+            @click.prevent="scrollTo('research')"
+            class="inline-flex items-center gap-2 text-sm font-medium text-brand-navy hover:text-brand-yellow transition-colors group"
+          >
+            <span class="w-8 h-px bg-brand-navy/30 group-hover:bg-brand-yellow group-hover:w-12 transition-all" />
+            {{ t.hero.cta }}
+          </a>
+          <a href="/researchers" class="text-sm font-medium text-brand-navy/70 hover:text-brand-navy transition-colors">
+            {{ t.hero.researchersCta }}
+          </a>
+          <a href="/publications" class="text-sm font-medium text-brand-navy/70 hover:text-brand-navy transition-colors">
+            {{ t.hero.publicationsCta }}
+          </a>
+        </div>
+        </div>
 
-        <a
-          href="#research"
-          @click.prevent="scrollTo('research')"
-          class="inline-flex items-center gap-2 text-sm font-medium text-brand-navy hover:text-brand-yellow transition-colors group"
-        >
-          <span class="w-8 h-px bg-brand-navy/30 group-hover:bg-brand-yellow group-hover:w-12 transition-all" />
-          {{ t.hero.cta }}
-        </a>
+        <aside class="border-t border-brand-navy/10 pt-6 lg:pt-0 lg:border-t-0 lg:border-l lg:pl-8 lg:border-brand-navy/10">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-navy/40 mb-3">{{ t.hero.focusLabel }}</div>
+          <ul class="space-y-3 text-sm text-brand-navy/70 leading-relaxed">
+            <li>{{ t.hero.focusOne }}</li>
+            <li>{{ t.hero.focusTwo }}</li>
+            <li>{{ t.hero.focusThree }}</li>
+          </ul>
+        </aside>
       </div>
 
       <div class="mt-auto pt-20 md:pt-32">

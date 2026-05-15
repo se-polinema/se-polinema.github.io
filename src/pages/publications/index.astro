@@ -1,0 +1,40 @@
+---
+import Default from '../../layouts/Default.astro'
+import Header from '../../components/Header.vue'
+import Footer from '../../components/Footer.vue'
+import PublicationsArchive from '../../components/PublicationsArchive.vue'
+import PublicationsPageIntro from '../../components/PublicationsPageIntro.vue'
+import { getCollection } from 'astro:content'
+
+const publications = (await getCollection('publications'))
+  .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
+  .map((publication) => ({
+    id: publication.id,
+    title: publication.data.title,
+    year: publication.data.year,
+    authors: publication.data.authors,
+    venue: publication.data.venue,
+    type: publication.data.type,
+    url: publication.data.url,
+    researchers: publication.data.researchers,
+  }))
+
+const researchers = (await getCollection('researchers'))
+  .sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name))
+  .map((researcher) => ({
+    id: researcher.id,
+    name: researcher.data.name,
+  }))
+---
+
+<Default title="Publications">
+  <Header client:load />
+  <main class="min-h-screen pt-24 pb-20 bg-white">
+    <div class="section-container">
+      <PublicationsPageIntro client:load />
+
+      <PublicationsArchive client:load publications={publications} researchers={researchers} />
+    </div>
+  </main>
+  <Footer client:load />
+</Default>

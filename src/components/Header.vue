@@ -25,9 +25,9 @@
           <a
             v-for="item in navItems"
             :key="item.id"
-            :href="'#' + item.id"
+            :href="item.href"
             class="text-sm text-brand-navy/70 hover:text-brand-navy transition-colors font-medium"
-            @click.prevent="scrollTo(item.id)"
+            @click="handleNavClick($event, item)"
           >
             {{ t[item.label] }}
           </a>
@@ -75,9 +75,9 @@
           <a
             v-for="item in navItems"
             :key="item.id"
-            :href="'#' + item.id"
+            :href="item.href"
             class="text-lg text-brand-navy/70 hover:text-brand-navy transition-colors font-medium py-3 border-b border-brand-navy/5"
-            @click.prevent="scrollTo(item.id); mobileOpen = false"
+            @click="handleNavClick($event, item); mobileOpen = false"
           >
             {{ t[item.label] }}
           </a>
@@ -96,18 +96,25 @@ const scrolled = ref(false)
 const mobileOpen = ref(false)
 
 const navItems = [
-  { id: 'about', label: 'nav.about' },
-  { id: 'research', label: 'nav.research' },
-  { id: 'team', label: 'nav.team' },
-  { id: 'news', label: 'nav.news' },
-  { id: 'projects', label: 'nav.projects' },
-  { id: 'contact', label: 'nav.contact' },
+  { id: 'about', href: '/#about', label: 'nav.about' },
+  { id: 'research', href: '/#research', label: 'nav.research' },
+  { id: 'researchers', href: '/researchers', label: 'nav.researchers' },
+  { id: 'publications', href: '/publications', label: 'nav.publications' },
+  { id: 'news', href: '/blog', label: 'nav.news' },
+  { id: 'contact', href: '/#contact', label: 'nav.contact' },
 ]
 
 function scrollTo(id: string) {
   const el = document.getElementById(id)
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+function handleNavClick(event: MouseEvent, item: { href: string; id: string }) {
+  if (item.href.startsWith('/#') && window.location.pathname === '/') {
+    event.preventDefault()
+    scrollTo(item.id)
   }
 }
 

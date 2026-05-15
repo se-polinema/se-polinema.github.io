@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "year": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "journal",
+        "conference",
+        "book-chapter",
+        "proceeding",
+        "preprint"
+      ]
+    },
+    "venue": {
+      "type": "string"
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "doi": {
+      "type": "string"
+    },
+    "googleScholarUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "researchers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "language": {
+      "default": "en",
+      "type": "string",
+      "enum": [
+        "id",
+        "en"
+      ]
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "year",
+    "type",
+    "venue",
+    "authors",
+    "url",
+    "researchers"
+  ]
+}

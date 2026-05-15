@@ -2,7 +2,8 @@
   "nav": {
     "about": "Tentang",
     "research": "Penelitian",
-    "team": "Tim",
+    "team": "Peneliti",
+    "researchers": "Peneliti",
     "news": "Berita",
     "projects": "Proyek",
     "publications": "Publikasi",
@@ -14,11 +15,17 @@
   "hero": {
     "title": "Software Engineering Laboratory",
     "subtitle": "Jurusan Teknologi Informasi",
-    "tagline": "Membangun masa depan perangkat lunak, bersama.",
+    "tagline": "Unit akademik untuk rekayasa perangkat lunak terapan, sistem cerdas, dan pengembangan perangkat lunak ilmiah di Politeknik Negeri Malang.",
     "cta": "Jelajahi Riset",
+    "researchersCta": "Lihat Peneliti",
+    "publicationsCta": "Lihat Publikasi",
+    "focusLabel": "Fokus",
+    "focusOne": "Metode rekayasa perangkat lunak",
+    "focusTwo": "Sistem informasi cerdas",
+    "focusThree": "Produk perangkat lunak akademik terapan",
     "statTeam": "Peneliti",
     "statFocus": "Bidang Fokus",
-    "statProjects": "Proyek & Bertambah"
+    "statProjects": "Publikasi Pilihan"
   },
   "about": {
     "label": "Tentang Lab",
@@ -35,8 +42,28 @@
     "heading": "Tujuh pilar rekayasa perangkat lunak"
   },
   "team": {
-    "label": "Tim Kami",
-    "heading": "Peneliti & Kontributor"
+    "label": "Peneliti",
+    "heading": "Profil Akademik",
+    "viewProfile": "Lihat profil",
+    "directoryHeading": "Profil Akademik",
+    "directoryDescription": "Para peneliti laboratorium bekerja pada rekayasa perangkat lunak terapan, sistem cerdas, teknologi pendidikan, dan sistem informasi berbasis data. Setiap profil di bawah ini menghubungkan keluaran ilmiah dengan tema yang dikembangkan di dalam laboratorium.",
+    "backToResearchers": "Kembali ke Peneliti",
+    "profileLabel": "Profil Peneliti",
+    "affiliation": "Afiliasi",
+    "contact": "Kontak",
+    "externalProfiles": "Profil Eksternal",
+    "institutionalPage": "Halaman Institusi",
+    "selectedWorks": "Karya Pilihan",
+    "researchThemes": "Tema Riset",
+    "publicationsHeading": "Publikasi",
+    "viewPublicationArchive": "Lihat arsip publikasi",
+    "expertiseHeading": "Keahlian",
+    "researchInterests": "Minat Riset",
+    "biographyHeading": "Biografi",
+    "booksHeading": "Buku",
+    "projectsHeading": "Proyek",
+    "booksEmpty": "Catatan buku terverifikasi akan ditambahkan setelah data kurasi dari sumber otoritatif tersedia.",
+    "projectsEmpty": "Proyek terpilih akan ditambahkan setelah rekam proyek dikurasi dan dihubungkan dengan aktivitas laboratorium."
   },
   "news": {
     "label": "Berita & Pengumuman",
@@ -53,9 +80,22 @@
   },
   "publications": {
     "label": "Publikasi",
-    "heading": "Hasil Riset",
+    "heading": "Keluaran Riset Pilihan",
     "empty": "Publikasi akan dicantumkan di sini. Kunjungi kembali nanti.",
-    "comingSoon": "Segera Hadir"
+    "comingSoon": "Segera Hadir",
+    "viewAll": "Lihat Semua Publikasi",
+    "type": "Jenis",
+    "year": "Tahun",
+    "filterResearcher": "Peneliti",
+    "filterYear": "Tahun",
+    "filterType": "Jenis",
+    "allResearchers": "Semua Peneliti",
+    "allYears": "Semua Tahun",
+    "allTypes": "Semua Jenis",
+    "resultSingle": "publikasi",
+    "resultPlural": "publikasi",
+    "archiveHeading": "Arsip Publikasi",
+    "archiveDescription": "Arsip ini memuat keluaran ilmiah terpilih yang terkait dengan Software Engineering Laboratory. Data awal saat ini dikurasi dari rekam jejak Google Scholar para peneliti laboratorium."
   },
   "gallery": {
     "label": "Galeri",
@@ -87,12 +127,15 @@
   "blog": {
     "heading": "Berita & Pengumuman",
     "description": "Pembaruan dari Software Engineering Laboratory",
+    "archiveHeading": "Arsip Berita",
+    "archiveDescription": "Pembaruan, pengumuman, dan catatan kegiatan dari Software Engineering Laboratory.",
     "published": "Diterbitkan",
     "allCategories": "Semua",
     "categoryAnnouncement": "Pengumuman",
     "categoryNews": "Berita",
     "categoryEvent": "Acara",
     "noPosts": "Tidak ada postingan ditemukan",
-    "backToHome": "Kembali ke Beranda"
+    "backToHome": "Kembali ke Beranda",
+    "backToBlog": "Kembali ke Blog"
   }
 }

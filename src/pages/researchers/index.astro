@@ -1,0 +1,26 @@
+---
+import Default from '../../layouts/Default.astro'
+import Header from '../../components/Header.vue'
+import Footer from '../../components/Footer.vue'
+import ResearchersDirectoryPage from '../../components/ResearchersDirectoryPage.vue'
+import { getCollection } from 'astro:content'
+
+const researchers = (await getCollection('researchers'))
+  .sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name))
+  .map((researcher) => ({
+    id: researcher.id,
+    name: researcher.data.name,
+    photo: researcher.data.photo,
+    photoPosition: researcher.data.photoPosition,
+    title: researcher.data.title,
+    shortBio: researcher.data.shortBio,
+    expertise: researcher.data.expertise,
+    googleScholarUrl: researcher.data.googleScholarUrl,
+  }))
+---
+
+<Default title="Researchers">
+  <Header client:load />
+  <ResearchersDirectoryPage client:load researchers={researchers} />
+  <Footer client:load />
+</Default>

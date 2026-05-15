@@ -1,62 +1,28 @@
 ---
 import Default from '../../layouts/Default.astro'
+import Header from '../../components/Header.vue'
+import Footer from '../../components/Footer.vue'
+import BlogArchivePage from '../../components/BlogArchivePage.vue'
 import { getCollection } from 'astro:content'
 
 const allPosts = await getCollection('blog')
 const posts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((post) => ({
+    id: post.id,
+    title: post.data.title,
+    titleId: post.data.titleId,
+    excerpt: post.data.excerpt,
+    excerptId: post.data.excerptId,
+    category: post.data.category,
+    date: post.data.date,
+  }))
 
 
 ---
 
-<Default title="Blog">
-  <div class="min-h-screen pt-24 pb-20 bg-white">
-    <div class="section-container">
-      <a href="/" class="inline-flex items-center gap-2 text-sm text-brand-navy/60 hover:text-brand-navy transition-colors mb-8">
-        &larr; Back to Home
-      </a>
-
-      <div class="section-label">News &amp; Announcements</div>
-      <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-16">
-        Blog
-      </h1>
-
-      {
-        posts.length === 0 ? (
-          <div class="text-center py-20">
-            <p class="text-neutral-400">No posts found.</p>
-          </div>
-        ) : (
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => (
-              <article class="group bg-neutral-50 border border-neutral-100 hover:border-brand-navy/10 transition-colors p-6">
-                <div class="flex items-center gap-3 mb-4">
-                  <span class={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 ${post.data.category === 'announcement' ? 'bg-brand-red/10 text-brand-red' : post.data.category === 'event' ? 'bg-brand-purple/10 text-brand-purple' : 'bg-brand-yellow/10 text-brand-navy'}`}>
-                    {post.data.category}
-                  </span>
-                  <time datetime={post.data.date.toISOString()} class="text-xs text-neutral-400">
-                    {new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short', year: 'numeric' }).format(post.data.date)}
-                  </time>
-                </div>
-
-                <h2 class="font-serif text-lg font-semibold text-brand-navy mb-2 group-hover:text-brand-navy/80 transition-colors">
-                  <a href={`/blog/${post.id}`} class="hover:underline decoration-brand-navy/20 underline-offset-4">
-                    {post.data.title}
-                  </a>
-                </h2>
-
-                <p class="text-sm text-neutral-500 leading-relaxed mb-4">
-                  {post.data.excerpt}
-                </p>
-
-                <a href={`/blog/${post.id}`} class="text-xs font-medium text-brand-navy/50 hover:text-brand-navy transition-colors">
-                  Read more &rarr;
-                </a>
-              </article>
-            ))}
-          </div>
-        )
-      }
-    </div>
-  </div>
+<Default title="News Archive" description="News, announcements, and event updates from the Software Engineering Laboratory.">
+  <Header client:load />
+  <BlogArchivePage client:load posts={posts} />
+  <Footer client:load />
 </Default>

@@ -2,7 +2,8 @@
   "nav": {
     "about": "About",
     "research": "Research",
-    "team": "Team",
+    "team": "Researchers",
+    "researchers": "Researchers",
     "news": "News",
     "projects": "Projects",
     "publications": "Publications",
@@ -14,11 +15,17 @@
   "hero": {
     "title": "Software Engineering Laboratory",
     "subtitle": "Jurusan Teknologi Informasi",
-    "tagline": "Building the future of software, together.",
+    "tagline": "An academic unit for applied software engineering, intelligent systems, and scholarly software development at Politeknik Negeri Malang.",
     "cta": "Explore Research",
+    "researchersCta": "Browse Researchers",
+    "publicationsCta": "View Publications",
+    "focusLabel": "Focus",
+    "focusOne": "Software engineering methods",
+    "focusTwo": "Intelligent information systems",
+    "focusThree": "Applied academic software products",
     "statTeam": "Researchers",
     "statFocus": "Focus Areas",
-    "statProjects": "Projects & Counting"
+    "statProjects": "Selected Publications"
   },
   "about": {
     "label": "About the Lab",
@@ -35,8 +42,28 @@
     "heading": "Seven pillars of software engineering"
   },
   "team": {
-    "label": "Our Team",
-    "heading": "Researchers & Contributors"
+    "label": "Researchers",
+    "heading": "Academic Profiles",
+    "viewProfile": "View profile",
+    "directoryHeading": "Academic Profiles",
+    "directoryDescription": "The laboratory's researchers work across applied software engineering, intelligent systems, educational technology, and data-driven information systems. Each profile below connects scholarly outputs with the themes developed inside the laboratory.",
+    "backToResearchers": "Back to Researchers",
+    "profileLabel": "Researcher Profile",
+    "affiliation": "Affiliation",
+    "contact": "Contact",
+    "externalProfiles": "External Profiles",
+    "institutionalPage": "Institutional Page",
+    "selectedWorks": "Selected Works",
+    "researchThemes": "Research Themes",
+    "publicationsHeading": "Publications",
+    "viewPublicationArchive": "View publication archive",
+    "expertiseHeading": "Expertise",
+    "researchInterests": "Research Interests",
+    "biographyHeading": "Biography",
+    "booksHeading": "Books",
+    "projectsHeading": "Projects",
+    "booksEmpty": "Verified book records will be added as curated data is compiled from authoritative sources.",
+    "projectsEmpty": "Selected projects will be added as project records are curated and linked to laboratory activities."
   },
   "news": {
     "label": "News & Announcements",
@@ -53,9 +80,22 @@
   },
   "publications": {
     "label": "Publications",
-    "heading": "Research Output",
+    "heading": "Selected Research Output",
     "empty": "Publications will be listed here. Check back soon.",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "viewAll": "View All Publications",
+    "type": "Type",
+    "year": "Year",
+    "filterResearcher": "Researcher",
+    "filterYear": "Year",
+    "filterType": "Type",
+    "allResearchers": "All Researchers",
+    "allYears": "All Years",
+    "allTypes": "All Types",
+    "resultSingle": "publication",
+    "resultPlural": "publications",
+    "archiveHeading": "Publication Archive",
+    "archiveDescription": "This archive lists selected scholarly outputs associated with the Software Engineering Laboratory. The current seed data is curated from Google Scholar-backed records for laboratory researchers."
   },
   "gallery": {
     "label": "Gallery",
@@ -87,12 +127,15 @@
   "blog": {
     "heading": "News & Announcements",
     "description": "Updates from the Software Engineering Laboratory",
+    "archiveHeading": "News Archive",
+    "archiveDescription": "Updates, announcements, and event records from the Software Engineering Laboratory.",
     "published": "Published",
     "allCategories": "All",
     "categoryAnnouncement": "Announcement",
     "categoryNews": "News",
     "categoryEvent": "Event",
     "noPosts": "No posts found",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "backToBlog": "Back to Blog"
   }
 }

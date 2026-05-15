@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "en"
+      ]
+    },
+    "role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "en"
+      ]
+    },
+    "photo": {
+      "type": "string"
+    },
+    "photoPosition": {
+      "default": "50% 20%",
+      "type": "string"
+    },
+    "shortBio": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "en"
+      ]
+    },
+    "profileBody": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "en"
+      ]
+    },
+    "expertise": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "researchInterests": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "en": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "en"
+      ]
+    },
+    "email": {
+      "type": "string"
+    },
+    "googleScholarUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "institutionalUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "orcidUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "scopusUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "title",
+    "role",
+    "photo",
+    "shortBio",
+    "profileBody",
+    "expertise",
+    "researchInterests",
+    "email",
+    "googleScholarUrl",
+    "order"
+  ]
+}
