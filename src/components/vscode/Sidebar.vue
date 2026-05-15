@@ -1,26 +1,14 @@
 <template>
-  <!-- Mobile backdrop -->
-  <Teleport to="body">
-    <Transition name="fade">
-      <div
-        v-if="sidebarOpen"
-        class="lg:hidden fixed inset-0 z-40 bg-black/60"
-        @click="toggleSidebar"
-        aria-hidden="true"
-      />
-    </Transition>
-  </Teleport>
-
-  <!-- Sidebar panel: fixed on mobile, in-flow on desktop -->
+  <!-- Sidebar panel: desktop only, toggleable width -->
   <aside
-    class="flex-shrink-0 flex flex-col overflow-hidden transition-[width,transform] duration-200 fixed inset-y-0 left-0 z-50 lg:relative lg:inset-auto lg:z-auto w-64"
-    :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0 lg:w-0'"
+    class="flex-shrink-0 flex-col overflow-hidden transition-[width] duration-200 hidden lg:flex w-64"
+    :class="sidebarOpen ? '' : 'lg:w-0'"
     style="background: #003A84;"
     aria-label="Explorer Sidebar"
   >
     <!-- Header -->
     <div
-      class="flex items-center justify-between px-4 h-9 flex-shrink-0"
+      class="flex items-center px-4 h-9 flex-shrink-0"
       style="border-bottom: 1px solid rgba(255,255,255,0.08);"
     >
       <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 select-none">
@@ -30,16 +18,6 @@
          : activeSidebarView === 'blog' ? 'News'
          : 'Explorer' }}
       </span>
-      <button
-        @click="toggleSidebar"
-        class="lg:hidden text-white/40 hover:text-white/80 transition-colors p-1"
-        aria-label="Close sidebar"
-      >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
     </div>
 
     <!-- Panel area: transitions between views -->
@@ -216,7 +194,7 @@ import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 const {
   sidebarOpen, activeSection, currentPage,
   panelOpen, activePanelTab, activeSidebarView, activeFilters,
-  toggleSidebar, openPanel, initObserver, scrollTo,
+  openPanel, initObserver, scrollTo,
 } = useVSCodeLayout()
 
 interface FileItem {
@@ -272,12 +250,10 @@ function dotColor(ext: string): string {
 function navigate(item: FileItem) {
   if (item.id === 'contact') {
     openPanel('contact')
-    if (window.innerWidth < 1024) toggleSidebar()
     return
   }
   if (currentPage.value === 'home' && item.sectionId) {
     scrollTo(item.sectionId)
-    if (window.innerWidth < 1024) toggleSidebar()
     return
   }
   if (item.href) window.location.href = item.href
@@ -308,9 +284,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
-
 .panel-enter-active,
 .panel-leave-active {
   transition: opacity 0.12s ease;

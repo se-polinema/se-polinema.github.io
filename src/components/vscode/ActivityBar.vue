@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="hidden lg:flex flex-col items-center py-2 flex-shrink-0"
+    class="flex flex-col items-center py-2 flex-shrink-0"
     style="width: 48px; background: #002D6B;"
     aria-label="Activity Bar"
   >

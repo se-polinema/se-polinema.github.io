@@ -5,8 +5,6 @@ import Sidebar from '../components/vscode/Sidebar.vue'
 import TabBar from '../components/vscode/TabBar.vue'
 import BottomPanel from '../components/vscode/BottomPanel.vue'
 import StatusBar from '../components/vscode/StatusBar.vue'
-import MobileTopBar from '../components/vscode/MobileTopBar.vue'
-import MobileBottomNav from '../components/vscode/MobileBottomNav.vue'
 
 export interface Props {
   title: string
@@ -22,11 +20,9 @@ const { title, description } = Astro.props
     class="fixed inset-0 flex flex-col"
     style="background: #002D6B;"
   >
-    <MobileTopBar client:load />
-
-    <!-- Workspace bar: full width, above sidebar + editor (desktop only) -->
+    <!-- Workspace bar: full width, above sidebar + editor -->
     <div
-      class="hidden lg:flex items-center px-3 flex-shrink-0 relative"
+      class="flex items-center px-3 flex-shrink-0 relative"
       style="height: 28px; background: #0B1628; border-bottom: 1px solid rgba(255,255,255,0.06);"
     >
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -68,7 +64,6 @@ const { title, description } = Astro.props
       </div>
     </div>
 
-    <MobileBottomNav client:load />
     <StatusBar client:load />
   </div>
 </Default>
