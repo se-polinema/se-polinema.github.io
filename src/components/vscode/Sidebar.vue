@@ -1,16 +1,14 @@
 <template>
   <!-- Mobile backdrop (covers content area to the right of ActivityBar) -->
-  <Teleport to="body">
-    <Transition name="fade">
-      <div
-        v-if="sidebarOpen"
-        class="lg:hidden fixed inset-y-0 z-30 bg-black/60"
-        style="left: 48px; right: 0;"
-        @click="toggleSidebar"
-        aria-hidden="true"
-      />
-    </Transition>
-  </Teleport>
+  <Transition name="fade">
+    <div
+      v-if="sidebarOpen"
+      class="lg:hidden fixed inset-y-0 z-30 bg-black/60"
+      style="left: 48px; right: 0;"
+      @click="toggleSidebar"
+      aria-hidden="true"
+    />
+  </Transition>
 
   <!-- Sidebar panel: slides in from left of content area on mobile, in-flow on desktop -->
   <aside
