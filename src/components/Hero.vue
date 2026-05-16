@@ -1,12 +1,12 @@
 <template>
-  <section id="hero" class="relative min-h-screen flex flex-col justify-center bg-neutral-50 overflow-hidden">
+  <section id="hero" class="relative flex flex-col justify-center bg-neutral-50 overflow-hidden" style="min-height: min(100vh, 640px)">
     <!-- Graph-paper grid background -->
     <div
       class="absolute inset-0"
       style="background-image: linear-gradient(rgba(0,78,162,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,78,162,0.04) 1px, transparent 1px); background-size: 32px 32px;"
     />
 
-    <div class="section-container relative z-10 pt-24 pb-16 flex flex-col justify-center min-h-screen">
+    <div class="section-container relative z-10 pt-12 pb-12 lg:pt-16 lg:pb-16 flex flex-col justify-center" style="min-height: 100%">
       <div class="max-w-5xl grid lg:grid-cols-[minmax(0,1fr)_21rem] gap-12 lg:gap-16 items-center">
 
         <!-- Left: Main content -->

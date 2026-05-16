@@ -1,7 +1,5 @@
 ---
-import Default from '../../layouts/Default.astro'
-import Header from '../../components/Header.vue'
-import Footer from '../../components/Footer.vue'
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
 import { getCollection, render } from 'astro:content'
 
@@ -18,10 +16,8 @@ const { title, titleId, date, category } = post.data
 const { Content } = await render(post)
 ---
 
-<Default title={title} description={post.data.excerpt ?? 'Software Engineering Laboratory news article.'}>
-  <Header client:load />
+<VSCodeLayout title={title} description={post.data.excerpt ?? 'Software Engineering Laboratory news article.'}>
   <BlogPostPage client:load title={title} titleId={titleId} date={date} category={category}>
     <Content />
   </BlogPostPage>
-  <Footer client:load />
-</Default>
+</VSCodeLayout>

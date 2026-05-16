@@ -1,15 +1,11 @@
 ---
-import Default from '../layouts/Default.astro'
-import Header from '../components/Header.vue'
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import Hero from '../components/Hero.vue'
 import About from '../components/About.vue'
 import Research from '../components/Research.vue'
 import Team from '../components/Team.vue'
 import News from '../components/News.vue'
 import Publications from '../components/Publications.vue'
-import Contact from '../components/Contact.vue'
-import Footer from '../components/Footer.vue'
-import BackToTop from '../components/BackToTop.vue'
 import { getCollection } from 'astro:content'
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
@@ -55,17 +51,11 @@ const featuredPublications = (await getCollection('publications'))
   }))
 ---
 
-<Default title="Software Engineering Laboratory">
-  <Header client:load />
-  <main>
-    <Hero client:load />
-    <About client:load />
-    <Research client:load />
-    <Team client:load researchers={featuredResearchers} />
-    <Publications client:load publications={featuredPublications} />
-    <News client:load posts={sortedPosts} />
-    <Contact client:load />
-  </main>
-  <Footer client:load />
-  <BackToTop client:load />
-</Default>
+<VSCodeLayout title="Software Engineering Laboratory">
+  <Hero client:load />
+  <About client:load />
+  <Research client:load />
+  <Team client:load researchers={featuredResearchers} />
+  <Publications client:load publications={featuredPublications} />
+  <News client:load posts={sortedPosts} />
+</VSCodeLayout>
