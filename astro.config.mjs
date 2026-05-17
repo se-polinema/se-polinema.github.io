@@ -6,6 +6,12 @@ export default defineConfig({
   site: 'https://se-polinema.github.io',
   base: '/',
   integrations: [vue()],
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'css-variables',
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

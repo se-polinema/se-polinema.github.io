@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="flex flex-col items-center py-2 flex-shrink-0"
+    class="relative z-30 flex flex-col items-center py-2 flex-shrink-0 pointer-events-auto"
     style="width: 48px; background: #002D6B;"
     aria-label="Activity Bar"
   >
@@ -111,11 +111,15 @@ const { lang, toggleLang } = useI18n()
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
   width: 48px;
   height: 48px;
   transition: color 0.15s ease;
   border-left: 2px solid transparent;
   flex-shrink: 0;
+  pointer-events: auto;
+  cursor: pointer;
 }
 .activity-active {
   color: rgba(255, 255, 255, 0.95);

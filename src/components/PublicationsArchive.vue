@@ -1,15 +1,5 @@
 <template>
   <section>
-    <div class="mb-10 md:mb-12">
-      <label class="block max-w-xs">
-        <span class="block text-xs font-mono uppercase tracking-wider text-primary/40 mb-2">{{ t.publications.filterResearcher }}</span>
-        <select v-model="selectedResearcher" class="w-full border border-neutral-200 bg-neutral-50 px-3 py-3 text-sm text-primary focus:outline-none focus:border-primary/30">
-          <option value="all">{{ t.publications.allResearchers }}</option>
-          <option v-for="option in researcherOptions" :key="option.id" :value="option.id">{{ option.name }}</option>
-        </select>
-      </label>
-    </div>
-
     <div class="mb-6 md:mb-8 text-sm text-neutral-500">
       {{ filteredPublications.length }} {{ filteredPublications.length === 1 ? t.publications.resultSingle : t.publications.resultPlural }}
     </div>
@@ -48,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useVSCodeLayout } from '../composables/useVSCodeLayout'
 
@@ -76,20 +66,15 @@ const props = defineProps<{
 const { t } = useI18n()
 const { activeFilters } = useVSCodeLayout()
 
-const selectedResearcher = ref('all')
-
-const researcherOptions = computed(() => props.researchers)
-
 const researcherMap = computed(() => new Map(props.researchers.map((researcher) => [researcher.id, researcher.name])))
 
-const filteredPublications = computed(() => {
-  return props.publications.filter((publication) => {
-    const byResearcher = selectedResearcher.value === 'all' || publication.researchers.includes(selectedResearcher.value)
+const filteredPublications = computed(() =>
+  props.publications.filter((publication) => {
     const byYear = !activeFilters.year || publication.year === activeFilters.year
     const byType = !activeFilters.type || publication.type === activeFilters.type
-    return byResearcher && byYear && byType
+    return byYear && byType
   })
-})
+)
 
 const groupedEntries = computed(() => {
   const groups = filteredPublications.value.reduce<Record<string, Publication[]>>((acc, publication) => {
