@@ -45,6 +45,16 @@ const researchersCollection = defineCollection({
     scopusUrl: z.url().optional(),
     featured: z.boolean().default(false),
     order: z.number().int(),
+    projects: z.array(z.object({
+      name: z.string().optional(),
+      repo: z.string(),
+      description: z.string().optional(),
+    })).optional(),
+    books: z.array(z.object({
+      title: z.string(),
+      playstoreUrl: z.url().optional(),
+      description: z.string().optional(),
+    })).optional(),
   }),
 })
 
