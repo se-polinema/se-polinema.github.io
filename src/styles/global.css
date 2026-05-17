@@ -1,4 +1,19 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --shiki-color-text: #dbe7ff;
+  --shiki-color-background: #0b1628;
+  --shiki-token-constant: #004ea2;
+  --shiki-token-string: #f5a100;
+  --shiki-token-comment: #7c8ca8;
+  --shiki-token-keyword: #60a5fa;
+  --shiki-token-parameter: #e5eefb;
+  --shiki-token-function: #8cc6ff;
+  --shiki-token-string-expression: #ffd166;
+  --shiki-token-punctuation: #b8c2d9;
+  --shiki-token-link: #004ea2;
+}
 
 @theme {
   --color-primary: #004EA2;
@@ -63,5 +78,52 @@
     @apply text-xs font-mono uppercase tracking-[0.2em] text-primary/60 mb-4;
     padding-left: 0.625rem;
     border-left: 2px solid var(--color-accent);
+  }
+
+  .prose-editorial {
+    @apply prose prose-slate prose-lg max-w-none font-sans;
+  }
+
+  .prose-editorial :where(h2, h3, h4) {
+    color: var(--color-primary);
+  }
+
+  .prose-editorial :where(blockquote) {
+    border-left-color: var(--color-accent);
+    color: color-mix(in srgb, var(--color-primary) 80%, black 20%);
+    font-style: normal;
+  }
+
+  .prose-editorial :where(a) {
+    color: var(--color-primary);
+    text-decoration-color: color-mix(in srgb, var(--color-primary) 25%, transparent 75%);
+  }
+
+  .prose-editorial :where(pre) {
+    background: var(--shiki-color-background);
+    border: 1px solid rgba(0, 78, 162, 0.18);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    box-shadow: 0 12px 30px rgba(11, 22, 40, 0.12);
+  }
+
+  .prose-editorial :where(pre code) {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+
+  .prose-editorial :where(:not(pre) > code) {
+    background: rgba(0, 78, 162, 0.07);
+    color: var(--color-primary);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.375rem;
+    border: 1px solid rgba(0, 78, 162, 0.1);
+    font-size: 0.875em;
   }
 }

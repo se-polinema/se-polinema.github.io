@@ -12,15 +12,18 @@ export interface Props {
 }
 
 const { title, description } = Astro.props
+
+// Generate enough line numbers to cover the tallest possible page (~22 000px at 22px/line)
+const LINE_COUNT = 1000
 ---
 
 <Default title={title} description={description}>
   <div
     id="vscode-window"
-    class="fixed inset-0 flex flex-col"
+    class="fixed inset-0 flex flex-col isolate"
     style="background: #002D6B;"
   >
-    <!-- Workspace bar: full width, above sidebar + editor -->
+    <!-- Workspace bar -->
     <div
       class="flex items-center px-3 flex-shrink-0 relative"
       style="height: 28px; background: #0B1628; border-bottom: 1px solid rgba(255,255,255,0.06);"
@@ -53,11 +56,28 @@ const { title, description } = Astro.props
       <ActivityBar client:load />
       <Sidebar client:load />
 
-      <div class="flex flex-col flex-1 overflow-hidden min-w-0">
+      <div class="relative z-0 flex flex-col flex-1 overflow-hidden min-w-0">
         <TabBar client:load />
 
+        <!--
+          Editor area — rendered like a WYSIWYG markdown buffer (render-markdown.nvim style).
+          The gutter + content share the same scroll container so numbers scroll with text.
+          The gutter is absolutely positioned inside .editor-wrap, which is driven by content height,
+          so the gutter never makes the page taller than the content itself.
+        -->
         <main id="editor" class="flex-1 overflow-y-auto bg-white">
-          <slot />
+          <div class="editor-wrap">
+            <!-- Line-number gutter -->
+            <div class="editor-gutter" aria-hidden="true">
+              {Array.from({ length: LINE_COUNT }, (_, i) => (
+                <span>{i + 1}</span>
+              ))}
+            </div>
+            <!-- Page content -->
+            <div class="editor-body">
+              <slot />
+            </div>
+          </div>
         </main>
 
         <BottomPanel client:load />
@@ -67,3 +87,150 @@ const { title, description } = Astro.props
     <StatusBar client:load />
   </div>
 </Default>
+
+<style is:global>
+/* ─── Editor layout ─── */
+.editor-wrap {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+}
+
+.editor-gutter {
+  flex-shrink: 0;
+  width: 52px;
+  overflow: hidden;          /* clips excess line numbers below content */
+  background: #FAFAFA;
+  border-right: 1px solid #EBEBEB;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 10px 0 0;
+  box-sizing: border-box;
+  padding-top: 1px;
+}
+
+.editor-gutter span {
+  display: block;
+  height: 22px;
+  line-height: 22px;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 11px;
+  color: #C0C4CC;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* Highlight every 10th line number */
+.editor-gutter span:nth-child(10n) {
+  color: #A0A4AC;
+}
+
+.editor-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── Heading hash prefixes (WYSIWYG markdown style) ─── */
+.editor-body h1:not([class]),
+.editor-body h2:not([class]),
+.editor-body h3:not([class]),
+.editor-body h4:not([class]) {
+  position: relative;
+  font-family: 'DM Serif Display', 'Georgia', ui-serif, serif;
+}
+
+.editor-body h1:not([class])::before { content: '# '; }
+.editor-body h2:not([class])::before { content: '## '; }
+.editor-body h3:not([class])::before { content: '### '; }
+.editor-body h4:not([class])::before { content: '#### '; }
+
+.editor-body h1:not([class])::before,
+.editor-body h2:not([class])::before,
+.editor-body h3:not([class])::before,
+.editor-body h4:not([class])::before {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-weight: 400;
+  color: #9CA3AF;
+  font-size: 0.85em;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Heading size & color hierarchy ─── */
+.editor-body h1:not([class]) {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-primary);
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+.editor-body h2:not([class]) {
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-primary);
+  margin-top: 1.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.editor-body h3:not([class]) {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-primary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.editor-body h4:not([class]) {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* ─── Code blocks — editor-style dark background ─── */
+.editor-body pre:not([class]),
+.editor-body pre[class^="astro"],
+.editor-body .prose pre {
+  background: #0E1E3D !important;
+  color: #D4D4D4;
+  border-radius: 4px;
+  padding: 1em 1.25em;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  overflow-x: auto;
+  margin: 1em 0;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.editor-body code:not(pre code):not([class]),
+.editor-body .prose :not(pre) > code {
+  background: rgba(14, 30, 61, 0.08);
+  color: #1E3A5F;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 0.875em;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  border: 1px solid rgba(14, 30, 61, 0.12);
+}
+
+/* ─── Blockquote — callout style ─── */
+.editor-body blockquote:not([class]),
+.editor-body .prose blockquote {
+  border-left: 3px solid #A78BFA;
+  background: rgba(167, 139, 250, 0.06);
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  border-radius: 0 4px 4px 0;
+  color: inherit;
+  font-style: normal;
+}
+
+/* ─── Section dividers on home page ─── */
+#editor section[id]:not(:first-child) {
+  border-top: 1px solid #F0F2F5;
+}
+</style>

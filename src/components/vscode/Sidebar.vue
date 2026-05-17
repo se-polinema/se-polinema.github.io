@@ -1,7 +1,7 @@
 <template>
   <!-- Sidebar panel: split panel, in-flow on all screen sizes -->
   <aside
-    class="flex-shrink-0 flex flex-col overflow-hidden transition-[width] duration-200"
+    class="relative z-20 flex-shrink-0 flex flex-col overflow-hidden transition-[width] duration-200"
     :class="sidebarOpen ? 'w-64' : 'w-0'"
     style="background: #003A84;"
     aria-label="Explorer Sidebar"

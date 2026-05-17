@@ -22,6 +22,27 @@ We aim to bridge the gap between academic knowledge and industry practice in sof
 - **Industry Collaboration**: Work alongside industry partners on meaningful projects that make an impact.
 - **Knowledge Sharing**: Regular workshops, seminars, and knowledge-sharing sessions open to all JTI students.
 
+## Example Workflow
+
+Our lab encourages students to move from design thinking into implementable software systems. A small example of a service endpoint might look like this:
+
+```ts
+type ResearchFocus = {
+  id: string
+  title: string
+  lead: string
+}
+
+const focusAreas: ResearchFocus[] = [
+  { id: 'web-engineering', title: 'Web Engineering', lead: 'Software Engineering Laboratory' },
+  { id: 'ai-systems', title: 'Artificial Intelligence', lead: 'Software Engineering Laboratory' },
+]
+
+export function getFocusArea(id: string) {
+  return focusAreas.find((area) => area.id === id)
+}
+```
+
 ## Get Involved
 
 Whether you are a student looking for research experience, a faculty member seeking collaboration, or an industry partner interested in working with us — we welcome you to reach out and be part of our journey.

@@ -1,7 +1,7 @@
 <template>
   <!-- Tab strip / Inner page header — fixed-height outer prevents layout collapse during transition -->
   <div
-    class="hidden lg:flex flex-shrink-0 overflow-hidden"
+    class="flex flex-shrink-0 overflow-hidden"
     style="height: 35px; background: #1E2D4E;"
   >
     <Transition name="tabmode" mode="out-in">
@@ -70,7 +70,7 @@
 
   <!-- Breadcrumb bar -->
   <div
-    class="hidden lg:flex items-center justify-between px-4 flex-shrink-0 select-none"
+    class="flex items-center justify-between px-4 flex-shrink-0 select-none"
     style="height: 26px; background: #162032; border-bottom: 1px solid rgba(255,255,255,0.05);"
   >
     <Transition name="breadcrumb" mode="out-in">

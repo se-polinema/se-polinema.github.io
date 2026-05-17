@@ -26,10 +26,8 @@ const researchers = (await getCollection('researchers'))
 ---
 
 <VSCodeLayout title="Publications">
-  <div class="py-12">
-    <div class="section-container">
-      <PublicationsPageIntro client:load />
-      <PublicationsArchive client:load publications={publications} researchers={researchers} />
-    </div>
+  <div class="px-8 py-5">
+    <PublicationsPageIntro client:load />
+    <PublicationsArchive client:load publications={publications} researchers={researchers} />
   </div>
 </VSCodeLayout>

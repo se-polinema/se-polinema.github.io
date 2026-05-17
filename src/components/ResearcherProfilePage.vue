@@ -1,11 +1,6 @@
 <template>
-  <main class="py-12 bg-white">
-    <div class="section-container">
-      <a href="/researchers" class="inline-flex items-center gap-2 text-sm text-primary/60 hover:text-primary transition-colors mb-8">
-        &larr; {{ t.team.backToResearchers }}
-      </a>
-
-      <section class="grid lg:grid-cols-[12rem_minmax(0,1fr)] gap-10 lg:gap-16 mb-20 items-start">
+  <div class="px-8 py-5">
+      <section class="grid lg:grid-cols-[12rem_minmax(0,1fr)] gap-10 lg:gap-16 mb-12 items-start">
         <aside class="flex items-start gap-5 lg:block">
           <div class="relative aspect-[4/5] w-28 shrink-0 bg-neutral-50 border border-neutral-200 overflow-hidden lg:max-w-[10rem] lg:w-auto">
             <img :src="researcher.photo" :alt="researcher.name" class="h-full w-full object-cover grayscale contrast-110 transition duration-300 hover:grayscale-0" :style="{ objectPosition: researcher.photoPosition }" loading="lazy" />
@@ -32,9 +27,8 @@
         </aside>
 
         <div>
-          <div class="section-label">{{ t.team.profileLabel }}</div>
-          <div class="border-b border-primary/10 pb-8 mb-8">
-            <h1 class="font-serif text-4xl md:text-5xl font-bold text-primary leading-tight mb-3">{{ researcher.name }}</h1>
+          <div class="border-b border-primary/10 pb-6 mb-8">
+            <h1>{{ researcher.name }}</h1>
             <p class="text-primary/60 text-lg mb-6">{{ lang === 'id' ? researcher.title.id : researcher.title.en }}</p>
             <p class="text-neutral-600 leading-relaxed text-lg max-w-3xl">{{ lang === 'id' ? researcher.shortBio.id : researcher.shortBio.en }}</p>
           </div>
@@ -60,7 +54,7 @@
 
           <section class="mb-14">
             <div class="flex items-end justify-between gap-4 mb-5">
-              <h2 class="font-serif text-2xl md:text-3xl font-bold text-primary">{{ t.team.publicationsHeading }}</h2>
+              <h2>{{ t.team.publicationsHeading }}</h2>
               <a href="/publications" class="text-sm text-primary/60 hover:text-primary transition-colors">{{ t.team.viewPublicationArchive }}</a>
             </div>
             <div class="space-y-10">
@@ -81,7 +75,7 @@
           </section>
 
           <section class="mb-14">
-            <h2 class="font-serif text-2xl md:text-3xl font-bold text-primary mb-5">{{ t.team.expertiseHeading }}</h2>
+            <h2>{{ t.team.expertiseHeading }}</h2>
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-3">{{ t.team.researchInterests }}</div>
@@ -93,25 +87,24 @@
           </section>
 
           <section class="mb-14">
-            <h2 class="font-serif text-2xl md:text-3xl font-bold text-primary mb-5">{{ t.team.biographyHeading }}</h2>
+            <h2>{{ t.team.biographyHeading }}</h2>
             <div class="space-y-4 text-neutral-600 leading-relaxed">
               <p>{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
             </div>
           </section>
 
           <section class="mb-14">
-            <h2 class="font-serif text-2xl md:text-3xl font-bold text-primary mb-5">{{ t.team.booksHeading }}</h2>
+            <h2>{{ t.team.booksHeading }}</h2>
             <p class="text-neutral-500 leading-relaxed">{{ t.team.booksEmpty }}</p>
           </section>
 
           <section>
-            <h2 class="font-serif text-2xl md:text-3xl font-bold text-primary mb-5">{{ t.team.projectsHeading }}</h2>
+            <h2>{{ t.team.projectsHeading }}</h2>
             <p class="text-neutral-500 leading-relaxed">{{ t.team.projectsEmpty }}</p>
           </section>
         </div>
       </section>
-    </div>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
