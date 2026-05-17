@@ -1,22 +1,33 @@
 <template>
-  <div class="px-8 py-5">
-      <section class="grid lg:grid-cols-[12rem_minmax(0,1fr)] gap-10 lg:gap-16 mb-12 items-start">
-        <aside class="flex items-start gap-5 lg:block">
-          <div class="relative aspect-[4/5] w-28 shrink-0 bg-neutral-50 border border-neutral-200 overflow-hidden lg:max-w-[10rem] lg:w-auto">
-            <img :src="researcher.photo" :alt="researcher.name" class="h-full w-full object-cover grayscale contrast-110 transition duration-300 hover:grayscale-0" :style="{ objectPosition: researcher.photoPosition }" loading="lazy" />
-          </div>
-          <div class="space-y-4 text-sm text-neutral-600 min-w-0 flex-1 lg:mt-5 lg:max-w-[12rem]">
-            <div>
-              <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-1">{{ t.team.affiliation }}</div>
-              <div>Software Engineering Laboratory<br />Jurusan Teknologi Informasi<br />Politeknik Negeri Malang</div>
+  <div class="px-8 py-4">
+    <section class="grid lg:grid-cols-[22rem_minmax(0,1fr)] gap-8 lg:gap-12 mb-8 items-start">
+
+      <!-- ── Sidebar ── -->
+      <aside class="lg:sticky lg:top-4">
+        <div class="flex gap-5">
+
+          <!-- Left sub-col: photo + affiliation + contact + external profiles -->
+          <div class="w-36 shrink-0 space-y-3 text-[13px] text-neutral-600">
+            <div class="relative aspect-[4/5] w-full bg-neutral-50 border border-neutral-200 overflow-hidden">
+              <img
+                :src="researcher.photo"
+                :alt="researcher.name"
+                class="h-full w-full object-cover grayscale contrast-110 transition duration-300 hover:grayscale-0"
+                :style="{ objectPosition: researcher.photoPosition }"
+                loading="lazy"
+              />
             </div>
             <div>
-              <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-1">{{ t.team.contact }}</div>
-              <a :href="`mailto:${researcher.email}`" class="text-primary hover:text-accent transition-colors">{{ researcher.email }}</a>
+              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-0.5">{{ t.team.affiliation }}</div>
+              <div class="leading-snug">Software Engineering Laboratory<br />Jurusan Teknologi Informasi<br />Politeknik Negeri Malang</div>
             </div>
             <div>
-              <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-1">{{ t.team.externalProfiles }}</div>
-              <ul class="space-y-1">
+              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-0.5">{{ t.team.contact }}</div>
+              <a :href="`mailto:${researcher.email}`" class="text-primary hover:text-accent transition-colors break-all">{{ researcher.email }}</a>
+            </div>
+            <div>
+              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-0.5">{{ t.team.externalProfiles }}</div>
+              <ul class="space-y-0.5">
                 <li><a :href="researcher.googleScholarUrl" target="_blank" rel="noopener" class="text-primary hover:text-accent transition-colors">Google Scholar</a></li>
                 <li v-if="researcher.institutionalUrl"><a :href="researcher.institutionalUrl" target="_blank" rel="noopener" class="text-primary hover:text-accent transition-colors">{{ t.team.institutionalPage }}</a></li>
                 <li v-if="researcher.orcidUrl"><a :href="researcher.orcidUrl" target="_blank" rel="noopener" class="text-primary hover:text-accent transition-colors">ORCID</a></li>
@@ -24,105 +35,137 @@
               </ul>
             </div>
           </div>
-        </aside>
 
-        <div>
-          <div class="border-b border-primary/10 pb-6 mb-8">
-            <h1>{{ researcher.name }}</h1>
-            <p class="text-primary/60 text-lg mb-6">{{ lang === 'id' ? researcher.title.id : researcher.title.en }}</p>
-            <p class="text-neutral-600 leading-relaxed text-lg max-w-3xl">{{ lang === 'id' ? researcher.shortBio.id : researcher.shortBio.en }}</p>
+          <!-- Right sub-col: stats + research interests + expertise pills -->
+          <div class="flex-1 min-w-0 flex flex-col justify-between gap-3">
+            <!-- Stats: 3-col grid, full width -->
+            <div class="grid grid-cols-3 gap-1">
+              <div class="border border-primary/10 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary tabular-nums leading-none">{{ publications.length }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 mt-1 leading-tight">Works</div>
+              </div>
+              <div class="border border-primary/10 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary tabular-nums leading-none">{{ researcher.expertise.length }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 mt-1 leading-tight">Areas</div>
+              </div>
+              <div class="border border-primary/10 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary tabular-nums leading-none">{{ externalProfileCount }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 mt-1 leading-tight">Profiles</div>
+              </div>
+            </div>
+
+            <!-- Research interests list -->
+            <div>
+              <div class="font-mono text-[9px] uppercase tracking-widest text-primary/35 mb-1.5">{{ t.team.researchInterests }}</div>
+              <ul class="space-y-1">
+                <li v-for="item in interests" :key="item" class="text-[12px] text-neutral-600 leading-snug">{{ item }}</li>
+              </ul>
+            </div>
+
+            <!-- Expertise pills -->
+            <div class="border-t border-primary/10 pt-2.5 flex flex-wrap gap-1">
+              <span
+                v-for="item in researcher.expertise"
+                :key="item"
+                class="font-mono text-[9px] uppercase tracking-wide text-primary/55 bg-neutral-50 border border-primary/10 px-1.5 py-0.5 leading-none"
+              >{{ item }}</span>
+            </div>
           </div>
 
-          <div class="grid sm:grid-cols-3 gap-4 mb-10">
-            <div class="border-t border-primary/10 pt-4">
-              <div class="font-serif text-3xl font-bold text-primary">{{ publications.length }}</div>
-              <div class="text-xs font-mono uppercase tracking-wider text-primary/45 mt-1">{{ t.team.selectedWorks }}</div>
-            </div>
-            <div class="border-t border-primary/10 pt-4">
-              <div class="font-serif text-3xl font-bold text-primary">{{ researcher.expertise.length }}</div>
-              <div class="text-xs font-mono uppercase tracking-wider text-primary/45 mt-1">{{ t.team.researchThemes }}</div>
-            </div>
-            <div class="border-t border-primary/10 pt-4">
-              <div class="font-serif text-3xl font-bold text-primary">{{ externalProfileCount }}</div>
-              <div class="text-xs font-mono uppercase tracking-wider text-primary/45 mt-1">{{ t.team.externalProfiles }}</div>
-            </div>
-          </div>
+        </div>
+      </aside>
 
-          <div class="flex flex-wrap gap-2 mb-10">
-            <span v-for="item in researcher.expertise" :key="item" class="text-xs font-mono uppercase tracking-wide text-primary/60 bg-neutral-50 border border-primary/10 px-3 py-1.5">{{ item }}</span>
-          </div>
+      <!-- ── Main content ── -->
+      <div>
+        <!-- Header -->
+        <div class="profile-hd border-b border-primary/10 pb-4 mb-5">
+          <h1>{{ researcher.name }}</h1>
+          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-primary/45 mt-1 mb-2">
+            {{ lang === 'id' ? researcher.title.id : researcher.title.en }}
+          </p>
+          <p class="text-neutral-600 leading-relaxed text-sm max-w-2xl">
+            {{ lang === 'id' ? researcher.shortBio.id : researcher.shortBio.en }}
+          </p>
+        </div>
 
-          <section class="mb-14">
+        <!-- Sections -->
+        <div class="profile-body">
+          <!-- Biography -->
+          <section class="mb-7">
             <h2>{{ t.team.biographyHeading }}</h2>
-            <div class="space-y-4 text-neutral-600 leading-relaxed">
-              <p>{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
-            </div>
+            <p class="text-neutral-600 leading-relaxed text-sm">{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
           </section>
 
-          <section class="mb-14">
+          <!-- Books -->
+          <section class="mb-7">
             <h2>{{ t.team.booksHeading }}</h2>
             <template v-if="props.researcher.books?.length">
-              <ul class="space-y-6">
+              <ul class="space-y-4">
                 <li v-for="book in props.researcher.books" :key="book.title">
-                  <div class="font-serif text-base font-semibold text-primary">{{ book.title }}</div>
-                  <p v-if="book.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-2xl">{{ book.description }}</p>
-                  <div v-if="book.playstoreUrl" class="mt-2">
-                    <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-sm text-primary hover:text-accent transition-colors">Buy on Google Play Books →</a>
+                  <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">{{ book.title }}</div>
+                  <p v-if="book.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ book.description }}</p>
+                  <div v-if="book.playstoreUrl" class="mt-1.5">
+                    <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary hover:text-accent transition-colors">Buy on Google Play Books →</a>
                   </div>
                 </li>
               </ul>
             </template>
-            <p v-else class="text-neutral-500 leading-relaxed">{{ t.team.booksEmpty }}</p>
+            <p v-else class="text-neutral-500 text-sm">{{ t.team.booksEmpty }}</p>
           </section>
 
-          <section class="mb-14">
+          <!-- Projects -->
+          <section class="mb-7">
             <h2>{{ t.team.projectsHeading }}</h2>
             <template v-if="props.researcher.projects?.length">
-              <ul class="space-y-5">
+              <ul class="space-y-3">
                 <li v-for="project in props.researcher.projects" :key="project.repo">
-                  <a :href="`https://github.com/${project.repo}`" target="_blank" rel="noopener" class="font-mono text-sm text-primary hover:text-accent transition-colors">{{ project.repo }}</a>
-                  <p v-if="project.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-2xl">{{ project.description }}</p>
+                  <a
+                    :href="`https://github.com/${project.repo}`"
+                    target="_blank" rel="noopener"
+                    class="font-mono text-[13px] text-primary hover:text-accent transition-colors"
+                  >{{ project.name ?? project.repo }}</a>
+                  <p v-if="project.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ project.description }}</p>
                 </li>
               </ul>
             </template>
-            <p v-else class="text-neutral-500 leading-relaxed">{{ t.team.projectsEmpty }}</p>
+            <p v-else class="text-neutral-500 text-sm">{{ t.team.projectsEmpty }}</p>
           </section>
 
-          <section class="mb-14">
+          <!-- Expertise / Research Interests -->
+          <section class="mb-7">
             <h2>{{ t.team.expertiseHeading }}</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-              <div>
-                <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-3">{{ t.team.researchInterests }}</div>
-                <ul class="space-y-2 text-neutral-600">
-                  <li v-for="item in interests" :key="item">{{ item }}</li>
-                </ul>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-2">{{ t.team.researchInterests }}</div>
+            <ul class="space-y-1 text-neutral-600 text-sm">
+              <li v-for="item in interests" :key="item">{{ item }}</li>
+            </ul>
+          </section>
+
+          <!-- Publications -->
+          <section>
+            <div class="flex items-baseline justify-between gap-4 mb-3">
+              <h2>{{ t.team.publicationsHeading }}</h2>
+              <a href="/publications" class="text-[13px] text-primary/55 hover:text-primary transition-colors whitespace-nowrap">{{ t.team.viewPublicationArchive }}</a>
+            </div>
+            <div class="space-y-6">
+              <div v-for="group in groupedEntries" :key="group.year">
+                <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/35 mb-3">{{ group.year }}</div>
+                <div class="space-y-4">
+                  <article v-for="publication in group.items" :key="publication.id" class="border-t border-primary/10 pt-4">
+                    <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-1">{{ publication.type }}</div>
+                    <h3 class="font-serif text-[1rem] font-semibold text-primary leading-snug">
+                      <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
+                    </h3>
+                    <p class="mt-1 text-[13px] text-neutral-600">{{ publication.authors.join(', ') }}</p>
+                    <p class="mt-0.5 text-[13px] text-neutral-400 italic">{{ publication.venue }}</p>
+                  </article>
+                </div>
               </div>
             </div>
           </section>
-
-          <section>
-            <div class="flex items-end justify-between gap-4 mb-5">
-              <h2>{{ t.team.publicationsHeading }}</h2>
-              <a href="/publications" class="text-sm text-primary/60 hover:text-primary transition-colors">{{ t.team.viewPublicationArchive }}</a>
-            </div>
-            <div class="space-y-10">
-              <section v-for="group in groupedEntries" :key="group.year">
-                <div class="font-mono text-xs uppercase tracking-[0.2em] text-primary/40 mb-4">{{ group.year }}</div>
-                <div class="space-y-5">
-                  <article v-for="publication in group.items" :key="publication.id" class="border-t border-primary/10 pt-5">
-                    <div class="font-mono text-xs uppercase tracking-wider text-primary/40 mb-2">{{ publication.type }}</div>
-                    <h3 class="font-serif text-lg font-semibold text-primary leading-snug">
-                      <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
-                    </h3>
-                    <p class="mt-2 text-sm text-neutral-600">{{ publication.authors.join(', ') }}</p>
-                    <p class="mt-1 text-sm text-neutral-500">{{ publication.venue }}</p>
-                  </article>
-                </div>
-              </section>
-            </div>
-          </section>
         </div>
-      </section>
+      </div>
+
+    </section>
   </div>
 </template>
 
@@ -148,7 +191,7 @@ const props = defineProps<{
     institutionalUrl?: string
     orcidUrl?: string
     scopusUrl?: string
-    projects?: Array<{ repo: string; description?: string }>
+    projects?: Array<{ name?: string; repo: string; description?: string }>
     books?: Array<{ title: string; playstoreUrl?: string; description?: string }>
   }
   publications: Publication[]
@@ -178,3 +221,18 @@ const groupedEntries = computed(() => {
 
 const interests = computed(() => lang.value === 'id' ? props.researcher.researchInterests.id : props.researcher.researchInterests.en)
 </script>
+
+<style scoped>
+/* Override global 2.5rem — profile name should be prominent but not page-title scale */
+:deep(.profile-hd h1:not([class])) {
+  font-size: 1.625rem;
+  margin-bottom: 0;
+}
+
+/* Global h2 carries margin-top: 1.75rem which double-stacks with section mb — zero it out */
+:deep(.profile-body h2:not([class])) {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  font-size: 1.125rem;
+}
+</style>

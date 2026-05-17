@@ -46,6 +46,7 @@ const researchersCollection = defineCollection({
     featured: z.boolean().default(false),
     order: z.number().int(),
     projects: z.array(z.object({
+      name: z.string().optional(),
       repo: z.string(),
       description: z.string().optional(),
     })).optional(),
