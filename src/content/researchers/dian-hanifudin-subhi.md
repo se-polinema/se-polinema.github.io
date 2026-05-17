@@ -32,4 +32,11 @@ email: "dian.hanifudin@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 featured: true
 order: 4
+projects:
+  - repo: "dhanifudin/pakai"
+    description: "A lightweight CLI tool for managing and scaffolding project templates, designed to speed up day-to-day development workflows."
+books:
+  - title: "Git Tanpa Drama"
+    description: "A beginner-friendly, Indonesian-language guide to Git — covering branching, merging, collaboration, and everyday version-control workflows without the confusion."
+    playstoreUrl: "https://play.google.com/store/books/details/Dian_Hanifudin_Subhi_Usman_Nurhasan_Putra_Prima_Ar?id=c7TCEQAAQBAJ&hl=en"
 ---

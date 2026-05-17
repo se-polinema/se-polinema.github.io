@@ -53,6 +53,54 @@
           </div>
 
           <section class="mb-14">
+            <h2>{{ t.team.biographyHeading }}</h2>
+            <div class="space-y-4 text-neutral-600 leading-relaxed">
+              <p>{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
+            </div>
+          </section>
+
+          <section class="mb-14">
+            <h2>{{ t.team.booksHeading }}</h2>
+            <template v-if="props.researcher.books?.length">
+              <ul class="space-y-6">
+                <li v-for="book in props.researcher.books" :key="book.title">
+                  <div class="font-serif text-base font-semibold text-primary">{{ book.title }}</div>
+                  <p v-if="book.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-2xl">{{ book.description }}</p>
+                  <div v-if="book.playstoreUrl" class="mt-2">
+                    <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-sm text-primary hover:text-accent transition-colors">Buy on Google Play Books →</a>
+                  </div>
+                </li>
+              </ul>
+            </template>
+            <p v-else class="text-neutral-500 leading-relaxed">{{ t.team.booksEmpty }}</p>
+          </section>
+
+          <section class="mb-14">
+            <h2>{{ t.team.projectsHeading }}</h2>
+            <template v-if="props.researcher.projects?.length">
+              <ul class="space-y-5">
+                <li v-for="project in props.researcher.projects" :key="project.repo">
+                  <a :href="`https://github.com/${project.repo}`" target="_blank" rel="noopener" class="font-mono text-sm text-primary hover:text-accent transition-colors">{{ project.repo }}</a>
+                  <p v-if="project.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-2xl">{{ project.description }}</p>
+                </li>
+              </ul>
+            </template>
+            <p v-else class="text-neutral-500 leading-relaxed">{{ t.team.projectsEmpty }}</p>
+          </section>
+
+          <section class="mb-14">
+            <h2>{{ t.team.expertiseHeading }}</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-3">{{ t.team.researchInterests }}</div>
+                <ul class="space-y-2 text-neutral-600">
+                  <li v-for="item in interests" :key="item">{{ item }}</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <div class="flex items-end justify-between gap-4 mb-5">
               <h2>{{ t.team.publicationsHeading }}</h2>
               <a href="/publications" class="text-sm text-primary/60 hover:text-primary transition-colors">{{ t.team.viewPublicationArchive }}</a>
@@ -72,35 +120,6 @@
                 </div>
               </section>
             </div>
-          </section>
-
-          <section class="mb-14">
-            <h2>{{ t.team.expertiseHeading }}</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-              <div>
-                <div class="text-xs font-mono uppercase tracking-wider text-primary/40 mb-3">{{ t.team.researchInterests }}</div>
-                <ul class="space-y-2 text-neutral-600">
-                  <li v-for="item in interests" :key="item">{{ item }}</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-14">
-            <h2>{{ t.team.biographyHeading }}</h2>
-            <div class="space-y-4 text-neutral-600 leading-relaxed">
-              <p>{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
-            </div>
-          </section>
-
-          <section class="mb-14">
-            <h2>{{ t.team.booksHeading }}</h2>
-            <p class="text-neutral-500 leading-relaxed">{{ t.team.booksEmpty }}</p>
-          </section>
-
-          <section>
-            <h2>{{ t.team.projectsHeading }}</h2>
-            <p class="text-neutral-500 leading-relaxed">{{ t.team.projectsEmpty }}</p>
           </section>
         </div>
       </section>
@@ -129,6 +148,8 @@ const props = defineProps<{
     institutionalUrl?: string
     orcidUrl?: string
     scopusUrl?: string
+    projects?: Array<{ repo: string; description?: string }>
+    books?: Array<{ title: string; playstoreUrl?: string; description?: string }>
   }
   publications: Publication[]
 }>()
