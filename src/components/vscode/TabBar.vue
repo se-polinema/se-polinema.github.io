@@ -98,7 +98,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 
-const { activeSection, currentPage, panelOpen, activePanelTab, initObserver, scrollTo, openPanel } = useVSCodeLayout()
+const { activeSection, currentPage, initObserver, scrollTo } = useVSCodeLayout()
 
 const isDetailPage = ref(false)
 const backHref = ref('')
@@ -110,7 +110,6 @@ const tabs = [
   { id: 'team',         label: 'team.md',          ext: 'md',   pageId: 'researchers',  href: '/researchers' },
   { id: 'publications', label: 'publications.bib', ext: 'bib',  pageId: 'publications', href: '/publications' },
   { id: 'news',         label: 'news.md',          ext: 'md',   pageId: 'news',         href: '/blog' },
-  { id: 'contact',      label: 'contact.json',     ext: 'json', pageId: '',             href: '' },
 ]
 
 const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
@@ -120,7 +119,6 @@ const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   team:         { path: ['se-lab', 'src', 'researchers', 'team.md'], lang: 'Markdown' },
   publications: { path: ['se-lab', 'src', 'publications.bib'],       lang: 'BibTeX'   },
   news:         { path: ['se-lab', 'src', 'news.md'],                lang: 'Markdown' },
-  contact:      { path: ['se-lab', 'contact.json'],                  lang: 'JSON'     },
 }
 
 const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
@@ -137,9 +135,6 @@ const innerPageLabel = computed(() => {
 })
 
 const currentBreadcrumb = computed(() => {
-  if (panelOpen.value && activePanelTab.value === 'contact') {
-    return breadcrumbMap.contact
-  }
   if (currentPage.value !== 'home') {
     return pageBreadcrumbMap[currentPage.value] ?? breadcrumbMap.hero
   }
@@ -147,18 +142,11 @@ const currentBreadcrumb = computed(() => {
 })
 
 function isActiveTab(tab: typeof tabs[0]): boolean {
-  if (tab.id === 'contact') {
-    return panelOpen.value && activePanelTab.value === 'contact'
-  }
   if (currentPage.value === 'home') return activeSection.value === tab.id
   return currentPage.value === tab.pageId
 }
 
 function handleTab(tab: typeof tabs[0]) {
-  if (tab.id === 'contact') {
-    openPanel('contact')
-    return
-  }
   if (currentPage.value === 'home') {
     scrollTo(tab.id)
   } else {

@@ -2,7 +2,7 @@
   <!-- Sidebar panel: split panel, in-flow on all screen sizes -->
   <aside
     class="relative z-20 flex-shrink-0 flex flex-col overflow-hidden transition-[width] duration-200"
-    :class="sidebarOpen ? 'w-64' : 'w-0'"
+    :class="sidebarOpen ? 'w-64' : layoutInitialized ? 'w-0' : 'w-0 lg:w-64'"
     style="background: #003A84;"
     aria-label="Explorer Sidebar"
   >
@@ -192,9 +192,9 @@ import { ref, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 
 const {
-  sidebarOpen, activeSection, currentPage,
-  panelOpen, activePanelTab, activeSidebarView, activeFilters,
-  openPanel, initObserver, scrollTo,
+  sidebarOpen, activeSection, currentPage, layoutInitialized,
+  activeSidebarView, activeFilters,
+  initObserver, scrollTo,
 } = useVSCodeLayout()
 
 interface FileItem {
@@ -217,7 +217,6 @@ const fileTree: FileItem[] = [
   { id: 'team',            name: 'team.md',          ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },
   { id: 'news',            name: 'news.md',          ext: 'md',   type: 'file',   sectionId: 'news',         pageId: 'news',         indent: 2, href: '/blog' },
-  { id: 'contact',         name: 'contact.json',     ext: 'json', type: 'file',   sectionId: '',             pageId: '',             indent: 1, href: '' },
 ]
 
 // Panel data (lazily fetched)
@@ -228,9 +227,6 @@ const blogCategories = ref<string[]>([])
 const currentPath = ref('')
 
 function isActive(item: FileItem): boolean {
-  if (item.id === 'contact') {
-    return panelOpen.value && activePanelTab.value === 'contact'
-  }
   if (currentPage.value === 'home') {
     return !!item.sectionId && activeSection.value === item.sectionId
   }
@@ -248,10 +244,6 @@ function dotColor(ext: string): string {
 }
 
 function navigate(item: FileItem) {
-  if (item.id === 'contact') {
-    openPanel('contact')
-    return
-  }
   if (currentPage.value === 'home' && item.sectionId) {
     scrollTo(item.sectionId)
     return

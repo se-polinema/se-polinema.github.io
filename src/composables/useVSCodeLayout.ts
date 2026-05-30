@@ -2,12 +2,13 @@ import { ref, reactive } from 'vue'
 
 type SidebarView = 'explorer' | 'blog' | 'github' | 'researchers' | 'publications'
 
-const sidebarOpen = ref(true)
+const sidebarOpen = ref(false)
 const activeSection = ref('hero')
 const currentPage = ref('home')
 const panelOpen = ref(false)
 const activePanelTab = ref<'contact' | 'output' | 'problems'>('contact')
 const activeSidebarView = ref<SidebarView>('explorer')
+const layoutInitialized = ref(false)
 const activeFilters = reactive<{
   category: string | null
   year: number | null
@@ -21,6 +22,7 @@ export function useVSCodeLayout() {
   if (typeof window !== 'undefined' && !initialized) {
     initialized = true
     sidebarOpen.value = window.innerWidth >= 1024
+    layoutInitialized.value = true
 
     const path = window.location.pathname
     if (path.startsWith('/blog')) {
@@ -105,6 +107,7 @@ export function useVSCodeLayout() {
     sidebarOpen,
     activeSection,
     currentPage,
+    layoutInitialized,
     panelOpen,
     activePanelTab,
     activeSidebarView,

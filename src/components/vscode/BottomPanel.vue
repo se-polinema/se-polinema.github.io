@@ -51,8 +51,8 @@
           <p class="mt-1">
             <span class="text-[#9CDCFE]">"email"</span>
             <span class="text-white/40">: </span>
-            <a href="mailto:se-lab@polinema.ac.id" class="text-[#CE9178] hover:text-accent transition-colors">
-              "se-lab@polinema.ac.id"
+            <a href="mailto:imam.fahrur@polinema.ac.id" class="text-[#CE9178] hover:text-accent transition-colors">
+              "imam.fahrur@polinema.ac.id"
             </a>
           </p>
         </div>

@@ -21,7 +21,7 @@
 
             <div>
               <a
-                href="mailto:se-lab@polinema.ac.id"
+                href="mailto:imam.fahrur@polinema.ac.id"
                 class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-primary text-white hover:bg-accent hover:text-primary transition-colors"
               >
                 {{ t.contact.email }}

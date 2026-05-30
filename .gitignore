@@ -1,4 +1,8 @@
-node_modules
+# AI Settings
+/.claude/
+
+# Astro
+node_modules/
 dist
 .env
 .astro
