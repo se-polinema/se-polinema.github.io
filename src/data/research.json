@@ -1,58 +1,35 @@
 [
   {
-    "id": "web-engineering",
-    "name": { "en": "Web Engineering", "id": "Rekayasa Web" },
+    "id": "se-methodologies-architecture",
+    "name": {
+      "en": "Software Engineering Methodologies & Architecture",
+      "id": "Metodologi dan Arsitektur Rekayasa Perangkat Lunak"
+    },
     "description": {
-      "en": "Modern full-stack web development, progressive web applications, and service-oriented architectures.",
-      "id": "Pengembangan web full-stack modern, progressive web applications, dan arsitektur berorientasi layanan."
+      "en": "Research on software engineering methods, processes, and architecture to improve efficiency, quality, and scalability. Topics include microservices design and optimization, clean code principles, software design patterns (MVC, MVVM), and development methodologies such as Test-Driven Development (TDD) and Domain-Driven Design (DDD).",
+      "id": "Penelitian pada metode, proses, dan arsitektur perangkat lunak untuk meningkatkan efisiensi, kualitas, dan skalabilitas. Topik mencakup desain dan optimalisasi microservices, prinsip clean code, pola desain perangkat lunak (MVC, MVVM), serta metodologi seperti Test-Driven Development (TDD) dan Domain-Driven Design (DDD)."
     }
   },
   {
-    "id": "mobile-development",
-    "name": { "en": "Mobile Development", "id": "Pengembangan Mobile" },
+    "id": "domain-specific-se-applications",
+    "name": {
+      "en": "Domain-Specific Software Engineering Applications",
+      "id": "Aplikasi Rekayasa Perangkat Lunak Berbasis Domain"
+    },
     "description": {
-      "en": "Native and cross-platform mobile application development for Android and iOS ecosystems.",
-      "id": "Pengembangan aplikasi mobile native dan lintas platform untuk ekosistem Android dan iOS."
+      "en": "Software solutions designed for specific domains and real-world service contexts. Focus areas include educational technology platforms, fintech systems (crowdfunding, digital wallets, P2P lending), healthcare software (EMR, telemedicine), startup and entrepreneurship tools, and industrial automation systems.",
+      "id": "Solusi perangkat lunak yang dirancang untuk domain spesifik dan konteks layanan nyata. Bidang fokus mencakup platform teknologi pendidikan, sistem fintech (crowdfunding, dompet digital, P2P lending), perangkat lunak kesehatan (EMR, telemedicine), alat kewirausahaan dan startup, serta sistem otomasi industri."
     }
   },
   {
-    "id": "ui-ux-design",
-    "name": { "en": "UI/UX Design", "id": "Desain UI/UX" },
+    "id": "emerging-technologies-se",
+    "name": {
+      "en": "Emerging Technologies in Software Engineering",
+      "id": "Teknologi Berkembang dalam Rekayasa Perangkat Lunak"
+    },
     "description": {
-      "en": "User-centered interface design, interaction design patterns, and usability research methodologies.",
-      "id": "Desain antarmuka berpusat pengguna, pola desain interaksi, dan metodologi penelitian usability."
-    }
-  },
-  {
-    "id": "software-quality",
-    "name": { "en": "Software Quality & Testing", "id": "Kualitas & Pengujian Perangkat Lunak" },
-    "description": {
-      "en": "Automated testing frameworks, quality assurance processes, and software reliability engineering.",
-      "id": "Kerangka pengujian otomatis, proses penjaminan kualitas, dan rekayasa keandalan perangkat lunak."
-    }
-  },
-  {
-    "id": "data-science",
-    "name": { "en": "Data Science", "id": "Ilmu Data" },
-    "description": {
-      "en": "Data analytics, statistical modeling, big data processing, and information visualization.",
-      "id": "Analitik data, pemodelan statistik, pemrosesan big data, dan visualisasi informasi."
-    }
-  },
-  {
-    "id": "artificial-intelligence",
-    "name": { "en": "Artificial Intelligence", "id": "Kecerdasan Buatan" },
-    "description": {
-      "en": "Machine learning, natural language processing, computer vision, and intelligent systems.",
-      "id": "Pembelajaran mesin, pemrosesan bahasa alami, visi komputer, dan sistem cerdas."
-    }
-  },
-  {
-    "id": "cloud-devops",
-    "name": { "en": "Cloud Computing & DevOps", "id": "Komputasi Awan & DevOps" },
-    "description": {
-      "en": "Cloud infrastructure, containerization, CI/CD pipelines, and deployment automation.",
-      "id": "Infrastruktur cloud, kontainerisasi, pipeline CI/CD, dan otomatisasi deployment."
+      "en": "Exploration of emerging technologies to drive and support software innovation. Research topics include automated code quality analysis, bug prediction systems, AI-assisted test case generation, requirements automation tools, code refactoring, form generators, and documentation automation.",
+      "id": "Eksplorasi teknologi baru untuk mendorong dan mendukung inovasi dalam pengembangan perangkat lunak. Topik penelitian mencakup analisis kualitas kode otomatis, sistem prediksi bug, pembuatan test case berbasis AI, alat otomatisasi kebutuhan, refactoring kode, generator form, dan otomatisasi dokumentasi."
     }
   }
 ]

@@ -30,17 +30,17 @@
   "about": {
     "label": "Tentang Lab",
     "heading": "Memajukan pendidikan dan riset rekayasa perangkat lunak",
-    "p1": "Laboratorium Rekayasa Perangkat Lunak adalah unit penelitian dan pengembangan di bawah Jurusan Teknologi Informasi Politeknik Negeri Malang. Kami menjadi pusat kolaborasi antara mahasiswa, dosen, dan mitra industri dalam proyek rekayasa perangkat lunak, inisiatif riset, dan inovasi.",
-    "p2": "Laboratorium kami menyediakan lingkungan di mana pengetahuan teoritis bertemu dengan aplikasi praktis. Melalui proyek langsung, lokakarya, dan riset kolaboratif, kami mempersiapkan generasi insinyur perangkat lunak berikutnya untuk mengatasi tantangan dunia nyata.",
+    "p1": "Laboratorium Rekayasa Perangkat Lunak merupakan fasilitas akademik di bawah naungan Jurusan Teknologi Informasi Politeknik Negeri Malang yang berfokus pada bidang rekayasa dan pengembangan perangkat lunak. Laboratorium ini berfungsi sebagai pusat aktivitas penelitian, inovasi, dan pengabdian masyarakat yang berorientasi pada pengembangan teknologi perangkat lunak.",
+    "p2": "Aktivitas kami mencakup pengembangan kompetensi mahasiswa dalam proyek dan kompetisi berbasis perangkat lunak, penelitian fundamental dan terapan, kolaborasi multidisiplin dengan bidang kesehatan, pendidikan, ekonomi, dan lainnya, serta implementasi hasil penelitian untuk menyelesaikan masalah nyata di masyarakat.",
     "institution": "Unit penelitian dan pengembangan di bawah Jurusan Teknologi Informasi Politeknik Negeri Malang.",
     "vision": {
       "label": "Visi",
-      "text": "Menjadi laboratorium rekayasa perangkat lunak terkemuka yang mendorong inovasi, mendorong kolaborasi, dan menghasilkan riset serta talenta berdampak bagi lanskap teknologi global."
+      "text": "Menjadi pusat unggulan dalam pengembangan ilmu pengetahuan, teknologi, dan inovasi di bidang Rekayasa Perangkat Lunak yang berdaya saing global, dengan kontribusi nyata pada kemajuan akademik, industri, dan masyarakat."
     }
   },
   "research": {
     "label": "Fokus Riset",
-    "heading": "Tujuh pilar rekayasa perangkat lunak"
+    "heading": "Tiga stream riset rekayasa perangkat lunak"
   },
   "team": {
     "label": "Peneliti",

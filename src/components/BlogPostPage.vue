@@ -1,18 +1,11 @@
 <template>
-  <div class="px-8 py-6">
-    <!-- Title — no class so .editor-body h1::before adds the # prefix -->
-    <h1>{{ displayTitle }}</h1>
+  <!-- Title — no class so .editor-body h1::before adds the # prefix -->
+  <h1>{{ displayTitle }}</h1>
 
-    <!-- Subtle metadata line, styled like a markdown italic comment -->
-    <p class="font-mono text-[11.5px] text-neutral-400 mt-1 mb-8 italic">
-      {{ displayDate }} &middot; {{ category }}
-    </p>
-
-    <!-- Markdown body -->
-    <div class="prose prose-slate max-w-none">
-      <slot />
-    </div>
-  </div>
+  <!-- Subtle metadata line, styled like a markdown italic comment -->
+  <p class="font-mono text-[11.5px] text-neutral-400 mt-1 mb-8 italic">
+    {{ displayDate }} &middot; {{ category }}
+  </p>
 </template>
 
 <script setup lang="ts">

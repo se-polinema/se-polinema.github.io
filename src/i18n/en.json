@@ -30,17 +30,17 @@
   "about": {
     "label": "About the Lab",
     "heading": "Advancing software engineering education and research",
-    "p1": "The Software Engineering Laboratory is a research and development unit under the Department of Information Technology at Politeknik Negeri Malang. We serve as a hub where students, faculty, and industry partners collaborate on software engineering projects, research initiatives, and innovation.",
-    "p2": "Our laboratory provides an environment where theoretical knowledge meets practical application. Through hands-on projects, workshops, and collaborative research, we prepare the next generation of software engineers to tackle real-world challenges.",
+    "p1": "The Software Engineering Laboratory is an academic facility under the Department of Information Technology at Politeknik Negeri Malang, focused on software engineering and software development. The laboratory serves as a center for research, innovation, and community service oriented toward the advancement of software technology.",
+    "p2": "Our activities span student competency development in software-based projects and competitions, fundamental and applied research, multi-disciplinary collaboration across health, education, economics, and other sectors, and community-facing implementation of research results.",
     "institution": "A research and development unit under the Department of Information Technology at Politeknik Negeri Malang.",
     "vision": {
       "label": "Vision",
-      "text": "To be a leading software engineering laboratory that drives innovation, fosters collaboration, and produces impactful research and talent for the global technology landscape."
+      "text": "To become a center of excellence in knowledge, technology, and software engineering innovation with global competitiveness — contributing meaningfully to academic, industry, and societal advancement."
     }
   },
   "research": {
     "label": "Research Focus",
-    "heading": "Seven pillars of software engineering"
+    "heading": "Three streams of software engineering research"
   },
   "team": {
     "label": "Researchers",

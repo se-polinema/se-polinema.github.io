@@ -192,10 +192,23 @@ const LINE_COUNT = 1000
 
 /* ─── Code blocks — editor-style dark background ─── */
 .editor-body pre:not([class]),
-.editor-body pre[class^="astro"],
-.editor-body .prose pre {
+.editor-body pre[class^="astro"]:not(.astro-code),
+.editor-body .prose pre:not(.astro-code) {
   background: #0E1E3D !important;
   color: #D4D4D4;
+  border-radius: 4px;
+  padding: 1em 1.25em;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  overflow-x: auto;
+  margin: 1em 0;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Shiki code blocks — let their native background (#1E1E1E) show through */
+.editor-body pre.astro-code,
+.editor-body .prose pre.astro-code {
   border-radius: 4px;
   padding: 1em 1.25em;
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
