@@ -32,4 +32,7 @@ email: "ariadi.retno@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 featured: true
 order: 6
+streams:
+  - "emerging-technologies-se"
+  - "domain-specific-se-applications"
 ---

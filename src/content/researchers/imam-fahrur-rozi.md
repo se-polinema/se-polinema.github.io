@@ -32,4 +32,7 @@ email: "imam.fahrur@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=WwrDWnEAAAAJ&hl=en"
 featured: true
 order: 1
+streams:
+  - "emerging-technologies-se"
+  - "domain-specific-se-applications"
 ---

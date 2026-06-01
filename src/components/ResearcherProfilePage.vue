@@ -62,6 +62,20 @@
               </ul>
             </div>
 
+            <!-- Research Themes (lab stream mapping) -->
+            <div v-if="researcher.streams?.length" class="border-t border-primary/10 pt-2.5">
+              <div class="font-mono text-[9px] uppercase tracking-widest text-primary/35 mb-1.5">{{ t.team.researchThemes }}</div>
+              <div class="flex flex-col gap-1">
+                <span
+                  v-for="streamId in researcher.streams"
+                  :key="streamId"
+                  class="text-[11px] font-mono px-1.5 py-1 rounded bg-primary/[0.06] text-primary/70 border border-primary/10 leading-snug"
+                >
+                  {{ getStreamName(streamId) }}
+                </span>
+              </div>
+            </div>
+
             <!-- Expertise pills -->
             <div class="border-t border-primary/10 pt-2.5 flex flex-wrap gap-1">
               <span
@@ -172,6 +186,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import researchData from '../data/research.json'
 
 type Localized = { id: string; en: string }
 type Publication = { id: string; title: string; year: number; authors: string[]; venue: string; type: string; url: string }
@@ -193,6 +208,7 @@ const props = defineProps<{
     scopusUrl?: string
     projects?: Array<{ name?: string; repo: string; description?: string }>
     books?: Array<{ title: string; playstoreUrl?: string; description?: string }>
+    streams?: string[]
   }
   publications: Publication[]
 }>()
@@ -220,6 +236,11 @@ const groupedEntries = computed(() => {
 })
 
 const interests = computed(() => lang.value === 'id' ? props.researcher.researchInterests.id : props.researcher.researchInterests.en)
+
+function getStreamName(id: string) {
+  const stream = researchData.find(r => r.id === id)
+  return stream ? (lang.value === 'id' ? stream.name.id : stream.name.en) : id
+}
 </script>
 
 <style scoped>

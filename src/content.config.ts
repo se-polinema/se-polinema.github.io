@@ -55,6 +55,7 @@ const researchersCollection = defineCollection({
       playstoreUrl: z.url().optional(),
       description: z.string().optional(),
     })).optional(),
+    streams: z.array(z.string()).optional(),
   }),
 })
 

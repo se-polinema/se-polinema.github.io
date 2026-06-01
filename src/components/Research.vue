@@ -27,9 +27,18 @@
               <h3 class="font-serif text-lg md:text-xl font-semibold text-primary mb-2 group-hover:text-primary/80 transition-colors">
                 {{ lang === 'id' ? area.name.id : area.name.en }}
               </h3>
-              <p class="text-sm text-neutral-500 leading-relaxed">
-                {{ lang === 'id' ? area.description.id : area.description.en }}
+              <p class="text-sm text-neutral-500 leading-relaxed mb-3">
+                {{ lang === 'id' ? area.tagline.id : area.tagline.en }}
               </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span
+                  v-for="topic in area.topics"
+                  :key="topic"
+                  class="inline-block text-xs font-mono px-2 py-0.5 rounded bg-primary/[0.06] text-primary/60 border border-primary/10"
+                >
+                  {{ topic }}
+                </span>
+              </div>
             </div>
           </div>
         </div>

@@ -32,4 +32,7 @@ email: "elok.nur@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 featured: true
 order: 3
+streams:
+  - "domain-specific-se-applications"
+  - "emerging-technologies-se"
 ---

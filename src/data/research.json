@@ -5,10 +5,11 @@
       "en": "Software Engineering Methodologies & Architecture",
       "id": "Metodologi dan Arsitektur Rekayasa Perangkat Lunak"
     },
-    "description": {
-      "en": "Research on software engineering methods, processes, and architecture to improve efficiency, quality, and scalability. Topics include microservices design and optimization, clean code principles, software design patterns (MVC, MVVM), and development methodologies such as Test-Driven Development (TDD) and Domain-Driven Design (DDD).",
-      "id": "Penelitian pada metode, proses, dan arsitektur perangkat lunak untuk meningkatkan efisiensi, kualitas, dan skalabilitas. Topik mencakup desain dan optimalisasi microservices, prinsip clean code, pola desain perangkat lunak (MVC, MVVM), serta metodologi seperti Test-Driven Development (TDD) dan Domain-Driven Design (DDD)."
-    }
+    "tagline": {
+      "en": "Methods and patterns for building efficient, scalable, and maintainable software systems.",
+      "id": "Metode dan pola untuk membangun sistem perangkat lunak yang efisien, skalabel, dan mudah dipelihara."
+    },
+    "topics": ["Microservices", "Clean Code", "MVC / MVVM", "TDD", "DDD", "Design Patterns"]
   },
   {
     "id": "domain-specific-se-applications",
@@ -16,10 +17,11 @@
       "en": "Domain-Specific Software Engineering Applications",
       "id": "Aplikasi Rekayasa Perangkat Lunak Berbasis Domain"
     },
-    "description": {
-      "en": "Software solutions designed for specific domains and real-world service contexts. Focus areas include educational technology platforms, fintech systems (crowdfunding, digital wallets, P2P lending), healthcare software (EMR, telemedicine), startup and entrepreneurship tools, and industrial automation systems.",
-      "id": "Solusi perangkat lunak yang dirancang untuk domain spesifik dan konteks layanan nyata. Bidang fokus mencakup platform teknologi pendidikan, sistem fintech (crowdfunding, dompet digital, P2P lending), perangkat lunak kesehatan (EMR, telemedicine), alat kewirausahaan dan startup, serta sistem otomasi industri."
-    }
+    "tagline": {
+      "en": "Purpose-built software solutions for education, healthcare, finance, and industry.",
+      "id": "Solusi perangkat lunak khusus untuk pendidikan, kesehatan, keuangan, dan industri."
+    },
+    "topics": ["EdTech", "Fintech", "Healthcare Software", "Startup Tools", "Industrial Automation"]
   },
   {
     "id": "emerging-technologies-se",
@@ -27,9 +29,10 @@
       "en": "Emerging Technologies in Software Engineering",
       "id": "Teknologi Berkembang dalam Rekayasa Perangkat Lunak"
     },
-    "description": {
-      "en": "Exploration of emerging technologies to drive and support software innovation. Research topics include automated code quality analysis, bug prediction systems, AI-assisted test case generation, requirements automation tools, code refactoring, form generators, and documentation automation.",
-      "id": "Eksplorasi teknologi baru untuk mendorong dan mendukung inovasi dalam pengembangan perangkat lunak. Topik penelitian mencakup analisis kualitas kode otomatis, sistem prediksi bug, pembuatan test case berbasis AI, alat otomatisasi kebutuhan, refactoring kode, generator form, dan otomatisasi dokumentasi."
-    }
+    "tagline": {
+      "en": "AI-assisted tools and automation to accelerate software development and improve quality.",
+      "id": "Alat berbasis AI dan otomatisasi untuk mempercepat pengembangan dan meningkatkan kualitas perangkat lunak."
+    },
+    "topics": ["Code Quality Analysis", "Bug Prediction", "AI Test Generation", "Requirements Automation", "Documentation Automation"]
   }
 ]

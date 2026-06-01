@@ -32,4 +32,7 @@ email: "zawaruddin@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=0uPC_KcAAAAJ&hl=en"
 featured: true
 order: 5
+streams:
+  - "domain-specific-se-applications"
+  - "emerging-technologies-se"
 ---

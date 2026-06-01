@@ -32,4 +32,7 @@ email: "ridwan.rismanto@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=fJc_GegAAAAJ&hl=en"
 featured: true
 order: 2
+streams:
+  - "domain-specific-se-applications"
+  - "emerging-technologies-se"
 ---

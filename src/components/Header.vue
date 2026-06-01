@@ -11,6 +11,9 @@
             alt="Polinema"
             class="h-8 md:h-10 w-auto shrink-0"
           />
+          <div class="font-mono font-bold text-sm leading-none px-2.5 py-1.5 rounded bg-[#1E2D4E] text-white shrink-0 select-none">
+            <span class="text-[#F5A100]">{</span>SE<span class="text-[#F5A100]">}</span>
+          </div>
           <div>
             <div class="font-serif text-sm md:text-base font-semibold text-primary leading-tight">
               SE Lab

@@ -32,6 +32,9 @@ email: "dhanifudin@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 featured: true
 order: 4
+streams:
+  - "se-methodologies-architecture"
+  - "emerging-technologies-se"
 projects:
   - name: "PakAI"
     repo: "dhanifudin/pakai"
