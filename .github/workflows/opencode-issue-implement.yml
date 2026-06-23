@@ -67,8 +67,8 @@ jobs:
             - The workflow will run final build verification with npm run build after implementation.
             - If the issue cannot be implemented safely, explain why in the issue instead of opening a PR.
 
-      - name: Fetch implementation branch
-        run: git fetch origin "${BRANCH_NAME}:${BRANCH_NAME}"
+      - name: Push implementation branch
+        run: git push --force-with-lease origin "${BRANCH_NAME}"
 
       - name: Checkout implementation branch
         run: git checkout "${BRANCH_NAME}"
