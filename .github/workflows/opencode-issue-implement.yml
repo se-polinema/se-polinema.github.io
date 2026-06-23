@@ -29,6 +29,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
+          token: ${{ secrets.GH_WORKFLOW_PAT }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -50,7 +51,7 @@ jobs:
       - name: Implement approved plan
         run: opencode github run
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GH_WORKFLOW_PAT }}
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           MODEL: ${{ vars.OPENCODE_BUILD_MODEL || 'opencode-go/deepseek-v4-pro' }}
           AGENT: build
