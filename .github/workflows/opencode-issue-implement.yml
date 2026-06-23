@@ -16,20 +16,19 @@ jobs:
       github.actor == 'dhanifudin'
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: write
       pull-requests: write
       issues: write
     env:
       BRANCH_NAME: opencode-issue-${{ github.event.issue.number }}
       SCREENSHOT_PATH: .github/screenshots/issue-${{ github.event.issue.number }}.png
-      PREVIEW_PORT: '4321'
+      PREVIEW_PORT: "4321"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,25 +39,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install OpenCode CLI
+        run: npm install -g opencode-ai@latest
+
       - name: Implement approved plan
-        uses: anomalyco/opencode/github@latest
+        run: opencode github run
         env:
           GITHUB_TOKEN: ${{ github.token }}
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
-        with:
-          token: ${{ github.token }}
-          agent: build
-          model: ${{ vars.OPENCODE_BUILD_MODEL || 'opencode-go/deepseek-v4-pro' }}
-          prompt: |
+          MODEL: ${{ vars.OPENCODE_BUILD_MODEL || 'opencode-go/deepseek-v4-pro' }}
+          AGENT: build
+          USE_GITHUB_TOKEN: 'true'
+          PROMPT: |
             Read the full GitHub issue title, body, and discussion before acting.
             Find the latest OpenCode plan in the issue discussion and implement that approved plan.
 
             Requirements:
             - Use the branch name ${{ env.BRANCH_NAME }}.
             - Implement the approved plan in this repository.
-            - Run npm run build before finishing.
             - Create or update a pull request linked to issue #${{ github.event.issue.number }}.
             - Do not switch to any provider other than OpenCode Go.
+            - The workflow will run final build verification with npm run build after implementation.
             - If the issue cannot be implemented safely, explain why in the issue instead of opening a PR.
 
       - name: Fetch implementation branch

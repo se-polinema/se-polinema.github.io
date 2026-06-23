@@ -18,26 +18,33 @@ jobs:
       )
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
       issues: write
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
           persist-credentials: false
 
+      - name: Install OpenCode CLI
+        run: npm install -g opencode-ai@latest
+
       - name: Reply with implementation plan
-        uses: anomalyco/opencode/github@latest
+        run: opencode github run
         env:
           GITHUB_TOKEN: ${{ github.token }}
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
-        with:
-          token: ${{ github.token }}
-          agent: plan
-          model: ${{ vars.OPENCODE_PLAN_MODEL || 'opencode-go/kimi-k2.7-code' }}
-          prompt: |
+          MODEL: ${{ vars.OPENCODE_PLAN_MODEL || 'opencode-go/kimi-k2.7-code' }}
+          AGENT: plan
+          USE_GITHUB_TOKEN: 'true'
+          PROMPT: |
             Read the full GitHub issue title, body, and discussion before replying.
 
             This run is for planning only.
