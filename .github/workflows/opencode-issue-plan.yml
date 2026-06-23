@@ -1,0 +1,55 @@
+name: OpenCode Issue Plan
+
+on:
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: opencode-plan-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    if: >
+      github.event.issue.pull_request == null &&
+      github.event.comment.body == '/opencode plan'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Reply with implementation plan
+        uses: anomalyco/opencode/github@latest
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
+        with:
+          token: ${{ github.token }}
+          agent: plan
+          model: ${{ vars.OPENCODE_PLAN_MODEL || 'opencode-go/kimi-k2.7-code' }}
+          prompt: |
+            Read the full GitHub issue title, body, and discussion before replying.
+
+            This run is for planning only.
+
+            Reply in the issue with:
+            1. A short summary of the request and current discussion.
+            2. A concrete implementation plan.
+            3. The expected files or areas to change.
+            4. The validation plan, including npm run build.
+            5. A screenshot plan if the issue affects UI.
+            6. Any assumptions or open questions.
+
+            Rules:
+            - Do not edit files.
+            - Do not create a branch.
+            - Do not create a pull request.
+            - Do not implement the change yet.
+            - Mention that only dhanifudin can approve implementation by commenting exactly /opencode implement.
