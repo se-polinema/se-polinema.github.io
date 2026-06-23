@@ -3,6 +3,8 @@ import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import PublicationsArchive from '../../components/PublicationsArchive.vue'
 import PublicationsPageIntro from '../../components/PublicationsPageIntro.vue'
 import { getCollection } from 'astro:content'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 const publications = (await getCollection('publications'))
   .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
@@ -23,11 +25,20 @@ const researchers = (await getCollection('researchers'))
     id: researcher.id,
     name: researcher.data.name,
   }))
+
+let lastUpdated = null
+try {
+  const syncMetaPath = resolve('src/data/_sync-meta.json')
+  const syncMeta = JSON.parse(readFileSync(syncMetaPath, 'utf-8'))
+  lastUpdated = syncMeta.lastUpdated || null
+} catch {
+  lastUpdated = null
+}
 ---
 
 <VSCodeLayout title="Publications">
   <div class="px-8 py-5">
-    <PublicationsPageIntro client:load />
+    <PublicationsPageIntro client:load lastUpdated={lastUpdated} />
     <PublicationsArchive client:load publications={publications} researchers={researchers} />
   </div>
 </VSCodeLayout>
