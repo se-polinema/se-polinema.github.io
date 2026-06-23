@@ -2,7 +2,7 @@ name: OpenCode Issue Plan
 
 on:
   issue_comment:
-    types: [created]
+    types: [created, edited]
 
 concurrency:
   group: opencode-plan-${{ github.event.issue.number }}
@@ -12,7 +12,10 @@ jobs:
   plan:
     if: >
       github.event.issue.pull_request == null &&
-      github.event.comment.body == '/opencode plan'
+      (
+        github.event.comment.body == '/opencode' ||
+        startsWith(github.event.comment.body, '/opencode plan')
+      )
     runs-on: ubuntu-latest
     permissions:
       id-token: write

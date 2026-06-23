@@ -2,7 +2,7 @@ name: OpenCode Issue Implementation
 
 on:
   issue_comment:
-    types: [created]
+    types: [created, edited]
 
 concurrency:
   group: opencode-implement-${{ github.event.issue.number }}
@@ -12,7 +12,7 @@ jobs:
   implement:
     if: >
       github.event.issue.pull_request == null &&
-      github.event.comment.body == '/opencode implement' &&
+      startsWith(github.event.comment.body, '/opencode implement') &&
       github.actor == 'dhanifudin'
     runs-on: ubuntu-latest
     permissions:
