@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "share": "disabled",
+  "share": "manual",
   "enabled_providers": ["opencode-go"],
   "small_model": "opencode-go/deepseek-v4-flash",
   "provider": {
