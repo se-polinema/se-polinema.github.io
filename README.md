@@ -19,10 +19,15 @@ Set these repository variables if you want to override the workflow defaults:
 
 ## Issue Commands
 
-Use these exact issue comments to trigger the workflows:
+Use these issue comments to trigger the workflows:
 
-- `/opencode plan`: OpenCode reads the full issue discussion and replies with an implementation plan.
+- `/opencode` or `/opencode plan`: OpenCode reads the full issue discussion and replies with an implementation plan.
 - `/opencode implement`: OpenCode implements the approved plan, runs `npm run build`, captures a screenshot, and opens or updates a pull request.
+
+Notes:
+
+- These commands work on new comments and edited comments.
+- `/opencode plan` and `/opencode implement` may include extra text after the command.
 
 ## Approval Rule
 
