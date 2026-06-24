@@ -22,7 +22,11 @@ function getInitialLang(): Lang {
 
 export function useI18n() {
   if (typeof window !== 'undefined' && !initialized) {
-    currentLang.value = getInitialLang()
+    const lang = getInitialLang()
+    currentLang.value = lang
+    try {
+      document.documentElement.lang = lang
+    } catch {}
     initialized = true
   }
 
@@ -32,6 +36,7 @@ export function useI18n() {
     currentLang.value = lang
     try {
       localStorage.setItem(STORAGE_KEY, lang)
+      document.documentElement.lang = lang
     } catch {}
   }
 
