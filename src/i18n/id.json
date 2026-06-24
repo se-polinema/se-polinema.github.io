@@ -96,7 +96,8 @@
     "resultSingle": "publikasi",
     "resultPlural": "publikasi",
     "archiveHeading": "Arsip Publikasi",
-    "archiveDescription": "Arsip ini memuat keluaran ilmiah terpilih yang terkait dengan Software Engineering Laboratory. Data awal saat ini dikurasi dari rekam jejak Google Scholar para peneliti laboratorium."
+    "archiveDescription": "Arsip ini memuat keluaran ilmiah terpilih yang terkait dengan Software Engineering Laboratory. Data awal saat ini dikurasi dari rekam jejak Google Scholar para peneliti laboratorium.",
+    "lastUpdated": "Terakhir diperbarui"
   },
   "gallery": {
     "label": "Galeri",
