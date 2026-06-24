@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" fill="none">
+  <defs>
+    <linearGradient id="collabGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EFF6FF"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="700" height="280" rx="8" fill="url(#collabGrad)"/>
+
+  <!-- Central lab hub -->
+  <circle cx="350" cy="140" r="50" fill="#004EA2" opacity="0.1"/>
+  <circle cx="350" cy="140" r="36" fill="white" stroke="#004EA2" stroke-width="2"/>
+  <text x="350" y="136" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#004EA2">SE</text>
+  <text x="350" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#004EA2">Lab</text>
+
+  <!-- Student 1 -->
+  <circle cx="120" cy="100" r="22" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="120" y="96" text-anchor="middle" font-family="sans-serif" font-size="14">👩‍💻</text>
+  <text x="120" y="118" text-anchor="middle" font-family="sans-serif" font-size="13">👩‍💻</text>
+  <text x="120" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1E40AF">Student</text>
+  <text x="120" y="154" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#6B7280">Learn &amp; Contribute</text>
+
+  <!-- Student 2 -->
+  <circle cx="120" cy="210" r="22" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="120" y="206" text-anchor="middle" font-family="sans-serif" font-size="14">👨‍💻</text>
+  <text x="120" y="228" text-anchor="middle" font-family="sans-serif" font-size="13">👨‍💻</text>
+  <text x="120" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1E40AF">Student</text>
+  <text x="120" y="264" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#6B7280">Build Portfolio</text>
+
+  <!-- Partner 1 -->
+  <circle cx="580" cy="100" r="22" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="580" y="96" text-anchor="middle" font-family="sans-serif" font-size="14">🏢</text>
+  <text x="580" y="118" text-anchor="middle" font-family="sans-serif" font-size="14">🏢</text>
+  <text x="580" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#92400E">Industry</text>
+  <text x="580" y="154" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#6B7280">Research &amp; Projects</text>
+
+  <!-- Partner 2 -->
+  <circle cx="580" cy="210" r="22" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="580" y="206" text-anchor="middle" font-family="sans-serif" font-size="14">🤝</text>
+  <text x="580" y="228" text-anchor="middle" font-family="sans-serif" font-size="14">🤝</text>
+  <text x="580" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#92400E">Partner</text>
+  <text x="580" y="264" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#6B7280">Collaboration</text>
+
+  <!-- Connecting lines from students to lab -->
+  <line x1="142" y1="100" x2="314" y2="140" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+  <line x1="142" y1="210" x2="314" y2="140" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+
+  <!-- Connecting lines from partners to lab -->
+  <line x1="558" y1="100" x2="386" y2="140" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+  <line x1="558" y1="210" x2="386" y2="140" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+
+  <!-- Labels -->
+  <text x="350" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#111827">Collaborate with SE Laboratory</text>
+
+  <!-- Arrow indicators for mutual benefit -->
+  <text x="230" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#3B82F6" opacity="0.7">mentorship</text>
+  <text x="230" y="167" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#3B82F6" opacity="0.7">experience</text>
+
+  <text x="470" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#F59E0B" opacity="0.7">projects</text>
+  <text x="470" y="167" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#F59E0B" opacity="0.7">innovation</text>
+</svg>
