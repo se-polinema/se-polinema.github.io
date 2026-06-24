@@ -4,11 +4,12 @@ This repository includes GitHub Actions workflows that use OpenCode with the Ope
 
 ## GitHub Setup
 
-### Required Secret
+### Required Secrets
 
-Set this repository secret in GitHub Actions:
+Set these repository secrets in GitHub Actions:
 
 - `OPENCODE_GO_API_KEY`: your OpenCode Go API key.
+- `GH_WORKFLOW_PAT`: a personal access token with `repo` (contents) and `pull_requests` write scopes, used by `update-publications.yml` and `opencode.yml` for checkout and PR creation.
 
 ### Optional Repository Variables
 

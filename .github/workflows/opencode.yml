@@ -76,6 +76,7 @@ jobs:
       issues: write
     env:
       SCREENSHOT_PATH: .github/screenshots/issue-${{ github.event.issue.number }}.png
+      SCREENSHOT_URL_PATH: "/publications"
       PREVIEW_PORT: "4321"
     steps:
       - name: Checkout repository
@@ -165,7 +166,7 @@ jobs:
             fi
             sleep 2
           done
-          npx playwright screenshot --device="Desktop Chrome" "http://127.0.0.1:${PREVIEW_PORT}" "${SCREENSHOT_PATH}"
+          npx playwright screenshot --device="Desktop Chrome" "http://127.0.0.1:${PREVIEW_PORT}${SCREENSHOT_URL_PATH}" "${SCREENSHOT_PATH}"
           kill "${PREVIEW_PID}"
 
       - name: Commit screenshot
