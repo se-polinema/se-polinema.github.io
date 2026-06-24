@@ -1,20 +1,75 @@
-name: OpenCode Issue Implementation
+name: OpenCode IssueOps
 
 on:
   issue_comment:
     types: [created, edited]
 
-concurrency:
-  group: opencode-implement-${{ github.event.issue.number }}
-  cancel-in-progress: false
-
 jobs:
-  implement:
+  plan:
     if: >
       github.event.issue.pull_request == null &&
-      startsWith(github.event.comment.body, '/opencode implement') &&
+      startsWith(github.event.comment.body, '/plan') &&
       github.actor == 'dhanifudin'
     runs-on: ubuntu-latest
+    concurrency:
+      group: opencode-plan-${{ github.event.issue.number }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install OpenCode CLI
+        run: npm install -g opencode-ai@latest
+
+      - name: Reply with implementation plan
+        run: opencode github run
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
+          MODEL: ${{ vars.OPENCODE_PLAN_MODEL || 'opencode-go/kimi-k2.7-code' }}
+          AGENT: plan
+          USE_GITHUB_TOKEN: 'true'
+          PROMPT: |
+            Read the full GitHub issue title, body, and discussion before replying.
+
+            This run is for planning only.
+
+            Reply in the issue with:
+            1. A short summary of the request and current discussion.
+            2. A concrete implementation plan.
+            3. The expected files or areas to change.
+            4. The validation plan, including npm run build.
+            5. A screenshot plan if the issue affects UI.
+            6. Any assumptions or open questions.
+
+            Rules:
+            - Do not edit files.
+            - Do not create a branch.
+            - Do not create a pull request.
+            - Do not implement the change yet.
+            - Mention that only dhanifudin can approve implementation by commenting exactly /build.
+
+  build:
+    if: >
+      github.event.issue.pull_request == null &&
+      startsWith(github.event.comment.body, '/build') &&
+      github.actor == 'dhanifudin'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: opencode-build-${{ github.event.issue.number }}
+      cancel-in-progress: false
     permissions:
       contents: write
       pull-requests: write

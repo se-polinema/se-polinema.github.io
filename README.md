@@ -29,25 +29,24 @@ If you override the workflow variables, use model IDs returned by `https://openc
 
 Use these issue comments to trigger the workflows:
 
-- `/opencode` or `/opencode plan`: OpenCode reads the full issue discussion and replies with an implementation plan.
-- `/opencode implement`: OpenCode implements the approved plan, runs `npm run build`, captures a screenshot, and opens or updates a pull request.
+- `/plan`: OpenCode reads the full issue discussion and replies with an implementation plan.
+- `/build`: OpenCode implements the approved plan, runs `npm run build`, captures a screenshot, and opens or updates a pull request.
 
 Notes:
 
 - These commands work on new comments and edited comments.
-- `/opencode plan` and `/opencode implement` may include extra text after the command.
+- `/plan` and `/build` may include extra text after the command.
 
 ## Approval Rule
 
-Only `dhanifudin` can trigger `/opencode implement`.
+Only `dhanifudin` can trigger `/plan` and `/build`.
 
 ## Workflow Notes
 
 - OpenCode provider usage is restricted to `opencode-go` through `opencode.json`.
-- The workflows install OpenCode with `npm install -g opencode-ai@latest` and run `opencode github run` directly.
-- The planning workflow is comment-driven only and runs on `/opencode` or `/opencode plan` comments.
-- The implementation workflow is comment-driven only and runs on `/opencode implement` comments.
-- The implementation workflow updates the pull request with a screenshot captured from the generated change.
+- Both commands are handled by a single workflow (`.github/workflows/opencode.yml`) with two jobs (`plan` and `build`), reducing skipped-run noise in the Actions tab.
+- The `plan` job runs on `/plan` comments and does not edit files or create branches.
+- The `build` job runs on `/build` comments and updates the pull request with a screenshot captured from the generated change.
 
 ## GitHub Actions Permissions
 
