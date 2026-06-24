@@ -1,0 +1,47 @@
+name: Add Project
+description: Submit a new project
+title: "[Project] "
+labels: ["project"]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      description: GitHub repository identifier (e.g. username/repo)
+      placeholder: dhanifudin/pakai
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Project Name
+      description: Display name of the project
+      placeholder: My Awesome Project
+    validations:
+      required: false
+
+  - type: input
+    id: researcher
+    attributes:
+      label: Researcher
+      description: Which researcher should this project be associated with? (leave empty if unsure)
+      placeholder: dian-hanifudin-subhi
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A short description of the project
+    validations:
+      required: false
+
+  - type: textarea
+    id: body
+    attributes:
+      label: Additional Info
+      description: Any other details about the project
+    validations:
+      required: false
