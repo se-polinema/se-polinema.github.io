@@ -1,4 +1,4 @@
-# se-polinema.github.io
+# se.polinema.ac.id
 
 This repository includes GitHub Actions workflows that use OpenCode with the OpenCode Go provider for issue planning and implementation.
 
