@@ -34,7 +34,7 @@ const fullTitle = `${title} | SE Lab — JTI Polinema`
     <script is:inline>
       try {
         const lang = localStorage.getItem('se-lab-lang');
-        if (lang === 'id') document.documentElement.lang = 'id';
+        if (lang === 'en' || lang === 'id') document.documentElement.lang = lang;
       } catch {}
     </script>
   </head>
