@@ -76,6 +76,7 @@ function categoryStyle(cat: string): string {
     announcement: 'text-primary',
     news: 'text-accent',
     event: 'text-primary',
+    tutorial: 'text-green-600',
   }
   return styles[cat] || 'text-neutral-400'
 }
@@ -85,6 +86,7 @@ function categoryLabel(cat: string): string {
     announcement: t.value.blog.categoryAnnouncement,
     news: t.value.blog.categoryNews,
     event: t.value.blog.categoryEvent,
+    tutorial: t.value.blog.categoryTutorial,
   }
   return map[cat] || cat
 }

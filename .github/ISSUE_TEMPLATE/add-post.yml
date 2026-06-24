@@ -21,6 +21,7 @@ body:
         - announcement
         - news
         - event
+        - tutorial
     validations:
       required: true
 

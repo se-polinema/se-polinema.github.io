@@ -13,7 +13,7 @@ const blogCollection = defineCollection({
     title: z.string(),
     titleId: z.string().optional(),
     date: z.date(),
-    category: z.enum(['announcement', 'news', 'event']),
+    category: z.enum(['announcement', 'news', 'event', 'tutorial']),
     author: z.string().default('SE Lab'),
     lang: z.enum(['en', 'id']).default('en'),
     featured: z.boolean().default(false),
