@@ -19,7 +19,7 @@ const { Content } = await render(post)
 <VSCodeLayout title={title} description={post.data.excerpt ?? 'Software Engineering Laboratory news article.'}>
   <div class="px-8 py-6">
     <BlogPostPage client:load title={title} titleId={titleId} date={date} category={category} />
-    <div class="prose prose-slate max-w-none">
+    <div class="prose prose-slate max-w-none bilingual-post">
       <Content />
     </div>
   </div>

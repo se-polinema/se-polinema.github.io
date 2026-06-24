@@ -126,4 +126,13 @@
     border: 1px solid rgba(0, 78, 162, 0.1);
     font-size: 0.875em;
   }
+
+  .bilingual-post [lang] {
+    display: none;
+  }
+
+  html[lang="en"] .bilingual-post [lang="en"],
+  html[lang="id"] .bilingual-post [lang="id"] {
+    display: revert;
+  }
 }
