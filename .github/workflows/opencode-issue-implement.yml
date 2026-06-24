@@ -20,7 +20,6 @@ jobs:
       pull-requests: write
       issues: write
     env:
-      BRANCH_NAME: opencode-issue-${{ github.event.issue.number }}
       SCREENSHOT_PATH: .github/screenshots/issue-${{ github.event.issue.number }}.png
       PREVIEW_PORT: "4321"
     steps:
@@ -61,18 +60,38 @@ jobs:
             Find the latest OpenCode plan in the issue discussion and implement that approved plan.
 
             Requirements:
-            - Use the branch name ${{ env.BRANCH_NAME }}.
             - Implement the approved plan in this repository.
             - Create or update a pull request linked to issue #${{ github.event.issue.number }}.
             - Do not switch to any provider other than OpenCode Go.
             - The workflow will run final build verification with npm run build after implementation.
             - If the issue cannot be implemented safely, explain why in the issue instead of opening a PR.
 
-      - name: Push implementation branch
-        run: git push --force-with-lease origin "${BRANCH_NAME}"
+      - name: Resolve OpenCode pull request
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo
+            const { data } = await github.rest.pulls.list({
+              owner, repo, state: 'open', per_page: 100,
+            })
+            const prefix = `opencode/issue${context.issue.number}-`
+            const pr = data
+              .filter(p => p.head.ref.startsWith(prefix))
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
+            if (!pr) {
+              core.setFailed(`No open OpenCode PR found for issue #${context.issue.number}`)
+              return
+            }
+            core.setOutput('number', String(pr.number))
+            core.setOutput('branch', pr.head.ref)
 
       - name: Checkout implementation branch
-        run: git checkout "${BRANCH_NAME}"
+        run: |
+          git fetch origin "${BRANCH}"
+          git checkout -B "${BRANCH}" "origin/${BRANCH}"
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
 
       - name: Verify build
         run: npm run build
@@ -101,33 +120,16 @@ jobs:
           git add "${SCREENSHOT_PATH}"
           if ! git diff --cached --quiet; then
             git commit -m "Add issue screenshot"
-            git push origin "${BRANCH_NAME}"
+            git push origin "HEAD:${BRANCH}"
           fi
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
 
       - name: Upload screenshot artifact
         uses: actions/upload-artifact@v4
         with:
           name: opencode-issue-${{ github.event.issue.number }}-screenshot
           path: ${{ env.SCREENSHOT_PATH }}
-
-      - name: Find pull request
-        id: pr
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { owner, repo } = context.repo
-            const head = `${owner}:${process.env.BRANCH_NAME}`
-            const { data } = await github.rest.pulls.list({
-              owner,
-              repo,
-              head,
-              state: 'open',
-            })
-            if (!data.length) {
-              core.setFailed(`No open PR found for ${head}`)
-              return
-            }
-            core.setOutput('number', String(data[0].number))
 
       - name: Update pull request body
         uses: actions/github-script@v7
@@ -136,10 +138,13 @@ jobs:
             const { owner, repo } = context.repo
             const pull_number = Number('${{ steps.pr.outputs.number }}')
             const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number })
-            const screenshotUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${process.env.BRANCH_NAME}/${process.env.SCREENSHOT_PATH}`
+            const branch = process.env.BRANCH
+            const screenshotUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${process.env.SCREENSHOT_PATH}`
             const marker = '<!-- opencode-issue-summary -->'
             const summary = `${marker}\n## OpenCode Automation\n- Approved by: @${context.actor}\n- Issue: #${context.issue.number}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifact: \`opencode-issue-${context.issue.number}-screenshot\`\n\n### Screenshot\n![Updated feature](${screenshotUrl})`
             const body = pr.body?.includes(marker)
               ? pr.body.replace(new RegExp(`${marker}[\\s\\S]*$`), summary)
               : `${pr.body ?? ''}\n\n${summary}`.trim()
             await github.rest.pulls.update({ owner, repo, pull_number, body })
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
