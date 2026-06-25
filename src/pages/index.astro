@@ -2,7 +2,6 @@
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import Hero from '../components/Hero.vue'
 import About from '../components/About.vue'
-import StatsBand from '../components/StatsBand.vue'
 import Research from '../components/Research.vue'
 import Projects from '../components/Projects.vue'
 import Books from '../components/Books.vue'
@@ -12,7 +11,6 @@ import JoinLab from '../components/JoinLab.vue'
 import News from '../components/News.vue'
 import { getCollection } from 'astro:content'
 import { getMemberProjects, getMemberBooks } from '../lib/memberWorks'
-import { getLabStats } from '../lib/labStats'
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
 const sortedPosts = posts
@@ -58,19 +56,11 @@ const featuredPublications = (await getCollection('publications'))
 
 const projects = await getMemberProjects()
 const books = await getMemberBooks()
-const stats = await getLabStats()
 ---
 
 <VSCodeLayout title="Software Engineering Laboratory">
   <Hero client:load />
   <About client:load />
-  <StatsBand
-    client:load
-    researchers={stats.researchers}
-    publications={stats.publications}
-    projects={stats.projects}
-    books={stats.books}
-  />
   <Research client:load />
   <Projects client:load projects={projects} />
   <Books client:load books={books} />
