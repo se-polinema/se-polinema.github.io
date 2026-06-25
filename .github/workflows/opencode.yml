@@ -118,7 +118,9 @@ jobs:
             2. A concrete implementation plan.
             3. The expected files or areas to change.
             4. The validation plan, including npm run build.
-            5. A screenshot plan if the issue affects UI.
+            5. A screenshot plan if the issue affects UI. End the screenshot plan with a
+               machine-readable line exactly like: `Screenshot routes: /route1, /route2`
+               List all routes affected by the change. For non-UI issues use: `Screenshot routes: /`
             6. Any assumptions or open questions.
 
             Rules:
@@ -142,28 +144,37 @@ jobs:
       pull-requests: write
       issues: write
     env:
-      SCREENSHOT_PATH: .github/screenshots/issue-${{ github.event.issue.number }}.png
       PREVIEW_PORT: "4321"
     steps:
-      - name: Extract screenshot target path
+      - name: Extract screenshot routes
         id: screenshot-path
         uses: actions/github-script@v7
         with:
           script: |
-            const body = context.payload.issue.body || ''
-            let target = '/'
-
-            const routeMatch = body.match(/route[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
-            if (routeMatch) {
-              target = routeMatch[1]
-            } else {
-              const altMatch = body.match(/(?:path|url|page|screenshot)[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
-              if (altMatch) {
-                target = altMatch[1]
+            const issueBody = context.payload.issue.body || ''
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            })
+            // Combine issue body + all comment bodies; last "Screenshot routes:" line wins
+            const texts = [issueBody, ...comments.map(c => c.body || '')]
+            let routes = null
+            for (const text of texts) {
+              const matches = [...text.matchAll(/screenshot routes?:\s*([^\n]+)/gi)]
+              if (matches.length) {
+                const last = matches[matches.length - 1][1]
+                const candidates = last.split(',').map(s => s.trim()).filter(s => s.startsWith('/'))
+                if (candidates.length) routes = candidates
               }
             }
-
-            core.setOutput('url_path', target)
+            if (!routes) {
+              // Fallback: legacy single-route extraction from issue body
+              const m = issueBody.match(/(?:route|path|url|page|screenshot)[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
+              routes = m ? [m[1]] : ['/']
+            }
+            core.setOutput('routes', JSON.stringify(routes))
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -206,7 +217,6 @@ jobs:
 
             Requirements:
             - Implement the approved plan in this repository.
-            - Use the implementation branch name exactly: opencode/issue-${{ github.event.issue.number }}
             - Create or update a pull request linked to issue #${{ github.event.issue.number }}.
             - Do not switch to any provider other than OpenCode Go.
             - The workflow will run final build verification with npm run build after implementation.
@@ -222,9 +232,10 @@ jobs:
             const { data } = await github.rest.pulls.list({
               owner, repo, state: 'open', per_page: 100,
             })
-            const branchName = `opencode/issue-${context.issue.number}`
+            const n = context.issue.number
+            const re = new RegExp(`^opencode/issue-?${n}(?:-|$)`)
             const pr = data
-              .filter(p => p.head.ref === branchName)
+              .filter(p => re.test(p.head.ref))
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
             if (!pr) {
               core.setOutput('found', 'false')
@@ -255,7 +266,7 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Capture feature screenshot
+      - name: Capture feature screenshots
         run: |
           mkdir -p .github/screenshots
           npm run preview -- --host 127.0.0.1 --port "${PREVIEW_PORT}" > /tmp/opencode-preview.log 2>&1 &
@@ -266,18 +277,26 @@ jobs:
             fi
             sleep 2
           done
-          npx playwright screenshot --device="Desktop Chrome" "http://127.0.0.1:${PREVIEW_PORT}${SCREENSHOT_URL_PATH}" "${SCREENSHOT_PATH}"
+          ISSUE_NUMBER="${{ github.event.issue.number }}"
+          node -e "JSON.parse(process.env.ROUTES_JSON).forEach(r => console.log(r))" | \
+          while IFS= read -r ROUTE; do
+            SLUG=$(echo "${ROUTE}" | sed 's|^/||; s|/$||; s|/|-|g')
+            SLUG="${SLUG:-home}"
+            OUT=".github/screenshots/issue-${ISSUE_NUMBER}-${SLUG}.png"
+            npx playwright screenshot --device="Desktop Chrome" \
+              "http://127.0.0.1:${PREVIEW_PORT}${ROUTE}" "${OUT}"
+          done
           kill "${PREVIEW_PID}"
         env:
-          SCREENSHOT_URL_PATH: ${{ steps.screenshot-path.outputs.url_path }}
+          ROUTES_JSON: ${{ steps.screenshot-path.outputs.routes }}
 
-      - name: Upload screenshot artifact
+      - name: Upload screenshot artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-issue-${{ github.event.issue.number }}-screenshot
-          path: ${{ env.SCREENSHOT_PATH }}
+          name: opencode-issue-${{ github.event.issue.number }}-screenshots
+          path: .github/screenshots/issue-${{ github.event.issue.number }}-*.png
 
-      - name: Publish screenshot to assets branch
+      - name: Publish screenshots to assets branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -292,15 +311,19 @@ jobs:
           fi
           git -C /tmp/shots config user.name "github-actions[bot]"
           git -C /tmp/shots config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          cp "${SCREENSHOT_PATH}" "/tmp/shots/issue-${ISSUE_NUMBER}.png"
-          git -C /tmp/shots add "issue-${ISSUE_NUMBER}.png"
-          git -C /tmp/shots commit -m "Screenshot for issue #${ISSUE_NUMBER}" || exit 0
+          for f in .github/screenshots/issue-${ISSUE_NUMBER}-*.png; do
+            cp "$f" "/tmp/shots/$(basename "$f")"
+          done
+          git -C /tmp/shots add "issue-${ISSUE_NUMBER}-*.png"
+          git -C /tmp/shots commit -m "Screenshots for issue #${ISSUE_NUMBER}" || exit 0
           git -C /tmp/shots push origin screenshots
         env:
           GH_WORKFLOW_PAT: ${{ secrets.GH_WORKFLOW_PAT }}
 
       - name: Update pull request body
         uses: actions/github-script@v7
+        env:
+          ROUTES_JSON: ${{ steps.screenshot-path.outputs.routes }}
         with:
           script: |
             const { owner, repo } = context.repo
@@ -308,10 +331,15 @@ jobs:
             const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number })
             const runId = context.runId
             const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${runId}`
-            const artifactName = `opencode-issue-${context.issue.number}-screenshot`
-            const screenshotUrl = `https://raw.githubusercontent.com/${owner}/${repo}/screenshots/issue-${context.issue.number}.png`
+            const artifactName = `opencode-issue-${context.issue.number}-screenshots`
+            const routes = JSON.parse(process.env.ROUTES_JSON || '["/"]')
+            const screenshotLines = routes.map(r => {
+              const slug = r.replace(/^\//, '').replace(/\/$/, '').replace(/\//g, '-') || 'home'
+              const url = `https://raw.githubusercontent.com/${owner}/${repo}/screenshots/issue-${context.issue.number}-${slug}.png`
+              return `**\`${r}\`**\n![${r}](${url})`
+            }).join('\n\n')
             const marker = '<!-- opencode-issue-summary -->'
-            const summary = `${marker}\n## OpenCode Automation\n- Approved by: @${context.actor}\n- Issue: #${context.issue.number}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifact: [View \`${artifactName}\`](${runUrl})\n\n### Screenshot\n![Feature screenshot](${screenshotUrl})`
+            const summary = `${marker}\n## OpenCode Automation\n- Approved by: @${context.actor}\n- Issue: #${context.issue.number}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifacts: [View \`${artifactName}\`](${runUrl})\n\n### Screenshots\n${screenshotLines}`
             const body = pr.body?.includes(marker)
               ? pr.body.replace(new RegExp(`${marker}[\\s\\S]*$`), summary)
               : `${pr.body ?? ''}\n\n${summary}`.trim()
