@@ -34,6 +34,18 @@
           :key="book.title"
           class="border border-primary/10 bg-white p-5 flex flex-col gap-3 hover:border-primary/20 transition-colors"
         >
+          <div
+            v-if="book.coverImage"
+            class="w-full aspect-[3/4] bg-neutral-100 overflow-hidden border border-primary/5 -mx-5 -mt-5 mb-1"
+            style="width: calc(100% + 2.5rem);"
+          >
+            <img
+              :src="book.coverImage"
+              :alt="`Cover of ${book.title}`"
+              class="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+          </div>
           <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">
             {{ book.title }}
           </div>
@@ -76,6 +88,7 @@ import { useI18n } from '../composables/useI18n'
 interface MemberBook {
   title: string
   playstoreUrl?: string
+  coverImage?: string
   description?: string
   researcherId: string
   researcherName: string

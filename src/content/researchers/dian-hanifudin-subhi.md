@@ -41,6 +41,7 @@ projects:
     description: "Unified AI subscription usage tracker. Surfaces Claude, OpenAI Codex, and OpenCode Go usage — per provider, per window (5h / weekly / monthly) — directly in your tmux status bar, Waybar panel, CLI, or a TUI dashboard."
 books:
   - title: "Git Tanpa Drama"
-    description: "A beginner-friendly, Indonesian-language guide to Git — covering branching, merging, collaboration, and everyday version-control workflows without the confusion."
+    coverImage: "/images/books/git-tanpa-drama.jpg"
+    description: "A practical Indonesian-language guide that helps beginners use Git with confidence, from branching and merging to collaboration and everyday version-control workflows."
     playstoreUrl: "https://play.google.com/store/books/details/Dian_Hanifudin_Subhi_Usman_Nurhasan_Putra_Prima_Ar?id=c7TCEQAAQBAJ&hl=en"
 ---

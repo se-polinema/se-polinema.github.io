@@ -115,11 +115,24 @@
             <h2>{{ t.team.booksHeading }}</h2>
             <template v-if="props.researcher.books?.length">
               <ul class="space-y-4">
-                <li v-for="book in props.researcher.books" :key="book.title">
-                  <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">{{ book.title }}</div>
-                  <p v-if="book.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ book.description }}</p>
-                  <div v-if="book.playstoreUrl" class="mt-1.5">
-                    <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary hover:text-accent transition-colors">Buy on Google Play Books →</a>
+                <li v-for="book in props.researcher.books" :key="book.title" class="flex flex-col sm:flex-row gap-4">
+                  <div
+                    v-if="book.coverImage"
+                    class="w-28 shrink-0 aspect-[3/4] bg-neutral-100 overflow-hidden border border-primary/10"
+                  >
+                    <img
+                      :src="book.coverImage"
+                      :alt="`Cover of ${book.title}`"
+                      class="w-full h-full object-cover object-center"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">{{ book.title }}</div>
+                    <p v-if="book.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ book.description }}</p>
+                    <div v-if="book.playstoreUrl" class="mt-1.5">
+                      <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary hover:text-accent transition-colors">Buy on Google Play Books →</a>
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -207,7 +220,7 @@ const props = defineProps<{
     orcidUrl?: string
     scopusUrl?: string
     projects?: Array<{ name?: string; repo: string; description?: string }>
-    books?: Array<{ title: string; playstoreUrl?: string; description?: string }>
+    books?: Array<{ title: string; playstoreUrl?: string; coverImage?: string; description?: string }>
     streams?: string[]
   }
   publications: Publication[]

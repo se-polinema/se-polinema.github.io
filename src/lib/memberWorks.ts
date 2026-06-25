@@ -11,6 +11,7 @@ export interface MemberProject {
 export interface MemberBook {
   title: string
   playstoreUrl?: string
+  coverImage?: string
   description?: string
   researcherId: string
   researcherName: string
