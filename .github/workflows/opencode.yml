@@ -3,12 +3,17 @@ name: OpenCode IssueOps
 on:
   issue_comment:
     types: [created, edited]
+  issues:
+    types: [opened]
 
 jobs:
   check-auth:
     if: >
       github.event.issue.pull_request == null &&
-      (startsWith(github.event.comment.body, '/plan') || startsWith(github.event.comment.body, '/build'))
+      (
+        (github.event_name == 'issue_comment' && (startsWith(github.event.comment.body, '/plan') || startsWith(github.event.comment.body, '/build'))) ||
+        (github.event_name == 'issues' && github.event.action == 'opened' && (startsWith(github.event.issue.title, '/plan') || startsWith(github.event.issue.body, '/plan')))
+      )
     runs-on: ubuntu-latest
     permissions:
       issues: read
@@ -19,16 +24,38 @@ jobs:
     steps:
       - name: Parse command and extra context
         id: parse
-        run: |
-          COMMENT="${{ github.event.comment.body }}"
-          if echo "$COMMENT" | grep -q '^/plan'; then
-            echo "command=plan" >> "$GITHUB_OUTPUT"
-            CONTEXT=$(echo "$COMMENT" | sed 's|^/plan[[:space:]]*||')
-          elif echo "$COMMENT" | grep -q '^/build'; then
-            echo "command=build" >> "$GITHUB_OUTPUT"
-            CONTEXT=$(echo "$COMMENT" | sed 's|^/build[[:space:]]*||')
-          fi
-          echo "extra_context=${CONTEXT}" >> "$GITHUB_OUTPUT"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const eventName = context.eventName
+            let command = ''
+            let extra_context = ''
+
+            if (eventName === 'issue_comment') {
+              const body = context.payload.comment.body
+              if (body.startsWith('/plan')) {
+                command = 'plan'
+                extra_context = body.slice('/plan'.length).trim()
+              } else if (body.startsWith('/build')) {
+                command = 'build'
+                extra_context = body.slice('/build'.length).trim()
+              }
+            } else if (eventName === 'issues') {
+              const issue = context.payload.issue
+              const title = issue.title || ''
+              const body = issue.body || ''
+              if (title.startsWith('/plan') || body.startsWith('/plan')) {
+                command = 'plan'
+                if (title.startsWith('/plan')) {
+                  extra_context = title.slice('/plan'.length).trim()
+                } else if (body.startsWith('/plan')) {
+                  extra_context = body.slice('/plan'.length).trim()
+                }
+              }
+            }
+
+            core.setOutput('command', command)
+            core.setOutput('extra_context', extra_context)
 
       - name: Verify organization membership
         id: verify
@@ -120,19 +147,23 @@ jobs:
     steps:
       - name: Extract screenshot target path
         id: screenshot-path
-        run: |
-          ISSUE_BODY="${{ github.event.issue.body }}"
-          TARGET="/"
-          ROUTE=$(echo "$ISSUE_BODY" | grep -oP 'route[:\s]+(/[a-zA-Z0-9\-_/]*)' | head -1 | sed 's/route[:\s]*//')
-          if [ -n "$ROUTE" ]; then
-            TARGET="$ROUTE"
-          else
-            ALT=$(echo "$ISSUE_BODY" | grep -oP '(?:path|url|page|screenshot)[:\s]+(/[a-zA-Z0-9\-_/]*)' | head -1 | sed 's/.*[:\s]\{1,\}//')
-            if [ -n "$ALT" ]; then
-              TARGET="$ALT"
-            fi
-          fi
-          echo "url_path=${TARGET}" >> "$GITHUB_OUTPUT"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || ''
+            let target = '/'
+
+            const routeMatch = body.match(/route[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
+            if (routeMatch) {
+              target = routeMatch[1]
+            } else {
+              const altMatch = body.match(/(?:path|url|page|screenshot)[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
+              if (altMatch) {
+                target = altMatch[1]
+              }
+            }
+
+            core.setOutput('url_path', target)
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -175,6 +206,7 @@ jobs:
 
             Requirements:
             - Implement the approved plan in this repository.
+            - Use the implementation branch name exactly: opencode/issue-${{ github.event.issue.number }}
             - Create or update a pull request linked to issue #${{ github.event.issue.number }}.
             - Do not switch to any provider other than OpenCode Go.
             - The workflow will run final build verification with npm run build after implementation.
@@ -190,9 +222,9 @@ jobs:
             const { data } = await github.rest.pulls.list({
               owner, repo, state: 'open', per_page: 100,
             })
-            const prefix = `opencode/issue${context.issue.number}-`
+            const branchName = `opencode/issue-${context.issue.number}`
             const pr = data
-              .filter(p => p.head.ref.startsWith(prefix))
+              .filter(p => p.head.ref === branchName)
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
             if (!pr) {
               core.setOutput('found', 'false')
@@ -295,19 +327,17 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: Create error issue
+      - name: Comment error on original issue
         uses: actions/github-script@v7
         with:
           script: |
             const { owner, repo } = context.repo
             const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`
-            const title = `[OpenCode] Build failed for issue #${context.issue.number}`
             const body = `## Build Failure\n\n- **Original issue:** #${context.issue.number}\n- **Workflow run:** [View run](${runUrl})\n- **Triggered by:** @${context.actor}\n\nThe OpenCode build job failed during implementation. Please check the workflow run logs for details.`
 
-            await github.rest.issues.create({
+            await github.rest.issues.createComment({
               owner,
               repo,
-              title,
+              issue_number: context.issue.number,
               body,
-              labels: ['bug', 'opencode'],
             })

@@ -30,17 +30,18 @@ If you override the workflow variables, use model IDs returned by `https://openc
 
 Use these issue comments to trigger the workflows:
 
-- `/plan`: OpenCode reads the full issue discussion and replies with an implementation plan.
+- `/plan`: OpenCode reads the full issue discussion and replies with an implementation plan. Also triggered automatically when a se-polinema organization member opens a new issue with a title or body starting with `/plan`.
 - `/build`: OpenCode implements the approved plan, runs `npm run build`, captures a screenshot, and opens or updates a pull request.
 
 Notes:
 
 - These commands work on new comments and edited comments.
 - `/plan` and `/build` may include extra text after the command.
+- The implementation branch uses the exact pattern `opencode/issue-{number}`.
 
 ## Approval Rule
 
-Only `dhanifudin` can trigger `/plan` and `/build`.
+Only public members of the `se-polinema` GitHub organization can trigger `/plan` and `/build`.
 
 ## Workflow Notes
 
