@@ -21,27 +21,22 @@ body:
     validations:
       required: false
 
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: A short description of the book
-    validations:
-      required: false
-
   - type: input
-    id: playstore_url
+    id: cover_image
     attributes:
-      label: Play Store URL
-      description: Link to the book on Google Play Store (optional)
-      placeholder: https://play.google.com/store/books/details?id=...
+      label: Cover Image
+      description: Path or URL to the book cover image
+      placeholder: /images/books/pragmatic-programmer.jpg
     validations:
       required: false
 
   - type: textarea
-    id: body
+    id: additional_info
     attributes:
       label: Additional Info
-      description: Any other details about the book
+      description: Any other details about the book (e.g., description, Play Store URL, etc.)
+      placeholder: |
+        description: A must-read for every developer.
+        playstore_url: https://play.google.com/store/books/details?id=...
     validations:
       required: false

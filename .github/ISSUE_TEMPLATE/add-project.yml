@@ -16,7 +16,7 @@ body:
     id: name
     attributes:
       label: Project Name
-      description: Display name of the project
+      description: Display name of the project (defaults to repository name)
       placeholder: My Awesome Project
     validations:
       required: false
@@ -31,17 +31,11 @@ body:
       required: false
 
   - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: A short description of the project
-    validations:
-      required: false
-
-  - type: textarea
-    id: body
+    id: additional_info
     attributes:
       label: Additional Info
-      description: Any other details about the project
+      description: Any other details about the project (e.g., description, etc.)
+      placeholder: |
+        description: A project that does amazing things.
     validations:
       required: false
