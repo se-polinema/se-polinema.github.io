@@ -1,0 +1,56 @@
+name: Cleanup Merged OpenCode Branches
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          token: ${{ secrets.GH_WORKFLOW_PAT }}
+
+      - name: Delete merged OpenCode branches older than 7 days
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_WORKFLOW_PAT }}
+          script: |
+            const { owner, repo } = context.repo
+            const cutoff = new Date()
+            cutoff.setDate(cutoff.getDate() - 7)
+
+            const { data: prs } = await github.rest.pulls.list({
+              owner, repo,
+              state: 'closed',
+              per_page: 100,
+            })
+
+            const toClean = prs.filter(pr => {
+              if (!pr.head.ref.startsWith('opencode/issue')) return false
+              if (!pr.merged_at) return false
+              const mergedDate = new Date(pr.merged_at)
+              return mergedDate < cutoff
+            })
+
+            console.log(`Found ${toClean.length} merged OpenCode branches to clean up`)
+
+            for (const pr of toClean) {
+              try {
+                await github.rest.git.deleteRef({
+                  owner, repo,
+                  ref: `heads/${pr.head.ref}`,
+                })
+                console.log(`Deleted branch: ${pr.head.ref} (merged ${pr.merged_at})`)
+              } catch (err) {
+                console.log(`Failed to delete ${pr.head.ref}: ${err.message}`)
+              }
+            }
