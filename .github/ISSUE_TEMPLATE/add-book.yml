@@ -21,20 +21,11 @@ body:
     validations:
       required: false
 
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: A short description of the book
-    validations:
-      required: false
-
   - type: input
-    id: playstore_url
+    id: image
     attributes:
-      label: Play Store URL
-      description: Link to the book on Google Play Store (optional)
-      placeholder: https://play.google.com/store/books/details?id=...
+      label: Cover Image
+      description: Path to the book cover image (e.g. /images/books/foo.jpg). Leave empty if none.
     validations:
       required: false
 
@@ -42,6 +33,6 @@ body:
     id: body
     attributes:
       label: Additional Info
-      description: Any other details about the book
+      description: Any other details — description, Play Store URL, etc. (Markdown or plain text)
     validations:
       required: false

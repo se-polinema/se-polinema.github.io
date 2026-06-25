@@ -25,15 +25,6 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: date
-    attributes:
-      label: Date
-      description: Publication date (YYYY-MM-DD)
-      placeholder: "2026-06-24"
-    validations:
-      required: false
-
   - type: textarea
     id: body
     attributes:
@@ -43,61 +34,17 @@ body:
       required: true
 
   - type: input
-    id: author
-    attributes:
-      label: Author
-      description: Author name (defaults to SE Lab)
-      placeholder: SE Lab
-    validations:
-      required: false
-
-  - type: input
-    id: title_id
-    attributes:
-      label: Title (Bahasa Indonesia)
-      description: Indonesian version of the title
-    validations:
-      required: false
-
-  - type: dropdown
-    id: lang
-    attributes:
-      label: Language
-      description: Primary language of the post
-      options:
-        - en
-        - id
-    validations:
-      required: false
-
-  - type: input
     id: image
     attributes:
       label: Cover Image
-      description: Path to cover/hero image (e.g. /images/posts/foo.jpg)
+      description: Path to cover/hero image (e.g. /images/posts/foo.jpg). Leave empty if none.
     validations:
       required: false
 
   - type: textarea
-    id: excerpt
+    id: extra
     attributes:
-      label: Excerpt
-      description: A short summary of the post (English)
+      label: Additional Info
+      description: Any extra details — date, author, language, translations, excerpt, featured flag, etc. (Markdown or plain text)
     validations:
       required: false
-
-  - type: textarea
-    id: excerpt_id
-    attributes:
-      label: Excerpt (Bahasa Indonesia)
-      description: A short summary of the post in Indonesian
-    validations:
-      required: false
-
-  - type: checkboxes
-    id: featured
-    attributes:
-      label: Featured
-      description: Should this post be featured on the homepage?
-      options:
-        - label: Feature this post
