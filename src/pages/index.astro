@@ -8,8 +8,6 @@ import Projects from '../components/Projects.vue'
 import Books from '../components/Books.vue'
 import Team from '../components/Team.vue'
 import Publications from '../components/Publications.vue'
-import Partners from '../components/Partners.vue'
-import Gallery from '../components/Gallery.vue'
 import JoinLab from '../components/JoinLab.vue'
 import News from '../components/News.vue'
 import { getCollection } from 'astro:content'
@@ -78,8 +76,6 @@ const stats = await getLabStats()
   <Books client:load books={books} />
   <Team client:load researchers={featuredResearchers} />
   <Publications client:load publications={featuredPublications} />
-  <Partners client:load />
-  <Gallery client:load />
   <JoinLab client:load />
   <News client:load posts={sortedPosts} />
 </VSCodeLayout>

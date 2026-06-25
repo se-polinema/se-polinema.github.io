@@ -15,8 +15,8 @@
           :key="member.id"
           class="group bg-white border border-neutral-100 hover:border-primary/15 hover:shadow-sm transition-all duration-300 overflow-hidden"
         >
-          <!-- Full-width photo banner -->
-          <div class="relative aspect-[4/5] bg-neutral-100 overflow-hidden">
+          <!-- Photo (square, links to profile) -->
+          <a :href="`/researchers/${member.id}`" class="block relative aspect-square bg-neutral-100 overflow-hidden">
             <img
               :src="member.photo"
               :alt="member.name"
@@ -26,7 +26,7 @@
             />
             <!-- Accent sweep line on hover -->
             <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-          </div>
+          </a>
 
           <!-- Card content -->
           <div class="p-5">
