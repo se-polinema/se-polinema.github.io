@@ -6,6 +6,8 @@
     "researchers": "Peneliti",
     "news": "Berita",
     "projects": "Proyek",
+    "books": "Buku",
+    "join": "Bergabung",
     "publications": "Publikasi",
     "gallery": "Galeri",
     "partners": "Mitra",
@@ -77,7 +79,71 @@
     "label": "Proyek",
     "heading": "Karya Kami",
     "empty": "Proyek akan ditampilkan di sini. Kunjungi kembali nanti.",
-    "comingSoon": "Segera Hadir"
+    "comingSoon": "Segera Hadir",
+    "viewAll": "Lihat Semua Proyek",
+    "by": "oleh",
+    "archiveHeading": "Arsip Proyek",
+    "archiveDescription": "Proyek perangkat lunak open-source dan terapan yang dikembangkan oleh peneliti SE Lab.",
+    "allMembers": "Semua Anggota",
+    "resultSingle": "proyek",
+    "resultPlural": "proyek"
+  },
+  "books": {
+    "label": "Buku",
+    "heading": "Publikasi & Buku",
+    "empty": "Buku karya anggota lab akan ditampilkan di sini.",
+    "comingSoon": "Segera Hadir",
+    "viewAll": "Lihat Semua Buku",
+    "by": "oleh",
+    "archiveHeading": "Arsip Buku",
+    "archiveDescription": "Buku yang ditulis dan ditulis bersama oleh peneliti SE Lab.",
+    "allMembers": "Semua Anggota",
+    "resultSingle": "buku",
+    "resultPlural": "buku"
+  },
+  "stats": {
+    "researchers": "Peneliti",
+    "publications": "Publikasi",
+    "projects": "Proyek",
+    "books": "Buku"
+  },
+  "join": {
+    "label": "Bergabung dengan Lab",
+    "heading": "Bekerja Sama dengan Kami",
+    "intro": "Kami menyambut mahasiswa dan kolaborator yang termotivasi untuk bergabung dalam kegiatan riset kami. Jelajahi peluang berikut ini.",
+    "thesisTitle": "Tugas Akhir & Proyek",
+    "thesisDesc": "Kami menawarkan topik tugas akhir terbimbing di bidang rekayasa perangkat lunak, sistem cerdas, dan pengembangan perangkat lunak terapan. Hubungi kami untuk mendiskusikan minat Anda.",
+    "internTitle": "Magang",
+    "internDesc": "Mahasiswa yang termotivasi dapat bergabung sebagai magang untuk mendapatkan pengalaman riset dan pengembangan langsung bersama peneliti kami.",
+    "collabTitle": "Kolaborasi Riset",
+    "collabDesc": "Kami terbuka untuk kolaborasi dengan institusi akademik lain, mitra industri, dan organisasi masyarakat dalam riset perangkat lunak terapan.",
+    "emailCta": "Hubungi Kami",
+    "browseCta": "Lihat Peneliti"
+  },
+  "carousel": {
+    "prev": "Sebelumnya",
+    "next": "Berikutnya"
+  },
+  "panel": {
+    "contact": "Kontak",
+    "output": "Output",
+    "problems": "Masalah",
+    "outputInit": "Menginisialisasi analisis workspace...",
+    "outputResearchers": "Peneliti terdeteksi:",
+    "outputFocusAreas": "Bidang fokus riset:",
+    "outputPublications": "Publikasi terindeks:",
+    "outputProjects": "Proyek open-source:",
+    "outputBooks": "Buku yang ditulis:",
+    "outputDept": "Jurusan:",
+    "outputInst": "Institusi:",
+    "outputReady": "Workspace siap.",
+    "outputLastUpdated": "Sinkronisasi publikasi terakhir:",
+    "outputNever": "belum pernah",
+    "problemsNone": "Tidak ada masalah yang terdeteksi di workspace.",
+    "problemsErrors": "Kesalahan",
+    "problemsWarnings": "Peringatan",
+    "problemsInfos": "Informasi",
+    "problemsVersion": "Semua sistem berjalan normal"
   },
   "publications": {
     "label": "Publikasi",
@@ -109,7 +175,8 @@
     "label": "Mitra",
     "heading": "Kolaborasi",
     "empty": "Logo mitra akan ditampilkan di sini. Kunjungi kembali nanti.",
-    "comingSoon": "Segera Hadir"
+    "comingSoon": "Segera Hadir",
+    "visit": "Kunjungi"
   },
   "contact": {
     "label": "Kontak",

@@ -1,0 +1,16 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import ProjectsDirectoryPage from '../../components/ProjectsDirectoryPage.vue'
+import { getCollection } from 'astro:content'
+import { getMemberProjects } from '../../lib/memberWorks'
+
+const projects = await getMemberProjects()
+
+const members = (await getCollection('researchers'))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))
+  .map((r) => ({ id: r.id, name: r.data.name }))
+---
+
+<VSCodeLayout title="Projects — SE Lab">
+  <ProjectsDirectoryPage client:load projects={projects} members={members} />
+</VSCodeLayout>

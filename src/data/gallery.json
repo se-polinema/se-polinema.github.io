@@ -1,0 +1,26 @@
+[
+  {
+    "image": "/images/team/dian-hanifudin-subhi.jpg",
+    "caption": {
+      "id": "Anggota lab dalam kegiatan penelitian",
+      "en": "Lab member during research activity"
+    },
+    "_placeholder": true
+  },
+  {
+    "image": "/images/team/imam-fahrur-rozi.jpg",
+    "caption": {
+      "id": "Presentasi hasil penelitian",
+      "en": "Research presentation"
+    },
+    "_placeholder": true
+  },
+  {
+    "image": "/images/team/ariadi-retno-tri-hayati-ririd.jpg",
+    "caption": {
+      "id": "Kegiatan laboratorium",
+      "en": "Laboratory activities"
+    },
+    "_placeholder": true
+  }
+]

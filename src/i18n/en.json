@@ -6,6 +6,8 @@
     "researchers": "Researchers",
     "news": "News",
     "projects": "Projects",
+    "books": "Books",
+    "join": "Join",
     "publications": "Publications",
     "gallery": "Gallery",
     "partners": "Partners",
@@ -77,7 +79,71 @@
     "label": "Projects",
     "heading": "Our Work",
     "empty": "Projects will be showcased here. Check back soon.",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "viewAll": "View All Projects",
+    "by": "by",
+    "archiveHeading": "Project Archive",
+    "archiveDescription": "Open-source and applied software projects developed by SE Lab researchers.",
+    "allMembers": "All Members",
+    "resultSingle": "project",
+    "resultPlural": "projects"
+  },
+  "books": {
+    "label": "Books",
+    "heading": "Publications & Books",
+    "empty": "Books authored by lab members will appear here.",
+    "comingSoon": "Coming Soon",
+    "viewAll": "View All Books",
+    "by": "by",
+    "archiveHeading": "Book Archive",
+    "archiveDescription": "Books authored and co-authored by SE Lab researchers.",
+    "allMembers": "All Members",
+    "resultSingle": "book",
+    "resultPlural": "books"
+  },
+  "stats": {
+    "researchers": "Researchers",
+    "publications": "Publications",
+    "projects": "Projects",
+    "books": "Books"
+  },
+  "join": {
+    "label": "Join the Lab",
+    "heading": "Work With Us",
+    "intro": "We welcome motivated students and collaborators to join our research activities. Explore the opportunities below.",
+    "thesisTitle": "Thesis & Final Projects",
+    "thesisDesc": "We offer guided thesis topics in software engineering, intelligent systems, and applied software development. Reach out to discuss your interest.",
+    "internTitle": "Internships",
+    "internDesc": "Motivated students can join the lab as interns to gain hands-on research and development experience alongside our researchers.",
+    "collabTitle": "Research Collaboration",
+    "collabDesc": "We are open to collaboration with other academic institutions, industry partners, and community organizations on applied software research.",
+    "emailCta": "Get in Touch",
+    "browseCta": "Browse Researchers"
+  },
+  "carousel": {
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "panel": {
+    "contact": "Contact",
+    "output": "Output",
+    "problems": "Problems",
+    "outputInit": "Initializing workspace analysis...",
+    "outputResearchers": "Researchers detected:",
+    "outputFocusAreas": "Research focus areas:",
+    "outputPublications": "Publications indexed:",
+    "outputProjects": "Open-source projects:",
+    "outputBooks": "Books authored:",
+    "outputDept": "Department:",
+    "outputInst": "Institution:",
+    "outputReady": "Workspace ready.",
+    "outputLastUpdated": "Publications last synced:",
+    "outputNever": "never",
+    "problemsNone": "No problems have been detected in the workspace.",
+    "problemsErrors": "Errors",
+    "problemsWarnings": "Warnings",
+    "problemsInfos": "Infos",
+    "problemsVersion": "All systems operational"
   },
   "publications": {
     "label": "Publications",
@@ -109,7 +175,8 @@
     "label": "Partners",
     "heading": "Collaborations",
     "empty": "Partner logos will be displayed here. Check back soon.",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "visit": "Visit"
   },
   "contact": {
     "label": "Contact",

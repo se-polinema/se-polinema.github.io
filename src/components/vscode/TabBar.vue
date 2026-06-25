@@ -107,6 +107,8 @@ const tabs = [
   { id: 'hero',         label: 'index.html',      ext: 'html', pageId: 'home',         href: '/' },
   { id: 'about',        label: 'about.md',         ext: 'md',   pageId: 'home',         href: '/#about' },
   { id: 'research',     label: 'research.json',    ext: 'json', pageId: 'home',         href: '/#research' },
+  { id: 'projects',     label: 'projects.json',    ext: 'json', pageId: 'projects',     href: '/projects' },
+  { id: 'books',        label: 'books.md',         ext: 'md',   pageId: 'books',        href: '/books' },
   { id: 'team',         label: 'team.md',          ext: 'md',   pageId: 'researchers',  href: '/researchers' },
   { id: 'publications', label: 'publications.bib', ext: 'bib',  pageId: 'publications', href: '/publications' },
   { id: 'news',         label: 'news.md',          ext: 'md',   pageId: 'news',         href: '/blog' },
@@ -116,6 +118,8 @@ const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   hero:         { path: ['se-lab', 'index.html'],                    lang: 'HTML'     },
   about:        { path: ['se-lab', 'src', 'about.md'],               lang: 'Markdown' },
   research:     { path: ['se-lab', 'src', 'research.json'],          lang: 'JSON'     },
+  projects:     { path: ['se-lab', 'src', 'projects.json'],          lang: 'JSON'     },
+  books:        { path: ['se-lab', 'src', 'books.md'],               lang: 'Markdown' },
   team:         { path: ['se-lab', 'src', 'researchers', 'team.md'], lang: 'Markdown' },
   publications: { path: ['se-lab', 'src', 'publications.bib'],       lang: 'BibTeX'   },
   news:         { path: ['se-lab', 'src', 'news.md'],                lang: 'Markdown' },
@@ -125,12 +129,16 @@ const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   news:         { path: ['se-lab', 'src', 'news.md'],                lang: 'Markdown' },
   publications: { path: ['se-lab', 'src', 'publications.bib'],       lang: 'BibTeX'   },
   researchers:  { path: ['se-lab', 'src', 'researchers', 'team.md'], lang: 'Markdown' },
+  projects:     { path: ['se-lab', 'src', 'projects.json'],          lang: 'JSON'     },
+  books:        { path: ['se-lab', 'src', 'books.md'],               lang: 'Markdown' },
 }
 
 const innerPageLabel = computed(() => {
   if (currentPage.value === 'researchers') return 'Researchers'
   if (currentPage.value === 'publications') return 'Publications'
   if (currentPage.value === 'news') return 'News'
+  if (currentPage.value === 'projects') return 'Projects'
+  if (currentPage.value === 'books') return 'Books'
   return ''
 })
 

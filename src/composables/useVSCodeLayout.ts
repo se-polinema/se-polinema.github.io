@@ -34,10 +34,22 @@ export function useVSCodeLayout() {
     } else if (path.startsWith('/researchers')) {
       currentPage.value = 'researchers'
       activeSidebarView.value = 'researchers'
+    } else if (path.startsWith('/projects')) {
+      currentPage.value = 'projects'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/books')) {
+      currentPage.value = 'books'
+      activeSidebarView.value = 'explorer'
     } else {
       currentPage.value = 'home'
       activeSidebarView.value = 'explorer'
     }
+
+    panelOpen.value = window.innerWidth >= 1024
+    const savedPanelOpen = localStorage.getItem('se-lab-panel-open')
+    if (savedPanelOpen !== null) panelOpen.value = savedPanelOpen === 'true'
+    const savedPanelTab = localStorage.getItem('se-lab-panel-tab')
+    if (savedPanelTab) activePanelTab.value = savedPanelTab as 'contact' | 'output' | 'problems'
   }
 
   function toggleSidebar() {
@@ -46,11 +58,18 @@ export function useVSCodeLayout() {
 
   function togglePanel() {
     panelOpen.value = !panelOpen.value
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('se-lab-panel-open', String(panelOpen.value))
+    }
   }
 
   function openPanel(tab: 'contact' | 'output' | 'problems') {
     activePanelTab.value = tab
     panelOpen.value = true
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('se-lab-panel-tab', tab)
+      localStorage.setItem('se-lab-panel-open', 'true')
+    }
   }
 
   // Map views that belong to a dedicated page so setView can navigate when needed

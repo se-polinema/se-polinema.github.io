@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Jurusan Teknologi Informasi",
+    "logoUrl": "/images/logo-jti.png",
+    "url": "https://jti.polinema.ac.id",
+    "_placeholder": true
+  },
+  {
+    "name": "Politeknik Negeri Malang",
+    "logoUrl": "/images/logo-polinema.png",
+    "url": "https://polinema.ac.id",
+    "_placeholder": true
+  }
+]

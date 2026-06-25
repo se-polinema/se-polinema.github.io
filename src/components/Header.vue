@@ -113,8 +113,11 @@ const navItems = computed(() => [
   { id: 'about', href: '/#about', label: t.value.nav.about },
   { id: 'research', href: '/#research', label: t.value.nav.research },
   { id: 'researchers', href: '/researchers', label: t.value.nav.researchers },
+  { id: 'projects', href: '/projects', label: t.value.nav.projects },
+  { id: 'books', href: '/books', label: t.value.nav.books },
   { id: 'publications', href: '/publications', label: t.value.nav.publications },
   { id: 'news', href: '/blog', label: t.value.nav.news },
+  { id: 'join', href: '/#join', label: t.value.nav.join },
   { id: 'contact', href: '/#contact', label: t.value.nav.contact },
 ])
 

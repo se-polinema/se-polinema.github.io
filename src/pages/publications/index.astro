@@ -20,7 +20,7 @@ const publications = (await getCollection('publications'))
   }))
 
 const researchers = (await getCollection('researchers'))
-  .sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))
   .map((researcher) => ({
     id: researcher.id,
     name: researcher.data.name,
