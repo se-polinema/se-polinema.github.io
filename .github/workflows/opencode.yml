@@ -5,11 +5,50 @@ on:
     types: [created, edited]
 
 jobs:
-  plan:
+  check-auth:
     if: >
       github.event.issue.pull_request == null &&
-      startsWith(github.event.comment.body, '/plan') &&
-      github.actor == 'dhanifudin'
+      (startsWith(github.event.comment.body, '/plan') || startsWith(github.event.comment.body, '/build'))
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+    outputs:
+      command: ${{ steps.parse.outputs.command }}
+      allowed: ${{ steps.verify.outputs.allowed }}
+      extra_context: ${{ steps.parse.outputs.extra_context }}
+    steps:
+      - name: Parse command and extra context
+        id: parse
+        run: |
+          COMMENT="${{ github.event.comment.body }}"
+          if echo "$COMMENT" | grep -q '^/plan'; then
+            echo "command=plan" >> "$GITHUB_OUTPUT"
+            CONTEXT=$(echo "$COMMENT" | sed 's|^/plan[[:space:]]*||')
+          elif echo "$COMMENT" | grep -q '^/build'; then
+            echo "command=build" >> "$GITHUB_OUTPUT"
+            CONTEXT=$(echo "$COMMENT" | sed 's|^/build[[:space:]]*||')
+          fi
+          echo "extra_context=${CONTEXT}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify organization membership
+        id: verify
+        run: |
+          ACTOR="${{ github.actor }}"
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://api.github.com/orgs/se-polinema/public_members/${ACTOR}")
+          if [ "${HTTP_CODE}" = "204" ]; then
+            echo "allowed=true" >> "$GITHUB_OUTPUT"
+            echo "User ${ACTOR} is a public member of se-polinema"
+          else
+            echo "allowed=false" >> "$GITHUB_OUTPUT"
+            echo "User ${ACTOR} is NOT a public member of se-polinema (HTTP ${HTTP_CODE})"
+          fi
+
+  plan:
+    needs: check-auth
+    if: >
+      needs.check-auth.outputs.allowed == 'true' &&
+      needs.check-auth.outputs.command == 'plan'
     runs-on: ubuntu-latest
     concurrency:
       group: opencode-plan-${{ github.event.issue.number }}
@@ -45,6 +84,7 @@ jobs:
             Read the full GitHub issue title, body, and discussion before replying.
 
             This run is for planning only.
+            ${{ needs.check-auth.outputs.extra_context }}
 
             Reply in the issue with:
             1. A short summary of the request and current discussion.
@@ -59,13 +99,13 @@ jobs:
             - Do not create a branch.
             - Do not create a pull request.
             - Do not implement the change yet.
-            - Mention that only dhanifudin can approve implementation by commenting exactly /build.
+            - Mention that only se-polinema organization members can approve implementation by commenting exactly /build.
 
   build:
+    needs: check-auth
     if: >
-      github.event.issue.pull_request == null &&
-      startsWith(github.event.comment.body, '/build') &&
-      github.actor == 'dhanifudin'
+      needs.check-auth.outputs.allowed == 'true' &&
+      needs.check-auth.outputs.command == 'build'
     runs-on: ubuntu-latest
     concurrency:
       group: opencode-build-${{ github.event.issue.number }}
@@ -76,9 +116,24 @@ jobs:
       issues: write
     env:
       SCREENSHOT_PATH: .github/screenshots/issue-${{ github.event.issue.number }}.png
-      SCREENSHOT_URL_PATH: "/publications"
       PREVIEW_PORT: "4321"
     steps:
+      - name: Extract screenshot target path
+        id: screenshot-path
+        run: |
+          ISSUE_BODY="${{ github.event.issue.body }}"
+          TARGET="/"
+          ROUTE=$(echo "$ISSUE_BODY" | grep -oP 'route[:\s]+(/[a-zA-Z0-9\-_/]*)' | head -1 | sed 's/route[:\s]*//')
+          if [ -n "$ROUTE" ]; then
+            TARGET="$ROUTE"
+          else
+            ALT=$(echo "$ISSUE_BODY" | grep -oP '(?:path|url|page|screenshot)[:\s]+(/[a-zA-Z0-9\-_/]*)' | head -1 | sed 's/.*[:\s]\{1,\}//')
+            if [ -n "$ALT" ]; then
+              TARGET="$ALT"
+            fi
+          fi
+          echo "url_path=${TARGET}" >> "$GITHUB_OUTPUT"
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -104,6 +159,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
 
       - name: Implement approved plan
+        id: implementation
+        continue-on-error: true
         run: opencode github run
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WORKFLOW_PAT }}
@@ -114,6 +171,7 @@ jobs:
           PROMPT: |
             Read the full GitHub issue title, body, and discussion before acting.
             Find the latest OpenCode plan in the issue discussion and implement that approved plan.
+            ${{ needs.check-auth.outputs.extra_context }}
 
             Requirements:
             - Implement the approved plan in this repository.
@@ -124,6 +182,7 @@ jobs:
 
       - name: Resolve OpenCode pull request
         id: pr
+        if: steps.implementation.outcome == 'success' || steps.implementation.outcome == 'failure'
         uses: actions/github-script@v7
         with:
           script: |
@@ -136,11 +195,20 @@ jobs:
               .filter(p => p.head.ref.startsWith(prefix))
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
             if (!pr) {
-              core.setFailed(`No open OpenCode PR found for issue #${context.issue.number}`)
+              core.setOutput('found', 'false')
+              core.setOutput('number', '')
+              core.setOutput('branch', '')
               return
             }
+            core.setOutput('found', 'true')
             core.setOutput('number', String(pr.number))
             core.setOutput('branch', pr.head.ref)
+
+      - name: Check PR found
+        if: steps.pr.outputs.found == 'false'
+        run: |
+          echo "No OpenCode PR was created. The implementation step may have failed."
+          exit 1
 
       - name: Checkout implementation branch
         run: |
@@ -168,18 +236,8 @@ jobs:
           done
           npx playwright screenshot --device="Desktop Chrome" "http://127.0.0.1:${PREVIEW_PORT}${SCREENSHOT_URL_PATH}" "${SCREENSHOT_PATH}"
           kill "${PREVIEW_PID}"
-
-      - name: Commit screenshot
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "${SCREENSHOT_PATH}"
-          if ! git diff --cached --quiet; then
-            git commit -m "Add issue screenshot"
-            git push origin "HEAD:${BRANCH}"
-          fi
         env:
-          BRANCH: ${{ steps.pr.outputs.branch }}
+          SCREENSHOT_URL_PATH: ${{ steps.screenshot-path.outputs.url_path }}
 
       - name: Upload screenshot artifact
         uses: actions/upload-artifact@v4
@@ -194,13 +252,39 @@ jobs:
             const { owner, repo } = context.repo
             const pull_number = Number('${{ steps.pr.outputs.number }}')
             const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number })
-            const branch = process.env.BRANCH
-            const screenshotUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${process.env.SCREENSHOT_PATH}`
+            const runId = context.runId
+            const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${runId}`
+            const artifactName = `opencode-issue-${context.issue.number}-screenshot`
             const marker = '<!-- opencode-issue-summary -->'
-            const summary = `${marker}\n## OpenCode Automation\n- Approved by: @${context.actor}\n- Issue: #${context.issue.number}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifact: \`opencode-issue-${context.issue.number}-screenshot\`\n\n### Screenshot\n![Updated feature](${screenshotUrl})`
+            const summary = `${marker}\n## OpenCode Automation\n- Approved by: @${context.actor}\n- Issue: #${context.issue.number}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifact: [View \`${artifactName}\`](${runUrl})\n`
             const body = pr.body?.includes(marker)
               ? pr.body.replace(new RegExp(`${marker}[\\s\\S]*$`), summary)
               : `${pr.body ?? ''}\n\n${summary}`.trim()
             await github.rest.pulls.update({ owner, repo, pull_number, body })
-        env:
-          BRANCH: ${{ steps.pr.outputs.branch }}
+
+  report-error:
+    runs-on: ubuntu-latest
+    needs: [check-auth, build]
+    if: >
+      failure() &&
+      needs.check-auth.outputs.allowed == 'true' &&
+      needs.check-auth.outputs.command == 'build'
+    permissions:
+      issues: write
+    steps:
+      - name: Create error issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo
+            const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`
+            const title = `[OpenCode] Build failed for issue #${context.issue.number}`
+            const body = `## Build Failure\n\n- **Original issue:** #${context.issue.number}\n- **Workflow run:** [View run](${runUrl})\n- **Triggered by:** @${context.actor}\n\nThe OpenCode build job failed during implementation. Please check the workflow run logs for details.`
+
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+              labels: ['bug', 'opencode'],
+            })
