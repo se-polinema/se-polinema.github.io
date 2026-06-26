@@ -28,9 +28,9 @@
               target="_blank"
               rel="noopener"
               class="font-mono text-[13px] text-primary hover:text-accent transition-colors break-all leading-snug"
-            >{{ project.name ?? project.repo }}</a>
-            <p v-if="project.description" class="text-sm text-neutral-500 leading-relaxed flex-1">
-              {{ project.description }}
+            >{{ lang === 'id' && project.nameId ? project.nameId : (project.name ?? project.repo) }}</a>
+            <p v-if="project.description || project.descriptionId" class="text-sm text-neutral-500 leading-relaxed flex-1">
+              {{ lang === 'id' && project.descriptionId ? project.descriptionId : project.description }}
             </p>
             <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5">
               <span class="text-[12px] text-neutral-400">{{ t.projects.by }}</span>
@@ -63,13 +63,15 @@ import { useI18n } from '../composables/useI18n'
 
 export interface MemberProject {
   name?: string
+  nameId?: string
   repo: string
   description?: string
+  descriptionId?: string
   researcherId: string
   researcherName: string
 }
 
 defineProps<{ projects: MemberProject[] }>()
 
-const { t } = useI18n()
+const { lang, t } = useI18n()
 </script>

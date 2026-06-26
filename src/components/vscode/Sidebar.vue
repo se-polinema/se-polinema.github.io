@@ -13,10 +13,11 @@
     >
       <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 select-none">
         {{ activeSidebarView === 'github' ? 'Source Control'
-         : activeSidebarView === 'researchers' ? 'Researchers'
-         : activeSidebarView === 'publications' ? 'Publications'
-         : activeSidebarView === 'blog' ? 'News'
-         : 'Explorer' }}
+          : activeSidebarView === 'researchers' ? 'Researchers'
+          : activeSidebarView === 'publications' ? 'Publications'
+          : activeSidebarView === 'decks' ? 'Decks'
+          : activeSidebarView === 'blog' ? 'News'
+          : 'Explorer' }}
       </span>
     </div>
 
@@ -183,6 +184,31 @@
       </div>
     </nav>
 
+    <!-- Decks panel -->
+    <nav v-else-if="activeSidebarView === 'decks'" key="decks" class="flex-1 overflow-y-auto pb-4 px-4 pt-3 space-y-5" aria-label="Decks filters">
+      <div>
+        <div class="filter-header">Member</div>
+        <div class="flex flex-wrap gap-1 mt-2">
+          <a
+            v-for="m in deckMembers"
+            :key="m.id"
+            :href="`/decks`"
+            class="filter-chip chip-inactive"
+          >{{ m.name }}</a>
+        </div>
+      </div>
+      <div>
+        <div class="filter-header">Type</div>
+        <div class="flex flex-wrap gap-1 mt-2">
+          <span
+            v-for="t in deckTypes"
+            :key="t"
+            class="filter-chip chip-inactive"
+          >{{ t }}</span>
+        </div>
+      </div>
+    </nav>
+
     </Transition>
   </aside>
 </template>
@@ -215,7 +241,6 @@ const fileTree: FileItem[] = [
   { id: 'research',        name: 'research.json',    ext: 'json', type: 'file',   sectionId: 'research',     pageId: 'home',         indent: 2, href: '/#research' },
   { id: 'projects',        name: 'projects.json',    ext: 'json', type: 'file',   sectionId: 'projects',     pageId: 'projects',     indent: 2, href: '/projects' },
   { id: 'books',           name: 'books.md',         ext: 'md',   type: 'file',   sectionId: 'books',        pageId: 'books',        indent: 2, href: '/books' },
-  { id: 'decks',          name: 'decks.md',         ext: 'md',   type: 'file',   sectionId: 'decks',        pageId: 'decks',        indent: 2, href: '/decks' },
   { id: 'researchers-dir', name: 'researchers/',     ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
   { id: 'team',            name: 'team.md',          ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },
@@ -227,6 +252,8 @@ const researcherList = ref<{ id: string; name: string }[]>([])
 const pubYears = ref<number[]>([])
 const pubTypes = ref<string[]>([])
 const blogCategories = ref<string[]>([])
+const deckMembers = ref<{ id: string; name: string }[]>([])
+const deckTypes = ref<string[]>([])
 const currentPath = ref('')
 
 function isActive(item: FileItem): boolean {
@@ -274,6 +301,10 @@ onMounted(async () => {
   } else if (currentPage.value === 'news') {
     const meta = await fetch('/api/posts-meta.json').then(r => r.json())
     blogCategories.value = meta.categories
+  } else if (currentPage.value === 'decks') {
+    const meta = await fetch('/api/decks-meta.json').then(r => r.json())
+    deckMembers.value = meta.members
+    deckTypes.value = meta.types
   }
 })
 </script>

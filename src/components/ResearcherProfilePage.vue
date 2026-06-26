@@ -128,8 +128,8 @@
                     />
                   </div>
                   <div class="min-w-0">
-                    <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">{{ book.title }}</div>
-                    <p v-if="book.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ book.description }}</p>
+                    <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">{{ lang === 'id' && book.titleId ? book.titleId : book.title }}</div>
+                    <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}</p>
                     <div v-if="book.playstoreUrl" class="mt-1.5">
                       <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary hover:text-accent transition-colors">Buy on Google Play Books →</a>
                     </div>
@@ -150,8 +150,8 @@
                     :href="`https://github.com/${project.repo}`"
                     target="_blank" rel="noopener"
                     class="font-mono text-[13px] text-primary hover:text-accent transition-colors"
-                  >{{ project.name ?? project.repo }}</a>
-                  <p v-if="project.description" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ project.description }}</p>
+                  >{{ lang === 'id' && project.nameId ? project.nameId : (project.name ?? project.repo) }}</a>
+                  <p v-if="project.description || project.descriptionId" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && project.descriptionId ? project.descriptionId : project.description }}</p>
                 </li>
               </ul>
             </template>
@@ -219,8 +219,8 @@ const props = defineProps<{
     institutionalUrl?: string
     orcidUrl?: string
     scopusUrl?: string
-    projects?: Array<{ name?: string; repo: string; description?: string }>
-    books?: Array<{ title: string; playstoreUrl?: string; coverImage?: string; description?: string }>
+    projects?: Array<{ name?: string; nameId?: string; repo: string; description?: string; descriptionId?: string }>
+    books?: Array<{ title: string; titleId?: string; playstoreUrl?: string; coverImage?: string; description?: string; descriptionId?: string }>
     streams?: string[]
   }
   publications: Publication[]
