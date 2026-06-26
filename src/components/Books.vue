@@ -28,10 +28,10 @@
               <img :src="book.coverImage" :alt="`Cover of ${book.title}`" class="w-full h-full object-cover object-center" loading="lazy" />
             </div>
             <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">
-              {{ book.title }}
+              {{ lang === 'id' && book.titleId ? book.titleId : book.title }}
             </div>
-            <p v-if="book.description" class="text-sm text-neutral-500 leading-relaxed flex-1">
-              {{ book.description }}
+            <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 leading-relaxed flex-1">
+              {{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}
             </p>
             <div v-if="book.playstoreUrl" class="mt-1">
               <a
@@ -72,14 +72,16 @@ import { useI18n } from '../composables/useI18n'
 
 export interface MemberBook {
   title: string
+  titleId?: string
   playstoreUrl?: string
   coverImage?: string
   description?: string
+  descriptionId?: string
   researcherId: string
   researcherName: string
 }
 
 defineProps<{ books: MemberBook[] }>()
 
-const { t } = useI18n()
+const { lang, t } = useI18n()
 </script>

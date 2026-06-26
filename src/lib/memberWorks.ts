@@ -2,17 +2,21 @@ import { getCollection } from 'astro:content'
 
 export interface MemberProject {
   name?: string
+  nameId?: string
   repo: string
   description?: string
+  descriptionId?: string
   researcherId: string
   researcherName: string
 }
 
 export interface MemberBook {
   title: string
+  titleId?: string
   playstoreUrl?: string
   coverImage?: string
   description?: string
+  descriptionId?: string
   researcherId: string
   researcherName: string
 }

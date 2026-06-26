@@ -47,14 +47,18 @@ const researchersCollection = defineCollection({
     order: z.number().int(),
     projects: z.array(z.object({
       name: z.string().optional(),
+      nameId: z.string().optional(),
       repo: z.string(),
       description: z.string().optional(),
+      descriptionId: z.string().optional(),
     })).optional(),
     books: z.array(z.object({
       title: z.string(),
+      titleId: z.string().optional(),
       playstoreUrl: z.url().optional(),
       coverImage: z.string().optional(),
       description: z.string().optional(),
+      descriptionId: z.string().optional(),
     })).optional(),
     decks: z.array(z.object({
       title: z.string(),
