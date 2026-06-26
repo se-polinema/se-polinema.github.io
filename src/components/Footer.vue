@@ -17,6 +17,8 @@
           <ul class="space-y-2">
             <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.news }}</a></li>
             <li><a href="/researchers" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.researchers }}</a></li>
+            <li><a href="/books" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.books }}</a></li>
+            <li><a href="/decks" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.decks }}</a></li>
             <li><a href="/publications" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.publications }}</a></li>
             <li><a href="/#research" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.research }}</a></li>
             <li><a href="/#contact" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.contact }}</a></li>

@@ -56,6 +56,14 @@ const researchersCollection = defineCollection({
       coverImage: z.string().optional(),
       description: z.string().optional(),
     })).optional(),
+    decks: z.array(z.object({
+      title: z.string(),
+      url: z.url(),
+      type: z.enum(['web', 'pdf', 'pptx', 'google-slides', 'canva', 'other']),
+      embedUrl: z.url().optional(),
+      description: z.string().optional(),
+      date: z.string().optional(),
+    })).optional(),
     streams: z.array(z.string()).optional(),
   }),
 })

@@ -40,6 +40,9 @@ export function useVSCodeLayout() {
     } else if (path.startsWith('/books')) {
       currentPage.value = 'books'
       activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/decks')) {
+      currentPage.value = 'decks'
+      activeSidebarView.value = 'explorer'
     } else {
       currentPage.value = 'home'
       activeSidebarView.value = 'explorer'

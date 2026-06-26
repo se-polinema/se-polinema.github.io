@@ -44,4 +44,10 @@ books:
     coverImage: "/images/books/git-tanpa-drama.jpg"
     description: "A practical Indonesian-language guide that helps beginners use Git with confidence, from branching and merging to collaboration and everyday version-control workflows."
     playstoreUrl: "https://play.google.com/store/books/details/Dian_Hanifudin_Subhi_Usman_Nurhasan_Putra_Prima_Ar?id=c7TCEQAAQBAJ&hl=en"
+decks:
+  - title: "Write with AI"
+    url: "https://dhanifudin.com/write-with-ai/"
+    type: "web"
+    embedUrl: "https://dhanifudin.com/write-with-ai/"
+    description: "A deck exploring how AI tools can accelerate and improve technical writing workflows."
 ---

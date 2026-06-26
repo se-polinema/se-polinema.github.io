@@ -109,6 +109,7 @@ const tabs = [
   { id: 'research',     label: 'research.json',    ext: 'json', pageId: 'home',         href: '/#research' },
   { id: 'projects',     label: 'projects.json',    ext: 'json', pageId: 'projects',     href: '/projects' },
   { id: 'books',        label: 'books.md',         ext: 'md',   pageId: 'books',        href: '/books' },
+  { id: 'decks',       label: 'decks.md',         ext: 'md',   pageId: 'decks',       href: '/decks' },
   { id: 'team',         label: 'team.md',          ext: 'md',   pageId: 'researchers',  href: '/researchers' },
   { id: 'publications', label: 'publications.bib', ext: 'bib',  pageId: 'publications', href: '/publications' },
   { id: 'news',         label: 'news.md',          ext: 'md',   pageId: 'news',         href: '/blog' },
@@ -120,6 +121,7 @@ const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   research:     { path: ['se-lab', 'src', 'research.json'],          lang: 'JSON'     },
   projects:     { path: ['se-lab', 'src', 'projects.json'],          lang: 'JSON'     },
   books:        { path: ['se-lab', 'src', 'books.md'],               lang: 'Markdown' },
+  decks:        { path: ['se-lab', 'src', 'decks.md'],               lang: 'Markdown' },
   team:         { path: ['se-lab', 'src', 'researchers', 'team.md'], lang: 'Markdown' },
   publications: { path: ['se-lab', 'src', 'publications.bib'],       lang: 'BibTeX'   },
   news:         { path: ['se-lab', 'src', 'news.md'],                lang: 'Markdown' },
@@ -131,6 +133,7 @@ const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   researchers:  { path: ['se-lab', 'src', 'researchers', 'team.md'], lang: 'Markdown' },
   projects:     { path: ['se-lab', 'src', 'projects.json'],          lang: 'JSON'     },
   books:        { path: ['se-lab', 'src', 'books.md'],               lang: 'Markdown' },
+  decks:        { path: ['se-lab', 'src', 'decks.md'],               lang: 'Markdown' },
 }
 
 const innerPageLabel = computed(() => {
@@ -139,6 +142,7 @@ const innerPageLabel = computed(() => {
   if (currentPage.value === 'news') return 'News'
   if (currentPage.value === 'projects') return 'Projects'
   if (currentPage.value === 'books') return 'Books'
+  if (currentPage.value === 'decks') return 'Decks'
   return ''
 })
 
