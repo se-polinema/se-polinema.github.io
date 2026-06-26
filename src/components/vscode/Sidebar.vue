@@ -215,6 +215,7 @@ const fileTree: FileItem[] = [
   { id: 'research',        name: 'research.json',    ext: 'json', type: 'file',   sectionId: 'research',     pageId: 'home',         indent: 2, href: '/#research' },
   { id: 'projects',        name: 'projects.json',    ext: 'json', type: 'file',   sectionId: 'projects',     pageId: 'projects',     indent: 2, href: '/projects' },
   { id: 'books',           name: 'books.md',         ext: 'md',   type: 'file',   sectionId: 'books',        pageId: 'books',        indent: 2, href: '/books' },
+  { id: 'decks',          name: 'decks.md',         ext: 'md',   type: 'file',   sectionId: 'decks',        pageId: 'decks',        indent: 2, href: '/decks' },
   { id: 'researchers-dir', name: 'researchers/',     ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
   { id: 'team',            name: 'team.md',          ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },

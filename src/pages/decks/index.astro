@@ -1,0 +1,16 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import DecksDirectoryPage from '../../components/DecksDirectoryPage.vue'
+import { getCollection } from 'astro:content'
+import { getMemberDecks } from '../../lib/memberWorks'
+
+const decks = await getMemberDecks()
+
+const members = (await getCollection('researchers'))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))
+  .map((r) => ({ id: r.id, name: r.data.name }))
+---
+
+<VSCodeLayout title="Decks — SE Lab">
+  <DecksDirectoryPage client:load decks={decks} members={members} />
+</VSCodeLayout>

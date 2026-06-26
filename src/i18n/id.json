@@ -7,6 +7,7 @@
     "news": "Berita",
     "projects": "Proyek",
     "books": "Buku",
+    "decks": "Dek",
     "join": "Bergabung",
     "publications": "Publikasi",
     "gallery": "Galeri",
@@ -100,6 +101,23 @@
     "allMembers": "Semua Anggota",
     "resultSingle": "buku",
     "resultPlural": "buku"
+  },
+  "decks": {
+    "label": "Dek",
+    "heading": "Presentasi & Dek",
+    "empty": "Belum ada dek presentasi yang ditambahkan. Kunjungi kembali nanti.",
+    "comingSoon": "Segera Hadir",
+    "viewAll": "Lihat Semua Dek",
+    "by": "oleh",
+    "archiveHeading": "Arsip Dek",
+    "archiveDescription": "Dek presentasi dan slide yang dibuat oleh peneliti SE Lab.",
+    "allMembers": "Semua Anggota",
+    "resultSingle": "dek",
+    "resultPlural": "dek",
+    "showPreview": "Tampilkan Pratinjau",
+    "hidePreview": "Sembunyikan Pratinjau",
+    "previewFallback": "Jika pratinjau kosong, situs mungkin memblokir penyematan.",
+    "openExternally": "Buka secara eksternal."
   },
   "stats": {
     "researchers": "Peneliti",

@@ -7,6 +7,7 @@
     "news": "News",
     "projects": "Projects",
     "books": "Books",
+    "decks": "Decks",
     "join": "Join",
     "publications": "Publications",
     "gallery": "Gallery",
@@ -100,6 +101,23 @@
     "allMembers": "All Members",
     "resultSingle": "book",
     "resultPlural": "books"
+  },
+  "decks": {
+    "label": "Decks",
+    "heading": "Presentations & Decks",
+    "empty": "No presentation decks have been added yet. Check back soon.",
+    "comingSoon": "Coming Soon",
+    "viewAll": "View All Decks",
+    "by": "by",
+    "archiveHeading": "Deck Archive",
+    "archiveDescription": "Presentation decks and slide decks created by SE Lab researchers.",
+    "allMembers": "All Members",
+    "resultSingle": "deck",
+    "resultPlural": "decks",
+    "showPreview": "Show Preview",
+    "hidePreview": "Hide Preview",
+    "previewFallback": "If the preview is blank, the site may block embedding.",
+    "openExternally": "Open externally."
   },
   "stats": {
     "researchers": "Researchers",
