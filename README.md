@@ -28,16 +28,31 @@ If you override the workflow variables, use model IDs returned by `https://openc
 
 ## Issue Commands
 
-Use these issue comments to trigger the workflows:
+Use these commands to trigger the workflows on issues and pull requests:
 
 - `/plan`: OpenCode reads the full issue discussion and replies with an implementation plan. Also triggered automatically when a se-polinema organization member opens a new issue with a title or body starting with `/plan`.
 - `/build`: OpenCode implements the approved plan, runs `npm run build`, captures a screenshot, and opens or updates a pull request.
 
 Notes:
 
-- These commands work on new comments and edited comments.
+- These commands work on new comments and edited comments, both on issues and pull requests.
+- They also work in pull request review comments and pull request review submissions.
 - `/plan` and `/build` may include extra text after the command.
 - The implementation branch uses the exact pattern `opencode/issue-{number}`.
+
+### PR Feedback Loop (Agentic Revision)
+
+After OpenCode opens a pull request, reviewers can iterate on the implementation without opening a new issue:
+
+1. A plan is created on an issue and a PR is opened via `/build`.
+2. A reviewer provides feedback on the PR by commenting `/plan <feedback>` or `/build <feedback>` in a:
+   - PR comment (conversation tab)
+   - PR review comment (on a diff line)
+   - PR review submission body
+3. When `/plan <feedback>` is used on a PR, OpenCode posts a **revised plan** back on the original issue.
+4. When `/build` is then used (on the issue or PR), OpenCode checks out the existing `opencode/issue-{number}` branch, applies the revisions, and pushes a new commit. The existing PR is updated automatically.
+
+This enables an Agentic AI feedback loop where reviewers can refine the implementation iteratively within the same issue and PR.
 
 ## Approval Rule
 

@@ -5,57 +5,112 @@ on:
     types: [created, edited]
   issues:
     types: [opened]
+  pull_request_review_comment:
+    types: [created, edited]
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   check-auth:
     if: >
-      github.event.issue.pull_request == null &&
       (
         (github.event_name == 'issue_comment' && (startsWith(github.event.comment.body, '/plan') || startsWith(github.event.comment.body, '/build'))) ||
-        (github.event_name == 'issues' && github.event.action == 'opened' && (startsWith(github.event.issue.title, '/plan') || startsWith(github.event.issue.body, '/plan')))
+        (github.event_name == 'issues' && github.event.action == 'opened' && (startsWith(github.event.issue.title, '/plan') || startsWith(github.event.issue.body, '/plan'))) ||
+        (github.event_name == 'pull_request_review_comment' && (startsWith(github.event.comment.body, '/plan') || startsWith(github.event.comment.body, '/build'))) ||
+        (github.event_name == 'pull_request_review' && github.event.action == 'submitted' && github.event.review.body && (startsWith(github.event.review.body, '/plan') || startsWith(github.event.review.body, '/build')))
       )
     runs-on: ubuntu-latest
     permissions:
       issues: read
+      pull-requests: read
     outputs:
       command: ${{ steps.parse.outputs.command }}
       allowed: ${{ steps.verify.outputs.allowed }}
       extra_context: ${{ steps.parse.outputs.extra_context }}
+      issue_number: ${{ steps.parse.outputs.issue_number }}
+      pr_number: ${{ steps.parse.outputs.pr_number }}
+      is_pr_event: ${{ steps.parse.outputs.is_pr_event }}
     steps:
-      - name: Parse command and extra context
+      - name: Parse command, context, and issue number
         id: parse
         uses: actions/github-script@v7
         with:
           script: |
             const eventName = context.eventName
+
+            function extractIssueNumber(prBody) {
+              if (!prBody) return null
+              const re = /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved|ref|refs)\s+(?:#|https:\/\/github\.com\/[^\/]+\/[^\/]+\/issues\/)(\d+)/gi
+              const matches = [...prBody.matchAll(re)]
+              if (matches.length) return parseInt(matches[matches.length - 1][1], 10)
+              return null
+            }
+
             let command = ''
             let extra_context = ''
+            let issueNumber = null
+            let prNumber = null
+            let isPrEvent = false
+            let commentBody = ''
 
             if (eventName === 'issue_comment') {
-              const body = context.payload.comment.body
-              if (body.startsWith('/plan')) {
-                command = 'plan'
-                extra_context = body.slice('/plan'.length).trim()
-              } else if (body.startsWith('/build')) {
-                command = 'build'
-                extra_context = body.slice('/build'.length).trim()
+              const isPullRequest = context.payload.issue && context.payload.issue.pull_request
+              commentBody = context.payload.comment.body
+              if (isPullRequest) {
+                prNumber = context.issue.number
+                isPrEvent = true
+                const prBody = context.payload.issue.body || ''
+                issueNumber = extractIssueNumber(prBody) || prNumber
+              } else {
+                issueNumber = context.issue.number
               }
             } else if (eventName === 'issues') {
               const issue = context.payload.issue
               const title = issue.title || ''
               const body = issue.body || ''
-              if (title.startsWith('/plan') || body.startsWith('/plan')) {
+              if (title.startsWith('/plan')) {
                 command = 'plan'
-                if (title.startsWith('/plan')) {
-                  extra_context = title.slice('/plan'.length).trim()
-                } else if (body.startsWith('/plan')) {
-                  extra_context = body.slice('/plan'.length).trim()
-                }
+                extra_context = title.slice('/plan'.length).trim()
+              } else if (body.startsWith('/plan')) {
+                command = 'plan'
+                extra_context = body.slice('/plan'.length).trim()
               }
+              issueNumber = issue.number
+            } else if (eventName === 'pull_request_review_comment') {
+              commentBody = context.payload.comment.body
+              prNumber = context.payload.pull_request.number
+              isPrEvent = true
+              const prBody = context.payload.pull_request.body || ''
+              issueNumber = extractIssueNumber(prBody) || prNumber
+            } else if (eventName === 'pull_request_review') {
+              commentBody = context.payload.review.body || ''
+              if (!commentBody) {
+                core.setOutput('command', '')
+                core.setOutput('extra_context', '')
+                core.setOutput('issue_number', '')
+                core.setOutput('pr_number', '')
+                core.setOutput('is_pr_event', 'false')
+                return
+              }
+              prNumber = context.payload.pull_request.number
+              isPrEvent = true
+              const prBody = context.payload.pull_request.body || ''
+              issueNumber = extractIssueNumber(prBody) || prNumber
+            }
+
+            if (commentBody.startsWith('/plan')) {
+              command = 'plan'
+              extra_context = commentBody.slice('/plan'.length).trim()
+            } else if (commentBody.startsWith('/build')) {
+              command = 'build'
+              extra_context = commentBody.slice('/build'.length).trim()
             }
 
             core.setOutput('command', command)
             core.setOutput('extra_context', extra_context)
+            core.setOutput('issue_number', String(issueNumber || ''))
+            core.setOutput('pr_number', String(prNumber || ''))
+            core.setOutput('is_pr_event', isPrEvent ? 'true' : 'false')
 
       - name: Verify organization membership
         id: verify
@@ -78,11 +133,17 @@ jobs:
       needs.check-auth.outputs.command == 'plan'
     runs-on: ubuntu-latest
     concurrency:
-      group: opencode-plan-${{ github.event.issue.number }}
+      group: opencode-plan-${{ needs.check-auth.outputs.issue_number }}
       cancel-in-progress: true
     permissions:
       contents: read
       issues: write
+      pull-requests: read
+    env:
+      ISSUE_NUMBER: ${{ needs.check-auth.outputs.issue_number }}
+      PR_NUMBER: ${{ needs.check-auth.outputs.pr_number }}
+      IS_PR_EVENT: ${{ needs.check-auth.outputs.is_pr_event }}
+      EXTRA_CONTEXT: ${{ needs.check-auth.outputs.extra_context }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -100,35 +161,53 @@ jobs:
         run: npm install -g opencode-ai@latest
 
       - name: Reply with implementation plan
-        run: opencode github run
+        run: |
+          PROMPT="Read the full GitHub issue #${ISSUE_NUMBER} title, body, and discussion before replying."
+
+          if [ "${IS_PR_EVENT}" = "true" ]; then
+            PROMPT="${PROMPT}
+
+          This run was triggered from a pull request review. The issue #${ISSUE_NUMBER} was previously implemented in PR #${PR_NUMBER}. A reviewer has provided the following feedback:
+
+          <reviewer_feedback>
+          ${EXTRA_CONTEXT}
+          </reviewer_feedback>
+
+          Read the PR diff and the issue discussion, then produce a revised implementation plan addressing the feedback."
+          else
+            PROMPT="${PROMPT}
+          ${EXTRA_CONTEXT}"
+          fi
+
+          PROMPT="${PROMPT}
+
+          This run is for planning only.
+
+          Reply in the original issue #${ISSUE_NUMBER} with:
+          1. A short summary of the request and current discussion.
+          2. A concrete implementation plan.
+          3. The expected files or areas to change.
+          4. The validation plan, including npm run build.
+          5. A screenshot plan if the issue affects UI. End the screenshot plan with a
+             machine-readable line exactly like: \`Screenshot routes: /route1, /route2\`
+             List all routes affected by the change. For non-UI issues use: \`Screenshot routes: /\`
+          6. Any assumptions or open questions.
+
+          Rules:
+          - Do not edit files.
+          - Do not create a branch.
+          - Do not create a pull request.
+          - Do not implement the change yet.
+          - Mention that only se-polinema organization members can approve implementation by commenting exactly /build."
+
+          export PROMPT
+          opencode github run
         env:
           GITHUB_TOKEN: ${{ github.token }}
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           MODEL: ${{ vars.OPENCODE_PLAN_MODEL || 'opencode-go/kimi-k2.7-code' }}
           AGENT: plan
           USE_GITHUB_TOKEN: 'true'
-          PROMPT: |
-            Read the full GitHub issue title, body, and discussion before replying.
-
-            This run is for planning only.
-            ${{ needs.check-auth.outputs.extra_context }}
-
-            Reply in the issue with:
-            1. A short summary of the request and current discussion.
-            2. A concrete implementation plan.
-            3. The expected files or areas to change.
-            4. The validation plan, including npm run build.
-            5. A screenshot plan if the issue affects UI. End the screenshot plan with a
-               machine-readable line exactly like: `Screenshot routes: /route1, /route2`
-               List all routes affected by the change. For non-UI issues use: `Screenshot routes: /`
-            6. Any assumptions or open questions.
-
-            Rules:
-            - Do not edit files.
-            - Do not create a branch.
-            - Do not create a pull request.
-            - Do not implement the change yet.
-            - Mention that only se-polinema organization members can approve implementation by commenting exactly /build.
 
   build:
     needs: check-auth
@@ -137,7 +216,7 @@ jobs:
       needs.check-auth.outputs.command == 'build'
     runs-on: ubuntu-latest
     concurrency:
-      group: opencode-build-${{ github.event.issue.number }}
+      group: opencode-build-${{ needs.check-auth.outputs.issue_number }}
       cancel-in-progress: false
     permissions:
       contents: write
@@ -145,20 +224,31 @@ jobs:
       issues: write
     env:
       PREVIEW_PORT: "4321"
+      ISSUE_NUMBER: ${{ needs.check-auth.outputs.issue_number }}
+      PR_NUMBER: ${{ needs.check-auth.outputs.pr_number }}
+      IS_PR_EVENT: ${{ needs.check-auth.outputs.is_pr_event }}
+      EXTRA_CONTEXT: ${{ needs.check-auth.outputs.extra_context }}
     steps:
       - name: Extract screenshot routes
         id: screenshot-path
         uses: actions/github-script@v7
+        env:
+          ISSUE_NUM: ${{ needs.check-auth.outputs.issue_number }}
         with:
           script: |
-            const issueBody = context.payload.issue.body || ''
+            const issueNumber = Number(process.env.ISSUE_NUM)
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+            })
+            const issueBody = issue.body || ''
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: issueNumber,
               per_page: 100,
             })
-            // Combine issue body + all comment bodies; last "Screenshot routes:" line wins
             const texts = [issueBody, ...comments.map(c => c.body || '')]
             let routes = null
             for (const text of texts) {
@@ -170,7 +260,6 @@ jobs:
               }
             }
             if (!routes) {
-              // Fallback: legacy single-route extraction from issue body
               const m = issueBody.match(/(?:route|path|url|page|screenshot)[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
               routes = m ? [m[1]] : ['/']
             }
@@ -203,37 +292,57 @@ jobs:
       - name: Implement approved plan
         id: implementation
         continue-on-error: true
-        run: opencode github run
+        run: |
+          PROMPT="Read the full GitHub issue #${ISSUE_NUMBER} title, body, and discussion before acting.
+          Find the latest OpenCode plan in the issue discussion and implement that approved plan."
+
+          if [ "${IS_PR_EVENT}" = "true" ]; then
+            PROMPT="${PROMPT}
+
+          This is a revision round triggered by reviewer feedback on PR #${PR_NUMBER}.
+
+          <reviewer_feedback>
+          ${EXTRA_CONTEXT}
+          </reviewer_feedback>
+
+          Check out the existing branch \`opencode/issue-${ISSUE_NUMBER}\`, apply the revised changes, commit, and push to the same branch. This will update the existing PR."
+          else
+            PROMPT="${PROMPT}
+          ${EXTRA_CONTEXT}"
+          fi
+
+          PROMPT="${PROMPT}
+
+          Requirements:
+          - Implement the approved plan in this repository.
+          - Create or update a pull request linked to issue #${ISSUE_NUMBER}.
+          - Do not switch to any provider other than OpenCode Go.
+          - The workflow will run final build verification with npm run build after implementation.
+          - If the issue cannot be implemented safely, explain why in the issue instead of opening a PR."
+
+          export PROMPT
+          opencode github run
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WORKFLOW_PAT }}
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           MODEL: ${{ vars.OPENCODE_BUILD_MODEL || 'opencode-go/deepseek-v4-pro' }}
           AGENT: build
           USE_GITHUB_TOKEN: 'true'
-          PROMPT: |
-            Read the full GitHub issue title, body, and discussion before acting.
-            Find the latest OpenCode plan in the issue discussion and implement that approved plan.
-            ${{ needs.check-auth.outputs.extra_context }}
-
-            Requirements:
-            - Implement the approved plan in this repository.
-            - Create or update a pull request linked to issue #${{ github.event.issue.number }}.
-            - Do not switch to any provider other than OpenCode Go.
-            - The workflow will run final build verification with npm run build after implementation.
-            - If the issue cannot be implemented safely, explain why in the issue instead of opening a PR.
 
       - name: Resolve OpenCode pull request
         id: pr
         if: steps.implementation.outcome == 'success' || steps.implementation.outcome == 'failure'
         uses: actions/github-script@v7
+        env:
+          ISSUE_NUM: ${{ needs.check-auth.outputs.issue_number }}
         with:
           script: |
             const { owner, repo } = context.repo
             const { data } = await github.rest.pulls.list({
               owner, repo, state: 'open', per_page: 100,
             })
-            const n = context.issue.number
-            const re = new RegExp(`^opencode/issue-?${n}(?:-|$)`)
+            const n = Number(process.env.ISSUE_NUM)
+            const re = new RegExp(\`^opencode/issue-?\${n}(?:-|$)\`)
             const pr = data
               .filter(p => re.test(p.head.ref))
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
@@ -277,7 +386,7 @@ jobs:
             fi
             sleep 2
           done
-          ISSUE_NUMBER="${{ github.event.issue.number }}"
+          ISSUE_NUMBER="${ISSUE_NUMBER}"
           node -e "JSON.parse(process.env.ROUTES_JSON).forEach(r => console.log(r))" | \
           while IFS= read -r ROUTE; do
             SLUG=$(echo "${ROUTE}" | sed 's|^/||; s|/$||; s|/|-|g')
@@ -293,15 +402,15 @@ jobs:
       - name: Upload screenshot artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-issue-${{ github.event.issue.number }}-screenshots
-          path: .github/screenshots/issue-${{ github.event.issue.number }}-*.png
+          name: opencode-issue-${{ needs.check-auth.outputs.issue_number }}-screenshots
+          path: .github/screenshots/issue-${{ needs.check-auth.outputs.issue_number }}-*.png
 
       - name: Publish screenshots to assets branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           REMOTE="https://x-access-token:${GH_WORKFLOW_PAT}@github.com/${GITHUB_REPOSITORY}.git"
-          ISSUE_NUMBER="${{ github.event.issue.number }}"
+          ISSUE_NUMBER="${ISSUE_NUMBER}"
           if git clone --depth 1 --branch screenshots "$REMOTE" /tmp/shots 2>/dev/null; then
             : # branch exists
           else
@@ -324,25 +433,27 @@ jobs:
         uses: actions/github-script@v7
         env:
           ROUTES_JSON: ${{ steps.screenshot-path.outputs.routes }}
+          ISSUE_NUM: ${{ needs.check-auth.outputs.issue_number }}
         with:
           script: |
             const { owner, repo } = context.repo
             const pull_number = Number('${{ steps.pr.outputs.number }}')
             const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number })
             const runId = context.runId
-            const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${runId}`
-            const artifactName = `opencode-issue-${context.issue.number}-screenshots`
+            const runUrl = \`https://github.com/\${owner}/\${repo}/actions/runs/\${runId}\`
+            const issueNum = process.env.ISSUE_NUM
+            const artifactName = \`opencode-issue-\${issueNum}-screenshots\`
             const routes = JSON.parse(process.env.ROUTES_JSON || '["/"]')
             const screenshotLines = routes.map(r => {
               const slug = r.replace(/^\//, '').replace(/\/$/, '').replace(/\//g, '-') || 'home'
-              const url = `https://raw.githubusercontent.com/${owner}/${repo}/screenshots/issue-${context.issue.number}-${slug}.png`
-              return `**\`${r}\`**\n![${r}](${url})`
+              const url = \`https://raw.githubusercontent.com/\${owner}/\${repo}/screenshots/issue-\${issueNum}-\${slug}.png\`
+              return \`**\`\${r}\`**\n![\${r}](\${url})\`
             }).join('\n\n')
             const marker = '<!-- opencode-issue-summary -->'
-            const summary = `${marker}\n## OpenCode Automation\n- Approved by: @${context.actor}\n- Issue: #${context.issue.number}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifacts: [View \`${artifactName}\`](${runUrl})\n\n### Screenshots\n${screenshotLines}`
+            const summary = \`\${marker}\n## OpenCode Automation\n- Approved by: @\${context.actor}\n- Issue: #\${issueNum}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifacts: [View \`\${artifactName}\`](\${runUrl})\n\n### Screenshots\n\${screenshotLines}\`
             const body = pr.body?.includes(marker)
-              ? pr.body.replace(new RegExp(`${marker}[\\s\\S]*$`), summary)
-              : `${pr.body ?? ''}\n\n${summary}`.trim()
+              ? pr.body.replace(new RegExp(\`\${marker}[\\s\\S]*$\`), summary)
+              : \`\${pr.body ?? ''}\n\n\${summary}\`.trim()
             await github.rest.pulls.update({ owner, repo, pull_number, body })
 
   report-error:
@@ -354,18 +465,23 @@ jobs:
       needs.check-auth.outputs.command == 'build'
     permissions:
       issues: write
+    env:
+      ISSUE_NUMBER: ${{ needs.check-auth.outputs.issue_number }}
     steps:
       - name: Comment error on original issue
         uses: actions/github-script@v7
+        env:
+          ISSUE_NUM: ${{ needs.check-auth.outputs.issue_number }}
         with:
           script: |
             const { owner, repo } = context.repo
-            const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`
-            const body = `## Build Failure\n\n- **Original issue:** #${context.issue.number}\n- **Workflow run:** [View run](${runUrl})\n- **Triggered by:** @${context.actor}\n\nThe OpenCode build job failed during implementation. Please check the workflow run logs for details.`
+            const issueNum = process.env.ISSUE_NUM
+            const runUrl = \`https://github.com/\${owner}/\${repo}/actions/runs/\${context.runId}\`
+            const body = \`## Build Failure\n\n- **Original issue:** #\${issueNum}\n- **Workflow run:** [View run](\${runUrl})\n- **Triggered by:** @\${context.actor}\n\nThe OpenCode build job failed during implementation. Please check the workflow run logs for details.\`
 
             await github.rest.issues.createComment({
               owner,
               repo,
-              issue_number: context.issue.number,
+              issue_number: issueNum,
               body,
             })
