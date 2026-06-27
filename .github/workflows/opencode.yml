@@ -342,7 +342,7 @@ jobs:
               owner, repo, state: 'open', per_page: 100,
             })
             const n = Number(process.env.ISSUE_NUM)
-            const re = new RegExp(\`^opencode/issue-?\${n}(?:-|$)\`)
+            const re = new RegExp('^opencode/issue-?' + n + '(?:-|$)')
             const pr = data
               .filter(p => re.test(p.head.ref))
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
@@ -440,20 +440,20 @@ jobs:
             const pull_number = Number('${{ steps.pr.outputs.number }}')
             const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number })
             const runId = context.runId
-            const runUrl = \`https://github.com/\${owner}/\${repo}/actions/runs/\${runId}\`
+            const runUrl = 'https://github.com/' + owner + '/' + repo + '/actions/runs/' + runId
             const issueNum = process.env.ISSUE_NUM
-            const artifactName = \`opencode-issue-\${issueNum}-screenshots\`
+            const artifactName = 'opencode-issue-' + issueNum + '-screenshots'
             const routes = JSON.parse(process.env.ROUTES_JSON || '["/"]')
             const screenshotLines = routes.map(r => {
               const slug = r.replace(/^\//, '').replace(/\/$/, '').replace(/\//g, '-') || 'home'
-              const url = \`https://raw.githubusercontent.com/\${owner}/\${repo}/screenshots/issue-\${issueNum}-\${slug}.png\`
-              return \`**\`\${r}\`**\n![\${r}](\${url})\`
+              const url = 'https://raw.githubusercontent.com/' + owner + '/' + repo + '/screenshots/issue-' + issueNum + '-' + slug + '.png'
+              return '**`' + r + '`**\n![' + r + '](' + url + ')'
             }).join('\n\n')
             const marker = '<!-- opencode-issue-summary -->'
-            const summary = \`\${marker}\n## OpenCode Automation\n- Approved by: @\${context.actor}\n- Issue: #\${issueNum}\n- Build: \`npm run build\` passed in workflow\n- Screenshot artifacts: [View \`\${artifactName}\`](\${runUrl})\n\n### Screenshots\n\${screenshotLines}\`
-            const body = pr.body?.includes(marker)
-              ? pr.body.replace(new RegExp(\`\${marker}[\\s\\S]*$\`), summary)
-              : \`\${pr.body ?? ''}\n\n\${summary}\`.trim()
+            const summary = marker + '\n## OpenCode Automation\n- Approved by: @' + context.actor + '\n- Issue: #' + issueNum + '\n- Build: `npm run build` passed in workflow\n- Screenshot artifacts: [View `' + artifactName + '`](' + runUrl + ')\n\n### Screenshots\n' + screenshotLines
+            const body = pr.body && pr.body.includes(marker)
+              ? pr.body.replace(new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s\\S]*$'), summary)
+              : ((pr.body || '') + '\n\n' + summary).trim()
             await github.rest.pulls.update({ owner, repo, pull_number, body })
 
   report-error:
@@ -476,12 +476,12 @@ jobs:
           script: |
             const { owner, repo } = context.repo
             const issueNum = process.env.ISSUE_NUM
-            const runUrl = \`https://github.com/\${owner}/\${repo}/actions/runs/\${context.runId}\`
-            const body = \`## Build Failure\n\n- **Original issue:** #\${issueNum}\n- **Workflow run:** [View run](\${runUrl})\n- **Triggered by:** @\${context.actor}\n\nThe OpenCode build job failed during implementation. Please check the workflow run logs for details.\`
+            const runUrl = 'https://github.com/' + owner + '/' + repo + '/actions/runs/' + context.runId
+            const body = '## Build Failure\n\n- **Original issue:** #' + issueNum + '\n- **Workflow run:** [View run](' + runUrl + ')\n- **Triggered by:** @' + context.actor + '\n\nThe OpenCode build job failed during implementation. Please check the workflow run logs for details.'
 
             await github.rest.issues.createComment({
               owner,
               repo,
-              issue_number: issueNum,
+              issue_number: Number(issueNum),
               body,
             })
