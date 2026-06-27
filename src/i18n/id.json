@@ -225,6 +225,14 @@
     "backToHome": "Kembali ke Beranda",
     "backToBlog": "Kembali ke Blog"
   },
+  "notFound": {
+    "heading": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "home": "Beranda",
+    "blog": "Blog",
+    "researchers": "Peneliti",
+    "publications": "Publikasi"
+  },
   "theme": {
     "switchToDark": "Ganti ke tema gelap",
     "switchToLight": "Ganti ke tema terang"
