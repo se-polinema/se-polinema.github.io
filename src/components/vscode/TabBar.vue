@@ -5,7 +5,7 @@
     style="height: 35px; background: #1e2d4e"
   >
     <Transition name="tabmode" mode="out-in">
-      <!-- Home: file tabs -->
+      <!-- Home: full file-tab strip -->
       <div
         v-if="currentPage === 'home'"
         key="home"
@@ -31,91 +31,27 @@
             :class="dotColor(tab.ext)"
           />
           {{ tab.label }}
-          <span class="text-[10px] opacity-40 ml-0.5" aria-hidden="true"
-            >×</span
-          >
+          <span class="text-[10px] opacity-40 ml-0.5" aria-hidden="true">×</span>
         </button>
       </div>
 
-      <!-- Inner pages: icon + label + optional back -->
-      <div v-else key="inner" class="flex w-full items-center px-4 gap-3">
-        <template v-if="isDetailPage">
-          <a
-            :href="backHref"
-            class="flex items-center gap-1 text-[11px] font-mono text-white/50 hover:text-white/85 transition-colors"
-          >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Back
-          </a>
-          <span class="w-px h-3.5 bg-white/15" />
-        </template>
-
-        <div class="flex items-center gap-2">
-          <svg
-            v-if="currentPage === 'researchers'"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            style="color: #f5a100; flex-shrink: 0"
-          >
-            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M23 21v-2a4 4 0 00-3-3.87" />
-            <path d="M16 3.13a4 4 0 010 7.75" />
-          </svg>
-          <svg
-            v-else-if="currentPage === 'publications'"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            style="color: #f5a100; flex-shrink: 0"
-          >
-            <path
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-            />
-          </svg>
-          <svg
-            v-else
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            style="color: #f5a100; flex-shrink: 0"
-          >
-            <path
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-            />
-          </svg>
+      <!-- Inner pages: single homepage-style tab -->
+      <div v-else key="inner" class="flex w-full items-end">
+        <a
+          v-if="innerTab"
+          :href="isDetailPage ? undefined : innerTab.href"
+          role="tab"
+          aria-selected="true"
+          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 border-t-[#F5A100] whitespace-nowrap h-full bg-white text-primary"
+          @click.prevent="isDetailPage ? null : undefined"
+        >
           <span
-            class="text-[11px] font-mono text-white/65 tracking-wider uppercase"
-            >{{ innerPageLabel }}</span
-          >
-        </div>
+            class="w-1.5 h-1.5 rounded-full flex-shrink-0"
+            :class="dotColor(innerTab.ext)"
+          />
+          {{ innerTab.label }}
+          <span class="text-[10px] opacity-40 ml-0.5" aria-hidden="true">×</span>
+        </a>
       </div>
     </Transition>
   </div>
@@ -140,7 +76,15 @@
           class="flex items-center gap-0.5"
         >
           <span v-if="i > 0" class="text-white/35 mx-1">›</span>
+          <a
+            v-if="isDetailPage && i === currentBreadcrumb.path.length - 2 && parentHref"
+            :href="parentHref"
+            class="text-white/45 hover:text-white/75 transition-colors"
+          >
+            {{ part }}
+          </a>
           <span
+            v-else
             :class="
               i === currentBreadcrumb.path.length - 1
                 ? 'text-white/80'
@@ -167,7 +111,7 @@ const { activeSection, currentPage, initObserver, scrollTo } =
   useVSCodeLayout();
 
 const isDetailPage = ref(false);
-const backHref = ref("");
+const slug = ref("");
 
 const tabs = [
   { id: "hero", label: "index.html", ext: "html", pageId: "home", href: "/" },
@@ -213,8 +157,39 @@ const tabs = [
     pageId: "publications",
     href: "/publications",
   },
-  { id: "news", label: "news.md", ext: "md", pageId: "news", href: "/blog" },
+  { id: "blog", label: "blog.md", ext: "md", pageId: "blog", href: "/blog" },
 ];
+
+const innerPageTabMap: Record<string, { label: string; ext: string; href: string }> = {
+  blog:         { label: "blog.md",           ext: "md",   href: "/blog" },
+  researchers:  { label: "team.md",           ext: "md",   href: "/researchers" },
+  publications: { label: "publications.bib",  ext: "bib",  href: "/publications" },
+  projects:     { label: "projects.json",     ext: "json", href: "/projects" },
+  books:        { label: "books.md",          ext: "md",   href: "/books" },
+  decks:        { label: "decks.md",          ext: "md",   href: "/decks" },
+};
+
+const pageParentHrefMap: Record<string, string> = {
+  blog:         "/blog",
+  researchers:  "/researchers",
+  publications: "/publications",
+  projects:     "/projects",
+  books:        "/books",
+  decks:        "/decks",
+};
+
+const innerTab = computed(() => {
+  const base = innerPageTabMap[currentPage.value];
+  if (!base) return null;
+  if (isDetailPage.value && slug.value) {
+    return { label: `${slug.value}.${base.ext}`, ext: base.ext, href: base.href };
+  }
+  return base;
+});
+
+const parentHref = computed(() => {
+  return pageParentHrefMap[currentPage.value] ?? "";
+});
 
 const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   hero: { path: ["se-lab", "index.html"], lang: "HTML" },
@@ -225,34 +200,30 @@ const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   decks: { path: ["se-lab", "src", "decks.md"], lang: "Markdown" },
   team: { path: ["se-lab", "src", "researchers", "team.md"], lang: "Markdown" },
   publications: { path: ["se-lab", "src", "publications.bib"], lang: "BibTeX" },
-  news: { path: ["se-lab", "src", "news.md"], lang: "Markdown" },
+  blog: { path: ["se-lab", "src", "blog.md"], lang: "Markdown" },
 };
 
 const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
-  news: { path: ["se-lab", "src", "news.md"], lang: "Markdown" },
-  publications: { path: ["se-lab", "src", "publications.bib"], lang: "BibTeX" },
-  researchers: {
-    path: ["se-lab", "src", "researchers", "team.md"],
-    lang: "Markdown",
-  },
-  projects: { path: ["se-lab", "src", "projects.json"], lang: "JSON" },
-  books: { path: ["se-lab", "src", "books.md"], lang: "Markdown" },
-  decks: { path: ["se-lab", "src", "decks.md"], lang: "Markdown" },
+  blog:         { path: ["se-lab", "src", "blog.md"],                lang: "Markdown" },
+  publications: { path: ["se-lab", "src", "publications.bib"],       lang: "BibTeX" },
+  researchers:  { path: ["se-lab", "src", "researchers", "team.md"], lang: "Markdown" },
+  projects:     { path: ["se-lab", "src", "projects.json"],          lang: "JSON" },
+  books:        { path: ["se-lab", "src", "books.md"],               lang: "Markdown" },
+  decks:        { path: ["se-lab", "src", "decks.md"],               lang: "Markdown" },
 };
-
-const innerPageLabel = computed(() => {
-  if (currentPage.value === "researchers") return "Researchers";
-  if (currentPage.value === "publications") return "Publications";
-  if (currentPage.value === "news") return "News";
-  if (currentPage.value === "projects") return "Projects";
-  if (currentPage.value === "books") return "Books";
-  if (currentPage.value === "decks") return "Decks";
-  return "";
-});
 
 const currentBreadcrumb = computed(() => {
   if (currentPage.value !== "home") {
-    return pageBreadcrumbMap[currentPage.value] ?? breadcrumbMap.hero;
+    const base = pageBreadcrumbMap[currentPage.value] ?? breadcrumbMap.hero;
+    if (isDetailPage.value && slug.value) {
+      const tabInfo = innerPageTabMap[currentPage.value];
+      const fileExt = tabInfo ? `.${tabInfo.ext}` : ".md";
+      return {
+        path: [...base.path, `${slug.value}${fileExt}`],
+        lang: base.lang,
+      };
+    }
+    return base;
   }
   return breadcrumbMap[activeSection.value] ?? breadcrumbMap.hero;
 });
@@ -286,7 +257,9 @@ onMounted(() => {
 
   const parts = window.location.pathname.split("/").filter(Boolean);
   isDetailPage.value = parts.length > 1;
-  backHref.value = "/" + (parts[0] ?? "");
+  if (isDetailPage.value) {
+    slug.value = parts[parts.length - 1] ?? "";
+  }
 });
 </script>
 
