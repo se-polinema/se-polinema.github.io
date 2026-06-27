@@ -26,7 +26,7 @@ export function useVSCodeLayout() {
 
     const path = window.location.pathname
     if (path.startsWith('/blog')) {
-      currentPage.value = 'news'
+      currentPage.value = 'blog'
       activeSidebarView.value = 'blog'
     } else if (path.startsWith('/publications')) {
       currentPage.value = 'publications'
@@ -77,7 +77,7 @@ export function useVSCodeLayout() {
 
   // Map views that belong to a dedicated page so setView can navigate when needed
   const viewNav: Partial<Record<SidebarView, { href: string; page: string }>> = {
-    blog:         { href: '/blog',         page: 'news'         },
+    blog:         { href: '/blog',         page: 'blog'         },
     researchers:  { href: '/researchers',  page: 'researchers'  },
     publications: { href: '/publications', page: 'publications' },
     decks:        { href: '/decks',        page: 'decks'        },

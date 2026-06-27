@@ -16,7 +16,7 @@
           : activeSidebarView === 'researchers' ? 'Researchers'
           : activeSidebarView === 'publications' ? 'Publications'
           : activeSidebarView === 'decks' ? 'Decks'
-          : activeSidebarView === 'blog' ? 'News'
+          : activeSidebarView === 'blog' ? 'Blog'
           : 'Explorer' }}
       </span>
     </div>
@@ -244,7 +244,7 @@ const fileTree: FileItem[] = [
   { id: 'researchers-dir', name: 'researchers/',     ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
   { id: 'team',            name: 'team.md',          ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },
-  { id: 'news',            name: 'news.md',          ext: 'md',   type: 'file',   sectionId: 'news',         pageId: 'news',         indent: 2, href: '/blog' },
+  { id: 'blog',            name: 'blog.md',          ext: 'md',   type: 'file',   sectionId: 'blog',         pageId: 'blog',         indent: 2, href: '/blog' },
 ]
 
 // Panel data (lazily fetched)
@@ -298,7 +298,7 @@ onMounted(async () => {
     const meta = await fetch('/api/publications-meta.json').then(r => r.json())
     pubYears.value = meta.years
     pubTypes.value = meta.types
-  } else if (currentPage.value === 'news') {
+  } else if (currentPage.value === 'blog') {
     const meta = await fetch('/api/posts-meta.json').then(r => r.json())
     blogCategories.value = meta.categories
   } else if (currentPage.value === 'decks') {

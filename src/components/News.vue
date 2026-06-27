@@ -1,5 +1,5 @@
 <template>
-  <section id="news" class="py-20 md:py-32 bg-neutral-50">
+  <section id="blog" class="py-20 md:py-32 bg-neutral-50">
     <div class="section-container">
       <div class="flex items-end justify-between mb-16">
         <div class="relative overflow-hidden">
