@@ -9,15 +9,18 @@ import StatusBar from '../components/vscode/StatusBar.vue'
 export interface Props {
   title: string
   description?: string
+  image?: string
+  type?: 'website' | 'article' | 'profile'
+  lang?: 'en' | 'id'
 }
 
-const { title, description } = Astro.props
+const { title, description, image, type, lang } = Astro.props
 
 // Generate enough line numbers to cover the tallest possible page (~22 000px at 22px/line)
 const LINE_COUNT = 1000
 ---
 
-<Default title={title} description={description}>
+<Default title={title} description={description} image={image} type={type} lang={lang}>
   <div
     id="vscode-window"
     class="fixed inset-0 flex flex-col isolate"

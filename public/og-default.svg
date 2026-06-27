@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#004EA2"/>
+      <stop offset="100%" stop-color="#003380"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="510" rx="12" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <svg x="160" y="180" width="140" height="140" viewBox="0 0 32 32">
+    <rect width="32" height="32" rx="5" fill="rgba(255,255,255,0.15)"/>
+    <text x="16" y="16" text-anchor="middle" dominant-baseline="central"
+          font-family="'Courier New', Courier, monospace"
+          font-size="13" font-weight="700">
+      <tspan fill="#F5A100">{</tspan><tspan fill="white">SE</tspan><tspan fill="#F5A100">}</tspan>
+    </text>
+  </svg>
+  <text x="340" y="240" font-family="'DM Serif Display', Georgia, serif" font-size="54" font-weight="700" fill="white">Software Engineering Laboratory</text>
+  <text x="340" y="300" font-family="'Inter', system-ui, sans-serif" font-size="28" fill="rgba(255,255,255,0.75)">Jurusan Teknologi Informasi</text>
+  <text x="340" y="348" font-family="'Inter', system-ui, sans-serif" font-size="28" fill="rgba(255,255,255,0.75)">Politeknik Negeri Malang</text>
+  <line x1="160" y1="430" x2="1040" y2="430" stroke="#F5A100" stroke-width="3" stroke-linecap="round"/>
+  <text x="600" y="490" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Advancing software engineering education and research</text>
+  <text x="600" y="540" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" font-size="18" fill="rgba(255,255,255,0.35)">se.polinema.ac.id</text>
+</svg>

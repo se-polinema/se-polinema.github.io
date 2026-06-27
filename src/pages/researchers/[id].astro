@@ -46,6 +46,10 @@ const researcherProfile = {
 }
 ---
 
-<VSCodeLayout title={researcher.data.name}>
+<VSCodeLayout
+  title={researcher.data.name}
+  type="profile"
+  image={researcher.data.photo}
+>
   <ResearcherProfilePage client:load researcher={researcherProfile} publications={publications} />
 </VSCodeLayout>
