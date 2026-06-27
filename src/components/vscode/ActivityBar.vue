@@ -5,20 +5,6 @@
     aria-label="Activity Bar"
   >
     <nav class="flex flex-col items-center flex-1 w-full">
-      <!-- Search -->
-      <button
-        @click="openSearch"
-        class="activity-btn"
-        :class="'activity-inactive'"
-        title="Search (Ctrl+K)"
-        aria-label="Open search"
-      >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
-
       <!-- Explorer -->
       <button
         @click="setView('explorer')"
@@ -33,6 +19,20 @@
         </svg>
       </button>
 
+      <!-- Search -->
+      <button
+        @click="openSearch"
+        class="activity-btn"
+        :class="'activity-inactive'"
+        title="Search (Ctrl+K)"
+        aria-label="Open search"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+
       <!-- News & Blog -->
       <button
         @click="setView('blog')"
@@ -42,8 +42,9 @@
         aria-label="News and Blog"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          <path d="M4 11a9 9 0 0 1 9 9"/>
+          <path d="M4 4a16 16 0 0 1 16 16"/>
+          <circle cx="5" cy="19" r="1"/>
         </svg>
       </button>
 
