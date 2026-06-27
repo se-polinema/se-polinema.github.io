@@ -1,0 +1,261 @@
+name: Weekly Recommendation
+
+on:
+  schedule:
+    - cron: '0 1 * * 1'  # Mondays 01:00 UTC (~08:00 WIB)
+  workflow_dispatch:
+    inputs:
+      focus:
+        description: 'Force a category (else AI picks best)'
+        type: choice
+        options: [auto, bug, feature, tutorial]
+        default: auto
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Analyse the site weekly and file ONE GitHub issue with the highest-value
+# improvement recommendation across three lenses:
+#   bug      — a real defect grounded in the actual build output
+#   feature  — something a research-lab site commonly has but this site lacks
+#   tutorial — a new category:tutorial blog post aligned to the lab's 3 research streams
+#
+# Issues are label-only; a se-polinema member reviews them and comments /plan
+# to start the existing OpenCode IssueOps loop.
+# ─────────────────────────────────────────────────────────────────────────────
+
+jobs:
+  recommend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    # Never cancel an in-progress weekly run (let it finish; next Monday will be a fresh run)
+    concurrency:
+      group: weekly-recommendation
+      cancel-in-progress: false
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ── 2. Node ──────────────────────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # ── 3. Install deps ───────────────────────────────────────────────────────
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 4. Build + astro check (grounding) ───────────────────────────────────
+      # continue-on-error is intentional: a failing build becomes the *signal* for
+      # a bug recommendation rather than aborting the whole job.
+      - name: Build and check
+        id: build
+        continue-on-error: true
+        run: |
+          set +e
+          npm run build > /tmp/build.log 2>&1
+          EXIT_CODE=$?
+          echo "exit_code=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
+          # Cap log size sent to the AI (last 6 KB covers most relevant errors)
+          tail -c 6000 /tmp/build.log > /tmp/build-tail.log
+          echo "Build exited with code ${EXIT_CODE}"
+
+      # ── 5. Install OpenCode CLI ───────────────────────────────────────────────
+      - name: Install OpenCode CLI
+        run: npm install -g opencode-ai@latest
+
+      # ── 6. Gather context and compose prompt ─────────────────────────────────
+      # Writes the full prompt to /tmp/oc-prompt.txt.
+      # NOTE: all string concatenation, NO template literals / backticks —
+      #       they get corrupted in YAML | blocks (known repo bug).
+      - name: Gather context and compose prompt
+        uses: actions/github-script@v7
+        env:
+          BUILD_EXIT_CODE: ${{ steps.build.outputs.exit_code }}
+          FOCUS: ${{ github.event.inputs.focus || 'auto' }}
+        with:
+          script: |
+            const fs = require('fs')
+            const { owner, repo } = context.repo
+
+            // Fetch recent issues for dedup (all states, last 50)
+            const listResp = await github.rest.issues.listForRepo({
+              owner, repo, state: 'all', per_page: 50
+            })
+            const existingTitles = listResp.data.map(function(i) { return i.title }).join('\n')
+
+            // Read build log
+            let buildLog = '(no output captured)'
+            try { buildLog = fs.readFileSync('/tmp/build-tail.log', 'utf8') } catch (e) {}
+            const buildExitCode = process.env.BUILD_EXIT_CODE || '0'
+            const focus = process.env.FOCUS || 'auto'
+
+            const focusInstruction = focus !== 'auto'
+              ? 'You MUST recommend a "' + focus + '" item — the category is forced by the caller.'
+              : 'Pick whichever single category and topic will deliver the most value this week.'
+
+            const prompt =
+              'You are an SE educator and site reviewer for the SE Lab website ' +
+              '(Software Engineering Laboratory, Politeknik Negeri Malang / Polinema). ' +
+              'The site is built with Astro 6 + Vue 3, bilingual (Indonesian id / English en), ' +
+              'hosted at https://se-polinema.github.io. ' +
+              'Maintenance uses a GitHub IssueOps loop: maintainers review your recommended issue ' +
+              'and comment /plan to start implementation.\n\n' +
+              'YOUR TASK: recommend the SINGLE most valuable improvement to file as ONE GitHub issue this week.\n' +
+              focusInstruction + '\n\n' +
+              'THREE LENSES (pick one):\n' +
+              '  bug      — A real, concrete defect in the site. PREFER this if the build log ' +
+              'below shows errors or warnings. Ground the issue in actual output — no speculation.\n' +
+              '  feature  — Something a research-lab website commonly has that this site lacks ' +
+              '(e.g. search, RSS feed, sitemap, 404 page, Open Graph meta, PWA support, ' +
+              'lab announcements feed, researcher contact form, etc.).\n' +
+              '  tutorial — A new blog post (category: tutorial). The site currently has only ONE ' +
+              'tutorial (blackbox/whitebox testing). ' +
+              'Align to the 3 research streams in src/data/research.json:\n' +
+              '    1. SE Methodologies & Architecture (Microservices, Clean Code, TDD, DDD, ' +
+              'Design Patterns, MVC/MVVM, etc.)\n' +
+              '    2. Domain-Specific SE Applications (EdTech, Fintech, Healthcare Software, etc.)\n' +
+              '    3. Emerging Technologies in SE (AI test generation, bug prediction, ' +
+              'requirements automation, doc automation, LLM-assisted coding, etc.)\n' +
+              '  Pick a foundational or currently-trending SE topic not already covered by ' +
+              'existing posts.\n\n' +
+              'TO UNDERSTAND CURRENT STATE (read these files before deciding):\n' +
+              '  src/content/blog/          — existing posts (titles, categories, slugs)\n' +
+              '  src/data/research.json     — the 3 research streams in detail\n' +
+              '  src/content.config.ts      — blog frontmatter schema (title, titleId, category, etc.)\n\n' +
+              'BUILD / ASTRO CHECK OUTPUT (exit code ' + buildExitCode + '):\n' +
+              '<build_log>\n' + buildLog + '\n</build_log>\n\n' +
+              'EXISTING ISSUE TITLES (do NOT create a near-duplicate of any of these):\n' +
+              '<existing_issues>\n' + existingTitles + '\n</existing_issues>\n\n' +
+              'OUTPUT RULES (strictly follow all):\n' +
+              '  1. Output ONLY one raw JSON object — no markdown fences, no prose before or after.\n' +
+              '  2. Do NOT edit any files, create branches, or open pull requests.\n' +
+              '  3. JSON shape:\n' +
+              '     {\n' +
+              '       "category": "bug" | "feature" | "tutorial",\n' +
+              '       "title": "<concise issue title, no leading slash, max 80 chars>",\n' +
+              '       "body": "<markdown body — see requirements below>",\n' +
+              '       "language": "id" | "en"\n' +
+              '     }\n' +
+              '  4. body requirements:\n' +
+              '     - ## Problem / Opportunity  (what is wrong or missing, with evidence)\n' +
+              '     - ## Why It Matters          (impact on students, researchers, or site quality)\n' +
+              '     - ## Acceptance Criteria     (markdown task checklist)\n' +
+              '     - For tutorial issues also include:\n' +
+              '       ## Suggested Outline       (H2 sections the post should cover)\n' +
+              '       ## Language                (id or en, with brief justification)\n' +
+              '  5. language field: the primary language for the issue body itself (id or en).\n'
+
+            fs.writeFileSync('/tmp/oc-prompt.txt', prompt)
+            core.info('Prompt written (' + String(prompt.length) + ' chars), focus=' + focus + ', build_exit=' + buildExitCode)
+
+      # ── 7. Run OpenCode headless ──────────────────────────────────────────────
+      # --agent plan  = read/analyse mode (no file edits committed even if it tries)
+      # stdout is the AI's structured output; stderr is tool trace (tailed for debug).
+      - name: Run OpenCode headless
+        run: |
+          opencode run "$(cat /tmp/oc-prompt.txt)" --model "${MODEL}" --agent plan \
+            > /tmp/oc-out.txt 2>/tmp/oc-err.txt || true
+          echo "=== OpenCode stdout ==="
+          cat /tmp/oc-out.txt
+          echo "=== OpenCode stderr (last 30 lines) ==="
+          tail -30 /tmp/oc-err.txt || true
+        env:
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
+          MODEL: ${{ vars.OPENCODE_RECOMMEND_MODEL || 'opencode-go/kimi-k2.7-code' }}
+
+      # ── 8. Parse output and create issue ─────────────────────────────────────
+      - name: Create issue
+        uses: actions/github-script@v7
+        env:
+          FOCUS: ${{ github.event.inputs.focus || 'auto' }}
+        with:
+          script: |
+            const fs = require('fs')
+            const { owner, repo } = context.repo
+            const runUrl = 'https://github.com/' + owner + '/' + repo + '/actions/runs/' + String(context.runId)
+
+            // ── Parse OpenCode output ──────────────────────────────────────────
+            const raw = fs.readFileSync('/tmp/oc-out.txt', 'utf8')
+            // Strip optional ```json … ``` fences
+            const stripped = raw.replace(/^```json\s*/m, '').replace(/^```\s*$/m, '').trim()
+            const match = stripped.match(/\{[\s\S]*\}/)
+            if (!match) {
+              core.setFailed('OpenCode did not produce a valid JSON object.\nOutput:\n' + raw.slice(0, 3000))
+              return
+            }
+            let rec
+            try {
+              rec = JSON.parse(match[0])
+            } catch (e) {
+              core.setFailed('JSON parse error: ' + e.message + '\nRaw:\n' + match[0].slice(0, 3000))
+              return
+            }
+
+            const category = rec.category || ''
+            const title = (rec.title || '').trim()
+            const body = (rec.body || '').trim()
+            if (!title || !body) {
+              core.setFailed('Recommendation is missing title or body. Got: ' + JSON.stringify(rec).slice(0, 500))
+              return
+            }
+
+            // ── Dedup: skip if a near-identical issue already exists ───────────
+            const listResp = await github.rest.issues.listForRepo({
+              owner, repo, state: 'all', per_page: 50
+            })
+            function norm(s) {
+              return s.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim()
+            }
+            const normTitle = norm(title)
+            const dup = listResp.data.find(function(i) { return norm(i.title) === normTitle })
+            if (dup) {
+              core.info('Skipping — near-duplicate already exists: #' + String(dup.number) + ' ' + dup.title)
+              return
+            }
+
+            // ── Map category → labels ─────────────────────────────────────────
+            const catMap = { bug: 'bug', feature: 'enhancement', tutorial: 'documentation' }
+            const validCats = Object.keys(catMap)
+            const cat = validCats.indexOf(category) !== -1 ? category : 'feature'
+            const labels = [catMap[cat], 'automated']
+
+            // ── Build full body with footer ───────────────────────────────────
+            const footer =
+              '\n\n---\n' +
+              '<!-- weekly-recommendation -->\n' +
+              '**Category:** `' + cat + '`\n\n' +
+              '_Generated by the [weekly recommendation workflow](' + runUrl + '). ' +
+              'A se-polinema org member can comment `/plan` on this issue to start implementation._'
+            const fullBody = body + footer
+
+            // ── File the issue ────────────────────────────────────────────────
+            const created = await github.rest.issues.create({
+              owner, repo, title, body: fullBody, labels
+            })
+            core.info('Issue created: #' + String(created.data.number) + ' — ' + created.data.html_url)
+
+      # ── 9. Failure handler ────────────────────────────────────────────────────
+      # Mirrors the update-publications.yml pattern: file a labelled issue with the run link.
+      - name: Report workflow failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo
+            const runUrl = 'https://github.com/' + owner + '/' + repo + '/actions/runs/' + String(context.runId)
+            const today = new Date().toISOString().split('T')[0]
+            await github.rest.issues.create({
+              owner, repo,
+              title: 'Weekly recommendation workflow failed on ' + today,
+              body: 'The [weekly recommendation workflow](' + runUrl + ') failed.\n\n' +
+                'Please review the logs and resolve the issue. ' +
+                'A se-polinema member can comment `/plan` on this issue to investigate.',
+              labels: ['automated']
+            })
