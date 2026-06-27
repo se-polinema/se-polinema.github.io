@@ -127,13 +127,13 @@ function togglePreview(url: string) {
 
 function typeBadgeClass(type: string): string {
   const map: Record<string, string> = {
-    web: 'bg-blue-50 text-blue-700',
-    pdf: 'bg-red-50 text-red-700',
-    pptx: 'bg-orange-50 text-orange-700',
-    'google-slides': 'bg-yellow-50 text-yellow-800',
-    canva: 'bg-purple-50 text-purple-700',
-    other: 'bg-neutral-100 text-neutral-600',
+    web: 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+    pdf: 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    pptx: 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    'google-slides': 'bg-yellow-50 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+    canva: 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+    other: 'bg-neutral-100 text-neutral-600 dark:bg-gray-700 dark:text-gray-300',
   }
-  return map[type] ?? 'bg-neutral-100 text-neutral-600'
+  return map[type] ?? 'bg-neutral-100 text-neutral-600 dark:bg-gray-700 dark:text-gray-300'
 }
 </script>

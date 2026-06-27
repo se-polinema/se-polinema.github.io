@@ -23,8 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { useTheme } from '../../composables/useTheme'
-import { useI18n } from '../../composables/useI18n'
+import { useTheme } from '../composables/useTheme'
+import { useI18n } from '../composables/useI18n'
 
 const { theme, toggleTheme } = useTheme()
 const { t } = useI18n()

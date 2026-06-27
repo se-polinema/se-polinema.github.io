@@ -76,9 +76,9 @@ function categoryStyle(cat: string): string {
     announcement: 'text-primary',
     news: 'text-accent',
     event: 'text-primary',
-    tutorial: 'text-green-600',
+    tutorial: 'text-green-600 dark:text-green-400',
   }
-  return styles[cat] || 'text-neutral-400'
+  return styles[cat] || 'text-neutral-400 dark:text-gray-500'
 }
 
 function categoryLabel(cat: string): string {

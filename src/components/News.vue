@@ -96,9 +96,9 @@ function categoryStyle(cat: string): string {
     announcement: 'bg-primary/10 text-primary',
     news: 'bg-accent/15 text-primary',
     event: 'bg-primary/10 text-primary',
-    tutorial: 'bg-green-100 text-green-800',
+    tutorial: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
   }
-  return styles[cat] || 'bg-neutral-100 text-neutral-500'
+  return styles[cat] || 'bg-neutral-100 text-neutral-500 dark:bg-gray-700 dark:text-gray-300'
 }
 
 function categoryLabel(cat: string): string {
