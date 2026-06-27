@@ -236,5 +236,18 @@
   "theme": {
     "switchToDark": "Switch to dark theme",
     "switchToLight": "Switch to light theme"
+  },
+  "search": {
+    "placeholder": "Search researchers, publications, and blog...",
+    "noResults": "No results found",
+    "groupResearchers": "Researchers",
+    "groupPublications": "Publications",
+    "groupBlog": "Blog",
+    "shortcut": "Ctrl+K",
+    "openSearch": "Open search",
+    "resultsCount": "results",
+    "navigate": "Navigate",
+    "close": "Close",
+    "allResults": "All results"
   }
 }
