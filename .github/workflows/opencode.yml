@@ -471,6 +471,10 @@ jobs:
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           MODEL: ${{ vars.OPENCODE_BUILD_MODEL || 'opencode-go/deepseek-v4-pro' }}
 
+      # Verify the build passes BEFORE committing/pushing — no broken-build PRs.
+      - name: Verify build
+        run: npm run build
+
       # Commit whatever OpenCode changed, push, and ensure one PR exists.
       - name: Commit, push, and ensure PR
         id: pr
@@ -510,9 +514,6 @@ jobs:
         run: |
           echo "No pull request was created or found. OpenCode may not have made any changes."
           exit 1
-
-      - name: Verify build
-        run: npm run build
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
