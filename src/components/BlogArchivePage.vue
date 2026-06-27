@@ -1,15 +1,15 @@
 <template>
   <div class="px-8 py-5">
     <h1>{{ t.blog.archiveHeading }}</h1>
-    <p class="text-neutral-500 text-sm mt-1 mb-8">{{ t.blog.archiveDescription }}</p>
+    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">{{ t.blog.archiveDescription }}</p>
 
     <div v-if="filteredPosts.length === 0" class="text-center py-20">
-      <p class="text-neutral-400">{{ t.blog.noPosts }}</p>
+      <p class="text-neutral-400 dark:text-gray-500">{{ t.blog.noPosts }}</p>
     </div>
 
     <div v-else class="space-y-5 mt-6">
-      <article v-for="post in filteredPosts" :key="post.id" class="group border-t border-primary/10 pt-5 grid sm:grid-cols-[8rem_minmax(0,1fr)] gap-4">
-        <div class="text-xs text-neutral-400 space-y-1 pt-0.5">
+      <article v-for="post in filteredPosts" :key="post.id" class="group border-t border-primary/10 dark:border-gray-700 pt-5 grid sm:grid-cols-[8rem_minmax(0,1fr)] gap-4">
+        <div class="text-xs text-neutral-400 dark:text-gray-500 space-y-1 pt-0.5">
           <span class="block font-mono uppercase tracking-wider" :class="categoryStyle(post.category)">
             {{ categoryLabel(post.category) }}
           </span>
@@ -18,15 +18,15 @@
           </time>
         </div>
         <div>
-          <h2 class="font-serif text-base font-semibold text-primary leading-snug mb-1 group-hover:text-primary/80 transition-colors">
+          <h2 class="font-serif text-base font-semibold text-primary dark:text-gray-100 leading-snug mb-1 group-hover:text-primary/80 dark:group-hover:text-gray-300 transition-colors">
             <a :href="`/blog/${post.id}`" class="hover:underline decoration-primary/20 underline-offset-4">
               {{ lang === 'id' && post.titleId ? post.titleId : post.title }}
             </a>
           </h2>
-          <p class="text-sm text-neutral-500 leading-relaxed mb-2">
+          <p class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed mb-2">
             {{ lang === 'id' && post.excerptId ? post.excerptId : post.excerpt }}
           </p>
-          <a :href="`/blog/${post.id}`" class="text-xs font-mono text-primary/40 hover:text-primary transition-colors">
+          <a :href="`/blog/${post.id}`" class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors">
             {{ t.news.readMore }} →
           </a>
         </div>

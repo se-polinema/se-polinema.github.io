@@ -32,6 +32,16 @@ const fullTitle = `${title} | SE Lab — JTI Polinema`
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <script is:inline>
+      (function() {
+        try {
+          var theme = localStorage.getItem('se-lab-theme');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else if (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch(e) {}
+      })();
       try {
         const lang = localStorage.getItem('se-lab-lang');
         if (lang === 'en' || lang === 'id') document.documentElement.lang = lang;

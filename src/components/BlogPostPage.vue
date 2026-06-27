@@ -3,7 +3,7 @@
   <h1>{{ displayTitle }}</h1>
 
   <!-- Subtle metadata line, styled like a markdown italic comment -->
-  <p class="font-mono text-[11.5px] text-neutral-400 mt-1 mb-8 italic">
+  <p class="font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 mt-1 mb-8 italic">
     {{ displayDate }} &middot; {{ category }}
   </p>
 </template>

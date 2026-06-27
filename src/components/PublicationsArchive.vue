@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="mb-6 md:mb-8 text-sm text-neutral-500">
+    <div class="mb-6 md:mb-8 text-sm text-neutral-500 dark:text-gray-400">
       {{ filteredPublications.length }} {{ filteredPublications.length === 1 ? t.publications.resultSingle : t.publications.resultPlural }}
     </div>
 
@@ -11,18 +11,18 @@
           <article
             v-for="publication in group.items"
             :key="publication.id"
-            class="grid gap-3 md:gap-4 md:grid-cols-[7rem_minmax(0,1fr)] border-t border-primary/10 pt-5"
+            class="grid gap-3 md:gap-4 md:grid-cols-[7rem_minmax(0,1fr)] border-t border-primary/10 dark:border-gray-700 pt-5"
           >
-            <div class="text-xs text-neutral-500 space-y-1 md:space-y-2 pt-1">
+            <div class="text-xs text-neutral-500 dark:text-gray-400 space-y-1 md:space-y-2 pt-1">
               <div class="font-mono uppercase tracking-wider text-primary/40">{{ publication.type }}</div>
               <div class="leading-relaxed">{{ researcherLine(publication.researchers) }}</div>
             </div>
             <div>
-              <h2 class="font-serif text-base md:text-xl font-semibold text-primary leading-snug">
+              <h2 class="font-serif text-base md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug">
                 <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
               </h2>
-              <p class="mt-2 text-sm text-neutral-600 leading-relaxed">{{ publication.authors.join(', ') }}</p>
-              <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-500">
+              <p class="mt-2 text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">{{ publication.authors.join(', ') }}</p>
+              <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-500 dark:text-gray-400">
                 <span>{{ publication.venue }}</span>
               </div>
             </div>
@@ -31,8 +31,8 @@
       </section>
     </div>
 
-    <div v-else class="text-center py-20 border border-dashed border-primary/10">
-      <p class="text-neutral-400 text-sm max-w-sm mx-auto">{{ t.blog.noPosts }}</p>
+    <div v-else class="text-center py-20 border border-dashed border-primary/10 dark:border-gray-700">
+      <p class="text-neutral-400 dark:text-gray-500 text-sm max-w-sm mx-auto">{{ t.blog.noPosts }}</p>
     </div>
   </section>
 </template>

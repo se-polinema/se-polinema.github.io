@@ -1,7 +1,7 @@
 <template>
   <section
     id="hero"
-    class="relative flex flex-col justify-center bg-neutral-50 overflow-hidden"
+    class="relative flex flex-col justify-center bg-neutral-50 dark:bg-gray-900 overflow-hidden"
     style="min-height: min(100vh, 640px)"
   >
     <!-- Graph-paper grid background -->
@@ -31,19 +31,19 @@
               class="h-8 w-auto opacity-80"
             />
             <span
-              class="text-xs font-mono uppercase tracking-[0.2em] text-primary/50"
+              class="text-xs font-mono uppercase tracking-[0.2em] text-primary/50 dark:text-gray-400"
               >{{ t.hero.subtitle }}</span
             >
           </div>
 
           <h1
-            class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary leading-[1.05] mb-6"
+            class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary dark:text-gray-100 leading-[1.05] mb-6"
           >
             {{ t.hero.title }}
           </h1>
 
           <p
-            class="text-lg sm:text-xl text-primary/60 leading-relaxed max-w-xl mb-8"
+            class="text-lg sm:text-xl text-primary/60 dark:text-gray-400 leading-relaxed max-w-xl mb-8"
           >
             {{ t.hero.tagline }}
           </p>
@@ -59,13 +59,13 @@
             </a>
             <a
               href="/researchers"
-              class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary border border-primary/20 hover:border-primary/50 transition-colors"
+              class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary dark:text-blue-300 border border-primary/20 dark:border-gray-500 hover:border-primary/50 dark:hover:border-gray-400 transition-colors"
             >
               {{ t.hero.researchersCta }}
             </a>
             <a
               href="/publications"
-              class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary/70 hover:text-primary border border-transparent hover:border-primary/20 transition-colors"
+              class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary/70 dark:text-gray-300 hover:text-primary dark:hover:text-blue-200 border border-transparent hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
             >
               {{ t.hero.publicationsCta }}
             </a>
@@ -73,21 +73,21 @@
 
           <!-- Stats: mobile only — desktop sees them in the terminal -->
           <div class="grid grid-cols-3 gap-4 max-w-xs lg:hidden">
-            <div class="border-t border-primary/10 pt-4">
-              <div class="font-serif text-3xl font-bold text-accent">6</div>
-              <div class="text-xs text-primary/50 mt-1">
+            <div class="border-t border-primary/10 dark:border-gray-600 pt-4">
+              <div class="font-serif text-3xl font-bold text-accent dark:text-yellow-300">6</div>
+              <div class="text-xs text-primary/50 dark:text-gray-400 mt-1">
                 {{ t.hero.statTeam }}
               </div>
             </div>
-            <div class="border-t border-primary/10 pt-4">
-              <div class="font-serif text-3xl font-bold text-accent">3</div>
-              <div class="text-xs text-primary/50 mt-1">
+            <div class="border-t border-primary/10 dark:border-gray-600 pt-4">
+              <div class="font-serif text-3xl font-bold text-accent dark:text-yellow-300">3</div>
+              <div class="text-xs text-primary/50 dark:text-gray-400 mt-1">
                 {{ t.hero.statFocus }}
               </div>
             </div>
-            <div class="border-t border-primary/10 pt-4">
-              <div class="font-serif text-3xl font-bold text-accent">20+</div>
-              <div class="text-xs text-primary/50 mt-1">
+            <div class="border-t border-primary/10 dark:border-gray-600 pt-4">
+              <div class="font-serif text-3xl font-bold text-accent dark:text-yellow-300">20+</div>
+              <div class="text-xs text-primary/50 dark:text-gray-400 mt-1">
                 {{ t.hero.statProjects }}
               </div>
             </div>

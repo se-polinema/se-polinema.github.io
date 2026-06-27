@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex items-center justify-between px-3 flex-shrink-0 select-none"
-    style="height: 24px; background: #F5A100;"
+    style="height: 24px; background: var(--color-vscode-statusbar);"
     role="contentinfo"
     aria-label="Status Bar"
   >
@@ -49,8 +49,10 @@
       Jurusan Teknologi Informasi — Politeknik Negeri Malang
     </span>
 
-    <!-- Right: language toggle + encoding -->
+    <!-- Right: theme toggle + language toggle + encoding -->
     <div class="flex items-center gap-3">
+      <ThemeToggle />
+      <span class="w-px h-3.5 bg-primary/20" />
       <button
         @click="toggleLang"
         class="text-[11px] font-mono text-primary font-semibold hover:text-primary/60 transition-colors uppercase tracking-wider"
@@ -64,6 +66,7 @@
 </template>
 
 <script setup lang="ts">
+import ThemeToggle from '../ThemeToggle.vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 

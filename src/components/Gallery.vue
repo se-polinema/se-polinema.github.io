@@ -1,8 +1,8 @@
 <template>
-  <section id="gallery" class="py-20 md:py-32 bg-white">
+  <section id="gallery" class="py-20 md:py-32 bg-white dark:bg-gray-900">
     <div class="section-container">
       <div class="section-label">{{ t.gallery.label }}</div>
-      <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-16">
+      <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary dark:text-gray-100 leading-tight mb-16">
         {{ t.gallery.heading }}
       </h2>
 
@@ -32,9 +32,9 @@
 
       <!-- Empty state -->
       <template v-else>
-        <div class="text-center py-20 border border-dashed border-primary/10">
+        <div class="text-center py-20 border border-dashed border-primary/10 dark:border-gray-600">
           <div class="font-mono text-5xl text-primary/10 mb-4 select-none">&#9632;</div>
-          <p class="text-neutral-400 text-sm max-w-sm mx-auto">{{ t.gallery.empty }}</p>
+          <p class="text-neutral-400 dark:text-gray-500 text-sm max-w-sm mx-auto">{{ t.gallery.empty }}</p>
         </div>
       </template>
     </div>

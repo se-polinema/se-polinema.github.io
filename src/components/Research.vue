@@ -1,10 +1,10 @@
 <template>
-  <section id="research" class="py-20 md:py-32 bg-white">
+  <section id="research" class="py-20 md:py-32 bg-white dark:bg-gray-900">
     <div class="section-container">
       <div class="relative overflow-hidden mb-16">
         <span class="absolute -top-4 right-0 font-mono text-[8rem] font-bold text-primary/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">02</span>
         <div class="section-label">{{ t.research.label }}</div>
-        <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight">
+        <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary dark:text-gray-100 leading-tight">
           {{ t.research.heading }}
         </h2>
       </div>
@@ -13,7 +13,7 @@
         <div
           v-for="(area, index) in research"
           :key="area.id"
-          class="group bg-neutral-50 border border-neutral-100 hover:border-accent/30 transition-all duration-300 p-6 relative overflow-hidden"
+          class="group bg-neutral-50 dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-accent/30 transition-all duration-300 p-6 relative overflow-hidden"
           :class="{ 'sm:col-span-2 sm:max-w-[calc(50%-0.5rem)]': index === research.length - 1 && research.length % 2 !== 0 }"
         >
           <!-- Accent sweep line -->
@@ -24,17 +24,17 @@
               {{ String(index + 1).padStart(2, '0') }}
             </span>
             <div>
-              <h3 class="font-serif text-lg md:text-xl font-semibold text-primary mb-2 group-hover:text-primary/80 transition-colors">
+              <h3 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 mb-2 group-hover:text-primary/80 dark:group-hover:text-gray-300 transition-colors">
                 {{ lang === 'id' ? area.name.id : area.name.en }}
               </h3>
-              <p class="text-sm text-neutral-500 leading-relaxed mb-3">
+              <p class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed mb-3">
                 {{ lang === 'id' ? area.tagline.id : area.tagline.en }}
               </p>
               <div class="flex flex-wrap gap-1.5">
                 <span
                   v-for="topic in area.topics"
                   :key="topic"
-                  class="inline-block text-xs font-mono px-2 py-0.5 rounded bg-primary/[0.06] text-primary/60 border border-primary/10"
+                  class="inline-block text-xs font-mono px-2 py-0.5 rounded bg-primary/[0.06] dark:bg-gray-700 text-primary/60 dark:text-gray-400 border border-primary/10 dark:border-gray-600"
                 >
                   {{ topic }}
                 </span>

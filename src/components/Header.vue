@@ -1,7 +1,7 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="mobileOpen ? 'bg-white border-b border-primary/10' : scrolled ? 'bg-white/95 backdrop-blur-sm shadow-[0_1px_0_rgba(0,78,162,0.08)]' : 'bg-transparent'"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 dark:bg-gray-900"
+    :class="mobileOpen ? 'bg-white dark:bg-gray-900 border-b border-primary/10 dark:border-gray-700' : scrolled ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-[0_1px_0_rgba(0,78,162,0.08)] dark:shadow-[0_1px_0_rgba(255,255,255,0.05)]' : 'bg-transparent'"
   >
     <div class="section-container">
       <nav class="flex items-center justify-between h-16 md:h-20">
@@ -15,10 +15,10 @@
             <span class="text-[#F5A100]">{</span>SE<span class="text-[#F5A100]">}</span>
           </div>
           <div>
-            <div class="font-serif text-sm md:text-base font-semibold text-primary leading-tight">
+            <div class="font-serif text-sm md:text-base font-semibold text-primary dark:text-gray-100 leading-tight">
               SE Lab
             </div>
-            <div class="text-[10px] md:text-xs text-primary/50 leading-tight">
+            <div class="text-[10px] md:text-xs text-primary/50 dark:text-gray-400 leading-tight">
               JTI Polinema
             </div>
           </div>
@@ -29,7 +29,7 @@
             v-for="item in navItems"
             :key="item.id"
             :href="item.href"
-            class="text-sm text-primary/70 hover:text-accent transition-colors font-medium"
+            class="text-sm text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors font-medium"
             @click="handleNavClick($event, item)"
           >
             {{ item.label }}
@@ -39,12 +39,12 @@
         <div class="flex items-center gap-2">
           <button
             @click="toggleLang"
-            class="hidden lg:flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-primary/60 hover:text-primary transition-colors min-w-[44px] min-h-[44px] px-2 py-1 justify-center"
+            class="hidden lg:flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors min-w-[44px] min-h-[44px] px-2 py-1 justify-center"
             :aria-label="lang === 'en' ? 'Switch to Indonesian' : 'Beralih ke Inggris'"
           >
-            <span :class="{ 'text-accent font-semibold': lang === 'en' }">EN</span>
-            <span class="text-primary/30">/</span>
-            <span :class="{ 'text-accent font-semibold': lang === 'id' }">ID</span>
+            <span :class="{ 'text-accent font-semibold': lang === 'en' }" :class="lang === 'en' ? 'text-accent dark:text-yellow-300 font-semibold' : ''">EN</span>
+            <span class="text-primary/30 dark:text-gray-600">/</span>
+            <span :class="{ 'text-accent font-semibold': lang === 'id' }" :class="lang === 'id' ? 'text-accent dark:text-yellow-300 font-semibold' : ''">ID</span>
           </button>
 
           <button
@@ -53,15 +53,15 @@
             :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
           >
             <span
-              class="block w-5 h-px bg-primary transition-all duration-300"
+              class="block w-5 h-px bg-primary dark:bg-gray-300 transition-all duration-300"
               :class="mobileOpen ? 'rotate-45 translate-y-[5px]' : ''"
             />
             <span
-              class="block w-5 h-px bg-primary transition-all duration-300"
+              class="block w-5 h-px bg-primary dark:bg-gray-300 transition-all duration-300"
               :class="mobileOpen ? 'opacity-0' : ''"
             />
             <span
-              class="block w-5 h-px bg-primary transition-all duration-300"
+              class="block w-5 h-px bg-primary dark:bg-gray-300 transition-all duration-300"
               :class="mobileOpen ? '-rotate-45 -translate-y-[5px]' : ''"
             />
           </button>
