@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex-shrink-0 overflow-hidden transition-[height] duration-200 flex flex-col"
-    :style="{ height: panelOpen ? '260px' : '0px' }"
+    :style="{ height: panelOpen ? '180px' : '0px' }"
     style="background: #0D1B2E; border-top: 1px solid rgba(255,255,255,0.08);"
     aria-label="Panel"
   >
