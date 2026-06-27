@@ -5,6 +5,7 @@ import Sidebar from '../components/vscode/Sidebar.vue'
 import TabBar from '../components/vscode/TabBar.vue'
 import BottomPanel from '../components/vscode/BottomPanel.vue'
 import StatusBar from '../components/vscode/StatusBar.vue'
+import SearchOverlay from '../components/vscode/SearchOverlay.vue'
 
 export interface Props {
   title: string
@@ -88,6 +89,7 @@ const LINE_COUNT = 1000
     </div>
 
     <StatusBar client:load />
+    <SearchOverlay client:load />
   </div>
 </Default>
 

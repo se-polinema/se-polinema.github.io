@@ -236,5 +236,18 @@
   "theme": {
     "switchToDark": "Ganti ke tema gelap",
     "switchToLight": "Ganti ke tema terang"
+  },
+  "search": {
+    "placeholder": "Cari peneliti, publikasi, dan blog...",
+    "noResults": "Tidak ada hasil ditemukan",
+    "groupResearchers": "Peneliti",
+    "groupPublications": "Publikasi",
+    "groupBlog": "Blog",
+    "shortcut": "Ctrl+K",
+    "openSearch": "Buka pencarian",
+    "resultsCount": "hasil",
+    "navigate": "Navigasi",
+    "close": "Tutup",
+    "allResults": "Semua hasil"
   }
 }
