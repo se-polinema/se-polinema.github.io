@@ -1,27 +1,55 @@
 ---
 import '../styles/global.css'
 
+export interface Props {
+  title?: string
+  description?: string
+  image?: string
+  type?: 'website' | 'article' | 'profile'
+  lang?: 'en' | 'id'
+}
+
 const {
   title = 'Software Engineering Laboratory',
   description = 'Software Engineering Laboratory — Jurusan Teknologi Informasi, Politeknik Negeri Malang. Advancing software engineering education and research.',
-} = Astro.props as { title?: string; description?: string }
+  image,
+  type = 'website',
+  lang = 'en',
+} = Astro.props as Props
 
 const fullTitle = `${title} | SE Lab — JTI Polinema`
+const siteName = 'SE Lab — JTI Polinema'
+const ogLocale = lang === 'id' ? 'id_ID' : 'en_US'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
+const canonical = new URL(Astro.url.pathname, origin).href
+const ogImage = image ?? '/og-default.svg'
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, origin).href
+const twitterCard = image ? 'summary_large_image' : 'summary'
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
 
+    <link rel="canonical" href={canonical} />
+
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
