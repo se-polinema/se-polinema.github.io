@@ -225,6 +225,14 @@
     "backToHome": "Back to Home",
     "backToBlog": "Back to Blog"
   },
+  "notFound": {
+    "heading": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "home": "Home",
+    "blog": "Blog",
+    "researchers": "Researchers",
+    "publications": "Publications"
+  },
   "theme": {
     "switchToDark": "Switch to dark theme",
     "switchToLight": "Switch to light theme"
