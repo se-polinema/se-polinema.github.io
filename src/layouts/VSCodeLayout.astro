@@ -21,12 +21,12 @@ const LINE_COUNT = 1000
   <div
     id="vscode-window"
     class="fixed inset-0 flex flex-col isolate"
-    style="background: #002D6B;"
+    style="background: var(--color-vscode-window);"
   >
     <!-- Workspace bar -->
     <div
       class="flex items-center px-3 flex-shrink-0 relative"
-      style="height: 28px; background: #0B1628; border-bottom: 1px solid rgba(255,255,255,0.06);"
+      style="height: 28px; background: var(--color-vscode-workspace); border-bottom: 1px solid rgba(255,255,255,0.06);"
     >
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div
@@ -65,7 +65,7 @@ const LINE_COUNT = 1000
           The gutter is absolutely positioned inside .editor-wrap, which is driven by content height,
           so the gutter never makes the page taller than the content itself.
         -->
-        <main id="editor" class="flex-1 overflow-y-auto bg-white">
+        <main id="editor" class="flex-1 overflow-y-auto bg-white dark:bg-gray-900">
           <div class="editor-wrap">
             <!-- Line-number gutter -->
             <div class="editor-gutter" aria-hidden="true">
@@ -100,8 +100,8 @@ const LINE_COUNT = 1000
   flex-shrink: 0;
   width: 52px;
   overflow: hidden;          /* clips excess line numbers below content */
-  background: #FAFAFA;
-  border-right: 1px solid #EBEBEB;
+  background: var(--color-vscode-gutter-bg);
+  border-right: 1px solid var(--color-vscode-gutter-border);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -116,14 +116,14 @@ const LINE_COUNT = 1000
   line-height: 22px;
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 11px;
-  color: #C0C4CC;
+  color: var(--color-vscode-gutter-text);
   user-select: none;
   flex-shrink: 0;
 }
 
 /* Highlight every 10th line number */
 .editor-gutter span:nth-child(10n) {
-  color: #A0A4AC;
+  color: var(--color-vscode-gutter-text-em);
 }
 
 .editor-body {
@@ -151,7 +151,7 @@ const LINE_COUNT = 1000
 .editor-body h4:not([class])::before {
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-weight: 400;
-  color: #9CA3AF;
+  color: var(--color-editor-hash);
   font-size: 0.85em;
   letter-spacing: -0.02em;
 }
@@ -194,7 +194,7 @@ const LINE_COUNT = 1000
 .editor-body pre:not([class]),
 .editor-body pre[class^="astro"]:not(.astro-code),
 .editor-body .prose pre:not(.astro-code) {
-  background: #0E1E3D !important;
+  background: var(--color-editor-code-bg) !important;
   color: #D4D4D4;
   border-radius: 4px;
   padding: 1em 1.25em;
@@ -221,20 +221,20 @@ const LINE_COUNT = 1000
 
 .editor-body code:not(pre code):not([class]),
 .editor-body .prose :not(pre) > code {
-  background: rgba(14, 30, 61, 0.08);
-  color: #1E3A5F;
+  background: var(--color-editor-inline-code-bg);
+  color: var(--color-editor-inline-code-text);
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 0.875em;
   padding: 0.15em 0.4em;
   border-radius: 3px;
-  border: 1px solid rgba(14, 30, 61, 0.12);
+  border: 1px solid var(--color-editor-inline-code-border);
 }
 
 /* ─── Blockquote — callout style ─── */
 .editor-body blockquote:not([class]),
 .editor-body .prose blockquote {
-  border-left: 3px solid #A78BFA;
-  background: rgba(167, 139, 250, 0.06);
+  border-left: 3px solid var(--color-editor-blockquote-border);
+  background: var(--color-editor-blockquote-bg);
   padding: 0.5em 1em;
   margin: 1em 0;
   border-radius: 0 4px 4px 0;
@@ -244,6 +244,6 @@ const LINE_COUNT = 1000
 
 /* ─── Section dividers on home page ─── */
 #editor section[id]:not(:first-child) {
-  border-top: 1px solid #F0F2F5;
+  border-top: 1px solid var(--color-editor-section-divider);
 }
 </style>

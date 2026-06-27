@@ -1,7 +1,7 @@
 <template>
   <aside
     class="relative z-30 flex flex-col items-center py-2 flex-shrink-0 pointer-events-auto"
-    style="width: 48px; background: #002D6B;"
+    style="width: 48px; background: var(--color-vscode-activitybar);"
     aria-label="Activity Bar"
   >
     <nav class="flex flex-col items-center flex-1 w-full">

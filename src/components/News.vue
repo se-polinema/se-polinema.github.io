@@ -1,18 +1,18 @@
 <template>
-  <section id="blog" class="py-20 md:py-32 bg-neutral-50">
+  <section id="blog" class="py-20 md:py-32 bg-neutral-50 dark:bg-gray-800">
     <div class="section-container">
       <div class="flex items-end justify-between mb-16">
         <div class="relative overflow-hidden">
           <span class="absolute -top-4 right-0 font-mono text-[8rem] font-bold text-primary/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">05</span>
           <div class="section-label">{{ t.news.label }}</div>
-          <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight">
+          <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary dark:text-gray-100 leading-tight">
             {{ t.news.heading }}
           </h2>
         </div>
         <a
           v-if="posts.length > 0"
           href="/blog"
-          class="inline-flex items-center gap-2 text-sm text-primary/60 hover:text-primary transition-colors"
+          class="inline-flex items-center gap-2 text-sm text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
         >
           {{ t.news.viewAll }}
           <span aria-hidden="true">&rarr;</span>
@@ -23,7 +23,7 @@
         <article
           v-for="post in posts"
           :key="post.slug"
-          class="group bg-white border border-neutral-100 hover:border-primary/10 transition-colors p-6"
+          class="group bg-white dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-primary/10 dark:hover:border-gray-600 transition-colors p-6"
         >
           <div class="flex items-center gap-3 mb-4">
             <span
@@ -34,32 +34,32 @@
             </span>
             <time
               :datetime="post.date.toISOString()"
-              class="text-xs text-neutral-400"
+              class="text-xs text-neutral-400 dark:text-gray-500"
             >
               {{ formatDate(post.date) }}
             </time>
           </div>
 
-          <h3 class="font-serif text-lg font-semibold text-primary mb-2 group-hover:text-primary/80 transition-colors">
+          <h3 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 mb-2 group-hover:text-primary/80 dark:group-hover:text-gray-300 transition-colors">
             <a :href="'/blog/' + post.slug" class="hover:underline decoration-primary/20 underline-offset-4">
               {{ lang === 'id' && post.titleId ? post.titleId : post.title }}
             </a>
           </h3>
 
-          <p class="text-sm text-neutral-500 leading-relaxed mb-4">
+          <p class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed mb-4">
             {{ lang === 'id' && post.excerptId ? post.excerptId : post.excerpt }}
           </p>
 
           <a
             :href="'/blog/' + post.slug"
-            class="text-xs font-medium text-primary/50 hover:text-primary transition-colors"
+            class="text-xs font-medium text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
           >
             {{ t.news.readMore }} &rarr;
           </a>
         </article>
       </div>
 
-      <div v-else class="text-center text-neutral-400 py-16">
+      <div v-else class="text-center text-neutral-400 dark:text-gray-500 py-16">
         <p>{{ t.news.empty }}</p>
       </div>
     </div>
@@ -96,9 +96,9 @@ function categoryStyle(cat: string): string {
     announcement: 'bg-primary/10 text-primary',
     news: 'bg-accent/15 text-primary',
     event: 'bg-primary/10 text-primary',
-    tutorial: 'bg-green-100 text-green-800',
+    tutorial: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
   }
-  return styles[cat] || 'bg-neutral-100 text-neutral-500'
+  return styles[cat] || 'bg-neutral-100 text-neutral-500 dark:bg-gray-700 dark:text-gray-300'
 }
 
 function categoryLabel(cat: string): string {

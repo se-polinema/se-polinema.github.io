@@ -16,8 +16,8 @@
         :disabled="atStart"
         class="w-9 h-9 flex items-center justify-center rounded border transition-colors"
         :class="atStart
-          ? 'border-neutral-100 text-neutral-300 cursor-not-allowed'
-          : 'border-primary/20 text-primary hover:border-accent hover:text-accent'"
+          ? 'border-neutral-100 dark:border-gray-700 text-neutral-300 dark:text-gray-600 cursor-not-allowed'
+          : 'border-primary/20 dark:border-gray-600 text-primary dark:text-gray-300 hover:border-accent dark:hover:border-yellow-400 hover:text-accent dark:hover:text-yellow-400'"
         :aria-label="t.carousel.prev"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -27,8 +27,8 @@
         :disabled="atEnd"
         class="w-9 h-9 flex items-center justify-center rounded border transition-colors"
         :class="atEnd
-          ? 'border-neutral-100 text-neutral-300 cursor-not-allowed'
-          : 'border-primary/20 text-primary hover:border-accent hover:text-accent'"
+          ? 'border-neutral-100 dark:border-gray-700 text-neutral-300 dark:text-gray-600 cursor-not-allowed'
+          : 'border-primary/20 dark:border-gray-600 text-primary dark:text-gray-300 hover:border-accent dark:hover:border-yellow-400 hover:text-accent dark:hover:text-yellow-400'"
         :aria-label="t.carousel.next"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>

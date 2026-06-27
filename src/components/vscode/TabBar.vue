@@ -2,7 +2,7 @@
   <!-- Tab strip / Inner page header — fixed-height outer prevents layout collapse during transition -->
   <div
     class="flex flex-shrink-0 overflow-hidden"
-    style="height: 35px; background: #1e2d4e"
+    style="height: 35px; background: var(--color-vscode-tabbar)"
   >
     <Transition name="tabmode" mode="out-in">
       <!-- Home: full file-tab strip -->
@@ -22,7 +22,7 @@
           class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 transition-colors duration-150 whitespace-nowrap h-full"
           :class="
             isActiveTab(tab)
-              ? 'bg-white text-primary border-t-[#F5A100]'
+              ? 'bg-white dark:bg-gray-900 text-primary dark:text-blue-300 border-t-[#F5A100]'
               : 'bg-transparent text-white/40 hover:text-white/70 hover:bg-white/5 border-transparent'
           "
         >
@@ -42,7 +42,7 @@
           :href="isDetailPage ? undefined : innerTab.href"
           role="tab"
           aria-selected="true"
-          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 border-t-[#F5A100] whitespace-nowrap h-full bg-white text-primary"
+          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 border-t-[#F5A100] whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
           @click.prevent="isDetailPage ? null : undefined"
         >
           <span
@@ -61,7 +61,7 @@
     class="flex items-center justify-between px-4 flex-shrink-0 select-none"
     style="
       height: 26px;
-      background: #162032;
+      background: var(--color-vscode-tabbar-breadcrumb);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     "
   >

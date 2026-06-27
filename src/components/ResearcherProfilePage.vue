@@ -7,8 +7,8 @@
         <div class="flex gap-5">
 
           <!-- Left sub-col: photo + affiliation + contact + external profiles -->
-          <div class="w-36 shrink-0 space-y-3 text-[13px] text-neutral-600">
-            <div class="relative aspect-[4/5] w-full bg-neutral-50 border border-neutral-200 overflow-hidden">
+          <div class="w-36 shrink-0 space-y-3 text-[13px] text-neutral-600 dark:text-gray-300">
+            <div class="relative aspect-[4/5] w-full bg-neutral-50 dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden">
               <img
                 :src="researcher.photo"
                 :alt="researcher.name"
@@ -18,20 +18,20 @@
               />
             </div>
             <div>
-              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-0.5">{{ t.team.affiliation }}</div>
+              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.affiliation }}</div>
               <div class="leading-snug">Software Engineering Laboratory<br />Jurusan Teknologi Informasi<br />Politeknik Negeri Malang</div>
             </div>
             <div>
-              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-0.5">{{ t.team.contact }}</div>
-              <a :href="`mailto:${researcher.email}`" class="text-primary hover:text-accent transition-colors break-all">{{ researcher.email }}</a>
+              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.contact }}</div>
+              <a :href="`mailto:${researcher.email}`" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors break-all">{{ researcher.email }}</a>
             </div>
             <div>
-              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-0.5">{{ t.team.externalProfiles }}</div>
+              <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.externalProfiles }}</div>
               <ul class="space-y-0.5">
-                <li><a :href="researcher.googleScholarUrl" target="_blank" rel="noopener" class="text-primary hover:text-accent transition-colors">Google Scholar</a></li>
-                <li v-if="researcher.institutionalUrl"><a :href="researcher.institutionalUrl" target="_blank" rel="noopener" class="text-primary hover:text-accent transition-colors">{{ t.team.institutionalPage }}</a></li>
-                <li v-if="researcher.orcidUrl"><a :href="researcher.orcidUrl" target="_blank" rel="noopener" class="text-primary hover:text-accent transition-colors">ORCID</a></li>
-                <li v-if="researcher.scopusUrl"><a :href="researcher.scopusUrl" target="_blank" rel="noopener" class="text-primary hover:text-accent transition-colors">Scopus</a></li>
+                <li><a :href="researcher.googleScholarUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">Google Scholar</a></li>
+                <li v-if="researcher.institutionalUrl"><a :href="researcher.institutionalUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">{{ t.team.institutionalPage }}</a></li>
+                <li v-if="researcher.orcidUrl"><a :href="researcher.orcidUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">ORCID</a></li>
+                <li v-if="researcher.scopusUrl"><a :href="researcher.scopusUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">Scopus</a></li>
               </ul>
             </div>
           </div>
@@ -40,36 +40,36 @@
           <div class="flex-1 min-w-0 flex flex-col justify-between gap-3">
             <!-- Stats: 3-col grid, full width -->
             <div class="grid grid-cols-3 gap-1">
-              <div class="border border-primary/10 p-2 text-center">
-                <div class="font-serif text-lg font-bold text-primary tabular-nums leading-none">{{ publications.length }}</div>
-                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 mt-1 leading-tight">Works</div>
+              <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ publications.length }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">Works</div>
               </div>
-              <div class="border border-primary/10 p-2 text-center">
-                <div class="font-serif text-lg font-bold text-primary tabular-nums leading-none">{{ researcher.expertise.length }}</div>
-                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 mt-1 leading-tight">Areas</div>
+              <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ researcher.expertise.length }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">Areas</div>
               </div>
-              <div class="border border-primary/10 p-2 text-center">
-                <div class="font-serif text-lg font-bold text-primary tabular-nums leading-none">{{ externalProfileCount }}</div>
-                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 mt-1 leading-tight">Profiles</div>
+              <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ externalProfileCount }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">Profiles</div>
               </div>
             </div>
 
             <!-- Research interests list -->
             <div>
-              <div class="font-mono text-[9px] uppercase tracking-widest text-primary/35 mb-1.5">{{ t.team.researchInterests }}</div>
+              <div class="font-mono text-[9px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-1.5">{{ t.team.researchInterests }}</div>
               <ul class="space-y-1">
-                <li v-for="item in interests" :key="item" class="text-[12px] text-neutral-600 leading-snug">{{ item }}</li>
+                <li v-for="item in interests" :key="item" class="text-[12px] text-neutral-600 dark:text-gray-300 leading-snug">{{ item }}</li>
               </ul>
             </div>
 
             <!-- Research Themes (lab stream mapping) -->
-            <div v-if="researcher.streams?.length" class="border-t border-primary/10 pt-2.5">
-              <div class="font-mono text-[9px] uppercase tracking-widest text-primary/35 mb-1.5">{{ t.team.researchThemes }}</div>
+            <div v-if="researcher.streams?.length" class="border-t border-primary/10 dark:border-gray-600 pt-2.5">
+              <div class="font-mono text-[9px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-1.5">{{ t.team.researchThemes }}</div>
               <div class="flex flex-col gap-1">
                 <span
                   v-for="streamId in researcher.streams"
                   :key="streamId"
-                  class="text-[11px] font-mono px-1.5 py-1 rounded bg-primary/[0.06] text-primary/70 border border-primary/10 leading-snug"
+                  class="text-[11px] font-mono px-1.5 py-1 rounded bg-primary/[0.06] dark:bg-gray-700 text-primary/70 dark:text-gray-300 border border-primary/10 dark:border-gray-600 leading-snug"
                 >
                   {{ getStreamName(streamId) }}
                 </span>
@@ -77,11 +77,11 @@
             </div>
 
             <!-- Expertise pills -->
-            <div class="border-t border-primary/10 pt-2.5 flex flex-wrap gap-1">
+            <div class="border-t border-primary/10 dark:border-gray-600 pt-2.5 flex flex-wrap gap-1">
               <span
                 v-for="item in researcher.expertise"
                 :key="item"
-                class="font-mono text-[9px] uppercase tracking-wide text-primary/55 bg-neutral-50 border border-primary/10 px-1.5 py-0.5 leading-none"
+                class="font-mono text-[9px] uppercase tracking-wide text-primary/55 dark:text-gray-400 bg-neutral-50 dark:bg-gray-800 border border-primary/10 dark:border-gray-600 px-1.5 py-0.5 leading-none"
               >{{ item }}</span>
             </div>
           </div>
@@ -92,12 +92,12 @@
       <!-- ── Main content ── -->
       <div>
         <!-- Header -->
-        <div class="profile-hd border-b border-primary/10 pb-4 mb-5">
+        <div class="profile-hd border-b border-primary/10 dark:border-gray-600 pb-4 mb-5">
           <h1>{{ researcher.name }}</h1>
-          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-primary/45 mt-1 mb-2">
+          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-primary/45 dark:text-gray-500 mt-1 mb-2">
             {{ lang === 'id' ? researcher.title.id : researcher.title.en }}
           </p>
-          <p class="text-neutral-600 leading-relaxed text-sm max-w-2xl">
+          <p class="text-neutral-600 dark:text-gray-300 leading-relaxed text-sm max-w-2xl">
             {{ lang === 'id' ? researcher.shortBio.id : researcher.shortBio.en }}
           </p>
         </div>
@@ -107,7 +107,7 @@
           <!-- Biography -->
           <section class="mb-7">
             <h2>{{ t.team.biographyHeading }}</h2>
-            <p class="text-neutral-600 leading-relaxed text-sm">{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
+            <p class="text-neutral-600 dark:text-gray-300 leading-relaxed text-sm">{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
           </section>
 
           <!-- Books -->
@@ -118,7 +118,7 @@
                 <li v-for="book in props.researcher.books" :key="book.title" class="flex flex-col sm:flex-row gap-4">
                   <div
                     v-if="book.coverImage"
-                    class="w-28 shrink-0 aspect-[3/4] bg-neutral-100 overflow-hidden border border-primary/10"
+                    class="w-28 shrink-0 aspect-[3/4] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/10 dark:border-gray-600"
                   >
                     <img
                       :src="book.coverImage"
@@ -128,16 +128,16 @@
                     />
                   </div>
                   <div class="min-w-0">
-                    <div class="font-serif text-[1rem] font-semibold text-primary leading-snug">{{ lang === 'id' && book.titleId ? book.titleId : book.title }}</div>
-                    <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}</p>
+                    <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">{{ lang === 'id' && book.titleId ? book.titleId : book.title }}</div>
+                    <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}</p>
                     <div v-if="book.playstoreUrl" class="mt-1.5">
-                      <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary hover:text-accent transition-colors">Buy on Google Play Books →</a>
+                      <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">Buy on Google Play Books →</a>
                     </div>
                   </div>
                 </li>
               </ul>
             </template>
-            <p v-else class="text-neutral-500 text-sm">{{ t.team.booksEmpty }}</p>
+            <p v-else class="text-neutral-500 dark:text-gray-400 text-sm">{{ t.team.booksEmpty }}</p>
           </section>
 
           <!-- Projects -->
@@ -149,20 +149,20 @@
                   <a
                     :href="`https://github.com/${project.repo}`"
                     target="_blank" rel="noopener"
-                    class="font-mono text-[13px] text-primary hover:text-accent transition-colors"
+                    class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
                   >{{ lang === 'id' && project.nameId ? project.nameId : (project.name ?? project.repo) }}</a>
-                  <p v-if="project.description || project.descriptionId" class="text-sm text-neutral-500 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && project.descriptionId ? project.descriptionId : project.description }}</p>
+                  <p v-if="project.description || project.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && project.descriptionId ? project.descriptionId : project.description }}</p>
                 </li>
               </ul>
             </template>
-            <p v-else class="text-neutral-500 text-sm">{{ t.team.projectsEmpty }}</p>
+            <p v-else class="text-neutral-500 dark:text-gray-400 text-sm">{{ t.team.projectsEmpty }}</p>
           </section>
 
           <!-- Expertise / Research Interests -->
           <section class="mb-7">
             <h2>{{ t.team.expertiseHeading }}</h2>
-            <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-2">{{ t.team.researchInterests }}</div>
-            <ul class="space-y-1 text-neutral-600 text-sm">
+            <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-2">{{ t.team.researchInterests }}</div>
+            <ul class="space-y-1 text-neutral-600 dark:text-gray-300 text-sm">
               <li v-for="item in interests" :key="item">{{ item }}</li>
             </ul>
           </section>
@@ -171,19 +171,19 @@
           <section>
             <div class="flex items-baseline justify-between gap-4 mb-3">
               <h2>{{ t.team.publicationsHeading }}</h2>
-              <a href="/publications" class="text-[13px] text-primary/55 hover:text-primary transition-colors whitespace-nowrap">{{ t.team.viewPublicationArchive }}</a>
+              <a href="/publications" class="text-[13px] text-primary/55 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors whitespace-nowrap">{{ t.team.viewPublicationArchive }}</a>
             </div>
             <div class="space-y-6">
               <div v-for="group in groupedEntries" :key="group.year">
-                <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/35 mb-3">{{ group.year }}</div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/35 dark:text-gray-500 mb-3">{{ group.year }}</div>
                 <div class="space-y-4">
-                  <article v-for="publication in group.items" :key="publication.id" class="border-t border-primary/10 pt-4">
-                    <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 mb-1">{{ publication.type }}</div>
-                    <h3 class="font-serif text-[1rem] font-semibold text-primary leading-snug">
+                  <article v-for="publication in group.items" :key="publication.id" class="border-t border-primary/10 dark:border-gray-600 pt-4">
+                    <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-1">{{ publication.type }}</div>
+                    <h3 class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">
                       <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
                     </h3>
-                    <p class="mt-1 text-[13px] text-neutral-600">{{ publication.authors.join(', ') }}</p>
-                    <p class="mt-0.5 text-[13px] text-neutral-400 italic">{{ publication.venue }}</p>
+                    <p class="mt-1 text-[13px] text-neutral-600 dark:text-gray-300">{{ publication.authors.join(', ') }}</p>
+                    <p class="mt-0.5 text-[13px] text-neutral-400 dark:text-gray-500 italic">{{ publication.venue }}</p>
                   </article>
                 </div>
               </div>

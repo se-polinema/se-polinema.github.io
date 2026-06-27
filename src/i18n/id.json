@@ -224,5 +224,9 @@
     "noPosts": "Tidak ada postingan ditemukan",
     "backToHome": "Kembali ke Beranda",
     "backToBlog": "Kembali ke Blog"
+  },
+  "theme": {
+    "switchToDark": "Ganti ke tema gelap",
+    "switchToLight": "Ganti ke tema terang"
   }
 }

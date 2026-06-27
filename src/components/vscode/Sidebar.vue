@@ -3,7 +3,7 @@
   <aside
     class="relative z-20 flex-shrink-0 flex flex-col overflow-hidden transition-[width] duration-200"
     :class="sidebarOpen ? 'w-64' : layoutInitialized ? 'w-0' : 'w-0 lg:w-64'"
-    style="background: #003A84;"
+    style="background: var(--color-vscode-sidebar);"
     aria-label="Explorer Sidebar"
   >
     <!-- Header -->

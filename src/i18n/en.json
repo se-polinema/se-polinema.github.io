@@ -224,5 +224,9 @@
     "noPosts": "No posts found",
     "backToHome": "Back to Home",
     "backToBlog": "Back to Blog"
+  },
+  "theme": {
+    "switchToDark": "Switch to dark theme",
+    "switchToLight": "Switch to light theme"
   }
 }

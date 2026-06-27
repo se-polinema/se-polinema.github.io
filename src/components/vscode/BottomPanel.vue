@@ -2,13 +2,13 @@
   <div
     class="flex-shrink-0 overflow-hidden transition-[height] duration-200 flex flex-col"
     :style="{ height: panelOpen ? '180px' : '0px' }"
-    style="background: #0D1B2E; border-top: 1px solid rgba(255,255,255,0.08);"
+    style="background: var(--color-vscode-panel); border-top: 1px solid rgba(255,255,255,0.08);"
     aria-label="Panel"
   >
     <!-- Panel tab bar -->
     <div
       class="flex items-center flex-shrink-0"
-      style="height: 35px; background: #162032; border-bottom: 1px solid rgba(255,255,255,0.06);"
+      style="height: 35px; background: var(--color-vscode-panel-tab); border-bottom: 1px solid rgba(255,255,255,0.06);"
       role="tablist"
       :aria-label="'Panel tabs'"
     >

@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --shiki-color-text: #dbe7ff;
   --shiki-color-background: #0b1628;
@@ -13,6 +15,43 @@
   --shiki-token-string-expression: #ffd166;
   --shiki-token-punctuation: #b8c2d9;
   --shiki-token-link: #004ea2;
+
+  --color-vscode-window: #002D6B;
+  --color-vscode-workspace: #0B1628;
+  --color-vscode-activitybar: #002D6B;
+  --color-vscode-sidebar: #003A84;
+  --color-vscode-tabbar: #1E2D4E;
+  --color-vscode-tabbar-breadcrumb: #162032;
+  --color-vscode-statusbar: #F5A100;
+  --color-vscode-panel: #0D1B2E;
+  --color-vscode-panel-tab: #162032;
+  --color-vscode-gutter-bg: #FAFAFA;
+  --color-vscode-gutter-border: #EBEBEB;
+  --color-vscode-gutter-text: #C0C4CC;
+  --color-vscode-gutter-text-em: #A0A4AC;
+  --color-editor-code-bg: #0E1E3D;
+  --color-editor-inline-code-bg: rgba(14, 30, 61, 0.08);
+  --color-editor-inline-code-text: #1E3A5F;
+  --color-editor-inline-code-border: rgba(14, 30, 61, 0.12);
+  --color-editor-blockquote-border: #A78BFA;
+  --color-editor-blockquote-bg: rgba(167, 139, 250, 0.06);
+  --color-editor-section-divider: #F0F2F5;
+  --color-editor-hash: #9CA3AF;
+}
+
+.dark {
+  --color-vscode-gutter-bg: #1E1E1E;
+  --color-vscode-gutter-border: #333333;
+  --color-vscode-gutter-text: #6A6A6A;
+  --color-vscode-gutter-text-em: #858585;
+  --color-editor-code-bg: #1A1A2E;
+  --color-editor-inline-code-bg: rgba(255, 255, 255, 0.08);
+  --color-editor-inline-code-text: #9CDCFE;
+  --color-editor-inline-code-border: rgba(255, 255, 255, 0.1);
+  --color-editor-blockquote-border: #8B7FC7;
+  --color-editor-blockquote-bg: rgba(139, 127, 199, 0.08);
+  --color-editor-section-divider: #2D2D30;
+  --color-editor-hash: #6A6A6A;
 }
 
 @theme {
@@ -35,7 +74,7 @@
   }
 
   body {
-    @apply font-sans text-neutral-800 bg-white;
+    @apply font-sans text-neutral-800 bg-white dark:text-gray-100 dark:bg-gray-900;
   }
 
   h1, h2, h3, h4, h5, h6 {
