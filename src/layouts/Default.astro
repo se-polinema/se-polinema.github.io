@@ -20,7 +20,7 @@ const {
 const fullTitle = `${title} | SE Lab — JTI Polinema`
 const siteName = 'SE Lab — JTI Polinema'
 const ogLocale = lang === 'id' ? 'id_ID' : 'en_US'
-const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
+const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
 const canonical = new URL(Astro.url.pathname, origin).href
 const ogImage = image ?? '/og-default.svg'
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, origin).href
@@ -58,6 +58,8 @@ const twitterCard = image ? 'summary_large_image' : 'summary'
     <title>{fullTitle}</title>
 
     <link rel="alternate" type="application/rss+xml" title="SE Lab Blog" href="/rss.xml" />
+
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
