@@ -776,6 +776,8 @@ The comments explain what the code does — but only because the code is unreada
 ```php
 <?php
 
+const USD_TO_IDR_EXCHANGE_RATE = 15500;
+
 function calculateAverage(array $numbers): float
 {
     $sum = array_sum($numbers);
@@ -789,7 +791,6 @@ function isUserAdmin(User $user): bool
 
 function convertUsdToIdr(float $amountInUsd): float
 {
-    define('USD_TO_IDR_EXCHANGE_RATE', 15500);
     return $amountInUsd * USD_TO_IDR_EXCHANGE_RATE;
 }
 ```
@@ -878,6 +879,8 @@ Komentar menjelaskan apa yang dilakukan kode — tetapi hanya karena kode tidak 
 ```php
 <?php
 
+const USD_TO_IDR_EXCHANGE_RATE = 15500;
+
 function calculateAverage(array $numbers): float
 {
     $sum = array_sum($numbers);
@@ -891,7 +894,6 @@ function isUserAdmin(User $user): bool
 
 function convertUsdToIdr(float $amountInUsd): float
 {
-    define('USD_TO_IDR_EXCHANGE_RATE', 15500);
     return $amountInUsd * USD_TO_IDR_EXCHANGE_RATE;
 }
 ```
@@ -1024,10 +1026,11 @@ class DiscountCalculator
     }
 }
 
+const MIN_SCORE = 0;
+const MAX_SCORE = 100;
+
 function validateStudentScore(int $score): bool
 {
-    define('MIN_SCORE', 0);
-    define('MAX_SCORE', 100);
     return $score >= MIN_SCORE && $score <= MAX_SCORE;
 }
 ```
@@ -1134,10 +1137,11 @@ class DiscountCalculator
     }
 }
 
+const MIN_SCORE = 0;
+const MAX_SCORE = 100;
+
 function validateStudentScore(int $score): bool
 {
-    define('MIN_SCORE', 0);
-    define('MAX_SCORE', 100);
     return $score >= MIN_SCORE && $score <= MAX_SCORE;
 }
 ```
