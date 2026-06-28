@@ -14,8 +14,11 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props
-const { title, titleId, date, category } = post.data
+const { title, titleId, date, category, author } = post.data
 const { Content } = await render(post)
+
+const researchers = await getCollection('researchers')
+const matchedResearcher = researchers.find((r) => r.data.name === author)
 
 const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
 const postUrl = new URL(Astro.url.pathname, origin).href
@@ -56,7 +59,17 @@ const blogPostingJsonLd = {
   <JsonLd slot="head" data={blogPostingJsonLd} />
   <div class="px-8 py-6 flex gap-8">
     <div class="flex-1 min-w-0">
-      <BlogPostPage client:load title={title} titleId={titleId} date={date} category={category} />
+      <BlogPostPage
+        client:load
+        title={title}
+        titleId={titleId}
+        date={date}
+        category={category}
+        author={author}
+        matchedResearcher={matchedResearcher
+          ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo }
+          : undefined}
+      />
       <div class="prose prose-slate max-w-none bilingual-post">
         <Content />
       </div>
