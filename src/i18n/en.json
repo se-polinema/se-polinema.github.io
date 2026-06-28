@@ -237,6 +237,14 @@
     "switchToDark": "Switch to dark theme",
     "switchToLight": "Switch to light theme"
   },
+  "citation": {
+    "heading": "Cite",
+    "bibtex": "BibTeX",
+    "ris": "RIS",
+    "apa": "APA",
+    "copy": "Copy",
+    "copied": "Copied!"
+  },
   "search": {
     "placeholder": "Search researchers, publications, and blog...",
     "noResults": "No results found",
