@@ -9,8 +9,11 @@ import Team from '../components/Team.vue'
 import Publications from '../components/Publications.vue'
 import JoinLab from '../components/JoinLab.vue'
 import News from '../components/News.vue'
+import JsonLd from '../components/JsonLd.astro'
 import { getCollection } from 'astro:content'
 import { getMemberProjects, getMemberBooks } from '../lib/memberWorks'
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
 const sortedPosts = posts
@@ -56,9 +59,49 @@ const featuredPublications = (await getCollection('publications'))
 
 const projects = await getMemberProjects()
 const books = await getMemberBooks()
+
+const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+
+let logoUrl = new URL('/og-default.svg', origin).href
+const logoPath = resolve('public/og-default.svg')
+if (existsSync(logoPath)) {
+  logoUrl = new URL('/og-default.svg', origin).href
+}
+
+const allResearchers = await getCollection('researchers')
+const googleScholarUrls = allResearchers
+  .map((r) => r.data.googleScholarUrl?.toString())
+  .filter((url): url is string => url != null)
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Software Engineering Laboratory',
+  alternateName: 'SE Lab',
+  url: origin,
+  logo: logoUrl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Jl. Soekarno Hatta No. 9',
+    addressLocality: 'Malang',
+    addressRegion: 'Jawa Timur',
+    postalCode: '65141',
+    addressCountry: 'ID',
+  },
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'Politeknik Negeri Malang',
+    url: 'https://www.polinema.ac.id',
+  },
+  sameAs: [
+    'https://github.com/se-polinema',
+    ...googleScholarUrls,
+  ],
+}
 ---
 
 <VSCodeLayout title="Software Engineering Laboratory">
+  <JsonLd slot="head" data={organizationJsonLd} />
   <Hero client:load />
   <About client:load />
   <Research client:load />
