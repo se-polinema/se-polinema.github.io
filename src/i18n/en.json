@@ -245,6 +245,16 @@
     "copy": "Copy",
     "copied": "Copied!"
   },
+  "streamHub": {
+    "researchers": "Researchers",
+    "researchersEmpty": "No researchers are currently associated with this stream.",
+    "projects": "Projects",
+    "projectsEmpty": "No projects are currently associated with this stream.",
+    "publications": "Publications",
+    "publicationsEmpty": "No publications are currently associated with this stream.",
+    "topics": "Topics",
+    "backToHome": "Back to Home"
+  },
   "search": {
     "placeholder": "Search researchers, publications, and blog...",
     "noResults": "No results found",
