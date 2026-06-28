@@ -10,10 +10,11 @@
       </div>
 
       <div class="grid sm:grid-cols-2 gap-4">
-        <div
+        <a
           v-for="(area, index) in research"
           :key="area.id"
-          class="group bg-neutral-50 dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-accent/30 transition-all duration-300 p-6 relative overflow-hidden"
+          :href="`/research/${area.id}`"
+          class="group bg-neutral-50 dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-accent/30 transition-all duration-300 p-6 relative overflow-hidden block"
           :class="{ 'sm:col-span-2 sm:max-w-[calc(50%-0.5rem)]': index === research.length - 1 && research.length % 2 !== 0 }"
         >
           <!-- Accent sweep line -->
@@ -41,7 +42,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
