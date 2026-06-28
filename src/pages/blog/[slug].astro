@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
+import TableOfContents from '../../components/TableOfContents.vue'
 import { getCollection, render } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -23,10 +24,13 @@ const { Content } = await render(post)
   lang={post.data.lang as 'en' | 'id'}
   image={post.data.image ?? undefined}
 >
-  <div class="px-8 py-6">
-    <BlogPostPage client:load title={title} titleId={titleId} date={date} category={category} />
-    <div class="prose prose-slate max-w-none bilingual-post">
-      <Content />
+  <div class="px-8 py-6 flex gap-8">
+    <div class="flex-1 min-w-0">
+      <BlogPostPage client:load title={title} titleId={titleId} date={date} category={category} />
+      <div class="prose prose-slate max-w-none bilingual-post">
+        <Content />
+      </div>
     </div>
+    <TableOfContents client:load />
   </div>
 </VSCodeLayout>
