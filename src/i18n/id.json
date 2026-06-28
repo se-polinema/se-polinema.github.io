@@ -223,7 +223,10 @@
     "categoryTutorial": "Tutorial",
     "noPosts": "Tidak ada postingan ditemukan",
     "backToHome": "Kembali ke Beranda",
-    "backToBlog": "Kembali ke Blog"
+    "backToBlog": "Kembali ke Blog",
+    "relatedPosts": "Postingan Terkait",
+    "previousPost": "Sebelumnya",
+    "nextPost": "Berikutnya"
   },
   "notFound": {
     "heading": "Halaman Tidak Ditemukan",

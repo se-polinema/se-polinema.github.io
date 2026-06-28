@@ -1,19 +1,25 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
+import PostNavigation from '../../components/PostNavigation.vue'
 import TableOfContents from '../../components/TableOfContents.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import { getCollection, render } from 'astro:content'
+import { getRelatedPosts, getTutorialNavigation } from '../../lib/relatedPosts'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }))
+  return posts.map((post) => {
+    const relatedPosts = getRelatedPosts(posts, post.id)
+    const { previous, next } = getTutorialNavigation(posts, post.id)
+    return {
+      params: { slug: post.id },
+      props: { post, relatedPosts, previous, next },
+    }
+  })
 }
 
-const { post } = Astro.props
+const { post, relatedPosts, previous, next } = Astro.props
 const { title, titleId, date, category } = post.data
 const { Content } = await render(post)
 
@@ -60,6 +66,12 @@ const blogPostingJsonLd = {
       <div class="prose prose-slate max-w-none bilingual-post">
         <Content />
       </div>
+      <PostNavigation
+        client:load
+        relatedPosts={relatedPosts}
+        previous={previous}
+        next={next}
+      />
     </div>
     <TableOfContents client:load />
   </div>

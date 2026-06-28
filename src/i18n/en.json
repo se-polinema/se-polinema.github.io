@@ -223,7 +223,10 @@
     "categoryTutorial": "Tutorial",
     "noPosts": "No posts found",
     "backToHome": "Back to Home",
-    "backToBlog": "Back to Blog"
+    "backToBlog": "Back to Blog",
+    "relatedPosts": "Related Posts",
+    "previousPost": "Previous",
+    "nextPost": "Next"
   },
   "notFound": {
     "heading": "Page Not Found",
