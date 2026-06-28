@@ -237,6 +237,14 @@
     "switchToDark": "Ganti ke tema gelap",
     "switchToLight": "Ganti ke tema terang"
   },
+  "citation": {
+    "heading": "Kutip",
+    "bibtex": "BibTeX",
+    "ris": "RIS",
+    "apa": "APA",
+    "copy": "Salin",
+    "copied": "Tersalin!"
+  },
   "search": {
     "placeholder": "Cari peneliti, publikasi, dan blog...",
     "noResults": "Tidak ada hasil ditemukan",

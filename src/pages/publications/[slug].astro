@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import JsonLd from '../../components/JsonLd.astro'
+import CitationExport from '../../components/CitationExport.vue'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -94,6 +95,16 @@ const scholarlyArticleJsonLd = {
           </a>
         )}
       </div>
+      <CitationExport
+        client:load
+        title={title}
+        year={year}
+        type={type}
+        venue={venue}
+        authors={authors}
+        url={url}
+        doi={doi}
+      />
     </article>
   </div>
 </VSCodeLayout>
