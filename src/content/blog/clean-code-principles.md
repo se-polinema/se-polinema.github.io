@@ -789,12 +789,12 @@ function isUserAdmin(User $user): bool
 
 function convertUsdToIdr(float $amountInUsd): float
 {
-    const USD_TO_IDR_EXCHANGE_RATE = 15500;
+    define('USD_TO_IDR_EXCHANGE_RATE', 15500);
     return $amountInUsd * USD_TO_IDR_EXCHANGE_RATE;
 }
 ```
-
-No comments needed. The code is its own documentation.
+ 
+ No comments needed. The code is its own documentation.
 
 ### When to Write a Comment
 
@@ -891,12 +891,12 @@ function isUserAdmin(User $user): bool
 
 function convertUsdToIdr(float $amountInUsd): float
 {
-    const USD_TO_IDR_EXCHANGE_RATE = 15500;
+    define('USD_TO_IDR_EXCHANGE_RATE', 15500);
     return $amountInUsd * USD_TO_IDR_EXCHANGE_RATE;
 }
 ```
-
-Tidak perlu komentar. Kode adalah dokumentasinya sendiri.
+ 
+ Tidak perlu komentar. Kode adalah dokumentasinya sendiri.
 
 ### Kapan Menulis Komentar
 
@@ -1026,13 +1026,13 @@ class DiscountCalculator
 
 function validateStudentScore(int $score): bool
 {
-    const MIN_SCORE = 0;
-    const MAX_SCORE = 100;
+    define('MIN_SCORE', 0);
+    define('MAX_SCORE', 100);
     return $score >= MIN_SCORE && $score <= MAX_SCORE;
 }
 ```
-
-Now every value has a name. You can change a discount rate in one place. The `WithdrawalStatus` class provides a single source of truth for status labels.
+ 
+ Now every value has a name. You can change a discount rate in one place. The `WithdrawalStatus` class provides a single source of truth for status labels.
 
 </section>
 
@@ -1136,13 +1136,13 @@ class DiscountCalculator
 
 function validateStudentScore(int $score): bool
 {
-    const MIN_SCORE = 0;
-    const MAX_SCORE = 100;
+    define('MIN_SCORE', 0);
+    define('MAX_SCORE', 100);
     return $score >= MIN_SCORE && $score <= MAX_SCORE;
 }
 ```
-
-Sekarang setiap nilai memiliki nama. Anda dapat mengubah tingkat diskon di satu tempat. Kelas `WithdrawalStatus` menyediakan sumber kebenaran tunggal untuk label status.
+ 
+ Sekarang setiap nilai memiliki nama. Anda dapat mengubah tingkat diskon di satu tempat. Kelas `WithdrawalStatus` menyediakan sumber kebenaran tunggal untuk label status.
 
 </section>
 
