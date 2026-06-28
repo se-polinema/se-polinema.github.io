@@ -80,9 +80,21 @@ const websiteJsonLd = {
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <meta name="theme-color" content="#004EA2" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
     <JsonLd data={websiteJsonLd} />
 
     <slot name="head" />
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        })
+      }
+    </script>
 
     <script is:inline>
       (function() {

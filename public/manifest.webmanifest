@@ -1,0 +1,25 @@
+{
+  "name": "Software Engineering Laboratory | Laboratorium Rekayasa Perangkat Lunak",
+  "short_name": "SE Lab",
+  "description": "SE Lab — Jurusan Teknologi Informasi, Politeknik Negeri Malang. Memajukan pendidikan dan riset rekayasa perangkat lunak.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1117",
+  "theme_color": "#004EA2",
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
