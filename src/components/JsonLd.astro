@@ -1,0 +1,8 @@
+---
+export interface Props {
+  data: Record<string, unknown>
+}
+
+const json = JSON.stringify(Astro.props.data)
+---
+<script type="application/ld+json" is:inline set:html={json}></script>

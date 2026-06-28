@@ -22,6 +22,7 @@ const LINE_COUNT = 1000
 ---
 
 <Default title={title} description={description} image={image} type={type} lang={lang}>
+  <slot slot="head" name="head" />
   <div
     id="vscode-window"
     class="fixed inset-0 flex flex-col isolate"

@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import ResearcherProfilePage from '../../components/ResearcherProfilePage.vue'
+import JsonLd from '../../components/JsonLd.astro'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -44,6 +45,44 @@ const researcherProfile = {
   books: researcher.data.books,
   streams: researcher.data.streams,
 }
+
+const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const profileUrl = new URL(Astro.url.pathname, origin).href
+const photoUrl = researcher.data.photo.startsWith('http')
+  ? researcher.data.photo
+  : new URL(researcher.data.photo, origin).href
+
+const sameAsUrls: string[] = []
+if (researcher.data.googleScholarUrl) sameAsUrls.push(researcher.data.googleScholarUrl.toString())
+if (researcher.data.orcidUrl) sameAsUrls.push(researcher.data.orcidUrl.toString())
+if (researcher.data.scopusUrl) sameAsUrls.push(researcher.data.scopusUrl.toString())
+if (researcher.data.institutionalUrl) sameAsUrls.push(researcher.data.institutionalUrl.toString())
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: researcher.data.name,
+  jobTitle: researcher.data.title.en,
+  image: photoUrl,
+  email: researcher.data.email,
+  url: profileUrl,
+  sameAs: sameAsUrls.length > 0 ? sameAsUrls : undefined,
+  knowsAbout: [
+    ...researcher.data.expertise,
+    ...researcher.data.researchInterests.en,
+    ...researcher.data.researchInterests.id,
+  ],
+  affiliation: {
+    '@type': 'Organization',
+    name: 'Software Engineering Laboratory',
+    url: origin,
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'Politeknik Negeri Malang',
+      url: 'https://www.polinema.ac.id',
+    },
+  },
+}
 ---
 
 <VSCodeLayout
@@ -51,5 +90,6 @@ const researcherProfile = {
   type="profile"
   image={researcher.data.photo}
 >
+  <JsonLd slot="head" data={personJsonLd} />
   <ResearcherProfilePage client:load researcher={researcherProfile} publications={publications} />
 </VSCodeLayout>

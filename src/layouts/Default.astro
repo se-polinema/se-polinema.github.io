@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import JsonLd from '../components/JsonLd.astro'
 
 export interface Props {
   title?: string
@@ -25,6 +26,22 @@ const canonical = new URL(Astro.url.pathname, origin).href
 const ogImage = image ?? '/og-default.svg'
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, origin).href
 const twitterCard = image ? 'summary_large_image' : 'summary'
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: origin,
+  inLanguage: lang,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${origin}/blog/?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+}
 ---
 
 <!doctype html>
@@ -62,6 +79,10 @@ const twitterCard = image ? 'summary_large_image' : 'summary'
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <JsonLd data={websiteJsonLd} />
+
+    <slot name="head" />
 
     <script is:inline>
       (function() {
