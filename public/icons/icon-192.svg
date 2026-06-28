@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <rect width="192" height="192" rx="30" fill="#004EA2"/>
+  <text x="96" y="96" text-anchor="middle" dominant-baseline="central"
+        font-family="'Courier New', Courier, monospace"
+        font-size="78" font-weight="700">
+    <tspan fill="#F5A100">{</tspan><tspan fill="white">SE</tspan><tspan fill="#F5A100">}</tspan>
+  </text>
+</svg>
