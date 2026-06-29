@@ -6,12 +6,11 @@ type TranslationDict = typeof en
 type Lang = 'en' | 'id'
 
 const translations: Record<Lang, TranslationDict> = { en, id }
-const currentLang = ref<Lang>('en')
-let initialized = false
 
 const STORAGE_KEY = 'se-lab-lang'
 
 function getInitialLang(): Lang {
+  if (typeof window === 'undefined') return 'en'
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'en' || stored === 'id') return stored
@@ -20,16 +19,9 @@ function getInitialLang(): Lang {
   return browserLang.startsWith('id') ? 'id' : 'en'
 }
 
-export function useI18n() {
-  if (typeof window !== 'undefined' && !initialized) {
-    const lang = getInitialLang()
-    currentLang.value = lang
-    try {
-      document.documentElement.lang = lang
-    } catch {}
-    initialized = true
-  }
+const currentLang = ref<Lang>(getInitialLang())
 
+export function useI18n() {
   const t = computed(() => translations[currentLang.value])
 
   function setLang(lang: Lang) {

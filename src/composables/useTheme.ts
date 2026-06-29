@@ -3,10 +3,9 @@ import { ref } from 'vue'
 type Theme = 'light' | 'dark'
 
 const STORAGE_KEY = 'se-lab-theme'
-const currentTheme = ref<Theme>('light')
-let initialized = false
 
 function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'light'
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'light' || stored === 'dark') return stored
@@ -15,7 +14,10 @@ function getInitialTheme(): Theme {
   return 'light'
 }
 
+const currentTheme = ref<Theme>(getInitialTheme())
+
 function applyTheme(theme: Theme) {
+  if (typeof document === 'undefined') return
   const root = document.documentElement
   if (theme === 'dark') {
     root.classList.add('dark')
@@ -25,13 +27,6 @@ function applyTheme(theme: Theme) {
 }
 
 export function useTheme() {
-  if (typeof window !== 'undefined' && !initialized) {
-    const theme = getInitialTheme()
-    currentTheme.value = theme
-    applyTheme(theme)
-    initialized = true
-  }
-
   function setTheme(theme: Theme) {
     currentTheme.value = theme
     try {
