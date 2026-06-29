@@ -2,6 +2,7 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
 import TableOfContents from '../../components/TableOfContents.vue'
+import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import { getCollection, render } from 'astro:content'
 
@@ -16,6 +17,14 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 const { title, titleId, date, category, author } = post.data
 const { Content } = await render(post)
+
+const bodyText = post.body ?? ''
+const wordCount = bodyText
+  .replace(/[#*`_\[\]()>|{}.!\-:~=<>]/g, ' ')
+  .replace(/<[^>]*>/g, '')
+  .split(/\s+/)
+  .filter(Boolean).length
+const readingTime = Math.max(1, Math.ceil(wordCount / 200))
 
 const researchers = await getCollection('researchers')
 const matchedResearcher = researchers.find((r) => r.data.name === author)
@@ -66,6 +75,7 @@ const blogPostingJsonLd = {
         date={date}
         category={category}
         author={author}
+        readingTime={readingTime}
         matchedResearcher={matchedResearcher
           ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo }
           : undefined}
@@ -73,6 +83,7 @@ const blogPostingJsonLd = {
       <div class="prose prose-slate max-w-none bilingual-post">
         <Content />
       </div>
+      <CodeCopyButtons client:load />
     </div>
     <TableOfContents client:load />
   </div>
