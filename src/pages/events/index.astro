@@ -1,0 +1,31 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import EventsPage from '../../components/EventsPage.vue'
+import { getCollection } from 'astro:content'
+
+const allPosts = await getCollection('blog')
+const events = allPosts
+  .filter((post) => post.data.category === 'event')
+  .sort((a, b) => {
+    const dateA = a.data.eventDate ?? a.data.date
+    const dateB = b.data.eventDate ?? b.data.date
+    return dateB.getTime() - dateA.getTime()
+  })
+  .map((post) => ({
+    id: post.id,
+    title: post.data.title,
+    titleId: post.data.titleId,
+    excerpt: post.data.excerpt,
+    excerptId: post.data.excerptId,
+    eventDate: post.data.eventDate ?? post.data.date,
+    eventEndDate: post.data.eventEndDate,
+    location: post.data.location,
+    locationId: post.data.locationId,
+    registrationUrl: post.data.registrationUrl,
+    stream: post.data.stream,
+  }))
+---
+
+<VSCodeLayout title="Events & Seminars" description="Research seminars, workshops, thesis defenses, and industry talks hosted by the Software Engineering Laboratory.">
+  <EventsPage client:load events={events} />
+</VSCodeLayout>

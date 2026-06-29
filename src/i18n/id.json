@@ -12,7 +12,8 @@
     "gallery": "Galeri",
     "partners": "Mitra",
     "contact": "Kontak",
-    "blog": "Blog"
+    "blog": "Blog",
+    "events": "Acara"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
@@ -209,6 +210,25 @@
     "links": "Tautan Cepat",
     "resources": "Sumber Daya",
     "copyright": "Software Engineering Laboratory. Hak cipta dilindungi."
+  },
+  "events": {
+    "heading": "Acara & Seminar",
+    "description": "Seminar riset, lokakarya, ujian tugas akhir, dan diskusi industri yang diselenggarakan oleh Software Engineering Laboratory.",
+    "archiveHeading": "Kalender Acara",
+    "archiveDescription": "Acara mendatang dan yang telah berlalu yang diselenggarakan oleh peneliti SE Lab. Bergabunglah untuk seminar, lokakarya, dan diskusi komunitas.",
+    "upcomingHeading": "Acara Mendatang",
+    "pastHeading": "Acara Sebelumnya",
+    "eventDate": "Tanggal Acara",
+    "location": "Lokasi",
+    "registerCta": "Daftar Sekarang",
+    "streamCta": "Tonton Siaran",
+    "noUpcoming": "Belum ada acara mendatang. Kunjungi kembali untuk seminar, lokakarya, dan diskusi.",
+    "noPast": "Belum ada acara sebelumnya.",
+    "backToEvents": "Kembali ke Acara",
+    "timeDisplay": "{start} – {end}",
+    "registrationNote": "Pendaftaran diperlukan",
+    "registrationClose": "Pendaftaran ditutup sebelum acara",
+    "freeEntry": "Gratis"
   },
   "blog": {
     "heading": "Berita & Pengumuman",

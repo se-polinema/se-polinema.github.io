@@ -157,10 +157,12 @@ const tabs = [
     pageId: "publications",
     href: "/publications",
   },
+  { id: "events", label: "events.ics", ext: "ics", pageId: "events", href: "/events" },
   { id: "blog", label: "blog.md", ext: "md", pageId: "blog", href: "/blog" },
 ];
 
 const innerPageTabMap: Record<string, { label: string; ext: string; href: string }> = {
+  events:       { label: "events.ics",        ext: "ics",  href: "/events" },
   blog:         { label: "blog.md",           ext: "md",   href: "/blog" },
   researchers:  { label: "team.md",           ext: "md",   href: "/researchers" },
   publications: { label: "publications.bib",  ext: "bib",  href: "/publications" },
@@ -170,6 +172,7 @@ const innerPageTabMap: Record<string, { label: string; ext: string; href: string
 };
 
 const pageParentHrefMap: Record<string, string> = {
+  events:       "/events",
   blog:         "/blog",
   researchers:  "/researchers",
   publications: "/publications",
@@ -200,10 +203,12 @@ const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   decks: { path: ["se-lab", "src", "decks.md"], lang: "Markdown" },
   team: { path: ["se-lab", "src", "researchers", "team.md"], lang: "Markdown" },
   publications: { path: ["se-lab", "src", "publications.bib"], lang: "BibTeX" },
+  events: { path: ["se-lab", "src", "events.ics"], lang: "Calendar" },
   blog: { path: ["se-lab", "src", "blog.md"], lang: "Markdown" },
 };
 
 const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
+  events:       { path: ["se-lab", "src", "events.ics"],          lang: "Calendar" },
   blog:         { path: ["se-lab", "src", "blog.md"],                lang: "Markdown" },
   publications: { path: ["se-lab", "src", "publications.bib"],       lang: "BibTeX" },
   researchers:  { path: ["se-lab", "src", "researchers", "team.md"], lang: "Markdown" },
@@ -247,6 +252,7 @@ function dotColor(ext: string): string {
     md: "bg-blue-400",
     json: "bg-yellow-400",
     bib: "bg-green-400",
+    ics: "bg-purple-400",
   };
   return map[ext] ?? "bg-white/30";
 }

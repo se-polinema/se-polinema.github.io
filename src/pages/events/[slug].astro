@@ -1,0 +1,159 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import BlogPostPage from '../../components/BlogPostPage.vue'
+import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
+import JsonLd from '../../components/JsonLd.astro'
+import { getCollection, render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog')
+  const events = posts.filter((post) => post.data.category === 'event')
+  return events.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { title, titleId, date, category, author } = post.data
+const { Content } = await render(post)
+
+const bodyText = post.body ?? ''
+const wordCount = bodyText
+  .replace(/[#*`_\[\]()>|{}.!\-:~=<>]/g, ' ')
+  .replace(/<[^>]*>/g, '')
+  .split(/\s+/)
+  .filter(Boolean).length
+const readingTime = Math.max(1, Math.ceil(wordCount / 200))
+
+const researchers = await getCollection('researchers')
+const matchedResearcher = researchers.find((r) => r.data.name === author)
+
+const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const postUrl = new URL(Astro.url.pathname, origin).href
+const imageUrl = post.data.image
+  ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, origin).href)
+  : new URL('/og-default.svg', origin).href
+
+const blogPostingJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.lang === 'id' && titleId ? titleId : title,
+  author: {
+    '@type': 'Organization',
+    name: post.data.author,
+    url: origin,
+  },
+  datePublished: date.toISOString().split('T')[0],
+  dateModified: date.toISOString().split('T')[0],
+  url: postUrl,
+  image: imageUrl,
+  description: post.data.excerpt ?? undefined,
+  inLanguage: post.data.lang,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Software Engineering Laboratory',
+    url: origin,
+  },
+}
+
+const eventDate = post.data.eventDate ?? date
+const eventEndDate = post.data.eventEndDate
+const location = post.data.location ?? ''
+const locationId = post.data.locationId
+const registrationUrl = post.data.registrationUrl
+const stream = post.data.stream
+---
+
+<VSCodeLayout
+  title={title}
+  description={post.data.excerpt ?? 'Software Engineering Laboratory event.'}
+  type="article"
+  lang={post.data.lang as 'en' | 'id'}
+  image={post.data.image ?? undefined}
+>
+  <JsonLd slot="head" data={blogPostingJsonLd} />
+  <div class="px-8 py-5">
+    <a href="/events" class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6">
+      &larr; Back to Events
+    </a>
+
+    <BlogPostPage
+      client:load
+      title={title}
+      titleId={titleId}
+      date={date}
+      category={category}
+      author={author}
+      readingTime={readingTime}
+      matchedResearcher={matchedResearcher
+        ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo }
+        : undefined}
+    />
+
+    <div class="grid sm:grid-cols-2 gap-3 mb-8 p-5 border border-primary/10 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800/50">
+      <div class="flex items-start gap-3">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary/40 dark:text-gray-500 mt-0.5 shrink-0">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <div>
+          <div class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-0.5">Event Date</div>
+          <div class="text-sm font-medium text-primary dark:text-gray-100">
+            {eventEndDate
+              ? `${eventDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} – ${eventEndDate.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}`
+              : eventDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+            }
+          </div>
+        </div>
+      </div>
+      {location && (
+        <div class="flex items-start gap-3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary/40 dark:text-gray-500 mt-0.5 shrink-0">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <div>
+            <div class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-0.5">Location</div>
+            <div class="text-sm font-medium text-primary dark:text-gray-100">{locationId ?? location}</div>
+          </div>
+        </div>
+      )}
+    </div>
+
+    {(registrationUrl || stream) && (
+      <div class="flex flex-wrap items-center gap-3 mb-8">
+        {registrationUrl && (
+          <a
+            href={registrationUrl}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors no-underline"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/>
+            </svg>
+            Register Now
+          </a>
+        )}
+        {stream && (
+          <a
+            href={stream}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono text-primary dark:text-gray-100 border border-primary/20 dark:border-gray-600 hover:bg-primary/5 dark:hover:bg-gray-700 transition-colors no-underline"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+            Watch Stream
+          </a>
+        )}
+      </div>
+    )}
+
+    <div class="prose prose-slate max-w-none bilingual-post">
+      <Content />
+    </div>
+
+    <CodeCopyButtons client:load />
+  </div>
+</VSCodeLayout>
