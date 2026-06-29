@@ -2,6 +2,7 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
 import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
+import EventRegistrationForm from '../../components/EventRegistrationForm.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import { getCollection, render } from 'astro:content'
 
@@ -63,6 +64,7 @@ const location = post.data.location ?? ''
 const locationId = post.data.locationId
 const registrationUrl = post.data.registrationUrl
 const stream = post.data.stream
+const managed = post.data.managed ?? false
 ---
 
 <VSCodeLayout
@@ -119,7 +121,7 @@ const stream = post.data.stream
       )}
     </div>
 
-    {(registrationUrl || stream) && (
+    {(registrationUrl || stream || managed) && (
       <div class="flex flex-wrap items-center gap-3 mb-8">
         {registrationUrl && (
           <a
@@ -153,6 +155,16 @@ const stream = post.data.stream
     <div class="prose prose-slate max-w-none bilingual-post">
       <Content />
     </div>
+
+    {managed && !registrationUrl && (
+      <div class="mt-10">
+        <EventRegistrationForm
+          client:load
+          eventSlug={post.id}
+          eventTitle={title}
+        />
+      </div>
+    )}
 
     <CodeCopyButtons client:load />
   </div>

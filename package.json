@@ -12,6 +12,7 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/sitemap": "^3.4.0",
     "@astrojs/vue": "^6.0.0",
+    "@supabase/supabase-js": "^2.108.2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.0",

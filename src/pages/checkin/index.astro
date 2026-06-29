@@ -1,0 +1,25 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import CheckInForm from '../../components/CheckInForm.vue'
+import { getCollection } from 'astro:content'
+
+const posts = await getCollection('blog')
+const events = posts
+  .filter(p => p.data.category === 'event' && p.data.managed)
+  .map(p => ({ id: p.id, title: p.data.title, titleId: p.data.titleId }))
+---
+
+<VSCodeLayout
+  title="Event Check-In"
+  description="Check in to a Software Engineering Laboratory event."
+>
+  <div class="px-8 py-5">
+    <a
+      href="/events"
+      class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
+    >
+      &larr; Back to Events
+    </a>
+    <CheckInForm client:load events={events} />
+  </div>
+</VSCodeLayout>

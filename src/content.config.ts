@@ -26,6 +26,7 @@ const blogCollection = defineCollection({
     locationId: z.string().optional(),
     registrationUrl: z.string().optional(),
     stream: z.string().optional(),
+    managed: z.boolean().default(false),
   }),
 })
 
