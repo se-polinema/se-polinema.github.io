@@ -224,7 +224,10 @@
     "authorBy": "Oleh",
     "noPosts": "Tidak ada postingan ditemukan",
     "backToHome": "Kembali ke Beranda",
-    "backToBlog": "Kembali ke Blog"
+    "backToBlog": "Kembali ke Blog",
+    "readingTime": "{minutes} menit baca",
+    "copyCode": "Salin kode",
+    "codeCopied": "Tersalin!"
   },
   "notFound": {
     "heading": "Halaman Tidak Ditemukan",

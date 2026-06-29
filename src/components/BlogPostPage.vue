@@ -4,7 +4,7 @@
 
   <!-- Subtle metadata line, styled like a markdown italic comment -->
   <p class="font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 mt-1 mb-2 italic">
-    {{ displayDate }} &middot; {{ category }}
+    {{ displayDate }} &middot; {{ category }} &middot; {{ readingTimeLabel }}
   </p>
   <p class="flex items-center gap-1.5 font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 italic mb-8">
     <span>{{ t.blog.authorBy }}</span>
@@ -40,6 +40,7 @@ const props = defineProps<{
   category: string
   date: Date | string
   author: string
+  readingTime?: number
   matchedResearcher?: { id: string; name: string; photo: string }
 }>()
 
@@ -56,5 +57,10 @@ const displayDate = computed(() => {
     month: 'long',
     year: 'numeric',
   }).format(d)
+})
+
+const readingTimeLabel = computed(() => {
+  if (!props.readingTime) return ''
+  return t.value.blog.readingTime.replace('{minutes}', String(props.readingTime))
 })
 </script>

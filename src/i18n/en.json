@@ -224,7 +224,10 @@
     "authorBy": "By",
     "noPosts": "No posts found",
     "backToHome": "Back to Home",
-    "backToBlog": "Back to Blog"
+    "backToBlog": "Back to Blog",
+    "readingTime": "{minutes} min read",
+    "copyCode": "Copy code",
+    "codeCopied": "Copied!"
   },
   "notFound": {
     "heading": "Page Not Found",
