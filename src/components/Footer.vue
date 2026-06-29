@@ -15,6 +15,7 @@
         <div>
           <h4 class="font-mono text-xs uppercase tracking-wider text-white/40 mb-4">{{ t.footer.links }}</h4>
           <ul class="space-y-2">
+            <li><a href="/events" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.events }}</a></li>
             <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.blog }}</a></li>
             <li><a href="/researchers" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.researchers }}</a></li>
             <li><a href="/books" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.books }}</a></li>

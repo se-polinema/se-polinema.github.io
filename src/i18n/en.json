@@ -12,7 +12,8 @@
     "gallery": "Gallery",
     "partners": "Partners",
     "contact": "Contact",
-    "blog": "Blog"
+    "blog": "Blog",
+    "events": "Events"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
@@ -209,6 +210,25 @@
     "links": "Quick Links",
     "resources": "Resources",
     "copyright": "Software Engineering Laboratory. All rights reserved."
+  },
+  "events": {
+    "heading": "Events & Seminars",
+    "description": "Research seminars, workshops, thesis defenses, and industry talks hosted by the Software Engineering Laboratory.",
+    "archiveHeading": "Events Calendar",
+    "archiveDescription": "Upcoming and past events organized by SE Lab researchers. Join us for seminars, workshops, and community discussions.",
+    "upcomingHeading": "Upcoming Events",
+    "pastHeading": "Past Events",
+    "eventDate": "Event Date",
+    "location": "Location",
+    "registerCta": "Register Now",
+    "streamCta": "Watch Stream",
+    "noUpcoming": "No upcoming events at this time. Check back soon for seminars, workshops, and talks.",
+    "noPast": "No past events yet.",
+    "backToEvents": "Back to Events",
+    "timeDisplay": "{start} – {end}",
+    "registrationNote": "Registration required",
+    "registrationClose": "Registration closes before the event",
+    "freeEntry": "Free entry"
   },
   "blog": {
     "heading": "News & Announcements",

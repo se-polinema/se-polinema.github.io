@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
 
-type SidebarView = 'explorer' | 'blog' | 'github' | 'researchers' | 'publications' | 'decks'
+type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'researchers' | 'publications' | 'decks'
 
 const sidebarOpen = ref(false)
 const activeSection = ref('hero')
@@ -25,7 +25,10 @@ export function useVSCodeLayout() {
     layoutInitialized.value = true
 
     const path = window.location.pathname
-    if (path.startsWith('/blog')) {
+    if (path.startsWith('/events')) {
+      currentPage.value = 'events'
+      activeSidebarView.value = 'events'
+    } else if (path.startsWith('/blog')) {
       currentPage.value = 'blog'
       activeSidebarView.value = 'blog'
     } else if (path.startsWith('/publications')) {
@@ -78,6 +81,7 @@ export function useVSCodeLayout() {
   // Map views that belong to a dedicated page so setView can navigate when needed
   const viewNav: Partial<Record<SidebarView, { href: string; page: string }>> = {
     blog:         { href: '/blog',         page: 'blog'         },
+    events:       { href: '/events',       page: 'events'       },
     researchers:  { href: '/researchers',  page: 'researchers'  },
     publications: { href: '/publications', page: 'publications' },
     decks:        { href: '/decks',        page: 'decks'        },

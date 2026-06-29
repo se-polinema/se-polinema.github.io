@@ -17,6 +17,7 @@
           : activeSidebarView === 'publications' ? 'Publications'
           : activeSidebarView === 'decks' ? 'Decks'
           : activeSidebarView === 'blog' ? 'Blog'
+          : activeSidebarView === 'events' ? 'Events'
           : 'Explorer' }}
       </span>
     </div>
@@ -184,6 +185,21 @@
       </div>
     </nav>
 
+    <!-- Events sidebar -->
+    <nav v-else-if="activeSidebarView === 'events'" key="events" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Events">
+      <div class="filter-header">Events</div>
+      <div class="mt-3 text-[11px] font-mono text-white/55 space-y-2">
+        <a href="/events" class="flex items-center gap-2 text-white/55 hover:text-white/85 transition-colors py-1">
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-purple-400" />
+          Upcoming Events
+        </a>
+        <a href="/events" class="flex items-center gap-2 text-white/55 hover:text-white/85 transition-colors py-1">
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-white/30" />
+          Past Events
+        </a>
+      </div>
+    </nav>
+
     <!-- Decks panel -->
     <nav v-else-if="activeSidebarView === 'decks'" key="decks" class="flex-1 overflow-y-auto pb-4 px-4 pt-3 space-y-5" aria-label="Decks filters">
       <div>
@@ -244,6 +260,7 @@ const fileTree: FileItem[] = [
   { id: 'researchers-dir', name: 'researchers/',     ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
   { id: 'team',            name: 'team.md',          ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },
+  { id: 'events',         name: 'events.ics',      ext: 'ics',  type: 'file',   sectionId: 'events',       pageId: 'events',       indent: 2, href: '/events' },
   { id: 'blog',            name: 'blog.md',          ext: 'md',   type: 'file',   sectionId: 'blog',         pageId: 'blog',         indent: 2, href: '/blog' },
 ]
 
@@ -269,6 +286,7 @@ function dotColor(ext: string): string {
     md:   'bg-blue-400',
     json: 'bg-yellow-400',
     bib:  'bg-green-400',
+    ics:  'bg-purple-400',
   }
   return map[ext] ?? 'bg-white/30'
 }

@@ -20,6 +20,12 @@ const blogCollection = defineCollection({
     image: z.string().optional(),
     excerpt: z.string().optional(),
     excerptId: z.string().optional(),
+    eventDate: z.date().optional(),
+    eventEndDate: z.date().optional(),
+    location: z.string().optional(),
+    locationId: z.string().optional(),
+    registrationUrl: z.string().optional(),
+    stream: z.string().optional(),
   }),
 })
 
