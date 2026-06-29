@@ -12,7 +12,7 @@ eventDate: 2026-07-15
 eventEndDate: 2026-07-15
 location: "SE Lab, JTI Polinema — Room RT-A 301"
 locationId: "SE Lab, JTI Polinema — Ruang RT-A 301"
-registrationUrl: "https://bit.ly/se-lab-ai-testing"
+managed: true
 stream: ""
 ---
 
