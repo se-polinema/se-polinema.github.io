@@ -119,7 +119,7 @@ const navItems = computed(() => [
   { id: 'publications', href: '/publications', label: t.value.nav.publications },
   { id: 'events', href: '/events', label: t.value.nav.events },
   { id: 'blog', href: '/blog', label: t.value.nav.blog },
-  { id: 'join', href: '/#join', label: t.value.nav.join },
+  { id: 'join', href: '/join', label: t.value.nav.join },
   { id: 'contact', href: '/#contact', label: t.value.nav.contact },
 ])
 

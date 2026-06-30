@@ -1,0 +1,96 @@
+[
+  {
+    "title": "Automated Code Quality Analysis with Static Analysis Tools",
+    "titleId": "Analisis Kualitas Kode Otomatis dengan Alat Static Analysis",
+    "type": "thesis",
+    "stream": "emerging-technologies-se",
+    "status": "open",
+    "description": "This thesis project explores static analysis tools (e.g., SonarQube, ESLint custom rules) to automatically evaluate code quality in open-source and academic software projects. The student will design a quality dashboard, define custom rule sets for academic code, and evaluate effectiveness on real SE Lab projects.",
+    "descriptionId": "Proyek tugas akhir ini mengeksplorasi alat static analysis (misalnya SonarQube, aturan ESLint kustom) untuk mengevaluasi kualitas kode secara otomatis pada proyek open-source dan perangkat lunak akademik. Mahasiswa akan merancang dasbor kualitas, mendefinisikan aturan kustom untuk kode akademik, dan mengevaluasi efektivitas pada proyek nyata SE Lab.",
+    "requirements": [
+      "Familiar with JavaScript/TypeScript or Java",
+      "Understanding of software metrics and code quality concepts",
+      "Willing to learn static analysis tooling"
+    ],
+    "requirementsId": [
+      "Menguasai JavaScript/TypeScript atau Java",
+      "Memahami metrik perangkat lunak dan konsep kualitas kode",
+      "Bersedia mempelajari alat static analysis"
+    ],
+    "supervisor": "Imam Fahrur Rozi",
+    "supervisorEmail": "imam.fahrur@polinema.ac.id",
+    "howToApply": "Send an email to the supervisor with your CV and a brief statement of interest. Include \"Thesis Application — Code Quality\" in the subject line.",
+    "howToApplyId": "Kirim email ke dosen pembimbing dengan CV dan pernyataan minat singkat. Cantumkan \"Lamaran Tugas Akhir — Kualitas Kode\" pada subjek email."
+  },
+  {
+    "title": "Web-Based Thesis Management Platform for Academic Departments",
+    "titleId": "Platform Manajemen Tugas Akhir Berbasis Web untuk Jurusan Akademik",
+    "type": "internship",
+    "stream": "domain-specific-se-applications",
+    "status": "open",
+    "description": "Join the lab as an intern to help build a web-based platform that streamlines thesis proposal submission, supervisor assignment, progress tracking, and scheduling for academic departments. The intern will work with Vue.js, Node.js, and PostgreSQL under the guidance of SE Lab researchers.",
+    "descriptionId": "Bergabunglah sebagai magang untuk membantu membangun platform berbasis web yang menyederhanakan pengajuan proposal tugas akhir, penugasan pembimbing, pelacakan kemajuan, dan penjadwalan untuk jurusan akademik. Magang akan bekerja dengan Vue.js, Node.js, dan PostgreSQL di bawah bimbingan peneliti SE Lab.",
+    "requirements": [
+      "Proficient in JavaScript and at least one frontend framework (Vue.js preferred)",
+      "Basic experience with REST APIs and databases",
+      "Currently enrolled in an undergraduate program (semester 5+)"
+    ],
+    "requirementsId": [
+      "Mahir JavaScript dan setidaknya satu framework frontend (Vue.js lebih disukai)",
+      "Pengalaman dasar dengan REST API dan basis data",
+      "Terdaftar aktif di program sarjana (semester 5+)"
+    ],
+    "supervisor": "SE Lab Research Team",
+    "supervisorEmail": "imam.fahrur@polinema.ac.id",
+    "howToApply": "Send an email with your CV, portfolio/GitHub link, and available hours per week. Use subject line \"Internship Application — Thesis Management Platform\".",
+    "howToApplyId": "Kirim email dengan CV, tautan portofolio/GitHub, dan jam tersedia per minggu. Gunakan subjek \"Lamaran Magang — Platform Manajemen Tugas Akhir\"."
+  },
+  {
+    "title": "Microservices Architecture Patterns for Academic Information Systems",
+    "titleId": "Pola Arsitektur Microservices untuk Sistem Informasi Akademik",
+    "type": "thesis",
+    "stream": "se-methodologies-architecture",
+    "status": "open",
+    "description": "Investigate and implement microservices architecture patterns (API gateway, service discovery, event-driven communication) for academic information systems. The student will design a reference architecture, build a prototype, and evaluate trade-offs in scalability, maintainability, and deployment complexity.",
+    "descriptionId": "Selidiki dan implementasikan pola arsitektur microservices (API gateway, service discovery, komunikasi berbasis event) untuk sistem informasi akademik. Mahasiswa akan merancang arsitektur referensi, membangun prototipe, dan mengevaluasi trade-off dalam skalabilitas, pemeliharaan, dan kompleksitas deployment.",
+    "requirements": [
+      "Strong understanding of backend development (Node.js, Python, or Java)",
+      "Familiar with REST APIs and containerization (Docker)",
+      "Completed courses in software architecture or design patterns"
+    ],
+    "requirementsId": [
+      "Pemahaman kuat tentang pengembangan backend (Node.js, Python, atau Java)",
+      "Mengenal REST API dan containerization (Docker)",
+      "Telah menyelesaikan mata kuliah arsitektur perangkat lunak atau design patterns"
+    ],
+    "supervisor": "Imam Fahrur Rozi",
+    "supervisorEmail": "imam.fahrur@polinema.ac.id",
+    "howToApply": "Send an email to the supervisor with your CV and a 1-page research proposal outline. Include \"Thesis Application — Microservices\" in the subject line.",
+    "howToApplyId": "Kirim email ke dosen pembimbing dengan CV dan outline proposal riset 1 halaman. Cantumkan \"Lamaran Tugas Akhir — Microservices\" pada subjek email."
+  },
+  {
+    "title": "Research Assistant — AI-Powered Requirements Automation Tool",
+    "titleId": "Asisten Riset — Alat Otomatisasi Kebutuhan Perangkat Lunak Berbasis AI",
+    "type": "research-assistant",
+    "stream": "emerging-technologies-se",
+    "status": "open",
+    "description": "We are looking for a research assistant to contribute to an ongoing project on AI-assisted requirements engineering. Tasks include building NLP pipelines for requirement classification, developing a prototype web interface, and co-authoring a research publication. This role is ideal for students interested in pursuing graduate studies in software engineering.",
+    "descriptionId": "Kami mencari asisten riset untuk berkontribusi pada proyek berkelanjutan tentang rekayasa kebutuhan berbantuan AI. Tugas meliputi membangun pipeline NLP untuk klasifikasi kebutuhan, mengembangkan antarmuka web prototipe, dan ikut menulis publikasi riset. Peran ini cocok untuk mahasiswa yang tertarik melanjutkan studi pascasarjana di bidang rekayasa perangkat lunak.",
+    "requirements": [
+      "Proficient in Python and familiar with NLP libraries (spaCy, Hugging Face)",
+      "Experience with web development (any framework)",
+      "Strong academic writing skills in English or Indonesian",
+      "Commitment of at least 10 hours per week"
+    ],
+    "requirementsId": [
+      "Mahir Python dan mengenal pustaka NLP (spaCy, Hugging Face)",
+      "Pengalaman pengembangan web (framework apa pun)",
+      "Kemampuan menulis akademik yang baik dalam bahasa Inggris atau Indonesia",
+      "Komitmen minimal 10 jam per minggu"
+    ],
+    "supervisor": "Imam Fahrur Rozi",
+    "supervisorEmail": "imam.fahrur@polinema.ac.id",
+    "howToApply": "Send an email with your CV, a writing sample (paper, report, or blog post), and a short paragraph on why you're interested in AI for software engineering. Use subject line \"Research Assistant Application — Requirements Automation\".",
+    "howToApplyId": "Kirim email dengan CV, contoh tulisan (makalah, laporan, atau posting blog), dan paragraf singkat tentang mengapa Anda tertarik pada AI untuk rekayasa perangkat lunak. Gunakan subjek \"Lamaran Asisten Riset — Otomatisasi Kebutuhan\"."
+  }
+]

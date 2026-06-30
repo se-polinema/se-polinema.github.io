@@ -1,0 +1,16 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import JoinPage from '../components/JoinPage.vue'
+import opportunitiesData from '../data/opportunities.json'
+import researchData from '../data/research.json'
+
+const streams = researchData.map((s: { id: string; name: { en: string; id: string } }) => ({
+  id: s.id,
+  nameEn: s.name.en,
+  nameId: s.name.id,
+}))
+---
+
+<VSCodeLayout title="Join — SE Lab">
+  <JoinPage client:load opportunities={opportunitiesData} streams={streams} />
+</VSCodeLayout>
