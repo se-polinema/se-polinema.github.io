@@ -112,16 +112,14 @@
                 <tr class="border-b border-primary/10 dark:border-gray-700">
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.events.admin.nameCol }}</th>
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.events.admin.emailCol }}</th>
-                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.events.admin.identifierCol }}</th>
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.events.admin.statusCol }}</th>
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2">{{ t.events.admin.registeredAt }}</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-primary/5 dark:divide-gray-700">
                 <tr v-for="p in participantsByEvent[event.slug]" :key="p.id">
-                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100">{{ p.name }}</td>
-                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">{{ p.email }}</td>
-                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">{{ p.identifier ?? '—' }}</td>
+                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100">{{ p.profiles?.full_name ?? '—' }}</td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">{{ p.profiles?.email ?? '—' }}</td>
                   <td class="py-2.5 pr-4">
                     <span
                       class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider"
@@ -176,10 +174,8 @@ interface EventRow {
 interface Participant {
   id: string
   event_slug: string
-  name: string
-  email: string
-  identifier: string | null
-  phone: string | null
+  user_id: string
+  profiles: { full_name: string | null; email: string | null } | null
   status: string
   registered_at: string
   checked_in_at: string | null
@@ -229,7 +225,7 @@ async function loadData() {
   const { data: participantsData } = await supabase
     .schema('se')
     .from('participants')
-    .select('*')
+    .select('id, event_slug, user_id, status, registered_at, checked_in_at, profiles(full_name, email)')
     .order('registered_at', { ascending: false })
 
   const byEvent: Record<string, Participant[]> = {}
