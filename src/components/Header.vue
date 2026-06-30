@@ -121,7 +121,7 @@ const navItems = computed(() => [
   { id: 'faq', href: '/faq', label: t.value.nav.faq },
   { id: 'blog', href: '/blog', label: t.value.nav.blog },
   { id: 'join', href: '/join', label: t.value.nav.join },
-  { id: 'contact', href: '/#contact', label: t.value.nav.contact },
+  { id: 'contact', href: '/contact', label: t.value.nav.contact },
 ])
 
 function scrollTo(id: string) {
