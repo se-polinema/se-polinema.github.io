@@ -398,7 +398,9 @@
     "backToBlog": "Kembali ke Blog",
     "readingTime": "{minutes} menit baca",
     "copyCode": "Salin kode",
-    "codeCopied": "Tersalin!"
+    "codeCopied": "Tersalin!",
+    "categoryArchiveHeading": "Arsip {category}",
+    "categoryArchiveDescription": "Postingan {category} dari Software Engineering Laboratory."
   },
   "notFound": {
     "heading": "Halaman Tidak Ditemukan",

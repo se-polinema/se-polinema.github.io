@@ -1,7 +1,7 @@
 <template>
   <div class="px-8 py-5">
-    <h1>{{ t.blog.archiveHeading }}</h1>
-    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">{{ t.blog.archiveDescription }}</p>
+    <h1>{{ heading }}</h1>
+    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">{{ description }}</p>
 
     <div v-if="filteredPosts.length === 0" class="text-center py-20">
       <p class="text-neutral-400 dark:text-gray-500">{{ t.blog.noPosts }}</p>
@@ -10,9 +10,13 @@
     <div v-else class="space-y-5 mt-6">
       <article v-for="post in filteredPosts" :key="post.id" class="group border-t border-primary/10 dark:border-gray-700 pt-5 grid sm:grid-cols-[8rem_minmax(0,1fr)] gap-4">
         <div class="text-xs text-neutral-400 dark:text-gray-500 space-y-1 pt-0.5">
-          <span class="block font-mono uppercase tracking-wider" :class="categoryStyle(post.category)">
+          <a
+            :href="`/blog/category/${post.category}`"
+            class="block font-mono uppercase tracking-wider no-underline hover:underline"
+            :class="categoryStyle(post.category)"
+          >
             {{ categoryLabel(post.category) }}
-          </span>
+          </a>
           <time :datetime="asDate(post.date).toISOString()" class="block">
             {{ formatDate(post.date) }}
           </time>
@@ -50,14 +54,37 @@ const props = defineProps<{
     category: string
     date: Date | string
   }>
+  activeCategory?: string
 }>()
 
 const { lang, t } = useI18n()
 const { activeFilters } = useVSCodeLayout()
 
-const filteredPosts = computed(() =>
-  props.posts.filter(p => !activeFilters.category || p.category === activeFilters.category)
-)
+const filteredPosts = computed(() => {
+  if (props.activeCategory) return props.posts
+  return props.posts.filter(p => !activeFilters.category || p.category === activeFilters.category)
+})
+
+const categoryLabelForHeader = computed(() => {
+  if (!props.activeCategory) return ''
+  const map: Record<string, string> = {
+    announcement: t.value.blog.categoryAnnouncement,
+    news: t.value.blog.categoryNews,
+    event: t.value.blog.categoryEvent,
+    tutorial: t.value.blog.categoryTutorial,
+  }
+  return map[props.activeCategory] || props.activeCategory
+})
+
+const heading = computed(() => {
+  if (!props.activeCategory) return t.value.blog.archiveHeading
+  return t.value.blog.categoryArchiveHeading.replace('{category}', categoryLabelForHeader.value)
+})
+
+const description = computed(() => {
+  if (!props.activeCategory) return t.value.blog.archiveDescription
+  return t.value.blog.categoryArchiveDescription.replace('{category}', categoryLabelForHeader.value)
+})
 
 function asDate(date: Date | string): Date {
   return date instanceof Date ? date : new Date(date as string)
