@@ -1,0 +1,199 @@
+{
+  "categories": [
+    {
+      "id": "joining",
+      "label": { "en": "Joining the Lab", "id": "Bergabung dengan Lab" },
+      "questions": [
+        {
+          "key": "who-can-join",
+          "en": {
+            "question": "Who can join the SE Lab?",
+            "answer": "SE Lab welcomes undergraduate and graduate students from Politeknik Negeri Malang—especially those in Information Technology and related programs—as well as external researchers and collaborators. Students typically join through thesis supervision, internships, or research assistant positions. We value curiosity, initiative, and a genuine interest in software engineering research."
+          },
+          "id": {
+            "question": "Siapa yang bisa bergabung dengan SE Lab?",
+            "answer": "SE Lab menyambut mahasiswa sarjana dan pascasarjana dari Politeknik Negeri Malang—khususnya dari Jurusan Teknologi Informasi dan program terkait—serta peneliti dan kolaborator eksternal. Mahasiswa biasanya bergabung melalui bimbingan tugas akhir, magang, atau posisi asisten riset. Kami menghargai rasa ingin tahu, inisiatif, dan minat yang tulus dalam riset rekayasa perangkat lunak."
+          }
+        },
+        {
+          "key": "prerequisites",
+          "en": {
+            "question": "What programming skills or courses are expected?",
+            "answer": "We expect familiarity with at least one programming language (JavaScript/TypeScript, Python, Java, or similar) and basic understanding of software engineering concepts such as version control, testing, and software design. Specific prerequisites vary by project—some require web development experience, others need data analysis or machine learning background. Check individual opportunity listings on the /join page for detailed requirements."
+          },
+          "id": {
+            "question": "Keterampilan pemrograman atau mata kuliah apa yang diharapkan?",
+            "answer": "Kami mengharapkan penguasaan setidaknya satu bahasa pemrograman (JavaScript/TypeScript, Python, Java, atau sejenisnya) dan pemahaman dasar tentang konsep rekayasa perangkat lunak seperti version control, pengujian, dan desain perangkat lunak. Prasyarat spesifik bervariasi per proyek—beberapa memerlukan pengalaman pengembangan web, yang lain membutuhkan latar belakang analisis data atau machine learning. Lihat daftar peluang individu di halaman /join untuk persyaratan rinci."
+          }
+        },
+        {
+          "key": "how-to-join",
+          "en": {
+            "question": "How do I apply to join the lab?",
+            "answer": "Visit the /join page to browse open opportunities. Each listing includes requirements, supervisor contact, and application instructions. You can also reach out directly to a researcher whose work interests you—see the /researchers page for profiles and contact information. For general inquiries, email imam.fahrur@polinema.ac.id."
+          },
+          "id": {
+            "question": "Bagaimana cara mendaftar untuk bergabung dengan lab?",
+            "answer": "Kunjungi halaman /join untuk melihat peluang yang terbuka. Setiap daftar mencakup persyaratan, kontak pembimbing, dan instruksi pendaftaran. Anda juga dapat menghubungi langsung peneliti yang karyanya menarik minat Anda—lihat halaman /researchers untuk profil dan informasi kontak. Untuk pertanyaan umum, kirim email ke imam.fahrur@polinema.ac.id."
+          }
+        },
+        {
+          "key": "time-commitment",
+          "en": {
+            "question": "What is the expected time commitment?",
+            "answer": "Time commitment depends on the role. Thesis students typically engage for one semester, interns contribute 10–20 hours per week, and research assistants commit at least 10 hours per week. We accommodate academic schedules and encourage students to balance lab work with coursework."
+          },
+          "id": {
+            "question": "Berapa komitmen waktu yang diharapkan?",
+            "answer": "Komitmen waktu tergantung pada peran. Mahasiswa tugas akhir biasanya terlibat selama satu semester, magang berkontribusi 10–20 jam per minggu, dan asisten riset berkomitmen minimal 10 jam per minggu. Kami mengakomodasi jadwal akademik dan mendorong mahasiswa untuk menyeimbangkan pekerjaan lab dengan perkuliahan."
+          }
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "label": { "en": "Research & Streams", "id": "Riset & Stream" },
+      "questions": [
+        {
+          "key": "research-streams",
+          "en": {
+            "question": "Which research streams can I join?",
+            "answer": "SE Lab has three main research streams: (1) Software Engineering Methodologies & Architecture—covering software design patterns, microservices, and development processes; (2) Emerging Technologies in SE—exploring AI/ML for software engineering, NLP, and intelligent systems; (3) Domain-Specific SE Applications—applying software engineering to education, health, and other sectors. Each stream has dedicated researchers and ongoing projects."
+          },
+          "id": {
+            "question": "Stream riset apa saja yang bisa saya ikuti?",
+            "answer": "SE Lab memiliki tiga stream riset utama: (1) Software Engineering Methodologies & Architecture—mencakup pola desain perangkat lunak, microservices, dan proses pengembangan; (2) Emerging Technologies in SE—mengeksplorasi AI/ML untuk rekayasa perangkat lunak, NLP, dan sistem cerdas; (3) Domain-Specific SE Applications—menerapkan rekayasa perangkat lunak pada sektor pendidikan, kesehatan, dan lainnya. Setiap stream memiliki peneliti dan proyek yang sedang berjalan."
+          }
+        },
+        {
+          "key": "current-projects",
+          "en": {
+            "question": "What projects is the lab currently working on?",
+            "answer": "Our active projects span code quality analysis tools, thesis management platforms, AI-assisted requirements engineering, microservices reference architectures, and educational technology applications. Visit the /projects page for a complete catalog with descriptions, tech stacks, and contributor information."
+          },
+          "id": {
+            "question": "Proyek apa yang sedang dikerjakan lab saat ini?",
+            "answer": "Proyek aktif kami mencakup alat analisis kualitas kode, platform manajemen tugas akhir, rekayasa kebutuhan berbantuan AI, arsitektur referensi microservices, dan aplikasi teknologi pendidikan. Kunjungi halaman /projects untuk katalog lengkap dengan deskripsi, tech stack, dan informasi kontributor."
+          }
+        },
+        {
+          "key": "cite-publications",
+          "en": {
+            "question": "How do I cite lab publications or use lab datasets?",
+            "answer": "Each publication page provides BibTeX, RIS, and APA citation formats via the citation panel. For datasets and software artifacts, check the associated project repository for license information. Most lab repositories use MIT or Apache 2.0 licenses. If a dataset or tool does not specify a license, please contact the corresponding researcher before use."
+          },
+          "id": {
+            "question": "Bagaimana cara mengutip publikasi lab atau menggunakan dataset lab?",
+            "answer": "Setiap halaman publikasi menyediakan format kutipan BibTeX, RIS, dan APA melalui panel kutipan. Untuk dataset dan artefak perangkat lunak, periksa repositori proyek terkait untuk informasi lisensi. Sebagian besar repositori lab menggunakan lisensi MIT atau Apache 2.0. Jika dataset atau alat tidak menyebutkan lisensi, harap hubungi peneliti terkait sebelum digunakan."
+          }
+        }
+      ]
+    },
+    {
+      "id": "collaboration",
+      "label": { "en": "Collaboration", "id": "Kolaborasi" },
+      "questions": [
+        {
+          "key": "industry-collab",
+          "en": {
+            "question": "Does the lab accept industry collaboration or student thesis co-supervision?",
+            "answer": "Yes. We actively collaborate with industry partners, government agencies, other academic institutions, and community organizations. Collaboration can take the form of joint research projects, student thesis co-supervision, guest lectures, or sponsored development. Reach out to imam.fahrur@polinema.ac.id with a brief proposal or introduction to start the conversation."
+          },
+          "id": {
+            "question": "Apakah lab menerima kolaborasi industri atau co-supervision tugas akhir mahasiswa?",
+            "answer": "Ya. Kami secara aktif berkolaborasi dengan mitra industri, instansi pemerintah, institusi akademik lain, dan organisasi masyarakat. Kolaborasi dapat berupa proyek riset bersama, co-supervision tugas akhir mahasiswa, kuliah tamu, atau pengembangan bersponsor. Hubungi imam.fahrur@polinema.ac.id dengan proposal singkat atau perkenalan untuk memulai diskusi."
+          }
+        },
+        {
+          "key": "external-researchers",
+          "en": {
+            "question": "Can researchers from other institutions collaborate with SE Lab?",
+            "answer": "Absolutely. We welcome visiting researchers, joint supervision arrangements, and multi-institutional research proposals. Please contact a lab researcher in your area of interest or email imam.fahrur@polinema.ac.id to discuss potential collaboration."
+          },
+          "id": {
+            "question": "Apakah peneliti dari institusi lain dapat berkolaborasi dengan SE Lab?",
+            "answer": "Tentu. Kami menyambut peneliti tamu, pengaturan pembimbingan bersama, dan proposal riset multi-institusi. Silakan hubungi peneliti lab di bidang minat Anda atau kirim email ke imam.fahrur@polinema.ac.id untuk mendiskusikan potensi kolaborasi."
+          }
+        }
+      ]
+    },
+    {
+      "id": "events",
+      "label": { "en": "Events", "id": "Acara" },
+      "questions": [
+        {
+          "key": "attend-seminars",
+          "en": {
+            "question": "How can I attend lab seminars or workshops?",
+            "answer": "Lab seminars and workshops are announced on the /events page and through our newsletter. Most events are free and open to the public. Some workshops require registration due to limited capacity—check individual event listings for registration links and deadlines. You can also subscribe to our newsletter to receive event announcements directly."
+          },
+          "id": {
+            "question": "Bagaimana cara menghadiri seminar atau lokakarya lab?",
+            "answer": "Seminar dan lokakarya lab diumumkan di halaman /events dan melalui buletin kami. Sebagian besar acara gratis dan terbuka untuk umum. Beberapa lokakarya memerlukan pendaftaran karena kapasitas terbatas—periksa daftar acara individu untuk tautan pendaftaran dan batas waktu. Anda juga dapat berlangganan buletin kami untuk menerima pengumuman acara langsung."
+          }
+        },
+        {
+          "key": "event-frequency",
+          "en": {
+            "question": "How often does the lab hold events?",
+            "answer": "Event frequency varies by semester and research activity. We typically host monthly research seminars, quarterly workshops, and periodic thesis defense sessions. The /events calendar shows all upcoming and past events. Follow us on GitHub (se-polinema) or subscribe to the newsletter to stay informed."
+          },
+          "id": {
+            "question": "Seberapa sering lab mengadakan acara?",
+            "answer": "Frekuensi acara bervariasi tergantung semester dan aktivitas riset. Kami biasanya mengadakan seminar riset bulanan, lokakarya triwulanan, dan sesi ujian tugas akhir berkala. Kalender /events menampilkan semua acara mendatang dan yang telah berlalu. Ikuti kami di GitHub (se-polinema) atau berlangganan buletin untuk tetap mendapat informasi."
+          }
+        }
+      ]
+    },
+    {
+      "id": "general",
+      "label": { "en": "General", "id": "Umum" },
+      "questions": [
+        {
+          "key": "lab-location",
+          "en": {
+            "question": "Where is the SE Lab located at Polinema?",
+            "answer": "SE Lab is part of Jurusan Teknologi Informasi (Information Technology Department) at Politeknik Negeri Malang, located at Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, East Java — Indonesia 65141. For in-person visits, please contact us in advance to schedule a meeting."
+          },
+          "id": {
+            "question": "Di mana lokasi SE Lab di Polinema?",
+            "answer": "SE Lab merupakan bagian dari Jurusan Teknologi Informasi di Politeknik Negeri Malang, berlokasi di Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, Jawa Timur — Indonesia 65141. Untuk kunjungan langsung, harap hubungi kami terlebih dahulu untuk menjadwalkan pertemuan."
+          }
+        },
+        {
+          "key": "contact-researcher",
+          "en": {
+            "question": "How do I contact a specific researcher or supervisor?",
+            "answer": "Researcher profiles with email addresses, Google Scholar links, and institutional pages are available on the /researchers page. For thesis supervision inquiries, we recommend reviewing the researcher's expertise and recent publications first, then sending a concise email describing your interests and how they align with the researcher's work."
+          },
+          "id": {
+            "question": "Bagaimana cara menghubungi peneliti atau pembimbing tertentu?",
+            "answer": "Profil peneliti dengan alamat email, tautan Google Scholar, dan halaman institusi tersedia di halaman /researchers. Untuk pertanyaan bimbingan tugas akhir, kami sarankan untuk meninjau keahlian dan publikasi terbaru peneliti terlebih dahulu, kemudian mengirim email singkat yang menjelaskan minat Anda dan bagaimana minat tersebut selaras dengan karya peneliti."
+          }
+        },
+        {
+          "key": "lab-outputs",
+          "en": {
+            "question": "What kind of outputs does the lab produce?",
+            "answer": "SE Lab produces scholarly publications (journal articles, conference papers, book chapters), open-source software projects, technical books, presentation decks, and educational content. Lab members also contribute to community service through workshops, training programs, and software solutions for local organizations."
+          },
+          "id": {
+            "question": "Jenis keluaran apa yang dihasilkan lab?",
+            "answer": "SE Lab menghasilkan publikasi ilmiah (artikel jurnal, makalah konferensi, bab buku), proyek perangkat lunak open-source, buku teknis, dek presentasi, dan konten edukasi. Anggota lab juga berkontribusi pada pengabdian masyarakat melalui lokakarya, program pelatihan, dan solusi perangkat lunak untuk organisasi lokal."
+          }
+        },
+        {
+          "key": "stay-updated",
+          "en": {
+            "question": "How can I stay updated with lab activities?",
+            "answer": "Subscribe to our newsletter at /newsletter, follow our GitHub organization (github.com/se-polinema), check the /blog for announcements, and watch the /events calendar. We also share major updates through the JTI Polinema communication channels."
+          },
+          "id": {
+            "question": "Bagaimana cara mengikuti perkembangan aktivitas lab?",
+            "answer": "Berlangganan buletin kami di /newsletter, ikuti organisasi GitHub kami (github.com/se-polinema), periksa /blog untuk pengumuman, dan pantau kalender /events. Kami juga membagikan pembaruan penting melalui saluran komunikasi JTI Polinema."
+          }
+        }
+      ]
+    }
+  ]
+}
