@@ -96,8 +96,28 @@ const publicationsCollection = defineCollection({
   }),
 })
 
+const projectsCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  schema: z.object({
+    title: z.string(),
+    titleId: z.string().optional(),
+    description: z.string(),
+    descriptionId: z.string().optional(),
+    status: z.enum(['active', 'completed', 'prototype']).default('active'),
+    techStack: z.array(z.string()).default([]),
+    images: z.array(z.string()).default([]),
+    contributors: z.array(z.string()).default([]),
+    researchers: z.array(z.string()).default([]),
+    stream: z.string().optional(),
+    demoUrl: z.string().optional(),
+    repo: z.string(),
+    featured: z.boolean().default(false),
+  }),
+})
+
 export const collections = {
   blog: blogCollection,
   researchers: researchersCollection,
   publications: publicationsCollection,
+  projects: projectsCollection,
 }

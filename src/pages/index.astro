@@ -11,7 +11,7 @@ import JoinLab from '../components/JoinLab.vue'
 import News from '../components/News.vue'
 import JsonLd from '../components/JsonLd.astro'
 import { getCollection } from 'astro:content'
-import { getMemberProjects, getMemberBooks } from '../lib/memberWorks'
+import { getMemberProjects, getMemberBooks, getCollectionProjects } from '../lib/memberWorks'
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -57,7 +57,13 @@ const featuredPublications = (await getCollection('publications'))
     url: publication.data.url,
   }))
 
-const projects = await getMemberProjects()
+const collectionProjects = await getCollectionProjects()
+const memberProjects = await getMemberProjects()
+
+const collectionRepos = new Set(collectionProjects.map((p) => p.repo))
+const legacyProjects = memberProjects.filter((p) => !collectionRepos.has(p.repo))
+
+const projects = [...collectionProjects, ...legacyProjects]
 const books = await getMemberBooks()
 
 const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
