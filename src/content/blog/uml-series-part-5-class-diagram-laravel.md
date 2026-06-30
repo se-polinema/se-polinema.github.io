@@ -44,7 +44,7 @@ While the previous four parts focused on *behaviour* (what the system does), the
 | **Multiplicity** | Numbers at association ends (1, 0..*, 1..*) | How many instances participate. "One Student can enrol in 0 or more Courses. One Course can have 0 or more Enrolments." |
 | **Aggregation** | Hollow diamond at the whole end | "Has-a" relationship where the part can exist independently. "A Course has a Schedule, but a Schedule can exist without a Course." |
 | **Composition** | Filled diamond at the whole end | "Has-a" relationship where the part cannot exist without the whole. "An Enrolment contains a Payment; if the Enrolment is deleted, the Payment is deleted too." |
-| **Generalisation** | Hollow triangle arrowhead pointing to the parent | Inheritance. "Student is a type of User." "Lecturer is a type of User."
+| **Generalisation** | Hollow triangle arrowhead pointing to the parent | Inheritance. "Student is a type of User." "Lecturer is a type of User." |
 
 </section>
 
@@ -65,7 +65,7 @@ Sementara empat bagian sebelumnya berfokus pada *perilaku* (apa yang dilakukan s
 | **Multiplicity** | Angka di ujung association (1, 0..*, 1..*) | Berapa banyak instance yang berpartisipasi. "Satu Student dapat mendaftar di 0 atau lebih Course. Satu Course dapat memiliki 0 atau lebih Enrolment." |
 | **Aggregation** | Diamond kosong di ujung whole | Hubungan "has-a" di mana bagian dapat eksis secara independen. "Course memiliki Schedule, tetapi Schedule dapat eksis tanpa Course." |
 | **Composition** | Diamond terisi di ujung whole | Hubungan "has-a" di mana bagian tidak dapat eksis tanpa whole. "Enrolment berisi Payment; jika Enrolment dihapus, Payment juga dihapus." |
-| **Generalisation** | Kepala panah segitiga kosong menunjuk ke parent | Inheritance. "Student adalah tipe dari User." "Lecturer adalah tipe dari User."
+| **Generalisation** | Kepala panah segitiga kosong menunjuk ke parent | Inheritance. "Student adalah tipe dari User." "Lecturer adalah tipe dari User." |
 
 </section>
 
@@ -902,12 +902,8 @@ class Course extends Model
         return $this->fee;
     }
 
+    /** Decrement available quota by recording one more enrolled student. */
     public function decrementQuota(): void
-    {
-        $this->decrement('enrolled_count');
-    }
-
-    public function incrementQuota(): void
     {
         $this->increment('enrolled_count');
     }
@@ -1137,12 +1133,8 @@ class Course extends Model
         return $this->fee;
     }
 
+    /** Decrement available quota by recording one more enrolled student. */
     public function decrementQuota(): void
-    {
-        $this->decrement('enrolled_count');
-    }
-
-    public function incrementQuota(): void
     {
         $this->increment('enrolled_count');
     }
@@ -1286,7 +1278,7 @@ class CourseService
     public function decrementQuota(int $courseId): void
     {
         $course = Course::findOrFail($courseId);
-        $course->incrementQuota();
+        $course->decrementQuota();
     }
 }
 ```
@@ -1339,7 +1331,7 @@ class EnrolmentService
                 'paid_at' => now(),
             ]);
 
-            Course::find($courseId)->incrementQuota();
+            Course::find($courseId)->decrementQuota();
 
             return $enrolment;
         });
@@ -1443,7 +1435,7 @@ class CourseService
     public function decrementQuota(int $courseId): void
     {
         $course = Course::findOrFail($courseId);
-        $course->incrementQuota();
+        $course->decrementQuota();
     }
 }
 ```
@@ -1496,7 +1488,7 @@ class EnrolmentService
                 'paid_at' => now(),
             ]);
 
-            Course::find($courseId)->incrementQuota();
+            Course::find($courseId)->decrementQuota();
 
             return $enrolment;
         });
@@ -1904,7 +1896,7 @@ This five-part series has demonstrated **end-to-end traceability** — a core va
 | Part 3: Activity Diagram | Transaction boundary after payment | `DB::transaction()` in `createEnrolment()` |
 | Part 4: Sequence Diagram | `charge(amount, studentId, courseId)` | `PaymentGateway::charge()` |
 | Part 4: Sequence Diagram | `createEnrolment(studentId, courseId, txId)` | `EnrolmentService::createEnrolment()` |
-| Part 4: Sequence Diagram | `decrementQuota(courseId)` | `Course::incrementQuota()` |
+| Part 4: Sequence Diagram | `decrementQuota(courseId)` | `Course::decrementQuota()` |
 | Part 5: Class Diagram | `Student → Enrolment` (1 to 0..*) | `Student::enrolments()` relationship |
 | Part 5: Class Diagram | `Enrolment → Payment` (composition) | `Enrolment::payment()` + cascade delete |
 
@@ -1929,7 +1921,7 @@ Seri lima bagian ini telah mendemonstrasikan **ketertelusuran end-to-end** — n
 | Bagian 3: Activity Diagram | Batas transaksi setelah pembayaran | `DB::transaction()` di `createEnrolment()` |
 | Bagian 4: Sequence Diagram | `charge(amount, studentId, courseId)` | `PaymentGateway::charge()` |
 | Bagian 4: Sequence Diagram | `createEnrolment(studentId, courseId, txId)` | `EnrolmentService::createEnrolment()` |
-| Bagian 4: Sequence Diagram | `decrementQuota(courseId)` | `Course::incrementQuota()` |
+| Bagian 4: Sequence Diagram | `decrementQuota(courseId)` | `Course::decrementQuota()` |
 | Bagian 5: Class Diagram | `Student → Enrolment` (1 ke 0..*) | Relasi `Student::enrolments()` |
 | Bagian 5: Class Diagram | `Enrolment → Payment` (composition) | `Enrolment::payment()` + cascade delete |
 

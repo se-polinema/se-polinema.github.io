@@ -197,7 +197,7 @@ Kita sekarang dapat memetakan teks ini ke dalam diagram visual.
 
 ## 4. Activity Diagram: Enrol in Course
 
-The diagram below uses two swimlanes — **Student** and **System** — to show who performs each action. Decisions are represented by diamonds, and each branch is labelled with a guard condition in square brackets.
+The diagram below models the complete enrolment workflow as a top-down control flow. Decisions are represented by diamonds, and each branch is labelled with a guard condition in square brackets. Actions that begin with *Student* (such as "Student clicks 'Enrol'") represent student actions; all other actions belong to the system — following the two-party responsibility split described in the swimlane concept above, even though Mermaid flowcharts render this as a unified diagram rather than partitioned lanes.
 
 ```mermaid
 graph TD
@@ -264,7 +264,7 @@ Follow the arrows from the Start circle. At each diamond, trace one branch based
 
 ## 4. Activity Diagram: Daftar Mata Kuliah
 
-Diagram di bawah menggunakan dua swimlane — **Mahasiswa** dan **Sistem** — untuk menunjukkan siapa yang melakukan setiap aksi. Keputusan direpresentasikan oleh diamond, dan setiap cabang diberi label dengan guard condition dalam tanda kurung siku.
+Diagram di bawah memodelkan alur kerja pendaftaran lengkap sebagai aliran kontrol atas-ke-bawah. Keputusan direpresentasikan oleh diamond, dan setiap cabang diberi label dengan guard condition dalam tanda kurung siku. Aksi yang diawali dengan *Mahasiswa* (seperti "Mahasiswa mengklik 'Daftar'") merepresentasikan aksi mahasiswa; semua aksi lainnya dilakukan oleh sistem — mengikuti pembagian tanggung jawab dua pihak yang dijelaskan dalam konsep swimlane di atas, meskipun Mermaid flowchart merendernya sebagai diagram terpadu bukan lane terpisah.
 
 ```mermaid
 graph TD
