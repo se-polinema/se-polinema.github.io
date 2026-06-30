@@ -33,17 +33,35 @@ const streamPublications = researcherIds.length > 0
     )).sort((a, b) => b.data.year - a.data.year)
   : []
 
-const streamProjects = streamResearchers.flatMap((r) =>
-  (r.data.projects ?? []).map((p) => ({
-    name: p.name,
-    nameId: p.nameId,
-    repo: p.repo,
-    description: p.description,
-    descriptionId: p.descriptionId,
-    researcherId: r.id,
-    researcherName: r.data.name,
-  })),
-).sort((a, b) => a.researcherName.localeCompare(b.researcherName))
+const collectionStreamProjects = (await getCollection('projects', ({ data }) => data.stream === stream.id)).map((p) => ({
+    name: p.data.title,
+    nameId: p.data.titleId,
+    repo: p.data.repo,
+    description: p.data.description,
+    descriptionId: p.data.descriptionId,
+    researcherId: p.data.researchers[0] ?? 'unknown',
+    researcherName: streamResearchers.find((r) => r.id === p.data.researchers[0])?.data.name ?? 'SE Lab',
+    slug: p.id,
+  }))
+
+const collectionReposForStream = new Set(collectionStreamProjects.map((p) => p.repo))
+
+const researcherProjects = streamResearchers.flatMap((r) =>
+    (r.data.projects ?? [])
+      .filter((p) => !collectionReposForStream.has(p.repo))
+      .map((p) => ({
+        name: p.name,
+        nameId: p.nameId,
+        repo: p.repo,
+        description: p.description,
+        descriptionId: p.descriptionId,
+        researcherId: r.id,
+        researcherName: r.data.name,
+      })),
+  )
+
+const streamProjects = [...collectionStreamProjects, ...researcherProjects]
+    .sort((a, b) => a.researcherName.localeCompare(b.researcherName))
 
 const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
 const pageUrl = new URL(Astro.url.pathname, origin).href
@@ -153,11 +171,11 @@ const researchProjectJsonLd = {
     {
       streamProjects.length > 0 ? (
         <div class="grid sm:grid-cols-2 gap-3 mb-10">
-          {streamProjects.map((p) => (
+          {streamProjects.map((p: any) => (
             <a
-              href={`https://github.com/${p.repo}`}
-              target="_blank"
-              rel="noopener"
+              href={p.slug ? `/projects/${p.slug}` : `https://github.com/${p.repo}`}
+              target={p.slug ? undefined : '_blank'}
+              rel={p.slug ? undefined : 'noopener'}
               class="stream-hub-researcher-card"
             >
               <div class="flex items-center gap-3 mb-2">

@@ -2,15 +2,22 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import ProjectsDirectoryPage from '../../components/ProjectsDirectoryPage.vue'
 import { getCollection } from 'astro:content'
-import { getMemberProjects } from '../../lib/memberWorks'
+import { getCollectionProjects } from '../../lib/memberWorks'
+import researchData from '../../data/research.json'
 
-const projects = await getMemberProjects()
+const allProjects = await getCollectionProjects()
 
 const members = (await getCollection('researchers'))
   .sort((a, b) => a.data.name.localeCompare(b.data.name))
   .map((r) => ({ id: r.id, name: r.data.name }))
+
+const streams = researchData.map((s: { id: string; name: { en: string; id: string } }) => ({
+  id: s.id,
+  nameEn: s.name.en,
+  nameId: s.name.id,
+}))
 ---
 
 <VSCodeLayout title="Projects — SE Lab">
-  <ProjectsDirectoryPage client:load projects={projects} members={members} />
+  <ProjectsDirectoryPage client:load projects={allProjects} members={members} streams={streams} />
 </VSCodeLayout>

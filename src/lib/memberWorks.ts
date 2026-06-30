@@ -8,6 +8,14 @@ export interface MemberProject {
   descriptionId?: string
   researcherId: string
   researcherName: string
+  slug?: string
+  status?: string
+  stream?: string
+  techStack?: string[]
+  images?: string[]
+  contributors?: string[]
+  demoUrl?: string
+  featured?: boolean
 }
 
 export interface MemberBook {
@@ -71,4 +79,36 @@ export async function getMemberDecks(): Promise<MemberDeck[]> {
       })),
     )
     .sort((a, b) => a.title.localeCompare(b.title))
+}
+
+export async function getCollectionProjects(): Promise<MemberProject[]> {
+  const [projects, researchers] = await Promise.all([
+    getCollection('projects'),
+    getCollection('researchers'),
+  ])
+  const researcherMap = new Map(researchers.map((r) => [r.id, r.data.name]))
+
+  return projects
+    .map((p) => {
+      const primaryResearcherId = p.data.researchers[0] ?? 'unknown'
+      const primaryResearcherName = researcherMap.get(primaryResearcherId) ?? 'SE Lab'
+      return {
+        name: p.data.title,
+        nameId: p.data.titleId,
+        repo: p.data.repo,
+        description: p.data.description,
+        descriptionId: p.data.descriptionId,
+        researcherId: primaryResearcherId,
+        researcherName: primaryResearcherName,
+        slug: p.id,
+        status: p.data.status,
+        stream: p.data.stream,
+        techStack: p.data.techStack,
+        images: p.data.images,
+        contributors: p.data.contributors,
+        demoUrl: p.data.demoUrl,
+        featured: p.data.featured,
+      }
+    })
+    .sort((a, b) => (a.name ?? a.repo).localeCompare(b.name ?? b.repo))
 }
