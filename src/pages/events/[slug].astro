@@ -156,7 +156,7 @@ const linkedPresentation = allPresentations.find((p) => p.data.event === post.id
         )}
         {linkedPresentation && (
           <EventPresentationButton
-            client:load
+            client:only="vue"
             presentationSlug={linkedPresentation.id}
             eventDate={eventDate.toISOString().split('T')[0]}
             eventEndDate={eventEndDate?.toISOString().split('T')[0]}
