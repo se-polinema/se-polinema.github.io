@@ -315,7 +315,9 @@
       "downloadPdf": "Download PDF",
       "signInToView": "Sign in to view this presentation",
       "adminOnly": "Access restricted to speakers and administrators.",
-      "speakerViewHint": "Press S for speaker view · F for fullscreen"
+      "speakerViewHint": "Press S for speaker view · F for fullscreen",
+      "previewHint": "preview",
+      "bootError": "Failed to load presentation. Please reload."
     },
     "noUpcoming": "No upcoming events at this time. Check back soon for seminars, workshops, and talks.",
     "noPast": "No past events yet.",

@@ -315,7 +315,9 @@
       "downloadPdf": "Unduh PDF",
       "signInToView": "Masuk untuk melihat presentasi ini",
       "adminOnly": "Akses terbatas untuk pembicara dan administrator.",
-      "speakerViewHint": "Tekan S untuk tampilan pembicara · F untuk layar penuh"
+      "speakerViewHint": "Tekan S untuk tampilan pembicara · F untuk layar penuh",
+      "previewHint": "pratinjau",
+      "bootError": "Gagal memuat presentasi. Silakan muat ulang."
     },
     "noUpcoming": "Belum ada acara mendatang. Kunjungi kembali untuk seminar, lokakarya, dan diskusi.",
     "noPast": "Belum ada acara sebelumnya.",

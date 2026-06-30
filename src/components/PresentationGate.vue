@@ -74,6 +74,19 @@
         {{ t.events.admin.signOut }}
       </button>
     </div>
+
+    <!-- Boot error -->
+    <div v-else-if="gateState === 'error'" class="max-w-sm px-8 text-center">
+      <p class="text-sm font-mono text-red-600 dark:text-red-400 mb-4">
+        {{ t.events.presentation.bootError }}
+      </p>
+      <button
+        @click="() => location.reload()"
+        class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors underline"
+      >
+        Reload
+      </button>
+    </div>
   </div>
 
   <!-- Hint bar — floats above the reveal deck once authorized -->
@@ -98,6 +111,11 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { supabase } from '../lib/supabase'
+// Static imports so Vite emits these CSS files and links them in <head> —
+// dynamic CSS imports inside client:load islands are not reliably served by GitHub Pages.
+import 'reveal.js/reveal.css'
+import 'reveal.js/plugin/highlight/monokai.css'
+import '../styles/presentation.css'
 
 const props = defineProps<{
   presentationSlug: string
@@ -107,7 +125,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-type GateState = 'loading' | 'unauthenticated' | 'unauthorized' | 'ready'
+type GateState = 'loading' | 'unauthenticated' | 'unauthorized' | 'ready' | 'error'
 
 const gateState = ref<GateState>('loading')
 const signingIn = ref(false)
@@ -140,53 +158,51 @@ async function checkRoleAndLoad(userId: string) {
 }
 
 async function bootReveal() {
-  // Apply forced theme class when not auto
-  if (props.theme === 'light') {
-    document.documentElement.classList.add('theme-light')
-    document.documentElement.classList.remove('theme-dark')
-  } else if (props.theme === 'dark') {
-    document.documentElement.classList.add('theme-dark')
-    document.documentElement.classList.remove('theme-light', 'dark')
+  try {
+    // Apply forced theme class when not auto
+    if (props.theme === 'light') {
+      document.documentElement.classList.add('theme-light')
+      document.documentElement.classList.remove('theme-dark')
+    } else if (props.theme === 'dark') {
+      document.documentElement.classList.add('theme-dark')
+      document.documentElement.classList.remove('theme-light', 'dark')
+    }
+
+    // Reveal the slides container (was hidden to prevent flash before auth)
+    const revealEl = document.querySelector('.reveal') as HTMLElement | null
+    if (revealEl) revealEl.removeAttribute('hidden')
+
+    // Dynamically import reveal + plugins (lazy-load the engine for admins only)
+    const [
+      { default: Reveal },
+      { default: Markdown },
+      { default: Notes },
+      { default: Highlight },
+    ] = await Promise.all([
+      import('reveal.js'),
+      import('reveal.js/plugin/markdown'),
+      import('reveal.js/plugin/notes'),
+      import('reveal.js/plugin/highlight'),
+    ])
+
+    const deck = new (Reveal as any)(revealEl!, {
+      plugins: [Markdown, Notes, Highlight],
+      hash: true,
+      slideNumber: 'c/t',
+      progress: true,
+      controls: true,
+      center: false,
+      transition: 'slide',
+      transitionSpeed: 'fast',
+      ...(location.search.includes('print-pdf') ? { view: 'print' } : {}),
+    })
+
+    await deck.initialize()
+    gateState.value = 'ready'
+  } catch (err) {
+    console.error('[PresentationGate] bootReveal failed:', err)
+    gateState.value = 'error'
   }
-
-  // Dynamic CSS imports — Vite chunks these separately; only loaded for authorized admins.
-  // reveal.js 5 exports CSS via its package.json "exports" map.
-  await import('reveal.js/reveal.css')
-  await import('reveal.js/plugin/highlight/monokai.css')
-  await import('../styles/presentation.css')
-
-  // Reveal the slides container (was hidden to prevent flash before auth)
-  const revealEl = document.querySelector('.reveal') as HTMLElement | null
-  if (revealEl) revealEl.removeAttribute('hidden')
-
-  // Dynamically import reveal + plugins (via package.json exports; no .esm.js suffix needed)
-  const [
-    { default: Reveal },
-    { default: Markdown },
-    { default: Notes },
-    { default: Highlight },
-  ] = await Promise.all([
-    import('reveal.js'),
-    import('reveal.js/plugin/markdown'),
-    import('reveal.js/plugin/notes'),
-    import('reveal.js/plugin/highlight'),
-  ])
-
-  const deck = new (Reveal as any)(revealEl!, {
-    plugins: [Markdown, Notes, Highlight],
-    hash: true,
-    slideNumber: 'c/t',
-    progress: true,
-    controls: true,
-    center: false,
-    transition: 'slide',
-    transitionSpeed: 'fast',
-    // Print PDF mode is detected automatically via ?print-pdf in the URL
-    ...(location.search.includes('print-pdf') ? { view: 'print' } : {}),
-  })
-
-  await deck.initialize()
-  gateState.value = 'ready'
 }
 
 async function handleSignIn() {
