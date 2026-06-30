@@ -1,0 +1,28 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import FaqPage from '../components/FaqPage.vue'
+import faqData from '../data/faq.json'
+
+const allQuestions = faqData.categories.flatMap((cat) =>
+  cat.questions.map((q) => ({ ...q }))
+)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': allQuestions.map((q) => ({
+    '@type': 'Question',
+    'name': q.en.question,
+    'acceptedAnswer': {
+      '@type': 'Answer',
+      'text': q.en.answer,
+    },
+  })),
+}
+---
+
+<VSCodeLayout title="FAQ — SE Lab" description="Frequently asked questions about joining, research, collaboration, events, and general information about the Software Engineering Laboratory at Politeknik Negeri Malang.">
+  <FaqPage client:load data={faqData} />
+</VSCodeLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

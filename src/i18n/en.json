@@ -14,6 +14,7 @@
     "contact": "Contact",
     "blog": "Blog",
     "events": "Events",
+    "faq": "FAQ",
     "newsletter": "Newsletter"
   },
   "hero": {
@@ -380,6 +381,13 @@
       "manageEvents": "Events",
       "toggleRegistration": "Toggle Registration"
     }
+  },
+  "faq": {
+    "label": "FAQ",
+    "heading": "Frequently Asked Questions",
+    "description": "Quick answers to common questions about joining the SE Lab, research streams, collaboration, events, and general information.",
+    "notFoundText": "Didn't find what you were looking for?",
+    "notFoundLink": "Contact us"
   },
   "blog": {
     "heading": "News & Announcements",

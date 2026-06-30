@@ -14,6 +14,7 @@
     "contact": "Kontak",
     "blog": "Blog",
     "events": "Acara",
+    "faq": "FAQ",
     "newsletter": "Buletin"
   },
   "hero": {
@@ -380,6 +381,13 @@
       "manageEvents": "Acara",
       "toggleRegistration": "Buka/Tutup Pendaftaran"
     }
+  },
+  "faq": {
+    "label": "FAQ",
+    "heading": "Pertanyaan yang Sering Diajukan",
+    "description": "Jawaban cepat untuk pertanyaan umum tentang bergabung dengan SE Lab, stream riset, kolaborasi, acara, dan informasi umum.",
+    "notFoundText": "Tidak menemukan yang Anda cari?",
+    "notFoundLink": "Hubungi kami"
   },
   "blog": {
     "heading": "Berita & Pengumuman",
