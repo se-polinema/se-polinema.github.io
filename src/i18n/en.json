@@ -13,7 +13,8 @@
     "partners": "Partners",
     "contact": "Contact",
     "blog": "Blog",
-    "events": "Events"
+    "events": "Events",
+    "newsletter": "Newsletter"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
@@ -209,7 +210,30 @@
     "tagline": "A research unit under Jurusan Teknologi Informasi, Politeknik Negeri Malang.",
     "links": "Quick Links",
     "resources": "Resources",
+    "newsletter": "Newsletter",
     "copyright": "Software Engineering Laboratory. All rights reserved."
+  },
+  "newsletter": {
+    "heading": "Stay Updated",
+    "description": "Subscribe to receive lab updates, publications, event announcements, and tutorials.",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "your@email.com",
+    "languageLabel": "Preferred Language",
+    "interestsLabel": "I'm interested in (optional)",
+    "interestTutorials": "Tutorials",
+    "interestEvents": "Events",
+    "interestPublications": "Publications",
+    "interestAnnouncements": "General Announcements",
+    "subscribeBtn": "Subscribe",
+    "subscribing": "Subscribing...",
+    "successTitle": "Thank You for Subscribing!",
+    "successMessage": "Please check your inbox for a confirmation email. Click the link inside to complete your subscription.",
+    "errorDuplicate": "This email is already subscribed.",
+    "errorGeneric": "Subscription failed. Please try again.",
+    "privacyNote": "We respect your privacy. Your email will only be used for SE Lab updates. Every email includes a one-click unsubscribe link.",
+    "backToHome": "Back to Home",
+    "pageHeading": "Newsletter Subscription",
+    "pageDescription": "Subscribe to receive updates on lab activities, publications, events, and tutorials."
   },
   "events": {
     "heading": "Events & Seminars",

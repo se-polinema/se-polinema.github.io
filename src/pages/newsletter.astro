@@ -1,0 +1,19 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import NewsletterForm from '../components/NewsletterForm.vue'
+---
+
+<VSCodeLayout
+  title="Newsletter Subscription"
+  description="Subscribe to the SE Lab newsletter for updates on publications, events, tutorials, and announcements."
+>
+  <div class="px-8 py-5">
+    <a
+      href="/"
+      class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
+    >
+      &larr; Home
+    </a>
+    <NewsletterForm client:load :compact="false" :showInterests="true" />
+  </div>
+</VSCodeLayout>

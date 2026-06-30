@@ -32,11 +32,16 @@
             <li><a href="https://polinema.ac.id" target="_blank" rel="noopener" class="text-sm text-white/60 hover:text-white transition-colors">Polinema</a></li>
             <li><a href="https://jti.polinema.ac.id" target="_blank" rel="noopener" class="text-sm text-white/60 hover:text-white transition-colors">JTI Polinema</a></li>
             <li><a href="https://github.com/se-polinema" target="_blank" rel="noopener" class="text-sm text-white/60 hover:text-white transition-colors">GitHub</a></li>
+            <li><a href="/newsletter" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.footer.newsletter }}</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="border-t border-white/10 pt-8">
+        <NewsletterForm compact :showInterests="false" />
+      </div>
+
+      <div class="border-t border-white/10 pt-8 mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <p class="text-xs text-white/40">
           &copy; {{ new Date().getFullYear() }} {{ t.footer.copyright }}
         </p>
@@ -50,6 +55,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import NewsletterForm from './NewsletterForm.vue'
 
 const { t } = useI18n()
 </script>

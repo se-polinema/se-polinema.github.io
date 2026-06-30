@@ -13,7 +13,8 @@
     "partners": "Mitra",
     "contact": "Kontak",
     "blog": "Blog",
-    "events": "Acara"
+    "events": "Acara",
+    "newsletter": "Buletin"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
@@ -209,7 +210,30 @@
     "tagline": "Unit riset di bawah Jurusan Teknologi Informasi, Politeknik Negeri Malang.",
     "links": "Tautan Cepat",
     "resources": "Sumber Daya",
+    "newsletter": "Buletin",
     "copyright": "Software Engineering Laboratory. Hak cipta dilindungi."
+  },
+  "newsletter": {
+    "heading": "Dapatkan Informasi Terbaru",
+    "description": "Berlangganan untuk menerima pembaruan lab, publikasi, pengumuman acara, dan tutorial.",
+    "emailLabel": "Alamat Email",
+    "emailPlaceholder": "email@anda.com",
+    "languageLabel": "Bahasa Pilihan",
+    "interestsLabel": "Saya tertarik pada (opsional)",
+    "interestTutorials": "Tutorial",
+    "interestEvents": "Acara",
+    "interestPublications": "Publikasi",
+    "interestAnnouncements": "Pengumuman Umum",
+    "subscribeBtn": "Berlangganan",
+    "subscribing": "Memproses...",
+    "successTitle": "Terima Kasih Telah Berlangganan!",
+    "successMessage": "Silakan periksa kotak masuk Anda untuk email konfirmasi. Klik tautan di dalamnya untuk menyelesaikan langganan Anda.",
+    "errorDuplicate": "Email ini sudah terdaftar.",
+    "errorGeneric": "Langganan gagal. Silakan coba lagi.",
+    "privacyNote": "Kami menghormati privasi Anda. Email Anda hanya akan digunakan untuk pembaruan SE Lab. Setiap email menyertakan tautan berhenti berlangganan satu klik.",
+    "backToHome": "Kembali ke Beranda",
+    "pageHeading": "Langganan Buletin",
+    "pageDescription": "Berlangganan untuk menerima pembaruan tentang aktivitas lab, publikasi, acara, dan tutorial."
   },
   "events": {
     "heading": "Acara & Seminar",
