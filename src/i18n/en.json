@@ -308,6 +308,15 @@
     "location": "Location",
     "registerCta": "Register Now",
     "streamCta": "Watch Stream",
+    "presentation": {
+      "openPresentation": "Open Presentation",
+      "startsSoon": "Presentation starts soon",
+      "viewSlides": "View Slides",
+      "downloadPdf": "Download PDF",
+      "signInToView": "Sign in to view this presentation",
+      "adminOnly": "Access restricted to speakers and administrators.",
+      "speakerViewHint": "Press S for speaker view · F for fullscreen"
+    },
     "noUpcoming": "No upcoming events at this time. Check back soon for seminars, workshops, and talks.",
     "noPast": "No past events yet.",
     "backToEvents": "Back to Events",

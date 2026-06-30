@@ -1,0 +1,53 @@
+---
+import '../styles/global.css'
+
+export interface Props {
+  title: string
+  lang?: 'en' | 'id'
+}
+
+const { title, lang = 'en' } = Astro.props as Props
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} | SE Lab Presentation</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Apply dark mode before paint (mirrors Default.astro) -->
+    <script is:inline>
+      (function() {
+        try {
+          var theme = localStorage.getItem('se-lab-theme');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else if (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch(e) {}
+        try {
+          const lang = localStorage.getItem('se-lab-lang');
+          if (lang === 'en' || lang === 'id') document.documentElement.lang = lang;
+        } catch {}
+      })();
+    </script>
+  </head>
+  <body class="presentation-body">
+    <slot />
+  </body>
+</html>
+
+<style>
+  .presentation-body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+  }
+</style>

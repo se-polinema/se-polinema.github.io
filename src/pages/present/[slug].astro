@@ -1,0 +1,55 @@
+---
+import PresentationLayout from '../../layouts/PresentationLayout.astro'
+import PresentationGate from '../../components/PresentationGate.vue'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const entries = await getCollection('presentations')
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const { title, theme } = entry.data
+
+// Pass the raw markdown source to reveal's Markdown plugin.
+// We do NOT use Astro's render() — reveal handles its own parsing/splitting on '---'.
+const raw = entry.body ?? ''
+
+// Static page: use English title by default (language switch is client-side via useI18n)
+const displayTitle = title
+---
+
+<PresentationLayout title={displayTitle}>
+  <!--
+    PresentationGate: checks Supabase session (admin role) and boots reveal.js
+    after a successful sign-in. The .reveal div stays hidden until auth passes.
+  -->
+  <PresentationGate
+    client:load
+    presentationSlug={entry.id}
+    presentationTitle={displayTitle}
+    theme={theme}
+  />
+
+  <!--
+    The reveal.js app container.
+    hidden attribute is removed by PresentationGate after admin auth + reveal init.
+    The <script type="text/template"> block is inert HTML — browsers do not execute
+    or display its content; reveal's Markdown plugin reads it as raw text.
+  -->
+  <div class="reveal" hidden>
+    <div class="slides">
+      <section
+        data-markdown
+        data-separator="^\r?\n---\r?\n$"
+        data-separator-vertical="^\r?\n--\r?\n$"
+        data-separator-notes="^Note:"
+      >
+        <script type="text/template" set:html={raw} is:inline></script>
+      </section>
+    </div>
+  </div>
+</PresentationLayout>

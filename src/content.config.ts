@@ -118,9 +118,22 @@ const projectsCollection = defineCollection({
   }),
 })
 
+const presentationsCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/presentations' }),
+  schema: z.object({
+    title: z.string(),
+    titleId: z.string().optional(),
+    event: z.string().optional(),
+    author: z.string().default('SE Lab'),
+    date: z.date().optional(),
+    theme: z.enum(['auto', 'light', 'dark']).default('auto'),
+  }),
+})
+
 export const collections = {
   blog: blogCollection,
   researchers: researchersCollection,
   publications: publicationsCollection,
   projects: projectsCollection,
+  presentations: presentationsCollection,
 }

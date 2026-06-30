@@ -1,0 +1,150 @@
+/*
+ * SE Lab Presentation Theme — reveal.js custom theme
+ * Follows the site's design tokens and respects light/dark mode.
+ * Imported dynamically by PresentationGate.vue after auth.
+ */
+
+/* ── Base colours (light mode) ──────────────────────────────── */
+:root {
+  --r-background-color: #f8f7f4;
+  --r-main-color: #001f3f;
+  --r-heading-color: #001f3f;
+  --r-link-color: #004EA2;
+  --r-link-color-hover: #0069d9;
+  --r-selection-background-color: rgba(0,78,162,0.25);
+  --r-main-font: 'Inter', system-ui, sans-serif;
+  --r-heading-font: 'DM Serif Display', Georgia, serif;
+  --r-code-font: 'JetBrains Mono', 'Fira Code', monospace;
+  --r-main-font-size: 2rem;
+  --r-heading-text-shadow: none;
+  --r-heading-letter-spacing: -0.01em;
+  --r-heading-text-transform: none;
+  --r-block-margin: 1.25rem;
+  --r-slide-progress-color: #004EA2;
+}
+
+/* ── Dark mode overrides ─────────────────────────────────────── */
+html.dark {
+  --r-background-color: #0d1117;
+  --r-main-color: #e5e7eb;
+  --r-heading-color: #f3f4f6;
+  --r-link-color: #60a5fa;
+  --r-link-color-hover: #93c5fd;
+  --r-selection-background-color: rgba(96,165,250,0.25);
+  --r-slide-progress-color: #60a5fa;
+}
+
+/* When deck has a forced theme class (overrides html.dark) */
+html.theme-light {
+  --r-background-color: #f8f7f4;
+  --r-main-color: #001f3f;
+  --r-heading-color: #001f3f;
+  --r-link-color: #004EA2;
+  --r-slide-progress-color: #004EA2;
+}
+html.theme-dark {
+  --r-background-color: #0d1117;
+  --r-main-color: #e5e7eb;
+  --r-heading-color: #f3f4f6;
+  --r-link-color: #60a5fa;
+  --r-slide-progress-color: #60a5fa;
+}
+
+/* ── Slide canvas ────────────────────────────────────────────── */
+.reveal-viewport {
+  background: var(--r-background-color) !important;
+}
+.reveal {
+  font-family: var(--r-main-font);
+  font-size: var(--r-main-font-size);
+  color: var(--r-main-color);
+}
+.reveal .slides section {
+  padding: 2.5rem 3rem;
+}
+.reveal .slides {
+  text-align: left;
+}
+
+/* ── Headings ────────────────────────────────────────────────── */
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: var(--r-heading-font);
+  color: var(--r-heading-color);
+  letter-spacing: var(--r-heading-letter-spacing);
+  text-transform: var(--r-heading-text-transform);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: var(--r-block-margin);
+}
+.reveal h1 { font-size: 2.6em; }
+.reveal h2 { font-size: 1.8em; }
+.reveal h3 { font-size: 1.35em; }
+
+/* ── Links ───────────────────────────────────────────────────── */
+.reveal a { color: var(--r-link-color); text-decoration: underline; }
+.reveal a:hover { color: var(--r-link-color-hover); }
+
+/* ── Code ────────────────────────────────────────────────────── */
+.reveal code,
+.reveal pre {
+  font-family: var(--r-code-font);
+  font-size: 0.72em;
+}
+.reveal pre {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 2px;
+  box-shadow: none;
+  background: rgba(0,0,0,0.04);
+  padding: 1em 1.25em;
+}
+html.dark .reveal pre {
+  border-color: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+}
+.reveal pre code { font-size: 0.88em; }
+
+/* ── Blockquote ──────────────────────────────────────────────── */
+.reveal blockquote {
+  border-left: 3px solid var(--r-link-color);
+  padding-left: 1.25em;
+  margin: 1.5em 0;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* ── Table ───────────────────────────────────────────────────── */
+.reveal table th {
+  font-family: var(--r-code-font);
+  font-size: 0.55em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  border-bottom: 1px solid currentColor;
+}
+.reveal table td {
+  font-size: 0.72em;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+html.dark .reveal table td { border-color: rgba(255,255,255,0.08); }
+
+/* ── Progress bar ────────────────────────────────────────────── */
+.reveal .progress span { background: var(--r-slide-progress-color) !important; }
+
+/* ── Controls ────────────────────────────────────────────────── */
+.reveal .controls { color: var(--r-link-color); }
+
+/* ── Slide number ────────────────────────────────────────────── */
+.reveal .slide-number {
+  font-family: var(--r-code-font);
+  font-size: 0.55em;
+  background: transparent;
+  color: var(--r-main-color);
+  opacity: 0.4;
+}
+
+/* ── Print / PDF export ──────────────────────────────────────── */
+@media print {
+  .reveal-viewport { background: #fff !important; }
+  .reveal { color: #001f3f !important; }
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4 { color: #001f3f !important; }
+}

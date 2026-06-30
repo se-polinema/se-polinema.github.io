@@ -3,6 +3,7 @@ import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
 import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
 import EventRegistrationForm from '../../components/EventRegistrationForm.vue'
+import EventPresentationButton from '../../components/EventPresentationButton.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import { getCollection, render } from 'astro:content'
 
@@ -65,6 +66,10 @@ const locationId = post.data.locationId
 const registrationUrl = post.data.registrationUrl
 const stream = post.data.stream
 const managed = post.data.managed ?? false
+
+// Look up a linked presentation for this event (slug = post.id)
+const allPresentations = await getCollection('presentations')
+const linkedPresentation = allPresentations.find((p) => p.data.event === post.id)
 ---
 
 <VSCodeLayout
@@ -121,7 +126,7 @@ const managed = post.data.managed ?? false
       )}
     </div>
 
-    {(registrationUrl || stream || managed) && (
+    {(registrationUrl || stream || managed || linkedPresentation) && (
       <div class="flex flex-wrap items-center gap-3 mb-8">
         {registrationUrl && (
           <a
@@ -148,6 +153,14 @@ const managed = post.data.managed ?? false
             </svg>
             Watch Stream
           </a>
+        )}
+        {linkedPresentation && (
+          <EventPresentationButton
+            client:load
+            presentationSlug={linkedPresentation.id}
+            eventDate={eventDate.toISOString().split('T')[0]}
+            eventEndDate={eventEndDate?.toISOString().split('T')[0]}
+          />
         )}
       </div>
     )}
