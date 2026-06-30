@@ -398,7 +398,9 @@
     "backToBlog": "Back to Blog",
     "readingTime": "{minutes} min read",
     "copyCode": "Copy code",
-    "codeCopied": "Copied!"
+    "codeCopied": "Copied!",
+    "categoryArchiveHeading": "{category} Archive",
+    "categoryArchiveDescription": "{category} posts from the Software Engineering Laboratory."
   },
   "notFound": {
     "heading": "Page Not Found",

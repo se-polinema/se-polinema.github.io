@@ -4,7 +4,7 @@
 
   <!-- Subtle metadata line, styled like a markdown italic comment -->
   <p class="font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 mt-1 mb-2 italic">
-    {{ displayDate }} &middot; {{ category }} &middot; {{ readingTimeLabel }}
+    {{ displayDate }} &middot; <a :href="`/blog/category/${category}`" class="text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 transition-colors no-underline hover:underline">{{ category }}</a> &middot; {{ readingTimeLabel }}
   </p>
   <p class="flex items-center gap-1.5 font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 italic mb-8">
     <span>{{ t.blog.authorBy }}</span>

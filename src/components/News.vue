@@ -26,12 +26,13 @@
           class="group bg-white dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-primary/10 dark:hover:border-gray-600 transition-colors p-6"
         >
           <div class="flex items-center gap-3 mb-4">
-            <span
-              class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5"
+            <a
+              :href="`/blog/category/${post.category}`"
+              class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 no-underline hover:underline"
               :class="categoryStyle(post.category)"
             >
               {{ categoryLabel(post.category) }}
-            </span>
+            </a>
             <time
               :datetime="post.date.toISOString()"
               class="text-xs text-neutral-400 dark:text-gray-500"

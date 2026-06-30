@@ -2,6 +2,9 @@ import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
 import { glob } from 'astro/loaders'
 
+export const BLOG_CATEGORIES = ['announcement', 'news', 'event', 'tutorial'] as const
+export type BlogCategory = (typeof BLOG_CATEGORIES)[number]
+
 const localizedText = z.object({
   id: z.string(),
   en: z.string(),
@@ -13,7 +16,7 @@ const blogCollection = defineCollection({
     title: z.string(),
     titleId: z.string().optional(),
     date: z.date(),
-    category: z.enum(['announcement', 'news', 'event', 'tutorial']),
+    category: z.enum(BLOG_CATEGORIES),
     author: z.string().default('SE Lab'),
     lang: z.enum(['en', 'id']).default('en'),
     featured: z.boolean().default(false),

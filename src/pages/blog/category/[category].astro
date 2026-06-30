@@ -1,0 +1,42 @@
+---
+import VSCodeLayout from '../../../layouts/VSCodeLayout.astro'
+import BlogArchivePage from '../../../components/BlogArchivePage.vue'
+import { getCollection } from 'astro:content'
+import { BLOG_CATEGORIES } from '../../../content.config'
+
+export async function getStaticPaths() {
+  return BLOG_CATEGORIES.map((category) => ({
+    params: { category },
+  }))
+}
+
+const { category } = Astro.params
+
+const allPosts = await getCollection('blog')
+const categoryPosts = allPosts
+  .filter((post) => post.data.category === category)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((post) => ({
+    id: post.id,
+    title: post.data.title,
+    titleId: post.data.titleId,
+    excerpt: post.data.excerpt,
+    excerptId: post.data.excerptId,
+    category: post.data.category,
+    date: post.data.date,
+  }))
+
+const categoryLabels = {
+  announcement: 'Announcement',
+  news: 'News',
+  event: 'Event',
+  tutorial: 'Tutorial',
+} as const
+const label = categoryLabels[category as keyof typeof categoryLabels] ?? category
+const title = `${label} Archive`
+const description = `${label} posts from the Software Engineering Laboratory.`
+---
+
+<VSCodeLayout title={title} description={description}>
+  <BlogArchivePage client:load posts={categoryPosts} activeCategory={category} />
+</VSCodeLayout>
