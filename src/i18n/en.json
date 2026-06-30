@@ -252,7 +252,21 @@
     "affiliation": "Jurusan Teknologi Informasi, Politeknik Negeri Malang",
     "email": "imam.fahrur@polinema.ac.id",
     "mapTitle": "Find us on Google Maps",
-    "socials": "Follow us"
+    "socials": "Follow us",
+    "formName": "Name",
+    "formNamePlaceholder": "Your full name",
+    "formEmail": "Email",
+    "formEmailPlaceholder": "your@email.com",
+    "formSubject": "Subject",
+    "formSubjectPlaceholder": "How can we help?",
+    "formMessage": "Message",
+    "formMessagePlaceholder": "Write your message here...",
+    "formSubmit": "Send Message",
+    "formSuccess": "Message prepared! Your email client should open shortly. If not, click the link above.",
+    "formValidationName": "Please enter your name.",
+    "formValidationEmail": "Please enter a valid email address.",
+    "formValidationSubject": "Please enter a subject.",
+    "formValidationMessage": "Please enter a message."
   },
   "footer": {
     "tagline": "A research unit under Jurusan Teknologi Informasi, Politeknik Negeri Malang.",

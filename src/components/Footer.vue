@@ -23,7 +23,7 @@
             <li><a href="/decks" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.decks }}</a></li>
             <li><a href="/publications" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.publications }}</a></li>
             <li><a href="/#research" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.research }}</a></li>
-            <li><a href="/#contact" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.contact }}</a></li>
+            <li><a href="/contact" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.contact }}</a></li>
           </ul>
         </div>
 

@@ -1,0 +1,17 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import Contact from '../components/Contact.vue'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  'name': 'Contact — SE Lab',
+  'description': 'Get in touch with the Software Engineering Laboratory at Politeknik Negeri Malang.',
+}
+---
+
+<VSCodeLayout title="Contact — SE Lab" description="Get in touch with the Software Engineering Laboratory at Politeknik Negeri Malang. Send us a message or find us on the map.">
+  <Contact client:load />
+</VSCodeLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
