@@ -84,6 +84,47 @@ const blogPostingJsonLd = {
         <Content />
       </div>
       <CodeCopyButtons client:load />
+      <script>
+        import mermaid from 'mermaid'
+
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          securityLevel: 'loose',
+          themeVariables: {
+            primaryColor: '#0050b3',
+            primaryTextColor: '#1e293b',
+            primaryBorderColor: '#3b82f6',
+            lineColor: '#64748b',
+            secondaryColor: '#e2e8f0',
+            tertiaryColor: '#f1f5f9',
+          },
+        })
+
+        function renderMermaidDiagrams() {
+          const blocks = document.querySelectorAll('pre[data-language="mermaid"]')
+          if (blocks.length === 0) return
+
+          blocks.forEach((block) => {
+            const content = block.textContent || ''
+            const wrapper = document.createElement('div')
+            wrapper.className = 'mermaid-diagram my-10 flex justify-center'
+            const mermaidDiv = document.createElement('pre')
+            mermaidDiv.className = 'mermaid'
+            mermaidDiv.textContent = content
+            wrapper.appendChild(mermaidDiv)
+            block.replaceWith(wrapper)
+          })
+
+          mermaid.run()
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', renderMermaidDiagrams)
+        } else {
+          renderMermaidDiagrams()
+        }
+      </script>
     </div>
     <TableOfContents client:load />
   </div>
