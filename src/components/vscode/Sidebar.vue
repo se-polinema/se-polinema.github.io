@@ -275,9 +275,10 @@ const fileTree: FileItem[] = [
   { id: 'projects',        name: 'projects.json',    ext: 'json', type: 'file',   sectionId: 'projects',     pageId: 'projects',     indent: 2, href: '/projects' },
   { id: 'books',           name: 'books.md',         ext: 'md',   type: 'file',   sectionId: 'books',        pageId: 'books',        indent: 2, href: '/books' },
   { id: 'researchers-dir', name: 'researchers/',     ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
-  { id: 'team',            name: 'team.md',          ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
+  { id: 'members',         name: 'members.md',       ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },
-  { id: 'events',         name: 'events.ics',      ext: 'ics',  type: 'file',   sectionId: 'events',       pageId: 'events',       indent: 2, href: '/events' },
+  { id: 'events-dir',     name: 'events/',         ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
+  { id: 'upcoming',       name: 'upcoming.ics',     ext: 'ics',  type: 'file',   sectionId: 'events',       pageId: 'events',       indent: 3, href: '/events' },
   { id: 'achievements',   name: 'achievements.json', ext: 'json', type: 'file',   sectionId: 'achievements', pageId: 'achievements', indent: 2, href: '/achievements' },
   { id: 'blog',            name: 'blog.md',          ext: 'md',   type: 'file',   sectionId: 'blog',         pageId: 'blog',         indent: 2, href: '/blog' },
 ]
