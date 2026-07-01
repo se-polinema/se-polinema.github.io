@@ -16,6 +16,7 @@
     "events": "Events",
     "faq": "FAQ",
     "alumni": "Alumni",
+    "resources": "Resources",
     "newsletter": "Newsletter"
   },
   "hero": {
@@ -514,5 +515,31 @@
     "navigate": "Navigate",
     "close": "Close",
     "allResults": "All results"
+  },
+  "resources": {
+    "label": "Learning Resources",
+    "heading": "Curated Learning Directory",
+    "description": "A curated collection of tutorials, books, tools, datasets, courses, and papers organized by research stream and skill level. Follow stream-aligned paths or explore by topic to find the right resource for your learning goals.",
+    "allStreams": "All Streams",
+    "allTypes": "All Types",
+    "allLevels": "All Levels",
+    "filterStream": "Stream",
+    "filterType": "Type",
+    "filterLevel": "Level",
+    "typeTutorial": "Tutorial",
+    "typeBook": "Book",
+    "typeDeck": "Deck",
+    "typeTool": "Tool",
+    "typeDataset": "Dataset",
+    "typeCourse": "Course",
+    "typePaper": "Paper",
+    "levelBeginner": "Beginner",
+    "levelIntermediate": "Intermediate",
+    "levelAdvanced": "Advanced",
+    "resultSingle": "resource",
+    "resultPlural": "resources",
+    "viewResource": "View resource",
+    "visitExternal": "Visit site",
+    "empty": "No resources match the selected filters. Try adjusting your criteria or clearing all filters to browse the full directory."
   }
 }

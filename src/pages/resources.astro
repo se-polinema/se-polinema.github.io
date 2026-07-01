@@ -1,0 +1,40 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import ResourcesPage from '../components/ResourcesPage.vue'
+import resourcesData from '../data/resources.json'
+import researchData from '../data/research.json'
+import type { Resource } from '../types/resource'
+
+const resources = resourcesData as Resource[]
+
+const streams = researchData.map((s: { id: string; name: { en: string; id: string } }) => ({
+  id: s.id,
+  nameEn: s.name.en,
+  nameId: s.name.id,
+}))
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'itemListElement': resources.map((r, i) => ({
+    '@type': 'ListItem',
+    'position': i + 1,
+    'item': {
+      '@type': 'LearningResource',
+      'name': r.title,
+      'description': r.description,
+      'educationalLevel': r.level,
+      'learningResourceType': r.type,
+      'url': r.internal
+        ? `https://se-polinema.github.io${r.url}`
+        : r.url,
+    },
+  })),
+}
+---
+
+<VSCodeLayout title="Learning Resources — SE Lab" description="Curated directory of learning resources for software engineering — tutorials, books, tools, datasets, courses, and papers organized by research stream and skill level.">
+  <ResourcesPage client:load resources={resources} streams={streams} />
+</VSCodeLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

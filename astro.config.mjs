@@ -12,7 +12,7 @@ export default defineConfig({
     vue(),
     sitemap({
       filter: (page) => !page.includes('/404'),
-      customPages: ['https://se-polinema.github.io/rss.xml', 'https://se-polinema.github.io/publications.xml'],
+      customPages: ['https://se-polinema.github.io/rss.xml', 'https://se-polinema.github.io/publications.xml', 'https://se-polinema.github.io/resources'],
     }),
   ],
   markdown: {
