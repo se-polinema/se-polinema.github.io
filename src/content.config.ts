@@ -150,6 +150,26 @@ const alumniCollection = defineCollection({
   }),
 })
 
+export const RESOURCE_TYPES = ['tutorial', 'book', 'deck', 'tool', 'dataset', 'course', 'paper'] as const
+export type ResourceType = (typeof RESOURCE_TYPES)[number]
+
+export const RESOURCE_LEVELS = ['beginner', 'intermediate', 'advanced'] as const
+export type ResourceLevel = (typeof RESOURCE_LEVELS)[number]
+
+export const resourceSchema = z.object({
+  title: z.string(),
+  titleId: z.string(),
+  description: z.string(),
+  descriptionId: z.string(),
+  stream: z.string(),
+  type: z.enum(RESOURCE_TYPES),
+  level: z.enum(RESOURCE_LEVELS),
+  url: z.string(),
+  internal: z.boolean().optional(),
+})
+
+export type Resource = z.infer<typeof resourceSchema>
+
 export const collections = {
   blog: blogCollection,
   researchers: researchersCollection,

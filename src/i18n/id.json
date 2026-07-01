@@ -16,6 +16,7 @@
     "events": "Acara",
     "faq": "FAQ",
     "alumni": "Alumni",
+    "resources": "Sumber Belajar",
     "newsletter": "Buletin"
   },
   "hero": {
@@ -514,5 +515,31 @@
     "navigate": "Navigasi",
     "close": "Tutup",
     "allResults": "Semua hasil"
+  },
+  "resources": {
+    "label": "Sumber Belajar",
+    "heading": "Direktori Pembelajaran Terkurasi",
+    "description": "Koleksi terkurasi dari tutorial, buku, alat, dataset, kursus, dan makalah yang diatur berdasarkan stream riset dan tingkat keahlian. Ikuti jalur yang selaras dengan stream atau jelajahi berdasarkan topik untuk menemukan sumber yang tepat sesuai tujuan belajar Anda.",
+    "allStreams": "Semua Stream",
+    "allTypes": "Semua Tipe",
+    "allLevels": "Semua Level",
+    "filterStream": "Stream",
+    "filterType": "Tipe",
+    "filterLevel": "Level",
+    "typeTutorial": "Tutorial",
+    "typeBook": "Buku",
+    "typeDeck": "Dek",
+    "typeTool": "Alat",
+    "typeDataset": "Dataset",
+    "typeCourse": "Kursus",
+    "typePaper": "Makalah",
+    "levelBeginner": "Pemula",
+    "levelIntermediate": "Menengah",
+    "levelAdvanced": "Lanjutan",
+    "resultSingle": "sumber",
+    "resultPlural": "sumber",
+    "viewResource": "Lihat sumber",
+    "visitExternal": "Kunjungi situs",
+    "empty": "Tidak ada sumber yang cocok dengan filter yang dipilih. Coba sesuaikan kriteria atau hapus semua filter untuk menjelajahi seluruh direktori."
   }
 }

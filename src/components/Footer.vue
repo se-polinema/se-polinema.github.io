@@ -22,6 +22,7 @@
             <li><a href="/alumni" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.alumni }}</a></li>
             <li><a href="/books" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.books }}</a></li>
             <li><a href="/decks" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.decks }}</a></li>
+            <li><a href="/resources" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.resources }}</a></li>
             <li><a href="/publications" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.publications }}</a></li>
             <li><a href="/achievements" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.achievements?.navLabel || 'Achievements' }}</a></li>
             <li><a href="/#research" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.research }}</a></li>
