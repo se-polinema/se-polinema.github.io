@@ -145,7 +145,7 @@ const tabs = [
   },
   {
     id: "team",
-    label: "team.md",
+    label: "members.md",
     ext: "md",
     pageId: "researchers",
     href: "/researchers",
@@ -157,18 +157,18 @@ const tabs = [
     pageId: "publications",
     href: "/publications",
   },
-  { id: "events", label: "events.ics", ext: "ics", pageId: "events", href: "/events" },
+  { id: "events", label: "upcoming.ics", ext: "ics", pageId: "events", href: "/events" },
   { id: "blog", label: "blog.md", ext: "md", pageId: "blog", href: "/blog" },
 ];
 
 const innerPageTabMap: Record<string, { label: string; ext: string; href: string }> = {
-  events:       { label: "events.ics",        ext: "ics",  href: "/events" },
-  blog:         { label: "blog.md",           ext: "md",   href: "/blog" },
-  researchers:  { label: "team.md",           ext: "md",   href: "/researchers" },
-  publications: { label: "publications.bib",  ext: "bib",  href: "/publications" },
-  projects:     { label: "projects.json",     ext: "json", href: "/projects" },
-  books:        { label: "books.md",          ext: "md",   href: "/books" },
-  decks:        { label: "decks.md",          ext: "md",   href: "/decks" },
+  events:       { label: "upcoming.ics",     ext: "ics",  href: "/events" },
+  blog:         { label: "blog.md",          ext: "md",   href: "/blog" },
+  researchers:  { label: "members.md",       ext: "md",   href: "/researchers" },
+  publications: { label: "publications.bib", ext: "bib",  href: "/publications" },
+  projects:     { label: "projects.json",    ext: "json", href: "/projects" },
+  books:        { label: "books.md",         ext: "md",   href: "/books" },
+  decks:        { label: "decks.md",         ext: "md",   href: "/decks" },
 };
 
 const pageParentHrefMap: Record<string, string> = {
@@ -198,23 +198,23 @@ const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   hero: { path: ["se-lab", "index.html"], lang: "HTML" },
   about: { path: ["se-lab", "src", "about.md"], lang: "Markdown" },
   research: { path: ["se-lab", "src", "research.json"], lang: "JSON" },
-  projects: { path: ["se-lab", "src", "projects.json"], lang: "JSON" },
-  books: { path: ["se-lab", "src", "books.md"], lang: "Markdown" },
-  decks: { path: ["se-lab", "src", "decks.md"], lang: "Markdown" },
-  team: { path: ["se-lab", "src", "researchers", "team.md"], lang: "Markdown" },
-  publications: { path: ["se-lab", "src", "publications.bib"], lang: "BibTeX" },
-  events: { path: ["se-lab", "src", "events.ics"], lang: "Calendar" },
-  blog: { path: ["se-lab", "src", "blog.md"], lang: "Markdown" },
+  projects: { path: ["se-lab", "src", "projects", "index.json"], lang: "JSON" },
+  books: { path: ["se-lab", "src", "books", "index.md"], lang: "Markdown" },
+  decks: { path: ["se-lab", "src", "decks", "index.md"], lang: "Markdown" },
+  team: { path: ["se-lab", "src", "researchers", "members.md"], lang: "Markdown" },
+  publications: { path: ["se-lab", "src", "publications", "index.bib"], lang: "BibTeX" },
+  events: { path: ["se-lab", "src", "events", "upcoming.ics"], lang: "Calendar" },
+  blog: { path: ["se-lab", "src", "blog", "index.md"], lang: "Markdown" },
 };
 
 const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
-  events:       { path: ["se-lab", "src", "events.ics"],          lang: "Calendar" },
-  blog:         { path: ["se-lab", "src", "blog.md"],                lang: "Markdown" },
-  publications: { path: ["se-lab", "src", "publications.bib"],       lang: "BibTeX" },
-  researchers:  { path: ["se-lab", "src", "researchers", "team.md"], lang: "Markdown" },
-  projects:     { path: ["se-lab", "src", "projects.json"],          lang: "JSON" },
-  books:        { path: ["se-lab", "src", "books.md"],               lang: "Markdown" },
-  decks:        { path: ["se-lab", "src", "decks.md"],               lang: "Markdown" },
+  events:       { path: ["se-lab", "src", "events", "upcoming.ics"],       lang: "Calendar" },
+  blog:         { path: ["se-lab", "src", "blog", "index.md"],             lang: "Markdown" },
+  publications: { path: ["se-lab", "src", "publications", "index.bib"],    lang: "BibTeX" },
+  researchers:  { path: ["se-lab", "src", "researchers", "members.md"],    lang: "Markdown" },
+  projects:     { path: ["se-lab", "src", "projects", "index.json"],       lang: "JSON" },
+  books:        { path: ["se-lab", "src", "books", "index.md"],            lang: "Markdown" },
+  decks:        { path: ["se-lab", "src", "decks", "index.md"],            lang: "Markdown" },
 };
 
 const currentBreadcrumb = computed(() => {
@@ -223,8 +223,10 @@ const currentBreadcrumb = computed(() => {
     if (isDetailPage.value && slug.value) {
       const tabInfo = innerPageTabMap[currentPage.value];
       const fileExt = tabInfo ? `.${tabInfo.ext}` : ".md";
+      const newPath = [...base.path];
+      newPath[newPath.length - 1] = `${slug.value}${fileExt}`;
       return {
-        path: [...base.path, `${slug.value}${fileExt}`],
+        path: newPath,
         lang: base.lang,
       };
     }
