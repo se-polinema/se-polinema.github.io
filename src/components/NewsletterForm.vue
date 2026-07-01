@@ -33,14 +33,14 @@
         @submit.prevent="handleSubmit"
         :action="formspreeUrl"
         method="POST"
-        class="space-y-4"
+        :class="compact ? 'space-y-2' : 'space-y-4'"
       >
-        <div v-if="errorMessage" :class="['px-4 py-3 text-sm font-mono mb-4', compact ? 'bg-red-900/30 border border-red-500/30 text-red-200' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400']">
+        <div v-if="errorMessage" :class="['px-3 py-2 text-xs font-mono', compact ? 'bg-red-900/30 border border-red-500/30 text-red-200' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400']">
           {{ errorMessage }}
         </div>
 
         <div>
-          <label :for="emailId" class="block text-[10px] font-mono uppercase tracking-wider mb-1.5" :class="compact ? 'text-white/50' : 'text-neutral-400 dark:text-gray-500'">
+          <label :for="emailId" class="block text-[10px] font-mono uppercase tracking-wider" :class="[compact ? 'text-white/50 mb-1' : 'text-neutral-400 dark:text-gray-500 mb-1.5']">
             {{ t.newsletter.emailLabel }} <span class="text-red-400" aria-hidden="true">*</span>
           </label>
           <input
@@ -52,10 +52,10 @@
             autocomplete="email"
             :placeholder="t.newsletter.emailPlaceholder"
             :class="[
-              'w-full px-3 py-2 text-sm font-mono border focus:outline-none focus:border-accent dark:focus:border-accent transition-colors',
+              'w-full text-sm font-mono border focus:outline-none focus:border-accent dark:focus:border-accent transition-colors',
               compact
-                ? 'bg-white/10 border-white/20 text-white placeholder-white/40'
-                : 'bg-white dark:bg-gray-900 border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600'
+                ? 'bg-white/10 border-white/20 text-white placeholder-white/40 px-2.5 py-1.5'
+                : 'bg-white dark:bg-gray-900 border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 px-3 py-2'
             ]"
           />
         </div>
@@ -64,10 +64,10 @@
 
         <template v-if="showInterests">
           <fieldset>
-            <legend class="block text-[10px] font-mono uppercase tracking-wider mb-2" :class="compact ? 'text-white/50' : 'text-neutral-400 dark:text-gray-500'">
+            <legend class="block text-[10px] font-mono uppercase tracking-wider" :class="[compact ? 'text-white/50 mb-1' : 'text-neutral-400 dark:text-gray-500 mb-2']">
               {{ t.newsletter.interestsLabel }}
             </legend>
-            <div class="flex flex-wrap gap-3">
+            <div :class="compact ? 'flex flex-wrap gap-x-3 gap-y-1' : 'flex flex-wrap gap-3'">
               <label
                 v-for="interest in interestOptions"
                 :key="interest.value"
@@ -88,18 +88,18 @@
           </fieldset>
         </template>
 
-        <div class="flex items-center gap-3 pt-1">
+        <div :class="compact ? 'flex items-center gap-2' : 'flex items-center gap-3 pt-1'">
           <button
             type="submit"
             :disabled="submitting"
             :class="[
-              'inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+              'inline-flex items-center gap-1.5 font-mono font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
               compact
-                ? 'bg-white text-primary hover:bg-white/90'
-                : 'text-white bg-accent hover:bg-accent/90'
+                ? 'bg-white text-primary hover:bg-white/90 px-3.5 py-1.5 text-xs'
+                : 'text-white bg-accent hover:bg-accent/90 px-5 py-2.5 text-sm'
             ]"
           >
-            <svg v-if="submitting" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg v-if="submitting" class="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 12a9 9 0 11-6.219-8.56"/>
             </svg>
             {{ submitting ? t.newsletter.subscribing : t.newsletter.subscribeBtn }}
@@ -108,13 +108,13 @@
           <a
             v-if="compact"
             href="/newsletter"
-            class="text-xs font-mono text-white/50 hover:text-white/80 transition-colors underline"
+            class="text-[11px] font-mono text-white/50 hover:text-white/80 transition-colors underline"
           >
             {{ t.newsletter.pageHeading }}
           </a>
         </div>
 
-        <p class="text-[11px] leading-relaxed" :class="compact ? 'text-white/40' : 'text-neutral-400 dark:text-gray-500'">
+        <p class="text-[10px] leading-relaxed" :class="compact ? 'text-white/40' : 'text-neutral-400 dark:text-gray-500'">
           {{ t.newsletter.privacyNote }}
         </p>
       </form>
