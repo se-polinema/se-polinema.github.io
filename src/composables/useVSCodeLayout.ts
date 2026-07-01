@@ -81,8 +81,9 @@ export function useVSCodeLayout() {
     }
   }
 
-  // Map views that belong to a dedicated page so setView can navigate when needed
+  // Map views that belong to a dedicated page so setView can navigate when needed.
   const viewNav: Partial<Record<SidebarView, { href: string; page: string }>> = {
+    explorer:     { href: '/',             page: 'home'         },
     blog:         { href: '/blog',         page: 'blog'         },
     events:       { href: '/events',       page: 'events'       },
     researchers:  { href: '/researchers',  page: 'researchers'  },
@@ -91,13 +92,9 @@ export function useVSCodeLayout() {
     achievements: { href: '/achievements', page: 'achievements' },
   }
 
-  // Clicking the active icon toggles the sidebar.
-  // Clicking a different icon: navigate if on wrong page, otherwise switch view and open.
+  // Activity Bar icons are direct navigation controls for routed sections.
+  // If already on the target page, focus the matching sidebar view.
   function setView(view: SidebarView) {
-    if (activeSidebarView.value === view) {
-      sidebarOpen.value = !sidebarOpen.value
-      return
-    }
     const nav = viewNav[view]
     if (nav && currentPage.value !== nav.page) {
       window.location.href = nav.href

@@ -156,7 +156,7 @@ skinparam note {
   BorderColor #d97706
 }
 
-class User {
+class User <<Model>> {
   + id : int
   + name : string
   + email : string
@@ -169,7 +169,7 @@ class User {
   + logout()
 }
 
-class Student {
+class Student <<Model>> {
   + nim : string
   + major : string
   + semester : int
@@ -180,7 +180,7 @@ class Student {
   + browseCourses()
 }
 
-class Lecturer {
+class Lecturer <<Model>> {
   + nidn : string
   + department : string
   + expertise : string
@@ -188,7 +188,7 @@ class Lecturer {
   + viewEnrolledStudents(courseId)
 }
 
-class Admin {
+class Admin <<Model>> {
   + employeeId : string
   --
   + manageCourses()
@@ -196,7 +196,7 @@ class Admin {
   + manageRegistrationPeriod(courseId, period)
 }
 
-class Course {
+class Course <<Model>> {
   + id : int
   + code : string
   + name : string
@@ -216,7 +216,7 @@ class Course {
   + decrementQuota()
 }
 
-class Enrolment {
+class Enrolment <<Model>> {
   + id : int
   + studentId : int
   + courseId : int
@@ -227,7 +227,7 @@ class Enrolment {
   + checkConflict(studentId, courseId)
 }
 
-class Payment {
+class Payment <<Model>> {
   + id : int
   + enrolmentId : int
   + transactionId : string
@@ -235,10 +235,10 @@ class Payment {
   + status : string
   + paidAt : datetime
   --
-  + process(amount, studentId, courseId) : PaymentResult
+  + process(amount, studentId, courseId) : array
 }
 
-class Schedule {
+class Schedule <<ReadModel>> {
   + id : int
   + studentId : int
   + courses : json
@@ -246,6 +246,42 @@ class Schedule {
   --
   + addCourse(courseId)
   + removeCourse(courseId)
+}
+
+class EnrolmentController <<Controller>> {
+  + showSummary(request)
+  + confirm(request)
+}
+
+class ShowEnrolmentSummaryRequest <<FormRequest>> {
+  + rules() : array
+}
+
+class ConfirmEnrolmentRequest <<FormRequest>> {
+  + rules() : array
+}
+
+class CourseService <<Service>> {
+  + getCourseDetails(courseId) : Course
+  + checkQuota(courseId) : bool
+  + calculateFee(courseId, studentId) : float
+}
+
+class EnrolmentService <<Service>> {
+  + checkScheduleConflict(studentId, courseId) : array
+  + createPaidEnrolment(studentId, courseId, transactionId) : Enrolment
+}
+
+class PaymentGateway <<ExternalGateway>> {
+  + charge(amount, studentId, courseId) : array
+}
+
+class CourseResource <<Resource>> {
+  + toArray(request) : array
+}
+
+class EnrolmentResource <<Resource>> {
+  + toArray(request) : array
 }
 
 User <|-- Student : extends
@@ -257,6 +293,20 @@ Student "1" --> "0..*" Enrolment : has
 Course "1" --> "0..*" Enrolment : has
 Enrolment "1" *-- "1" Payment : includes
 Student "1" --> "1" Schedule : has
+
+EnrolmentController ..> ShowEnrolmentSummaryRequest : validates
+EnrolmentController ..> ConfirmEnrolmentRequest : validates
+EnrolmentController --> CourseService : uses
+EnrolmentController --> EnrolmentService : uses
+EnrolmentController --> PaymentGateway : charges via
+EnrolmentController ..> CourseResource : returns
+EnrolmentController ..> EnrolmentResource : returns
+CourseService --> Course : reads
+EnrolmentService --> Enrolment : creates
+EnrolmentService --> Payment : records
+EnrolmentService --> Course : updates count
+CourseResource ..> Course : transforms
+EnrolmentResource ..> Enrolment : transforms
 @enduml
 ```
 
@@ -272,6 +322,11 @@ Student "1" --> "1" Schedule : has
 | Course → Enrolment | Association | 1 to 0..* | A course can have zero or more enrolments (one per student) |
 | Enrolment → Payment | Composition | 1 to 1 | Every enrolment has exactly one payment; payment cannot exist without enrolment |
 | Student → Schedule | Association | 1 to 1 | Each student has one schedule |
+| EnrolmentController → Services | Dependency | — | The controller orchestrates Laravel services instead of querying models directly |
+| Form Requests → Controller | Dependency | — | Request classes validate the two HTTP messages from the sequence diagram |
+| Resources → Models | Dependency | — | API resources transform models into familiar Laravel response payloads |
+
+In the compact Laravel implementation below, `Schedule` is treated as a read model derived from a student's enrolments rather than a separate persisted table. This keeps the sample focused on the enrolment transaction while preserving the conceptual domain view from the class diagram.
 
 </section>
 
@@ -296,7 +351,7 @@ skinparam arrow {
   FontColor #0f172a
 }
 
-class User {
+class User <<Model>> {
   + id : int
   + name : string
   + email : string
@@ -309,7 +364,7 @@ class User {
   + logout()
 }
 
-class Student {
+class Student <<Model>> {
   + nim : string
   + major : string
   + semester : int
@@ -320,7 +375,7 @@ class Student {
   + browseCourses()
 }
 
-class Lecturer {
+class Lecturer <<Model>> {
   + nidn : string
   + department : string
   + expertise : string
@@ -328,7 +383,7 @@ class Lecturer {
   + viewEnrolledStudents(courseId)
 }
 
-class Admin {
+class Admin <<Model>> {
   + employeeId : string
   --
   + manageCourses()
@@ -336,7 +391,7 @@ class Admin {
   + manageRegistrationPeriod(courseId, period)
 }
 
-class Course {
+class Course <<Model>> {
   + id : int
   + code : string
   + name : string
@@ -356,7 +411,7 @@ class Course {
   + decrementQuota()
 }
 
-class Enrolment {
+class Enrolment <<Model>> {
   + id : int
   + studentId : int
   + courseId : int
@@ -367,7 +422,7 @@ class Enrolment {
   + checkConflict(studentId, courseId)
 }
 
-class Payment {
+class Payment <<Model>> {
   + id : int
   + enrolmentId : int
   + transactionId : string
@@ -375,10 +430,10 @@ class Payment {
   + status : string
   + paidAt : datetime
   --
-  + process(amount, studentId, courseId) : PaymentResult
+  + process(amount, studentId, courseId) : array
 }
 
-class Schedule {
+class Schedule <<ReadModel>> {
   + id : int
   + studentId : int
   + courses : json
@@ -386,6 +441,42 @@ class Schedule {
   --
   + addCourse(courseId)
   + removeCourse(courseId)
+}
+
+class EnrolmentController <<Controller>> {
+  + showSummary(request)
+  + confirm(request)
+}
+
+class ShowEnrolmentSummaryRequest <<FormRequest>> {
+  + rules() : array
+}
+
+class ConfirmEnrolmentRequest <<FormRequest>> {
+  + rules() : array
+}
+
+class CourseService <<Service>> {
+  + getCourseDetails(courseId) : Course
+  + checkQuota(courseId) : bool
+  + calculateFee(courseId, studentId) : float
+}
+
+class EnrolmentService <<Service>> {
+  + checkScheduleConflict(studentId, courseId) : array
+  + createPaidEnrolment(studentId, courseId, transactionId) : Enrolment
+}
+
+class PaymentGateway <<ExternalGateway>> {
+  + charge(amount, studentId, courseId) : array
+}
+
+class CourseResource <<Resource>> {
+  + toArray(request) : array
+}
+
+class EnrolmentResource <<Resource>> {
+  + toArray(request) : array
 }
 
 User <|-- Student : extends
@@ -397,6 +488,20 @@ Student "1" --> "0..*" Enrolment : memiliki
 Course "1" --> "0..*" Enrolment : memiliki
 Enrolment "1" *-- "1" Payment : mencakup
 Student "1" --> "1" Schedule : memiliki
+
+EnrolmentController ..> ShowEnrolmentSummaryRequest : memvalidasi
+EnrolmentController ..> ConfirmEnrolmentRequest : memvalidasi
+EnrolmentController --> CourseService : menggunakan
+EnrolmentController --> EnrolmentService : menggunakan
+EnrolmentController --> PaymentGateway : menagih via
+EnrolmentController ..> CourseResource : mengembalikan
+EnrolmentController ..> EnrolmentResource : mengembalikan
+CourseService --> Course : membaca
+EnrolmentService --> Enrolment : membuat
+EnrolmentService --> Payment : mencatat
+EnrolmentService --> Course : memperbarui jumlah
+CourseResource ..> Course : mentransformasi
+EnrolmentResource ..> Enrolment : mentransformasi
 @enduml
 ```
 
@@ -412,6 +517,11 @@ Student "1" --> "1" Schedule : memiliki
 | Course → Enrolment | Association | 1 ke 0..* | Sebuah course dapat memiliki nol atau lebih pendaftaran (satu per mahasiswa) |
 | Enrolment → Payment | Composition | 1 ke 1 | Setiap pendaftaran memiliki tepat satu pembayaran; pembayaran tidak dapat eksis tanpa pendaftaran |
 | Student → Schedule | Association | 1 ke 1 | Setiap mahasiswa memiliki satu jadwal |
+| EnrolmentController → Services | Dependency | — | Controller mengorkestrasi service Laravel, bukan query model secara langsung |
+| Form Requests → Controller | Dependency | — | Request class memvalidasi dua HTTP message dari sequence diagram |
+| Resources → Models | Dependency | — | API resource mentransformasi model menjadi payload respons Laravel yang familiar |
+
+Dalam implementasi Laravel ringkas di bawah, `Schedule` diperlakukan sebagai read model yang diturunkan dari enrolment mahasiswa, bukan tabel terpisah yang dipersistenkan. Ini menjaga contoh tetap fokus pada transaksi pendaftaran sambil mempertahankan tampilan domain konseptual dari class diagram.
 
 </section>
 
@@ -439,7 +549,10 @@ php artisan make:model Admin -m
 php artisan make:model Course -m
 php artisan make:model Enrolment -m
 php artisan make:model Payment -m
-php artisan make:model Schedule -m
+php artisan make:request ShowEnrolmentSummaryRequest
+php artisan make:request ConfirmEnrolmentRequest
+php artisan make:resource CourseResource
+php artisan make:resource EnrolmentResource
 ```
 
 ### 4.2 Database Migrations
@@ -635,7 +748,10 @@ php artisan make:model Admin -m
 php artisan make:model Course -m
 php artisan make:model Enrolment -m
 php artisan make:model Payment -m
-php artisan make:model Schedule -m
+php artisan make:request ShowEnrolmentSummaryRequest
+php artisan make:request ConfirmEnrolmentRequest
+php artisan make:resource CourseResource
+php artisan make:resource EnrolmentResource
 ```
 
 ### 4.2 Database Migrations
@@ -867,7 +983,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -881,11 +996,6 @@ class Student extends Model
     public function enrolments(): HasMany
     {
         return $this->hasMany(Enrolment::class);
-    }
-
-    public function schedule(): HasOne
-    {
-        return $this->hasOne(Schedule::class);
     }
 
     public function enrolledCourses()
@@ -1098,7 +1208,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -1112,11 +1221,6 @@ class Student extends Model
     public function enrolments(): HasMany
     {
         return $this->hasMany(Enrolment::class);
-    }
-
-    public function schedule(): HasOne
-    {
-        return $this->hasOne(Schedule::class);
     }
 
     public function enrolledCourses()
@@ -1277,7 +1381,119 @@ class Payment extends Model
 
 <section lang="en">
 
-### 4.4 Service Layer
+### 4.4 Form Requests and API Resources
+
+Laravel developers usually express request validation with **Form Requests** and response shaping with **API Resources**. These classes realise the request and response messages in the sequence diagram using familiar Laravel patterns.
+
+**ShowEnrolmentSummaryRequest:**
+
+```php
+<?php
+// app/Http/Requests/ShowEnrolmentSummaryRequest.php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ShowEnrolmentSummaryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'course_id' => ['required', 'exists:courses,id'],
+        ];
+    }
+}
+```
+
+**ConfirmEnrolmentRequest:**
+
+```php
+<?php
+// app/Http/Requests/ConfirmEnrolmentRequest.php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ConfirmEnrolmentRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'course_id' => ['required', 'exists:courses,id'],
+        ];
+    }
+}
+```
+
+**CourseResource:**
+
+```php
+<?php
+// app/Http/Resources/CourseResource.php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CourseResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'credits' => $this->credits,
+            'schedule' => "{$this->day}, {$this->time_slot}",
+            'room' => $this->room,
+            'fee' => (float) $this->fee,
+            'available_seats' => $this->quota - $this->enrolled_count,
+            'lecturer' => $this->lecturer->user->name,
+        ];
+    }
+}
+```
+
+**EnrolmentResource:**
+
+```php
+<?php
+// app/Http/Resources/EnrolmentResource.php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class EnrolmentResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'course' => new CourseResource($this->whenLoaded('course')),
+            'status' => $this->status,
+            'transaction_id' => $this->transaction_id,
+            'enrolled_at' => $this->enrolled_at,
+        ];
+    }
+}
+```
+
+### 4.5 Service Layer
 
 The `CourseService` and `EnrolmentService` encapsulate business logic. The controller delegates to them — it never queries the database directly.
 
@@ -1293,20 +1509,9 @@ use App\Models\Course;
 
 class CourseService
 {
-    public function getCourseDetails(int $courseId): array
+    public function getCourseDetails(int $courseId): Course
     {
-        $course = Course::with('lecturer.user')->findOrFail($courseId);
-
-        return [
-            'name' => $course->name,
-            'credits' => $course->credits,
-            'schedule' => "{$course->day}, {$course->time_slot}",
-            'room' => $course->room,
-            'fee' => (float) $course->fee,
-            'quota' => $course->quota,
-            'available_seats' => $course->quota - $course->enrolled_count,
-            'lecturer' => $course->lecturer->user->name,
-        ];
+        return Course::with('lecturer.user')->findOrFail($courseId);
     }
 
     public function checkQuota(int $courseId): bool
@@ -1314,7 +1519,7 @@ class CourseService
         return Course::findOrFail($courseId)->checkQuota();
     }
 
-    public function calculateFee(int $courseId): float
+    public function calculateFee(int $courseId, int $studentId): float
     {
         return Course::findOrFail($courseId)->calculateFee();
     }
@@ -1356,9 +1561,11 @@ class EnrolmentService
         return ['has_conflict' => false, 'conflicting_course_name' => null];
     }
 
-    public function createEnrolment(int $studentId, int $courseId, string $transactionId): Enrolment
+    public function createPaidEnrolment(int $studentId, int $courseId, string $transactionId): Enrolment
     {
         return DB::transaction(function () use ($studentId, $courseId, $transactionId) {
+            $course = Course::findOrFail($courseId);
+
             $enrolment = Enrolment::create([
                 'student_id' => $studentId,
                 'course_id' => $courseId,
@@ -1370,20 +1577,20 @@ class EnrolmentService
             Payment::create([
                 'enrolment_id' => $enrolment->id,
                 'transaction_id' => $transactionId,
-                'amount' => Course::find($courseId)->fee,
+                'amount' => $course->fee,
                 'status' => 'paid',
                 'paid_at' => now(),
             ]);
 
-            Course::find($courseId)->decrementQuota();
+            $course->decrementQuota();
 
-            return $enrolment;
+            return $enrolment->load('course');
         });
     }
 }
 ```
 
-### 4.5 Payment Gateway Integration
+### 4.6 Payment Gateway Integration
 
 ```php
 <?php
@@ -1434,7 +1641,119 @@ class PaymentFailedException extends RuntimeException {}
 
 <section lang="id">
 
-### 4.4 Service Layer
+### 4.4 Form Request dan API Resource
+
+Developer Laravel biasanya mengekspresikan validasi request dengan **Form Request** dan pembentukan respons dengan **API Resource**. Class ini merealisasikan message request dan response pada sequence diagram dengan pola Laravel yang familiar.
+
+**ShowEnrolmentSummaryRequest:**
+
+```php
+<?php
+// app/Http/Requests/ShowEnrolmentSummaryRequest.php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ShowEnrolmentSummaryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'course_id' => ['required', 'exists:courses,id'],
+        ];
+    }
+}
+```
+
+**ConfirmEnrolmentRequest:**
+
+```php
+<?php
+// app/Http/Requests/ConfirmEnrolmentRequest.php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ConfirmEnrolmentRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'course_id' => ['required', 'exists:courses,id'],
+        ];
+    }
+}
+```
+
+**CourseResource:**
+
+```php
+<?php
+// app/Http/Resources/CourseResource.php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CourseResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'credits' => $this->credits,
+            'schedule' => "{$this->day}, {$this->time_slot}",
+            'room' => $this->room,
+            'fee' => (float) $this->fee,
+            'available_seats' => $this->quota - $this->enrolled_count,
+            'lecturer' => $this->lecturer->user->name,
+        ];
+    }
+}
+```
+
+**EnrolmentResource:**
+
+```php
+<?php
+// app/Http/Resources/EnrolmentResource.php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class EnrolmentResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'course' => new CourseResource($this->whenLoaded('course')),
+            'status' => $this->status,
+            'transaction_id' => $this->transaction_id,
+            'enrolled_at' => $this->enrolled_at,
+        ];
+    }
+}
+```
+
+### 4.5 Service Layer
 
 `CourseService` dan `EnrolmentService` mengenkapsulasi logika bisnis. Controller mendelegasikan kepada mereka — controller tidak pernah melakukan query database secara langsung.
 
@@ -1450,20 +1769,9 @@ use App\Models\Course;
 
 class CourseService
 {
-    public function getCourseDetails(int $courseId): array
+    public function getCourseDetails(int $courseId): Course
     {
-        $course = Course::with('lecturer.user')->findOrFail($courseId);
-
-        return [
-            'name' => $course->name,
-            'credits' => $course->credits,
-            'schedule' => "{$course->day}, {$course->time_slot}",
-            'room' => $course->room,
-            'fee' => (float) $course->fee,
-            'quota' => $course->quota,
-            'available_seats' => $course->quota - $course->enrolled_count,
-            'lecturer' => $course->lecturer->user->name,
-        ];
+        return Course::with('lecturer.user')->findOrFail($courseId);
     }
 
     public function checkQuota(int $courseId): bool
@@ -1471,7 +1779,7 @@ class CourseService
         return Course::findOrFail($courseId)->checkQuota();
     }
 
-    public function calculateFee(int $courseId): float
+    public function calculateFee(int $courseId, int $studentId): float
     {
         return Course::findOrFail($courseId)->calculateFee();
     }
@@ -1513,9 +1821,11 @@ class EnrolmentService
         return ['has_conflict' => false, 'conflicting_course_name' => null];
     }
 
-    public function createEnrolment(int $studentId, int $courseId, string $transactionId): Enrolment
+    public function createPaidEnrolment(int $studentId, int $courseId, string $transactionId): Enrolment
     {
         return DB::transaction(function () use ($studentId, $courseId, $transactionId) {
+            $course = Course::findOrFail($courseId);
+
             $enrolment = Enrolment::create([
                 'student_id' => $studentId,
                 'course_id' => $courseId,
@@ -1527,20 +1837,20 @@ class EnrolmentService
             Payment::create([
                 'enrolment_id' => $enrolment->id,
                 'transaction_id' => $transactionId,
-                'amount' => Course::find($courseId)->fee,
+                'amount' => $course->fee,
                 'status' => 'paid',
                 'paid_at' => now(),
             ]);
 
-            Course::find($courseId)->decrementQuota();
+            $course->decrementQuota();
 
-            return $enrolment;
+            return $enrolment->load('course');
         });
     }
 }
 ```
 
-### 4.5 Integrasi Payment Gateway
+### 4.6 Integrasi Payment Gateway
 
 ```php
 <?php
@@ -1593,9 +1903,9 @@ class PaymentFailedException extends RuntimeException {}
 
 <section lang="en">
 
-### 4.6 EnrolmentController — The Complete Orchestrator
+### 4.7 EnrolmentController — The Complete Orchestrator
 
-This controller realises the sequence diagram from Part 4. Every message in that diagram corresponds to a method call below.
+This controller realises the sequence diagram from Part 4. The controller messages correspond to method calls below, while persistence details are encapsulated by services.
 
 ```php
 <?php
@@ -1604,12 +1914,15 @@ This controller realises the sequence diagram from Part 4. Every message in that
 namespace App\Http\Controllers;
 
 use App\Exceptions\PaymentFailedException;
+use App\Http\Requests\ConfirmEnrolmentRequest;
+use App\Http\Requests\ShowEnrolmentSummaryRequest;
+use App\Http\Resources\CourseResource;
+use App\Http\Resources\EnrolmentResource;
 use App\Models\Student;
 use App\Services\CourseService;
 use App\Services\EnrolmentService;
 use App\Services\PaymentGateway;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class EnrolmentController extends Controller
 {
@@ -1626,13 +1939,9 @@ class EnrolmentController extends Controller
      * The student has selected a course and the system validates
      * prerequisites before showing the confirmation screen.
      */
-    public function showSummary(Request $request): JsonResponse
+    public function showSummary(ShowEnrolmentSummaryRequest $request): JsonResponse
     {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-        ]);
-
-        $courseId = (int) $request->input('course_id');
+        $courseId = $request->integer('course_id');
         $student = $this->getAuthenticatedStudent();
 
         // Check quota (Activity Diagram decision node: D3)
@@ -1655,11 +1964,11 @@ class EnrolmentController extends Controller
         }
 
         // Calculate fee and build summary
-        $details = $this->courseService->getCourseDetails($courseId);
-        $fee = $this->courseService->calculateFee($courseId);
+        $course = $this->courseService->getCourseDetails($courseId);
+        $fee = $this->courseService->calculateFee($courseId, $student->id);
 
         return response()->json([
-            'course' => $details,
+            'course' => new CourseResource($course),
             'fee' => $fee,
             'message' => 'Silakan konfirmasi pendaftaran Anda.',
         ]);
@@ -1669,13 +1978,9 @@ class EnrolmentController extends Controller
      * Steps 8-13 of the sequence diagram: confirm enrolment,
      * process payment, create records, and return success.
      */
-    public function confirm(Request $request): JsonResponse
+    public function confirm(ConfirmEnrolmentRequest $request): JsonResponse
     {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-        ]);
-
-        $courseId = (int) $request->input('course_id');
+        $courseId = $request->integer('course_id');
         $student = $this->getAuthenticatedStudent();
 
         // Re-validate quota and conflict (race condition protection)
@@ -1696,7 +2001,7 @@ class EnrolmentController extends Controller
             ], 409);
         }
 
-        $fee = $this->courseService->calculateFee($courseId);
+        $fee = $this->courseService->calculateFee($courseId, $student->id);
 
         // Process payment via external gateway
         try {
@@ -1710,21 +2015,17 @@ class EnrolmentController extends Controller
         }
 
         // Create enrolment (transactional: enrolment + payment + quota)
-        $enrolment = $this->enrolmentService->createEnrolment(
+        $enrolment = $this->enrolmentService->createPaidEnrolment(
             $student->id,
             $courseId,
             $paymentResult['transaction_id']
         );
 
+        // In a production application, dispatch a notification here.
+        // The response confirms the schedule can be refreshed from enrolments.
         return response()->json([
             'message' => 'Pendaftaran berhasil.',
-            'enrolment' => [
-                'id' => $enrolment->id,
-                'course' => $enrolment->course->name,
-                'status' => $enrolment->status,
-                'transaction_id' => $paymentResult['transaction_id'],
-                'enrolled_at' => $enrolment->enrolled_at,
-            ],
+            'enrolment' => new EnrolmentResource($enrolment),
         ], 201);
     }
 
@@ -1758,9 +2059,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 <section lang="id">
 
-### 4.6 EnrolmentController — Orchestrator Lengkap
+### 4.7 EnrolmentController — Orchestrator Lengkap
 
-Controller ini merealisasikan sequence diagram dari Bagian 4. Setiap pesan dalam diagram tersebut sesuai dengan pemanggilan method di bawah ini.
+Controller ini merealisasikan sequence diagram dari Bagian 4. Pesan pada controller sesuai dengan pemanggilan method di bawah ini, sementara detail persistensi dienkapsulasi oleh service.
 
 ```php
 <?php
@@ -1769,12 +2070,15 @@ Controller ini merealisasikan sequence diagram dari Bagian 4. Setiap pesan dalam
 namespace App\Http\Controllers;
 
 use App\Exceptions\PaymentFailedException;
+use App\Http\Requests\ConfirmEnrolmentRequest;
+use App\Http\Requests\ShowEnrolmentSummaryRequest;
+use App\Http\Resources\CourseResource;
+use App\Http\Resources\EnrolmentResource;
 use App\Models\Student;
 use App\Services\CourseService;
 use App\Services\EnrolmentService;
 use App\Services\PaymentGateway;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class EnrolmentController extends Controller
 {
@@ -1791,13 +2095,9 @@ class EnrolmentController extends Controller
      * Mahasiswa telah memilih mata kuliah dan sistem memvalidasi
      * prasyarat sebelum menampilkan layar konfirmasi.
      */
-    public function showSummary(Request $request): JsonResponse
+    public function showSummary(ShowEnrolmentSummaryRequest $request): JsonResponse
     {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-        ]);
-
-        $courseId = (int) $request->input('course_id');
+        $courseId = $request->integer('course_id');
         $student = $this->getAuthenticatedStudent();
 
         // Periksa kuota (Activity Diagram decision node: D3)
@@ -1820,11 +2120,11 @@ class EnrolmentController extends Controller
         }
 
         // Hitung biaya dan buat ringkasan
-        $details = $this->courseService->getCourseDetails($courseId);
-        $fee = $this->courseService->calculateFee($courseId);
+        $course = $this->courseService->getCourseDetails($courseId);
+        $fee = $this->courseService->calculateFee($courseId, $student->id);
 
         return response()->json([
-            'course' => $details,
+            'course' => new CourseResource($course),
             'fee' => $fee,
             'message' => 'Silakan konfirmasi pendaftaran Anda.',
         ]);
@@ -1834,13 +2134,9 @@ class EnrolmentController extends Controller
      * Langkah 8-13 dari sequence diagram: konfirmasi pendaftaran,
      * proses pembayaran, buat catatan, dan kembalikan sukses.
      */
-    public function confirm(Request $request): JsonResponse
+    public function confirm(ConfirmEnrolmentRequest $request): JsonResponse
     {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-        ]);
-
-        $courseId = (int) $request->input('course_id');
+        $courseId = $request->integer('course_id');
         $student = $this->getAuthenticatedStudent();
 
         // Validasi ulang kuota dan konflik (proteksi race condition)
@@ -1861,7 +2157,7 @@ class EnrolmentController extends Controller
             ], 409);
         }
 
-        $fee = $this->courseService->calculateFee($courseId);
+        $fee = $this->courseService->calculateFee($courseId, $student->id);
 
         // Proses pembayaran melalui gateway eksternal
         try {
@@ -1875,21 +2171,17 @@ class EnrolmentController extends Controller
         }
 
         // Buat pendaftaran (transaksional: enrolment + payment + quota)
-        $enrolment = $this->enrolmentService->createEnrolment(
+        $enrolment = $this->enrolmentService->createPaidEnrolment(
             $student->id,
             $courseId,
             $paymentResult['transaction_id']
         );
 
+        // Dalam aplikasi production, kirim notifikasi di sini.
+        // Respons mengonfirmasi bahwa jadwal dapat diperbarui dari enrolments.
         return response()->json([
             'message' => 'Pendaftaran berhasil.',
-            'enrolment' => [
-                'id' => $enrolment->id,
-                'course' => $enrolment->course->name,
-                'status' => $enrolment->status,
-                'transaction_id' => $paymentResult['transaction_id'],
-                'enrolled_at' => $enrolment->enrolled_at,
-            ],
+            'enrolment' => new EnrolmentResource($enrolment),
         ], 201);
     }
 
@@ -1927,22 +2219,29 @@ Route::middleware('auth:sanctum')->group(function () {
 
 ## 5. Traceability: From Diagrams to Code
 
-This five-part series has demonstrated **end-to-end traceability** — a core value of UML. Every line of code in the Laravel implementation can be traced back to a diagram, and every diagram can be traced back to a line in the use case scenario.
+This five-part series has demonstrated **end-to-end traceability** — a core value of UML. The implementation snippets are intentionally compact, but each major code path can still be traced back to a diagram, and each diagram can be traced back to a line in the use case scenario.
 
 | Source | Artefact | Implementation |
 |---|---|---|
 | Part 1: Use Case Diagram | "Enrol in Course" oval | `EnrolmentController` class |
-| Part 2: Use Case Scenario | Step 6: System displays enrolment summary | `showSummary()` method |
-| Part 2: Use Case Scenario | Step 8–12: Payment + enrolment creation | `confirm()` method |
+| Part 2: Use Case Scenario | Step 6: System displays enrolment summary | `ShowEnrolmentSummaryRequest` + `showSummary()` |
+| Part 2: Use Case Scenario | Step 8–11: Payment + enrolment creation | `ConfirmEnrolmentRequest` + `confirm()` + `createPaidEnrolment()` |
+| Part 2: Use Case Scenario | Step 12: Confirmation notification | Marked as a production dispatch point in `confirm()` |
+| Part 2: Use Case Scenario | Step 13: Updated schedule | Returned as refreshable enrolment data; `Schedule` is modelled as a derived view |
 | Part 2: Alt Flow D | Payment failed | `PaymentFailedException` + catch block |
 | Part 3: Activity Diagram | Decision node "Course full?" | `checkQuota()` call in `showSummary()` |
 | Part 3: Activity Diagram | Decision node "Schedule conflict?" | `checkScheduleConflict()` in `showSummary()` |
-| Part 3: Activity Diagram | Transaction boundary after payment | `DB::transaction()` in `createEnrolment()` |
+| Part 3: Activity Diagram | Transaction boundary after payment | `DB::transaction()` in `createPaidEnrolment()` |
+| Part 4: Sequence Diagram | `getCourseDetails(courseId)` | `CourseService::getCourseDetails()` + `CourseResource` |
+| Part 4: Sequence Diagram | `checkScheduleConflict(studentId, courseId)` | `EnrolmentService::checkScheduleConflict()` |
 | Part 4: Sequence Diagram | `charge(amount, studentId, courseId)` | `PaymentGateway::charge()` |
-| Part 4: Sequence Diagram | `createEnrolment(studentId, courseId, txId)` | `EnrolmentService::createEnrolment()` |
-| Part 4: Sequence Diagram | `decrementQuota(courseId)` | `Course::decrementQuota()` |
+| Part 4: Sequence Diagram | `createPaidEnrolment(studentId, courseId, txId)` | `EnrolmentService::createPaidEnrolment()` + `EnrolmentResource` |
+| Part 4: Sequence Diagram | `recordPayment(...)` | `Payment::create()` inside the service transaction |
+| Part 4: Sequence Diagram | `incrementEnrolledCount(courseId)` | `Course::decrementQuota()` |
 | Part 5: Class Diagram | `Student → Enrolment` (1 to 0..*) | `Student::enrolments()` relationship |
+| Part 5: Class Diagram | `Student → Schedule` (1 to 1) | Conceptual schedule view derived from enrolments |
 | Part 5: Class Diagram | `Enrolment → Payment` (composition) | `Enrolment::payment()` + cascade delete |
+| Part 5: Class Diagram | Form Request and Resource classes | Laravel validation and response transformation |
 
 This traceability means that when a stakeholder asks *"What happens if the course is full?"*, you can point to the alternative flow in the scenario, trace it to the decision node in the activity diagram, and finally to the `if (!checkQuota(...))` check in the controller. Nothing is lost in translation.
 
@@ -1952,22 +2251,29 @@ This traceability means that when a stakeholder asks *"What happens if the cours
 
 ## 5. Ketertelusuran: Dari Diagram ke Kode
 
-Seri lima bagian ini telah mendemonstrasikan **ketertelusuran end-to-end** — nilai inti dari UML. Setiap baris kode dalam implementasi Laravel dapat ditelusuri kembali ke diagram, dan setiap diagram dapat ditelusuri kembali ke baris dalam use case scenario.
+Seri lima bagian ini telah mendemonstrasikan **ketertelusuran end-to-end** — nilai inti dari UML. Cuplikan implementasi sengaja dibuat ringkas, tetapi setiap alur kode utama tetap dapat ditelusuri kembali ke diagram, dan setiap diagram dapat ditelusuri kembali ke baris dalam use case scenario.
 
 | Sumber | Artefak | Implementasi |
 |---|---|---|
 | Bagian 1: Use Case Diagram | Oval "Daftar Mata Kuliah" | Kelas `EnrolmentController` |
-| Bagian 2: Use Case Scenario | Langkah 6: Sistem menampilkan ringkasan | Method `showSummary()` |
-| Bagian 2: Use Case Scenario | Langkah 8–12: Pembayaran + pembuatan pendaftaran | Method `confirm()` |
+| Bagian 2: Use Case Scenario | Langkah 6: Sistem menampilkan ringkasan | `ShowEnrolmentSummaryRequest` + method `showSummary()` |
+| Bagian 2: Use Case Scenario | Langkah 8–11: Pembayaran + pembuatan pendaftaran | `ConfirmEnrolmentRequest` + method `confirm()` + `createPaidEnrolment()` |
+| Bagian 2: Use Case Scenario | Langkah 12: Notifikasi konfirmasi | Ditandai sebagai titik dispatch production di `confirm()` |
+| Bagian 2: Use Case Scenario | Langkah 13: Jadwal diperbarui | Dikembalikan sebagai data enrolment yang bisa di-refresh; `Schedule` dimodelkan sebagai view turunan |
 | Bagian 2: Alt Flow D | Pembayaran gagal | `PaymentFailedException` + blok catch |
 | Bagian 3: Activity Diagram | Decision node "Mata kuliah penuh?" | `checkQuota()` di `showSummary()` |
 | Bagian 3: Activity Diagram | Decision node "Konflik jadwal?" | `checkScheduleConflict()` di `showSummary()` |
-| Bagian 3: Activity Diagram | Batas transaksi setelah pembayaran | `DB::transaction()` di `createEnrolment()` |
+| Bagian 3: Activity Diagram | Batas transaksi setelah pembayaran | `DB::transaction()` di `createPaidEnrolment()` |
+| Bagian 4: Sequence Diagram | `getCourseDetails(courseId)` | `CourseService::getCourseDetails()` + `CourseResource` |
+| Bagian 4: Sequence Diagram | `checkScheduleConflict(studentId, courseId)` | `EnrolmentService::checkScheduleConflict()` |
 | Bagian 4: Sequence Diagram | `charge(amount, studentId, courseId)` | `PaymentGateway::charge()` |
-| Bagian 4: Sequence Diagram | `createEnrolment(studentId, courseId, txId)` | `EnrolmentService::createEnrolment()` |
-| Bagian 4: Sequence Diagram | `decrementQuota(courseId)` | `Course::decrementQuota()` |
+| Bagian 4: Sequence Diagram | `createPaidEnrolment(studentId, courseId, txId)` | `EnrolmentService::createPaidEnrolment()` + `EnrolmentResource` |
+| Bagian 4: Sequence Diagram | `recordPayment(...)` | `Payment::create()` di dalam transaksi service |
+| Bagian 4: Sequence Diagram | `incrementEnrolledCount(courseId)` | `Course::decrementQuota()` |
 | Bagian 5: Class Diagram | `Student → Enrolment` (1 ke 0..*) | Relasi `Student::enrolments()` |
+| Bagian 5: Class Diagram | `Student → Schedule` (1 ke 1) | View jadwal konseptual yang diturunkan dari enrolments |
 | Bagian 5: Class Diagram | `Enrolment → Payment` (composition) | `Enrolment::payment()` + cascade delete |
+| Bagian 5: Class Diagram | Class Form Request dan Resource | Validasi dan transformasi respons standar Laravel |
 
 Ketertelusuran ini berarti bahwa ketika stakeholder bertanya *"Apa yang terjadi jika mata kuliah penuh?"*, Anda dapat menunjuk ke alur alternatif dalam skenario, menelusurinya ke decision node di activity diagram, dan akhirnya ke pengecekan `if (!checkQuota(...))` di controller. Tidak ada yang hilang dalam penerjemahan.
 

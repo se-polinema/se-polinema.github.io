@@ -42,6 +42,8 @@ const websiteJsonLd = {
     'query-input': 'required name=search_term_string',
   },
 }
+
+const shouldRegisterServiceWorker = import.meta.env.PROD
 ---
 
 <!doctype html>
@@ -89,13 +91,41 @@ const websiteJsonLd = {
 
     <slot name="head" />
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js', { scope: '/' })
-        })
-      }
-    </script>
+    {
+      shouldRegisterServiceWorker ? (
+        <script is:inline>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            })
+          }
+        </script>
+      ) : (
+        <script is:inline>
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+              .getRegistrations()
+              .then((registrations) => {
+                registrations.forEach((registration) => registration.unregister())
+              })
+              .catch(() => {})
+          }
+
+          if ('caches' in window) {
+            caches
+              .keys()
+              .then((keys) =>
+                Promise.all(
+                  keys
+                    .filter((key) => key.startsWith('se-lab-'))
+                    .map((key) => caches.delete(key)),
+                ),
+              )
+              .catch(() => {})
+          }
+        </script>
+      )
+    }
 
     <script is:inline>
       (function() {

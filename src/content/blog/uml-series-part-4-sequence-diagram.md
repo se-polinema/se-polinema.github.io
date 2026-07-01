@@ -91,7 +91,7 @@ Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence D
 A sequence diagram captures the dynamic interactions between objects in a specific scenario. It focuses on **time-ordered messages**: method calls, HTTP requests, database queries, and their responses.
 
 ### Why does it matter?
-- **Design precision.** A sequence diagram forces you to name every method, parameter, and return type before coding. You cannot hand-wave "then the system processes the payment" — you must specify `PaymentGateway::charge($amount, $studentId, $courseId): PaymentResult`.
+- **Design precision.** A sequence diagram forces you to name every method, parameter, and important response before coding. You cannot hand-wave "then the system processes the payment" — you must specify `PaymentGateway::charge($amount, $studentId, $courseId)` and the response data it returns.
 - **Discover hidden dependencies.** Drawing lifelines reveals when an object depends on another object it should not know about (violating the Law of Demeter or layered architecture).
 - **Concurrency visualisation.** Activation boxes show which operations happen in parallel and which block, making it easy to spot deadlock risks.
 - **Code generation.** Many IDEs can generate skeleton code from sequence diagrams. Even without tooling, a sequence diagram is an exact specification for what methods to implement.
@@ -120,7 +120,7 @@ Sequence diagrams live in technical design documents and API specifications. The
 Sequence diagram menangkap interaksi dinamis antar objek dalam skenario tertentu. Diagram ini berfokus pada **pesan terurut waktu**: pemanggilan method, HTTP request, query database, dan responsnya.
 
 ### Mengapa penting?
-- **Presisi desain.** Sequence diagram memaksa Anda menamai setiap method, parameter, dan tipe return sebelum coding. Anda tidak bisa mengabaikan "lalu sistem memproses pembayaran" — Anda harus menspesifikasikan `PaymentGateway::charge($amount, $studentId, $courseId): PaymentResult`.
+- **Presisi desain.** Sequence diagram memaksa Anda menamai setiap method, parameter, dan respons penting sebelum coding. Anda tidak bisa mengabaikan "lalu sistem memproses pembayaran" — Anda harus menspesifikasikan `PaymentGateway::charge($amount, $studentId, $courseId)` dan data respons yang dikembalikan.
 - **Temukan dependensi tersembunyi.** Menggambar lifelines mengungkapkan ketika sebuah objek bergantung pada objek lain yang seharusnya tidak diketahuinya (melanggar Law of Demeter atau arsitektur berlapis).
 - **Visualisasi konkurensi.** Activation box menunjukkan operasi mana yang terjadi secara paralel dan mana yang memblokir, memudahkan untuk menemukan risiko deadlock.
 - **Code generation.** Banyak IDE dapat menghasilkan kode kerangka dari sequence diagram. Bahkan tanpa tooling, sequence diagram adalah spesifikasi tepat untuk method apa yang harus diimplementasikan.
@@ -242,14 +242,14 @@ activate EC
 
 EC -> CS : getCourseDetails(course_id)
 activate CS
-CS -> DB : SELECT * FROM courses WHERE id = ?
+CS -> DB : findCourse(course_id)
 DB --> CS : course data
-CS --> EC : CourseDTO {name, credits, schedule, fee, quota}
+CS --> EC : course summary {name, credits, schedule, fee, quota}
 deactivate CS
 
 EC -> CS : checkQuota(course_id)
 activate CS
-CS -> DB : SELECT quota - enrolled_count
+CS -> DB : getAvailableSeats(course_id)
 DB --> CS : available_seats
 CS --> EC : available_seats > 0
 deactivate CS
@@ -260,9 +260,9 @@ end
 
 EC -> ES : checkScheduleConflict(student_id, course_id)
 activate ES
-ES -> DB : SELECT enrolments JOIN courses WHERE student AND time_slot
+ES -> DB : findScheduleConflict(student_id, course_id)
 DB --> ES : conflicting courses
-ES --> EC : ConflictDTO {has_conflict, conflicting_course_name}
+ES --> EC : conflict details {has_conflict, conflicting_course_name}
 deactivate ES
 
 alt Schedule conflict
@@ -280,34 +280,40 @@ Student -> EC : POST /enrolments/confirm (course_id)
 
 EC -> PG : charge(amount, student_id, course_id)
 activate PG
-PG --> EC : PaymentResult {success, transaction_id}
+PG --> EC : gateway response {success, transaction_id}
 deactivate PG
 
 alt Payment failed
   EC --> Student : 402 {error: "Payment failed"}
 end
 
-EC -> DB : BEGIN TRANSACTION
+EC -> ES : createPaidEnrolment(student_id, course_id, transaction_id)
+activate ES
+
+ES -> DB : BEGIN TRANSACTION
 activate DB
 
-EC -> ES : createEnrolment(student_id, course_id, transaction_id)
-activate ES
-ES -> DB : INSERT INTO enrolments
+ES -> DB : insertEnrolment(student_id, course_id, transaction_id)
 DB --> ES : enrolment_id
-ES --> EC : EnrolmentDTO {id, status}
-deactivate ES
 
-EC -> CS : decrementQuota(course_id)
-activate CS
-CS -> DB : UPDATE courses SET enrolled_count = enrolled_count + 1
-DB --> CS : OK
-CS --> EC : OK
-deactivate CS
+ES -> DB : recordPayment(enrolment_id, transaction_id, amount)
+DB --> ES : payment_id
 
-EC -> DB : COMMIT
+ES -> DB : incrementEnrolledCount(course_id)
+DB --> ES : OK
+
+ES -> DB : loadUpdatedSchedule(student_id)
+DB --> ES : schedule view
+
+ES -> DB : COMMIT
 deactivate DB
 
+ES --> EC : enrolment resource {id, status, schedule}
+deactivate ES
+
 EC --> Student : 201 {enrolment confirmed, schedule updated}
+EC -> Student : sendConfirmationNotification(enrolment_id)
+
 deactivate EC
 @enduml
 ```
@@ -322,9 +328,9 @@ Key observations:
 
 2. **External system boundary.** The `PaymentGateway` is a separate lifeline — the controller calls it, waits for a response, and only proceeds on success. This is a **synchronous boundary** with a timeout risk (which we handle in the implementation with try/catch and configurable timeouts).
 
-3. **Transactional boundary.** The `BEGIN TRANSACTION` → `INSERT` → `UPDATE` → `COMMIT` block ensures that the enrolment record and quota decrement happen atomically. If the quota update fails, the enrolment insert is rolled back.
+3. **Transactional boundary.** The `createPaidEnrolment(...)` call owns the `BEGIN TRANSACTION` → create enrolment → record payment → update quota → `COMMIT` block. If any persistence operation fails, the enrolment insert is rolled back. The updated schedule is then read from enrolment data as a derived view.
 
-4. **No direct model access from controller.** The controller never talks to the database directly. It delegates to `CourseService` and `EnrolmentService`, which encapsulate the queries. This is the **Service Layer pattern** — the controller orchestrates, services execute.
+4. **No direct model access from controller.** The controller never talks to the database directly. It delegates to `CourseService` and `EnrolmentService`, which encapsulate persistence details. This is the **Service Layer pattern** — the controller orchestrates, services execute.
 
 </section>
 
@@ -365,14 +371,14 @@ activate EC
 
 EC -> CS : getCourseDetails(course_id)
 activate CS
-CS -> DB : SELECT * FROM courses WHERE id = ?
+CS -> DB : findCourse(course_id)
 DB --> CS : data mata kuliah
-CS --> EC : CourseDTO {nama, sks, jadwal, biaya, kuota}
+CS --> EC : ringkasan course {nama, sks, jadwal, biaya, kuota}
 deactivate CS
 
 EC -> CS : checkQuota(course_id)
 activate CS
-CS -> DB : SELECT quota - enrolled_count
+CS -> DB : getAvailableSeats(course_id)
 DB --> CS : kursi_tersedia
 CS --> EC : kursi_tersedia > 0
 deactivate CS
@@ -383,9 +389,9 @@ end
 
 EC -> ES : checkScheduleConflict(mahasiswa_id, course_id)
 activate ES
-ES -> DB : SELECT enrolments JOIN courses WHERE student AND time_slot
+ES -> DB : findScheduleConflict(mahasiswa_id, course_id)
 DB --> ES : mata kuliah bentrok
-ES --> EC : ConflictDTO {ada_konflik, nama_mk_bentrok}
+ES --> EC : detail konflik {ada_konflik, nama_mk_bentrok}
 deactivate ES
 
 alt Konflik jadwal
@@ -403,34 +409,40 @@ Mahasiswa -> EC : POST /enrolments/confirm (course_id)
 
 EC -> PG : charge(jumlah, mahasiswa_id, course_id)
 activate PG
-PG --> EC : PaymentResult {sukses, transaction_id}
+PG --> EC : respons gateway {sukses, transaction_id}
 deactivate PG
 
 alt Pembayaran gagal
   EC --> Mahasiswa : 402 {error: "Pembayaran gagal"}
 end
 
-EC -> DB : BEGIN TRANSACTION
+EC -> ES : createPaidEnrolment(mahasiswa_id, course_id, transaction_id)
+activate ES
+
+ES -> DB : BEGIN TRANSACTION
 activate DB
 
-EC -> ES : createEnrolment(mahasiswa_id, course_id, transaction_id)
-activate ES
-ES -> DB : INSERT INTO enrolments
+ES -> DB : insertEnrolment(mahasiswa_id, course_id, transaction_id)
 DB --> ES : enrolment_id
-ES --> EC : EnrolmentDTO {id, status}
-deactivate ES
 
-EC -> CS : decrementQuota(course_id)
-activate CS
-CS -> DB : UPDATE courses SET enrolled_count = enrolled_count + 1
-DB --> CS : OK
-CS --> EC : OK
-deactivate CS
+ES -> DB : recordPayment(enrolment_id, transaction_id, jumlah)
+DB --> ES : payment_id
 
-EC -> DB : COMMIT
+ES -> DB : incrementEnrolledCount(course_id)
+DB --> ES : OK
+
+ES -> DB : loadUpdatedSchedule(mahasiswa_id)
+DB --> ES : view jadwal
+
+ES -> DB : COMMIT
 deactivate DB
 
+ES --> EC : enrolment resource {id, status, jadwal}
+deactivate ES
+
 EC --> Mahasiswa : 201 {pendaftaran dikonfirmasi, jadwal diperbarui}
+EC -> Mahasiswa : sendConfirmationNotification(enrolment_id)
+
 deactivate EC
 @enduml
 ```
@@ -445,9 +457,9 @@ Observasi kunci:
 
 2. **Batas sistem eksternal.** `PaymentGateway` adalah lifeline terpisah — controller memanggilnya, menunggu respons, dan hanya melanjutkan jika berhasil. Ini adalah **synchronous boundary** dengan risiko timeout (yang kita tangani dalam implementasi dengan try/catch dan timeout yang dapat dikonfigurasi).
 
-3. **Batas transaksional.** Blok `BEGIN TRANSACTION` → `INSERT` → `UPDATE` → `COMMIT` memastikan bahwa catatan pendaftaran dan pengurangan kuota terjadi secara atomik. Jika pembaruan kuota gagal, insert pendaftaran di-rollback.
+3. **Batas transaksional.** Panggilan `createPaidEnrolment(...)` memiliki blok `BEGIN TRANSACTION` → buat pendaftaran → catat pembayaran → perbarui kuota → `COMMIT`. Jika operasi persistensi mana pun gagal, insert pendaftaran di-rollback. Jadwal terbaru lalu dibaca dari data enrolment sebagai view turunan.
 
-4. **Tidak ada akses model langsung dari controller.** Controller tidak pernah berbicara langsung ke database. Ia mendelegasikan ke `CourseService` dan `EnrolmentService`, yang mengenkapsulasi query. Ini adalah pola **Service Layer** — controller mengorkestrasi, service mengeksekusi.
+4. **Tidak ada akses model langsung dari controller.** Controller tidak pernah berbicara langsung ke database. Ia mendelegasikan ke `CourseService` dan `EnrolmentService`, yang mengenkapsulasi detail persistensi. Ini adalah pola **Service Layer** — controller mengorkestrasi, service mengeksekusi.
 
 </section>
 
@@ -500,10 +512,10 @@ Sekarang kita memiliki kedua diagram untuk alur kerja yang sama, mari kita bandi
 ## 6. Sequence Diagram Best Practices
 
 ### Keep Messages at a Consistent Level of Abstraction
-Mix high-level (`processEnrolment`) and low-level (`SELECT * FROM courses`) messages in the same diagram cautiously. Most sequence diagrams work best at a single level — either the HTTP request/response level or the method call level, not both.
+Avoid putting raw SQL such as `SELECT * FROM courses` directly in message labels when the diagram is otherwise written at the HTTP and service-method level. Prefer semantic persistence messages such as `findCourse(course_id)` or `recordPayment(...)`, and place SQL details in notes or implementation code if they are needed.
 
 ### Return Messages Matter When Data Flows
-If a return message carries data (e.g., `PaymentResult {success, transaction_id}`), include it. If it only signals completion (`OK`), you can omit it for brevity — but always include it when the data is used in subsequent messages.
+If a return message carries data (e.g., `gateway response {success, transaction_id}`), include it. If it only signals completion (`OK`), you can omit it for brevity — but always include it when the data is used in subsequent messages.
 
 ### Use Fragments for Conditional Logic
 Do not draw three separate diagrams for the success path, the quota-full path, and the payment-failure path. Use `alt` fragments to keep all paths in one diagram. This is what makes the sequence diagram a complete specification.
@@ -521,10 +533,10 @@ If one lifeline (usually the controller) receives 15+ messages, consider splitti
 ## 6. Praktik Terbaik Sequence Diagram
 
 ### Jaga Pesan pada Tingkat Abstraksi yang Konsisten
-Campur pesan tingkat tinggi (`processEnrolment`) dan tingkat rendah (`SELECT * FROM courses`) dalam diagram yang sama dengan hati-hati. Sebagian besar sequence diagram bekerja paling baik pada satu tingkat — baik tingkat HTTP request/response atau tingkat pemanggilan method, bukan keduanya.
+Hindari menaruh SQL mentah seperti `SELECT * FROM courses` langsung pada label pesan ketika diagram lain ditulis pada level HTTP dan pemanggilan method service. Gunakan pesan persistensi semantik seperti `findCourse(course_id)` atau `recordPayment(...)`, lalu letakkan detail SQL di catatan atau kode implementasi jika memang diperlukan.
 
 ### Return Message Penting Ketika Data Mengalir
-Jika return message membawa data (misalnya, `PaymentResult {sukses, transaction_id}`), sertakan. Jika hanya menandakan penyelesaian (`OK`), Anda dapat menghilangkannya untuk keringkasan — tetapi selalu sertakan ketika data digunakan dalam pesan berikutnya.
+Jika return message membawa data (misalnya, `respons gateway {sukses, transaction_id}`), sertakan. Jika hanya menandakan penyelesaian (`OK`), Anda dapat menghilangkannya untuk keringkasan — tetapi selalu sertakan ketika data digunakan dalam pesan berikutnya.
 
 ### Gunakan Fragmen untuk Logika Kondisional
 Jangan menggambar tiga diagram terpisah untuk jalur sukses, jalur kuota penuh, dan jalur kegagalan pembayaran. Gunakan fragmen `alt` untuk menyimpan semua jalur dalam satu diagram. Inilah yang membuat sequence diagram menjadi spesifikasi yang lengkap.
@@ -545,7 +557,7 @@ Jika satu lifeline (biasanya controller) menerima 15+ pesan, pertimbangkan untuk
 
 The sequence diagram has revealed the methods each object must implement, the parameters they accept, and the data they return. This is the final piece of behavioural specification before we move to **structural design**.
 
-In Part 5, we will take all the objects from this sequence diagram — `Student`, `Course`, `Enrolment`, `Payment`, along with the supporting entities (`Lecturer`, `Admin`, `Schedule`) — and define their **attributes, relationships, and multiplicities** in a Class Diagram. Then we will implement them as Laravel Eloquent models with migrations, and show a complete controller that realises the sequence diagram flow.
+In Part 5, we will take the domain objects from this sequence diagram — `Student`, `Course`, `Enrolment`, `Payment`, along with the supporting entities (`Lecturer`, `Admin`, `Schedule`) — and add the Laravel realization classes that execute the messages: controller, form requests, services, gateway, and API resources. Then we will implement them as familiar Laravel code.
 
 </section>
 
@@ -555,7 +567,7 @@ In Part 5, we will take all the objects from this sequence diagram — `Student`
 
 Sequence diagram telah mengungkapkan method yang harus diimplementasikan setiap objek, parameter yang mereka terima, dan data yang mereka kembalikan. Ini adalah bagian terakhir dari spesifikasi perilaku sebelum kita beralih ke **desain struktural**.
 
-Di Bagian 5, kita akan mengambil semua objek dari sequence diagram ini — `Student`, `Course`, `Enrolment`, `Payment`, bersama dengan entitas pendukung (`Lecturer`, `Admin`, `Schedule`) — dan mendefinisikan **atribut, relasi, dan multiplisitas** mereka dalam Class Diagram. Kemudian kita akan mengimplementasikannya sebagai Laravel Eloquent model dengan migrations, dan menunjukkan controller lengkap yang merealisasikan alur sequence diagram.
+Di Bagian 5, kita akan mengambil objek domain dari sequence diagram ini — `Student`, `Course`, `Enrolment`, `Payment`, bersama dengan entitas pendukung (`Lecturer`, `Admin`, `Schedule`) — lalu menambahkan class realisasi Laravel yang mengeksekusi message: controller, form request, service, gateway, dan API resource. Kemudian kita akan mengimplementasikannya sebagai kode Laravel yang familiar.
 
 </section>
 

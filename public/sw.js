@@ -1,4 +1,4 @@
-const CACHE_NAME = 'se-lab-v1'
+const CACHE_NAME = 'se-lab-v2'
 
 const PRECACHE_URLS = [
   '/',
@@ -32,25 +32,42 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return
-
   const url = new URL(event.request.url)
 
-  if (url.origin === location.origin) {
-    event.respondWith(
-      (async () => {
-        const cached = await caches.match(event.request)
-        const fetched = await fetch(event.request).catch(() => cached)
-        const response = fetched || cached
+  if (shouldBypass(event.request, url)) return
 
-        if (fetched && fetched.ok) {
-          const clone = fetched.clone()
-          const cache = await caches.open(CACHE_NAME)
-          cache.put(event.request, clone)
-        }
+  event.respondWith(
+    (async () => {
+      const cached = await caches.match(event.request)
+      const fetched = await fetch(event.request).catch(() => cached)
+      const response = fetched || cached
 
-        return response
-      })(),
-    )
-  }
+      if (fetched && shouldCache(fetched)) {
+        const clone = fetched.clone()
+        const cache = await caches.open(CACHE_NAME)
+        cache.put(event.request, clone)
+      }
+
+      return response
+    })(),
+  )
 })
+
+function shouldBypass(request, url) {
+  if (request.method !== 'GET') return true
+  if (url.origin !== location.origin) return true
+  if (url.pathname.startsWith('/@vite')) return true
+  if (url.pathname.startsWith('/src/')) return true
+  if (url.pathname.startsWith('/node_modules/')) return true
+  if (url.pathname.includes('__vite')) return true
+  if (request.headers.get('accept')?.includes('text/event-stream')) return true
+
+  return false
+}
+
+function shouldCache(response) {
+  if (!response.ok || response.type !== 'basic') return false
+  if (response.headers.get('cache-control')?.includes('no-store')) return false
+
+  return true
+}

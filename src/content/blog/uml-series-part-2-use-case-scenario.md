@@ -378,7 +378,7 @@ Untuk setiap kondisi `if` dalam alur utama, harus ada alur alternatif yang sesua
 The use case scenario you just read is the **source of truth** for all downstream design work:
 
 - **Activity Diagram (Part 3):** The steps in the main success scenario and alternative flows map directly to actions and decision nodes in the activity diagram. We will visualise the entire enrolment workflow with swimlanes.
-- **Sequence Diagram (Part 4):** Steps 8–12 of the main flow show interactions between four objects: Student, EnrolmentController, PaymentGateway, and the Database. The sequence diagram will show these messages in chronological order.
+- **Sequence Diagram (Part 4):** Steps 6–13 of the main flow show interactions between the actor, controller, services, payment gateway, and persistence boundary. The sequence diagram will show these messages in chronological order.
 - **Class Diagram (Part 5):** The nouns in the scenario — Student, Course, Enrolment, Payment — become the classes in our class diagram and ultimately the Eloquent models in Laravel.
 
 This traceability is the power of UML. Every diagram connects back to a line in this scenario, which connects back to a stakeholder's requirement.
@@ -392,7 +392,7 @@ This traceability is the power of UML. Every diagram connects back to a line in 
 Use case scenario yang baru saja Anda baca adalah **sumber kebenaran** untuk semua pekerjaan desain selanjutnya:
 
 - **Activity Diagram (Bagian 3):** Langkah-langkah dalam skenario sukses utama dan alur alternatif dipetakan langsung ke aksi dan decision node dalam activity diagram. Kita akan memvisualisasikan seluruh alur kerja pendaftaran dengan swimlanes.
-- **Sequence Diagram (Bagian 4):** Langkah 8–12 dari alur utama menunjukkan interaksi antara empat objek: Student, EnrolmentController, PaymentGateway, dan Database. Sequence diagram akan menunjukkan pesan-pesan ini dalam urutan kronologis.
+- **Sequence Diagram (Bagian 4):** Langkah 6–13 dari alur utama menunjukkan interaksi antara aktor, controller, service, payment gateway, dan batas persistensi. Sequence diagram akan menunjukkan pesan-pesan ini dalam urutan kronologis.
 - **Class Diagram (Bagian 5):** Kata benda dalam skenario — Student, Course, Enrolment, Payment — menjadi kelas-kelas dalam class diagram kita dan akhirnya menjadi Eloquent model di Laravel.
 
 Ketertelusuran inilah kekuatan UML. Setiap diagram terhubung kembali ke sebuah baris dalam skenario ini, yang terhubung kembali ke persyaratan stakeholder.

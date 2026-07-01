@@ -125,7 +125,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
-import { supabase } from '../lib/supabase'
 
 const props = withDefaults(defineProps<{
   compact?: boolean
@@ -168,16 +167,25 @@ async function handleSubmit() {
 
   submitting.value = true
 
-  const { error } = await supabase
-    .schema('se')
-    .from('subscribers')
-    .insert({
-      email: form.email.trim().toLowerCase(),
-      language: lang.value,
-      interests: form.interests.length > 0 ? form.interests : [],
-    })
+  let error: { code?: string } | null = null
 
-  submitting.value = false
+  try {
+    const { supabase } = await import('../lib/supabase')
+    const result = await supabase
+      .schema('se')
+      .from('subscribers')
+      .insert({
+        email: form.email.trim().toLowerCase(),
+        language: lang.value,
+        interests: form.interests.length > 0 ? form.interests : [],
+      })
+
+    error = result.error
+  } catch {
+    error = {}
+  } finally {
+    submitting.value = false
+  }
 
   if (error) {
     if (error.code === '23505') {

@@ -11,7 +11,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'explorer' ? 'activity-active' : 'activity-inactive'"
         title="Explorer"
-        aria-label="Toggle Explorer"
+        aria-label="Open Explorer"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
@@ -39,7 +39,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'blog' ? 'activity-active' : 'activity-inactive'"
         title="Blog"
-        aria-label="Blog archive"
+        aria-label="Open blog archive"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 11a9 9 0 0 1 9 9"/>
@@ -54,7 +54,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'events' ? 'activity-active' : 'activity-inactive'"
         title="Events"
-        aria-label="Events calendar"
+        aria-label="Open events calendar"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -70,7 +70,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'github' ? 'activity-active' : 'activity-inactive'"
         title="Source Control"
-        aria-label="GitHub repository info"
+        aria-label="Open GitHub repository info"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="6" y1="3" x2="6" y2="15"/>
@@ -86,7 +86,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'researchers' ? 'activity-active' : 'activity-inactive'"
         title="Researchers"
-        aria-label="Researchers directory"
+        aria-label="Open researchers directory"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
@@ -102,7 +102,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'publications' ? 'activity-active' : 'activity-inactive'"
         title="Publications"
-        aria-label="Publications archive"
+        aria-label="Open publications archive"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
@@ -116,7 +116,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'achievements' ? 'activity-active' : 'activity-inactive'"
         title="Achievements"
-        aria-label="Achievements archive"
+        aria-label="Open achievements archive"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="8" r="7"/>
@@ -130,7 +130,7 @@
         class="activity-btn"
         :class="activeSidebarView === 'decks' ? 'activity-active' : 'activity-inactive'"
         title="Decks"
-        aria-label="Presentation decks"
+        aria-label="Open presentation decks"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="7" height="7"/>
