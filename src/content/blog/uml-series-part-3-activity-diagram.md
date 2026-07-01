@@ -6,8 +6,8 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 3 of the UML Mini Series. Learn what an Activity Diagram is, why it is essential for business process modelling, and how to draw one for the 'Enrol in Course' workflow — with swimlanes, decisions, and merge nodes in Mermaid."
-excerptId: "Bagian 3 dari Seri Mini UML. Pelajari apa itu Activity Diagram, mengapa penting untuk pemodelan proses bisnis, dan cara menggambarnya untuk alur kerja 'Daftar Mata Kuliah' — dengan swimlanes, decision, dan merge node dalam Mermaid."
+excerpt: "Part 3 of the UML Mini Series. Learn what an Activity Diagram is, why it is essential for business process modelling, and how to draw one for the 'Enrol in Course' workflow — with swimlanes, decisions, and merge nodes in PlantUML."
+excerptId: "Bagian 3 dari Seri Mini UML. Pelajari apa itu Activity Diagram, mengapa penting untuk pemodelan proses bisnis, dan cara menggambarnya untuk alur kerja 'Daftar Mata Kuliah' — dengan swimlanes, decision, dan merge node dalam PlantUML."
 ---
 
 <nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">
@@ -77,24 +77,24 @@ Anggaplah activity diagram sebagai **flowchart dengan kekuatan tambahan**. Diagr
 
 <section lang="en">
 
-## 2. Why Use Activity Diagrams? (4W+H)
+## 2. Why Use Activity Diagrams?
 
-### What
+### What is it?
 Activity diagrams visually represent the step-by-step workflow of a business process or a system operation. They answer the question: *"What happens, in what order, and who does it?"*
 
-### Why
+### Why does it matter?
 - **Business process clarity.** Non-technical stakeholders can read activity diagrams. They validate that the proposed workflow matches the real-world process.
 - **Uncover missing logic.** Drawing an activity diagram forces you to ask: *"What happens if the payment fails?"* or *"What if the course is full?"* — questions that are easy to overlook in text.
 - **Developer handoff.** An activity diagram is a precise specification that a developer can translate directly into controller logic, middleware, and conditional checks.
 - **Parallelism visualisation.** Fork and join nodes reveal opportunities for concurrent processing (e.g., sending an email and updating a dashboard in parallel after enrolment).
 
-### When
+### When do you use it?
 Create an activity diagram during the **analysis phase**, right after the use case scenario is written. The scenario provides the steps; the activity diagram provides the visual flow.
 
-### Where
+### Where does it fit?
 Activity diagrams appear in technical design documents, sprint tickets, and architecture decision records. They are particularly useful when a workflow involves multiple actors or system components.
 
-### How
+### How do you create one?
 1. Identify the starting point (initial node) and the ending point (final node).
 2. Map each step from the use case scenario to an action node.
 3. Identify decision points (where the flow can branch) and their guard conditions.
@@ -105,24 +105,24 @@ Activity diagrams appear in technical design documents, sprint tickets, and arch
 
 <section lang="id">
 
-## 2. Mengapa Menggunakan Activity Diagram? (4W+H)
+## 2. Mengapa Menggunakan Activity Diagram?
 
-### What (Apa)
+### Apa itu?
 Activity diagram secara visual merepresentasikan alur kerja langkah-demi-langkah dari proses bisnis atau operasi sistem. Diagram ini menjawab pertanyaan: *"Apa yang terjadi, dalam urutan apa, dan siapa yang melakukannya?"*
 
-### Why (Mengapa)
+### Mengapa penting?
 - **Kejelasan proses bisnis.** Stakeholder non-teknis dapat membaca activity diagram. Mereka memvalidasi bahwa alur kerja yang diusulkan sesuai dengan proses dunia nyata.
 - **Mengungkap logika yang hilang.** Menggambar activity diagram memaksa Anda bertanya: *"Apa yang terjadi jika pembayaran gagal?"* atau *"Bagaimana jika mata kuliah penuh?"* — pertanyaan yang mudah terlewat dalam teks.
 - **Serah terima ke developer.** Activity diagram adalah spesifikasi yang tepat yang dapat diterjemahkan developer langsung ke logika controller, middleware, dan pengecekan kondisional.
 - **Visualisasi paralelisme.** Node fork dan join mengungkapkan peluang untuk pemrosesan konkuren (misalnya, mengirim email dan memperbarui dashboard secara paralel setelah pendaftaran).
 
-### When (Kapan)
+### Kapan digunakan?
 Buat activity diagram selama **fase analisis**, tepat setelah use case scenario ditulis. Skenario menyediakan langkah-langkah; activity diagram menyediakan aliran visual.
 
-### Where (Di Mana)
+### Di mana tempatnya?
 Activity diagram muncul di dokumen desain teknis, tiket sprint, dan catatan keputusan arsitektur. Diagram ini sangat berguna ketika alur kerja melibatkan beberapa aktor atau komponen sistem.
 
-### How (Bagaimana)
+### Bagaimana membuatnya?
 1. Identifikasi titik awal (initial node) dan titik akhir (final node).
 2. Petakan setiap langkah dari use case scenario ke action node.
 3. Identifikasi titik keputusan (di mana aliran dapat bercabang) dan guard condition-nya.
@@ -447,7 +447,7 @@ Every decision branch must have a guard condition in square brackets: `[Yes]`, `
 Every activity diagram has exactly one initial node. It can have multiple final nodes — one for each alternative path that terminates the workflow. In our diagram, `[End]` appears at the return-to-catalogue paths, and a second `[End]` at successful enrolment.
 
 ### Avoid Overlapping Arrows
-In complex diagrams, arrows can cross each other and become unreadable. Use Mermaid's `graph TD` (top-down) or `graph LR` (left-right) layouts to minimise crossings. If a diagram becomes too dense, consider splitting it into sub-diagrams.
+In complex diagrams, arrows can cross each other and become unreadable. Use PlantUML's `top to bottom direction` (top-down) or `left to right direction` (left-right) layout directives to minimise crossings. If a diagram becomes too dense, consider splitting it into sub-diagrams.
 
 ### Object Nodes (Optional)
 For data-intensive workflows, you can add **object nodes** (rectangles) to show what data is passed between actions. For example, an `EnrolmentData` object flows from the summary step to the payment step. We omitted object nodes for clarity, but they are valuable when the data structure matters.
@@ -468,7 +468,7 @@ Setiap cabang keputusan harus memiliki guard condition dalam tanda kurung siku: 
 Setiap activity diagram memiliki tepat satu initial node. Diagram dapat memiliki beberapa final node — satu untuk setiap jalur alternatif yang mengakhiri alur kerja. Dalam diagram kita, `[Selesai]` muncul di jalur kembali-ke-katalog, dan `[Selesai]` kedua di pendaftaran berhasil.
 
 ### Hindari Panah Tumpang Tindih
-Dalam diagram yang kompleks, panah dapat saling bersilangan dan menjadi tidak terbaca. Gunakan tata letak `graph TD` (atas-bawah) atau `graph LR` (kiri-kanan) Mermaid untuk meminimalkan persilangan. Jika diagram menjadi terlalu padat, pertimbangkan untuk membaginya menjadi sub-diagram.
+Dalam diagram yang kompleks, panah dapat saling bersilangan dan menjadi tidak terbaca. Gunakan direktif layout PlantUML `top to bottom direction` (atas-bawah) atau `left to right direction` (kiri-kanan) untuk meminimalkan persilangan. Jika diagram menjadi terlalu padat, pertimbangkan untuk membaginya menjadi sub-diagram.
 
 ### Object Node (Opsional)
 Untuk alur kerja yang intensif data, Anda dapat menambahkan **object node** (persegi panjang) untuk menunjukkan data apa yang dilewatkan antar aksi. Misalnya, objek `EnrolmentData` mengalir dari langkah ringkasan ke langkah pembayaran. Kami menghilangkan object node demi kejelasan, tetapi mereka berharga ketika struktur data penting.

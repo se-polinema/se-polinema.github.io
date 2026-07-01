@@ -55,24 +55,24 @@ Pikirkan seperti ini:
 
 <section lang="en">
 
-## 2. Why Write a Use Case Scenario? (4W+H)
+## 2. Why Write a Use Case Scenario?
 
-### What
+### What is it?
 A use case scenario is a structured document that captures the dialogue between an actor and the system. It includes preconditions (what must be true before the use case starts), a main success scenario (the "happy path"), alternative flows (branching conditions), and postconditions (what is true when the use case completes).
 
-### Why
+### Why does it matter?
 - **Shared understanding.** Developers, testers, product owners, and stakeholders align on exactly what the system must do before anyone writes code.
 - **Test case generation.** Every step in the main and alternative flows becomes a test case. If a step says "System validates that the student has no schedule conflict," QA writes a test for it.
 - **Estimation.** Breaking a feature down into numbered steps makes it easier to estimate implementation effort.
 - **Traceability.** The scenario links requirements (what the stakeholder wants) to design (sequence diagrams, class diagrams) and implementation (code).
 
-### When
+### When do you use it?
 Write the use case scenario **after** the use case diagram is approved and **before** you start drawing activity diagrams, sequence diagrams, or writing code. It is the bridge between requirements and design.
 
-### Where
+### Where does it fit?
 The use case scenario lives in the Software Requirements Specification (SRS) or a dedicated use case document. In modern teams, it may live in a wiki, a project management tool, or even as structured comments in a ticket.
 
-### How
+### How do you create one?
 A complete use case scenario contains at minimum:
 1. **Use Case Name** — a verb-noun phrase matching the oval on the diagram
 2. **Primary Actor** — who initiates the use case
@@ -85,24 +85,24 @@ A complete use case scenario contains at minimum:
 
 <section lang="id">
 
-## 2. Mengapa Menulis Use Case Scenario? (4W+H)
+## 2. Mengapa Menulis Use Case Scenario?
 
-### What (Apa)
+### Apa itu?
 Use case scenario adalah dokumen terstruktur yang menangkap dialog antara aktor dan sistem. Ini mencakup prasyarat (apa yang harus benar sebelum use case dimulai), skenario sukses utama ("happy path"), alur alternatif (kondisi percabangan), dan pascasyarat (apa yang benar setelah use case selesai).
 
-### Why (Mengapa)
+### Mengapa penting?
 - **Pemahaman bersama.** Developer, tester, product owner, dan stakeholder menyelaraskan diri tentang apa yang harus dilakukan sistem sebelum siapa pun menulis kode.
 - **Pembuatan test case.** Setiap langkah dalam alur utama dan alternatif menjadi test case. Jika satu langkah mengatakan "Sistem memvalidasi bahwa mahasiswa tidak memiliki konflik jadwal," QA menulis tes untuk itu.
 - **Estimasi.** Memecah fitur menjadi langkah bernomor memudahkan estimasi upaya implementasi.
 - **Ketertelusuran.** Skenario menghubungkan persyaratan (apa yang diinginkan stakeholder) ke desain (sequence diagram, class diagram) dan implementasi (kode).
 
-### When (Kapan)
+### Kapan digunakan?
 Tulis use case scenario **setelah** use case diagram disetujui dan **sebelum** Anda mulai menggambar activity diagram, sequence diagram, atau menulis kode. Ini adalah jembatan antara persyaratan dan desain.
 
-### Where (Di Mana)
+### Di mana tempatnya?
 Use case scenario berada di Software Requirements Specification (SRS) atau dokumen use case khusus. Di tim modern, ini bisa berada di wiki, alat manajemen proyek, atau bahkan sebagai komentar terstruktur di tiket.
 
-### How (Bagaimana)
+### Bagaimana membuatnya?
 Use case scenario yang lengkap minimal berisi:
 1. **Nama Use Case** — frasa kata kerja-benda yang cocok dengan oval di diagram
 2. **Aktor Utama** — siapa yang memulai use case

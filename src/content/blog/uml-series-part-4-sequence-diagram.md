@@ -6,8 +6,8 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 4 of the UML Mini Series. Learn what a Sequence Diagram is, why it reveals object interactions, and how to draw one for the 'Enrol in Course' payment and enrolment flow — with lifelines, messages, and activation boxes in Mermaid."
-excerptId: "Bagian 4 dari Seri Mini UML. Pelajari apa itu Sequence Diagram, mengapa diagram ini mengungkap interaksi objek, dan cara menggambarnya untuk alur pembayaran dan pendaftaran 'Daftar Mata Kuliah' — dengan lifelines, messages, dan activation box dalam Mermaid."
+excerpt: "Part 4 of the UML Mini Series. Learn what a Sequence Diagram is, why it reveals object interactions, and how to draw one for the 'Enrol in Course' payment and enrolment flow — with lifelines, messages, and activation boxes in PlantUML."
+excerptId: "Bagian 4 dari Seri Mini UML. Pelajari apa itu Sequence Diagram, mengapa diagram ini mengungkap interaksi objek, dan cara menggambarnya untuk alur pembayaran dan pendaftaran 'Daftar Mata Kuliah' — dengan lifelines, messages, dan activation box dalam PlantUML."
 ---
 
 <nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">
@@ -85,24 +85,24 @@ Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence D
 
 <section lang="en">
 
-## 2. Why Use Sequence Diagrams? (4W+H)
+## 2. Why Use Sequence Diagrams?
 
-### What
+### What is it?
 A sequence diagram captures the dynamic interactions between objects in a specific scenario. It focuses on **time-ordered messages**: method calls, HTTP requests, database queries, and their responses.
 
-### Why
+### Why does it matter?
 - **Design precision.** A sequence diagram forces you to name every method, parameter, and return type before coding. You cannot hand-wave "then the system processes the payment" — you must specify `PaymentGateway::charge($amount, $studentId, $courseId): PaymentResult`.
 - **Discover hidden dependencies.** Drawing lifelines reveals when an object depends on another object it should not know about (violating the Law of Demeter or layered architecture).
 - **Concurrency visualisation.** Activation boxes show which operations happen in parallel and which block, making it easy to spot deadlock risks.
 - **Code generation.** Many IDEs can generate skeleton code from sequence diagrams. Even without tooling, a sequence diagram is an exact specification for what methods to implement.
 
-### When
+### When do you use it?
 Create a sequence diagram during the **design phase**, after the activity diagram and use case scenario are complete. It is the last behavioural diagram before implementation.
 
-### Where
+### Where does it fit?
 Sequence diagrams live in technical design documents and API specifications. They are especially useful for complex operations involving multiple services or components.
 
-### How
+### How do you create one?
 1. Identify the objects (participants) involved in the scenario.
 2. Place them as lifelines at the top of the diagram, arranged left to right.
 3. Trace the main flow from the use case scenario, converting each step into a message between objects.
@@ -114,24 +114,24 @@ Sequence diagrams live in technical design documents and API specifications. The
 
 <section lang="id">
 
-## 2. Mengapa Menggunakan Sequence Diagram? (4W+H)
+## 2. Mengapa Menggunakan Sequence Diagram?
 
-### What (Apa)
+### Apa itu?
 Sequence diagram menangkap interaksi dinamis antar objek dalam skenario tertentu. Diagram ini berfokus pada **pesan terurut waktu**: pemanggilan method, HTTP request, query database, dan responsnya.
 
-### Why (Mengapa)
+### Mengapa penting?
 - **Presisi desain.** Sequence diagram memaksa Anda menamai setiap method, parameter, dan tipe return sebelum coding. Anda tidak bisa mengabaikan "lalu sistem memproses pembayaran" — Anda harus menspesifikasikan `PaymentGateway::charge($amount, $studentId, $courseId): PaymentResult`.
 - **Temukan dependensi tersembunyi.** Menggambar lifelines mengungkapkan ketika sebuah objek bergantung pada objek lain yang seharusnya tidak diketahuinya (melanggar Law of Demeter atau arsitektur berlapis).
 - **Visualisasi konkurensi.** Activation box menunjukkan operasi mana yang terjadi secara paralel dan mana yang memblokir, memudahkan untuk menemukan risiko deadlock.
 - **Code generation.** Banyak IDE dapat menghasilkan kode kerangka dari sequence diagram. Bahkan tanpa tooling, sequence diagram adalah spesifikasi tepat untuk method apa yang harus diimplementasikan.
 
-### When (Kapan)
+### Kapan digunakan?
 Buat sequence diagram selama **fase desain**, setelah activity diagram dan use case scenario selesai. Ini adalah diagram perilaku terakhir sebelum implementasi.
 
-### Where (Di Mana)
+### Di mana tempatnya?
 Sequence diagram berada di dokumen desain teknis dan spesifikasi API. Diagram ini sangat berguna untuk operasi kompleks yang melibatkan beberapa layanan atau komponen.
 
-### How (Bagaimana)
+### Bagaimana membuatnya?
 1. Identifikasi objek (partisipan) yang terlibat dalam skenario.
 2. Tempatkan mereka sebagai lifelines di bagian atas diagram, disusun dari kiri ke kanan.
 3. Telusuri alur utama dari use case scenario, mengonversi setiap langkah menjadi pesan antar objek.
@@ -509,7 +509,7 @@ If a return message carries data (e.g., `PaymentResult {success, transaction_id}
 Do not draw three separate diagrams for the success path, the quota-full path, and the payment-failure path. Use `alt` fragments to keep all paths in one diagram. This is what makes the sequence diagram a complete specification.
 
 ### Number Your Messages (Optional)
-In formal specifications, messages are numbered (`1. getCourseDetails`, `2. checkQuota`, etc.). This helps when referencing specific interactions in documentation or code comments. Mermaid handles this automatically in some configurations.
+In formal specifications, messages are numbered (`1. getCourseDetails`, `2. checkQuota`, etc.). This helps when referencing specific interactions in documentation or code comments. PlantUML supports this with the `autonumber` directive at the top of the diagram.
 
 ### Avoid God Lifelines
 If one lifeline (usually the controller) receives 15+ messages, consider splitting the diagram into smaller interaction diagrams or delegating responsibilities. A controller that orchestrates too many services might benefit from a **facade** or **orchestrator** service.
@@ -530,7 +530,7 @@ Jika return message membawa data (misalnya, `PaymentResult {sukses, transaction_
 Jangan menggambar tiga diagram terpisah untuk jalur sukses, jalur kuota penuh, dan jalur kegagalan pembayaran. Gunakan fragmen `alt` untuk menyimpan semua jalur dalam satu diagram. Inilah yang membuat sequence diagram menjadi spesifikasi yang lengkap.
 
 ### Beri Nomor Pesan Anda (Opsional)
-Dalam spesifikasi formal, pesan diberi nomor (`1. getCourseDetails`, `2. checkQuota`, dll.). Ini membantu saat mereferensikan interaksi tertentu dalam dokumentasi atau komentar kode. Mermaid menangani ini secara otomatis dalam beberapa konfigurasi.
+Dalam spesifikasi formal, pesan diberi nomor (`1. getCourseDetails`, `2. checkQuota`, dll.). Ini membantu saat mereferensikan interaksi tertentu dalam dokumentasi atau komentar kode. PlantUML mendukung ini dengan direktif `autonumber` di bagian atas diagram.
 
 ### Hindari God Lifeline
 Jika satu lifeline (biasanya controller) menerima 15+ pesan, pertimbangkan untuk membagi diagram menjadi diagram interaksi yang lebih kecil atau mendelegasikan tanggung jawab. Controller yang mengorkestrasi terlalu banyak service mungkin mendapat manfaat dari service **facade** atau **orchestrator**.

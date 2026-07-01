@@ -73,24 +73,24 @@ Sementara empat bagian sebelumnya berfokus pada *perilaku* (apa yang dilakukan s
 
 <section lang="en">
 
-## 2. Why Use Class Diagrams? (4W+H)
+## 2. Why Use Class Diagrams?
 
-### What
+### What is it?
 A class diagram is the structural blueprint of the system. It defines what classes exist, what data they hold, how they relate, and what operations they expose. It answers: *"What are the building blocks, and how do they fit together?"*
 
-### Why
+### Why does it matter?
 - **Code generation.** Class diagrams map nearly 1:1 to object-oriented code. Each class becomes a file; each attribute becomes a property; each association becomes a relationship (foreign key, join table, or reference).
 - **Database schema design.** The class diagram's associations with multiplicities directly inform the database schema — one-to-many becomes a foreign key, many-to-many becomes a pivot table.
 - **Communication.** A class diagram is the quickest way for a new developer to understand the domain model. In 30 seconds, they can see that `User` has subclasses `Student` and `Lecturer`, that `Enrolment` links `Student` to `Course`, and that `Payment` is part of `Enrolment`.
 - **Refactoring safety.** When you know the intended structure, you can spot violations — a direct dependency between two classes that should not know about each other, or a missing class that should exist based on the domain.
 
-### When
+### When do you use it?
 Create a class diagram during the **design phase**, after the behavioural diagrams (use case, activity, sequence) are complete. It is the last UML diagram before coding begins — and the one that developers reference throughout implementation.
 
-### Where
+### Where does it fit?
 Class diagrams appear in architecture documentation, API documentation, and database design documents. In many teams, they are also embedded in the project README.
 
-### How
+### How do you create one?
 1. Collect all nouns from the use case scenario and sequence diagram — these are candidate classes.
 2. Identify attributes for each class based on the data flowing through messages in the sequence diagram.
 3. Identify operations (methods) based on the messages arriving at each lifeline.
@@ -102,24 +102,24 @@ Class diagrams appear in architecture documentation, API documentation, and data
 
 <section lang="id">
 
-## 2. Mengapa Menggunakan Class Diagram? (4W+H)
+## 2. Mengapa Menggunakan Class Diagram?
 
-### What (Apa)
+### Apa itu?
 Class diagram adalah blueprint struktural sistem. Diagram ini mendefinisikan kelas apa yang ada, data apa yang mereka simpan, bagaimana mereka berelasi, dan operasi apa yang mereka ekspos. Diagram ini menjawab: *"Apa saja blok bangunannya, dan bagaimana mereka saling cocok?"*
 
-### Why (Mengapa)
+### Mengapa penting?
 - **Code generation.** Class diagram dipetakan hampir 1:1 ke kode berorientasi objek. Setiap kelas menjadi file; setiap atribut menjadi properti; setiap association menjadi relasi (foreign key, join table, atau referensi).
 - **Desain skema database.** Association class diagram dengan multiplisitas secara langsung menginformasikan skema database — one-to-many menjadi foreign key, many-to-many menjadi pivot table.
 - **Komunikasi.** Class diagram adalah cara tercepat bagi developer baru untuk memahami domain model. Dalam 30 detik, mereka dapat melihat bahwa `User` memiliki subclass `Student` dan `Lecturer`, bahwa `Enrolment` menghubungkan `Student` ke `Course`, dan bahwa `Payment` adalah bagian dari `Enrolment`.
 - **Keamanan refactoring.** Ketika Anda mengetahui struktur yang dimaksud, Anda dapat menemukan pelanggaran — dependensi langsung antara dua kelas yang seharusnya tidak saling mengenal, atau kelas yang hilang yang seharusnya ada berdasarkan domain.
 
-### When (Kapan)
+### Kapan digunakan?
 Buat class diagram selama **fase desain**, setelah diagram perilaku (use case, activity, sequence) selesai. Ini adalah diagram UML terakhir sebelum coding dimulai — dan yang dirujuk developer sepanjang implementasi.
 
-### Where (Di Mana)
+### Di mana tempatnya?
 Class diagram muncul di dokumentasi arsitektur, dokumentasi API, dan dokumen desain database. Di banyak tim, diagram ini juga disematkan di README proyek.
 
-### How (Bagaimana)
+### Bagaimana membuatnya?
 1. Kumpulkan semua kata benda dari use case scenario dan sequence diagram — ini adalah kandidat kelas.
 2. Identifikasi atribut untuk setiap kelas berdasarkan data yang mengalir melalui pesan di sequence diagram.
 3. Identifikasi operasi (method) berdasarkan pesan yang tiba di setiap lifeline.
