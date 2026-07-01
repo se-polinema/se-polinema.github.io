@@ -1,0 +1,22 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import AchievementsPage from '../../components/AchievementsPage.vue'
+import achievementsData from '../../data/achievements.json'
+
+const achievements = achievementsData
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .map((item) => ({
+    title: item.title,
+    titleId: item.titleId,
+    date: item.date,
+    type: item.type,
+    description: item.description,
+    descriptionId: item.descriptionId,
+    url: item.url,
+    issuer: item.issuer,
+  }))
+---
+
+<VSCodeLayout title="Achievements — SE Lab" description="Research grants, awards, certifications, and milestones achieved by the Software Engineering Laboratory.">
+  <AchievementsPage client:load achievements={achievements} />
+</VSCodeLayout>

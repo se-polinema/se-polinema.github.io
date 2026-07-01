@@ -466,6 +466,24 @@
     "topics": "Topik",
     "backToHome": "Kembali ke Beranda"
   },
+  "achievements": {
+    "label": "Prestasi & Hibah",
+    "navLabel": "Prestasi",
+    "heading": "Hibah, Penghargaan & Pencapaian",
+    "description": "Kronologi kurasi hibah penelitian, penghargaan, sertifikasi, dan pencapaian penting yang menunjukkan kredibilitas dan dampak institusional laboratorium.",
+    "archiveHeading": "Arsip Prestasi",
+    "archiveDescription": "Hibah penelitian, penghargaan, sertifikasi, dan pencapaian yang diraih oleh Software Engineering Laboratory. Filter berdasarkan tipe untuk menjelajahi rekam jejak institusional kami.",
+    "viewAll": "Lihat Semua Prestasi",
+    "allTypes": "Semua Tipe",
+    "typeGrant": "Hibah",
+    "typeAward": "Penghargaan",
+    "typeCertification": "Sertifikasi",
+    "typeMilestone": "Pencapaian",
+    "issuer": "Penerbit",
+    "empty": "Belum ada prestasi untuk ditampilkan. Kunjungi kembali nanti.",
+    "resultSingle": "prestasi",
+    "resultPlural": "prestasi"
+  },
   "search": {
     "placeholder": "Cari peneliti, publikasi, dan blog...",
     "noResults": "Tidak ada hasil ditemukan",

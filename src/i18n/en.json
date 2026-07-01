@@ -466,6 +466,24 @@
     "topics": "Topics",
     "backToHome": "Back to Home"
   },
+  "achievements": {
+    "label": "Achievements",
+    "navLabel": "Achievements",
+    "heading": "Grants, Awards & Milestones",
+    "description": "A curated timeline of research grants, awards, certifications, and key milestones that demonstrate the laboratory's institutional credibility and impact.",
+    "archiveHeading": "Achievement Archive",
+    "archiveDescription": "Research grants, awards, certifications, and milestones achieved by the Software Engineering Laboratory. Filter by type to explore our institutional track record.",
+    "viewAll": "View All Achievements",
+    "allTypes": "All Types",
+    "typeGrant": "Grant",
+    "typeAward": "Award",
+    "typeCertification": "Certification",
+    "typeMilestone": "Milestone",
+    "issuer": "Issuer",
+    "empty": "No achievements to display yet. Check back soon.",
+    "resultSingle": "achievement",
+    "resultPlural": "achievements"
+  },
   "search": {
     "placeholder": "Search researchers, publications, and blog...",
     "noResults": "No results found",

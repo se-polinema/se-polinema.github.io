@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
 
-type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'researchers' | 'publications' | 'decks'
+type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'researchers' | 'publications' | 'decks' | 'achievements'
 
 const sidebarOpen = ref(false)
 const activeSection = ref('hero')
@@ -46,6 +46,9 @@ export function useVSCodeLayout() {
     } else if (path.startsWith('/decks')) {
       currentPage.value = 'decks'
       activeSidebarView.value = 'decks'
+    } else if (path.startsWith('/achievements')) {
+      currentPage.value = 'achievements'
+      activeSidebarView.value = 'achievements'
     } else {
       currentPage.value = 'home'
       activeSidebarView.value = 'explorer'
@@ -85,6 +88,7 @@ export function useVSCodeLayout() {
     researchers:  { href: '/researchers',  page: 'researchers'  },
     publications: { href: '/publications', page: 'publications' },
     decks:        { href: '/decks',        page: 'decks'        },
+    achievements: { href: '/achievements', page: 'achievements' },
   }
 
   // Clicking the active icon toggles the sidebar.

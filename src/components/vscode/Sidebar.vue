@@ -18,6 +18,7 @@
           : activeSidebarView === 'decks' ? 'Decks'
           : activeSidebarView === 'blog' ? 'Blog'
           : activeSidebarView === 'events' ? 'Events'
+          : activeSidebarView === 'achievements' ? 'Achievements'
           : 'Explorer' }}
       </span>
     </div>
@@ -225,6 +226,22 @@
       </div>
     </nav>
 
+    <!-- Achievements filter panel -->
+    <nav v-else-if="activeSidebarView === 'achievements'" key="achievements" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Achievement filters">
+      <div class="filter-header">Type</div>
+      <div class="flex flex-wrap gap-1 mt-2">
+        <button
+          v-for="type in achievementTypes"
+          :key="type"
+          @click="toggleAchievementFilter(type)"
+          class="filter-chip"
+          :class="activeAchievementType === type ? 'chip-active' : 'chip-inactive'"
+        >
+          {{ type }}
+        </button>
+      </div>
+    </nav>
+
     </Transition>
   </aside>
 </template>
@@ -261,6 +278,7 @@ const fileTree: FileItem[] = [
   { id: 'team',            name: 'team.md',          ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },
   { id: 'events',         name: 'events.ics',      ext: 'ics',  type: 'file',   sectionId: 'events',       pageId: 'events',       indent: 2, href: '/events' },
+  { id: 'achievements',   name: 'achievements.json', ext: 'json', type: 'file',   sectionId: 'achievements', pageId: 'achievements', indent: 2, href: '/achievements' },
   { id: 'blog',            name: 'blog.md',          ext: 'md',   type: 'file',   sectionId: 'blog',         pageId: 'blog',         indent: 2, href: '/blog' },
 ]
 
@@ -271,6 +289,8 @@ const pubTypes = ref<string[]>([])
 const blogCategories = ref<string[]>([])
 const deckMembers = ref<{ id: string; name: string }[]>([])
 const deckTypes = ref<string[]>([])
+const achievementTypes = ref(['Grant', 'Award', 'Certification', 'Milestone'])
+const activeAchievementType = ref<string | null>(null)
 const currentPath = ref('')
 
 function isActive(item: FileItem): boolean {
@@ -302,6 +322,11 @@ function navigate(item: FileItem) {
 function toggleFilter(key: 'year' | 'type' | 'category', value: number | string) {
   if (activeFilters[key] === value) (activeFilters as Record<string, unknown>)[key] = null
   else (activeFilters as Record<string, unknown>)[key] = value
+}
+
+function toggleAchievementFilter(type: string) {
+  if (activeAchievementType.value === type) activeAchievementType.value = null
+  else activeAchievementType.value = type
 }
 
 onMounted(async () => {

@@ -110,6 +110,20 @@
         </svg>
       </button>
 
+      <!-- Achievements -->
+      <button
+        @click="setView('achievements')"
+        class="activity-btn"
+        :class="activeSidebarView === 'achievements' ? 'activity-active' : 'activity-inactive'"
+        title="Achievements"
+        aria-label="Achievements archive"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="7"/>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+        </svg>
+      </button>
+
       <!-- Decks -->
       <button
         @click="setView('decks')"
