@@ -1,0 +1,25 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import AlumniDirectoryPage from '../../components/AlumniDirectoryPage.vue'
+import { getCollection } from 'astro:content'
+
+const alumni = (await getCollection('alumni'))
+  .sort((a, b) => b.data.cohortYear - a.data.cohortYear || a.data.name.localeCompare(b.data.name))
+  .map((entry) => ({
+    id: entry.id,
+    name: entry.data.name,
+    photo: entry.data.photo,
+    cohortYear: entry.data.cohortYear,
+    exitYear: entry.data.exitYear,
+    role: entry.data.role,
+    currentRole: entry.data.currentRole,
+    currentOrganization: entry.data.currentOrganization,
+    linkedinUrl: entry.data.linkedinUrl,
+    profileUrl: entry.data.profileUrl,
+    streams: entry.data.streams,
+  }))
+---
+
+<VSCodeLayout title="Alumni">
+  <AlumniDirectoryPage client:load alumni={alumni} />
+</VSCodeLayout>

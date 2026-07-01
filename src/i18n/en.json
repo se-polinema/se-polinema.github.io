@@ -15,6 +15,7 @@
     "blog": "Blog",
     "events": "Events",
     "faq": "FAQ",
+    "alumni": "Alumni",
     "newsletter": "Newsletter"
   },
   "hero": {
@@ -442,6 +443,7 @@
     "description": "The page you are looking for does not exist or has been moved.",
     "home": "Home",
     "blog": "Blog",
+    "alumni": "Alumni",
     "researchers": "Researchers",
     "publications": "Publications"
   },
@@ -484,6 +486,17 @@
     "empty": "No achievements to display yet. Check back soon.",
     "resultSingle": "achievement",
     "resultPlural": "achievements"
+  },
+  "alumni": {
+    "heading": "Lab Alumni",
+    "description": "Former members of the Software Engineering Laboratory and where they are now. Our alumni work in industry, academia, and continue their studies across Indonesia and beyond.",
+    "navLabel": "Alumni",
+    "cohortLabel": "Cohort",
+    "now": "Now:",
+    "at": "at",
+    "period": "Period",
+    "profile": "Profile",
+    "empty": "No alumni entries yet."
   },
   "search": {
     "placeholder": "Search researchers, publications, and blog...",

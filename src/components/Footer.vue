@@ -19,6 +19,7 @@
             <li><a href="/faq" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.faq }}</a></li>
             <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.blog }}</a></li>
             <li><a href="/researchers" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.researchers }}</a></li>
+            <li><a href="/alumni" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.alumni }}</a></li>
             <li><a href="/books" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.books }}</a></li>
             <li><a href="/decks" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.decks }}</a></li>
             <li><a href="/publications" class="text-sm text-white/60 hover:text-white transition-colors">{{ t.nav.publications }}</a></li>

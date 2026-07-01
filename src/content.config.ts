@@ -134,10 +134,27 @@ const presentationsCollection = defineCollection({
   }),
 })
 
+const alumniCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/alumni' }),
+  schema: z.object({
+    name: z.string(),
+    photo: z.string().optional(),
+    cohortYear: z.number().int(),
+    exitYear: z.number().int(),
+    role: localizedText,
+    currentRole: localizedText,
+    currentOrganization: localizedText,
+    linkedinUrl: z.string().optional(),
+    profileUrl: z.string().optional(),
+    streams: z.array(z.string()).optional(),
+  }),
+})
+
 export const collections = {
   blog: blogCollection,
   researchers: researchersCollection,
   publications: publicationsCollection,
   projects: projectsCollection,
   presentations: presentationsCollection,
+  alumni: alumniCollection,
 }
