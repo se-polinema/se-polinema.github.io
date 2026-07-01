@@ -1,9 +1,10 @@
 /**
  * scrape-books.mjs
  *
- * Scrapes the Polinema Press book catalog from
- * https://polinemapress21.com/katalog-buku/ and matches authors against
- * researchers defined in src/content/researchers/*.md.
+ * Scrapes Polinema Press books by searching for each researcher name and
+ * matching authors against researchers defined in src/content/researchers/*.md.
+ * Falls back to Jina Reader Markdown when the Polinema Press site blocks
+ * direct automated requests.
  *
  * Outputs a JSON summary to /tmp/scraped-books.json and prints
  * YAML-ready frontmatter snippets to stdout for manual curation.
@@ -11,25 +12,113 @@
  * Run:
  *   node scripts/scrape-books.mjs
  *
+ * Set SCRAPE_BOOKS_INCLUDE_CATALOG=1 to also crawl the catalog/category
+ * discovery pages. The default mode is intentionally focused on researcher
+ * search results to avoid rate-limiting the fallback source.
+ *
  * Dependencies: none (uses Node.js 18+ built-in fetch).
  */
 
-import { writeFileSync, readdirSync, readFileSync, mkdirSync } from 'node:fs'
+import { writeFileSync, readdirSync, readFileSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const CATALOG_BASE = 'https://polinemapress21.com/katalog-buku/'
+const SITE_BASE = 'https://polinemapress21.com'
+const JINA_READER_BASE = 'https://r.jina.ai/http://r.jina.ai/http://'
+const BROAD_DISCOVERY_URLS = [
+  CATALOG_BASE,
+  `${SITE_BASE}/product-category/teknik-informatika/`,
+]
 const RESEARCHERS_DIR = resolve(__dirname, '../src/content/researchers')
-const REQUEST_DELAY_MS = 600
+const REQUEST_DELAY_MS = 1200
+const FETCH_RETRIES = 3
+const INCLUDE_BROAD_DISCOVERY = process.env.SCRAPE_BOOKS_INCLUDE_CATALOG === '1'
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms))
+}
+
+function toJinaUrl(url) {
+  return `${JINA_READER_BASE}${url}`
+}
+
+function isBlockedResponse(text, status) {
+  return status === 415
+    || /Imunify360|bot-protection|Mohon tunggu sebentar|Access denied/i.test(text)
+}
+
+async function fetchRawText(url) {
+  let lastError
+
+  for (let attempt = 1; attempt <= FETCH_RETRIES; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,text/markdown;q=0.8,*/*;q=0.7',
+          'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+        },
+      })
+      const text = await res.text()
+
+      if (res.status === 429 && attempt < FETCH_RETRIES) {
+        await sleep(3000 * attempt)
+        continue
+      }
+
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`, { cause: { status: res.status, text } })
+      return { text, status: res.status }
+    } catch (err) {
+      lastError = err
+      if (attempt < FETCH_RETRIES && !err.cause?.status) {
+        await sleep(1500 * attempt)
+        continue
+      }
+      break
+    }
+  }
+
+  throw lastError
+}
 
 async function fetchText(url) {
-  const res = await fetch(url, {
-    headers: { 'User-Agent': 'se-polinema-scraper/1.0 (+https://se-polinema.github.io)' },
-  })
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`)
-  return res.text()
+  try {
+    const direct = await fetchRawText(url)
+    if (!isBlockedResponse(direct.text, direct.status)) {
+      return { text: direct.text, source: 'direct', sourceUrl: url }
+    }
+  } catch (err) {
+    if (!err.cause?.status || !isBlockedResponse(err.cause.text ?? '', err.cause.status)) {
+      console.warn(`   ⚠ Direct fetch failed for ${url}: ${err.message}`)
+    }
+  }
+
+  const jinaUrl = toJinaUrl(url)
+  const jina = await fetchRawText(jinaUrl)
+  return { text: jina.text, source: 'jina', sourceUrl: jinaUrl }
+}
+
+function cleanMarkdownText(text) {
+  return text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/!\[[^\]]*]\([^)]+\)/g, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function cleanHtmlText(text) {
+  return text
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&#8211;/g, '-')
+    .replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function extractFromDetail(html) {
@@ -45,7 +134,7 @@ function extractFromDetail(html) {
   const isbnMatch = html.match(/ISBN\s*:\s*([^<\n]+)/)
   const isbn = isbnMatch?.[1].trim() ?? ''
 
-  const publisherMatch = html.match(/Publisher\s*:\s*([^<\n]+)/)
+  const publisherMatch = html.match(/(?:Publisher|Penerbit)\s*:\s*([^<\n]+)/)
   const publisher = publisherMatch?.[1].trim() ?? ''
 
   const yearMatch = html.match(/Tahun\s*Terbit\s*:\s*(\d{4})/)
@@ -53,9 +142,82 @@ function extractFromDetail(html) {
 
   const descMatch = html.match(/<div[^>]*class="woocommerce-product-details__short-description"[^>]*>\s*<p>([^<]+)/)
     ?? html.match(/class="woocommerce-Tabs-panel[^"]*"[^>]*>\s*<h2>Deskripsi<\/h2>\s*<p>([\s\S]*?)<\/p>/)
-  const description = descMatch?.[1].trim() ?? ''
+  const description = cleanHtmlText(descMatch?.[1] ?? '')
 
-  return { title, authors, isbn, publisher, year, description }
+  return { title: cleanHtmlText(title), authors, isbn, publisher, year, description, coverImageUrl: '' }
+}
+
+function extractMarkdownField(markdown, label) {
+  const re = new RegExp(`^\\s*${label}\\s*:\\s*(.+)$`, 'im')
+  const match = markdown.match(re)
+  return cleanMarkdownText(match?.[1] ?? '')
+}
+
+function extractMarkdownTitle(markdown) {
+  const headings = [...markdown.matchAll(/^#\s+(.+)$/gm)]
+    .map((m) => cleanMarkdownText(m[1]))
+    .filter((h) => h && !/POLINEMA PRESS|Katalog Buku|Search Results/i.test(h))
+  if (headings.length > 0) return headings[0]
+
+  const titleLine = markdown.match(/^Title:\s*(.+)$/m)
+  return cleanMarkdownText(titleLine?.[1]?.replace(/\s+[–-]\s+POLINEMA PRESS.*$/i, '') ?? '')
+}
+
+function extractMarkdownDescription(markdown) {
+  const match = markdown.match(/^##\s+Deskripsi\s*$([\s\S]*?)(?=^##\s+|^\*?\s*Related products|^###\s+|$)/im)
+  if (!match) return ''
+
+  return cleanMarkdownText(match[1])
+}
+
+function escapeRegex(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function isLikelyBookCoverImage(url) {
+  return !/polinema-press-header|Logo-|lambang-|ikapilogoo|header-appti|s\.w\.org|secure\.gravatar/i.test(url)
+    && !/-80x80\.|-100x100\./.test(url)
+}
+
+function extractMarkdownCoverImage(markdown, title) {
+  if (title) {
+    const titleImageRe = new RegExp(
+      `!\\[[^\\]]*${escapeRegex(title)}[^\\]]*]\\((https:\\/\\/polinemapress21\\.com\\/wp-content\\/uploads\\/[^)]+)\\)` +
+      `(?:\\]\\((https:\\/\\/polinemapress21\\.com\\/wp-content\\/uploads\\/[^)]+)\\))?`,
+      'i',
+    )
+    const titleImage = markdown.match(titleImageRe)
+    const fullSizeUrl = titleImage?.[2] ?? titleImage?.[1]
+    if (fullSizeUrl && isLikelyBookCoverImage(fullSizeUrl)) return fullSizeUrl
+  }
+
+  const beforeTitle = title ? markdown.split(new RegExp(`^#\\s+${escapeRegex(title)}\\s*$`, 'im'))[0] ?? markdown : markdown
+  const imageLinks = [...beforeTitle.matchAll(/!\[[^\]]*]\((https:\/\/polinemapress21\.com\/wp-content\/uploads\/[^)]+)\)/g)]
+    .map((m) => m[1])
+    .filter(isLikelyBookCoverImage)
+
+  return imageLinks[0] ?? ''
+}
+
+function extractFromMarkdownDetail(markdown) {
+  const title = extractMarkdownTitle(markdown)
+  const authors = extractMarkdownField(markdown, 'Penulis')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+  const isbn = extractMarkdownField(markdown, 'ISBN')
+  const publisher = extractMarkdownField(markdown, '(?:Publisher|Penerbit)')
+  const yearText = extractMarkdownField(markdown, 'Tahun\\s*Terbit')
+  const yearMatch = yearText.match(/\d{4}/)
+  const year = yearMatch ? parseInt(yearMatch[0], 10) : undefined
+  const description = extractMarkdownDescription(markdown)
+  const coverImageUrl = extractMarkdownCoverImage(markdown, title)
+
+  return { title, authors, isbn, publisher, year, description, coverImageUrl }
+}
+
+function extractDetail(content, source) {
+  return source === 'jina' ? extractFromMarkdownDetail(content) : extractFromDetail(content)
 }
 
 function extractProductUrls(html) {
@@ -66,6 +228,20 @@ function extractProductUrls(html) {
     if (!urls.includes(m[1])) urls.push(m[1])
   }
   return urls
+}
+
+function extractProductUrlsFromMarkdown(markdown) {
+  const urls = new Set()
+  const re = /\]\((https:\/\/polinemapress21\.com\/produk\/[^)\s#?]+\/?)\)/g
+  let m
+  while ((m = re.exec(markdown)) !== null) {
+    urls.add(m[1])
+  }
+  return [...urls]
+}
+
+function extractProductUrlsFromContent(content, source) {
+  return source === 'jina' ? extractProductUrlsFromMarkdown(content) : extractProductUrls(content)
 }
 
 function extractCoverImage(html, productUrl) {
@@ -130,33 +306,42 @@ async function main() {
   const researchers = loadResearchers()
   console.log(`   Found ${researchers.length} researcher(s)\n`)
 
-  console.log('📡 Fetching catalog listing pages...')
-
-  const allProductUrls = []
-  let page = 1
-  while (true) {
-    const url = page === 1 ? CATALOG_BASE : `${CATALOG_BASE}page/${page}/`
-    console.log(`   Page ${page}: ${url}`)
-    const html = await fetchText(url)
-
-    // check if this page actually has content (some WP configs return last page again)
-    if (html.includes('Produk tidak ditemukan') || html.includes('No products were found')) {
-      console.log('   → No more products, stopping pagination.')
-      break
-    }
-
-    const urls = extractProductUrls(html)
-    if (urls.length === 0) {
-      console.log('   → No product URLs found on this page, stopping.')
-      break
-    }
-
-    allProductUrls.push(...urls)
-    console.log(`   → Found ${urls.length} products on this page`)
-
-    page++
-    await new Promise((r) => setTimeout(r, REQUEST_DELAY_MS))
+  console.log('📡 Discovering product pages...')
+  if (!INCLUDE_BROAD_DISCOVERY) {
+    console.log('   Using researcher search discovery. Set SCRAPE_BOOKS_INCLUDE_CATALOG=1 for broad catalog discovery.')
   }
+
+  const discoveryUrls = [
+    ...(INCLUDE_BROAD_DISCOVERY ? BROAD_DISCOVERY_URLS : []),
+    ...researchers
+      .filter((r) => r.name)
+      .map((r) => `${SITE_BASE}/?s=${encodeURIComponent(r.name)}&post_type=product`),
+  ]
+  const productUrlSet = new Set()
+
+  for (let i = 0; i < discoveryUrls.length; i++) {
+    const url = discoveryUrls[i]
+    console.log(`   [${i + 1}/${discoveryUrls.length}] ${url}`)
+
+    try {
+      const { text, source } = await fetchText(url)
+
+      if (text.includes('Produk tidak ditemukan') || text.includes('No products were found')) {
+        console.log(`   → No products found (${source})`)
+        continue
+      }
+
+      const urls = extractProductUrlsFromContent(text, source)
+      for (const productUrl of urls) productUrlSet.add(productUrl)
+      console.log(`   → Found ${urls.length} products (${source})`)
+    } catch (err) {
+      console.error(`   ❌ Error fetching discovery URL ${url}: ${err.message}`)
+    }
+
+    await sleep(REQUEST_DELAY_MS)
+  }
+
+  const allProductUrls = [...productUrlSet]
 
   console.log(`\n📚 Found ${allProductUrls.length} total product URLs.\n`)
 
@@ -169,8 +354,9 @@ async function main() {
     console.log(`   [${i + 1}/${allProductUrls.length}] ${productUrl}`)
 
     try {
-      const detailHtml = await fetchText(productUrl)
-      const detail = extractFromDetail(detailHtml)
+      const { text, source, sourceUrl } = await fetchText(productUrl)
+      const detail = extractDetail(text, source)
+      const coverImageUrl = detail.coverImageUrl || (source === 'direct' ? extractCoverImage(text, productUrl) : '')
 
       // match authors to researchers
       const matched = []
@@ -184,6 +370,11 @@ async function main() {
           matchedResearchers.get(match.id).push({
             title: detail.title,
             url: productUrl,
+            publisher: detail.publisher,
+            isbn: detail.isbn,
+            year: detail.year,
+            coverImageUrl,
+            description: detail.description,
           })
         } else if (a.length > 2) {
           unmatched.add(a)
@@ -192,7 +383,10 @@ async function main() {
 
       books.push({
         ...detail,
+        coverImageUrl,
         productUrl,
+        source,
+        sourceUrl,
         matchedResearchers: matched.map((m) => ({ id: m.id, name: m.name })),
       })
     } catch (err) {
@@ -204,13 +398,16 @@ async function main() {
         publisher: '',
         year: undefined,
         description: '',
+        coverImageUrl: '',
         productUrl,
+        source: '',
+        sourceUrl: '',
         matchedResearchers: [],
         error: err.message,
       })
     }
 
-    await new Promise((r) => setTimeout(r, REQUEST_DELAY_MS))
+    await sleep(REQUEST_DELAY_MS)
   }
 
   const labBooks = books.filter((b) => b.matchedResearchers.length > 0)
@@ -249,6 +446,7 @@ async function main() {
       if (b.isbn) console.log(`    isbn: "${b.isbn}"`)
       if (b.year) console.log(`    year: ${b.year}`)
       console.log(`    url: "${b.url}"`)
+      if (b.coverImageUrl) console.log(`    # remoteCoverImage: "${b.coverImageUrl}"`)
       if (b.description) console.log(`    description: "${b.description.slice(0, 120)}..."`)
       console.log('')
     }
