@@ -21,10 +21,14 @@ export interface MemberProject {
 export interface MemberBook {
   title: string
   titleId?: string
+  url?: string
   playstoreUrl?: string
   coverImage?: string
   description?: string
   descriptionId?: string
+  year?: number
+  publisher?: string
+  isbn?: string
   authors: { id: string; name: string }[]
 }
 

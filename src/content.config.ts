@@ -65,10 +65,14 @@ const researchersCollection = defineCollection({
     books: z.array(z.object({
       title: z.string(),
       titleId: z.string().optional(),
+      url: z.url().optional(),
       playstoreUrl: z.url().optional(),
       coverImage: z.string().optional(),
       description: z.string().optional(),
       descriptionId: z.string().optional(),
+      year: z.number().int().optional(),
+      publisher: z.string().optional(),
+      isbn: z.string().optional(),
     })).optional(),
     decks: z.array(z.object({
       title: z.string(),
