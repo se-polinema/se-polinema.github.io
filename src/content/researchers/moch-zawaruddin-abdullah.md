@@ -35,4 +35,9 @@ order: 5
 streams:
   - "domain-specific-se-applications"
   - "emerging-technologies-se"
+books:
+  - title: "Konsep Teknologi Informasi"
+    coverImage: "/images/books/konsep-teknologi-informasi.png"
+    description: "A comprehensive guide to information technology concepts, covering hardware and software fundamentals, computer networks, information systems, and emerging trends such as cloud computing, big data, artificial intelligence, and cybersecurity. Explores IT's role in social, business, and educational transformation."
+    descriptionId: "Panduan menyeluruh tentang konsep teknologi informasi, mencakup dasar perangkat keras dan perangkat lunak, jaringan komputer, sistem informasi, hingga tren mutakhir seperti cloud computing, big data, kecerdasan buatan, dan keamanan siber. Mengupas peran TI dalam transformasi sosial, bisnis, dan pendidikan."
 ---
