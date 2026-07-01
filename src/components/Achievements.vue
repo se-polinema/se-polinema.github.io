@@ -60,6 +60,17 @@
             <p v-if="item.issuer" class="text-xs text-primary/40 dark:text-gray-500 mt-1">
               {{ t.achievements.issuer }}: {{ item.issuer }}
             </p>
+            <p v-if="item.members && item.members.length > 0" class="text-xs text-primary/40 dark:text-gray-500 mt-1">
+              {{ t.achievements.members }}:
+              <a
+                v-for="(memberId, idx) in item.members"
+                :key="memberId"
+                :href="`/researchers/${memberId}`"
+                class="text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-200"
+              >
+                {{ memberNameMap[memberId] || memberId }}<span v-if="idx < item.members.length - 1">, </span>
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -72,7 +83,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import teamData from '../data/team.json'
 
 defineProps<{
   achievements: Array<{
@@ -84,10 +97,19 @@ defineProps<{
     descriptionId?: string
     url?: string
     issuer?: string
+    members?: string[]
   }>
 }>()
 
 const { lang, t } = useI18n()
+
+const memberNameMap = computed(() => {
+  const map: Record<string, string> = {}
+  for (const member of teamData) {
+    map[member.id] = member.name
+  }
+  return map
+})
 
 function formatDate(dateStr: string): string {
   const d = new Date(dateStr)

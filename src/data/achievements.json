@@ -7,7 +7,8 @@
     "description": "Received a two-year fundamental research grant from the Directorate of Research, Technology, and Community Service (DRTPM), Ministry of Education, to develop AI-driven backlog prediction models for agile software teams using historical sprint data and natural language processing.",
     "descriptionId": "Menerima hibah penelitian fundamental dua tahun dari Direktorat Riset, Teknologi, dan Pengabdian kepada Masyarakat (DRTPM), Kementerian Pendidikan, untuk mengembangkan model prediksi backlog berbasis AI bagi tim perangkat lunak agile menggunakan data sprint historis dan pemrosesan bahasa alami.",
     "issuer": "DRTPM — Kemendikbudristek",
-    "url": "https://dikti.kemdikbud.go.id"
+    "url": "https://dikti.kemdikbud.go.id",
+    "members": ["imam-fahrur-rozi", "moch-zawaruddin-abdullah"]
   },
   {
     "title": "Best Paper Award — ICSEC 2024",
@@ -17,7 +18,8 @@
     "description": "Awarded Best Paper at the 28th International Computer Science and Engineering Conference (ICSEC 2024) for the work 'Automated Grading of Programming Assignments Using Static Analysis and LLM-Based Feedback'.",
     "descriptionId": "Menerima penghargaan Makalah Terbaik pada International Computer Science and Engineering Conference (ICSEC) ke-28 tahun 2024 untuk karya 'Automated Grading of Programming Assignments Using Static Analysis and LLM-Based Feedback'.",
     "issuer": "ICSEC 2024 Organizing Committee",
-    "url": "https://icsec2024.org"
+    "url": "https://icsec2024.org",
+    "members": ["dian-hanifudin-subhi", "ridwan-rismanto"]
   },
   {
     "title": "SE Lab Achieves ISO 9001:2015 Certification for Research Management",
@@ -27,7 +29,8 @@
     "description": "The Software Engineering Laboratory obtained ISO 9001:2015 certification for its quality management system covering research project management, software development lifecycle, and academic collaboration workflows.",
     "descriptionId": "Laboratorium Rekayasa Perangkat Lunak memperoleh sertifikasi ISO 9001:2015 untuk sistem manajemen mutu yang mencakup manajemen proyek penelitian, siklus pengembangan perangkat lunak, dan alur kerja kolaborasi akademik.",
     "issuer": "TÜV Rheinland",
-    "url": "https://www.tuv.com"
+    "url": "https://www.tuv.com",
+    "members": []
   },
   {
     "title": "Industry Partnership Grant — Digital Campus Platform",
@@ -37,7 +40,8 @@
     "description": "Secured an industry-academia partnership grant with Telkom Indonesia to develop an integrated digital campus platform featuring smart scheduling, e-learning analytics, and automated attendance tracking.",
     "descriptionId": "Mendapatkan hibah kemitraan industri-akademik dengan Telkom Indonesia untuk mengembangkan platform kampus digital terintegrasi dengan fitur penjadwalan cerdas, analitik e-learning, dan pelacakan kehadiran otomatis.",
     "issuer": "Telkom Indonesia",
-    "url": "https://www.telkom.co.id"
+    "url": "https://www.telkom.co.id",
+    "members": ["moch-zawaruddin-abdullah", "elok-hamdana"]
   },
   {
     "title": "SE Lab Celebrates 10th Anniversary",
@@ -46,7 +50,8 @@
     "type": "Milestone",
     "description": "Celebrated a decade of software engineering research, education, and community service. The lab has grown from 3 founding researchers to a team of 25+ members with over 200 publications and 15 funded projects.",
     "descriptionId": "Merayakan satu dekade penelitian, pendidikan, dan pengabdian masyarakat di bidang rekayasa perangkat lunak. Lab telah berkembang dari 3 peneliti pendiri menjadi tim beranggotakan 25+ orang dengan lebih dari 200 publikasi dan 15 proyek yang didanai.",
-    "issuer": "SE Lab — Politeknik Negeri Malang"
+    "issuer": "SE Lab — Politeknik Negeri Malang",
+    "members": []
   },
   {
     "title": "Google Cloud Education Credits Award",
@@ -56,7 +61,8 @@
     "description": "Awarded Google Cloud education credits valued at $10,000 to support cloud-native research projects, student capstone deployments, and hands-on workshops on serverless architecture and container orchestration.",
     "descriptionId": "Mendapatkan kredit pendidikan Google Cloud senilai $10.000 untuk mendukung proyek penelitian cloud-native, deployment tugas akhir mahasiswa, dan lokakarya praktis tentang arsitektur serverless dan orkestrasi kontainer.",
     "issuer": "Google Cloud for Education",
-    "url": "https://cloud.google.com/edu"
+    "url": "https://cloud.google.com/edu",
+    "members": ["dian-hanifudin-subhi", "moch-zawaruddin-abdullah"]
   },
   {
     "title": "National ICT Innovation Award — SmartCampus Mobile",
@@ -66,7 +72,8 @@
     "description": "Won the National ICT Innovation Award (INAICTA) in the Education Technology category for SmartCampus Mobile, a cross-platform student services application built with Flutter and integrated with the campus information system.",
     "descriptionId": "Memenangkan Penghargaan Inovasi TIK Nasional (INAICTA) kategori Teknologi Pendidikan untuk SmartCampus Mobile, aplikasi layanan mahasiswa lintas platform yang dibangun dengan Flutter dan terintegrasi dengan sistem informasi kampus.",
     "issuer": "INAICTA — Kominfo",
-    "url": "https://inaicta.id"
+    "url": "https://inaicta.id",
+    "members": ["dian-hanifudin-subhi"]
   },
   {
     "title": "AWS Academy Accredited Educator Certification",
@@ -76,7 +83,8 @@
     "description": "Three SE Lab researchers became AWS Academy Accredited Educators, enabling the lab to offer cloud computing courses aligned with AWS curriculum and industry-recognized certification pathways for students.",
     "descriptionId": "Tiga peneliti SE Lab menjadi AWS Academy Accredited Educators, memungkinkan lab menawarkan mata kuliah komputasi awan yang selaras dengan kurikulum AWS dan jalur sertifikasi yang diakui industri bagi mahasiswa.",
     "issuer": "Amazon Web Services",
-    "url": "https://aws.amazon.com/training/awsacademy"
+    "url": "https://aws.amazon.com/training/awsacademy",
+    "members": ["imam-fahrur-rozi", "dian-hanifudin-subhi", "moch-zawaruddin-abdullah"]
   },
   {
     "title": "First International Research Collaboration Signed",
@@ -86,7 +94,8 @@
     "description": "Signed the lab's first international research collaboration agreement with the University of Technology Sydney (UTS) focusing on requirements engineering for AI-enabled systems and joint supervision of postgraduate students.",
     "descriptionId": "Menandatangani perjanjian kolaborasi riset internasional pertama lab dengan University of Technology Sydney (UTS) yang berfokus pada rekayasa kebutuhan untuk sistem berbasis AI dan supervisi bersama mahasiswa pascasarjana.",
     "issuer": "University of Technology Sydney",
-    "url": "https://www.uts.edu.au"
+    "url": "https://www.uts.edu.au",
+    "members": []
   },
   {
     "title": "Matching Fund Grant — Kedaireka 2022",
@@ -96,7 +105,8 @@
     "description": "Awarded a matching fund grant through the Kedaireka platform to develop an intelligent internship placement system that matches student competencies with industry partner requirements using semantic matching algorithms.",
     "descriptionId": "Mendapatkan hibah dana padanan melalui platform Kedaireka untuk mengembangkan sistem penempatan magang cerdas yang mencocokkan kompetensi mahasiswa dengan kebutuhan mitra industri menggunakan algoritma pencocokan semantik.",
     "issuer": "Kedaireka — Kemendikbudristek",
-    "url": "https://kedaireka.id"
+    "url": "https://kedaireka.id",
+    "members": ["imam-fahrur-rozi", "moch-zawaruddin-abdullah"]
   },
   {
     "title": "SE Lab Established as Official Research Unit",
@@ -105,6 +115,7 @@
     "type": "Milestone",
     "description": "The Software Engineering Laboratory was formally established as an official research unit under the Department of Information Technology at Politeknik Negeri Malang, with three founding researchers and a mission to advance applied software engineering research.",
     "descriptionId": "Laboratorium Rekayasa Perangkat Lunak secara resmi didirikan sebagai unit penelitian di bawah Jurusan Teknologi Informasi Politeknik Negeri Malang, dengan tiga peneliti pendiri dan misi untuk memajukan penelitian rekayasa perangkat lunak terapan.",
-    "issuer": "Politeknik Negeri Malang"
+    "issuer": "Politeknik Negeri Malang",
+    "members": []
   }
 ]
