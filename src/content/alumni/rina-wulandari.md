@@ -1,6 +1,5 @@
 ---
 name: "Rina Wulandari"
-photo: "/images/researchers/placeholder.jpg"
 cohortYear: 2022
 exitYear: 2024
 role:

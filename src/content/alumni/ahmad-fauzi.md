@@ -1,6 +1,5 @@
 ---
 name: "Ahmad Fauzi"
-photo: "/images/researchers/placeholder.jpg"
 cohortYear: 2021
 exitYear: 2023
 role:
