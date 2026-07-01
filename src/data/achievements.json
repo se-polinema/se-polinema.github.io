@@ -22,49 +22,6 @@
     "members": ["dian-hanifudin-subhi", "ridwan-rismanto"]
   },
   {
-    "title": "SE Lab Achieves ISO 9001:2015 Certification for Research Management",
-    "titleId": "SE Lab Meraih Sertifikasi ISO 9001:2015 untuk Manajemen Penelitian",
-    "date": "2024-06-20",
-    "type": "Certification",
-    "description": "The Software Engineering Laboratory obtained ISO 9001:2015 certification for its quality management system covering research project management, software development lifecycle, and academic collaboration workflows.",
-    "descriptionId": "Laboratorium Rekayasa Perangkat Lunak memperoleh sertifikasi ISO 9001:2015 untuk sistem manajemen mutu yang mencakup manajemen proyek penelitian, siklus pengembangan perangkat lunak, dan alur kerja kolaborasi akademik.",
-    "issuer": "TÜV Rheinland",
-    "url": "https://www.tuv.com",
-    "members": []
-  },
-  {
-    "title": "Industry Partnership Grant — Digital Campus Platform",
-    "titleId": "Hibah Kemitraan Industri — Platform Kampus Digital",
-    "date": "2024-03-01",
-    "type": "Grant",
-    "description": "Secured an industry-academia partnership grant with Telkom Indonesia to develop an integrated digital campus platform featuring smart scheduling, e-learning analytics, and automated attendance tracking.",
-    "descriptionId": "Mendapatkan hibah kemitraan industri-akademik dengan Telkom Indonesia untuk mengembangkan platform kampus digital terintegrasi dengan fitur penjadwalan cerdas, analitik e-learning, dan pelacakan kehadiran otomatis.",
-    "issuer": "Telkom Indonesia",
-    "url": "https://www.telkom.co.id",
-    "members": ["moch-zawaruddin-abdullah", "elok-hamdana"]
-  },
-  {
-    "title": "SE Lab Celebrates 10th Anniversary",
-    "titleId": "SE Lab Merayakan 10 Tahun",
-    "date": "2023-09-15",
-    "type": "Milestone",
-    "description": "Celebrated a decade of software engineering research, education, and community service. The lab has grown from 3 founding researchers to a team of 25+ members with over 200 publications and 15 funded projects.",
-    "descriptionId": "Merayakan satu dekade penelitian, pendidikan, dan pengabdian masyarakat di bidang rekayasa perangkat lunak. Lab telah berkembang dari 3 peneliti pendiri menjadi tim beranggotakan 25+ orang dengan lebih dari 200 publikasi dan 15 proyek yang didanai.",
-    "issuer": "SE Lab — Politeknik Negeri Malang",
-    "members": []
-  },
-  {
-    "title": "Google Cloud Education Credits Award",
-    "titleId": "Penghargaan Kredit Pendidikan Google Cloud",
-    "date": "2023-07-01",
-    "type": "Grant",
-    "description": "Awarded Google Cloud education credits valued at $10,000 to support cloud-native research projects, student capstone deployments, and hands-on workshops on serverless architecture and container orchestration.",
-    "descriptionId": "Mendapatkan kredit pendidikan Google Cloud senilai $10.000 untuk mendukung proyek penelitian cloud-native, deployment tugas akhir mahasiswa, dan lokakarya praktis tentang arsitektur serverless dan orkestrasi kontainer.",
-    "issuer": "Google Cloud for Education",
-    "url": "https://cloud.google.com/edu",
-    "members": ["dian-hanifudin-subhi", "moch-zawaruddin-abdullah"]
-  },
-  {
     "title": "National ICT Innovation Award — SmartCampus Mobile",
     "titleId": "Penghargaan Inovasi TIK Nasional — SmartCampus Mobile",
     "date": "2023-05-02",
@@ -87,17 +44,6 @@
     "members": ["imam-fahrur-rozi", "dian-hanifudin-subhi", "moch-zawaruddin-abdullah"]
   },
   {
-    "title": "First International Research Collaboration Signed",
-    "titleId": "Kolaborasi Riset Internasional Pertama Ditandatangani",
-    "date": "2022-08-20",
-    "type": "Milestone",
-    "description": "Signed the lab's first international research collaboration agreement with the University of Technology Sydney (UTS) focusing on requirements engineering for AI-enabled systems and joint supervision of postgraduate students.",
-    "descriptionId": "Menandatangani perjanjian kolaborasi riset internasional pertama lab dengan University of Technology Sydney (UTS) yang berfokus pada rekayasa kebutuhan untuk sistem berbasis AI dan supervisi bersama mahasiswa pascasarjana.",
-    "issuer": "University of Technology Sydney",
-    "url": "https://www.uts.edu.au",
-    "members": []
-  },
-  {
     "title": "Matching Fund Grant — Kedaireka 2022",
     "titleId": "Hibah Dana Padanan — Kedaireka 2022",
     "date": "2022-05-01",
@@ -107,15 +53,5 @@
     "issuer": "Kedaireka — Kemendikbudristek",
     "url": "https://kedaireka.id",
     "members": ["imam-fahrur-rozi", "moch-zawaruddin-abdullah"]
-  },
-  {
-    "title": "SE Lab Established as Official Research Unit",
-    "titleId": "SE Lab Didirikan sebagai Unit Penelitian Resmi",
-    "date": "2019-09-15",
-    "type": "Milestone",
-    "description": "The Software Engineering Laboratory was formally established as an official research unit under the Department of Information Technology at Politeknik Negeri Malang, with three founding researchers and a mission to advance applied software engineering research.",
-    "descriptionId": "Laboratorium Rekayasa Perangkat Lunak secara resmi didirikan sebagai unit penelitian di bawah Jurusan Teknologi Informasi Politeknik Negeri Malang, dengan tiga peneliti pendiri dan misi untuk memajukan penelitian rekayasa perangkat lunak terapan.",
-    "issuer": "Politeknik Negeri Malang",
-    "members": []
   }
 ]

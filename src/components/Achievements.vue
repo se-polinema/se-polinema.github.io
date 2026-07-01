@@ -71,6 +71,9 @@
                 {{ memberNameMap[memberId] || memberId }}<span v-if="idx < item.members.length - 1">, </span>
               </a>
             </p>
+            <p v-else-if="item.members !== undefined && item.members.length === 0" class="text-xs text-primary/40 dark:text-gray-500 mt-1">
+              {{ t.achievements.labMembers }}
+            </p>
           </div>
         </div>
       </div>
