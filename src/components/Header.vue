@@ -117,6 +117,7 @@ const navItems = computed(() => [
   { id: 'books', href: '/books', label: t.value.nav.books },
   { id: 'decks', href: '/decks', label: t.value.nav.decks },
   { id: 'publications', href: '/publications', label: t.value.nav.publications },
+  { id: 'achievements', href: '/achievements', label: t.value.achievements?.navLabel || (lang.value === 'id' ? 'Prestasi' : 'Achievements') },
   { id: 'events', href: '/events', label: t.value.nav.events },
   { id: 'faq', href: '/faq', label: t.value.nav.faq },
   { id: 'blog', href: '/blog', label: t.value.nav.blog },

@@ -8,12 +8,14 @@ import Books from '../components/Books.vue'
 import Team from '../components/Team.vue'
 import Publications from '../components/Publications.vue'
 import JoinLab from '../components/JoinLab.vue'
+import Achievements from '../components/Achievements.vue'
 import News from '../components/News.vue'
 import JsonLd from '../components/JsonLd.astro'
 import { getCollection } from 'astro:content'
 import { getMemberProjects, getMemberBooks, getCollectionProjects } from '../lib/memberWorks'
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
+import achievementsData from '../data/achievements.json'
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
 const sortedPosts = posts
@@ -68,6 +70,20 @@ const books = await getMemberBooks()
 
 const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
 
+const recentAchievements = achievementsData
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 5)
+  .map((item) => ({
+    title: item.title,
+    titleId: item.titleId,
+    date: item.date,
+    type: item.type,
+    description: item.description,
+    descriptionId: item.descriptionId,
+    url: item.url,
+    issuer: item.issuer,
+  }))
+
 let logoUrl = new URL('/og-default.svg', origin).href
 const logoPath = resolve('public/og-default.svg')
 if (existsSync(logoPath)) {
@@ -116,5 +132,6 @@ const organizationJsonLd = {
   <Team client:load researchers={featuredResearchers} />
   <Publications client:load publications={featuredPublications} />
   <JoinLab client:load />
+  <Achievements client:load achievements={recentAchievements} />
   <News client:load posts={sortedPosts} />
 </VSCodeLayout>
