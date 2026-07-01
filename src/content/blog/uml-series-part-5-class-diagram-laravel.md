@@ -137,103 +137,127 @@ Class diagram muncul di dokumentasi arsitektur, dokumentasi API, dan dokumen des
 
 Below is the complete domain model. It captures every class discovered from the previous four parts and defines their attributes, methods, and relationships.
 
-```mermaid
-classDiagram
-    class User {
-        +int id
-        +string name
-        +string email
-        +string password
-        +string role
-        +datetime created_at
-        +datetime updated_at
-        +login()
-        +logout()
-    }
+```plantuml
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam class {
+  BackgroundColor #dbeafe
+  BorderColor #2563eb
+  FontColor #0f172a
+  HeaderBackgroundColor #bfdbfe
+  StereotypeFontColor #475569
+}
+skinparam arrow {
+  Color #475569
+  FontColor #0f172a
+}
+skinparam note {
+  BackgroundColor #fef3c7
+  BorderColor #d97706
+}
 
-    class Student {
-        +string nim
-        +string major
-        +int semester
-        +string phone
-        +enrol(courseId)
-        +viewSchedule()
-        +browseCourses()
-    }
+class User {
+  + id : int
+  + name : string
+  + email : string
+  + password : string
+  + role : string
+  + created_at : datetime
+  + updated_at : datetime
+  --
+  + login()
+  + logout()
+}
 
-    class Lecturer {
-        +string nidn
-        +string department
-        +string expertise
-        +viewEnrolledStudents(courseId)
-    }
+class Student {
+  + nim : string
+  + major : string
+  + semester : int
+  + phone : string
+  --
+  + enrol(courseId)
+  + viewSchedule()
+  + browseCourses()
+}
 
-    class Admin {
-        +string employeeId
-        +manageCourses()
-        +manageStudents()
-        +manageRegistrationPeriod(courseId, period)
-    }
+class Lecturer {
+  + nidn : string
+  + department : string
+  + expertise : string
+  --
+  + viewEnrolledStudents(courseId)
+}
 
-    class Course {
-        +int id
-        +string code
-        +string name
-        +int credits
-        +string day
-        +string timeSlot
-        +string room
-        +int quota
-        +int enrolledCount
-        +float fee
-        +bool registrationOpen
-        +int lecturerId
-        +datetime created_at
-        +datetime updated_at
-        +getDetails()
-        +checkQuota() bool
-        +calculateFee()
-        +decrementQuota()
-    }
+class Admin {
+  + employeeId : string
+  --
+  + manageCourses()
+  + manageStudents()
+  + manageRegistrationPeriod(courseId, period)
+}
 
-    class Enrolment {
-        +int id
-        +int studentId
-        +int courseId
-        +string status
-        +datetime enrolledAt
-        +create(studentId, courseId, transactionId)
-        +checkConflict(studentId, courseId)
-    }
+class Course {
+  + id : int
+  + code : string
+  + name : string
+  + credits : int
+  + day : string
+  + timeSlot : string
+  + room : string
+  + quota : int
+  + enrolledCount : int
+  + fee : float
+  + registrationOpen : bool
+  + lecturerId : int
+  --
+  + getDetails()
+  + checkQuota() : bool
+  + calculateFee()
+  + decrementQuota()
+}
 
-    class Payment {
-        +int id
-        +int enrolmentId
-        +string transactionId
-        +float amount
-        +string status
-        +datetime paidAt
-        +process(amount, studentId, courseId) PaymentResult
-    }
+class Enrolment {
+  + id : int
+  + studentId : int
+  + courseId : int
+  + status : string
+  + enrolledAt : datetime
+  --
+  + create(studentId, courseId, transactionId)
+  + checkConflict(studentId, courseId)
+}
 
-    class Schedule {
-        +int id
-        +int studentId
-        +json courses
-        +datetime updatedAt
-        +addCourse(courseId)
-        +removeCourse(courseId)
-    }
+class Payment {
+  + id : int
+  + enrolmentId : int
+  + transactionId : string
+  + amount : float
+  + status : string
+  + paidAt : datetime
+  --
+  + process(amount, studentId, courseId) : PaymentResult
+}
 
-    User <|-- Student : extends
-    User <|-- Lecturer : extends
-    User <|-- Admin : extends
+class Schedule {
+  + id : int
+  + studentId : int
+  + courses : json
+  + updatedAt : datetime
+  --
+  + addCourse(courseId)
+  + removeCourse(courseId)
+}
 
-    Course "*" --> "1" Lecturer : taught by
-    Student "1" --> "*" Enrolment : has
-    Course "1" --> "*" Enrolment : has
-    Enrolment "1" --> "1" Payment : includes
-    Student "1" --> "1" Schedule : has
+User <|-- Student : extends
+User <|-- Lecturer : extends
+User <|-- Admin : extends
+
+Course "0..*" --> "1" Lecturer : taught by
+Student "1" --> "0..*" Enrolment : has
+Course "1" --> "0..*" Enrolment : has
+Enrolment "1" *-- "1" Payment : includes
+Student "1" --> "1" Schedule : has
+@enduml
 ```
 
 ### Relationship Summary
@@ -257,103 +281,123 @@ classDiagram
 
 Berikut adalah domain model lengkap. Diagram ini menangkap setiap kelas yang ditemukan dari empat bagian sebelumnya dan mendefinisikan atribut, method, dan relasinya.
 
-```mermaid
-classDiagram
-    class User {
-        +int id
-        +string name
-        +string email
-        +string password
-        +string role
-        +datetime created_at
-        +datetime updated_at
-        +login()
-        +logout()
-    }
+```plantuml
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam class {
+  BackgroundColor #dbeafe
+  BorderColor #2563eb
+  FontColor #0f172a
+  HeaderBackgroundColor #bfdbfe
+  StereotypeFontColor #475569
+}
+skinparam arrow {
+  Color #475569
+  FontColor #0f172a
+}
 
-    class Student {
-        +string nim
-        +string major
-        +int semester
-        +string phone
-        +enrol(courseId)
-        +viewSchedule()
-        +browseCourses()
-    }
+class User {
+  + id : int
+  + name : string
+  + email : string
+  + password : string
+  + role : string
+  + created_at : datetime
+  + updated_at : datetime
+  --
+  + login()
+  + logout()
+}
 
-    class Lecturer {
-        +string nidn
-        +string department
-        +string expertise
-        +viewEnrolledStudents(courseId)
-    }
+class Student {
+  + nim : string
+  + major : string
+  + semester : int
+  + phone : string
+  --
+  + enrol(courseId)
+  + viewSchedule()
+  + browseCourses()
+}
 
-    class Admin {
-        +string employeeId
-        +manageCourses()
-        +manageStudents()
-        +manageRegistrationPeriod(courseId, period)
-    }
+class Lecturer {
+  + nidn : string
+  + department : string
+  + expertise : string
+  --
+  + viewEnrolledStudents(courseId)
+}
 
-    class Course {
-        +int id
-        +string code
-        +string name
-        +int credits
-        +string day
-        +string timeSlot
-        +string room
-        +int quota
-        +int enrolledCount
-        +float fee
-        +bool registrationOpen
-        +int lecturerId
-        +datetime created_at
-        +datetime updated_at
-        +getDetails()
-        +checkQuota() bool
-        +calculateFee()
-        +decrementQuota()
-    }
+class Admin {
+  + employeeId : string
+  --
+  + manageCourses()
+  + manageStudents()
+  + manageRegistrationPeriod(courseId, period)
+}
 
-    class Enrolment {
-        +int id
-        +int studentId
-        +int courseId
-        +string status
-        +datetime enrolledAt
-        +create(studentId, courseId, transactionId)
-        +checkConflict(studentId, courseId)
-    }
+class Course {
+  + id : int
+  + code : string
+  + name : string
+  + credits : int
+  + day : string
+  + timeSlot : string
+  + room : string
+  + quota : int
+  + enrolledCount : int
+  + fee : float
+  + registrationOpen : bool
+  + lecturerId : int
+  --
+  + getDetails()
+  + checkQuota() : bool
+  + calculateFee()
+  + decrementQuota()
+}
 
-    class Payment {
-        +int id
-        +int enrolmentId
-        +string transactionId
-        +float amount
-        +string status
-        +datetime paidAt
-        +process(amount, studentId, courseId) PaymentResult
-    }
+class Enrolment {
+  + id : int
+  + studentId : int
+  + courseId : int
+  + status : string
+  + enrolledAt : datetime
+  --
+  + create(studentId, courseId, transactionId)
+  + checkConflict(studentId, courseId)
+}
 
-    class Schedule {
-        +int id
-        +int studentId
-        +json courses
-        +datetime updatedAt
-        +addCourse(courseId)
-        +removeCourse(courseId)
-    }
+class Payment {
+  + id : int
+  + enrolmentId : int
+  + transactionId : string
+  + amount : float
+  + status : string
+  + paidAt : datetime
+  --
+  + process(amount, studentId, courseId) : PaymentResult
+}
 
-    User <|-- Student : extends
-    User <|-- Lecturer : extends
-    User <|-- Admin : extends
+class Schedule {
+  + id : int
+  + studentId : int
+  + courses : json
+  + updatedAt : datetime
+  --
+  + addCourse(courseId)
+  + removeCourse(courseId)
+}
 
-    Course "*" --> "1" Lecturer : diajar oleh
-    Student "1" --> "*" Enrolment : memiliki
-    Course "1" --> "*" Enrolment : memiliki
-    Enrolment "1" --> "1" Payment : mencakup
-    Student "1" --> "1" Schedule : memiliki
+User <|-- Student : extends
+User <|-- Lecturer : extends
+User <|-- Admin : extends
+
+Course "0..*" --> "1" Lecturer : diajar oleh
+Student "1" --> "0..*" Enrolment : memiliki
+Course "1" --> "0..*" Enrolment : memiliki
+Enrolment "1" *-- "1" Payment : mencakup
+Student "1" --> "1" Schedule : memiliki
+@enduml
 ```
 
 ### Ringkasan Relasi

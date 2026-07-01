@@ -85,122 +85,31 @@ const blogPostingJsonLd = {
       </div>
       <CodeCopyButtons client:load />
       <script>
-        import mermaid from 'mermaid'
+        // ── PlantUML diagram viewer ───────────────────────────────────────
+        // Diagrams are rendered as inline SVG at build time by the rehype-plantuml
+        // plugin. This script only adds the fullscreen expand button and viewer.
 
-        // ── Config ────────────────────────────────────────────────────────
-        function mermaidConfig(dark: boolean) {
-          const light = {
-            darkMode: false,
-            background: '#ffffff',
-            primaryColor: '#dbeafe',
-            primaryTextColor: '#0f172a',
-            primaryBorderColor: '#2563eb',
-            lineColor: '#475569',
-            secondaryColor: '#e2e8f0',
-            tertiaryColor: '#f1f5f9',
-            fontSize: '15px',
-            actorBkg: '#dbeafe',
-            actorTextColor: '#0f172a',
-            actorBorder: '#2563eb',
-            signalColor: '#475569',
-            signalTextColor: '#0f172a',
-            noteBkgColor: '#e2e8f0',
-            noteTextColor: '#0f172a',
-            noteBorderColor: '#2563eb',
-            labelBoxBkgColor: '#f1f5f9',
-            labelBoxBorderColor: '#2563eb',
-            labelTextColor: '#0f172a',
-            loopTextColor: '#0f172a',
-            activationBorderColor: '#2563eb',
-            activationBkgColor: '#dbeafe',
-            sequenceNumberColor: '#0f172a',
-          }
-          const dk = {
-            darkMode: true,
-            background: 'transparent',
-            primaryColor: '#1e3a5f',
-            primaryTextColor: '#e5e7eb',
-            primaryBorderColor: '#60a5fa',
-            lineColor: '#94a3b8',
-            secondaryColor: '#334155',
-            tertiaryColor: '#1e293b',
-            fontSize: '15px',
-            actorBkg: '#1e3a5f',
-            actorTextColor: '#e5e7eb',
-            actorBorder: '#60a5fa',
-            signalColor: '#94a3b8',
-            signalTextColor: '#e5e7eb',
-            noteBkgColor: '#334155',
-            noteTextColor: '#e5e7eb',
-            noteBorderColor: '#60a5fa',
-            labelBoxBkgColor: '#1e293b',
-            labelBoxBorderColor: '#60a5fa',
-            labelTextColor: '#e5e7eb',
-            loopTextColor: '#e5e7eb',
-            activationBorderColor: '#60a5fa',
-            activationBkgColor: '#1e3a5f',
-            sequenceNumberColor: '#e5e7eb',
-          }
-          return {
-            startOnLoad: false,
-            securityLevel: 'loose' as const,
-            theme: 'base' as const,
-            themeVariables: dark ? dk : light,
-            flowchart: { useMaxWidth: false, htmlLabels: true },
-            sequence: { useMaxWidth: false },
-            class: { useMaxWidth: false },
-          }
-        }
-
-        // ── State ─────────────────────────────────────────────────────────
-        const mermaidNodes: HTMLElement[] = []
-
-        // ── Setup (once, synchronously) ───────────────────────────────────
+        // ── Setup (once, on DOM ready) ────────────────────────────────────
         function setupDiagrams() {
-          document.querySelectorAll<HTMLElement>('pre[data-language="mermaid"]').forEach((block) => {
-            const src = block.textContent || ''
+          document.querySelectorAll<HTMLElement>('div.plantuml-diagram').forEach((wrapper) => {
+            const svg = wrapper.querySelector<SVGElement>('svg.plantuml-svg')
+            if (!svg) return
 
-            const wrapper = document.createElement('div')
-            wrapper.className = 'mermaid-diagram'
-
-            const pre = document.createElement('pre')
-            pre.className = 'mermaid'
-            pre.textContent = src
-            pre.dataset.src = src
-            wrapper.appendChild(pre)
-
-            // Expand button (shown on hover / always on touch)
             const btn = document.createElement('button')
-            btn.className = 'mermaid-expand-btn'
+            btn.className = 'plantuml-expand-btn'
             btn.setAttribute('aria-label', 'Open diagram fullscreen')
             btn.innerHTML =
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>'
             wrapper.appendChild(btn)
 
-            btn.addEventListener('click', (e) => { e.stopPropagation(); openModal(pre) })
-            wrapper.addEventListener('click', () => openModal(pre))
-
-            block.replaceWith(wrapper)
-            mermaidNodes.push(pre)
+            btn.addEventListener('click', (e) => { e.stopPropagation(); openModal(svg) })
+            wrapper.addEventListener('click', () => openModal(svg))
           })
-        }
-
-        // ── Render (async — safe to fire-and-forget) ─────────────────────
-        async function render() {
-          if (mermaidNodes.length === 0) return
-          const dark = document.documentElement.classList.contains('dark')
-          mermaid.initialize(mermaidConfig(dark))
-          for (const node of mermaidNodes) {
-            node.textContent = node.dataset.src ?? ''
-            node.removeAttribute('data-processed')
-          }
-          await mermaid.run({ nodes: mermaidNodes })
         }
 
         // ── Modal state ───────────────────────────────────────────────────
         let modal: HTMLDivElement | null = null
         let stageEl: HTMLDivElement | null = null
-        let stageWrapEl: HTMLDivElement | null = null
         let scale = 1
         let tx = 0
         let ty = 0
@@ -210,7 +119,7 @@ const blogPostingJsonLd = {
 
         function makeBtn(ariaLabel: string, svgHtml: string, onClick: () => void): HTMLButtonElement {
           const b = document.createElement('button')
-          b.className = 'mermaid-modal-btn'
+          b.className = 'plantuml-modal-btn'
           b.setAttribute('aria-label', ariaLabel)
           b.innerHTML = svgHtml
           b.addEventListener('click', onClick)
@@ -230,21 +139,21 @@ const blogPostingJsonLd = {
           if (modal) return
 
           modal = document.createElement('div')
-          modal.className = 'mermaid-modal'
+          modal.className = 'plantuml-modal'
           modal.setAttribute('role', 'dialog')
           modal.setAttribute('aria-modal', 'true')
           modal.setAttribute('aria-label', 'Diagram viewer')
           modal.setAttribute('tabindex', '-1')
 
           const backdrop = document.createElement('div')
-          backdrop.className = 'mermaid-modal-backdrop'
+          backdrop.className = 'plantuml-modal-backdrop'
           backdrop.addEventListener('click', closeModal)
 
           const container = document.createElement('div')
-          container.className = 'mermaid-modal-container'
+          container.className = 'plantuml-modal-container'
 
           const toolbar = document.createElement('div')
-          toolbar.className = 'mermaid-modal-toolbar'
+          toolbar.className = 'plantuml-modal-toolbar'
 
           toolbar.append(
             makeBtn('Zoom out',
@@ -262,11 +171,10 @@ const blogPostingJsonLd = {
           )
 
           const stageWrap = document.createElement('div')
-          stageWrap.className = 'mermaid-modal-stage-wrap'
-          stageWrapEl = stageWrap
+          stageWrap.className = 'plantuml-modal-stage-wrap'
 
           stageEl = document.createElement('div')
-          stageEl.className = 'mermaid-modal-stage'
+          stageEl.className = 'plantuml-modal-stage'
           stageWrap.appendChild(stageEl)
 
           container.append(toolbar, stageWrap)
@@ -284,7 +192,7 @@ const blogPostingJsonLd = {
 
           // Pan via mouse drag on stage wrap
           stageWrap.addEventListener('mousedown', (e) => {
-            if ((e.target as HTMLElement).closest('.mermaid-modal-btn')) return
+            if ((e.target as HTMLElement).closest('.plantuml-modal-btn')) return
             dragging = true
             dragStart = { x: e.clientX, y: e.clientY, tx, ty }
             stageWrap.classList.add('is-dragging')
@@ -318,12 +226,10 @@ const blogPostingJsonLd = {
           }, { passive: false })
         }
 
-        function openModal(pre: HTMLElement) {
+        function openModal(svg: SVGElement) {
           initModal()
-          const svg = pre.querySelector('svg')
-          if (!svg) return
-          const wrapper = pre.closest<HTMLElement>('.mermaid-diagram')
-          lastTrigger = wrapper?.querySelector<HTMLElement>('.mermaid-expand-btn') ?? pre
+          const wrapper = svg.closest<HTMLElement>('.plantuml-diagram')
+          lastTrigger = wrapper?.querySelector<HTMLElement>('.plantuml-expand-btn') ?? null
           stageEl!.innerHTML = ''
           stageEl!.appendChild(svg.cloneNode(true))
           resetTransform()
@@ -340,24 +246,10 @@ const blogPostingJsonLd = {
         }
 
         // ── Boot ──────────────────────────────────────────────────────────
-        setupDiagrams()
-
-        if (mermaidNodes.length > 0) {
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => render())
-          } else {
-            render()
-          }
-
-          // Re-render when the site theme toggles (useTheme.ts flips html.dark)
-          let prevDark = document.documentElement.classList.contains('dark')
-          new MutationObserver(() => {
-            const nowDark = document.documentElement.classList.contains('dark')
-            if (nowDark !== prevDark) {
-              prevDark = nowDark
-              render()
-            }
-          }).observe(document.documentElement, { attributeFilter: ['class'] })
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', setupDiagrams)
+        } else {
+          setupDiagrams()
         }
       </script>
     </div>
@@ -365,21 +257,30 @@ const blogPostingJsonLd = {
   </div>
 
   <style is:global>
-    /* === Mermaid diagram wrapper === */
-    .mermaid-diagram {
+    /* === PlantUML diagram wrapper — always white card === */
+    .plantuml-diagram {
       position: relative;
       margin: 2.5rem 0;
       overflow-x: auto;
       text-align: center;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1.25rem 1rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     }
-    .mermaid-diagram svg {
+    html.dark .plantuml-diagram {
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    .plantuml-diagram svg.plantuml-svg {
       display: inline-block;
       height: auto;
       max-width: none;
     }
 
     /* Expand button — fades in on hover, always visible on touch */
-    .mermaid-expand-btn {
+    .plantuml-expand-btn {
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
@@ -389,9 +290,9 @@ const blogPostingJsonLd = {
       align-items: center;
       justify-content: center;
       padding: 0;
-      border: 1px solid rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.12);
       border-radius: 4px;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       color: #475569;
       cursor: pointer;
       opacity: 0;
@@ -399,39 +300,34 @@ const blogPostingJsonLd = {
       z-index: 1;
       line-height: 1;
     }
-    .mermaid-diagram:hover .mermaid-expand-btn,
-    .mermaid-diagram:focus-within .mermaid-expand-btn {
+    .plantuml-diagram:hover .plantuml-expand-btn,
+    .plantuml-diagram:focus-within .plantuml-expand-btn {
       opacity: 1;
     }
     @media (hover: none) {
-      .mermaid-expand-btn { opacity: 1; }
-    }
-    html.dark .mermaid-expand-btn {
-      background: rgba(15, 23, 42, 0.85);
-      color: #94a3b8;
-      border-color: rgba(255, 255, 255, 0.12);
+      .plantuml-expand-btn { opacity: 1; }
     }
 
-    /* === Mermaid fullscreen modal === */
-    .mermaid-modal {
+    /* === PlantUML fullscreen modal === */
+    .plantuml-modal {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 9999;
       flex-direction: column;
     }
-    .mermaid-modal.is-open {
+    .plantuml-modal.is-open {
       display: flex;
     }
-    .mermaid-modal:focus {
+    .plantuml-modal:focus {
       outline: none;
     }
-    .mermaid-modal-backdrop {
+    .plantuml-modal-backdrop {
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.78);
     }
-    .mermaid-modal-container {
+    .plantuml-modal-container {
       position: relative;
       width: 100%;
       height: 100%;
@@ -439,7 +335,7 @@ const blogPostingJsonLd = {
       flex-direction: column;
       pointer-events: none;
     }
-    .mermaid-modal-toolbar {
+    .plantuml-modal-toolbar {
       position: absolute;
       top: 1rem;
       right: 1rem;
@@ -448,7 +344,7 @@ const blogPostingJsonLd = {
       z-index: 1;
       pointer-events: all;
     }
-    .mermaid-modal-btn {
+    .plantuml-modal-btn {
       width: 2.25rem;
       height: 2.25rem;
       display: flex;
@@ -463,10 +359,10 @@ const blogPostingJsonLd = {
       transition: background 0.15s;
       line-height: 1;
     }
-    .mermaid-modal-btn:hover {
+    .plantuml-modal-btn:hover {
       background: rgba(30, 58, 138, 0.9);
     }
-    .mermaid-modal-stage-wrap {
+    .plantuml-modal-stage-wrap {
       flex: 1;
       overflow: hidden;
       display: flex;
@@ -475,16 +371,16 @@ const blogPostingJsonLd = {
       pointer-events: all;
       cursor: grab;
     }
-    .mermaid-modal-stage-wrap.is-dragging {
+    .plantuml-modal-stage-wrap.is-dragging {
       cursor: grabbing;
     }
-    .mermaid-modal-stage {
+    .plantuml-modal-stage {
       transform-origin: center center;
       user-select: none;
       display: inline-block;
       will-change: transform;
     }
-    .mermaid-modal-stage svg {
+    .plantuml-modal-stage svg {
       display: block;
       max-width: none !important;
       height: auto;

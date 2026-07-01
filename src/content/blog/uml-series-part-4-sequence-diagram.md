@@ -209,88 +209,107 @@ Pemisahan `CourseService` dan `EnrolmentService` mengikuti Single Responsibility
 
 ## 4. Sequence Diagram: Enrol in Course (Payment & Creation Flow)
 
-```mermaid
-sequenceDiagram
-    actor Student
-    participant EC as EnrolmentController
-    participant CS as CourseService
-    participant ES as EnrolmentService
-    participant PG as PaymentGateway
-    participant DB as Database
+```plantuml
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam sequence {
+  ActorBackgroundColor #f1f5f9
+  ActorBorderColor #475569
+  ActorFontColor #0f172a
+  ParticipantBackgroundColor #dbeafe
+  ParticipantBorderColor #2563eb
+  ParticipantFontColor #0f172a
+  LifeLineBorderColor #94a3b8
+  ArrowColor #475569
+  ArrowFontColor #0f172a
+  BoxBackgroundColor #f8fafc
+  BoxBorderColor #94a3b8
+  NoteBackgroundColor #fef3c7
+  NoteBorderColor #d97706
+}
+skinparam activationBorderColor #2563eb
+skinparam activationBackgroundColor #dbeafe
 
-    Student->>EC: POST /enrolments (course_id)
-    activate EC
+actor Student
+participant "EnrolmentController" as EC
+participant "CourseService" as CS
+participant "EnrolmentService" as ES
+participant "PaymentGateway" as PG
+participant "Database" as DB
 
-    EC->>CS: getCourseDetails(course_id)
-    activate CS
-    CS->>DB: SELECT * FROM courses WHERE id = ?
-    DB-->>CS: course data
-    CS-->>EC: CourseDTO {name, credits, schedule, fee, quota}
-    deactivate CS
+Student -> EC : POST /enrolments (course_id)
+activate EC
 
-    EC->>CS: checkQuota(course_id)
-    activate CS
-    CS->>DB: SELECT quota - enrolled_count
-    DB-->>CS: available_seats
-    CS-->>EC: available_seats > 0
-    deactivate CS
+EC -> CS : getCourseDetails(course_id)
+activate CS
+CS -> DB : SELECT * FROM courses WHERE id = ?
+DB --> CS : course data
+CS --> EC : CourseDTO {name, credits, schedule, fee, quota}
+deactivate CS
 
-    alt Quota exhausted
-        EC-->>Student: 400 "Course is full"
-    end
+EC -> CS : checkQuota(course_id)
+activate CS
+CS -> DB : SELECT quota - enrolled_count
+DB --> CS : available_seats
+CS --> EC : available_seats > 0
+deactivate CS
 
-    EC->>ES: checkScheduleConflict(student_id, course_id)
-    activate ES
-    ES->>DB: SELECT enrolments JOIN courses WHERE student AND time_slot
-    DB-->>ES: conflicting courses
-    ES-->>EC: ConflictDTO {has_conflict, conflicting_course_name}
-    deactivate ES
+alt Quota exhausted
+  EC --> Student : 400 "Course is full"
+end
 
-    alt Schedule conflict
-        EC-->>Student: 409 {conflict details}
-    end
+EC -> ES : checkScheduleConflict(student_id, course_id)
+activate ES
+ES -> DB : SELECT enrolments JOIN courses WHERE student AND time_slot
+DB --> ES : conflicting courses
+ES --> EC : ConflictDTO {has_conflict, conflicting_course_name}
+deactivate ES
 
-    EC->>CS: calculateFee(course_id, student_id)
-    activate CS
-    CS-->>EC: fee_amount
-    deactivate CS
+alt Schedule conflict
+  EC --> Student : 409 {conflict details}
+end
 
-    EC-->>Student: 200 {enrolment_summary}
+EC -> CS : calculateFee(course_id, student_id)
+activate CS
+CS --> EC : fee_amount
+deactivate CS
 
-    Student->>EC: POST /enrolments/confirm (course_id)
-    activate EC
+EC --> Student : 200 {enrolment_summary}
 
-    EC->>PG: charge(amount, student_id, course_id)
-    activate PG
-    PG-->>EC: PaymentResult {success, transaction_id}
-    deactivate PG
+Student -> EC : POST /enrolments/confirm (course_id)
 
-    alt Payment failed
-        EC-->>Student: 402 {error: "Payment failed"}
-    end
+EC -> PG : charge(amount, student_id, course_id)
+activate PG
+PG --> EC : PaymentResult {success, transaction_id}
+deactivate PG
 
-    EC->>DB: BEGIN TRANSACTION
-    activate DB
+alt Payment failed
+  EC --> Student : 402 {error: "Payment failed"}
+end
 
-    EC->>ES: createEnrolment(student_id, course_id, transaction_id)
-    activate ES
-    ES->>DB: INSERT INTO enrolments
-    DB-->>ES: enrolment_id
-    ES-->>EC: EnrolmentDTO {id, status}
-    deactivate ES
+EC -> DB : BEGIN TRANSACTION
+activate DB
 
-    EC->>CS: decrementQuota(course_id)
-    activate CS
-    CS->>DB: UPDATE courses SET enrolled_count = enrolled_count + 1
-    DB-->>CS: OK
-    CS-->>EC: OK
-    deactivate CS
+EC -> ES : createEnrolment(student_id, course_id, transaction_id)
+activate ES
+ES -> DB : INSERT INTO enrolments
+DB --> ES : enrolment_id
+ES --> EC : EnrolmentDTO {id, status}
+deactivate ES
 
-    EC->>DB: COMMIT
-    deactivate DB
+EC -> CS : decrementQuota(course_id)
+activate CS
+CS -> DB : UPDATE courses SET enrolled_count = enrolled_count + 1
+DB --> CS : OK
+CS --> EC : OK
+deactivate CS
 
-    EC-->>Student: 201 {enrolment confirmed, schedule updated}
-    deactivate EC
+EC -> DB : COMMIT
+deactivate DB
+
+EC --> Student : 201 {enrolment confirmed, schedule updated}
+deactivate EC
+@enduml
 ```
 
 ### Reading the Sequence Diagram
@@ -313,88 +332,107 @@ Key observations:
 
 ## 4. Sequence Diagram: Daftar Mata Kuliah (Alur Pembayaran & Pembuatan)
 
-```mermaid
-sequenceDiagram
-    actor Mahasiswa
-    participant EC as EnrolmentController
-    participant CS as CourseService
-    participant ES as EnrolmentService
-    participant PG as PaymentGateway
-    participant DB as Database
+```plantuml
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam sequence {
+  ActorBackgroundColor #f1f5f9
+  ActorBorderColor #475569
+  ActorFontColor #0f172a
+  ParticipantBackgroundColor #dbeafe
+  ParticipantBorderColor #2563eb
+  ParticipantFontColor #0f172a
+  LifeLineBorderColor #94a3b8
+  ArrowColor #475569
+  ArrowFontColor #0f172a
+  BoxBackgroundColor #f8fafc
+  BoxBorderColor #94a3b8
+  NoteBackgroundColor #fef3c7
+  NoteBorderColor #d97706
+}
+skinparam activationBorderColor #2563eb
+skinparam activationBackgroundColor #dbeafe
 
-    Mahasiswa->>EC: POST /enrolments (course_id)
-    activate EC
+actor Mahasiswa
+participant "EnrolmentController" as EC
+participant "CourseService" as CS
+participant "EnrolmentService" as ES
+participant "PaymentGateway" as PG
+participant "Database" as DB
 
-    EC->>CS: getCourseDetails(course_id)
-    activate CS
-    CS->>DB: SELECT * FROM courses WHERE id = ?
-    DB-->>CS: data mata kuliah
-    CS-->>EC: CourseDTO {nama, sks, jadwal, biaya, kuota}
-    deactivate CS
+Mahasiswa -> EC : POST /enrolments (course_id)
+activate EC
 
-    EC->>CS: checkQuota(course_id)
-    activate CS
-    CS->>DB: SELECT quota - enrolled_count
-    DB-->>CS: kursi_tersedia
-    CS-->>EC: kursi_tersedia > 0
-    deactivate CS
+EC -> CS : getCourseDetails(course_id)
+activate CS
+CS -> DB : SELECT * FROM courses WHERE id = ?
+DB --> CS : data mata kuliah
+CS --> EC : CourseDTO {nama, sks, jadwal, biaya, kuota}
+deactivate CS
 
-    alt Kuota habis
-        EC-->>Mahasiswa: 400 "Mata kuliah penuh"
-    end
+EC -> CS : checkQuota(course_id)
+activate CS
+CS -> DB : SELECT quota - enrolled_count
+DB --> CS : kursi_tersedia
+CS --> EC : kursi_tersedia > 0
+deactivate CS
 
-    EC->>ES: checkScheduleConflict(mahasiswa_id, course_id)
-    activate ES
-    ES->>DB: SELECT enrolments JOIN courses WHERE student AND time_slot
-    DB-->>ES: mata kuliah bentrok
-    ES-->>EC: ConflictDTO {ada_konflik, nama_mk_bentrok}
-    deactivate ES
+alt Kuota habis
+  EC --> Mahasiswa : 400 "Mata kuliah penuh"
+end
 
-    alt Konflik jadwal
-        EC-->>Mahasiswa: 409 {detail konflik}
-    end
+EC -> ES : checkScheduleConflict(mahasiswa_id, course_id)
+activate ES
+ES -> DB : SELECT enrolments JOIN courses WHERE student AND time_slot
+DB --> ES : mata kuliah bentrok
+ES --> EC : ConflictDTO {ada_konflik, nama_mk_bentrok}
+deactivate ES
 
-    EC->>CS: calculateFee(course_id, mahasiswa_id)
-    activate CS
-    CS-->>EC: jumlah_biaya
-    deactivate CS
+alt Konflik jadwal
+  EC --> Mahasiswa : 409 {detail konflik}
+end
 
-    EC-->>Mahasiswa: 200 {ringkasan_pendaftaran}
+EC -> CS : calculateFee(course_id, mahasiswa_id)
+activate CS
+CS --> EC : jumlah_biaya
+deactivate CS
 
-    Mahasiswa->>EC: POST /enrolments/confirm (course_id)
-    activate EC
+EC --> Mahasiswa : 200 {ringkasan_pendaftaran}
 
-    EC->>PG: charge(jumlah, mahasiswa_id, course_id)
-    activate PG
-    PG-->>EC: PaymentResult {sukses, transaction_id}
-    deactivate PG
+Mahasiswa -> EC : POST /enrolments/confirm (course_id)
 
-    alt Pembayaran gagal
-        EC-->>Mahasiswa: 402 {error: "Pembayaran gagal"}
-    end
+EC -> PG : charge(jumlah, mahasiswa_id, course_id)
+activate PG
+PG --> EC : PaymentResult {sukses, transaction_id}
+deactivate PG
 
-    EC->>DB: BEGIN TRANSACTION
-    activate DB
+alt Pembayaran gagal
+  EC --> Mahasiswa : 402 {error: "Pembayaran gagal"}
+end
 
-    EC->>ES: createEnrolment(mahasiswa_id, course_id, transaction_id)
-    activate ES
-    ES->>DB: INSERT INTO enrolments
-    DB-->>ES: enrolment_id
-    ES-->>EC: EnrolmentDTO {id, status}
-    deactivate ES
+EC -> DB : BEGIN TRANSACTION
+activate DB
 
-    EC->>CS: decrementQuota(course_id)
-    activate CS
-    CS->>DB: UPDATE courses SET enrolled_count = enrolled_count + 1
-    DB-->>CS: OK
-    CS-->>EC: OK
-    deactivate CS
+EC -> ES : createEnrolment(mahasiswa_id, course_id, transaction_id)
+activate ES
+ES -> DB : INSERT INTO enrolments
+DB --> ES : enrolment_id
+ES --> EC : EnrolmentDTO {id, status}
+deactivate ES
 
-    EC->>DB: COMMIT
-    deactivate DB
+EC -> CS : decrementQuota(course_id)
+activate CS
+CS -> DB : UPDATE courses SET enrolled_count = enrolled_count + 1
+DB --> CS : OK
+CS --> EC : OK
+deactivate CS
 
-    EC-->>Mahasiswa: 201 {pendaftaran dikonfirmasi, jadwal diperbarui}
-    deactivate EC
+EC -> DB : COMMIT
+deactivate DB
+
+EC --> Mahasiswa : 201 {pendaftaran dikonfirmasi, jadwal diperbarui}
+deactivate EC
+@enduml
 ```
 
 ### Membaca Sequence Diagram

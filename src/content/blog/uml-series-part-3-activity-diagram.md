@@ -197,56 +197,87 @@ Kita sekarang dapat memetakan teks ini ke dalam diagram visual.
 
 ## 4. Activity Diagram: Enrol in Course
 
-The diagram below models the complete enrolment workflow as a top-down control flow. Decisions are represented by diamonds, and each branch is labelled with a guard condition in square brackets. Actions that begin with *Student* (such as "Student clicks 'Enrol'") represent student actions; all other actions belong to the system — following the two-party responsibility split described in the swimlane concept above, even though Mermaid flowcharts render this as a unified diagram rather than partitioned lanes.
+The diagram below models the complete enrolment workflow using two swimlanes — **Student** (left lane) and **System** (right lane) — so responsibility for each action is visually clear. Decisions are represented by diamonds, and each branch is labelled with a guard condition in square brackets.
 
-```mermaid
-graph TD
-    Start([Start])
+```plantuml
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam swimlane {
+  BorderColor #94a3b8
+  TitleFontColor #0f172a
+}
+skinparam activity {
+  BackgroundColor #dbeafe
+  BorderColor #2563eb
+  FontColor #0f172a
+  DiamondBackgroundColor #fef3c7
+  DiamondBorderColor #d97706
+  DiamondFontColor #0f172a
+}
+skinparam arrow {
+  Color #475569
+  FontColor #0f172a
+}
 
-    Start --> A1["Student clicks 'Enrol' on a course"]
-    A1 --> D1{"Is student<br>authenticated?"}
+|Student|
+start
+:Click 'Enrol' on a course;
 
-    D1 -->|"[No]"| A2["Redirect to Login"]
-    A2 --> A3["Student logs in"]
-    A3 --> D2
+|System|
+if (Authenticated?) then ([No])
+  |Student|
+  :Log in;
+  |System|
+endif
 
-    D1 -->|"[Yes]"| D2{"Is registration<br>period open?"}
-    D2 -->|"[No]"| A4["Display: 'Registration is closed'"]
-    A4 --> A5["Return to Course Catalogue"]
-    A5 --> End1([End])
+if (Registration period open?) then ([No])
+  :Display: 'Registration closed';
+  stop
+endif
 
-    D2 -->|"[Yes]"| D3{"Is course quota<br>available?"}
-    D3 -->|"[No]"| A6["Display: 'Course is full'"]
-    A6 --> A7["Offer waiting list option"]
-    A7 --> End1
+if (Quota available?) then ([No])
+  :Display: 'Course full'\nOffer waiting list;
+  stop
+endif
 
-    D3 -->|"[Yes]"| D4{"Any schedule<br>conflict?"}
-    D4 -->|"[Yes]"| A8["Display conflict details"]
-    A8 --> D5{"Student chooses?"}
-    D5 -->|"Cancel"| A9["Return to Course Catalogue"]
-    A9 --> End1
-    D5 -->|"Drop conflicting course"| A10["System drops conflicting course"]
-    A10 --> A11
+if (Schedule conflict?) then ([Yes])
+  :Display conflict details;
+  |Student|
+  if (Choose action?) then (Cancel)
+    stop
+  else (Drop conflicting course)
+    |System|
+    :Drop conflicting course;
+  endif
+endif
 
-    D4 -->|"[No]"| A11["System displays enrolment summary:<br>course name, credits, schedule, fee"]
+|System|
+:Display enrolment summary\n(course, credits, schedule, fee);
 
-    A11 --> D6{"Student confirms?"}
-    D6 -->|"Cancel"| A12["Return to Course Catalogue"]
-    A12 --> End1
+|Student|
+if (Confirm enrolment?) then (Cancel)
+  stop
+endif
 
-    D6 -->|"Confirm"| A13["System initiates payment<br>via Payment Gateway"]
-    A13 --> D7{"Payment<br>successful?"}
-    
-    D7 -->|"[No]"| A14["Display: 'Payment failed:<br>[reason]'"]
-    A14 --> D8{"Student chooses?"}
-    D8 -->|"Retry"| A13
-    D8 -->|"Cancel"| End1
+|System|
+:Initiate payment via Payment Gateway;
+while (Payment successful?) is (No)
+  :Display: 'Payment failed';
+  |Student|
+  if (Retry?) then (Cancel)
+    stop
+  else (Retry)
+  endif
+  |System|
+  :Retry payment via Gateway;
+endwhile (Yes)
 
-    D7 -->|"[Yes]"| A15["Create Enrolment record<br>in database"]
-    A15 --> A16["Decrement course quota"]
-    A16 --> A17["Send confirmation<br>notification"]
-    A17 --> A18["Redirect to 'My Schedule' page"]
-    A18 --> End2([End])
+:Create Enrolment record in database;
+:Decrement course quota;
+:Send confirmation notification;
+:Redirect to 'My Schedule';
+stop
+@enduml
 ```
 
 ### Reading the Diagram
@@ -264,56 +295,87 @@ Follow the arrows from the Start circle. At each diamond, trace one branch based
 
 ## 4. Activity Diagram: Daftar Mata Kuliah
 
-Diagram di bawah memodelkan alur kerja pendaftaran lengkap sebagai aliran kontrol atas-ke-bawah. Keputusan direpresentasikan oleh diamond, dan setiap cabang diberi label dengan guard condition dalam tanda kurung siku. Aksi yang diawali dengan *Mahasiswa* (seperti "Mahasiswa mengklik 'Daftar'") merepresentasikan aksi mahasiswa; semua aksi lainnya dilakukan oleh sistem — mengikuti pembagian tanggung jawab dua pihak yang dijelaskan dalam konsep swimlane di atas, meskipun Mermaid flowchart merendernya sebagai diagram terpadu bukan lane terpisah.
+Diagram di bawah memodelkan alur kerja pendaftaran lengkap menggunakan dua swimlane — **Mahasiswa** (lane kiri) dan **Sistem** (lane kanan) — sehingga tanggung jawab setiap aksi terlihat jelas secara visual. Keputusan direpresentasikan oleh diamond, dan setiap cabang diberi label dengan guard condition dalam tanda kurung siku.
 
-```mermaid
-graph TD
-    Start([Mulai])
+```plantuml
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam swimlane {
+  BorderColor #94a3b8
+  TitleFontColor #0f172a
+}
+skinparam activity {
+  BackgroundColor #dbeafe
+  BorderColor #2563eb
+  FontColor #0f172a
+  DiamondBackgroundColor #fef3c7
+  DiamondBorderColor #d97706
+  DiamondFontColor #0f172a
+}
+skinparam arrow {
+  Color #475569
+  FontColor #0f172a
+}
 
-    Start --> A1["Mahasiswa mengklik 'Daftar'<br>pada mata kuliah"]
-    A1 --> D1{"Apakah mahasiswa<br>terotentikasi?"}
+|Mahasiswa|
+start
+:Klik 'Daftar' pada mata kuliah;
 
-    D1 -->|"[Tidak]"| A2["Arahkan ke Login"]
-    A2 --> A3["Mahasiswa login"]
-    A3 --> D2
+|Sistem|
+if (Terotentikasi?) then ([Tidak])
+  |Mahasiswa|
+  :Login;
+  |Sistem|
+endif
 
-    D1 -->|"[Ya]"| D2{"Apakah periode<br>pendaftaran terbuka?"}
-    D2 -->|"[Tidak]"| A4["Tampilkan: 'Pendaftaran ditutup'"]
-    A4 --> A5["Kembali ke Katalog"]
-    A5 --> End1([Selesai])
+if (Periode pendaftaran terbuka?) then ([Tidak])
+  :Tampilkan: 'Pendaftaran ditutup';
+  stop
+endif
 
-    D2 -->|"[Ya]"| D3{"Apakah kuota<br>tersedia?"}
-    D3 -->|"[Tidak]"| A6["Tampilkan: 'Mata kuliah penuh'"]
-    A6 --> A7["Tawarkan opsi daftar tunggu"]
-    A7 --> End1
+if (Kuota tersedia?) then ([Tidak])
+  :Tampilkan: 'MK penuh'\nTawarkan daftar tunggu;
+  stop
+endif
 
-    D3 -->|"[Ya]"| D4{"Ada konflik<br>jadwal?"}
-    D4 -->|"[Ya]"| A8["Tampilkan detail konflik"]
-    A8 --> D5{"Mahasiswa memilih?"}
-    D5 -->|"Batal"| A9["Kembali ke Katalog"]
-    A9 --> End1
-    D5 -->|"Drop mata kuliah bentrok"| A10["Sistem drop mata kuliah bentrok"]
-    A10 --> A11
+if (Ada konflik jadwal?) then ([Ya])
+  :Tampilkan detail konflik;
+  |Mahasiswa|
+  if (Pilih aksi?) then (Batal)
+    stop
+  else (Drop MK bentrok)
+    |Sistem|
+    :Drop mata kuliah bentrok;
+  endif
+endif
 
-    D4 -->|"[Tidak]"| A11["Sistem menampilkan ringkasan:<br>nama MK, SKS, jadwal, biaya"]
+|Sistem|
+:Tampilkan ringkasan pendaftaran\n(MK, SKS, jadwal, biaya);
 
-    A11 --> D6{"Mahasiswa konfirmasi?"}
-    D6 -->|"Batal"| A12["Kembali ke Katalog"]
-    A12 --> End1
+|Mahasiswa|
+if (Konfirmasi pendaftaran?) then (Batal)
+  stop
+endif
 
-    D6 -->|"Konfirmasi"| A13["Sistem memulai pembayaran<br>melalui Payment Gateway"]
-    A13 --> D7{"Pembayaran<br>berhasil?"}
-    
-    D7 -->|"[Tidak]"| A14["Tampilkan: 'Pembayaran gagal:<br>[alasan]'"]
-    A14 --> D8{"Mahasiswa memilih?"}
-    D8 -->|"Coba Lagi"| A13
-    D8 -->|"Batal"| End1
+|Sistem|
+:Inisiasi pembayaran via Payment Gateway;
+while (Pembayaran berhasil?) is (Tidak)
+  :Tampilkan: 'Pembayaran gagal';
+  |Mahasiswa|
+  if (Coba lagi?) then (Batal)
+    stop
+  else (Coba Lagi)
+  endif
+  |Sistem|
+  :Coba lagi pembayaran via Gateway;
+endwhile (Ya)
 
-    D7 -->|"[Ya]"| A15["Buat catatan Enrolment<br>di database"]
-    A15 --> A16["Kurangi kuota mata kuliah"]
-    A16 --> A17["Kirim notifikasi konfirmasi"]
-    A17 --> A18["Arahkan ke halaman 'Jadwal Saya'"]
-    A18 --> End2([Selesai])
+:Buat catatan Enrolment di database;
+:Kurangi kuota mata kuliah;
+:Kirim notifikasi konfirmasi;
+:Arahkan ke 'Jadwal Saya';
+stop
+@enduml
 ```
 
 ### Membaca Diagram

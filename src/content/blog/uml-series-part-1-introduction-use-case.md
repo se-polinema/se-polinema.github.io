@@ -214,6 +214,25 @@ The use case diagram lives in the **Software Requirements Specification (SRS)** 
 4. Connect actors to their use cases.
 5. Apply `<include>` for mandatory sub-steps and `<extend>` for optional, conditional behaviours.
 
+### Naming Use Cases with Subject–Predicate–Object (SPO)
+
+A reliable technique for writing good use case names is to start from a full **S–P–O sentence** describing what an actor does, then derive the use case name from the **Predicate + Object** portion:
+
+| Full sentence (S–P–O) | Subject → Actor | Predicate + Object → Use case name |
+|---|---|---|
+| **Student** *enrols in* **a course** | Student | Enrol in Course |
+| **Student** *browses* **available courses** | Student | Browse Courses |
+| **Admin** *manages* **the course catalogue** | Admin | Manage Courses |
+| **Admin** *manages* **student records* | Admin | Manage Students |
+| **Lecturer** *views* **enrolled students* | Lecturer | View Enrolled Students |
+| **Payment Gateway** *processes* **a payment* | Payment Gateway | Make Payment |
+
+**Tips for good use case names:**
+- Use an **active verb** (*Enrol*, *Browse*, *Manage*) — not a noun (*Enrolment*, *Management*).
+- Name the **goal**, not the mechanism — "Make Payment", not "Call Payment API".
+- One use case = one goal. If you need two verbs, split it.
+- Avoid vague verbs: *Handle*, *Process*, *Do* — they hide the real intent.
+
 </section>
 
 <section lang="id">
@@ -245,6 +264,25 @@ Use case diagram berada di dokumen **Software Requirements Specification (SRS)**
 4. Hubungkan aktor ke use case mereka.
 5. Terapkan `<include>` untuk sub-langkah wajib dan `<extend>` untuk perilaku opsional dan kondisional.
 
+### Penamaan Use Case dengan Subject–Predicate–Object (SPO)
+
+Teknik yang andal untuk menulis nama use case yang baik adalah mulai dari kalimat **S–P–O** lengkap yang menggambarkan apa yang dilakukan seorang aktor, lalu ambil nama use case dari bagian **Predikat + Objek**:
+
+| Kalimat lengkap (S–P–O) | Subjek → Aktor | Predikat + Objek → Nama use case |
+|---|---|---|
+| **Mahasiswa** *mendaftar* **mata kuliah** | Mahasiswa | Daftar Mata Kuliah |
+| **Mahasiswa** *menelusuri* **mata kuliah yang tersedia** | Mahasiswa | Telusuri Mata Kuliah |
+| **Admin** *mengelola* **katalog mata kuliah** | Admin | Kelola Mata Kuliah |
+| **Admin** *mengelola* **data mahasiswa* | Admin | Kelola Mahasiswa |
+| **Dosen** *melihat* **mahasiswa yang terdaftar* | Dosen | Lihat Mahasiswa Terdaftar |
+| **Payment Gateway** *memproses* **pembayaran* | Payment Gateway | Lakukan Pembayaran |
+
+**Tips untuk nama use case yang baik:**
+- Gunakan **kata kerja aktif** (*Daftar*, *Telusuri*, *Kelola*) — bukan kata benda (*Pendaftaran*, *Pengelolaan*).
+- Namai **tujuan**, bukan mekanismenya — "Lakukan Pembayaran", bukan "Panggil API Pembayaran".
+- Satu use case = satu tujuan. Jika butuh dua kata kerja, pisahkan.
+- Hindari kata kerja samar: *Tangani*, *Proses*, *Lakukan* — kata-kata itu menyembunyikan maksud sebenarnya.
+
 </section>
 
 ---
@@ -255,46 +293,67 @@ Use case diagram berada di dokumen **Software Requirements Specification (SRS)**
 
 Below is the complete use case diagram for our Campus Course Registration System. Note how the Payment Gateway is modelled as an external actor — it lives outside our system boundary.
 
-```mermaid
-graph TD
-    subgraph "Campus Course Registration System"
-        UC1["Register"]
-        UC2["Login"]
-        UC3["Browse Courses"]
-        UC4["Enrol in Course"]
-        UC5["View Schedule"]
-        UC6["Make Payment"]
-        UC7["Manage Courses"]
-        UC8["Manage Students"]
-        UC9["Manage Registration Period"]
-        UC10["View Enrolled Students"]
+```plantuml
+@startuml
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #dbeafe
+  BorderColor #2563eb
+  FontColor #0f172a
+}
+skinparam actor {
+  BackgroundColor #f1f5f9
+  BorderColor #475569
+  FontColor #0f172a
+}
+skinparam rectangle {
+  BackgroundColor #f8fafc
+  BorderColor #94a3b8
+  FontColor #0f172a
+}
+skinparam arrow {
+  Color #475569
+  FontColor #0f172a
+}
 
-        UC4 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC4 -.->|"&lt;&lt;include&gt;&gt;"| UC6
-        UC5 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC7 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC8 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC9 -.->|"&lt;&lt;extend&gt;&gt;"| UC7
-        UC10 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-    end
+actor "Student" as Student
+actor "Lecturer" as Lecturer
+actor "Admin" as Admin
+actor "Payment\nGateway" as PG
 
-    Student["🎓 Student"]
-    Admin["🔧 Admin"]
-    Lecturer["👨‍🏫 Lecturer"]
-    PaymentGateway["💳 Payment Gateway"]
+rectangle "Campus Course Registration System" {
+  usecase "Register" as UC1
+  usecase "Login" as UC2
+  usecase "Browse\nCourses" as UC3
+  usecase "Enrol in\nCourse" as UC4
+  usecase "View\nSchedule" as UC5
+  usecase "Make\nPayment" as UC6
+  usecase "Manage\nCourses" as UC7
+  usecase "Manage\nStudents" as UC8
+  usecase "Manage Registration\nPeriod" as UC9
+  usecase "View Enrolled\nStudents" as UC10
+}
 
-    Student --> UC1
-    Student --> UC2
-    Student --> UC3
-    Student --> UC4
-    Student --> UC5
-    Admin --> UC2
-    Admin --> UC7
-    Admin --> UC8
-    Admin --> UC9
-    Lecturer --> UC2
-    Lecturer --> UC10
-    PaymentGateway --> UC6
+Student -- UC1
+Student -- UC3
+Student -- UC4
+Student -- UC5
+Admin -- UC7
+Admin -- UC8
+Admin -- UC9
+Lecturer -- UC10
+PG -- UC6
+
+UC4 ..> UC2 : <<include>>
+UC4 ..> UC6 : <<include>>
+UC5 ..> UC2 : <<include>>
+UC7 ..> UC2 : <<include>>
+UC8 ..> UC2 : <<include>>
+UC10 ..> UC2 : <<include>>
+UC9 ..> UC7 : <<extend>>
+@enduml
 ```
 
 **Key relationships explained:**
@@ -310,46 +369,67 @@ graph TD
 
 Berikut adalah use case diagram lengkap untuk Sistem Pendaftaran Mata Kuliah Kampus kita. Perhatikan bagaimana Payment Gateway dimodelkan sebagai aktor eksternal — ia berada di luar batas sistem kita.
 
-```mermaid
-graph TD
-    subgraph "Sistem Pendaftaran Mata Kuliah Kampus"
-        UC1["Registrasi"]
-        UC2["Login"]
-        UC3["Telusuri Mata Kuliah"]
-        UC4["Daftar Mata Kuliah"]
-        UC5["Lihat Jadwal"]
-        UC6["Lakukan Pembayaran"]
-        UC7["Kelola Mata Kuliah"]
-        UC8["Kelola Mahasiswa"]
-        UC9["Kelola Periode Pendaftaran"]
-        UC10["Lihat Mahasiswa Terdaftar"]
+```plantuml
+@startuml
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #dbeafe
+  BorderColor #2563eb
+  FontColor #0f172a
+}
+skinparam actor {
+  BackgroundColor #f1f5f9
+  BorderColor #475569
+  FontColor #0f172a
+}
+skinparam rectangle {
+  BackgroundColor #f8fafc
+  BorderColor #94a3b8
+  FontColor #0f172a
+}
+skinparam arrow {
+  Color #475569
+  FontColor #0f172a
+}
 
-        UC4 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC4 -.->|"&lt;&lt;include&gt;&gt;"| UC6
-        UC5 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC7 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC8 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-        UC9 -.->|"&lt;&lt;extend&gt;&gt;"| UC7
-        UC10 -.->|"&lt;&lt;include&gt;&gt;"| UC2
-    end
+actor "Mahasiswa" as Student
+actor "Dosen" as Lecturer
+actor "Admin" as Admin
+actor "Payment\nGateway" as PG
 
-    Student["🎓 Mahasiswa"]
-    Admin["🔧 Admin"]
-    Lecturer["👨‍🏫 Dosen"]
-    PaymentGateway["💳 Payment Gateway"]
+rectangle "Sistem Pendaftaran Mata Kuliah Kampus" {
+  usecase "Registrasi" as UC1
+  usecase "Login" as UC2
+  usecase "Telusuri\nMata Kuliah" as UC3
+  usecase "Daftar\nMata Kuliah" as UC4
+  usecase "Lihat\nJadwal" as UC5
+  usecase "Lakukan\nPembayaran" as UC6
+  usecase "Kelola\nMata Kuliah" as UC7
+  usecase "Kelola\nMahasiswa" as UC8
+  usecase "Kelola Periode\nPendaftaran" as UC9
+  usecase "Lihat Mahasiswa\nTerdaftar" as UC10
+}
 
-    Student --> UC1
-    Student --> UC2
-    Student --> UC3
-    Student --> UC4
-    Student --> UC5
-    Admin --> UC2
-    Admin --> UC7
-    Admin --> UC8
-    Admin --> UC9
-    Lecturer --> UC2
-    Lecturer --> UC10
-    PaymentGateway --> UC6
+Student -- UC1
+Student -- UC3
+Student -- UC4
+Student -- UC5
+Admin -- UC7
+Admin -- UC8
+Admin -- UC9
+Lecturer -- UC10
+PG -- UC6
+
+UC4 ..> UC2 : <<include>>
+UC4 ..> UC6 : <<include>>
+UC5 ..> UC2 : <<include>>
+UC7 ..> UC2 : <<include>>
+UC8 ..> UC2 : <<include>>
+UC10 ..> UC2 : <<include>>
+UC9 ..> UC7 : <<extend>>
+@enduml
 ```
 
 **Hubungan kunci dijelaskan:**
