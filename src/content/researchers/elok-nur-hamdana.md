@@ -37,11 +37,16 @@ streams:
   - "emerging-technologies-se"
 books:
   - title: "Pengenalan Sistem Informasi"
+    url: "https://polinemapress21.com/produk/pengenalan-sistem-informasi/"
     coverImage: "/images/books/pengenalan-sistem-informasi.png"
+    isbn: "978-634-7448-44-6"
     description: "An accessible introduction to information systems covering core concepts, process automation, modern technologies including AI, IoT, and RPA, database and big data foundations, and real-world enterprise applications such as ERP, CRM, SCM, e-business, and e-commerce. Also addresses data security, user privacy, technology ethics, and the social and economic impact of information systems development."
     descriptionId: "Pengantar sistem informasi yang mudah dipahami, mencakup konsep dasar, automasi proses, teknologi modern seperti AI, IoT, dan RPA, fondasi basis data dan big data, serta aplikasi dunia nyata seperti ERP, CRM, SCM, e-business, dan e-commerce. Juga membahas keamanan data, privasi pengguna, etika teknologi, serta dampak sosial dan ekonomi dari perkembangan sistem informasi."
   - title: "Konsep Teknologi Informasi"
+    url: "https://polinemapress21.com/produk/konsep-teknologi-informasi/"
     coverImage: "/images/books/konsep-teknologi-informasi.png"
+    year: 2025
+    isbn: "978-634-7040-71-8"
     description: "A comprehensive guide to information technology concepts, covering hardware and software fundamentals, computer networks, information systems, and emerging trends such as cloud computing, big data, artificial intelligence, and cybersecurity. Explores IT's role in social, business, and educational transformation."
     descriptionId: "Panduan menyeluruh tentang konsep teknologi informasi, mencakup dasar perangkat keras dan perangkat lunak, jaringan komputer, sistem informasi, hingga tren mutakhir seperti cloud computing, big data, kecerdasan buatan, dan keamanan siber. Mengupas peran TI dalam transformasi sosial, bisnis, dan pendidikan."
 ---

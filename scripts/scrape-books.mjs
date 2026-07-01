@@ -84,7 +84,15 @@ async function fetchRawText(url) {
   throw lastError
 }
 
-async function fetchText(url) {
+async function fetchJinaText(url) {
+  const jinaUrl = toJinaUrl(url)
+  const jina = await fetchRawText(jinaUrl)
+  return { text: jina.text, source: 'jina', sourceUrl: jinaUrl }
+}
+
+async function fetchText(url, { preferJina = false } = {}) {
+  if (preferJina) return fetchJinaText(url)
+
   try {
     const direct = await fetchRawText(url)
     if (!isBlockedResponse(direct.text, direct.status)) {
@@ -96,13 +104,21 @@ async function fetchText(url) {
     }
   }
 
-  const jinaUrl = toJinaUrl(url)
-  const jina = await fetchRawText(jinaUrl)
-  return { text: jina.text, source: 'jina', sourceUrl: jinaUrl }
+  return fetchJinaText(url)
+}
+
+function decodeEntities(text) {
+  return text
+    .replace(/&#038;/g, '&')
+    .replace(/&#8211;/g, '-')
+    .replace(/&#8217;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&nbsp;/g, ' ')
 }
 
 function cleanMarkdownText(text) {
-  return text
+  return decodeEntities(text)
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/!\[[^\]]*]\([^)]+\)/g, '')
     .replace(/<[^>]+>/g, '')
@@ -111,12 +127,9 @@ function cleanMarkdownText(text) {
 }
 
 function cleanHtmlText(text) {
-  return text
+  return decodeEntities(text)
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&#8211;/g, '-')
-    .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ')
     .trim()
 }
@@ -354,7 +367,7 @@ async function main() {
     console.log(`   [${i + 1}/${allProductUrls.length}] ${productUrl}`)
 
     try {
-      const { text, source, sourceUrl } = await fetchText(productUrl)
+      const { text, source, sourceUrl } = await fetchText(productUrl, { preferJina: true })
       const detail = extractDetail(text, source)
       const coverImageUrl = detail.coverImageUrl || (source === 'direct' ? extractCoverImage(text, productUrl) : '')
 

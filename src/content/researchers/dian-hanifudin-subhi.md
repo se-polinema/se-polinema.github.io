@@ -44,6 +44,17 @@ books:
     coverImage: "/images/books/git-tanpa-drama.jpg"
     description: "A practical Indonesian-language guide that helps beginners use Git with confidence, from branching and merging to collaboration and everyday version-control workflows."
     playstoreUrl: "https://play.google.com/store/books/details/Dian_Hanifudin_Subhi_Usman_Nurhasan_Putra_Prima_Ar?id=c7TCEQAAQBAJ&hl=en"
+  - title: "Pemrograman Mobile Menggunakan Flutter"
+    url: "https://polinemapress21.com/produk/pemrograman-mobile-menggunakan-flutter/"
+    coverImage: "https://polinemapress21.com/wp-content/uploads/2022/02/5465363642642.jpg"
+    year: 2021
+    isbn: "978-623-5711-02-7"
+  - title: "Laravel REST API"
+    url: "https://polinemapress21.com/produk/laravel-rest-api/"
+    coverImage: "https://polinemapress21.com/wp-content/uploads/2025/09/Laravel-REST-API.jpg"
+    year: 2022
+    publisher: "Polinema Press"
+    isbn: "978-623-5711-79-9"
 decks:
   - title: "Write with AI"
     url: "https://dhanifudin.com/write-with-ai/"

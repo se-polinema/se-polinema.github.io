@@ -35,4 +35,15 @@ order: 2
 streams:
   - "domain-specific-se-applications"
   - "emerging-technologies-se"
+books:
+  - title: "Penuntun Praktikum Struktur Data"
+    url: "https://polinemapress21.com/produk/penuntun-praktikum-struktur-data/"
+    coverImage: "https://polinemapress21.com/wp-content/uploads/2026/02/Screenshot-2026-02-13-092216.jpg"
+    year: 2020
+    isbn: "978-623-7408-91-8"
+  - title: "Animasi Blender: Sebuah Pengantar"
+    url: "https://polinemapress21.com/produk/animasi-blender-sebuah-pengantar/"
+    coverImage: "https://polinemapress21.com/wp-content/uploads/2026/01/Screenshot-2026-01-26-102917.png"
+    year: 2019
+    isbn: "978-623-7408-74-1"
 ---

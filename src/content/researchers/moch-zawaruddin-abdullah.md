@@ -37,7 +37,21 @@ streams:
   - "emerging-technologies-se"
 books:
   - title: "Konsep Teknologi Informasi"
+    url: "https://polinemapress21.com/produk/konsep-teknologi-informasi/"
     coverImage: "/images/books/konsep-teknologi-informasi.png"
+    year: 2025
+    isbn: "978-634-7040-71-8"
     description: "A comprehensive guide to information technology concepts, covering hardware and software fundamentals, computer networks, information systems, and emerging trends such as cloud computing, big data, artificial intelligence, and cybersecurity. Explores IT's role in social, business, and educational transformation."
     descriptionId: "Panduan menyeluruh tentang konsep teknologi informasi, mencakup dasar perangkat keras dan perangkat lunak, jaringan komputer, sistem informasi, hingga tren mutakhir seperti cloud computing, big data, kecerdasan buatan, dan keamanan siber. Mengupas peran TI dalam transformasi sosial, bisnis, dan pendidikan."
+  - title: "Perancangan Sistem E-Learning dengan Framework Laravel"
+    url: "https://polinemapress21.com/produk/perancangan-sistem-e-learning-dengan-framework-laravel/"
+    coverImage: "https://polinemapress21.com/wp-content/uploads/2023/11/63265781641989.jpg"
+    year: 2023
+    publisher: "Polinema Press"
+    isbn: "978-623-8452-08-8"
+  - title: "Pemrograman Web Lanjut (Laravel 10)"
+    url: "https://polinemapress21.com/produk/pemrograman-web-lanjut-laravel-10/"
+    coverImage: "https://polinemapress21.com/wp-content/uploads/2024/11/image-3.png"
+    publisher: "Polinema Press"
+    isbn: "978-634-7040-51-0"
 ---
