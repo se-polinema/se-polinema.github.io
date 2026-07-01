@@ -60,12 +60,15 @@
               class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
             >Buy on Google Play Books →</a>
           </div>
-          <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5 dark:border-gray-600">
+          <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5 dark:border-gray-600 flex-wrap">
             <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.books.by }}</span>
-            <a
-              :href="`/researchers/${book.researcherId}`"
-              class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
-            >{{ book.researcherName }}</a>
+            <template v-for="(author, idx) in book.authors" :key="author.id">
+              <a
+                :href="`/researchers/${author.id}`"
+                class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+              >{{ author.name }}</a>
+              <span v-if="idx < book.authors.length - 1" class="text-[12px] text-neutral-400 dark:text-gray-500">,</span>
+            </template>
           </div>
         </li>
       </ul>
@@ -92,8 +95,7 @@ interface MemberBook {
   coverImage?: string
   description?: string
   descriptionId?: string
-  researcherId: string
-  researcherName: string
+  authors: { id: string; name: string }[]
 }
 
 const props = defineProps<{
@@ -106,7 +108,7 @@ const selectedMember = ref('')
 
 const filtered = computed(() =>
   selectedMember.value
-    ? props.books.filter((b) => b.researcherId === selectedMember.value)
+    ? props.books.filter((b) => b.authors.some((a) => a.id === selectedMember.value))
     : props.books,
 )
 </script>
