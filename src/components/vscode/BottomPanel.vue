@@ -161,6 +161,60 @@
         <p class="text-accent/60 animate-pulse select-none">▌</p>
       </div>
 
+      <!-- FOOTER -->
+      <div
+        v-show="activePanelTab === 'footer'"
+        class="p-5 space-y-5"
+        role="tabpanel"
+        :id="`panel-body-footer`"
+        :aria-labelledby="`panel-tab-footer`"
+      >
+        <div>
+          <div class="font-mono text-[10px] tracking-[0.2em] text-white/25 mb-1">{ SE Lab }</div>
+          <p class="text-[11px] text-white/60 leading-relaxed max-w-md">
+            {{ t.footer.tagline }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-mono text-[10px] uppercase tracking-wider text-white/25 mb-2">{{ t.footer.links }}</h4>
+            <ul class="space-y-1">
+              <li><a href="/events" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.events }}</a></li>
+              <li><a href="/faq" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.faq }}</a></li>
+              <li><a href="/blog" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.blog }}</a></li>
+              <li><a href="/researchers" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.researchers }}</a></li>
+              <li><a href="/alumni" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.alumni }}</a></li>
+              <li><a href="/books" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.books }}</a></li>
+              <li><a href="/decks" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.decks }}</a></li>
+              <li><a href="/publications" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.publications }}</a></li>
+              <li><a href="/achievements" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.achievements?.navLabel || 'Achievements' }}</a></li>
+              <li><a href="/#research" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.research }}</a></li>
+              <li><a href="/contact" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.contact }}</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-mono text-[10px] uppercase tracking-wider text-white/25 mb-2">{{ t.footer.resources }}</h4>
+            <div class="flex flex-col gap-1.5">
+              <a href="https://polinema.ac.id" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono text-white/60 hover:text-white transition-colors" style="border: 1px solid rgba(255,255,255,0.12);">
+                Polinema ↗
+              </a>
+              <a href="https://jti.polinema.ac.id" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono text-white/60 hover:text-white transition-colors" style="border: 1px solid rgba(255,255,255,0.12);">
+                JTI Polinema ↗
+              </a>
+              <a href="https://github.com/se-polinema" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono text-white/60 hover:text-white transition-colors" style="border: 1px solid rgba(255,255,255,0.12);">
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px;">
+          <NewsletterForm compact :showInterests="false" />
+        </div>
+      </div>
+
       <!-- PROBLEMS -->
       <div
         v-show="activePanelTab === 'problems'"
@@ -195,6 +249,7 @@
 import { ref, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
+import NewsletterForm from '../NewsletterForm.vue'
 
 const { panelOpen, activePanelTab, togglePanel, openPanel } = useVSCodeLayout()
 const { t } = useI18n()
@@ -214,9 +269,10 @@ const tabs = [
   { id: 'contact'  as const, get label() { return t.value.panel.contact  } },
   { id: 'output'   as const, get label() { return t.value.panel.output   } },
   { id: 'problems' as const, get label() { return t.value.panel.problems } },
+  { id: 'footer'   as const, get label() { return t.value.panel.footer   } },
 ]
 
-const tabIds = ['contact', 'output', 'problems'] as const
+const tabIds = ['contact', 'output', 'problems', 'footer'] as const
 
 function onTabKeydown(event: KeyboardEvent, currentId: typeof tabIds[number]) {
   const idx = tabIds.indexOf(currentId)

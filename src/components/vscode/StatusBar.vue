@@ -42,6 +42,11 @@
         </svg>
         main
       </span>
+
+      <span class="w-px h-3.5 bg-primary/20 mx-1" />
+      <span class="hidden sm:inline text-[11px] font-mono text-primary/55 whitespace-nowrap">
+        &copy; {{ new Date().getFullYear() }} {{ t.footer.copyright }}
+      </span>
     </div>
 
     <!-- Center: institution -->

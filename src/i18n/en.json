@@ -212,7 +212,8 @@
     "problemsErrors": "Errors",
     "problemsWarnings": "Warnings",
     "problemsInfos": "Infos",
-    "problemsVersion": "All systems operational"
+    "problemsVersion": "All systems operational",
+    "footer": "Footer"
   },
   "publications": {
     "label": "Publications",
