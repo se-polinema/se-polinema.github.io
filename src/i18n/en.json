@@ -214,7 +214,9 @@
     "problemsWarnings": "Warnings",
     "problemsInfos": "Infos",
     "problemsVersion": "All systems operational",
-    "footer": "Footer"
+    "footer": "Footer",
+    "quickLinks": "Quick Links",
+    "newsletter": "Newsletter"
   },
   "publications": {
     "label": "Publications",
