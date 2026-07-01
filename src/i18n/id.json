@@ -212,7 +212,8 @@
     "problemsErrors": "Kesalahan",
     "problemsWarnings": "Peringatan",
     "problemsInfos": "Informasi",
-    "problemsVersion": "Semua sistem berjalan normal"
+    "problemsVersion": "Semua sistem berjalan normal",
+    "footer": "Footer"
   },
   "publications": {
     "label": "Publikasi",
