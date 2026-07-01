@@ -130,6 +130,9 @@
                   <div class="min-w-0">
                     <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">{{ lang === 'id' && book.titleId ? book.titleId : book.title }}</div>
                     <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}</p>
+                    <div v-if="book.url" class="mt-1.5">
+                      <a :href="book.url" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">{{ t.books.viewBookSite }} ↗</a>
+                    </div>
                     <div v-if="book.playstoreUrl" class="mt-1.5">
                       <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">Buy on Google Play Books →</a>
                     </div>
@@ -220,7 +223,7 @@ const props = defineProps<{
     orcidUrl?: string
     scopusUrl?: string
     projects?: Array<{ name?: string; nameId?: string; repo: string; description?: string; descriptionId?: string }>
-    books?: Array<{ title: string; titleId?: string; playstoreUrl?: string; coverImage?: string; description?: string; descriptionId?: string }>
+    books?: Array<{ title: string; titleId?: string; url?: string; playstoreUrl?: string; coverImage?: string; description?: string; descriptionId?: string; year?: number; publisher?: string; isbn?: string }>
     streams?: string[]
   }
   publications: Publication[]

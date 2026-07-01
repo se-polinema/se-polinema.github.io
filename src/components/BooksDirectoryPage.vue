@@ -52,6 +52,14 @@
           <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed flex-1">
             {{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}
           </p>
+          <div v-if="book.url" class="mt-1">
+            <a
+              :href="book.url"
+              target="_blank"
+              rel="noopener"
+              class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+            >{{ t.books.viewBookSite }} ↗</a>
+          </div>
           <div v-if="book.playstoreUrl" class="mt-1">
             <a
               :href="book.playstoreUrl"
@@ -91,10 +99,14 @@ import { useI18n } from '../composables/useI18n'
 interface MemberBook {
   title: string
   titleId?: string
+  url?: string
   playstoreUrl?: string
   coverImage?: string
   description?: string
   descriptionId?: string
+  year?: number
+  publisher?: string
+  isbn?: string
   authors: { id: string; name: string }[]
 }
 

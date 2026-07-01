@@ -121,7 +121,8 @@
     "archiveDescription": "Books authored and co-authored by SE Lab researchers.",
     "allMembers": "All Members",
     "resultSingle": "book",
-    "resultPlural": "books"
+    "resultPlural": "books",
+    "viewBookSite": "View book site"
   },
   "decks": {
     "label": "Decks",

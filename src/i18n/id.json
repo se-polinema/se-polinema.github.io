@@ -121,7 +121,8 @@
     "archiveDescription": "Buku yang ditulis dan ditulis bersama oleh peneliti SE Lab.",
     "allMembers": "Semua Anggota",
     "resultSingle": "buku",
-    "resultPlural": "buku"
+    "resultPlural": "buku",
+    "viewBookSite": "Lihat situs buku"
   },
   "decks": {
     "label": "Dek",
