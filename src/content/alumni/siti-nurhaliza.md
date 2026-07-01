@@ -1,6 +1,5 @@
 ---
 name: "Siti Nurhaliza"
-photo: "/images/researchers/placeholder.jpg"
 cohortYear: 2020
 exitYear: 2022
 role:
