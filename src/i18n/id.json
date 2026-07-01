@@ -483,6 +483,8 @@
     "typeCertification": "Sertifikasi",
     "typeMilestone": "Pencapaian",
     "issuer": "Penerbit",
+    "members": "Anggota",
+    "labMembers": "Anggota Lab",
     "empty": "Belum ada prestasi untuk ditampilkan. Kunjungi kembali nanti.",
     "resultSingle": "prestasi",
     "resultPlural": "prestasi"

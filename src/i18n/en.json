@@ -483,6 +483,8 @@
     "typeCertification": "Certification",
     "typeMilestone": "Milestone",
     "issuer": "Issuer",
+    "members": "Members",
+    "labMembers": "Lab Members",
     "empty": "No achievements to display yet. Check back soon.",
     "resultSingle": "achievement",
     "resultPlural": "achievements"

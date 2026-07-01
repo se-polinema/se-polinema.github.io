@@ -16,6 +16,7 @@ import { getMemberProjects, getMemberBooks, getCollectionProjects } from '../lib
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import achievementsData from '../data/achievements.json'
+import type { Achievement } from '../types/achievement'
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
 const sortedPosts = posts
@@ -70,7 +71,7 @@ const books = await getMemberBooks()
 
 const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
 
-const recentAchievements = achievementsData
+const recentAchievements = (achievementsData as Achievement[])
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   .slice(0, 5)
   .map((item) => ({
@@ -82,6 +83,7 @@ const recentAchievements = achievementsData
     descriptionId: item.descriptionId,
     url: item.url,
     issuer: item.issuer,
+    members: item.members,
   }))
 
 let logoUrl = new URL('/og-default.svg', origin).href
