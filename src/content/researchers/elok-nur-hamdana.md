@@ -36,6 +36,10 @@ streams:
   - "domain-specific-se-applications"
   - "emerging-technologies-se"
 books:
+  - title: "Pengenalan Sistem Informasi"
+    coverImage: "/images/books/pengenalan-sistem-informasi.png"
+    description: "An accessible introduction to information systems covering core concepts, process automation, modern technologies including AI, IoT, and RPA, database and big data foundations, and real-world enterprise applications such as ERP, CRM, SCM, e-business, and e-commerce. Also addresses data security, user privacy, technology ethics, and the social and economic impact of information systems development."
+    descriptionId: "Pengantar sistem informasi yang mudah dipahami, mencakup konsep dasar, automasi proses, teknologi modern seperti AI, IoT, dan RPA, fondasi basis data dan big data, serta aplikasi dunia nyata seperti ERP, CRM, SCM, e-business, dan e-commerce. Juga membahas keamanan data, privasi pengguna, etika teknologi, serta dampak sosial dan ekonomi dari perkembangan sistem informasi."
   - title: "Konsep Teknologi Informasi"
     coverImage: "/images/books/konsep-teknologi-informasi.png"
     description: "A comprehensive guide to information technology concepts, covering hardware and software fundamentals, computer networks, information systems, and emerging trends such as cloud computing, big data, artificial intelligence, and cybersecurity. Explores IT's role in social, business, and educational transformation."
