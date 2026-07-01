@@ -230,7 +230,8 @@
     "resultPlural": "publikasi",
     "archiveHeading": "Arsip Publikasi",
     "archiveDescription": "Arsip ini memuat keluaran ilmiah terpilih yang terkait dengan Software Engineering Laboratory. Data awal saat ini dikurasi dari rekam jejak Google Scholar para peneliti laboratorium.",
-    "lastUpdated": "Terakhir diperbarui"
+    "lastUpdated": "Terakhir diperbarui",
+    "subscribeFeed": "Berlangganan feed publikasi"
   },
   "gallery": {
     "label": "Galeri",
