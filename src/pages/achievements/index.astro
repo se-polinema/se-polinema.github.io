@@ -2,8 +2,9 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import AchievementsPage from '../../components/AchievementsPage.vue'
 import achievementsData from '../../data/achievements.json'
+import type { Achievement } from '../../types/achievement'
 
-const achievements = achievementsData
+const achievements = (achievementsData as Achievement[])
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   .map((item) => ({
     title: item.title,
@@ -14,6 +15,7 @@ const achievements = achievementsData
     descriptionId: item.descriptionId,
     url: item.url,
     issuer: item.issuer,
+    members: item.members,
   }))
 ---
 
