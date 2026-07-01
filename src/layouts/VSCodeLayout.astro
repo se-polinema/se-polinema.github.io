@@ -18,8 +18,7 @@ export interface Props {
 
 const { title, description, image, type, lang } = Astro.props
 
-// Generate enough line numbers to cover the tallest possible page (~22 000px at 22px/line)
-const LINE_COUNT = 1000
+// Line numbers are generated client-side based on actual content height
 ---
 
 <Default title={title} description={description} image={image} type={type} lang={lang}>
@@ -74,10 +73,7 @@ const LINE_COUNT = 1000
         <main id="editor" class="flex-1 overflow-y-auto bg-white dark:bg-gray-900">
           <div class="editor-wrap">
             <!-- Line-number gutter -->
-            <div class="editor-gutter" aria-hidden="true">
-              {Array.from({ length: LINE_COUNT }, (_, i) => (
-                <span>{i + 1}</span>
-              ))}
+            <div class="editor-gutter" id="editor-gutter" aria-hidden="true">
             </div>
             <!-- Page content -->
             <div class="editor-body">
@@ -94,6 +90,48 @@ const LINE_COUNT = 1000
     <StatusBar client:only="vue" />
     <SearchOverlay client:load />
   </div>
+
+  <script>
+    (function () {
+      const LINE_HEIGHT = 22
+      const MAX_LINES = 5000
+
+      function generateLineNumbers() {
+        const gutter = document.getElementById('editor-gutter')
+        const editor = document.getElementById('editor')
+        if (!gutter || !editor) return
+
+        const needed = Math.min(
+          Math.ceil(editor.scrollHeight / LINE_HEIGHT),
+          MAX_LINES
+        )
+
+        const currentCount = gutter.children.length
+        if (needed === currentCount) return
+
+        gutter.innerHTML = ''
+
+        const fragment = document.createDocumentFragment()
+        for (let i = 1; i <= needed; i++) {
+          const span = document.createElement('span')
+          span.textContent = String(i)
+          fragment.appendChild(span)
+        }
+        gutter.appendChild(fragment)
+      }
+
+      window.addEventListener('load', generateLineNumbers)
+
+      const observer = new ResizeObserver(() => {
+        generateLineNumbers()
+      })
+
+      const editor = document.getElementById('editor')
+      if (editor) {
+        observer.observe(editor)
+      }
+    })()
+  </script>
 </Default>
 
 <style is:global>
@@ -107,6 +145,7 @@ const LINE_COUNT = 1000
 .editor-gutter {
   flex-shrink: 0;
   width: 52px;
+  height: 100%;
   overflow: hidden;          /* clips excess line numbers below content */
   background: var(--color-vscode-gutter-bg);
   border-right: 1px solid var(--color-vscode-gutter-border);
