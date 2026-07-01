@@ -216,9 +216,9 @@ A reliable technique for writing good use case names is to start from a full **S
 | **Student** *enrols in* **a course** | Student | Enrol in Course |
 | **Student** *browses* **available courses** | Student | Browse Courses |
 | **Admin** *manages* **the course catalogue** | Admin | Manage Courses |
-| **Admin** *manages* **student records* | Admin | Manage Students |
-| **Lecturer** *views* **enrolled students* | Lecturer | View Enrolled Students |
-| **Payment Gateway** *processes* **a payment* | Payment Gateway | Make Payment |
+| **Admin** *manages* **student records** | Admin | Manage Students |
+| **Lecturer** *views* **enrolled students** | Lecturer | View Enrolled Students |
+| **Payment Gateway** *processes* **a payment** | Payment Gateway | Make Payment |
 
 **Tips for good use case names:**
 - Use an **active verb** (*Enrol*, *Browse*, *Manage*) — not a noun (*Enrolment*, *Management*).
@@ -259,9 +259,9 @@ Teknik yang andal untuk menulis nama use case yang baik adalah mulai dari kalima
 | **Mahasiswa** *mendaftar* **mata kuliah** | Mahasiswa | Daftar Mata Kuliah |
 | **Mahasiswa** *menelusuri* **mata kuliah yang tersedia** | Mahasiswa | Telusuri Mata Kuliah |
 | **Admin** *mengelola* **katalog mata kuliah** | Admin | Kelola Mata Kuliah |
-| **Admin** *mengelola* **data mahasiswa* | Admin | Kelola Mahasiswa |
-| **Dosen** *melihat* **mahasiswa yang terdaftar* | Dosen | Lihat Mahasiswa Terdaftar |
-| **Payment Gateway** *memproses* **pembayaran* | Payment Gateway | Lakukan Pembayaran |
+| **Admin** *mengelola* **data mahasiswa** | Admin | Kelola Mahasiswa |
+| **Dosen** *melihat* **mahasiswa yang terdaftar** | Dosen | Lihat Mahasiswa Terdaftar |
+| **Payment Gateway** *memproses* **pembayaran** | Payment Gateway | Lakukan Pembayaran |
 
 **Tips untuk nama use case yang baik:**
 - Gunakan **kata kerja aktif** (*Daftar*, *Telusuri*, *Kelola*) — bukan kata benda (*Pendaftaran*, *Pengelolaan*).
@@ -306,8 +306,6 @@ skinparam arrow {
 
 actor "Student" as Student
 actor "Lecturer" as Lecturer
-actor "Admin" as Admin
-actor "Payment\nGateway" as PG
 
 rectangle "Campus Course Registration System" {
   usecase "Register" as UC1
@@ -321,15 +319,19 @@ rectangle "Campus Course Registration System" {
   usecase "View Enrolled\nStudents" as UC10
 }
 
+actor "Admin" as Admin
+actor "Payment\nGateway" as PG
+
 Student -- UC1
 Student -- UC3
 Student -- UC4
 Student -- UC5
-Admin -- UC7
-Admin -- UC8
-Admin -- UC9
 Lecturer -- UC10
-PG -- UC6
+
+UC7 -- Admin
+UC8 -- Admin
+UC9 -- Admin
+UC6 -- PG
 
 UC4 ..> UC6 : <<include>>
 UC9 ..> UC7 : <<extend>>
@@ -376,8 +378,6 @@ skinparam arrow {
 
 actor "Mahasiswa" as Student
 actor "Dosen" as Lecturer
-actor "Admin" as Admin
-actor "Payment\nGateway" as PG
 
 rectangle "Sistem Pendaftaran Mata Kuliah Kampus" {
   usecase "Registrasi" as UC1
@@ -391,15 +391,19 @@ rectangle "Sistem Pendaftaran Mata Kuliah Kampus" {
   usecase "Lihat Mahasiswa\nTerdaftar" as UC10
 }
 
+actor "Admin" as Admin
+actor "Payment\nGateway" as PG
+
 Student -- UC1
 Student -- UC3
 Student -- UC4
 Student -- UC5
-Admin -- UC7
-Admin -- UC8
-Admin -- UC9
 Lecturer -- UC10
-PG -- UC6
+
+UC7 -- Admin
+UC8 -- Admin
+UC9 -- Admin
+UC6 -- PG
 
 UC4 ..> UC6 : <<include>>
 UC9 ..> UC7 : <<extend>>
