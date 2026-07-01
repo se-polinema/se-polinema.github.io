@@ -322,6 +322,7 @@
       "previewHint": "preview",
       "bootError": "Failed to load presentation. Please reload."
     },
+    "addToCalendar": "Add to Calendar",
     "noUpcoming": "No upcoming events at this time. Check back soon for seminars, workshops, and talks.",
     "noPast": "No past events yet.",
     "backToEvents": "Back to Events",
