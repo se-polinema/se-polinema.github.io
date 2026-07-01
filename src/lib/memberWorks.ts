@@ -25,8 +25,7 @@ export interface MemberBook {
   coverImage?: string
   description?: string
   descriptionId?: string
-  researcherId: string
-  researcherName: string
+  authors: { id: string; name: string }[]
 }
 
 export async function getMemberProjects(): Promise<MemberProject[]> {
@@ -44,15 +43,28 @@ export async function getMemberProjects(): Promise<MemberProject[]> {
 
 export async function getMemberBooks(): Promise<MemberBook[]> {
   const researchers = await getCollection('researchers')
-  return researchers
-    .flatMap((r) =>
-      (r.data.books ?? []).map((b) => ({
-        ...b,
-        researcherId: r.id,
-        researcherName: r.data.name,
-      })),
-    )
-    .sort((a, b) => a.title.localeCompare(b.title))
+  const entries = researchers.flatMap((r) =>
+    (r.data.books ?? []).map((b) => ({
+      ...b,
+      researcherId: r.id,
+      researcherName: r.data.name,
+    })),
+  )
+
+  const map = new Map<string, MemberBook>()
+  for (const e of entries) {
+    const key = e.title.toLowerCase()
+    if (map.has(key)) {
+      map.get(key)!.authors.push({ id: e.researcherId, name: e.researcherName })
+    } else {
+      map.set(key, {
+        ...e,
+        authors: [{ id: e.researcherId, name: e.researcherName }],
+      })
+    }
+  }
+
+  return [...map.values()].sort((a, b) => a.title.localeCompare(b.title))
 }
 
 export interface MemberDeck {
