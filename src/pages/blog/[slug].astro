@@ -33,7 +33,7 @@ const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
 const postUrl = new URL(Astro.url.pathname, origin).href
 const imageUrl = post.data.image
   ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, origin).href)
-  : new URL('/og-default.svg', origin).href
+  : new URL(`/og/blog/${post.id}.png`, origin).href
 
 const blogPostingJsonLd = {
   '@context': 'https://schema.org',
@@ -63,7 +63,7 @@ const blogPostingJsonLd = {
   description={post.data.excerpt ?? 'Software Engineering Laboratory news article.'}
   type="article"
   lang={post.data.lang as 'en' | 'id'}
-  image={post.data.image ?? undefined}
+  image={post.data.image ?? `/og/blog/${post.id}.png`}
 >
   <JsonLd slot="head" data={blogPostingJsonLd} />
   <div class="px-8 py-6 flex gap-8">

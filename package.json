@@ -14,14 +14,19 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/sitemap": "^3.4.0",
     "@astrojs/vue": "^6.0.0",
+    "@fontsource/dm-serif-display": "^5.2.8",
+    "@fontsource/inter": "^5.2.8",
+    "@resvg/resvg-js": "^2.6.2",
     "@supabase/supabase-js": "^2.108.2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.0",
     "plantuml-encoder": "^1.4.0",
     "reveal.js": "^6.0.1",
+    "satori": "^0.26.0",
     "tailwindcss": "^4.3.0",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "yoga-wasm-web": "^0.3.3"
   },
   "engines": {
     "node": ">=24"
