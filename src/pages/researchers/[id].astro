@@ -3,6 +3,8 @@ import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import ResearcherProfilePage from '../../components/ResearcherProfilePage.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import { getCollection } from 'astro:content'
+import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 export async function getStaticPaths() {
   const researchers = await getCollection('researchers')
@@ -25,7 +27,29 @@ const publications = (await getCollection('publications', ({ data }) =>
     venue: publication.data.venue,
     type: publication.data.type,
     url: publication.data.url,
+    citedByCount: publication.data.citedByCount ?? 0,
   }))
+
+let scholarMetrics = null
+const metricsPath = resolve('src/data/_scholar-metrics.json')
+if (existsSync(metricsPath)) {
+  try {
+    const metricsData = JSON.parse(readFileSync(metricsPath, 'utf-8'))
+    const researcherMetrics = metricsData.researcherMetrics?.find(
+      (m: { researcher: string }) => m.researcher === researcher.id,
+    )
+    if (researcherMetrics && !researcherMetrics._error) {
+      scholarMetrics = {
+        hindex: researcherMetrics.hindex ?? 0,
+        i10index: researcherMetrics.i10index ?? 0,
+        citedby: researcherMetrics.citedby ?? 0,
+        citedby5y: researcherMetrics.citedby5y ?? 0,
+      }
+    }
+  } catch {
+    scholarMetrics = null
+  }
+}
 
 const researcherProfile = {
   name: researcher.data.name,
@@ -44,6 +68,7 @@ const researcherProfile = {
   projects: researcher.data.projects,
   books: researcher.data.books,
   streams: researcher.data.streams,
+  scholarMetrics,
 }
 
 const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'

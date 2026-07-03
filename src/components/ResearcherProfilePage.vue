@@ -38,11 +38,11 @@
 
           <!-- Right sub-col: stats + research interests + expertise pills -->
           <div class="flex-1 min-w-0 flex flex-col justify-between gap-3">
-            <!-- Stats: 3-col grid, full width -->
+            <!-- Stats: grid, full width -->
             <div class="grid grid-cols-3 gap-1">
               <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
                 <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ publications.length }}</div>
-                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">Works</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">{{ t.team.worksLabel }}</div>
               </div>
               <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
                 <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ researcher.expertise.length }}</div>
@@ -51,6 +51,22 @@
               <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
                 <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ externalProfileCount }}</div>
                 <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">Profiles</div>
+              </div>
+            </div>
+
+            <!-- Scholar Metrics -->
+            <div v-if="researcher.scholarMetrics" class="grid grid-cols-3 gap-1">
+              <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ researcher.scholarMetrics.hindex }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">{{ t.team.hindexLabel }}</div>
+              </div>
+              <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ researcher.scholarMetrics.i10index }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">{{ t.team.i10indexLabel }}</div>
+              </div>
+              <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
+                <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ researcher.scholarMetrics.citedby }}</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">{{ t.team.citedByLabel }}</div>
               </div>
             </div>
 
@@ -181,7 +197,10 @@
                 <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/35 dark:text-gray-500 mb-3">{{ group.year }}</div>
                 <div class="space-y-4">
                   <article v-for="publication in group.items" :key="publication.id" class="border-t border-primary/10 dark:border-gray-600 pt-4">
-                    <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-1">{{ publication.type }}</div>
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500">{{ publication.type }}</span>
+                      <span v-if="publication.citedByCount > 0" class="font-mono text-[10px] text-primary/45 dark:text-gray-400">{{ t.team.citedLabel.replace('{n}', String(publication.citedByCount)) }}</span>
+                    </div>
                     <h3 class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">
                       <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
                     </h3>
@@ -205,7 +224,7 @@ import { useI18n } from '../composables/useI18n'
 import researchData from '../data/research.json'
 
 type Localized = { id: string; en: string }
-type Publication = { id: string; title: string; year: number; authors: string[]; venue: string; type: string; url: string }
+type Publication = { id: string; title: string; year: number; authors: string[]; venue: string; type: string; url: string; citedByCount: number }
 
 const props = defineProps<{
   researcher: {
@@ -225,6 +244,12 @@ const props = defineProps<{
     projects?: Array<{ name?: string; nameId?: string; repo: string; description?: string; descriptionId?: string }>
     books?: Array<{ title: string; titleId?: string; url?: string; playstoreUrl?: string; coverImage?: string; description?: string; descriptionId?: string; year?: number; publisher?: string; isbn?: string }>
     streams?: string[]
+    scholarMetrics?: {
+      hindex: number
+      i10index: number
+      citedby: number
+      citedby5y: number
+    } | null
   }
   publications: Publication[]
 }>()

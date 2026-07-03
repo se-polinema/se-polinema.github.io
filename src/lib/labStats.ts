@@ -24,15 +24,28 @@ export interface ImpactStats extends LabStats {
   publicationsByStream: Record<string, number>
   researcherStats: ResearcherStat[]
   streamNames: Record<string, { en: string; id: string }>
+  totalCitations: number
+  totalCitations5y: number
+  avgCitationsPerPublication: number
+  mostCitedPublications: MostCitedPublication[]
 }
 
 export interface ResearcherStat {
   id: string
   name: string
   publicationCount: number
+  citedBy: number
+  hindex: number
+  i10index: number
   primaryStream: string | null
   primaryStreamEn: string | null
   primaryStreamId: string | null
+}
+
+export interface MostCitedPublication {
+  title: string
+  year: number
+  citedByCount: number
 }
 
 function buildStreamNameMap(): Record<string, { en: string; id: string }> {
@@ -41,6 +54,39 @@ function buildStreamNameMap(): Record<string, { en: string; id: string }> {
     map[stream.id] = { en: stream.name.en, id: stream.name.id }
   }
   return map
+}
+
+interface ScholarMetricsData {
+  lastUpdated?: string
+  labMetrics?: {
+    totalCitations?: number
+    totalCitations5y?: number
+    avgCitationsPerPublication?: number
+  }
+  researcherMetrics?: Array<{
+    researcher: string
+    citedby: number
+    hindex: number
+    i10index: number
+    _error?: string
+  }>
+  mostCitedPublications?: Array<{
+    title: string
+    year: number
+    citedByCount: number
+  }>
+}
+
+function loadScholarMetrics(): ScholarMetricsData {
+  const metricsPath = resolve('src/data/_scholar-metrics.json')
+  if (!existsSync(metricsPath)) {
+    return {}
+  }
+  try {
+    return JSON.parse(readFileSync(metricsPath, 'utf-8'))
+  } catch {
+    return {}
+  }
 }
 
 export async function getLabImpactStats(): Promise<ImpactStats> {
@@ -95,6 +141,21 @@ export async function getLabImpactStats(): Promise<ImpactStats> {
     }
   }
 
+  const scholarMetrics = loadScholarMetrics()
+
+  const researcherMetricsMap = new Map<string, { citedby: number; hindex: number; i10index: number }>()
+  if (scholarMetrics.researcherMetrics) {
+    for (const rm of scholarMetrics.researcherMetrics) {
+      researcherMetricsMap.set(rm.researcher, {
+        citedby: rm.citedby ?? 0,
+        hindex: rm.hindex ?? 0,
+        i10index: rm.i10index ?? 0,
+      })
+    }
+  }
+
+  const mostCitedPublications: { title: string; year: number; citedByCount: number }[] = scholarMetrics.mostCitedPublications ?? []
+
   const researcherStats: ResearcherStat[] = researchers.map((r) => {
     const pubCount = publications.filter((p) =>
       (p.data.researchers ?? []).includes(r.id),
@@ -103,10 +164,14 @@ export async function getLabImpactStats(): Promise<ImpactStats> {
     const primaryStream = streams[0] ?? null
     const primaryStreamEn = primaryStream && streamNames[primaryStream] ? streamNames[primaryStream].en : null
     const primaryStreamId = primaryStream && streamNames[primaryStream] ? streamNames[primaryStream].id : null
+    const rm = researcherMetricsMap.get(r.id)
     return {
       id: r.id,
       name: r.data.name,
       publicationCount: pubCount,
+      citedBy: rm?.citedby ?? 0,
+      hindex: rm?.hindex ?? 0,
+      i10index: rm?.i10index ?? 0,
       primaryStream,
       primaryStreamEn,
       primaryStreamId,
@@ -150,6 +215,10 @@ export async function getLabImpactStats(): Promise<ImpactStats> {
     publicationsByStream,
     researcherStats,
     streamNames,
+    totalCitations: scholarMetrics.labMetrics?.totalCitations ?? 0,
+    totalCitations5y: scholarMetrics.labMetrics?.totalCitations5y ?? 0,
+    avgCitationsPerPublication: scholarMetrics.labMetrics?.avgCitationsPerPublication ?? 0,
+    mostCitedPublications,
   }
 }
 

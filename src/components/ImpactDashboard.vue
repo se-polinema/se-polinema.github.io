@@ -180,6 +180,14 @@
                 {{ tr('publications') }}
                 <span class="sort-arrow">{{ sortIcon('byResearcher', 'publicationCount') }}</span>
               </th>
+              <th @click="sortTable('byResearcher', 'citedBy')" @keydown.enter="sortTable('byResearcher', 'citedBy')" tabindex="0" role="columnheader" :aria-sort="sortState.byResearcher.key === 'citedBy' ? sortState.byResearcher.dir : 'none'">
+                {{ tr('citedBy') }}
+                <span class="sort-arrow">{{ sortIcon('byResearcher', 'citedBy') }}</span>
+              </th>
+              <th @click="sortTable('byResearcher', 'hindex')" @keydown.enter="sortTable('byResearcher', 'hindex')" tabindex="0" role="columnheader" :aria-sort="sortState.byResearcher.key === 'hindex' ? sortState.byResearcher.dir : 'none'">
+                {{ tr('hindex') }}
+                <span class="sort-arrow">{{ sortIcon('byResearcher', 'hindex') }}</span>
+              </th>
               <th @click="sortTable('byResearcher', 'primaryStreamEn')" @keydown.enter="sortTable('byResearcher', 'primaryStreamEn')" tabindex="0" role="columnheader" :aria-sort="sortState.byResearcher.key === 'primaryStreamEn' ? sortState.byResearcher.dir : 'none'">
                 {{ tr('primaryStream') }}
                 <span class="sort-arrow">{{ sortIcon('byResearcher', 'primaryStreamEn') }}</span>
@@ -191,6 +199,8 @@
             <tr v-for="r in sortedResearchers" :key="r.id">
               <td>{{ r.name }}</td>
               <td class="font-mono">{{ r.publicationCount }}</td>
+              <td class="font-mono">{{ r.citedBy }}</td>
+              <td class="font-mono">{{ r.hindex }}</td>
               <td class="text-white/60 text-sm">{{ primaryStreamLabel(r) }}</td>
               <td class="hidden sm:table-cell">
                 <a :href="`/researchers/${r.id}`" class="text-[#6AB0F5] hover:underline text-sm font-mono">
@@ -200,6 +210,30 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Most-Cited Publications -->
+      <div class="md:col-span-2">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-serif text-lg font-bold text-white">{{ tr('mostCitedPubs') }}</h2>
+        </div>
+        <table class="data-table" role="grid" v-if="mostCitedSorted.length > 0">
+          <thead>
+            <tr>
+              <th>{{ tr('publicationLabel') }}</th>
+              <th>{{ tr('year') }}</th>
+              <th>{{ tr('citations') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="pub in mostCitedSorted" :key="pub.title">
+              <td class="max-w-[400px] truncate" :title="pub.title">{{ pub.title }}</td>
+              <td class="font-mono">{{ pub.year }}</td>
+              <td class="font-mono">{{ pub.citedByCount }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p v-else class="text-white/40 text-sm">{{ tr('noMostCited') }}</p>
       </div>
     </div>
   </section>
@@ -215,9 +249,18 @@ interface ResearcherStat {
   id: string
   name: string
   publicationCount: number
+  citedBy: number
+  hindex: number
+  i10index: number
   primaryStream: string | null
   primaryStreamEn: string | null
   primaryStreamId: string | null
+}
+
+interface MostCitedPublication {
+  title: string
+  year: number
+  citedByCount: number
 }
 
 interface ImpactStats {
@@ -235,6 +278,10 @@ interface ImpactStats {
   publicationsByStream: Record<string, number>
   researcherStats: ResearcherStat[]
   streamNames: Record<string, { en: string; id: string }>
+  totalCitations: number
+  totalCitations5y: number
+  avgCitationsPerPublication: number
+  mostCitedPublications: MostCitedPublication[]
 }
 
 const props = defineProps<{
@@ -271,6 +318,8 @@ const hoveredBar = ref<number | null>(null)
 const statCards = computed(() => [
   { key: 'researchers',   label: statsDict.value.researchers  ?? defaultStats.researchers,   value: props.stats.researchers,   color: '#F5A100' },
   { key: 'publications',  label: statsDict.value.publications ?? defaultStats.publications,  value: props.stats.publications,  color: '#6AB0F5' },
+  { key: 'totalCitations', label: tr('totalCitations')       ?? 'Total Citations',          value: props.stats.totalCitations, color: '#F5A100' },
+  { key: 'avgCitations',  label: tr('avgCitations')          ?? 'Avg Citations/Pub',        value: formatAvg(props.stats.avgCitationsPerPublication), color: '#98C379' },
   { key: 'projects',      label: statsDict.value.projects     ?? defaultStats.projects,      value: props.stats.projects,      color: '#98C379' },
   { key: 'books',         label: statsDict.value.books        ?? defaultStats.books,         value: props.stats.books,         color: '#CE9178' },
   { key: 'tutorials',     label: tr('tutorials')              ?? 'Tutorials',                value: props.stats.tutorials,     color: '#C586C0' },
@@ -326,10 +375,12 @@ const sortedByStream = computed(() => {
 })
 
 const sortedResearchers = computed(() => {
-  const key = sortState.byResearcher.key as 'name' | 'publicationCount' | 'primaryStreamEn'
+  const key = sortState.byResearcher.key as 'name' | 'publicationCount' | 'citedBy' | 'hindex' | 'primaryStreamEn'
   return [...props.stats.researcherStats].sort((a, b) => {
     const mult = sortState.byResearcher.dir === 'asc' ? 1 : -1
     if (key === 'publicationCount') return (a.publicationCount - b.publicationCount) * mult
+    if (key === 'citedBy') return (a.citedBy - b.citedBy) * mult
+    if (key === 'hindex') return (a.hindex - b.hindex) * mult
     if (key === 'primaryStreamEn') {
       const aVal = a.primaryStreamEn ?? ''
       const bVal = b.primaryStreamEn ?? ''
@@ -338,6 +389,10 @@ const sortedResearchers = computed(() => {
     return a.name.localeCompare(b.name) * mult
   })
 })
+
+const mostCitedSorted = computed(() =>
+  [...props.stats.mostCitedPublications].sort((a, b) => b.citedByCount - a.citedByCount)
+)
 
 function typeLabel(type: string): string {
   const map: Record<string, string> = {
@@ -348,6 +403,10 @@ function typeLabel(type: string): string {
     preprint: tr('typePreprint') || 'Preprint',
   }
   return map[type] ?? type
+}
+
+function formatAvg(val: number): string {
+  return val.toFixed(1)
 }
 
 function primaryStreamLabel(r: ResearcherStat): string {
