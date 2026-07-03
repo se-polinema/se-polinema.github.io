@@ -10,5 +10,10 @@
     "logoUrl": "/images/logo-polinema.png",
     "url": "https://polinema.ac.id",
     "_placeholder": true
+  },
+  {
+    "name": "IDI Cabang Malang Raya",
+    "logoUrl": "/images/partners/idi-malang-raya.svg",
+    "url": "https://membership.idimalangraya.org"
   }
 ]
