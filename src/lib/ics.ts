@@ -26,6 +26,16 @@ function toIcsDate(date: Date): string {
   return `${y}${m}${d}`
 }
 
+function toIcsDateTime(date: Date): string {
+  const y = String(date.getUTCFullYear())
+  const M = String(date.getUTCMonth() + 1).padStart(2, '0')
+  const d = String(date.getUTCDate()).padStart(2, '0')
+  const h = String(date.getUTCHours()).padStart(2, '0')
+  const m = String(date.getUTCMinutes()).padStart(2, '0')
+  const s = String(date.getUTCSeconds()).padStart(2, '0')
+  return `${y}${M}${d}T${h}${m}${s}Z`
+}
+
 function nextDay(date: Date): Date {
   const d = new Date(date)
   d.setUTCDate(d.getUTCDate() + 1)
@@ -60,7 +70,7 @@ export function generateIcs(event: IcsEventData, baseUrl = 'https://se-polinema.
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
     `UID:${uid}`,
-    `DTSTAMP:${toIcsDate(new Date())}`,
+    `DTSTAMP:${toIcsDateTime(new Date())}`,
     `DTSTART;VALUE=DATE:${dtStart}`,
     `DTEND;VALUE=DATE:${dtEnd}`,
     `SUMMARY:${escapeText(summary)}`,
