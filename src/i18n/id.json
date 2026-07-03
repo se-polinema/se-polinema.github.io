@@ -17,7 +17,8 @@
     "faq": "FAQ",
     "alumni": "Alumni",
     "resources": "Sumber Belajar",
-    "newsletter": "Buletin"
+    "newsletter": "Buletin",
+    "impact": "Dampak & Statistik"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
@@ -539,6 +540,33 @@
     "emptyFilter": "Tidak ada jalur pembelajaran yang cocok dengan filter yang dipilih. Coba sesuaikan kriteria atau hapus semua filter.",
     "viewLearningPaths": "Lihat Jalur Pembelajaran",
     "seeAlso": "Lihat juga"
+  },
+  "impact": {
+    "heading": "Dampak Lab & Statistik Riset",
+    "description": "Statistik keluaran dan dampak riset agregat untuk Software Engineering Laboratory. Tren publikasi, produktivitas peneliti, dan distribusi stream riset.",
+    "lastUpdated": "Terakhir diperbarui",
+    "publications": "Publikasi",
+    "tutorials": "Tutorial",
+    "events": "Acara",
+    "achievements": "Prestasi",
+    "focusAreas": "Bidang Fokus",
+    "pubTrend": "Tren Publikasi",
+    "pubTrendAriaLabel": "Diagram batang yang menunjukkan publikasi per tahun",
+    "pubByType": "Publikasi per Jenis",
+    "pubByStream": "Publikasi per Stream",
+    "researcherProductivity": "Produktivitas Peneliti",
+    "typeLabel": "Jenis",
+    "countLabel": "Jumlah",
+    "streamLabel": "Stream",
+    "researcherLabel": "Peneliti",
+    "primaryStream": "Stream Utama",
+    "profile": "Profil",
+    "viewProfile": "Lihat Profil",
+    "typeJournal": "Jurnal",
+    "typeConference": "Konferensi",
+    "typeBookChapter": "Bab Buku",
+    "typeProceeding": "Prosiding",
+    "typePreprint": "Preprint"
   },
   "resources": {
     "label": "Sumber Belajar",

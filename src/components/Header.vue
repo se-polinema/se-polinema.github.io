@@ -122,6 +122,7 @@ const navItems = computed(() => [
   { id: 'learningPaths', href: '/learning-paths', label: t.value.learningPaths?.label || (lang.value === 'id' ? 'Jalur Pembelajaran' : 'Learning Paths') },
   { id: 'publications', href: '/publications', label: t.value.nav.publications },
   { id: 'achievements', href: '/achievements', label: t.value.achievements?.navLabel || (lang.value === 'id' ? 'Prestasi' : 'Achievements') },
+  { id: 'impact', href: '/impact', label: t.value.nav.impact },
   { id: 'events', href: '/events', label: t.value.nav.events },
   { id: 'faq', href: '/faq', label: t.value.nav.faq },
   { id: 'blog', href: '/blog', label: t.value.nav.blog },

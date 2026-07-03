@@ -17,7 +17,8 @@
     "faq": "FAQ",
     "alumni": "Alumni",
     "resources": "Resources",
-    "newsletter": "Newsletter"
+    "newsletter": "Newsletter",
+    "impact": "Impact & Stats"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
@@ -539,6 +540,33 @@
     "emptyFilter": "No learning tracks match the selected filters. Try adjusting your criteria or clearing all filters.",
     "viewLearningPaths": "View Learning Paths",
     "seeAlso": "See also"
+  },
+  "impact": {
+    "heading": "Lab Impact & Research Statistics",
+    "description": "Aggregated research output and impact statistics for the Software Engineering Laboratory. Publication trends, researcher productivity, and research stream distribution.",
+    "lastUpdated": "Last updated",
+    "publications": "Publications",
+    "tutorials": "Tutorials",
+    "events": "Events",
+    "achievements": "Achievements",
+    "focusAreas": "Focus Areas",
+    "pubTrend": "Publication Trend",
+    "pubTrendAriaLabel": "Bar chart showing publications per year",
+    "pubByType": "Publications by Type",
+    "pubByStream": "Publications by Stream",
+    "researcherProductivity": "Researcher Productivity",
+    "typeLabel": "Type",
+    "countLabel": "Count",
+    "streamLabel": "Stream",
+    "researcherLabel": "Researcher",
+    "primaryStream": "Primary Stream",
+    "profile": "Profile",
+    "viewProfile": "View Profile",
+    "typeJournal": "Journal",
+    "typeConference": "Conference",
+    "typeBookChapter": "Book Chapter",
+    "typeProceeding": "Proceeding",
+    "typePreprint": "Preprint"
   },
   "resources": {
     "label": "Learning Resources",

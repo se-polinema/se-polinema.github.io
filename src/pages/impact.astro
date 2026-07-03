@@ -1,0 +1,45 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import JsonLd from '../components/JsonLd.astro'
+import ImpactDashboard from '../components/ImpactDashboard.vue'
+import { getLabImpactStats } from '../lib/labStats'
+
+const stats = await getLabImpactStats()
+
+const impactJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'SE Lab Research Impact Statistics',
+  description: 'Aggregated research output and impact statistics for the Software Engineering Laboratory at Politeknik Negeri Malang. Includes publication trends, researcher productivity, and research stream distribution.',
+  url: 'https://se-polinema.github.io/impact',
+  dateModified: stats.lastUpdated ?? new Date().toISOString().split('T')[0],
+  includedInDataCatalog: {
+    '@type': 'DataCatalog',
+    name: 'SE Lab Research Data',
+    url: 'https://se-polinema.github.io',
+  },
+  variableMeasured: [
+    { '@type': 'PropertyValue', name: 'Researchers', value: stats.researchers },
+    { '@type': 'PropertyValue', name: 'Publications', value: stats.publications },
+    { '@type': 'PropertyValue', name: 'Projects', value: stats.projects },
+    { '@type': 'PropertyValue', name: 'Books', value: stats.books },
+    { '@type': 'PropertyValue', name: 'Focus Areas', value: stats.focusAreas },
+    { '@type': 'PropertyValue', name: 'Tutorials', value: stats.tutorials },
+    { '@type': 'PropertyValue', name: 'Events', value: stats.events },
+    { '@type': 'PropertyValue', name: 'Achievements', value: stats.achievements },
+  ],
+  publisher: {
+    '@type': 'Organization',
+    name: 'Software Engineering Laboratory',
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'Politeknik Negeri Malang',
+    },
+  },
+}
+---
+
+<VSCodeLayout title="Research Impact — SE Lab" description="Aggregated research output and impact statistics for the Software Engineering Laboratory. Publication trends, researcher productivity, and research stream distribution.">
+  <JsonLd slot="head" data={impactJsonLd} />
+  <ImpactDashboard client:load stats={stats} />
+</VSCodeLayout>
