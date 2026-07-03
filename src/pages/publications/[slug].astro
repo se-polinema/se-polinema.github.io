@@ -38,7 +38,7 @@ const scholarlyArticleJsonLd = {
 }
 ---
 
-<VSCodeLayout title={title} lang={language as 'en' | 'id'}>
+<VSCodeLayout title={title} lang={language as 'en' | 'id'} image={`/og/publications/${publication.id}.png`}>
   <JsonLd slot="head" data={scholarlyArticleJsonLd} />
   <div class="px-8 py-8">
     <article class="max-w-3xl">
