@@ -507,11 +507,13 @@
     "empty": "Belum ada data alumni."
   },
   "search": {
-    "placeholder": "Cari peneliti, publikasi, dan blog...",
+    "placeholder": "Cari peneliti, publikasi, proyek, blog, dan acara...",
     "noResults": "Tidak ada hasil ditemukan",
     "groupResearchers": "Peneliti",
     "groupPublications": "Publikasi",
+    "groupProjects": "Proyek",
     "groupBlog": "Blog",
+    "groupEvents": "Acara",
     "shortcut": "Ctrl+K",
     "openSearch": "Buka pencarian",
     "resultsCount": "hasil",

@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content'
 
 export interface SearchEntry {
   id: string
-  type: 'researcher' | 'publication' | 'blog'
+  type: 'researcher' | 'publication' | 'blog' | 'project' | 'event'
   title: string
   titleId: string
   excerpt: string
@@ -72,8 +72,38 @@ export const GET: APIRoute = async () => {
     })
   }
 
+  const projects = await getCollection('projects')
+  for (const p of projects) {
+    const title = p.data.title
+    const titleId = p.data.titleId || title
+    const excerpt = p.data.description
+    const excerptId = p.data.descriptionId || excerpt
+    const searchText = normalize([
+      title,
+      titleId,
+      excerpt,
+      excerptId,
+      p.data.status,
+      ...p.data.techStack,
+      ...p.data.contributors,
+      ...p.data.researchers,
+      p.data.stream,
+    ].filter(Boolean).join(' '))
+    entries.push({
+      id: p.id,
+      type: 'project',
+      title,
+      titleId,
+      excerpt,
+      excerptId,
+      href: `/projects/${p.id}`,
+      searchText,
+    })
+  }
+
   const posts = await getCollection('blog')
   for (const post of posts) {
+    const isEvent = post.data.category === 'event'
     const title = post.data.title
     const titleId = post.data.titleId || title
     const excerpt = post.data.excerpt || ''
@@ -85,15 +115,17 @@ export const GET: APIRoute = async () => {
       excerptId,
       post.data.author,
       post.data.category,
+      isEvent ? post.data.location : '',
+      isEvent && post.data.locationId ? post.data.locationId : '',
     ].filter(Boolean).join(' '))
     entries.push({
       id: post.id,
-      type: 'blog',
+      type: isEvent ? 'event' : 'blog',
       title,
       titleId,
       excerpt,
       excerptId,
-      href: `/blog/${post.id}`,
+      href: isEvent ? `/events/${post.id}` : `/blog/${post.id}`,
       searchText,
     })
   }

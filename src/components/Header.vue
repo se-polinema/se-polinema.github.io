@@ -38,6 +38,17 @@
 
         <div class="flex items-center gap-2">
           <button
+            @click="openSearch"
+            class="flex items-center justify-center min-w-[44px] min-h-[44px] text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
+            :aria-label="t.search.openSearch"
+            :title="t.search.openSearch + ' (' + t.search.shortcut + ')'"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+          <button
             @click="toggleLang"
             class="hidden lg:flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors min-w-[44px] min-h-[44px] px-2 py-1 justify-center"
             :aria-label="lang === 'en' ? 'Switch to Indonesian' : 'Beralih ke Inggris'"
@@ -142,6 +153,10 @@ function handleNavClick(event: MouseEvent, item: { href: string; id: string }) {
     event.preventDefault()
     scrollTo(item.id)
   }
+}
+
+function openSearch() {
+  window.dispatchEvent(new CustomEvent('se-lab-open-search'))
 }
 
 function onScroll() {
