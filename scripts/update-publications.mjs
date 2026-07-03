@@ -133,6 +133,9 @@ url: "${pub.url}"
   if (pub.googleScholarUrl) {
     frontmatter += `googleScholarUrl: "${pub.googleScholarUrl}"\n`
   }
+  if (pub.citedByCount != null && pub.citedByCount >= 0) {
+    frontmatter += `citedByCount: ${pub.citedByCount}\n`
+  }
 
   frontmatter += `researchers:
 ${researchersYaml}
@@ -187,6 +190,8 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
 
       const gsUrl = pub.citedby_url || `https://scholar.google.com/citations?user=${researcher.userId}&hl=en`
 
+      const citedByCount = pub.num_citations != null ? pub.num_citations : null
+
       results.push({
         title,
         year: pubYear,
@@ -196,6 +201,7 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
         url: gsUrl,
         googleScholarUrl: gsUrl,
         doi: bib.volume || null,
+        citedByCount,
         researchers: matchedResearchers,
         featured: false,
         language: detectLanguage(title, authors),

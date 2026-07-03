@@ -97,6 +97,7 @@ const publicationsCollection = defineCollection({
     url: z.url(),
     doi: z.string().optional(),
     googleScholarUrl: z.url().optional(),
+    citedByCount: z.number().int().optional(),
     researchers: z.array(z.string()),
     featured: z.boolean().default(false),
     language: z.enum(['id', 'en']).default('en'),
