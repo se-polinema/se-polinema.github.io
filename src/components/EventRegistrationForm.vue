@@ -133,6 +133,10 @@
           {{ mode === 'register' ? t.events.registration.signInPrompt : t.events.registration.registerPrompt }}
         </button>
       </div>
+      <p class="text-[10px] text-neutral-400 dark:text-gray-500 mt-3 leading-relaxed">
+        {{ lang === 'en' ? 'Your data is stored securely in Supabase. Read our' : 'Data Anda disimpan dengan aman di Supabase. Baca' }}
+        <a href="/privacy" class="underline underline-offset-2 hover:text-primary dark:hover:text-gray-200 transition-colors">{{ t.privacy.navLabel }}</a>
+      </p>
     </form>
 
     <!-- Loading skeleton -->
@@ -152,7 +156,7 @@ const props = defineProps<{
   eventTitle: string
 }>()
 
-const { t } = useI18n()
+const { t, lang } = useI18n()
 
 type State = 'loading' | 'idle' | 'success' | 'closed' | 'signed-in' | 'already-registered'
 type Mode = 'register' | 'sign-in'
