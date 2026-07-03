@@ -49,6 +49,9 @@ export function useVSCodeLayout() {
     } else if (path.startsWith('/achievements')) {
       currentPage.value = 'achievements'
       activeSidebarView.value = 'achievements'
+    } else if (path.startsWith('/impact')) {
+      currentPage.value = 'impact'
+      activeSidebarView.value = 'explorer'
     } else if (path.startsWith('/learning-paths')) {
       currentPage.value = 'learning-paths'
       activeSidebarView.value = 'explorer'
