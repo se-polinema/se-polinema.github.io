@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import JsonLd from '../components/JsonLd.astro'
+import CookieConsent from '../components/CookieConsent.vue'
 
 export interface Props {
   title?: string
@@ -147,5 +148,6 @@ const shouldRegisterServiceWorker = import.meta.env.PROD
   <body>
     <a href="#hero" class="skip-to-content">Skip to content</a>
     <slot />
+    <CookieConsent client:load />
   </body>
 </html>

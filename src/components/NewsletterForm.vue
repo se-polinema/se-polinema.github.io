@@ -116,6 +116,10 @@
 
         <p class="text-[10px] leading-relaxed" :class="compact ? 'text-white/40' : 'text-neutral-400 dark:text-gray-500'">
           {{ t.newsletter.privacyNote }}
+          <a
+            href="/privacy"
+            class="underline underline-offset-2 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+          >{{ t.privacy.navLabel }}</a>
         </p>
       </form>
     </div>

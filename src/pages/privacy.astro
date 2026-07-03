@@ -1,0 +1,13 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import PrivacyPage from '../components/PrivacyPage.vue'
+
+const titleEn = 'Privacy Policy — SE Lab'
+const titleId = 'Kebijakan Privasi — SE Lab'
+const descEn = 'Privacy Policy for the Software Engineering Laboratory at Politeknik Negeri Malang. Learn how we collect, use, store, and protect your personal data.'
+const descId = 'Kebijakan Privasi untuk Software Engineering Laboratory di Politeknik Negeri Malang. Pelajari bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi data pribadi Anda.'
+---
+
+<VSCodeLayout title="Privacy Policy — SE Lab" description={descEn}>
+  <PrivacyPage client:load />
+</VSCodeLayout>

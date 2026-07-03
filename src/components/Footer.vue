@@ -71,6 +71,7 @@ const allLinks = computed<LinkItem[]>(() => [
   { href: '/impact', label: t.value.nav.impact, external: false },
   { href: '/#research', label: t.value.nav.research, external: false },
   { href: '/contact', label: t.value.nav.contact, external: false },
+  { href: '/privacy', label: t.value.privacy.navLabel, external: false },
   { href: 'https://polinema.ac.id', label: 'Polinema', external: true },
   { href: 'https://jti.polinema.ac.id', label: 'JTI Polinema', external: true },
   { href: 'https://github.com/se-polinema', label: 'GitHub', external: true },
