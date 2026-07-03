@@ -65,6 +65,12 @@
                   <svg v-else-if="item.type === 'publication'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
                   </svg>
+                  <svg v-else-if="item.type === 'project'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                  </svg>
+                  <svg v-else-if="item.type === 'event'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
                   <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
                   </svg>
@@ -106,7 +112,7 @@ const { t, lang } = useI18n()
 
 interface SearchItem {
   id: string
-  type: 'researcher' | 'publication' | 'blog'
+  type: 'researcher' | 'publication' | 'blog' | 'project' | 'event'
   title: string
   titleId: string
   excerpt: string
@@ -163,10 +169,12 @@ const groupedResults = computed<ResultGroup[]>(() => {
   const typeOrder: Record<string, string> = {
     researcher: t.value.search.groupResearchers,
     publication: t.value.search.groupPublications,
+    project: t.value.search.groupProjects,
     blog: t.value.search.groupBlog,
+    event: t.value.search.groupEvents,
   }
 
-  for (const type of ['researcher', 'publication', 'blog'] as const) {
+  for (const type of ['researcher', 'publication', 'project', 'blog', 'event'] as const) {
     const items = matched.filter(m => m.type === type)
     if (items.length > 0) {
       groups.push({ label: typeOrder[type], items })
@@ -401,6 +409,14 @@ defineExpose({ show, close, open })
 
 .icon-blog {
   color: #F5A100;
+}
+
+.icon-project {
+  color: #60A5FA;
+}
+
+.icon-event {
+  color: #C084FC;
 }
 
 .result-body {

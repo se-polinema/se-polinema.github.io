@@ -512,11 +512,13 @@
     "empty": "No alumni entries yet."
   },
   "search": {
-    "placeholder": "Search researchers, publications, and blog...",
+    "placeholder": "Search researchers, publications, projects, blog, and events...",
     "noResults": "No results found",
     "groupResearchers": "Researchers",
     "groupPublications": "Publications",
+    "groupProjects": "Projects",
     "groupBlog": "Blog",
+    "groupEvents": "Events",
     "shortcut": "Ctrl+K",
     "openSearch": "Open search",
     "resultsCount": "results",
