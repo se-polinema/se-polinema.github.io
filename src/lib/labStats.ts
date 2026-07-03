@@ -113,11 +113,25 @@ export async function getLabImpactStats(): Promise<ImpactStats> {
     }
   }).sort((a, b) => b.publicationCount - a.publicationCount)
 
-  const tutorialCount = (learningTracksData as { steps?: unknown[] }[])
-    .reduce((sum, track) => sum + ((track as { steps?: unknown[] }).steps?.length ?? 0), 0)
+  const blogPosts = await getCollection('blog')
 
-  const eventCount = (await getCollection('blog'))
+  // Count blog posts with category "tutorial" (not learning-track steps)
+  const tutorialCount = blogPosts
+    .filter((post) => post.data.category === 'tutorial').length
+
+  const eventCount = blogPosts
     .filter((post) => post.data.category === 'event').length
+
+  // Build-time regression guard: if tutorialCount ever equals the sum of all
+  // learning-track steps (the old buggy behaviour), fail the build.
+  // This prevents the data source from accidentally being changed back.
+  const learningTrackStepCount = (learningTracksData as { steps?: unknown[] }[])
+    .reduce((sum, track) => sum + ((track as { steps?: unknown[] }).steps?.length ?? 0), 0)
+  if (tutorialCount === learningTrackStepCount) {
+    throw new Error(
+      'Regression detected: tutorialCount equals total learning-track steps instead of blog tutorial posts.',
+    )
+  }
 
   const achievementCount = (achievementsData as unknown[]).length
 
