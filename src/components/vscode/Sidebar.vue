@@ -280,6 +280,7 @@ const fileTree: FileItem[] = [
   { id: 'events-dir',     name: 'events/',         ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
   { id: 'upcoming',       name: 'upcoming.ics',     ext: 'ics',  type: 'file',   sectionId: 'events',       pageId: 'events',       indent: 3, href: '/events' },
   { id: 'achievements',   name: 'achievements.json', ext: 'json', type: 'file',   sectionId: 'achievements', pageId: 'achievements', indent: 2, href: '/achievements' },
+  { id: 'learning-paths', name: 'learning-paths.astro', ext: 'astro', type: 'file', sectionId: '',           pageId: 'learning-paths', indent: 2, href: '/learning-paths' },
   { id: 'blog',            name: 'blog.md',          ext: 'md',   type: 'file',   sectionId: 'blog',         pageId: 'blog',         indent: 2, href: '/blog' },
 ]
 
@@ -308,6 +309,7 @@ function dotColor(ext: string): string {
     json: 'bg-yellow-400',
     bib:  'bg-green-400',
     ics:  'bg-purple-400',
+    astro: 'bg-orange-500',
   }
   return map[ext] ?? 'bg-white/30'
 }

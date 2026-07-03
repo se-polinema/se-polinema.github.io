@@ -518,6 +518,28 @@
     "close": "Tutup",
     "allResults": "Semua hasil"
   },
+  "learningPaths": {
+    "label": "Jalur Pembelajaran",
+    "heading": "Jalur Pembelajaran Terkurasi",
+    "description": "Jalur pembelajaran langkah-demi-langkah yang dipandu dan selaras dengan stream riset kami. Ikuti urutan dari pemula hingga lanjutan yang mencakup tutorial, buku, alat, dan kursus — setiap jalur membangun kemahiran nyata dalam domain rekayasa perangkat lunak.",
+    "allStreams": "Semua Stream",
+    "allLevels": "Semua Level",
+    "searchPlaceholder": "Cari langkah berdasarkan judul atau deskripsi...",
+    "trackCount": "{count} jalur",
+    "trackCountPlural": "{count} jalur",
+    "stepCount": "{count} langkah",
+    "stepCountPlural": "{count} langkah",
+    "estimatedTime": "Estimasi total waktu",
+    "prerequisites": "Prasyarat",
+    "beginnerPhase": "Pemula",
+    "intermediatePhase": "Menengah",
+    "advancedPhase": "Lanjutan",
+    "viewResource": "Lihat sumber",
+    "visitExternal": "Kunjungi situs",
+    "emptyFilter": "Tidak ada jalur pembelajaran yang cocok dengan filter yang dipilih. Coba sesuaikan kriteria atau hapus semua filter.",
+    "viewLearningPaths": "Lihat Jalur Pembelajaran",
+    "seeAlso": "Lihat juga"
+  },
   "resources": {
     "label": "Sumber Belajar",
     "heading": "Direktori Pembelajaran Terkurasi",
