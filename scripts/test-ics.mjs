@@ -35,6 +35,16 @@ function toIcsDate(date) {
   return `${y}${m}${d}`
 }
 
+function toIcsDateTime(date) {
+  const y = String(date.getUTCFullYear())
+  const M = String(date.getUTCMonth() + 1).padStart(2, '0')
+  const d = String(date.getUTCDate()).padStart(2, '0')
+  const h = String(date.getUTCHours()).padStart(2, '0')
+  const m = String(date.getUTCMinutes()).padStart(2, '0')
+  const s = String(date.getUTCSeconds()).padStart(2, '0')
+  return `${y}${M}${d}T${h}${m}${s}Z`
+}
+
 function nextDay(date) {
   const d = new Date(date)
   d.setUTCDate(d.getUTCDate() + 1)
@@ -73,7 +83,7 @@ function generateIcs(event, baseUrl = 'https://se-polinema.github.io') {
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
     `UID:${uid}`,
-    `DTSTAMP:${toIcsDate(new Date())}`,
+    `DTSTAMP:${toIcsDateTime(new Date())}`,
     `DTSTART;VALUE=DATE:${dtStart}`,
     `DTEND;VALUE=DATE:${dtEnd}`,
     `SUMMARY:${escapeText(summary)}`,
@@ -165,12 +175,12 @@ assert.ok(lines.length > 5, 'contains multiple lines with CRLF')
 assert.equal(lines[0], 'BEGIN:VCALENDAR', 'first line is BEGIN:VCALENDAR')
 assert.equal(lines[lines.length - 1], '', 'ends with trailing CRLF')
 
-// Test 7: DTSTAMP is present and in correct format
+// Test 7: DTSTAMP is present and in correct RFC 5545 UTC datetime format
 console.log('\n7. DTSTAMP:')
 assert.contains(singleDay, 'DTSTAMP:', 'contains DTSTAMP')
-const stampMatch = singleDay.match(/DTSTAMP:(\d{8})/)
-assert.ok(stampMatch !== null, 'DTSTAMP has YYYYMMDD format')
-assert.ok(/^\d{8}$/.test(stampMatch[1]), 'DTSTAMP is 8 digits')
+const stampMatch = singleDay.match(/DTSTAMP:(\d{8}T\d{6}Z)/)
+assert.ok(stampMatch !== null, 'DTSTAMP has YYYYMMDDTHHMMSSZ format')
+assert.ok(/^\d{8}T\d{6}Z$/.test(stampMatch[1]), 'DTSTAMP matches RFC 5545 DATE-TIME UTC pattern')
 
 console.log('\nAll tests completed.')
 if (process.exitCode) {
