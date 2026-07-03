@@ -4,9 +4,20 @@
     <h1 class="font-serif text-2xl md:text-3xl font-bold text-primary dark:text-gray-100 leading-tight mb-2">
       {{ t.resources.heading }}
     </h1>
-    <p class="text-neutral-500 dark:text-gray-400 text-sm leading-relaxed max-w-2xl mb-8">
+    <p class="text-neutral-500 dark:text-gray-400 text-sm leading-relaxed max-w-2xl mb-4">
       {{ t.resources.description }}
     </p>
+
+    <div class="mb-8">
+      <a
+        href="/learning-paths"
+        class="inline-flex items-center gap-1.5 text-[13px] font-mono text-accent dark:text-yellow-300 hover:underline transition-colors"
+      >
+        {{ t.learningPaths?.viewLearningPaths || 'View Learning Paths' }}
+        <span class="text-[10px]">→</span>
+      </a>
+      <span class="text-xs text-neutral-400 dark:text-gray-500 ml-2">— {{ t.learningPaths?.seeAlso || 'See also' }}: guided step-by-step tracks</span>
+    </div>
 
     <div class="flex flex-wrap items-center gap-3 mb-6">
       <select

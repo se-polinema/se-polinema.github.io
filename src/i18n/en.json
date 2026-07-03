@@ -518,6 +518,28 @@
     "close": "Close",
     "allResults": "All results"
   },
+  "learningPaths": {
+    "label": "Learning Paths",
+    "heading": "Curated Learning Tracks",
+    "description": "Guided, step-by-step learning tracks aligned with our research streams. Follow beginner-to-advanced sequences of tutorials, books, tools, and courses — each track builds toward real proficiency in a software engineering domain.",
+    "allStreams": "All Streams",
+    "allLevels": "All Levels",
+    "searchPlaceholder": "Search steps by title or description...",
+    "trackCount": "{count} track",
+    "trackCountPlural": "{count} tracks",
+    "stepCount": "{count} step",
+    "stepCountPlural": "{count} steps",
+    "estimatedTime": "Est. total time",
+    "prerequisites": "Prerequisites",
+    "beginnerPhase": "Beginner",
+    "intermediatePhase": "Intermediate",
+    "advancedPhase": "Advanced",
+    "viewResource": "View resource",
+    "visitExternal": "Visit site",
+    "emptyFilter": "No learning tracks match the selected filters. Try adjusting your criteria or clearing all filters.",
+    "viewLearningPaths": "View Learning Paths",
+    "seeAlso": "See also"
+  },
   "resources": {
     "label": "Learning Resources",
     "heading": "Curated Learning Directory",

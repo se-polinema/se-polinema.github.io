@@ -169,6 +169,7 @@ const innerPageTabMap: Record<string, { label: string; ext: string; href: string
   projects:     { label: "projects.json",    ext: "json", href: "/projects" },
   books:        { label: "books.md",         ext: "md",   href: "/books" },
   decks:        { label: "decks.md",         ext: "md",   href: "/decks" },
+  'learning-paths': { label: "learning-paths.astro", ext: "astro", href: "/learning-paths" },
 };
 
 const pageParentHrefMap: Record<string, string> = {
@@ -215,6 +216,7 @@ const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   projects:     { path: ["se-lab", "src", "projects", "index.json"],       lang: "JSON" },
   books:        { path: ["se-lab", "src", "books", "index.md"],            lang: "Markdown" },
   decks:        { path: ["se-lab", "src", "decks", "index.md"],            lang: "Markdown" },
+  'learning-paths': { path: ["se-lab", "src", "learning-paths.astro"],     lang: "Astro" },
 };
 
 const currentBreadcrumb = computed(() => {
@@ -255,6 +257,7 @@ function dotColor(ext: string): string {
     json: "bg-yellow-400",
     bib: "bg-green-400",
     ics: "bg-purple-400",
+    astro: "bg-orange-500",
   };
   return map[ext] ?? "bg-white/30";
 }

@@ -118,6 +118,7 @@ const navItems = computed(() => [
   { id: 'books', href: '/books', label: t.value.nav.books },
   { id: 'decks', href: '/decks', label: t.value.nav.decks },
   { id: 'resources', href: '/resources', label: t.value.nav.resources },
+  { id: 'learningPaths', href: '/learning-paths', label: t.value.learningPaths?.label || (lang.value === 'id' ? 'Jalur Pembelajaran' : 'Learning Paths') },
   { id: 'publications', href: '/publications', label: t.value.nav.publications },
   { id: 'achievements', href: '/achievements', label: t.value.achievements?.navLabel || (lang.value === 'id' ? 'Prestasi' : 'Achievements') },
   { id: 'events', href: '/events', label: t.value.nav.events },

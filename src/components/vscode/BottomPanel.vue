@@ -180,6 +180,7 @@
           <h4 class="font-mono text-[10px] uppercase tracking-wider text-white/25 mb-2">{{ t.footer.links }}</h4>
           <ul class="space-y-1">
             <li><a href="/faq" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.faq }}</a></li>
+            <li><a href="/learning-paths" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.learningPaths?.label || 'Learning Paths' }}</a></li>
             <li><a href="/alumni" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.alumni }}</a></li>
             <li><a href="/books" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.books }}</a></li>
             <li><a href="/#research" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.research }}</a></li>

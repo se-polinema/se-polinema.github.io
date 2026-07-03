@@ -1,0 +1,42 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import LearningPathsPage from '../components/LearningPathsPage.vue'
+import learningTracksData from '../data/learning-tracks.json'
+import type { LearningTrack } from '../types/learning-track'
+
+const tracks = learningTracksData as LearningTrack[]
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'name': 'SE Lab Learning Paths',
+  'description': 'Curated learning tracks aligned with software engineering research streams at Politeknik Negeri Malang.',
+  'itemListElement': tracks.map((track, ti) => ({
+    '@type': 'ListItem',
+    'position': ti + 1,
+    'item': {
+      '@type': 'Course',
+      'name': track.title,
+      'description': track.description,
+      'hasCourseInstance': track.steps.map((step) => ({
+        '@type': 'CourseInstance',
+        'courseMode': step.internal ? 'online' : 'external',
+        'url': step.internal
+          ? `https://se-polinema.github.io${step.url}`
+          : step.url,
+        'name': step.title,
+        'description': step.description,
+        'courseWorkload': step.estimatedTime,
+      })),
+      'timeRequired': track.estimatedTime,
+      'educationalCredentialAwarded': track.prerequisites,
+    },
+  })),
+}
+---
+
+<VSCodeLayout title="Learning Paths — SE Lab" description="Guided, step-by-step learning tracks for software engineering — aligned with SE Lab research streams, from beginner to advanced.">
+  <LearningPathsPage client:load tracks={tracks} />
+</VSCodeLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
