@@ -8,6 +8,7 @@ lang: en
 featured: false
 excerpt: "A foundational guide to microservices architecture for PHP developers. Learn why and when to decompose a monolith, how to design service boundaries using domain-driven design, synchronous vs asynchronous communication patterns, database-per-service, and runnable PHP examples with Lumen/Slim — complete with contract tests."
 excerptId: "Panduan dasar arsitektur microservices untuk pengembang PHP. Pelajari mengapa dan kapan mendekomposisi monolit, cara merancang batas layanan menggunakan domain-driven design, pola komunikasi sinkron vs asinkron, database-per-service, dan contoh PHP yang dapat dijalankan dengan Lumen/Slim — lengkap dengan contract test."
+stream: se-methodologies-architecture
 ---
 
 <section lang="en">

@@ -8,6 +8,7 @@ lang: en
 featured: false
 excerpt: "A hands-on introduction to reusable object-oriented design patterns with PHP. Learn Strategy, Observer, and Factory Method with before-and-after code examples, understand when to apply each pattern, and refactor a messy notification service using what you have learned."
 excerptId: "Pengenalan praktis pola desain berorientasi objek yang dapat digunakan kembali dengan PHP. Pelajari Strategy, Observer, dan Factory Method dengan contoh kode before-and-after, pahami kapan menerapkan setiap pola, dan refactor layanan notifikasi yang berantakan menggunakan apa yang telah Anda pelajari."
+stream: se-methodologies-architecture
 ---
 
 <section lang="en">

@@ -2,8 +2,12 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import JsonLd from '../../components/JsonLd.astro'
 import CitationExport from '../../components/CitationExport.vue'
+import RelatedContent from '../../components/RelatedContent.vue'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
+import { getRelatedItems } from '../../utils/relatedContent'
+import type { CurrentItem, CandidateItem } from '../../utils/relatedContent'
+import type { RelatedContentItem } from '../../components/RelatedContent.vue'
 
 export async function getStaticPaths() {
   const publications = await getCollection('publications')
@@ -37,6 +41,114 @@ const scholarlyArticleJsonLd = {
   ...(doi ? { identifier: { '@type': 'PropertyValue', propertyID: 'doi', value: doi } } : {}),
   inLanguage: language,
 }
+
+const currentPub: CurrentItem = {
+  id: publication.id,
+  title,
+  authors,
+  year,
+  type,
+  excerpt: venue,
+}
+
+const allPublications = await getCollection('publications')
+const pubCandidates: CandidateItem[] = allPublications
+  .filter((p) => p.id !== publication.id)
+  .map((p) => ({
+    id: p.id,
+    title: p.data.title,
+    authors: p.data.authors,
+    year: p.data.year,
+    type: p.data.type,
+    excerpt: p.data.venue,
+  }))
+
+const researchers = await getCollection('researchers')
+const researcherMap = new Map(researchers.map((r) => [r.data.name, r]))
+
+const currentResearcherSlugs = publication.data.researchers ?? []
+
+const projectCandidates: CandidateItem[] = (await getCollection('projects'))
+  .filter((proj) =>
+    proj.data.researchers.some((r) => currentResearcherSlugs.includes(r))
+  )
+  .map((p) => ({
+    id: `project:${p.id}`,
+    title: p.data.title,
+    authors: p.data.researchers,
+    excerpt: p.data.description,
+  }))
+
+const researcherCandidates: CandidateItem[] = researchers
+  .filter((r) => currentResearcherSlugs.includes(r.id))
+  .map((r) => ({
+    id: `researcher:${r.id}`,
+    title: r.data.name,
+    authors: [r.data.name],
+    excerpt: r.data.title?.en ?? '',
+  }))
+
+const allCandidates = [...pubCandidates, ...projectCandidates, ...researcherCandidates]
+const scored = getRelatedItems(currentPub, allCandidates, 8)
+
+const pubMap = new Map(allPublications.map((p) => [p.id, p]))
+const projectMap = new Map((await getCollection('projects')).map((p) => [p.id, p]))
+
+const relatedItems: RelatedContentItem[] = scored.map((item) => {
+  if (item.id.startsWith('project:')) {
+    const projectSlug = item.id.replace('project:', '')
+    const proj = projectMap.get(projectSlug)
+    return {
+      id: item.id,
+      title: proj?.data.title ?? item.title,
+      titleId: proj?.data.titleId,
+      description: proj?.data.description ?? item.excerpt,
+      descriptionId: proj?.data.descriptionId,
+      url: `/projects/${projectSlug}`,
+      badge: 'Project',
+      badgeClass: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+      __source: 'project' as const,
+    }
+  }
+
+  if (item.id.startsWith('researcher:')) {
+    const researcherSlug = item.id.replace('researcher:', '')
+    const res = researcherMap.get(item.title)
+    return {
+      id: item.id,
+      title: item.title,
+      titleId: undefined,
+      description: item.excerpt,
+      url: `/researchers/${researcherSlug}`,
+      badge: 'Researcher',
+      badgeClass: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+      metaYear: undefined,
+      metaVenue: res?.data.title?.en ?? item.excerpt,
+      __source: 'researcher' as const,
+    }
+  }
+
+  const pub = pubMap.get(item.id)
+  const pubBadgeClass: Record<string, string> = {
+    journal: 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary/80',
+    conference: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+    'book-chapter': 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+    proceeding: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
+    preprint: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
+  }
+
+  return {
+    id: item.id,
+    title: pub?.data.title ?? item.title,
+    url: `/publications/${item.id}`,
+    badge: (item.type ?? pub?.data.type),
+    badgeClass: pubBadgeClass[item.type ?? pub?.data.type ?? ''] ?? pubBadgeClass.journal,
+    description: pub?.data.venue ?? item.excerpt,
+    metaYear: pub?.data.year ?? item.year,
+    metaVenue: pub?.data.venue,
+    __source: 'publication' as const,
+  }
+})
 ---
 
 <VSCodeLayout title={title} lang={language as 'en' | 'id'} image={`/og/publications/${publication.id}.png`}>
@@ -107,6 +219,7 @@ const scholarlyArticleJsonLd = {
         doi={doi}
       />
       <EditOnGitHub filePath={`src/content/publications/${publication.id}.md`} />
+      <RelatedContent client:load items={relatedItems} context="publication" />
     </article>
   </div>
 </VSCodeLayout>

@@ -8,6 +8,7 @@ lang: en
 featured: false
 excerpt: "A step-by-step introduction to Test-Driven Development using PHP and PHPUnit. Learn the Red → Green → Refactor cycle, build a real-world validator, and understand when (and when not) to apply TDD in your projects."
 excerptId: "Pengenalan langkah demi langkah Test-Driven Development menggunakan PHP dan PHPUnit. Pelajari siklus Red → Green → Refactor, bangun validator dunia nyata, dan pahami kapan (dan kapan tidak) menerapkan TDD di proyek Anda."
+stream: se-methodologies-architecture
 ---
 
 <section lang="en">
