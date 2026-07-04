@@ -2,6 +2,7 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
 import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
+import ShareButtons from '../../components/ShareButtons.vue'
 import EventRegistrationForm from '../../components/EventRegistrationForm.vue'
 import EventPresentationButton from '../../components/EventPresentationButton.vue'
 import JsonLd from '../../components/JsonLd.astro'
@@ -188,6 +189,7 @@ const linkedPresentation = allPresentations.find((p) => p.data.event === post.id
     )}
 
     <CodeCopyButtons client:load />
+    <ShareButtons client:load url={postUrl} title={title} description={post.data.excerpt} lang={post.data.lang as 'en' | 'id'} />
     <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
   </div>
 </VSCodeLayout>

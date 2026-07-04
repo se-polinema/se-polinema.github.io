@@ -3,6 +3,7 @@ import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
 import TableOfContents from '../../components/TableOfContents.vue'
 import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
+import ShareButtons from '../../components/ShareButtons.vue'
 import RelatedContent from '../../components/RelatedContent.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
@@ -163,6 +164,7 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
         <Content />
       </div>
       <CodeCopyButtons client:load />
+      <ShareButtons client:load url={postUrl} title={title} description={post.data.excerpt} lang={post.data.lang as 'en' | 'id'} />
       <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
       <RelatedContent client:load items={relatedItems} context="blog" />
       <script>

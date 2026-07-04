@@ -2,6 +2,7 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import JsonLd from '../../components/JsonLd.astro'
 import CitationExport from '../../components/CitationExport.vue'
+import ShareButtons from '../../components/ShareButtons.vue'
 import RelatedContent from '../../components/RelatedContent.vue'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
@@ -218,6 +219,7 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
         url={url}
         doi={doi}
       />
+      <ShareButtons client:load url={pubUrl} title={title} description={venue} lang={language as 'en' | 'id'} />
       <EditOnGitHub filePath={`src/content/publications/${publication.id}.md`} />
       <RelatedContent client:load items={relatedItems} context="publication" />
     </article>

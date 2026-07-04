@@ -662,6 +662,16 @@
     "accept": "Accept All",
     "dismiss": "Dismiss"
   },
+  "share": {
+    "title": "Share",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "shareOnX": "Share on X",
+    "shareOnFacebook": "Share on Facebook",
+    "shareOnLinkedIn": "Share on LinkedIn",
+    "shareOnWhatsApp": "Share on WhatsApp",
+    "shareOnTelegram": "Share on Telegram"
+  },
   "glossary": {
     "label": "Glossary",
     "heading": "Bilingual SE Glossary",
