@@ -662,6 +662,16 @@
     "accept": "Terima Semua",
     "dismiss": "Tutup"
   },
+  "share": {
+    "title": "Bagikan",
+    "copyLink": "Salin tautan",
+    "linkCopied": "Tautan disalin",
+    "shareOnX": "Bagikan ke X",
+    "shareOnFacebook": "Bagikan ke Facebook",
+    "shareOnLinkedIn": "Bagikan ke LinkedIn",
+    "shareOnWhatsApp": "Bagikan ke WhatsApp",
+    "shareOnTelegram": "Bagikan ke Telegram"
+  },
   "glossary": {
     "label": "Glosarium",
     "heading": "Glosarium SE Bilingual",
