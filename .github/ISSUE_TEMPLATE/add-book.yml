@@ -3,14 +3,13 @@ description: Submit a new book reference
 title: "[Book] "
 labels: ["book"]
 body:
-  - type: input
-    id: title
+  - type: markdown
     attributes:
-      label: Title
-      description: The title of the book
-      placeholder: The Pragmatic Programmer
-    validations:
-      required: true
+      value: |
+        > **Context for Opencode**: Add a new book entry to the `books` array inside the target researcher's Markdown file under `src/content/researchers/`.
+        > The book title is taken from the issue title (everything after `[Book] `).
+        > Required frontmatter fields per book: `title`. Optional: `titleId`, `url`, `playstoreUrl`, `coverImage`, `description`, `descriptionId`, `year`, `publisher`, `isbn`.
+        > See `src/content.config.ts` → `researchersCollection.schema.shape.books` for the full schema.
 
   - type: input
     id: researcher
@@ -21,22 +20,19 @@ body:
     validations:
       required: false
 
-  - type: input
-    id: cover_image
-    attributes:
-      label: Cover Image
-      description: Path or URL to the book cover image
-      placeholder: /images/books/pragmatic-programmer.jpg
-    validations:
-      required: false
-
   - type: textarea
     id: additional_info
     attributes:
       label: Additional Info
-      description: Any other details about the book (e.g., description, Play Store URL, etc.)
+      description: |
+        Any other details about the book (e.g., url, description, year, publisher, isbn, cover image, etc.).
+        To attach a cover image: upload the image by clicking the link icon (🔗) in the issue toolbar, next to the heading and list buttons. After uploading, paste the generated link here as `coverImage`.
       placeholder: |
-        description: A must-read for every developer.
-        playstore_url: https://play.google.com/store/books/details?id=...
+        url: https://polinemapress21.com/produk/my-book/
+        description: A comprehensive guide to modern software engineering practices.
+        year: 2025
+        publisher: Polinema Press
+        isbn: 978-623-5711-XX-X
+        coverImage: https://github.com/user-attachments/assets/abc123...
     validations:
       required: false

@@ -3,14 +3,22 @@ description: Submit a new project
 title: "[Project] "
 labels: ["project"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Context for Opencode**: Add a new project to `src/content/projects/`.
+        > The Markdown filename should be a slug derived from the project name (e.g. `my-awesome-project.md`).
+        > Required frontmatter: `title`, `description`, `repo`. Optional: `titleId`, `descriptionId`, `status`, `techStack`, `images`, `contributors`, `researchers`, `stream`, `demoUrl`, `featured`.
+        > See `src/content.config.ts` → `projectsCollection` for the full schema.
+
   - type: input
     id: repo
     attributes:
       label: Repository
-      description: GitHub repository identifier (e.g. username/repo)
+      description: GitHub repository identifier, e.g. `username/repo`. Leave empty if this project does not have a public repository.
       placeholder: dhanifudin/pakai
     validations:
-      required: true
+      required: false
 
   - type: input
     id: name
@@ -34,8 +42,16 @@ body:
     id: additional_info
     attributes:
       label: Additional Info
-      description: Any other details about the project (e.g., description, etc.)
+      description: Any other details about the project (e.g., description, descriptionId, status, techStack, demoUrl, stream, featured, etc.)
       placeholder: |
         description: A project that does amazing things.
+        descriptionId: Proyek yang melakukan hal-hal menakjubkan.
+        status: active
+        techStack:
+          - TypeScript
+          - Astro
+        demoUrl: https://example.com/demo
+        stream: web-engineering
+        featured: true
     validations:
       required: false

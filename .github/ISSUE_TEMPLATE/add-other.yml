@@ -1,0 +1,47 @@
+name: Other
+description: Submit an issue for something that does not fit the other templates
+title: "[Other] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Context for Opencode**: Use this template for issues that do not fit the existing categories.
+        > Describe clearly what content you want to add or change, and where it should go.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Suggested Category
+      description: What kind of content is this? (optional, helps with routing)
+      options:
+        - ""
+        - researcher
+        - publication
+        - presentation
+        - resource
+        - gallery
+        - partner
+        - site-improvement
+        - bug-fix
+        - other
+    validations:
+      required: false
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Describe what you want to add or change. Include any relevant URLs, data, or context.
+      placeholder: |
+        I would like to add...
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Info
+      description: Any other details or references
+    validations:
+      required: false

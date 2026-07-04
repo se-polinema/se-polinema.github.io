@@ -1,0 +1,152 @@
+name: Add Alumni
+description: Submit a new lab alumni entry
+title: "[Alumni] "
+labels: ["alumni"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Context for Opencode**: Add a new Markdown file to `src/content/alumni/`.
+        > The filename should be a slug derived from the alumni name (e.g. `john-doe.md`).
+        > Required frontmatter: `name`, `cohortYear`, `exitYear`, `role` (localized), `currentRole` (localized), `currentOrganization` (localized).
+        > Optional: `photo`, `linkedinUrl`, `profileUrl`, `streams`.
+        > See `src/content.config.ts` → `alumniCollection` for the full schema.
+
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: The full name of the alumni
+      placeholder: John Doe
+    validations:
+      required: true
+
+  - type: input
+    id: cohort_year
+    attributes:
+      label: Cohort Year
+      description: The year they joined the lab
+      placeholder: "2021"
+    validations:
+      required: true
+
+  - type: input
+    id: exit_year
+    attributes:
+      label: Exit Year
+      description: The year they graduated or left the lab
+      placeholder: "2023"
+    validations:
+      required: true
+
+  - type: input
+    id: role_id
+    attributes:
+      label: Role (Bahasa Indonesia)
+      description: Their role in the lab, in Bahasa Indonesia
+      placeholder: Asisten Riset
+    validations:
+      required: true
+
+  - type: input
+    id: role_en
+    attributes:
+      label: Role (English)
+      description: Their role in the lab, in English
+      placeholder: Research Assistant
+    validations:
+      required: true
+
+  - type: input
+    id: current_role_id
+    attributes:
+      label: Current Role (Bahasa Indonesia)
+      description: Their current professional role, in Bahasa Indonesia
+      placeholder: Software Engineer
+    validations:
+      required: true
+
+  - type: input
+    id: current_role_en
+    attributes:
+      label: Current Role (English)
+      description: Their current professional role, in English
+      placeholder: Software Engineer
+    validations:
+      required: true
+
+  - type: input
+    id: current_org_id
+    attributes:
+      label: Current Organization (Bahasa Indonesia)
+      description: Their current workplace/organization, in Bahasa Indonesia
+      placeholder: PT Maju Teknologi
+    validations:
+      required: true
+
+  - type: input
+    id: current_org_en
+    attributes:
+      label: Current Organization (English)
+      description: Their current workplace/organization, in English
+      placeholder: PT Maju Teknologi
+    validations:
+      required: true
+
+  - type: input
+    id: linkedin
+    attributes:
+      label: LinkedIn URL
+      description: Link to their LinkedIn profile (optional)
+      placeholder: https://linkedin.com/in/johndoe
+    validations:
+      required: false
+
+  - type: input
+    id: profile_url
+    attributes:
+      label: Personal Website / Portfolio URL
+      description: Link to their personal website or portfolio (optional)
+      placeholder: https://johndoe.dev
+    validations:
+      required: false
+
+  - type: textarea
+    id: research
+    attributes:
+      label: Research Topics
+      description: Describe the research areas or projects they worked on during their time at the lab
+      placeholder: |
+        - Sentiment analysis for public service feedback
+        - Microservices architecture evaluation
+        - Automated testing for web applications
+    validations:
+      required: false
+
+  - type: textarea
+    id: streams
+    attributes:
+      label: Research Streams
+      description: Which research streams were they involved in? (comma-separated list of stream IDs)
+      placeholder: web-engineering, se-methodologies-architecture
+    validations:
+      required: false
+
+  - type: textarea
+    id: career_update
+    attributes:
+      label: Latest Career Update
+      description: Brief description of what they are currently working on or have achieved recently
+      placeholder: Currently leading the backend team at PT Maju Teknologi, building scalable APIs for fintech products.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Info
+      description: Any other details (photo path, etc.)
+      placeholder: |
+        photo: /images/alumni/john-doe.jpg
+    validations:
+      required: false

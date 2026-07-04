@@ -3,14 +3,14 @@ description: Submit a new blog post or article
 title: "[Post] "
 labels: ["post"]
 body:
-  - type: input
-    id: title
+  - type: markdown
     attributes:
-      label: Title
-      description: The title of the post
-      placeholder: My Awesome Post
-    validations:
-      required: true
+      value: |
+        > **Context for Opencode**: Add a new Markdown file to `src/content/blog/`.
+        > The post title is taken from the issue title (everything after `[Post] `).
+        > The filename should be a slug derived from the title (e.g. `my-awesome-post.md`).
+        > Required frontmatter: `title`, `date`, `category`, `author`. Optional: `titleId`, `lang`, `featured`, `image`, `excerpt`, `excerptId`, `eventDate`, `eventEndDate`, `location`, `locationId`, `registrationUrl`, `stream`, `managed`.
+        > Write the post body in Markdown below the frontmatter. See `src/content.config.ts` → `blogCollection` for the full schema.
 
   - type: input
     id: author
@@ -43,23 +43,23 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: image
-    attributes:
-      label: Cover Image
-      description: Path to cover/hero image (e.g. /images/posts/foo.jpg)
-    validations:
-      required: false
-
   - type: textarea
     id: additional_info
     attributes:
       label: Additional Info
-      description: Any other details (e.g., date, language, excerpt, title in Bahasa Indonesia, featured flag). All fields not listed above will use sensible defaults.
+      description: |
+        Any other details (e.g., date, language, excerpt, title in Bahasa Indonesia, featured flag, cover image, etc.).
+        All fields not listed above will use sensible defaults.
+
+        To attach a cover image: upload the image by clicking the link icon (🔗) in the issue toolbar, then paste the link here as `image`.
       placeholder: |
         date: 2026-06-25
         lang: id
         featured: true
         excerpt: A short summary here
+        excerptId: Ringkasan singkat di sini
+        titleId: Judul Postingan Saya
+        image: https://github.com/user-attachments/assets/abc123...
+        stream: web-engineering
     validations:
       required: false
