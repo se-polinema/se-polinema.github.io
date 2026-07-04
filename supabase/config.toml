@@ -26,7 +26,7 @@ file_size_limit = "50MiB"
 
 [auth]
 enabled = true
-site_url = "https://se-polinema.github.io"
+site_url = "https://se.polinema.ac.id"
 additional_redirect_urls = ["http://localhost:4321"]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true

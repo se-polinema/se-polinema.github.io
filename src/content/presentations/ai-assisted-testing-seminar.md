@@ -97,6 +97,6 @@ Thank you!
 
 **Contact**
 📧 se-lab@polinema.ac.id
-🌐 se-polinema.github.io
+🌐 se.polinema.ac.id
 
 Note: Stay for coffee — informal discussions welcome.

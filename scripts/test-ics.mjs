@@ -60,7 +60,7 @@ function escapeText(text) {
     .replace(/\r/g, '')
 }
 
-function generateIcs(event, baseUrl = 'https://se-polinema.github.io') {
+function generateIcs(event, baseUrl = 'https://se.polinema.ac.id') {
   const eventStart = event.eventDate
   const eventEnd = event.eventEndDate ?? eventStart
   const dtStart = toIcsDate(eventStart)
@@ -72,7 +72,7 @@ function generateIcs(event, baseUrl = 'https://se-polinema.github.io') {
 
   const summary = event.title
   const description = descriptionParts.join('\n\n')
-  const uid = `${event.slug}@se-polinema.github.io`
+  const uid = `${event.slug}@se.polinema.ac.id`
   const url = `${baseUrl}/events/${event.slug}`
 
   const lines = [
@@ -118,12 +118,12 @@ assert.contains(singleDay, 'METHOD:PUBLISH', 'contains METHOD:PUBLISH')
 assert.contains(singleDay, 'BEGIN:VEVENT', 'contains BEGIN:VEVENT')
 assert.contains(singleDay, 'END:VEVENT', 'contains END:VEVENT')
 assert.contains(singleDay, 'END:VCALENDAR', 'contains END:VCALENDAR')
-assert.contains(singleDay, 'UID:test-event@se-polinema.github.io', 'contains correct UID')
+assert.contains(singleDay, 'UID:test-event@se.polinema.ac.id', 'contains correct UID')
 assert.contains(singleDay, 'DTSTART;VALUE=DATE:20260715', 'contains correct DTSTART')
 assert.contains(singleDay, 'DTEND;VALUE=DATE:20260716', 'contains correct DTEND (next day)')
 assert.contains(singleDay, 'SUMMARY:Test Event Title', 'contains SUMMARY')
 assert.contains(singleDay, 'DESCRIPTION:A test event excerpt.', 'contains DESCRIPTION')
-assert.contains(singleDay, 'URL:https://se-polinema.github.io/events/test-event', 'contains URL')
+assert.contains(singleDay, 'URL:https://se.polinema.ac.id/events/test-event', 'contains URL')
 assert.contains(singleDay, 'ORGANIZER;CN=Software Engineering Laboratory', 'contains ORGANIZER')
 
 // Test 2: Multi-day event

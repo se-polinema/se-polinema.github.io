@@ -70,7 +70,7 @@ const legacyProjects = memberProjects.filter((p) => !collectionRepos.has(p.repo)
 const projects = [...collectionProjects, ...legacyProjects]
 const books = await getMemberBooks()
 
-const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 
 const recentAchievements = (achievementsData as Achievement[])
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())

@@ -32,7 +32,7 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200))
 const researchers = await getCollection('researchers')
 const matchedResearcher = researchers.find((r) => r.data.name === author)
 
-const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const postUrl = new URL(Astro.url.pathname, origin).href
 const imageUrl = post.data.image
   ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, origin).href)

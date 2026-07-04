@@ -63,7 +63,7 @@ const researcherProjects = streamResearchers.flatMap((r) =>
 const streamProjects = [...collectionStreamProjects, ...researcherProjects]
     .sort((a, b) => a.researcherName.localeCompare(b.researcherName))
 
-const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const pageUrl = new URL(Astro.url.pathname, origin).href
 
 const researchProjectJsonLd = {

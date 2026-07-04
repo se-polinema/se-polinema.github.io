@@ -26,7 +26,7 @@ const streamName = streamData
   ? { en: (streamData as { name: { en: string; id: string } }).name.en, id: (streamData as { name: { en: string; id: string } }).name.id }
   : null
 
-const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const pageUrl = new URL(Astro.url.pathname, origin).href
 
 const softwareSourceCodeJsonLd = {

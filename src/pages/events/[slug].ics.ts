@@ -30,7 +30,7 @@ export const GET: APIRoute = async ({ params, site }) => {
     eventLang: post.data.lang,
   }
 
-  const baseUrl = site?.origin ?? 'https://se-polinema.github.io'
+  const baseUrl = site?.origin ?? 'https://se.polinema.ac.id'
   const ics = generateIcs(eventData, baseUrl)
 
   return new Response(ics, {

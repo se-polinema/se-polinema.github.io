@@ -104,7 +104,7 @@ jobs:
               'You are an SE educator and site reviewer for the SE Lab website ' +
               '(Software Engineering Laboratory, Politeknik Negeri Malang / Polinema). ' +
               'The site is built with Astro 6 + Vue 3, bilingual (Indonesian id / English en), ' +
-              'hosted at https://se-polinema.github.io. ' +
+              'hosted at https://se.polinema.ac.id. ' +
               'Maintenance uses a GitHub IssueOps loop: maintainers review your recommended issue ' +
               'and comment /plan to start implementation.\n\n' +
               'YOUR TASK: recommend the SINGLE most valuable improvement to file as ONE GitHub issue this week.\n' +

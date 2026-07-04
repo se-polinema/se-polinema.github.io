@@ -72,7 +72,7 @@ const researcherProfile = {
   scholarMetrics,
 }
 
-const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const profileUrl = new URL(Astro.url.pathname, origin).href
 const photoUrl = researcher.data.photo.startsWith('http')
   ? researcher.data.photo
