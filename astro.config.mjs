@@ -7,13 +7,13 @@ import { rehypeGlossary } from './src/utils/rehype-glossary'
 import { remarkPlantuml } from './src/utils/remark-plantuml'
 
 export default defineConfig({
-  site: 'https://se-polinema.github.io',
+  site: 'https://se.polinema.ac.id',
   base: '/',
   integrations: [
     vue(),
     sitemap({
       filter: (page) => !page.includes('/404'),
-      customPages: ['https://se-polinema.github.io/rss.xml', 'https://se-polinema.github.io/publications.xml', 'https://se-polinema.github.io/resources'],
+      customPages: ['https://se.polinema.ac.id/rss.xml', 'https://se.polinema.ac.id/publications.xml', 'https://se.polinema.ac.id/resources'],
     }),
   ],
   markdown: {

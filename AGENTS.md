@@ -3,7 +3,7 @@
 ## Overview
 
 Static site built with [Astro](https://astro.build) + Vue 3 + Tailwind CSS v4.
-Hosted on GitHub Pages at `se-polinema.github.io`.
+Hosted on GitHub Pages at `se.polinema.ac.id`.
 
 ## Getting Started
 

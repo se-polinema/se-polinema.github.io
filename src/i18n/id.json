@@ -615,7 +615,7 @@
     "navLabel": "Privasi",
     "heading": "Kebijakan Privasi",
     "lastUpdated": "Terakhir diperbarui: Juli 2025",
-    "intro": "Software Engineering Laboratory (\"SE Lab,\" \"kami\") mengoperasikan situs web ini (se-polinema.github.io) sebagai sumber daya akademik. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi data pribadi ketika Anda mengunjungi situs kami, berlangganan buletin, mendaftar acara, atau mengirim pesan melalui formulir kontak.",
+    "intro": "Software Engineering Laboratory (\"SE Lab,\" \"kami\") mengoperasikan situs web ini (se.polinema.ac.id) sebagai sumber daya akademik. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi data pribadi ketika Anda mengunjungi situs kami, berlangganan buletin, mendaftar acara, atau mengirim pesan melalui formulir kontak.",
     "dataCollectedHeading": "Data yang Kami Kumpulkan",
     "dataCollectedIntro": "Kami hanya mengumpulkan data pribadi minimum yang diperlukan untuk menyediakan layanan kami:",
     "dataNewsletterItem": "<strong>Langganan buletin:</strong> Alamat email, bahasa pilihan, dan kategori minat opsional (tutorial, acara, publikasi, pengumuman). Disimpan di Supabase.",

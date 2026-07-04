@@ -42,7 +42,7 @@ function nextDay(date: Date): Date {
   return d
 }
 
-export function generateIcs(event: IcsEventData, baseUrl = 'https://se-polinema.github.io'): string {
+export function generateIcs(event: IcsEventData, baseUrl = 'https://se.polinema.ac.id'): string {
   const eventStart = event.eventDate
   const eventEnd = event.eventEndDate ?? eventStart
   const dtStart = toIcsDate(eventStart)
@@ -59,7 +59,7 @@ export function generateIcs(event: IcsEventData, baseUrl = 'https://se-polinema.
 
   const summary = event.title
   const description = descriptionParts.join('\n\n')
-  const uid = `${event.slug}@se-polinema.github.io`
+  const uid = `${event.slug}@se.polinema.ac.id`
   const url = `${baseUrl}/events/${event.slug}`
 
   const lines: string[] = [

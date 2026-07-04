@@ -22,7 +22,7 @@ const {
 const fullTitle = `${title} | SE Lab — JTI Polinema`
 const siteName = 'SE Lab — JTI Polinema'
 const ogLocale = lang === 'id' ? 'id_ID' : 'en_US'
-const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const canonical = new URL(Astro.url.pathname, origin).href
 const ogImage = image ?? '/og-default.svg'
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, origin).href

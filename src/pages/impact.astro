@@ -12,12 +12,12 @@ const impactJsonLd = {
   '@type': 'Dataset',
   name: 'SE Lab Research Impact Statistics',
   description: 'Aggregated research output and impact statistics for the Software Engineering Laboratory at Politeknik Negeri Malang. Includes publication trends, researcher productivity, and research stream distribution.',
-  url: 'https://se-polinema.github.io/impact',
+  url: 'https://se.polinema.ac.id/impact',
   dateModified: stats.lastUpdated ?? new Date().toISOString().split('T')[0],
   includedInDataCatalog: {
     '@type': 'DataCatalog',
     name: 'SE Lab Research Data',
-    url: 'https://se-polinema.github.io',
+    url: 'https://se.polinema.ac.id',
   },
   variableMeasured: [
     { '@type': 'PropertyValue', name: 'Researchers', value: stats.researchers },

@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 const { publication } = Astro.props
 const { title, year, type, venue, authors, url, doi, googleScholarUrl, language } = publication.data
 
-const origin = Astro.site?.origin ?? 'https://se-polinema.github.io'
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const pubUrl = new URL(Astro.url.pathname, origin).href
 
 const scholarlyArticleJsonLd = {

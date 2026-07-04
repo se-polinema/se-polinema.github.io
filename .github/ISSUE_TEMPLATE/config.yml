@@ -2,7 +2,7 @@ blank_issues_enabled: true
 
 contact_links:
   - name: SE Lab Website
-    url: https://se-polinema.github.io
+    url: https://se.polinema.ac.id
     about: Visit the SE Lab website
   - name: Repository README
     url: https://github.com/se-polinema/se-polinema.github.io#readme

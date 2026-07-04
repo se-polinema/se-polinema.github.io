@@ -105,7 +105,7 @@ A purpose-built academic design — content-forward, typography-driven, restrain
 ## Project Structure
 
 ```
-se-polinema.github.io/
+se.polinema.ac.id/
 ├── public/
 │   └── images/
 │       ├── logo-polinema.png

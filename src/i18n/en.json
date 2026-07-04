@@ -615,7 +615,7 @@
     "navLabel": "Privacy",
     "heading": "Privacy Policy",
     "lastUpdated": "Last updated: July 2025",
-    "intro": "The Software Engineering Laboratory (\"SE Lab,\" \"we,\" \"us,\" or \"our\") operates this website (se-polinema.github.io) as an academic resource. This Privacy Policy explains how we collect, use, store, and protect personal data when you visit our site, subscribe to our newsletter, register for events, or send us a message through the contact form.",
+    "intro": "The Software Engineering Laboratory (\"SE Lab,\" \"we,\" \"us,\" or \"our\") operates this website (se.polinema.ac.id) as an academic resource. This Privacy Policy explains how we collect, use, store, and protect personal data when you visit our site, subscribe to our newsletter, register for events, or send us a message through the contact form.",
     "dataCollectedHeading": "What Data We Collect",
     "dataCollectedIntro": "We collect only the minimum personal data necessary to provide our services:",
     "dataNewsletterItem": "<strong>Newsletter subscription:</strong> Email address, preferred language, and optional interest categories (tutorials, events, publications, announcements). Stored in Supabase.",

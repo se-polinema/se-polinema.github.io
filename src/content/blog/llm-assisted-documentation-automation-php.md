@@ -42,7 +42,7 @@ The antidote to all four failures is the same: **a human-in-the-loop review work
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Documentation Automation** as one of the five core topics under the [Emerging Technologies in Software Engineering](https://se-polinema.github.io/research/emerging-technologies-se/) research stream. Related research areas include requirements traceability, doc-to-code consistency, and automated commit summarisation — all of which this tutorial connects to practical tooling.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Documentation Automation** as one of the five core topics under the [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/) research stream. Related research areas include requirements traceability, doc-to-code consistency, and automated commit summarisation — all of which this tutorial connects to practical tooling.
 
 </section>
 
@@ -77,7 +77,7 @@ Penangkal keempat kegagalan itu sama: **alur kerja tinjauan human-in-the-loop.**
 
 ### Koneksi dengan Riset SE Lab
 
-Software Engineering Lab di Politeknik Negeri Malang menempatkan **Documentation Automation** sebagai salah satu dari lima topik inti dalam alur riset [Emerging Technologies in Software Engineering](https://se-polinema.github.io/research/emerging-technologies-se/). Area riset terkait mencakup ketertelusuran kebutuhan, konsistensi doc-to-code, dan peringkasan commit otomatis — yang semuanya dihubungkan oleh tutorial ini ke perangkat praktis.
+Software Engineering Lab di Politeknik Negeri Malang menempatkan **Documentation Automation** sebagai salah satu dari lima topik inti dalam alur riset [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/). Area riset terkait mencakup ketertelusuran kebutuhan, konsistensi doc-to-code, dan peringkasan commit otomatis — yang semuanya dihubungkan oleh tutorial ini ke perangkat praktis.
 
 </section>
 
@@ -1915,9 +1915,9 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 
 ### SE Lab Resources
 
-- **[Emerging Technologies in Software Engineering](https://se-polinema.github.io/research/emerging-technologies-se/)** — The research stream that this tutorial belongs to. Explore the other four topics: Code Quality Analysis, Bug Prediction, AI Test Generation, and Requirements Automation.
-- **[AI-Assisted Unit Test Generation with PHP](https://se-polinema.github.io/blog/ai-assisted-unit-test-generation/)** — A companion tutorial on using LLMs to generate PHPUnit tests. Many of the review and validation principles apply to both test generation and documentation.
-- **[Microservices Architecture Fundamentals](https://se-polinema.github.io/blog/microservices-architecture-fundamentals/)** — A tutorial that demonstrates how documentation becomes a critical concern in distributed systems where each service has its own API.
+- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)** — The research stream that this tutorial belongs to. Explore the other four topics: Code Quality Analysis, Bug Prediction, AI Test Generation, and Requirements Automation.
+- **[AI-Assisted Unit Test Generation with PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)** — A companion tutorial on using LLMs to generate PHPUnit tests. Many of the review and validation principles apply to both test generation and documentation.
+- **[Microservices Architecture Fundamentals](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)** — A tutorial that demonstrates how documentation becomes a critical concern in distributed systems where each service has its own API.
 
 ### Official Documentation & Tools
 
@@ -1929,12 +1929,12 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 ### Research Papers & Articles
 
 - **Requirements Traceability and Doc-to-Code Consistency** — Active research area within the SE Lab's Emerging Technologies stream. Automated traceability links between requirements documents, code, and tests reduce the risk of stale documentation.
-- **Commit Summarisation with LLMs** — Several recent papers (2023–2025) evaluate LLMs for generating pull request descriptions, commit messages, and release notes. The SE Lab maintains a collection of relevant publications at the [research page](https://se-polinema.github.io/research/).
+- **Commit Summarisation with LLMs** — Several recent papers (2023–2025) evaluate LLMs for generating pull request descriptions, commit messages, and release notes. The SE Lab maintains a collection of relevant publications at the [research page](https://se.polinema.ac.id/research/).
 
 ### Related Tutorials
 
-- **[Domain-Driven Design Fundamentals with PHP](https://se-polinema.github.io/blog/domain-driven-design-fundamentals-php/)** — A tutorial that connects to documentation automation through the concept of Ubiquitous Language: when code mirrors domain language, documentation becomes an extension of the model, not a separate artifact.
-- **[Clean Code Principles](https://se-polinema.github.io/blog/clean-code-principles/)** — Clean code is its own form of documentation. Well-named methods and classes reduce the burden on external documentation — and make LLM-generated documentation more accurate by providing richer context.
+- **[Domain-Driven Design Fundamentals with PHP](https://se.polinema.ac.id/blog/domain-driven-design-fundamentals-php/)** — A tutorial that connects to documentation automation through the concept of Ubiquitous Language: when code mirrors domain language, documentation becomes an extension of the model, not a separate artifact.
+- **[Clean Code Principles](https://se.polinema.ac.id/blog/clean-code-principles/)** — Clean code is its own form of documentation. Well-named methods and classes reduce the burden on external documentation — and make LLM-generated documentation more accurate by providing richer context.
 
 </section>
 
@@ -1944,9 +1944,9 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 
 ### Sumber Daya SE Lab
 
-- **[Emerging Technologies in Software Engineering](https://se-polinema.github.io/research/emerging-technologies-se/)** — Alur riset tempat tutorial ini bernaung. Jelajahi empat topik lainnya: Analisis Kualitas Kode, Prediksi Bug, Generasi Test AI, dan Otomatisasi Kebutuhan.
-- **[Pembuatan Unit Test Berbantuan AI dengan PHP](https://se-polinema.github.io/blog/ai-assisted-unit-test-generation/)** — Tutorial pendamping tentang penggunaan LLM untuk menghasilkan pengujian PHPUnit. Banyak prinsip tinjauan dan validasi berlaku untuk generasi pengujian dan dokumentasi.
-- **[Dasar-Dasar Arsitektur Microservices](https://se-polinema.github.io/blog/microservices-architecture-fundamentals/)** — Tutorial yang mendemonstrasikan bagaimana dokumentasi menjadi perhatian kritis dalam sistem terdistribusi di mana setiap layanan memiliki API-nya sendiri.
+- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)** — Alur riset tempat tutorial ini bernaung. Jelajahi empat topik lainnya: Analisis Kualitas Kode, Prediksi Bug, Generasi Test AI, dan Otomatisasi Kebutuhan.
+- **[Pembuatan Unit Test Berbantuan AI dengan PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)** — Tutorial pendamping tentang penggunaan LLM untuk menghasilkan pengujian PHPUnit. Banyak prinsip tinjauan dan validasi berlaku untuk generasi pengujian dan dokumentasi.
+- **[Dasar-Dasar Arsitektur Microservices](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)** — Tutorial yang mendemonstrasikan bagaimana dokumentasi menjadi perhatian kritis dalam sistem terdistribusi di mana setiap layanan memiliki API-nya sendiri.
 
 ### Dokumentasi & Alat Resmi
 
@@ -1958,11 +1958,11 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 ### Makalah & Artikel Riset
 
 - **Ketertelusuran Kebutuhan dan Konsistensi Doc-to-Code** — Area riset aktif dalam alur Emerging Technologies SE Lab. Tautan ketertelusuran otomatis antara dokumen kebutuhan, kode, dan pengujian mengurangi risiko dokumentasi usang.
-- **Peringkasan Commit dengan LLM** — Beberapa makalah terbaru (2023–2025) mengevaluasi LLM untuk menghasilkan deskripsi pull request, pesan commit, dan catatan rilis. SE Lab memelihara koleksi publikasi yang relevan di [halaman riset](https://se-polinema.github.io/research/).
+- **Peringkasan Commit dengan LLM** — Beberapa makalah terbaru (2023–2025) mengevaluasi LLM untuk menghasilkan deskripsi pull request, pesan commit, dan catatan rilis. SE Lab memelihara koleksi publikasi yang relevan di [halaman riset](https://se.polinema.ac.id/research/).
 
 ### Tutorial Terkait
 
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](https://se-polinema.github.io/blog/domain-driven-design-fundamentals-php/)** — Tutorial yang terhubung ke otomatisasi dokumentasi melalui konsep Ubiquitous Language: ketika kode mencerminkan bahasa domain, dokumentasi menjadi perpanjangan dari model, bukan artefak terpisah.
-- **[Prinsip Clean Code](https://se-polinema.github.io/blog/clean-code-principles/)** — Clean code adalah bentuk dokumentasi tersendiri. Metode dan kelas yang dinamai dengan baik mengurangi beban pada dokumentasi eksternal — dan membuat dokumentasi yang dihasilkan LLM lebih akurat dengan menyediakan konteks yang lebih kaya.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](https://se.polinema.ac.id/blog/domain-driven-design-fundamentals-php/)** — Tutorial yang terhubung ke otomatisasi dokumentasi melalui konsep Ubiquitous Language: ketika kode mencerminkan bahasa domain, dokumentasi menjadi perpanjangan dari model, bukan artefak terpisah.
+- **[Prinsip Clean Code](https://se.polinema.ac.id/blog/clean-code-principles/)** — Clean code adalah bentuk dokumentasi tersendiri. Metode dan kelas yang dinamai dengan baik mengurangi beban pada dokumentasi eksternal — dan membuat dokumentasi yang dihasilkan LLM lebih akurat dengan menyediakan konteks yang lebih kaya.
 
 </section>
