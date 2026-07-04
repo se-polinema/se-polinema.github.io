@@ -1,0 +1,41 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import GlossaryPage from '../components/GlossaryPage.vue'
+import glossaryData from '../data/glossary.json'
+import researchData from '../data/research.json'
+
+const streams = researchData.map((s: { id: string; name: { en: string; id: string } }) => ({
+  id: s.id,
+  nameEn: s.name.en,
+  nameId: s.name.id,
+}))
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  'name': 'SE Lab Glossary',
+  'description': 'A bilingual glossary of software engineering terms maintained by the Software Engineering Laboratory at Politeknik Negeri Malang.',
+  'hasDefinedTerm': glossaryData.map((entry) => ({
+    '@type': 'DefinedTerm',
+    'name': entry.term,
+    'alternateName': entry.termId,
+    'description': entry.definition,
+    'termCode': entry.slug,
+    'url': `https://se-polinema.github.io/glossary#${entry.slug}`,
+    'inDefinedTermSet': {
+      '@type': 'DefinedTermSet',
+      'name': 'SE Lab Glossary',
+      'url': 'https://se-polinema.github.io/glossary',
+    },
+  })),
+}
+---
+
+<VSCodeLayout
+  title="Glossary — SE Lab"
+  description="A bilingual glossary of software engineering terms — definitions in English and Bahasa Indonesia, organized by research stream. Maintained by the Software Engineering Laboratory at Politeknik Negeri Malang."
+>
+  <GlossaryPage client:load data={glossaryData} streams={streams} />
+</VSCodeLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

@@ -14,6 +14,7 @@
     "contact": "Contact",
     "blog": "Blog",
     "events": "Events",
+    "glossary": "Glossary",
     "faq": "FAQ",
     "alumni": "Alumni",
     "resources": "Resources",
@@ -661,5 +662,18 @@
     "learnMore": "Learn more",
     "accept": "Accept All",
     "dismiss": "Dismiss"
+  },
+  "glossary": {
+    "label": "Glossary",
+    "heading": "Bilingual SE Glossary",
+    "description": "A reference of software engineering terms with definitions in English and Bahasa Indonesia. Browse alphabetically, search by keyword, or filter by research stream.",
+    "searchPlaceholder": "Search terms...",
+    "allStreams": "All Streams",
+    "resultSingle": "term",
+    "resultPlural": "terms",
+    "relatedTermsLabel": "See also:",
+    "empty": "No terms match your search. Try different keywords or clear the filters.",
+    "suggestionText": "Want to suggest a term?",
+    "suggestionLink": "Contact us"
   }
 }
