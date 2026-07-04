@@ -37,6 +37,7 @@
         <option value="active">{{ t.projects.statusActive }}</option>
         <option value="completed">{{ t.projects.statusCompleted }}</option>
         <option value="prototype">{{ t.projects.statusPrototype }}</option>
+        <option value="under-development">{{ t.projects.statusUnderDevelopment }}</option>
       </select>
     </div>
 
@@ -162,6 +163,7 @@ function statusBadgeClass(status: string) {
     active: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 border-green-200 dark:border-green-800',
     completed: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border-blue-200 dark:border-blue-800',
     prototype: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-200 dark:border-amber-800',
+    'under-development': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 border-purple-200 dark:border-purple-800',
   }
   return map[status] ?? ''
 }
@@ -171,6 +173,7 @@ function statusLabel(status: string) {
     active: { en: 'Active', id: 'Aktif' },
     completed: { en: 'Completed', id: 'Selesai' },
     prototype: { en: 'Prototype', id: 'Prototipe' },
+    'under-development': { en: 'Under Development', id: 'Dalam Pengembangan' },
   }
   const entry = labels[status]
   return entry ? (lang.value === 'id' ? entry.id : entry.en) : status

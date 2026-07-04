@@ -106,6 +106,7 @@
     "statusActive": "Active",
     "statusCompleted": "Completed",
     "statusPrototype": "Prototype",
+    "statusUnderDevelopment": "Under Development",
     "backToProjects": "Back to Projects",
     "detailLabel": "Project Detail",
     "techStack": "Tech Stack",

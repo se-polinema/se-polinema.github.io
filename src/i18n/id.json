@@ -106,6 +106,7 @@
     "statusActive": "Aktif",
     "statusCompleted": "Selesai",
     "statusPrototype": "Prototipe",
+    "statusUnderDevelopment": "Dalam Pengembangan",
     "backToProjects": "Kembali ke Proyek",
     "detailLabel": "Detail Proyek",
     "techStack": "Stack Teknologi",
