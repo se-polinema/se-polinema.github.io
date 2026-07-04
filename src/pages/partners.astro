@@ -1,8 +1,10 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import Partners from '../components/Partners.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 ---
 
 <VSCodeLayout title="Partners — SE Lab" description="Our collaborators and partners — organizations and institutions we work with in software engineering research and education.">
   <Partners client:load />
+  <EditOnGitHub filePath="src/pages/partners.astro" />
 </VSCodeLayout>

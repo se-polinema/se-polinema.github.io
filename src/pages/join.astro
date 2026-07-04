@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import JoinPage from '../components/JoinPage.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 import opportunitiesData from '../data/opportunities.json'
 import researchData from '../data/research.json'
 
@@ -13,4 +14,7 @@ const streams = researchData.map((s: { id: string; name: { en: string; id: strin
 
 <VSCodeLayout title="Join — SE Lab">
   <JoinPage client:load opportunities={opportunitiesData} streams={streams} />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/join.astro" />
+  </div>
 </VSCodeLayout>

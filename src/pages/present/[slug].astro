@@ -1,6 +1,7 @@
 ---
 import PresentationLayout from '../../layouts/PresentationLayout.astro'
 import PresentationGate from '../../components/PresentationGate.vue'
+import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -33,6 +34,8 @@ const displayTitle = title
     presentationTitle={displayTitle}
     theme={theme}
   />
+
+  <EditOnGitHub filePath={`src/content/presentations/${entry.id}.md`} />
 
   <!--
     The reveal.js app container.

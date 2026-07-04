@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import LearningPathsPage from '../components/LearningPathsPage.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 import learningTracksData from '../data/learning-tracks.json'
 import type { LearningTrack } from '../types/learning-track'
 
@@ -37,6 +38,9 @@ const jsonLd = {
 
 <VSCodeLayout title="Learning Paths — SE Lab" description="Guided, step-by-step learning tracks for software engineering — aligned with SE Lab research streams, from beginner to advanced.">
   <LearningPathsPage client:load tracks={tracks} />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/learning-paths.astro" />
+  </div>
 </VSCodeLayout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

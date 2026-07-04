@@ -2,6 +2,7 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import ResearcherProfilePage from '../../components/ResearcherProfilePage.vue'
 import JsonLd from '../../components/JsonLd.astro'
+import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
@@ -117,4 +118,7 @@ const personJsonLd = {
 >
   <JsonLd slot="head" data={personJsonLd} />
   <ResearcherProfilePage client:load researcher={researcherProfile} publications={publications} />
+  <div class="px-8">
+    <EditOnGitHub filePath={`src/content/researchers/${researcher.id}.md`} />
+  </div>
 </VSCodeLayout>

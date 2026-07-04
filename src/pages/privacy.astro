@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import PrivacyPage from '../components/PrivacyPage.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 
 const titleEn = 'Privacy Policy — SE Lab'
 const titleId = 'Kebijakan Privasi — SE Lab'
@@ -10,4 +11,5 @@ const descId = 'Kebijakan Privasi untuk Software Engineering Laboratory di Polit
 
 <VSCodeLayout title="Privacy Policy — SE Lab" description={descEn}>
   <PrivacyPage client:load />
+  <EditOnGitHub filePath="src/pages/privacy.astro" />
 </VSCodeLayout>
