@@ -2,7 +2,7 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import JsonLd from '../../components/JsonLd.astro'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import researchData from '../../data/research.json'
 
 export async function getStaticPaths() {
@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props
+const { Content } = await render(project)
 const { title, titleId, description, descriptionId, status, techStack, images, contributors, researchers, stream, demoUrl, repo } = project.data
 
 const allResearchers = await getCollection('researchers')
@@ -112,6 +113,11 @@ const statusColor = {
     <div class="mb-8">
       <p lang="en" class="text-neutral-600 dark:text-gray-300 leading-relaxed">{description}</p>
       <p lang="id" class="text-neutral-600 dark:text-gray-300 leading-relaxed">{descriptionId ?? description}</p>
+    </div>
+
+    <!-- Body Content -->
+    <div class="prose prose-slate max-w-none bilingual-post mb-8">
+      <Content />
     </div>
 
     <!-- Tech Stack -->
