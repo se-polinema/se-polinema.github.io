@@ -8,6 +8,7 @@ lang: en
 featured: false
 excerpt: "Part 4 of the UML Mini Series. Learn what a Sequence Diagram is, why it reveals object interactions, and how to draw one for the 'Enrol in Course' payment and enrolment flow — with lifelines, messages, and activation boxes in PlantUML."
 excerptId: "Bagian 4 dari Seri Mini UML. Pelajari apa itu Sequence Diagram, mengapa diagram ini mengungkap interaksi objek, dan cara menggambarnya untuk alur pembayaran dan pendaftaran 'Daftar Mata Kuliah' — dengan lifelines, messages, dan activation box dalam PlantUML."
+stream: se-methodologies-architecture
 ---
 
 <nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">

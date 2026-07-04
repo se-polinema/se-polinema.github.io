@@ -8,6 +8,7 @@ lang: en
 featured: false
 excerpt: "Part 1 of the UML Mini Series. Learn what UML is, why it matters, when and where to use it, and how to create a Use Case Diagram — with a complete PlantUML example for a Campus Course Registration System."
 excerptId: "Bagian 1 dari Seri Mini UML. Pelajari apa itu UML, mengapa penting, kapan dan di mana menggunakannya, serta cara membuat Use Case Diagram — dengan contoh PlantUML lengkap untuk Sistem Pendaftaran Mata Kuliah Kampus."
+stream: se-methodologies-architecture
 ---
 
 <nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">

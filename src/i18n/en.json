@@ -239,7 +239,9 @@
     "archiveHeading": "Publication Archive",
     "archiveDescription": "This archive lists selected scholarly outputs associated with the Software Engineering Laboratory. The current seed data is curated from Google Scholar-backed records for laboratory researchers.",
     "lastUpdated": "Last updated",
-    "subscribeFeed": "Subscribe to publications feed"
+    "subscribeFeed": "Subscribe to publications feed",
+    "relatedHeading": "Related Research",
+    "browseAll": "Browse all publications"
   },
   "gallery": {
     "label": "Gallery",
@@ -443,7 +445,9 @@
     "copyCode": "Copy code",
     "codeCopied": "Copied!",
     "categoryArchiveHeading": "{category} Archive",
-    "categoryArchiveDescription": "{category} posts from the Software Engineering Laboratory."
+    "categoryArchiveDescription": "{category} posts from the Software Engineering Laboratory.",
+    "relatedHeading": "Related Content",
+    "browseAll": "Browse all posts"
   },
   "notFound": {
     "heading": "Page Not Found",

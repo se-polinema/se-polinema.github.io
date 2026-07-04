@@ -3,9 +3,14 @@ import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
 import TableOfContents from '../../components/TableOfContents.vue'
 import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
+import RelatedContent from '../../components/RelatedContent.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection, render } from 'astro:content'
+import { getRelatedItems } from '../../utils/relatedContent'
+import type { CurrentItem, CandidateItem } from '../../utils/relatedContent'
+import type { RelatedContentItem } from '../../components/RelatedContent.vue'
+import resourcesData from '../../data/resources.json'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -57,6 +62,79 @@ const blogPostingJsonLd = {
     url: origin,
   },
 }
+
+const currentItem: CurrentItem = {
+  id: post.id,
+  title,
+  stream: post.data.stream,
+  category,
+  author,
+  date,
+  excerpt: post.data.excerpt,
+}
+
+const allPosts = await getCollection('blog')
+const blogCandidates: CandidateItem[] = allPosts
+  .filter((p) => p.data.category === 'tutorial' || p.data.category === 'news')
+  .map((p) => ({
+    id: p.id,
+    title: p.data.title,
+    stream: p.data.stream,
+    category: p.data.category,
+    author: p.data.author,
+    date: p.data.date,
+    excerpt: p.data.excerpt,
+  }))
+
+const resourceCandidates: CandidateItem[] = (resourcesData as any[])
+  .filter((r) => r.internal === true || r.type === 'tutorial')
+  .map((r) => ({
+    id: `resource:${r.url}`,
+    title: r.title,
+    stream: r.stream,
+    category: 'resource',
+    excerpt: r.description,
+  }))
+
+const allCandidates = [...blogCandidates, ...resourceCandidates]
+
+const scored = getRelatedItems(currentItem, allCandidates, 8)
+
+const relatedBlogPosts = await getCollection('blog')
+const blogMap = new Map(relatedBlogPosts.map((p) => [p.id, p]))
+
+const relatedItems: RelatedContentItem[] = scored.map((item) => {
+  if (item.id.startsWith('resource:')) {
+    const res = (resourcesData as any[]).find((r) => `resource:${r.url}` === item.id)
+    return {
+      id: item.id,
+      title: res?.title ?? item.title,
+      titleId: res?.titleId,
+      description: res?.description ?? item.excerpt,
+      descriptionId: res?.descriptionId,
+      url: res?.url ?? '',
+      badge: res?.type ?? 'resource',
+      badgeClass: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+      __source: 'resource' as const,
+    }
+  }
+
+  const bp = blogMap.get(item.id)
+  return {
+    id: item.id,
+    title: bp?.data.title ?? item.title,
+    titleId: bp?.data.titleId,
+    description: bp?.data.excerpt ?? item.excerpt,
+    descriptionId: bp?.data.excerptId,
+    url: `/blog/${item.id}`,
+    badge: item.category === 'tutorial' ? 'Tutorial' : item.category,
+    badgeClass:
+      item.category === 'tutorial'
+        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+        : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+    __source: 'blog' as const,
+  }
+})
 ---
 
 <VSCodeLayout
@@ -86,6 +164,7 @@ const blogPostingJsonLd = {
       </div>
       <CodeCopyButtons client:load />
       <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
+      <RelatedContent client:load items={relatedItems} context="blog" />
       <script>
         // ── PlantUML diagram viewer ───────────────────────────────────────
         // Diagrams are rendered as inline SVG at build time by the rehype-plantuml
