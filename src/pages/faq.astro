@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import FaqPage from '../components/FaqPage.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 import faqData from '../data/faq.json'
 
 const allQuestions = faqData.categories.flatMap((cat) =>
@@ -23,6 +24,9 @@ const jsonLd = {
 
 <VSCodeLayout title="FAQ — SE Lab" description="Frequently asked questions about joining, research, collaboration, events, and general information about the Software Engineering Laboratory at Politeknik Negeri Malang.">
   <FaqPage client:load data={faqData} />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/faq.astro" />
+  </div>
 </VSCodeLayout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

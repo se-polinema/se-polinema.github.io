@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import Contact from '../components/Contact.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -12,6 +13,9 @@ const jsonLd = {
 
 <VSCodeLayout title="Contact — SE Lab" description="Get in touch with the Software Engineering Laboratory at Politeknik Negeri Malang. Send us a message or find us on the map.">
   <Contact client:load />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/contact.astro" />
+  </div>
 </VSCodeLayout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

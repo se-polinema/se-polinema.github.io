@@ -2,6 +2,7 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import JsonLd from '../../components/JsonLd.astro'
 import CitationExport from '../../components/CitationExport.vue'
+import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -105,6 +106,7 @@ const scholarlyArticleJsonLd = {
         url={url}
         doi={doi}
       />
+      <EditOnGitHub filePath={`src/content/publications/${publication.id}.md`} />
     </article>
   </div>
 </VSCodeLayout>

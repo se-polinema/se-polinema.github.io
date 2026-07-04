@@ -4,6 +4,7 @@ import BlogPostPage from '../../components/BlogPostPage.vue'
 import TableOfContents from '../../components/TableOfContents.vue'
 import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
 import JsonLd from '../../components/JsonLd.astro'
+import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection, render } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -84,6 +85,7 @@ const blogPostingJsonLd = {
         <Content />
       </div>
       <CodeCopyButtons client:load />
+      <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
       <script>
         // ── PlantUML diagram viewer ───────────────────────────────────────
         // Diagrams are rendered as inline SVG at build time by the rehype-plantuml

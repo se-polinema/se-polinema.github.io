@@ -11,6 +11,7 @@ import JoinLab from '../components/JoinLab.vue'
 import Achievements from '../components/Achievements.vue'
 import News from '../components/News.vue'
 import JsonLd from '../components/JsonLd.astro'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
 import { getMemberProjects, getMemberBooks, getCollectionProjects } from '../lib/memberWorks'
 import { existsSync } from 'node:fs'
@@ -136,4 +137,7 @@ const organizationJsonLd = {
   <JoinLab client:load />
   <Achievements client:load achievements={recentAchievements} />
   <News client:load posts={sortedPosts} />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/index.astro" />
+  </div>
 </VSCodeLayout>

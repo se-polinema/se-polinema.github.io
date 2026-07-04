@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import NewsletterForm from '../components/NewsletterForm.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 ---
 
 <VSCodeLayout
@@ -15,5 +16,6 @@ import NewsletterForm from '../components/NewsletterForm.vue'
       &larr; Home
     </a>
     <NewsletterForm client:load :compact="false" :showInterests="true" />
+    <EditOnGitHub filePath="src/pages/newsletter.astro" />
   </div>
 </VSCodeLayout>

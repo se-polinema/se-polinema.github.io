@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import JsonLd from '../components/JsonLd.astro'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 import ImpactDashboard from '../components/ImpactDashboard.vue'
 import { getLabImpactStats } from '../lib/labStats'
 
@@ -42,4 +43,7 @@ const impactJsonLd = {
 <VSCodeLayout title="Research Impact — SE Lab" description="Aggregated research output and impact statistics for the Software Engineering Laboratory. Publication trends, researcher productivity, and research stream distribution.">
   <JsonLd slot="head" data={impactJsonLd} />
   <ImpactDashboard client:load stats={stats} />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/impact.astro" />
+  </div>
 </VSCodeLayout>

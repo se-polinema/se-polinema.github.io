@@ -5,6 +5,7 @@ import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
 import EventRegistrationForm from '../../components/EventRegistrationForm.vue'
 import EventPresentationButton from '../../components/EventPresentationButton.vue'
 import JsonLd from '../../components/JsonLd.astro'
+import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection, render } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -187,5 +188,6 @@ const linkedPresentation = allPresentations.find((p) => p.data.event === post.id
     )}
 
     <CodeCopyButtons client:load />
+    <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
   </div>
 </VSCodeLayout>

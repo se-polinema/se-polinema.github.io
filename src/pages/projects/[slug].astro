@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import JsonLd from '../../components/JsonLd.astro'
+import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
 import researchData from '../../data/research.json'
 
@@ -238,5 +239,6 @@ const statusColor = {
         </a>
       )}
     </div>
+    <EditOnGitHub filePath={`src/content/projects/${project.id}.md`} />
   </div>
 </VSCodeLayout>

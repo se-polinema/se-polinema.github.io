@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import ResourcesPage from '../components/ResourcesPage.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
 import resourcesData from '../data/resources.json'
 import researchData from '../data/research.json'
 import type { Resource } from '../types/resource'
@@ -35,6 +36,9 @@ const jsonLd = {
 
 <VSCodeLayout title="Learning Resources — SE Lab" description="Curated directory of learning resources for software engineering — tutorials, books, tools, datasets, courses, and papers organized by research stream and skill level.">
   <ResourcesPage client:load resources={resources} streams={streams} />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/resources.astro" />
+  </div>
 </VSCodeLayout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
