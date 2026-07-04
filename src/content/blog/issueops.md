@@ -46,9 +46,9 @@ Here is what happens every time someone wants to change something on this websit
 
 1.  **Open an issue.** A contributor opens a GitHub Issue describing what they want — a new blog post, a layout fix, or a feature idea.
 
-2.  **Plan with `/plan`.** Any member of the `se-polinema` organization can comment `/plan` on the issue. You can also add extra context after the command, such as `/plan focus on the layout only`. This triggers a GitHub Actions job that verifies organization membership, then runs OpenCode in **planning mode**. OpenCode reads the issue, analyzes the codebase, and replies with a concrete implementation plan — including which files to change, how to validate, and open questions.
+2.  **Plan with `/plan`.** Any authorized member can comment `/plan` on the issue. You can also add extra context after the command, such as `/plan focus on the layout only`. This triggers a GitHub Actions job that verifies authorization — first by checking organization membership through an authenticated GitHub API, falling back to a repository-level allowlist — then runs OpenCode in **planning mode**. OpenCode reads the issue, analyzes the codebase, and replies with a concrete implementation plan — including which files to change, how to validate, and open questions.
 
-3.  **Approve with `/build`.** If the plan looks good, an organization member comments `/build` (optionally with extra context like `/build use Astro Islands for interactivity`). The workflow validates membership, then switches OpenCode to implementation mode. It creates a new branch, writes the actual code, runs `npm run build` to verify everything compiles, captures a screenshot of updated features (stored as a workflow artifact, never committed to the repository), and opens a pull request linked to the issue. If the build fails, a new error issue is automatically created to track the failure.
+3.  **Approve with `/build`.** If the plan looks good, an authorized member comments `/build` (optionally with extra context like `/build use Astro Islands for interactivity`). The workflow validates authorization, then switches OpenCode to implementation mode. It creates a new branch, writes the actual code, runs `npm run build` to verify everything compiles, captures a screenshot of updated features (stored as a workflow artifact, never committed to the repository), and opens a pull request linked to the issue. If the build fails, a new error issue is automatically created to track the failure.
 
 4.  **Review and merge.** The pull request appears with a build summary. The maintainer reviews the changes, and if everything looks correct, merges the PR. The change goes live on the next deployment. Merged OpenCode branches are automatically cleaned up after one week.
 
@@ -64,9 +64,9 @@ Inilah yang terjadi setiap kali seseorang ingin mengubah sesuatu di situs web in
 
 1.  **Buka issue.** Seorang kontributor membuka GitHub Issue yang menjelaskan apa yang diinginkan — postingan blog baru, perbaikan tata letak, atau ide fitur.
 
-2.  **Rencanakan dengan `/plan`.** Setiap anggota organisasi `se-polinema` dapat mengomentari `/plan` di issue tersebut. Anda juga dapat menambahkan konteks tambahan setelah perintah, seperti `/plan fokus pada tata letak saja`. Ini memicu job GitHub Actions yang memverifikasi keanggotaan organisasi, lalu menjalankan OpenCode dalam **mode perencanaan**. OpenCode membaca issue, menganalisis codebase, dan membalas dengan rencana implementasi yang konkret — termasuk file mana yang akan diubah, cara memvalidasi, dan pertanyaan terbuka.
+2.  **Rencanakan dengan `/plan`.** Setiap anggota yang berwenang dapat mengomentari `/plan` di issue tersebut. Anda juga dapat menambahkan konteks tambahan setelah perintah, seperti `/plan fokus pada tata letak saja`. Ini memicu job GitHub Actions yang memverifikasi otorisasi — pertama dengan memeriksa keanggotaan organisasi melalui API GitHub terautentikasi, dan fallback ke daftar izin tingkat repositori — lalu menjalankan OpenCode dalam **mode perencanaan**. OpenCode membaca issue, menganalisis codebase, dan membalas dengan rencana implementasi yang konkret — termasuk file mana yang akan diubah, cara memvalidasi, dan pertanyaan terbuka.
 
-3.  **Setujui dengan `/build`.** Jika rencana terlihat baik, anggota organisasi mengomentari `/build` (opsional dengan konteks tambahan seperti `/build gunakan Astro Islands untuk interaktivitas`). Workflow memvalidasi keanggotaan, lalu mengalihkan OpenCode ke mode implementasi. Ia membuat branch baru, menulis kode aktual, menjalankan `npm run build` untuk memverifikasi semuanya terkompilasi, menangkap tangkapan layar fitur yang diperbarui (disimpan sebagai artefak workflow, tidak pernah dikomit ke repositori), dan membuka pull request yang terhubung ke issue. Jika build gagal, issue error baru akan otomatis dibuat untuk melacak kegagalan tersebut.
+3.  **Setujui dengan `/build`.** Jika rencana terlihat baik, anggota yang berwenang mengomentari `/build` (opsional dengan konteks tambahan seperti `/build gunakan Astro Islands untuk interaktivitas`). Workflow memvalidasi otorisasi, lalu mengalihkan OpenCode ke mode implementasi. Ia membuat branch baru, menulis kode aktual, menjalankan `npm run build` untuk memverifikasi semuanya terkompilasi, menangkap tangkapan layar fitur yang diperbarui (disimpan sebagai artefak workflow, tidak pernah dikomit ke repositori), dan membuka pull request yang terhubung ke issue. Jika build gagal, issue error baru akan otomatis dibuat untuk melacak kegagalan tersebut.
 
 4.  **Tinjau dan gabung.** Pull request muncul dengan ringkasan build. Maintainer meninjau perubahan, dan jika semuanya terlihat benar, menggabungkan PR. Perubahan akan tayang pada deployment berikutnya. Branch OpenCode yang telah digabung akan otomatis dibersihkan setelah satu minggu.
 
@@ -114,7 +114,7 @@ You do not need to be an AI expert to set up IssueOps. The workflow used in this
 
 1.  **Copy the workflow file.** The `opencode.yml` file contains three jobs — `check-auth`, `plan`, and `build`. Copy it to your own repository under `.github/workflows/`. Also copy `cleanup-merged-branches.yml` for automatic branch cleanup.
 
-2.  **Configure authorization.** Update the `check-auth` job to use your own GitHub organization or team. By default, it checks public membership in the `se-polinema` organization.
+2.  **Configure authorization.** Update the `check-auth` job to use your own GitHub organization or team. By default, it checks membership in the `se-polinema` organization through an authenticated API (requires a token with `read:org` scope), with a fallback to a repository-level allowlist file (`.github/opencode-allowlist.txt`). Add authorized users to the allowlist as a simpler alternative.
 
 3.  **Set up secrets.** Add your API key (`OPENCODE_GO_API_KEY`) to your repository secrets. This authenticates the OpenCode CLI with the AI provider.
 
@@ -134,7 +134,7 @@ Anda tidak perlu menjadi ahli AI untuk menyiapkan IssueOps. Workflow yang diguna
 
 1.  **Salin file workflow.** File `opencode.yml` berisi tiga job — `check-auth`, `plan`, dan `build`. Salin ke repositori Anda sendiri di bawah `.github/workflows/`. Salin juga `cleanup-merged-branches.yml` untuk pembersihan branch otomatis.
 
-2.  **Konfigurasi otorisasi.** Perbarui job `check-auth` untuk menggunakan organisasi atau tim GitHub Anda sendiri. Secara default, ini memeriksa keanggotaan publik di organisasi `se-polinema`.
+2.  **Konfigurasi otorisasi.** Perbarui job `check-auth` untuk menggunakan organisasi atau tim GitHub Anda sendiri. Secara default, ini memeriksa keanggotaan di organisasi `se-polinema` melalui API terautentikasi (memerlukan token dengan scope `read:org`), dengan fallback ke file daftar izin tingkat repositori (`.github/opencode-allowlist.txt`). Tambahkan pengguna berwenang ke daftar izin sebagai alternatif yang lebih sederhana.
 
 3.  **Atur secrets.** Tambahkan kunci API Anda (`OPENCODE_GO_API_KEY`) ke repository secrets Anda. Ini mengautentikasi OpenCode CLI dengan penyedia AI.
 
