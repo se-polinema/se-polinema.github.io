@@ -1,0 +1,112 @@
+[
+  {
+    "term": "Microservices",
+    "termId": "Microservices",
+    "definition": "An architectural style that structures an application as a collection of loosely coupled, independently deployable services. Each service is organized around a business capability and can be developed, deployed, and scaled independently.",
+    "definitionId": "Gaya arsitektur yang menyusun aplikasi sebagai kumpulan layanan yang terhubung secara longgar dan dapat di-deploy secara independen. Setiap layanan diatur berdasarkan kapabilitas bisnis dan dapat dikembangkan, di-deploy, dan diskalakan secara mandiri.",
+    "slug": "microservices",
+    "stream": "se-methodologies-architecture",
+    "relatedTerms": ["design-patterns", "domain-driven-design", "technical-debt"]
+  },
+  {
+    "term": "Clean Code",
+    "termId": "Clean Code",
+    "definition": "A philosophy of writing software source code that is easy to read, understand, and maintain. Clean code practices emphasize meaningful naming, small functions, consistent formatting, and minimal dependencies.",
+    "definitionId": "Filosofi penulisan kode sumber perangkat lunak yang mudah dibaca, dipahami, dan dipelihara. Praktik clean code menekankan penamaan yang bermakna, fungsi kecil, format yang konsisten, dan dependensi minimal.",
+    "slug": "clean-code",
+    "stream": "se-methodologies-architecture",
+    "relatedTerms": ["tdd", "design-patterns", "static-analysis"]
+  },
+  {
+    "term": "Test-Driven Development",
+    "term": "Test-Driven Development",
+    "termId": "Test-Driven Development (TDD)",
+    "definition": "A software development process in which tests are written before the implementation code. The TDD cycle follows three steps: write a failing test (Red), write the minimum code to pass (Green), and refactor (Refactor).",
+    "definitionId": "Proses pengembangan perangkat lunak di mana pengujian ditulis sebelum kode implementasi. Siklus TDD mengikuti tiga langkah: tulis pengujian yang gagal (Red), tulis kode minimum untuk berhasil (Green), dan lakukan refactoring (Refactor).",
+    "slug": "tdd",
+    "stream": "se-methodologies-architecture",
+    "relatedTerms": ["clean-code", "domain-driven-design", "ai-test-generation"]
+  },
+  {
+    "term": "Domain-Driven Design",
+    "term": "Domain-Driven Design",
+    "termId": "Domain-Driven Design (DDD)",
+    "definition": "A software design approach that focuses on modeling software to match a complex business domain. DDD emphasizes collaboration between technical and domain experts, using a ubiquitous language and concepts such as entities, value objects, aggregates, and bounded contexts.",
+    "definitionId": "Pendekatan desain perangkat lunak yang berfokus pada pemodelan perangkat lunak agar sesuai dengan domain bisnis yang kompleks. DDD menekankan kolaborasi antara ahli teknis dan domain, menggunakan bahasa yang seragam serta konsep seperti entitas, value object, agregat, dan bounded context.",
+    "slug": "domain-driven-design",
+    "stream": "se-methodologies-architecture",
+    "relatedTerms": ["microservices", "bounded-context", "design-patterns"]
+  },
+  {
+    "term": "Design Patterns",
+    "termId": "Design Patterns",
+    "definition": "Reusable solutions to common problems in software design. Design patterns are templates for solving recurring design issues and are categorized into creational, structural, and behavioral patterns. Popular examples include Singleton, Factory, Observer, and Strategy.",
+    "definitionId": "Solusi yang dapat digunakan kembali untuk masalah umum dalam desain perangkat lunak. Design pattern adalah template untuk menyelesaikan masalah desain yang berulang dan dikategorikan menjadi pola kreasi, struktural, dan perilaku. Contoh populer meliputi Singleton, Factory, Observer, dan Strategy.",
+    "slug": "design-patterns",
+    "stream": "se-methodologies-architecture",
+    "relatedTerms": ["clean-code", "tdd", "domain-driven-design"]
+  },
+  {
+    "term": "Technical Debt",
+    "termId": "Technical Debt",
+    "definition": "A metaphor describing the implied cost of additional rework caused by choosing an easy or quick solution now instead of using a better approach that would take longer. Like financial debt, technical debt accumulates interest over time, making future changes more difficult.",
+    "definitionId": "Metafora yang menggambarkan biaya implisit dari pengerjaan ulang tambahan yang disebabkan oleh memilih solusi mudah atau cepat saat ini alih-alih pendekatan yang lebih baik yang membutuhkan waktu lebih lama. Seperti utang finansial, technical debt mengakumulasi bunga seiring waktu, membuat perubahan di masa depan lebih sulit.",
+    "slug": "technical-debt",
+    "stream": "se-methodologies-architecture",
+    "relatedTerms": ["clean-code", "static-analysis", "tdd"]
+  },
+  {
+    "term": "Bounded Context",
+    "termId": "Bounded Context",
+    "definition": "A central pattern in Domain-Driven Design that defines the boundaries within which a particular domain model is defined and applicable. Each bounded context has its own ubiquitous language and models, which may represent the same business concept differently across contexts.",
+    "definitionId": "Pola sentral dalam Domain-Driven Design yang mendefinisikan batasan di mana model domain tertentu didefinisikan dan berlaku. Setiap bounded context memiliki bahasa dan model sendiri, yang mungkin merepresentasikan konsep bisnis yang sama secara berbeda di setiap konteks.",
+    "slug": "bounded-context",
+    "stream": "se-methodologies-architecture",
+    "relatedTerms": ["domain-driven-design", "microservices"]
+  },
+  {
+    "term": "EdTech",
+    "termId": "Teknologi Pendidikan (EdTech)",
+    "definition": "Short for Educational Technology, EdTech refers to software and hardware designed to enhance teacher-led learning in classrooms and improve student outcomes. It encompasses learning management systems, adaptive learning platforms, and educational applications tailored to academic environments.",
+    "definitionId": "Singkatan dari Educational Technology, EdTech merujuk pada perangkat lunak dan perangkat keras yang dirancang untuk meningkatkan pembelajaran yang dipimpin guru di kelas dan meningkatkan hasil belajar siswa. Ini mencakup sistem manajemen pembelajaran, platform pembelajaran adaptif, dan aplikasi pendidikan yang disesuaikan dengan lingkungan akademik.",
+    "slug": "edtech",
+    "stream": "domain-specific-se-applications",
+    "relatedTerms": ["fintech", "healthcare-software"]
+  },
+  {
+    "term": "Fintech",
+    "termId": "Teknologi Finansial (Fintech)",
+    "definition": "Short for Financial Technology, Fintech describes software and technology used to support, enable, or automate financial services and processes. This includes mobile banking, payment gateways, digital wallets, robo-advisors, and blockchain-based financial applications.",
+    "definitionId": "Singkatan dari Financial Technology, Fintech menggambarkan perangkat lunak dan teknologi yang digunakan untuk mendukung, memungkinkan, atau mengotomatiskan layanan dan proses keuangan. Ini mencakup perbankan seluler, gateway pembayaran, dompet digital, robo-advisor, dan aplikasi keuangan berbasis blockchain.",
+    "slug": "fintech",
+    "stream": "domain-specific-se-applications",
+    "relatedTerms": ["edtech", "healthcare-software"]
+  },
+  {
+    "term": "Healthcare Software",
+    "termId": "Perangkat Lunak Kesehatan",
+    "definition": "Software applications designed for the healthcare industry, including electronic health records (EHR), telemedicine platforms, medical imaging systems, hospital management systems, and clinical decision support tools. Healthcare software must comply with strict regulatory standards for data privacy and security.",
+    "definitionId": "Aplikasi perangkat lunak yang dirancang untuk industri kesehatan, termasuk rekam medis elektronik (EHR), platform telemedicine, sistem pencitraan medis, sistem manajemen rumah sakit, dan alat pendukung keputusan klinis. Perangkat lunak kesehatan harus mematuhi standar regulasi yang ketat untuk privasi dan keamanan data.",
+    "slug": "healthcare-software",
+    "stream": "domain-specific-se-applications",
+    "relatedTerms": ["edtech", "fintech"]
+  },
+  {
+    "term": "Static Analysis",
+    "termId": "Analisis Statis",
+    "definition": "A method of debugging and evaluating software by examining the source code without executing the program. Static analysis tools automatically scan code for potential bugs, security vulnerabilities, style violations, and code smells before runtime.",
+    "definitionId": "Metode debugging dan evaluasi perangkat lunak dengan memeriksa kode sumber tanpa mengeksekusi program. Alat analisis statis secara otomatis memindai kode untuk potensi bug, kerentanan keamanan, pelanggaran gaya, dan code smell sebelum runtime.",
+    "slug": "static-analysis",
+    "stream": "emerging-technologies-se",
+    "relatedTerms": ["clean-code", "technical-debt", "ai-test-generation"]
+  },
+  {
+    "term": "AI Test Generation",
+    "termId": "Pembuatan Pengujian dengan AI",
+    "definition": "The use of artificial intelligence and machine learning techniques to automatically generate software test cases, test data, and test scripts. AI test generation tools analyze source code, requirements, and historical test data to produce comprehensive test suites that improve coverage and reduce manual testing effort.",
+    "definitionId": "Penggunaan teknik kecerdasan buatan dan machine learning untuk secara otomatis menghasilkan kasus uji, data uji, dan skrip uji perangkat lunak. Alat pembuatan pengujian AI menganalisis kode sumber, persyaratan, dan data pengujian historis untuk menghasilkan rangkaian pengujian komprehensif yang meningkatkan cakupan dan mengurangi upaya pengujian manual.",
+    "slug": "ai-test-generation",
+    "stream": "emerging-technologies-se",
+    "relatedTerms": ["tdd", "static-analysis", "clean-code"]
+  }
+]

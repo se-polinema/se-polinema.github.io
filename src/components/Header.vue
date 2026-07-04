@@ -135,6 +135,7 @@ const navItems = computed(() => [
   { id: 'achievements', href: '/achievements', label: t.value.achievements?.navLabel || (lang.value === 'id' ? 'Prestasi' : 'Achievements') },
   { id: 'impact', href: '/impact', label: t.value.nav.impact },
   { id: 'events', href: '/events', label: t.value.nav.events },
+  { id: 'glossary', href: '/glossary', label: t.value.nav.glossary },
   { id: 'faq', href: '/faq', label: t.value.nav.faq },
   { id: 'blog', href: '/blog', label: t.value.nav.blog },
   { id: 'join', href: '/join', label: t.value.nav.join },

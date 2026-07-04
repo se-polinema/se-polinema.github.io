@@ -243,4 +243,19 @@
   .stream-hub-pub-item {
     @apply block py-3 border-b border-neutral-100 dark:border-gray-800 last:border-b-0 hover:bg-neutral-50 dark:hover:bg-gray-800/50 px-3 -mx-3 transition-colors;
   }
+
+  a.glossary-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-style 0.15s;
+  }
+  a.glossary-link:hover {
+    text-decoration-style: solid;
+    color: var(--color-accent);
+  }
+  html.dark a.glossary-link {
+    color: #F5A100;
+  }
 }

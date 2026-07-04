@@ -3,6 +3,7 @@ import vue from '@astrojs/vue'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import { rehypeHeadingIds } from './src/utils/rehype-heading-ids'
+import { rehypeGlossary } from './src/utils/rehype-glossary'
 import { remarkPlantuml } from './src/utils/remark-plantuml'
 
 export default defineConfig({
@@ -23,7 +24,7 @@ export default defineConfig({
     remarkPlugins: [
       [remarkPlantuml, { cacheDir: 'src/content/diagrams-cache' }],
     ],
-    rehypePlugins: [rehypeHeadingIds],
+    rehypePlugins: [rehypeHeadingIds, rehypeGlossary],
   },
   vite: {
     plugins: [tailwindcss()],

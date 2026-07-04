@@ -14,6 +14,7 @@
     "contact": "Kontak",
     "blog": "Blog",
     "events": "Acara",
+    "glossary": "Glosarium",
     "faq": "FAQ",
     "alumni": "Alumni",
     "resources": "Sumber Belajar",
@@ -661,5 +662,18 @@
     "learnMore": "Pelajari lebih lanjut",
     "accept": "Terima Semua",
     "dismiss": "Tutup"
+  },
+  "glossary": {
+    "label": "Glosarium",
+    "heading": "Glosarium SE Bilingual",
+    "description": "Referensi istilah rekayasa perangkat lunak dengan definisi dalam Bahasa Inggris dan Bahasa Indonesia. Telusuri secara alfabetis, cari berdasarkan kata kunci, atau filter berdasarkan stream riset.",
+    "searchPlaceholder": "Cari istilah...",
+    "allStreams": "Semua Stream",
+    "resultSingle": "istilah",
+    "resultPlural": "istilah",
+    "relatedTermsLabel": "Lihat juga:",
+    "empty": "Tidak ada istilah yang cocok dengan pencarian Anda. Coba kata kunci lain atau hapus filter.",
+    "suggestionText": "Ingin menyarankan istilah?",
+    "suggestionLink": "Hubungi kami"
   }
 }
