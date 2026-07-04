@@ -146,7 +146,6 @@ descriptionId: |-
 status: "active"
 techStack: 
   - "Laravel"
-  - "Blade"
   - "MySQL"
   - "AdminLTE 3"
   - "Google SSO"
