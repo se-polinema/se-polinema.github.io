@@ -111,7 +111,7 @@ const projectsCollection = defineCollection({
     titleId: z.string().optional(),
     description: z.string(),
     descriptionId: z.string().optional(),
-    status: z.enum(['active', 'completed', 'prototype']).default('active'),
+    status: z.enum(['active', 'completed', 'prototype', 'under-development']).default('active'),
     techStack: z.array(z.string()).default([]),
     images: z.array(z.string()).default([]),
     contributors: z.array(z.string()).default([]),

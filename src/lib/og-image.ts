@@ -26,7 +26,7 @@ interface OgPublicationData {
 interface OgProjectData {
   title: string
   titleId?: string
-  status: 'active' | 'completed' | 'prototype'
+  status: 'active' | 'completed' | 'prototype' | 'under-development'
   stream?: string
   streamName?: string
 }
@@ -111,6 +111,7 @@ function statusLabelEn(status: string): string {
     active: 'Active',
     completed: 'Completed',
     prototype: 'Prototype',
+    'under-development': 'Under Development',
   }
   return map[status] ?? status
 }
