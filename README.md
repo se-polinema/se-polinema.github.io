@@ -10,6 +10,7 @@ Set these repository secrets in GitHub Actions:
 
 - `OPENCODE_GO_API_KEY`: your OpenCode Go API key.
 - `GH_WORKFLOW_PAT`: a personal access token with `repo` (contents) and `pull_requests` write scopes, used by `update-publications.yml` and `opencode.yml` for checkout and PR creation.
+- `OPENCODE_ORG_TOKEN` (optional): a GitHub token with `read:org` scope, used by the `check-auth` job to verify organization membership. If not set, authorization falls back to `.github/opencode-allowlist.txt`.
 
 ### Optional Repository Variables
 
@@ -56,7 +57,12 @@ This enables an Agentic AI feedback loop where reviewers can refine the implemen
 
 ## Approval Rule
 
-Only public members of the `se-polinema` GitHub organization can trigger `/plan` and `/build`.
+Only authorized members can trigger `/plan` and `/build`. Authorization is checked in two ways:
+
+1. **Authenticated API check** — queries `https://api.github.com/orgs/se-polinema/members/{actor}` using `OPENCODE_ORG_TOKEN` (a token with `read:org` scope). If the token is not configured, this check is skipped.
+2. **Fallback allowlist** — checks `.github/opencode-allowlist.txt` in this repository. Add one GitHub username per line to grant access without requiring org membership visibility.
+
+If either check passes, the user is authorized.
 
 ## Workflow Notes
 

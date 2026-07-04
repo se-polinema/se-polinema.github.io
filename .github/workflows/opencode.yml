@@ -24,6 +24,7 @@ jobs:
       )
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       issues: read
       pull-requests: read
     outputs:
@@ -133,16 +134,39 @@ jobs:
 
       - name: Verify organization membership
         id: verify
+        env:
+          OPENCODE_ORG_TOKEN: ${{ secrets.OPENCODE_ORG_TOKEN }}
         run: |
           ACTOR="${{ github.actor }}"
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            "https://api.github.com/orgs/se-polinema/public_members/${ACTOR}")
-          if [ "${HTTP_CODE}" = "204" ]; then
-            echo "allowed=true" >> "$GITHUB_OUTPUT"
-            echo "User ${ACTOR} is a public member of se-polinema"
+          ALLOWED="false"
+
+          # Check 1: Authenticated org membership (if token is configured)
+          if [ -n "${OPENCODE_ORG_TOKEN}" ]; then
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+              -H "Authorization: Bearer ${OPENCODE_ORG_TOKEN}" \
+              "https://api.github.com/orgs/se-polinema/members/${ACTOR}")
+            if [ "${HTTP_CODE}" = "204" ]; then
+              ALLOWED="true"
+              echo "User ${ACTOR} confirmed as org member via authenticated API"
+            fi
+          fi
+
+          # Check 2: Fallback allowlist (if API didn't confirm membership)
+          if [ "${ALLOWED}" != "true" ]; then
+            ALLOWLIST_CONTENT=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
+              -H "Accept: application/vnd.github.v3.raw" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/.github/opencode-allowlist.txt" 2>/dev/null)
+            if echo "${ALLOWLIST_CONTENT}" | grep -qxF "${ACTOR}"; then
+              ALLOWED="true"
+              echo "User ${ACTOR} found in allowlist"
+            fi
+          fi
+
+          echo "allowed=${ALLOWED}" >> "$GITHUB_OUTPUT"
+          if [ "${ALLOWED}" = "true" ]; then
+            echo "Access granted for ${ACTOR}"
           else
-            echo "allowed=false" >> "$GITHUB_OUTPUT"
-            echo "User ${ACTOR} is NOT a public member of se-polinema (HTTP ${HTTP_CODE})"
+            echo "Access denied for ${ACTOR}"
           fi
 
   # ─────────────────────────────────────────────────────────────────────────────
