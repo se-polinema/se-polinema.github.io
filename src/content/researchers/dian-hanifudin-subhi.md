@@ -43,18 +43,23 @@ books:
   - title: "Git Tanpa Drama"
     coverImage: "/images/books/git-tanpa-drama.jpg"
     description: "A practical Indonesian-language guide that helps beginners use Git with confidence, from branching and merging to collaboration and everyday version-control workflows."
+    descriptionId: "Panduan praktis berbahasa Indonesia yang membantu pemula menggunakan Git dengan percaya diri, mulai dari branching dan merging hingga kolaborasi dan alur kerja version-control sehari-hari."
     playstoreUrl: "https://play.google.com/store/books/details/Dian_Hanifudin_Subhi_Usman_Nurhasan_Putra_Prima_Ar?id=c7TCEQAAQBAJ&hl=en"
   - title: "Pemrograman Mobile Menggunakan Flutter"
     url: "https://polinemapress21.com/produk/pemrograman-mobile-menggunakan-flutter/"
     coverImage: "https://polinemapress21.com/wp-content/uploads/2022/02/5465363642642.jpg"
     year: 2021
     isbn: "978-623-5711-02-7"
+    description: "Introduces mobile application development using Flutter as a creative medium for building consistent, modern apps across devices. Covers logic, interface design, and user experience with a conversational approach that makes mobile programming accessible to beginners and curious learners alike."
+    descriptionId: "Buku Pemrograman Mobile Menggunakan Flutter hadir untuk mengajak pembaca memahami bagaimana aplikasi mobile dibangun, dirancang, dan dihidupkan. Flutter diperkenalkan bukan sekadar sebagai alat, melainkan sebagai medium kreatif yang memungkinkan satu ide tumbuh menjadi aplikasi di berbagai perangkat dengan tampilan yang konsisten. Pembahasan mencakup logika, desain antarmuka, dan pengalaman pengguna dengan pendekatan yang membumi dan bahasa yang bersahabat."
   - title: "Laravel REST API"
     url: "https://polinemapress21.com/produk/laravel-rest-api/"
     coverImage: "https://polinemapress21.com/wp-content/uploads/2025/09/Laravel-REST-API.jpg"
     year: 2022
     publisher: "Polinema Press"
     isbn: "978-623-5711-79-9"
+    description: "A practical guide to building RESTful web services using Laravel, covering REST API concepts, project structure, authentication, authorization, Eloquent ORM data management, API documentation, testing, and best practices for building scalable, secure, and flexible API services."
+    descriptionId: "Buku Laravel REST API disusun sebagai panduan praktis bagi pembaca yang ingin memahami dan menguasai pembuatan layanan web berbasis RESTful API menggunakan framework Laravel. Membahas secara sistematis mulai dari pengenalan konsep REST API, dasar-dasar Laravel, struktur proyek, hingga implementasi endpoint yang aman dan efisien. Dilengkapi contoh kode, ilustrasi alur kerja, dan studi kasus sederhana."
 decks:
   - title: "Write with AI"
     url: "https://dhanifudin.com/write-with-ai/"
