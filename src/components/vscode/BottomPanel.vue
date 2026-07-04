@@ -71,35 +71,7 @@
           </p>
         </div>
 
-        <div class="flex flex-wrap gap-2 pt-1">
-          <a
-            href="https://jti.polinema.ac.id"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-mono text-primary font-medium transition-colors"
-            style="background: #F5A100;"
-          >
-            JTI Polinema ↗
-          </a>
-          <a
-            href="https://polinema.ac.id"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-mono text-white/70 hover:text-white transition-colors"
-            style="border: 1px solid rgba(255,255,255,0.15);"
-          >
-            Polinema ↗
-          </a>
-          <a
-            href="https://github.com/se-polinema"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-mono text-white/70 hover:text-white transition-colors"
-            style="border: 1px solid rgba(255,255,255,0.15);"
-          >
-            GitHub ↗
-          </a>
-        </div>
+
       </div>
 
       <!-- OUTPUT -->
@@ -164,75 +136,31 @@
       <!-- QUICK LINKS -->
       <div
         v-show="activePanelTab === 'quickLinks'"
-        class="p-5 space-y-4"
+        class="p-4"
         role="tabpanel"
         :id="`panel-body-quickLinks`"
         :aria-labelledby="`panel-tab-quickLinks`"
       >
-        <div>
-          <div class="font-mono text-[10px] tracking-[0.2em] text-white/25 mb-1">{ SE Lab }</div>
-          <p class="text-[11px] text-white/60 leading-relaxed max-w-md">
-            {{ t.footer.tagline }}
-          </p>
-        </div>
-
-        <div>
-          <h4 class="font-mono text-[10px] uppercase tracking-wider text-white/25 mb-2">{{ t.footer.links }}</h4>
-          <ul class="space-y-1">
-            <li><a href="/faq" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.faq }}</a></li>
-            <li><a href="/learning-paths" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.learningPaths?.label || 'Learning Paths' }}</a></li>
-            <li><a href="/alumni" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.alumni }}</a></li>
-            <li><a href="/books" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.books }}</a></li>
-            <li><a href="/#research" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.research }}</a></li>
-            <li><a href="/contact" class="text-[11px] text-white/50 hover:text-white transition-colors">{{ t.nav.contact }}</a></li>
-          </ul>
+        <h4 class="font-mono text-[10px] uppercase tracking-wider text-white/25 mb-2">{{ t.footer.links }}</h4>
+        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5">
+          <a href="/faq" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.faq }}</a>
+          <a href="/learning-paths" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.learningPaths?.label || 'Learning Paths' }}</a>
+          <a href="/alumni" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.alumni }}</a>
+          <a href="/books" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.books }}</a>
+          <a href="/#research" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.research }}</a>
+          <a href="/contact" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.contact }}</a>
         </div>
       </div>
 
       <!-- NEWSLETTER -->
       <div
         v-show="activePanelTab === 'newsletter'"
-        class="p-5 space-y-4"
+        class="p-4"
         role="tabpanel"
         :id="`panel-body-newsletter`"
         :aria-labelledby="`panel-tab-newsletter`"
       >
-        <div>
-          <div class="font-mono text-[10px] tracking-[0.2em] text-white/25 mb-1">{ SE Lab }</div>
-          <p class="text-[11px] text-white/60 leading-relaxed max-w-md">
-            {{ t.footer.tagline }}
-          </p>
-        </div>
-
-        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px;">
-          <NewsletterForm compact :showInterests="false" />
-        </div>
-      </div>
-
-      <!-- PROBLEMS -->
-      <div
-        v-show="activePanelTab === 'problems'"
-        class="p-5"
-        role="tabpanel"
-        :id="`panel-body-problems`"
-        :aria-labelledby="`panel-tab-problems`"
-      >
-        <p class="text-white/40 mb-4">{{ t.panel.problemsNone }}</p>
-        <div class="flex items-center gap-6 text-[11px]">
-          <span class="flex items-center gap-1.5 text-white/30">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            0 {{ t.panel.problemsErrors }}
-          </span>
-          <span class="flex items-center gap-1.5 text-white/30">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            0 {{ t.panel.problemsWarnings }}
-          </span>
-          <span class="flex items-center gap-1.5 text-white/30">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            0 {{ t.panel.problemsInfos }}
-          </span>
-        </div>
-        <p class="text-white/20 mt-6">// {{ t.panel.problemsVersion }}</p>
+        <NewsletterForm compact :showInterests="false" :minimal="true" />
       </div>
 
     </div>
@@ -262,12 +190,11 @@ const lastUpdated = ref<string | null>(null)
 const tabs = [
   { id: 'contact'    as const, get label() { return t.value.panel.contact    } },
   { id: 'output'     as const, get label() { return t.value.panel.output     } },
-  { id: 'problems'   as const, get label() { return t.value.panel.problems   } },
   { id: 'quickLinks' as const, get label() { return t.value.panel.quickLinks } },
   { id: 'newsletter' as const, get label() { return t.value.panel.newsletter } },
 ]
 
-const tabIds = ['contact', 'output', 'problems', 'quickLinks', 'newsletter'] as const
+const tabIds = ['contact', 'output', 'quickLinks', 'newsletter'] as const
 
 function onTabKeydown(event: KeyboardEvent, currentId: typeof tabIds[number]) {
   const idx = tabIds.indexOf(currentId)

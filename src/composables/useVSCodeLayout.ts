@@ -6,7 +6,7 @@ const sidebarOpen = ref(false)
 const activeSection = ref('hero')
 const currentPage = ref('home')
 const panelOpen = ref(false)
-const activePanelTab = ref<'contact' | 'output' | 'problems' | 'quickLinks' | 'newsletter'>('contact')
+const activePanelTab = ref<'contact' | 'output' | 'quickLinks' | 'newsletter'>('contact')
 const activeSidebarView = ref<SidebarView>('explorer')
 const layoutInitialized = ref(false)
 const activeFilters = reactive<{
@@ -64,7 +64,12 @@ export function useVSCodeLayout() {
     const savedPanelOpen = localStorage.getItem('se-lab-panel-open')
     if (savedPanelOpen !== null) panelOpen.value = savedPanelOpen === 'true'
     const savedPanelTab = localStorage.getItem('se-lab-panel-tab')
-    if (savedPanelTab) activePanelTab.value = savedPanelTab as 'contact' | 'output' | 'problems' | 'quickLinks' | 'newsletter'
+    if (savedPanelTab) {
+      const validTabs = ['contact', 'output', 'quickLinks', 'newsletter']
+      activePanelTab.value = validTabs.includes(savedPanelTab)
+        ? savedPanelTab as 'contact' | 'output' | 'quickLinks' | 'newsletter'
+        : 'contact'
+    }
   }
 
   function toggleSidebar() {
@@ -78,7 +83,7 @@ export function useVSCodeLayout() {
     }
   }
 
-  function openPanel(tab: 'contact' | 'output' | 'problems' | 'quickLinks' | 'newsletter') {
+  function openPanel(tab: 'contact' | 'output' | 'quickLinks' | 'newsletter') {
     activePanelTab.value = tab
     panelOpen.value = true
     if (typeof localStorage !== 'undefined') {

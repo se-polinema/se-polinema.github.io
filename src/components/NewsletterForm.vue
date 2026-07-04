@@ -15,7 +15,10 @@
       </template>
 
       <div v-if="state === 'success'" :class="compact ? 'text-white' : ''">
-        <div class="flex items-start gap-3 mb-4">
+        <div v-if="minimal">
+          <p class="text-xs text-green-300 font-mono">✓ {{ t.newsletter.successTitle }}</p>
+        </div>
+        <div v-else class="flex items-start gap-3 mb-4">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" :class="compact ? 'text-green-300' : 'text-green-600 dark:text-green-400'">
             <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 13.01 9 10.01"/>
           </svg>
@@ -33,14 +36,14 @@
         @submit.prevent="handleSubmit"
         :action="formspreeUrl"
         method="POST"
-        :class="compact ? 'space-y-2' : 'space-y-4'"
+        :class="minimal ? '' : (compact ? 'space-y-2' : 'space-y-4')"
       >
         <div v-if="errorMessage" :class="['px-3 py-2 text-xs font-mono', compact ? 'bg-red-900/30 border border-red-500/30 text-red-200' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400']">
           {{ errorMessage }}
         </div>
 
-        <div>
-          <label :for="emailId" class="block text-[10px] font-mono uppercase tracking-wider" :class="[compact ? 'text-white/50 mb-1' : 'text-neutral-400 dark:text-gray-500 mb-1.5']">
+        <div :class="minimal ? 'flex items-stretch gap-1' : ''">
+          <label v-if="!minimal" :for="emailId" class="block text-[10px] font-mono uppercase tracking-wider" :class="[compact ? 'text-white/50 mb-1' : 'text-neutral-400 dark:text-gray-500 mb-1.5']">
             {{ t.newsletter.emailLabel }} <span class="text-red-400" aria-hidden="true">*</span>
           </label>
           <input
@@ -52,17 +55,31 @@
             autocomplete="email"
             :placeholder="t.newsletter.emailPlaceholder"
             :class="[
-              'w-full text-sm font-mono border focus:outline-none focus:border-accent dark:focus:border-accent transition-colors',
-              compact
-                ? 'bg-white/10 border-white/20 text-white placeholder-white/40 px-2.5 py-1.5'
-                : 'bg-white dark:bg-gray-900 border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 px-3 py-2'
+              'text-xs font-mono border focus:outline-none focus:border-accent dark:focus:border-accent transition-colors',
+              minimal
+                ? 'flex-1 bg-white/10 border-white/20 text-white placeholder-white/40 px-2 py-1'
+                : compact
+                  ? 'w-full text-sm bg-white/10 border-white/20 text-white placeholder-white/40 px-2.5 py-1.5'
+                  : 'w-full text-sm bg-white dark:bg-gray-900 border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 px-3 py-2'
             ]"
           />
+
+          <button
+            v-if="minimal"
+            type="submit"
+            :disabled="submitting"
+            class="inline-flex items-center gap-1 font-mono font-semibold bg-white text-primary hover:bg-white/90 px-2.5 py-1 text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+          >
+            <svg v-if="submitting" class="animate-spin" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12a9 9 0 11-6.219-8.56"/>
+            </svg>
+            {{ submitting ? t.newsletter.subscribing : t.newsletter.subscribeBtn }}
+          </button>
         </div>
 
         <input type="hidden" name="_language" :value="lang" />
 
-        <template v-if="showInterests">
+        <template v-if="showInterests && !minimal">
           <fieldset>
             <legend class="block text-[10px] font-mono uppercase tracking-wider" :class="[compact ? 'text-white/50 mb-1' : 'text-neutral-400 dark:text-gray-500 mb-2']">
               {{ t.newsletter.interestsLabel }}
@@ -88,39 +105,41 @@
           </fieldset>
         </template>
 
-        <div :class="compact ? 'flex items-center gap-2' : 'flex items-center gap-3 pt-1'">
-          <button
-            type="submit"
-            :disabled="submitting"
-            :class="[
-              'inline-flex items-center gap-1.5 font-mono font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
-              compact
-                ? 'bg-white text-primary hover:bg-white/90 px-3.5 py-1.5 text-xs'
-                : 'text-white bg-accent hover:bg-accent/90 px-5 py-2.5 text-sm'
-            ]"
-          >
-            <svg v-if="submitting" class="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12a9 9 0 11-6.219-8.56"/>
-            </svg>
-            {{ submitting ? t.newsletter.subscribing : t.newsletter.subscribeBtn }}
-          </button>
+        <template v-if="!minimal">
+          <div :class="compact ? 'flex items-center gap-2' : 'flex items-center gap-3 pt-1'">
+            <button
+              type="submit"
+              :disabled="submitting"
+              :class="[
+                'inline-flex items-center gap-1.5 font-mono font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+                compact
+                  ? 'bg-white text-primary hover:bg-white/90 px-3.5 py-1.5 text-xs'
+                  : 'text-white bg-accent hover:bg-accent/90 px-5 py-2.5 text-sm'
+              ]"
+            >
+              <svg v-if="submitting" class="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12a9 9 0 11-6.219-8.56"/>
+              </svg>
+              {{ submitting ? t.newsletter.subscribing : t.newsletter.subscribeBtn }}
+            </button>
 
-          <a
-            v-if="compact"
-            href="/newsletter"
-            class="text-[11px] font-mono text-white/50 hover:text-white/80 transition-colors underline"
-          >
-            {{ t.newsletter.pageHeading }}
-          </a>
-        </div>
+            <a
+              v-if="compact"
+              href="/newsletter"
+              class="text-[11px] font-mono text-white/50 hover:text-white/80 transition-colors underline"
+            >
+              {{ t.newsletter.pageHeading }}
+            </a>
+          </div>
 
-        <p class="text-[10px] leading-relaxed" :class="compact ? 'text-white/40' : 'text-neutral-400 dark:text-gray-500'">
-          {{ t.newsletter.privacyNote }}
-          <a
-            href="/privacy"
-            class="underline underline-offset-2 hover:text-accent dark:hover:text-yellow-300 transition-colors"
-          >{{ t.privacy.navLabel }}</a>
-        </p>
+          <p class="text-[10px] leading-relaxed" :class="compact ? 'text-white/40' : 'text-neutral-400 dark:text-gray-500'">
+            {{ t.newsletter.privacyNote }}
+            <a
+              href="/privacy"
+              class="underline underline-offset-2 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+            >{{ t.privacy.navLabel }}</a>
+          </p>
+        </template>
       </form>
     </div>
   </section>
@@ -132,10 +151,12 @@ import { useI18n } from '../composables/useI18n'
 
 const props = withDefaults(defineProps<{
   compact?: boolean
+  minimal?: boolean
   showInterests?: boolean
   formspreeUrl?: string
 }>(), {
   compact: false,
+  minimal: false,
   showInterests: true,
   formspreeUrl: '',
 })
