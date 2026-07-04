@@ -12,5 +12,5 @@ researchers:
 stream: "domain-specific-se-applications"
 demoUrl: "https://poline.ma"
 repo: "jti-polinema/Polinema-SnapLink"
-featured: false
+featured: true
 ---
