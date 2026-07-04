@@ -204,7 +204,6 @@
   "panel": {
     "contact": "Contact",
     "output": "Output",
-    "problems": "Problems",
     "outputInit": "Initializing workspace analysis...",
     "outputResearchers": "Researchers detected:",
     "outputFocusAreas": "Research focus areas:",
@@ -216,11 +215,6 @@
     "outputReady": "Workspace ready.",
     "outputLastUpdated": "Publications last synced:",
     "outputNever": "never",
-    "problemsNone": "No problems have been detected in the workspace.",
-    "problemsErrors": "Errors",
-    "problemsWarnings": "Warnings",
-    "problemsInfos": "Infos",
-    "problemsVersion": "All systems operational",
     "footer": "Footer",
     "quickLinks": "Quick Links",
     "newsletter": "Newsletter"

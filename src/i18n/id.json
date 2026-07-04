@@ -204,7 +204,6 @@
   "panel": {
     "contact": "Kontak",
     "output": "Output",
-    "problems": "Masalah",
     "outputInit": "Menginisialisasi analisis workspace...",
     "outputResearchers": "Peneliti terdeteksi:",
     "outputFocusAreas": "Bidang fokus riset:",
@@ -216,11 +215,6 @@
     "outputReady": "Workspace siap.",
     "outputLastUpdated": "Sinkronisasi publikasi terakhir:",
     "outputNever": "belum pernah",
-    "problemsNone": "Tidak ada masalah yang terdeteksi di workspace.",
-    "problemsErrors": "Kesalahan",
-    "problemsWarnings": "Peringatan",
-    "problemsInfos": "Informasi",
-    "problemsVersion": "Semua sistem berjalan normal",
     "footer": "Footer",
     "quickLinks": "Tautan Cepat",
     "newsletter": "Buletin"
