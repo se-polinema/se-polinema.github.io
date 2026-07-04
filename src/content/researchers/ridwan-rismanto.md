@@ -41,9 +41,13 @@ books:
     coverImage: "https://polinemapress21.com/wp-content/uploads/2026/02/Screenshot-2026-02-13-092216.jpg"
     year: 2020
     isbn: "978-623-7408-91-8"
+    description: "A hands-on guide to data structures covering classes, objects, arrays, searching and sorting algorithms, stacks, queues, linked lists, binary trees, binary search trees, and graphs. Uses a step-by-step approach with exercises that build logical thinking, structured reasoning, and analytical depth."
+    descriptionId: "Struktur data bukan sekadar istilah teknis dalam dunia komputasi. Ia adalah cara berpikir. Buku Penuntun Praktikum Struktur Data hadir sebagai sahabat belajar yang mengajak pembaca menelusuri fondasi penting dalam pemrograman dengan alur yang runtut, jernih, dan membumi. Pembahasan dimulai dari class dan objek, pengelolaan array, pencarian dan pengurutan (sequential search, bubble sort, selection sort, insertion sort, merge sort), stack dan queue, linked list, binary tree, binary search tree, hingga graph."
   - title: "Animasi Blender: Sebuah Pengantar"
     url: "https://polinemapress21.com/produk/animasi-blender-sebuah-pengantar/"
     coverImage: "https://polinemapress21.com/wp-content/uploads/2026/01/Screenshot-2026-01-26-102917.png"
     year: 2019
     isbn: "978-623-7408-74-1"
+    description: "An inviting introduction to 3D animation using Blender, starting from workspace orientation through practical projects: modeling a simple cart, a teddy bear character, a dancing can, and a traffic light scene. Uses storytelling to teach form, texture, and motion with an intuitive, creative approach suitable for readers of all backgrounds."
+    descriptionId: "Buku Animasi Blender: Sebuah Pengantar mengajak pembaca masuk ke dunia animasi 3D dengan cara yang bersahabat. Pembahasan dimulai dari perkenalan Blender, kemudian berkembang melalui objek yang dekat dengan keseharian—sebuah gerobak sederhana, karakter boneka teddy, kaleng joget, hingga lampu lalu lintas. Konsep modeling, tekstur, dan animasi dirangkai sebagai satu kesatuan proses kreatif, bukan potongan teori yang terpisah."
 ---

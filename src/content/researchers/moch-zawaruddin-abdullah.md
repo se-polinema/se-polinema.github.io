@@ -53,9 +53,13 @@ books:
     year: 2023
     publisher: "Polinema Press"
     isbn: "978-623-8452-08-8"
+    description: "A comprehensive guide to building modern e-learning applications using Laravel, covering system architecture, database management, user authentication, learning content management, and interactive features such as discussion forums, quizzes, and learning progress reports. Uses a practice-based approach with case examples and code snippets."
+    descriptionId: "Buku ini menyajikan panduan komprehensif dalam membangun aplikasi e-learning modern dengan memanfaatkan framework PHP populer, Laravel. Materi yang disajikan mencakup konsep dasar e-learning, perancangan arsitektur sistem, manajemen basis data, autentikasi pengguna, pengelolaan konten pembelajaran, hingga implementasi fitur interaktif seperti forum diskusi, kuis, dan laporan kemajuan belajar."
   - title: "Pemrograman Web Lanjut (Laravel 10)"
     url: "https://polinemapress21.com/produk/pemrograman-web-lanjut-laravel-10/"
     coverImage: "https://polinemapress21.com/wp-content/uploads/2024/11/image-3.png"
     publisher: "Polinema Press"
     isbn: "978-634-7040-51-0"
+    description: "A comprehensive guide for advanced web development using Laravel 10, covering routing, middleware, Eloquent ORM, authentication, and RESTful API project management. Includes case studies, exercises, and code examples focused on best practices and production efficiency."
+    descriptionId: "Buku ini adalah panduan komprehensif bagi mereka yang ingin memperdalam pemahaman tentang pengembangan web modern menggunakan framework PHP yang populer, Laravel versi 10. Pembaca akan mempelajari routing, middleware, Eloquent ORM, autentikasi, serta manajemen proyek berbasis RESTful API. Dilengkapi dengan studi kasus, latihan, dan contoh kode yang menekankan praktik terbaik dan efisiensi kerja."
 ---
