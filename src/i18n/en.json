@@ -473,7 +473,11 @@
     "noTags": "No tags yet",
     "tagPostCount": "{count} post | {count} posts",
     "tagArchiveHeading": "Posts tagged \"{tag}\"",
-    "tagArchiveDescription": "All posts tagged with \"{tag}\" from the Software Engineering Laboratory."
+    "tagArchiveDescription": "All posts tagged with \"{tag}\" from the Software Engineering Laboratory.",
+    "lastUpdated": "Last updated {date}",
+    "reviewed": "Reviewed {date}",
+    "outdatedWarning": "May be outdated",
+    "publishedDate": "Published {date}"
   },
   "notFound": {
     "heading": "Page Not Found",

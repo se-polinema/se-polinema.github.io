@@ -2,6 +2,7 @@
 title: "Software Engineering for EdTech: Building an LMS with PHP"
 titleId: "Rekayasa Perangkat Lunak untuk EdTech: Membangun LMS dengan PHP"
 date: 2026-07-03
+updated: 2026-07-03
 category: tutorial
 author: SE Lab
 lang: en

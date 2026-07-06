@@ -2,6 +2,7 @@
 title: "UML Mini Series Part 5 — Class Diagram & Laravel Realization"
 titleId: "Seri Mini UML Bagian 5 — Class Diagram & Realisasi Laravel"
 date: 2026-06-30
+updated: 2026-06-30
 category: tutorial
 author: SE Lab
 lang: en

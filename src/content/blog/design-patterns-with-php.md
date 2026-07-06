@@ -2,6 +2,7 @@
 title: "Design Patterns with PHP"
 titleId: "Design Patterns dengan PHP"
 date: 2026-06-29
+updated: 2026-06-29
 category: tutorial
 author: SE Lab
 lang: en

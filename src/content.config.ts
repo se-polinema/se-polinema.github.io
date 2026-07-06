@@ -32,6 +32,9 @@ const blogCollection = defineCollection({
     managed: z.boolean().default(false),
     tags: z.array(z.string()).optional(),
     tagsId: z.array(z.string()).optional(),
+    updated: z.date().optional(),
+    reviewed: z.date().optional(),
+    outdated: z.boolean().optional(),
   }),
 })
 

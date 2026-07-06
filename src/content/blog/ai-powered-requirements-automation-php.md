@@ -2,6 +2,7 @@
 title: "AI-Powered Requirements Automation with PHP"
 titleId: "Otomatisasi Kebutuhan Perangkat Lunak Berbasis AI dengan PHP"
 date: 2026-07-04
+updated: 2026-07-04
 category: tutorial
 author: SE Lab
 lang: en

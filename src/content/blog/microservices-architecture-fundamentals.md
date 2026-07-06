@@ -2,6 +2,7 @@
 title: "Microservices Architecture Fundamentals with PHP"
 titleId: "Dasar-Dasar Arsitektur Microservices dengan PHP"
 date: 2026-06-28
+updated: 2026-06-28
 category: tutorial
 author: SE Lab
 lang: en

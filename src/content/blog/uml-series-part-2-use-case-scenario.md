@@ -2,6 +2,7 @@
 title: "UML Mini Series Part 2 — Use Case Scenario"
 titleId: "Seri Mini UML Bagian 2 — Use Case Scenario"
 date: 2026-06-30
+updated: 2026-06-30
 category: tutorial
 author: SE Lab
 lang: en

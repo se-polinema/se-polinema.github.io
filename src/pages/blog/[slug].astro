@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props
-const { title, titleId, date, category, author, tags, tagsId } = post.data
+const { title, titleId, date, category, author, tags, tagsId, updated, reviewed, outdated } = post.data
 const { Content } = await render(post)
 
 const bodyText = post.body ?? ''
@@ -52,7 +52,9 @@ const blogPostingJsonLd = {
     url: origin,
   },
   datePublished: date.toISOString().split('T')[0],
-  dateModified: date.toISOString().split('T')[0],
+  dateModified: updated
+    ? (updated instanceof Date ? updated.toISOString().split('T')[0] : new Date(updated).toISOString().split('T')[0])
+    : date.toISOString().split('T')[0],
   url: postUrl,
   image: imageUrl,
   description: post.data.excerpt ?? undefined,
@@ -158,6 +160,9 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
         readingTime={readingTime}
         tags={tags}
         tagsId={tagsId}
+        updated={updated}
+        reviewed={reviewed}
+        outdated={outdated}
         matchedResearcher={matchedResearcher
           ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo }
           : undefined}
