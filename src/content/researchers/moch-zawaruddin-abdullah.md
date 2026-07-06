@@ -37,8 +37,10 @@ streams:
   - "emerging-technologies-se"
 projects:
   - name: "Polinema SnapLink"
+    nameId: "Polinema SnapLink"
     repo: "jti-polinema/Polinema-SnapLink"
     description: "Official Polinema URL shortener service using the poline.ma domain — helps students, lecturers, and staff share links more concisely and professionally across the campus digital ecosystem."
+    descriptionId: "Layanan pemendek URL resmi Polinema menggunakan domain poline.ma — membantu mahasiswa, dosen, dan tenaga kependidikan membagikan tautan secara lebih ringkas dan profesional di ekosistem digital kampus."
 books:
   - title: "Konsep Teknologi Informasi"
     url: "https://polinemapress21.com/produk/konsep-teknologi-informasi/"
