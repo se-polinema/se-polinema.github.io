@@ -118,7 +118,16 @@
     "source": "Source Code",
     "images": "Screenshots",
     "viewOnGithub": "View on GitHub",
-    "noStream": "No stream assigned"
+    "noStream": "No stream assigned",
+    "promoVideo": "Promotional Video",
+    "videoComingSoon": "Video coming soon",
+    "videoPlaceholder": "Promotional video placeholder",
+    "noScreenshot": "No screenshot available",
+    "projectStatus": "Project Status",
+    "privateRepo": "Private Repository",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "imageCount": "of"
   },
   "books": {
     "label": "Books",

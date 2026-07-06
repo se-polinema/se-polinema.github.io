@@ -15,6 +15,7 @@ export interface MemberProject {
   images?: string[]
   contributors?: string[]
   demoUrl?: string
+  videoUrl?: string
   featured?: boolean
   private?: boolean
 }
@@ -137,6 +138,7 @@ export async function getCollectionProjects(): Promise<MemberProject[]> {
         images: p.data.images,
         contributors: p.data.contributors,
         demoUrl: p.data.demoUrl,
+        videoUrl: p.data.videoUrl,
         featured: p.data.featured,
         private: p.data.private,
       }
