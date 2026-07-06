@@ -2,6 +2,7 @@
 title: "Software Engineering for Healthcare: Patient Registration System with PHP"
 titleId: "Rekayasa Perangkat Lunak untuk Kesehatan: Sistem Pendaftaran Pasien dengan PHP"
 date: 2026-07-06
+updated: 2026-07-06
 category: tutorial
 author: SE Lab
 lang: en

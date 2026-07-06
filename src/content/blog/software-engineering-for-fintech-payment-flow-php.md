@@ -2,6 +2,7 @@
 title: "Software Engineering for Fintech: Secure Payment Flow with PHP"
 titleId: "Rekayasa Perangkat Lunak untuk Fintech: Alur Pembayaran Aman dengan PHP"
 date: 2026-07-06
+updated: 2026-07-06
 category: tutorial
 author: SE Lab
 lang: en

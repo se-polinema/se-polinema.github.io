@@ -2,6 +2,7 @@
 title: "Bug Prediction with PHP: From Metrics to Models"
 titleId: "Prediksi Bug dengan PHP: Dari Metrik ke Model"
 date: 2026-07-04
+updated: 2026-07-04
 category: tutorial
 author: SE Lab
 lang: en

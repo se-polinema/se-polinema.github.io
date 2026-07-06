@@ -2,6 +2,7 @@
 title: "LLM-Assisted Documentation Automation for PHP Projects"
 titleId: "Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP"
 date: 2026-07-04
+updated: 2026-07-04
 category: tutorial
 author: SE Lab
 lang: en

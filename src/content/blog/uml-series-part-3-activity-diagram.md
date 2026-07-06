@@ -2,6 +2,7 @@
 title: "UML Mini Series Part 3 — Activity Diagram"
 titleId: "Seri Mini UML Bagian 3 — Activity Diagram"
 date: 2026-06-30
+updated: 2026-06-30
 category: tutorial
 author: SE Lab
 lang: en

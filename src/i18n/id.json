@@ -473,7 +473,11 @@
     "noTags": "Belum ada tag",
     "tagPostCount": "{count} postingan",
     "tagArchiveHeading": "Postingan dengan tag \"{tag}\"",
-    "tagArchiveDescription": "Semua postingan dengan tag \"{tag}\" dari Software Engineering Laboratory."
+    "tagArchiveDescription": "Semua postingan dengan tag \"{tag}\" dari Software Engineering Laboratory.",
+    "lastUpdated": "Terakhir diperbarui {date}",
+    "reviewed": "Ditinjau {date}",
+    "outdatedWarning": "Mungkin kedaluwarsa",
+    "publishedDate": "Diterbitkan {date}"
   },
   "notFound": {
     "heading": "Halaman Tidak Ditemukan",

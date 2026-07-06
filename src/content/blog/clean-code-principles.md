@@ -2,6 +2,7 @@
 title: "Clean Code Principles with PHP"
 titleId: "Prinsip Clean Code dengan PHP"
 date: 2026-06-28
+updated: 2026-06-28
 category: tutorial
 author: SE Lab
 lang: en

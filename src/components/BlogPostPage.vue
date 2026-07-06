@@ -1,8 +1,6 @@
 <template>
-  <!-- Title — no class so .editor-body h1::before adds the # prefix -->
   <h1>{{ displayTitle }}</h1>
 
-  <!-- Subtle metadata line, styled like a markdown italic comment -->
   <p class="font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 mt-1 mb-2 italic">
     {{ displayDate }} &middot; <a :href="`/blog/category/${category}`" class="text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 transition-colors no-underline hover:underline">{{ category }}</a> &middot; {{ readingTimeLabel }}
   </p>
@@ -28,6 +26,9 @@
       <span>{{ props.author }}</span>
     </template>
   </p>
+  <p v-if="freshnessText" class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] mb-2">
+    <span :class="freshnessBadgeClass">{{ freshnessText }}</span>
+  </p>
   <p v-if="displayTags.length > 0" class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-neutral-400 dark:text-gray-500 mb-6">
     <span>{{ t.blog.tags }}:</span>
     <a
@@ -43,6 +44,8 @@
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 
+const STALE_THRESHOLD_MS = 18 * 30.44 * 24 * 60 * 60 * 1000
+
 const props = defineProps<{
   title: string
   titleId?: string
@@ -53,6 +56,9 @@ const props = defineProps<{
   matchedResearcher?: { id: string; name: string; photo: string }
   tags?: string[]
   tagsId?: string[]
+  updated?: Date | string
+  reviewed?: Date | string
+  outdated?: boolean
 }>()
 
 const { lang, t } = useI18n()
@@ -78,13 +84,48 @@ function slugify(value: string): string {
   return value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 }
 
-const displayDate = computed(() => {
-  const d = props.date instanceof Date ? props.date : new Date(props.date as string)
+function formatDate(d: Date | string): string {
+  const date = d instanceof Date ? d : new Date(d as string)
   return new Intl.DateTimeFormat(lang.value === 'id' ? 'id-ID' : 'en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-  }).format(d)
+  }).format(date)
+}
+
+const displayDate = computed(() => formatDate(props.date))
+
+const effectiveDate = computed(() =>
+  props.updated ? (props.updated instanceof Date ? props.updated : new Date(props.updated as string))
+    : props.reviewed ? (props.reviewed instanceof Date ? props.reviewed : new Date(props.reviewed as string))
+    : props.date instanceof Date ? props.date : new Date(props.date as string)
+)
+
+const isStale = computed(() => {
+  if (props.outdated) return true
+  const baseDate = effectiveDate.value
+  const now = new Date()
+  return (now.getTime() - baseDate.getTime()) > STALE_THRESHOLD_MS
+})
+
+const freshnessText = computed(() => {
+  if (props.updated) {
+    return t.value.blog.lastUpdated.replace('{date}', formatDate(props.updated!))
+  }
+  if (props.reviewed) {
+    return t.value.blog.reviewed.replace('{date}', formatDate(props.reviewed!))
+  }
+  if (isStale.value) {
+    return t.value.blog.outdatedWarning
+  }
+  return ''
+})
+
+const freshnessBadgeClass = computed(() => {
+  if (props.updated) return 'inline-block px-2 py-0.5 rounded text-green-700 dark:text-green-400'
+  if (props.reviewed) return 'inline-block px-2 py-0.5 rounded text-blue-700 dark:text-blue-400'
+  if (isStale.value) return 'inline-block px-2 py-0.5 rounded border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-400'
+  return 'hidden'
 })
 
 const readingTimeLabel = computed(() => {

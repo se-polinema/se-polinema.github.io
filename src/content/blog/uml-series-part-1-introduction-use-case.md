@@ -2,6 +2,7 @@
 title: "UML Mini Series Part 1 — Introduction to UML & Use Case Diagram"
 titleId: "Seri Mini UML Bagian 1 — Pengenalan UML & Use Case Diagram"
 date: 2026-06-30
+updated: 2026-06-30
 category: tutorial
 author: SE Lab
 lang: en

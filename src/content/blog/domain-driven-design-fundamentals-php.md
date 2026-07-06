@@ -2,6 +2,7 @@
 title: "Domain-Driven Design Fundamentals with PHP"
 titleId: "Dasar-Dasar Domain-Driven Design dengan PHP"
 date: 2026-07-03
+updated: 2026-07-03
 category: tutorial
 author: SE Lab
 lang: en

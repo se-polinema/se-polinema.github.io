@@ -2,6 +2,7 @@
 title: "Blackbox and Whitebox Test in Simple Way"
 titleId: "Cara Sederhana Melakukan Pengujian Blackbox dan Whitebox"
 date: 2026-06-24
+updated: 2026-06-24
 category: tutorial
 author: Dian Hanifudin Subhi
 lang: en
