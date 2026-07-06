@@ -1,0 +1,22 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import BookDetailPage from '../../components/BookDetailPage.vue'
+import { getMemberBooks } from '../../lib/memberWorks'
+
+export async function getStaticPaths() {
+  const books = await getMemberBooks()
+  return books
+    .filter((b) => b.slug)
+    .map((book) => ({
+      params: { slug: book.slug! },
+      props: { book },
+    }))
+}
+
+const { book } = Astro.props
+const desc = book.description ?? ''
+---
+
+<VSCodeLayout title={`${book.title} — SE Lab Books`} description={desc} type="article">
+  <BookDetailPage client:load book={book} />
+</VSCodeLayout>

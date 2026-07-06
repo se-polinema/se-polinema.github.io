@@ -132,7 +132,17 @@
     "allMembers": "All Members",
     "resultSingle": "book",
     "resultPlural": "books",
-    "viewBookSite": "View book site"
+    "viewBookSite": "View book site",
+    "backToBooks": "Back to Books",
+    "publishedBy": "Published by",
+    "yearPublished": "Year",
+    "isbnLabel": "ISBN",
+    "descriptionLabel": "Description",
+    "authorsLabel": "Authors",
+    "buyOnPlayStore": "Buy on Google Play Books",
+    "saveForLater": "Save for later",
+    "savedForLater": "Saved for later",
+    "noDescriptionAvailable": "No description available."
   },
   "decks": {
     "label": "Decks",

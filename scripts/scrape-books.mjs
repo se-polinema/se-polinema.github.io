@@ -134,10 +134,19 @@ function cleanHtmlText(text) {
     .trim()
 }
 
+function extractGooglePlayDescription(html) {
+  const aboutMatch = html.match(/About this ebook[\s\S]*?<div[^>]*>(?:<div[^>]*>)*([\s\S]*?)<\/div>/i)
+    ?? html.match(/About this ebook[\s\S]*?<span[^>]*>([\s\S]*?)<\/span>/i)
+  if (aboutMatch) return cleanHtmlText(aboutMatch[1])
+  const metaDesc = html.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i)
+  return metaDesc ? cleanHtmlText(metaDesc[1]) : ''
+}
+
 function extractFromDetail(html) {
-  const titleMatch = html.match(/<h1[^>]*class="product_title[^"]*"[^>]*>([^<]+)<\/h1>/)
+  const titleMatch = html.match(/<h1[^>]*class="(?:[^"]*\s)?post-title[^"]*"[^>]*>([^<]+)<\/h1>/)
+    ?? html.match(/<h1[^>]*class="product_title[^"]*"[^>]*>([^<]+)<\/h1>/)
     ?? html.match(/<title>([^<]+)/)
-  const title = titleMatch?.[1].replace(/ &#8211; .*$/, '').trim() ?? ''
+  const title = titleMatch?.[1].replace(/ &#8211; .*$/, '').replace(/\s*[-–]\s*POLINEMA PRESS.*$/i, '').trim() ?? ''
 
   const penulisMatch = html.match(/Penulis\s*:\s*([^<\n]+)/)
   const authors = penulisMatch
@@ -153,9 +162,18 @@ function extractFromDetail(html) {
   const yearMatch = html.match(/Tahun\s*Terbit\s*:\s*(\d{4})/)
   const year = yearMatch ? parseInt(yearMatch[1], 10) : undefined
 
-  const descMatch = html.match(/<div[^>]*class="woocommerce-product-details__short-description"[^>]*>\s*<p>([^<]+)/)
+  const articleDescMatch = html.match(/<div[^>]*class="(?:[^"]*\s)?entry[^"]*themeform[^"]*"[^>]*>[\s\S]*?<p[^>]*class="(?:[^"]*\s)?wp-block-paragraph[^"]*"[^>]*>([\s\S]*?)<\/p>/)
+    ?? html.match(/<div[^>]*class="(?:[^"]*\s)?entry[^"]*"[^>]*>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/)
+
+  const tabDescMatch = html.match(/<div[^>]*id="tab-description"[^>]*>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/)
     ?? html.match(/class="woocommerce-Tabs-panel[^"]*"[^>]*>\s*<h2>Deskripsi<\/h2>\s*<p>([\s\S]*?)<\/p>/)
-  const description = cleanHtmlText(descMatch?.[1] ?? '')
+
+  const shortDescMatch = html.match(/<div[^>]*class="woocommerce-product-details__short-description"[^>]*>\s*<p>([^<]+)/)
+
+  const playDesc = extractGooglePlayDescription(html)
+
+  const descText = articleDescMatch?.[1] ?? tabDescMatch?.[1] ?? shortDescMatch?.[1] ?? playDesc ?? ''
+  const description = cleanHtmlText(descText)
 
   return { title: cleanHtmlText(title), authors, isbn, publisher, year, description, coverImageUrl: '' }
 }
@@ -178,9 +196,13 @@ function extractMarkdownTitle(markdown) {
 
 function extractMarkdownDescription(markdown) {
   const match = markdown.match(/^##\s+Deskripsi\s*$([\s\S]*?)(?=^##\s+|^\*?\s*Related products|^###\s+|$)/im)
-  if (!match) return ''
+  if (match) return cleanMarkdownText(match[1])
 
-  return cleanMarkdownText(match[1])
+  const aboutMatch = markdown.match(/^#+\s*About this ebook\s*$([\s\S]*?)(?=^#+\s|^$)/im)
+    ?? markdown.match(/^About this ebook\s*$([\s\S]*?)(?=^[A-Z][a-z]+\s*$|^#+\s|$)/im)
+  if (aboutMatch) return cleanMarkdownText(aboutMatch[1])
+
+  return ''
 }
 
 function escapeRegex(text) {

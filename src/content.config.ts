@@ -67,6 +67,7 @@ const researchersCollection = defineCollection({
     books: z.array(z.object({
       title: z.string(),
       titleId: z.string().optional(),
+      slug: z.string().optional(),
       url: z.url().optional(),
       playstoreUrl: z.url().optional(),
       coverImage: z.string().optional(),
