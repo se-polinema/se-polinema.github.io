@@ -122,6 +122,7 @@ const projectsCollection = defineCollection({
     demoUrl: z.string().optional(),
     repo: z.string(),
     featured: z.boolean().default(false),
+    private: z.boolean().default(false),
   }),
 })
 

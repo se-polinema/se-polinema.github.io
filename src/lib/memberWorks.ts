@@ -16,6 +16,7 @@ export interface MemberProject {
   contributors?: string[]
   demoUrl?: string
   featured?: boolean
+  private?: boolean
 }
 
 export interface MemberBook {
@@ -124,6 +125,7 @@ export async function getCollectionProjects(): Promise<MemberProject[]> {
         contributors: p.data.contributors,
         demoUrl: p.data.demoUrl,
         featured: p.data.featured,
+        private: p.data.private,
       }
     })
     .sort((a, b) => (a.name ?? a.repo).localeCompare(b.name ?? b.repo))
