@@ -7,11 +7,13 @@ status: "active"
 techStack:
   - "Laravel"
   - "Blade"
-  - "MySQL"
+  - "MariaDB"
   - "AdminLTE 3"
   - "Laravel Storage"
   - "Google OAuth"
   - "Python"
+  - Docker Container
+  - Redis  
 images:
   - "/images/projects/SIM-TA.png"
 contributors: []
