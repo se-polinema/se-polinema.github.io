@@ -32,43 +32,34 @@
         <li
           v-for="book in filtered"
           :key="book.title"
-          class="border border-primary/10 dark:border-gray-600 bg-white dark:bg-gray-800 p-5 flex flex-col gap-3 hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
+          class="border border-primary/10 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
         >
-          <div
-            v-if="book.coverImage"
-            class="w-full aspect-[3/4] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/5 dark:border-gray-600 -mx-5 -mt-5 mb-1"
-            style="width: calc(100% + 2.5rem);"
+          <a
+            :href="`/books/${book.slug}`"
+            class="flex gap-4 p-4"
           >
-            <img
-              :src="book.coverImage"
-              :alt="`Cover of ${book.title}`"
-              class="w-full h-full object-cover object-center"
-              loading="lazy"
-            />
-          </div>
-          <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">
-            {{ lang === 'id' && book.titleId ? book.titleId : book.title }}
-          </div>
-          <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed flex-1">
-            {{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}
-          </p>
-          <div v-if="book.url" class="mt-1">
-            <a
-              :href="book.url"
-              target="_blank"
-              rel="noopener"
-              class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
-            >{{ t.books.viewBookSite }} ↗</a>
-          </div>
-          <div v-if="book.playstoreUrl" class="mt-1">
-            <a
-              :href="book.playstoreUrl"
-              target="_blank"
-              rel="noopener"
-              class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
-            >Buy on Google Play Books →</a>
-          </div>
-          <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5 dark:border-gray-600 flex-wrap">
+            <div
+              v-if="book.coverImage"
+              class="w-24 sm:w-28 flex-shrink-0 bg-neutral-100 dark:bg-gray-700 border border-primary/5 dark:border-gray-600 overflow-hidden"
+            >
+              <img
+                :src="book.coverImage"
+                :alt="`Cover of ${book.title}`"
+                class="w-full h-auto object-contain"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex flex-col gap-2 min-w-0 flex-1">
+              <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug line-clamp-2">
+                {{ lang === 'id' && book.titleId ? book.titleId : book.title }}
+              </div>
+              <p v-if="book.year" class="text-[12px] text-neutral-400 dark:text-gray-500 font-mono">{{ book.year }}</p>
+              <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed line-clamp-3">
+                {{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}
+              </p>
+            </div>
+          </a>
+          <div class="flex items-center gap-1.5 px-4 pb-3 pt-1 border-t border-primary/5 dark:border-gray-600 flex-wrap">
             <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.books.by }}</span>
             <template v-for="(author, idx) in book.authors" :key="author.id">
               <a
@@ -99,6 +90,7 @@ import { useI18n } from '../composables/useI18n'
 interface MemberBook {
   title: string
   titleId?: string
+  slug?: string
   url?: string
   playstoreUrl?: string
   coverImage?: string

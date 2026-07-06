@@ -132,7 +132,17 @@
     "allMembers": "Semua Anggota",
     "resultSingle": "buku",
     "resultPlural": "buku",
-    "viewBookSite": "Lihat situs buku"
+    "viewBookSite": "Lihat situs buku",
+    "backToBooks": "Kembali ke Buku",
+    "publishedBy": "Diterbitkan oleh",
+    "yearPublished": "Tahun",
+    "isbnLabel": "ISBN",
+    "descriptionLabel": "Deskripsi",
+    "authorsLabel": "Penulis",
+    "buyOnPlayStore": "Beli di Google Play Books",
+    "saveForLater": "Simpan untuk nanti",
+    "savedForLater": "Tersimpan",
+    "noDescriptionAvailable": "Deskripsi tidak tersedia."
   },
   "decks": {
     "label": "Dek",

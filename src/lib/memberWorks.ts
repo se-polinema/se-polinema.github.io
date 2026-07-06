@@ -21,6 +21,7 @@ export interface MemberProject {
 export interface MemberBook {
   title: string
   titleId?: string
+  slug?: string
   url?: string
   playstoreUrl?: string
   coverImage?: string
@@ -30,6 +31,17 @@ export interface MemberBook {
   publisher?: string
   isbn?: string
   authors: { id: string; name: string }[]
+  researcherId?: string
+  researcherName?: string
+}
+
+function slugify(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
 }
 
 export async function getMemberProjects(): Promise<MemberProject[]> {
@@ -50,6 +62,7 @@ export async function getMemberBooks(): Promise<MemberBook[]> {
   const entries = researchers.flatMap((r) =>
     (r.data.books ?? []).map((b) => ({
       ...b,
+      slug: b.slug ?? slugify(b.title),
       researcherId: r.id,
       researcherName: r.data.name,
     })),
@@ -57,7 +70,7 @@ export async function getMemberBooks(): Promise<MemberBook[]> {
 
   const map = new Map<string, MemberBook>()
   for (const e of entries) {
-    const key = e.title.toLowerCase()
+    const key = slugify(e.title)
     if (map.has(key)) {
       map.get(key)!.authors.push({ id: e.researcherId, name: e.researcherName })
     } else {
