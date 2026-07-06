@@ -12,15 +12,21 @@ techStack:
   - "Laravel Storage"
   - "Google OAuth"
   - "Python"
-images: []
+images:
+  - "/images/projects/SIM-TA.png"
 contributors: []
 researchers:
   - "moch-zawaruddin-abdullah"
 stream: "domain-specific-se-applications"
 repo: "jti-polinema/SIM-TA"
-featured: false
+featured: true
+private: true
 ---
 
+<section lang="en">
+</section>
+
+<section lang="id">
 SIM-TA adalah aplikasi web berbasis Laravel yang dikembangkan untuk membantu pengelolaan proses Tugas Akhir mahasiswa di Jurusan Teknologi Informasi, Politeknik Negeri Malang. Aplikasi ini mulai dikembangkan sejak tahun **2023** sebagai bagian dari upaya digitalisasi proses administrasi akademik, khususnya dalam pengelolaan Tugas Akhir.
 
 Aplikasi ini dirancang untuk mendigitalisasi seluruh alur administrasi Tugas Akhir, mulai dari pengajuan proposal, seminar proposal, proses bimbingan, pendaftaran sidang, revisi, hingga penyelesaian laporan akhir.
@@ -193,3 +199,4 @@ Aplikasi ini membantu mengurangi ketergantungan pada proses manual dan meningkat
 ## Ringkasan
 
 SIM-TA adalah sistem informasi manajemen Tugas Akhir yang dirancang untuk mendukung seluruh proses akademik mulai dari proposal hingga sidang akhir. Dengan fitur yang lengkap, sistem hak akses yang terstruktur, serta dukungan teknologi modern, aplikasi ini menjadi solusi digital yang efektif untuk pengelolaan Tugas Akhir di lingkungan perguruan tinggi.
+</section>
