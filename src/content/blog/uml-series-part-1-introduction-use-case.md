@@ -18,24 +18,9 @@ tagsId:
   - UML
   - PlantUML
   - Desain Perangkat Lunak
+series: uml-mini-series
+seriesOrder: 1
 ---
-
-<nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">
-  <p class="font-semibold mb-2">
-    <span lang="en">UML Mini Series — 5 Parts</span>
-    <span lang="id">Seri Mini UML — 5 Bagian</span>
-  </p>
-  <ol class="list-decimal list-inside space-y-1 text-sm">
-    <li class="font-bold">
-      <span lang="en">Part 1: Introduction to UML & Use Case Diagram ← You are here</span>
-      <span lang="id">Bagian 1: Pengenalan UML & Use Case Diagram ← Anda di sini</span>
-    </li>
-    <li><a href="/blog/uml-series-part-2-use-case-scenario">Part 2: Use Case Scenario</a></li>
-    <li><a href="/blog/uml-series-part-3-activity-diagram">Part 3: Activity Diagram</a></li>
-    <li><a href="/blog/uml-series-part-4-sequence-diagram">Part 4: Sequence Diagram</a></li>
-    <li><a href="/blog/uml-series-part-5-class-diagram-laravel">Part 5: Class Diagram & Laravel Realization</a></li>
-  </ol>
-</nav>
 
 <section lang="en">
 
@@ -524,16 +509,3 @@ Now that we have a clear, validated use case diagram, the next logical step is t
 Sekarang kita memiliki use case diagram yang jelas dan tervalidasi, langkah logis berikutnya adalah **memperbesar satu use case** dan mendeskripsikannya secara detail. Di Bagian 2, kita akan menulis **Use Case Scenario** lengkap untuk use case "Daftar Mata Kuliah" — termasuk skenario sukses utama, alur alternatif, prasyarat, dan pascasyarat. Skenario ini menjadi kontrak yang disepakati oleh developer, tester, dan stakeholder sebelum satu baris kode ditulis.
 
 </section>
-
----
-
-<nav aria-label="Series navigation" class="mt-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">
-  <p class="font-semibold mb-2">
-    <span lang="en">Continue the series:</span>
-    <span lang="id">Lanjutkan seri:</span>
-  </p>
-  <p class="text-sm">
-    <span lang="en"><strong>Next:</strong> <a href="/blog/uml-series-part-2-use-case-scenario">Part 2: Use Case Scenario →</a></span>
-    <span lang="id"><strong>Selanjutnya:</strong> <a href="/blog/uml-series-part-2-use-case-scenario">Bagian 2: Use Case Scenario →</a></span>
-  </p>
-</nav>

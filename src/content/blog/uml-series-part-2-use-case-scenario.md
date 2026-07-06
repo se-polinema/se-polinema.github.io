@@ -18,24 +18,9 @@ tagsId:
   - UML
   - PlantUML
   - Desain Perangkat Lunak
+series: uml-mini-series
+seriesOrder: 2
 ---
-
-<nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">
-  <p class="font-semibold mb-2">
-    <span lang="en">UML Mini Series — 5 Parts</span>
-    <span lang="id">Seri Mini UML — 5 Bagian</span>
-  </p>
-  <ol class="list-decimal list-inside space-y-1 text-sm">
-    <li><a href="/blog/uml-series-part-1-introduction-use-case">Part 1: Introduction to UML & Use Case Diagram</a></li>
-    <li class="font-bold">
-      <span lang="en">Part 2: Use Case Scenario ← You are here</span>
-      <span lang="id">Bagian 2: Use Case Scenario ← Anda di sini</span>
-    </li>
-    <li><a href="/blog/uml-series-part-3-activity-diagram">Part 3: Activity Diagram</a></li>
-    <li><a href="/blog/uml-series-part-4-sequence-diagram">Part 4: Sequence Diagram</a></li>
-    <li><a href="/blog/uml-series-part-5-class-diagram-laravel">Part 5: Class Diagram & Laravel Realization</a></li>
-  </ol>
-</nav>
 
 <section lang="en">
 
@@ -408,22 +393,3 @@ Use case scenario yang baru saja Anda baca adalah **sumber kebenaran** untuk sem
 Ketertelusuran inilah kekuatan UML. Setiap diagram terhubung kembali ke sebuah baris dalam skenario ini, yang terhubung kembali ke persyaratan stakeholder.
 
 </section>
-
----
-
-<nav aria-label="Series navigation" class="mt-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">
-  <p class="font-semibold mb-2">
-    <span lang="en">Continue the series:</span>
-    <span lang="id">Lanjutkan seri:</span>
-  </p>
-  <div class="text-sm flex justify-between">
-    <span>
-      <span lang="en"><strong>Previous:</strong> <a href="/blog/uml-series-part-1-introduction-use-case">← Part 1: Introduction to UML & Use Case Diagram</a></span>
-      <span lang="id"><strong>Sebelumnya:</strong> <a href="/blog/uml-series-part-1-introduction-use-case">← Bagian 1: Pengenalan UML & Use Case Diagram</a></span>
-    </span>
-    <span>
-      <span lang="en"><strong>Next:</strong> <a href="/blog/uml-series-part-3-activity-diagram">Part 3: Activity Diagram →</a></span>
-      <span lang="id"><strong>Selanjutnya:</strong> <a href="/blog/uml-series-part-3-activity-diagram">Bagian 3: Activity Diagram →</a></span>
-    </span>
-  </div>
-</nav>

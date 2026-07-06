@@ -7,6 +7,7 @@ import ShareButtons from '../../components/ShareButtons.vue'
 import RelatedContent from '../../components/RelatedContent.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
+import SeriesNav from '../../components/SeriesNav.vue'
 import { getCollection, render } from 'astro:content'
 import { getRelatedItems } from '../../utils/relatedContent'
 import type { CurrentItem, CandidateItem } from '../../utils/relatedContent'
@@ -77,6 +78,27 @@ const currentItem: CurrentItem = {
 }
 
 const allPosts = await getCollection('blog')
+
+const seriesParts = post.data.series
+  ? allPosts
+      .filter((p) => p.data.series === post.data.series && p.data.seriesOrder !== undefined)
+      .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0))
+      .map((p) => ({
+        slug: p.id,
+        title: p.data.title,
+        titleId: p.data.titleId ?? '',
+        order: p.data.seriesOrder ?? 0,
+      }))
+  : []
+
+const seriesFirstPart = seriesParts.find((p) => p.order === 1) ?? seriesParts[0]
+const seriesTitle = seriesFirstPart
+  ? seriesFirstPart.title.replace(/\s*Part\s+\d+\s*[-—:]\s*/, '').replace(/\s*Bagian\s+\d+\s*[-—:]\s*/, '').trim()
+  : ''
+const seriesTitleId = seriesFirstPart
+  ? (seriesFirstPart.titleId || seriesFirstPart.title).replace(/\s*Part\s+\d+\s*[-—:]\s*/, '').replace(/\s*Bagian\s+\d+\s*[-—:]\s*/, '').trim()
+  : ''
+
 const blogCandidates: CandidateItem[] = allPosts
   .filter((p) => p.data.category === 'tutorial' || p.data.category === 'news')
   .map((p) => ({
@@ -167,9 +189,25 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
           ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo }
           : undefined}
       />
+      <SeriesNav
+        client:load
+        mode="top"
+        parts={seriesParts}
+        currentSlug={post.id}
+        seriesTitle={seriesTitle}
+        seriesTitleId={seriesTitleId}
+      />
       <div class="prose prose-slate max-w-none bilingual-post">
         <Content />
       </div>
+      <SeriesNav
+        client:load
+        mode="bottom"
+        parts={seriesParts}
+        currentSlug={post.id}
+        seriesTitle={seriesTitle}
+        seriesTitleId={seriesTitleId}
+      />
       <CodeCopyButtons client:load />
       <ShareButtons client:load url={postUrl} title={title} description={post.data.excerpt} lang={post.data.lang as 'en' | 'id'} />
       <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
