@@ -119,13 +119,13 @@ const statusColor = {
         }
 
         <!-- Promotional Video -->
-        <div class="border border-primary/10 dark:border-gray-700 rounded-xl overflow-hidden bg-white dark:bg-gray-800">
-          <div class="px-4 py-3 border-b border-primary/5 dark:border-gray-700">
-            <span lang="en" class="text-sm font-mono text-primary/70 dark:text-gray-300">Promotional Video</span>
-            <span lang="id" class="text-sm font-mono text-primary/70 dark:text-gray-300">Video Promosi</span>
-          </div>
-          <div class="aspect-video">
-            {videoUrl ? (
+        {videoUrl && (
+          <div class="border border-primary/10 dark:border-gray-700 rounded-xl overflow-hidden bg-white dark:bg-gray-800">
+            <div class="px-4 py-3 border-b border-primary/5 dark:border-gray-700">
+              <span lang="en" class="text-sm font-mono text-primary/70 dark:text-gray-300">Promotional Video</span>
+              <span lang="id" class="text-sm font-mono text-primary/70 dark:text-gray-300">Video Promosi</span>
+            </div>
+            <div class="aspect-video">
               <iframe
                 src={videoUrl}
                 title={title}
@@ -134,18 +134,9 @@ const statusColor = {
                 allowfullscreen
                 loading="lazy"
               />
-            ) : (
-              <div class="w-full h-full flex flex-col items-center justify-center bg-neutral-50 dark:bg-gray-800 text-neutral-400 dark:text-gray-500 gap-3">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-300 dark:text-gray-600">
-                  <polygon points="23 7 16 12 23 17 23 7"/>
-                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-                </svg>
-                <span lang="en" class="text-sm font-mono">Video coming soon</span>
-                <span lang="id" class="text-sm font-mono">Video segera hadir</span>
-              </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <!-- Right: Sticky sidebar -->
