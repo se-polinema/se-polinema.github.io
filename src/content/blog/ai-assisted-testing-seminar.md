@@ -14,6 +14,14 @@ location: "SE Lab, JTI Polinema — Room RT-A 301"
 locationId: "SE Lab, JTI Polinema — Ruang RT-A 301"
 managed: true
 stream: emerging-technologies-se
+tags:
+  - AI
+  - AI-Assisted Testing
+  - Software Testing
+tagsId:
+  - AI
+  - Pengujian Berbantuan AI
+  - Pengujian Perangkat Lunak
 ---
 
 <section lang="en">

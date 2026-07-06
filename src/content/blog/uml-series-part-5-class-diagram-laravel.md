@@ -9,6 +9,18 @@ featured: false
 excerpt: "The final part of the UML Mini Series. Learn what a Class Diagram is, draw the complete domain model for the Campus Course Registration System, and implement it as Laravel Eloquent models, migrations, services, and a controller — with complete runnable code."
 excerptId: "Bagian terakhir dari Seri Mini UML. Pelajari apa itu Class Diagram, gambar domain model lengkap untuk Sistem Pendaftaran Mata Kuliah Kampus, dan implementasikan sebagai Laravel Eloquent models, migrations, services, dan controller — dengan kode lengkap yang dapat dijalankan."
 stream: se-methodologies-architecture
+tags:
+  - UML
+  - PlantUML
+  - Software Design
+  - Laravel
+  - PHP
+tagsId:
+  - UML
+  - PlantUML
+  - Desain Perangkat Lunak
+  - Laravel
+  - PHP
 ---
 
 <nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">

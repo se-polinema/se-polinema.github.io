@@ -447,7 +447,16 @@
     "categoryArchiveHeading": "{category} Archive",
     "categoryArchiveDescription": "{category} posts from the Software Engineering Laboratory.",
     "relatedHeading": "Related Content",
-    "browseAll": "Browse all posts"
+    "browseAll": "Browse all posts",
+    "tags": "Tags",
+    "tagsHeading": "Tags",
+    "tagsDescription": "Browse posts by topic tag.",
+    "tagsShowAll": "Show all tags",
+    "taggedIn": "Tagged in",
+    "noTags": "No tags yet",
+    "tagPostCount": "{count} post | {count} posts",
+    "tagArchiveHeading": "Posts tagged \"{tag}\"",
+    "tagArchiveDescription": "All posts tagged with \"{tag}\" from the Software Engineering Laboratory."
   },
   "notFound": {
     "heading": "Page Not Found",

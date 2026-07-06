@@ -9,6 +9,12 @@ featured: false
 excerpt: "A beginner-friendly guide to software testing using Blackbox and Whitebox approaches. Learn how to design effective test cases, write test scenarios, and implement both testing methods with practical PHP examples."
 excerptId: "Panduan ramah pemula untuk pengujian perangkat lunak menggunakan pendekatan Blackbox dan Whitebox. Pelajari cara merancang test case yang efektif, menulis skenario pengujian, dan mengimplementasikan kedua metode pengujian dengan contoh praktis PHP."
 stream: se-methodologies-architecture
+tags:
+  - Software Testing
+  - PHP
+tagsId:
+  - Pengujian Perangkat Lunak
+  - PHP
 ---
 
 <section lang="en">

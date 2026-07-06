@@ -1,0 +1,35 @@
+---
+import VSCodeLayout from '../../../layouts/VSCodeLayout.astro'
+import BlogTagsPage from '../../../components/BlogTagsPage.vue'
+import { getCollection } from 'astro:content'
+
+const allPosts = await getCollection('blog')
+
+const tagMap = new Map<string, { en: string; id: string; count: number }>()
+
+for (const post of allPosts) {
+  const tags = post.data.tags ?? []
+  const tagsId = post.data.tagsId ?? []
+  const max = Math.max(tags.length, tagsId.length)
+  for (let i = 0; i < max; i++) {
+    const enTag = tags[i] ?? ''
+    const idTag = tagsId[i] ?? ''
+    const key = (enTag || idTag).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    if (!key) continue
+    const existing = tagMap.get(key)
+    if (existing) {
+      existing.count++
+    } else {
+      tagMap.set(key, { en: enTag, id: idTag, count: 1 })
+    }
+  }
+}
+
+const tags = Array.from(tagMap.entries())
+  .sort((a, b) => a[1].en.localeCompare(b[1].en))
+  .map(([slug, data]) => ({ slug, ...data }))
+---
+
+<VSCodeLayout title="Tags" description="Browse blog posts by topic tag.">
+  <BlogTagsPage client:load tags={tags} />
+</VSCodeLayout>

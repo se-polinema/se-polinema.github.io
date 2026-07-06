@@ -447,7 +447,16 @@
     "categoryArchiveHeading": "Arsip {category}",
     "categoryArchiveDescription": "Postingan {category} dari Software Engineering Laboratory.",
     "relatedHeading": "Konten Terkait",
-    "browseAll": "Lihat semua postingan"
+    "browseAll": "Lihat semua postingan",
+    "tags": "Tag",
+    "tagsHeading": "Tag",
+    "tagsDescription": "Jelajahi postingan berdasarkan tag topik.",
+    "tagsShowAll": "Tampilkan semua tag",
+    "taggedIn": "Ditandai",
+    "noTags": "Belum ada tag",
+    "tagPostCount": "{count} postingan",
+    "tagArchiveHeading": "Postingan dengan tag \"{tag}\"",
+    "tagArchiveDescription": "Semua postingan dengan tag \"{tag}\" dari Software Engineering Laboratory."
   },
   "notFound": {
     "heading": "Halaman Tidak Ditemukan",

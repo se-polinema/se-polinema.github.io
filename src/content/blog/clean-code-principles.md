@@ -9,6 +9,12 @@ featured: false
 excerpt: "A beginner-friendly guide to writing readable, maintainable PHP code. Learn meaningful naming, small functions, single responsibility, self-documenting code, and how to avoid magic numbers — with concrete before-and-after examples."
 excerptId: "Panduan ramah pemula untuk menulis kode PHP yang mudah dibaca dan dipelihara. Pelajari penamaan yang bermakna, fungsi kecil, tanggung jawab tunggal, kode yang mendokumentasikan diri sendiri, dan cara menghindari magic number — dengan contoh before-and-after yang konkret."
 stream: se-methodologies-architecture
+tags:
+  - Clean Code
+  - PHP
+tagsId:
+  - Clean Code
+  - PHP
 ---
 
 <section lang="en">
