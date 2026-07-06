@@ -36,6 +36,11 @@ streams:
   - "domain-specific-se-applications"
   - "emerging-technologies-se"
 projects:
+  - name: "SIM-TA - Sistem Informasi Manajemen Tugas Akhir"
+    nameId: "SIM-TA - Sistem Informasi Manajemen Tugas Akhir"
+    repo: "jti-polinema/SIM-TA"
+    description: "Web-based thesis management system for JTI Polinema — digitizes the complete academic workflow from proposal submission, seminar scheduling, online mentoring, to final defense registration. Includes role-based access control, document management, academic period tracking, and a Python-based supervisor recommendation engine."
+    descriptionId: "Sistem informasi manajemen Tugas Akhir berbasis web untuk JTI Polinema — mendigitalisasi seluruh alur akademik mulai dari pengajuan proposal, penjadwalan seminar, bimbingan online, hingga pendaftaran sidang akhir. Dilengkapi kontrol akses berbasis peran, manajemen dokumen, pelacakan periode akademik, dan mesin rekomendasi dosen pembimbing berbasis Python."
   - name: "Polinema SnapLink"
     nameId: "Polinema SnapLink"
     repo: "jti-polinema/Polinema-SnapLink"
