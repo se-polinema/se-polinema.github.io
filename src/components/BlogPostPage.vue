@@ -6,7 +6,7 @@
   <p class="font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 mt-1 mb-2 italic">
     {{ displayDate }} &middot; <a :href="`/blog/category/${category}`" class="text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 transition-colors no-underline hover:underline">{{ category }}</a> &middot; {{ readingTimeLabel }}
   </p>
-  <p class="flex items-center gap-1.5 font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 italic mb-8">
+  <p class="flex items-center gap-1.5 font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 italic mb-3">
     <span>{{ t.blog.authorBy }}</span>
     <template v-if="props.matchedResearcher">
       <a
@@ -28,6 +28,15 @@
       <span>{{ props.author }}</span>
     </template>
   </p>
+  <p v-if="displayTags.length > 0" class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-neutral-400 dark:text-gray-500 mb-6">
+    <span>{{ t.blog.tags }}:</span>
+    <a
+      v-for="tag in displayTags"
+      :key="tag.slug"
+      :href="`/blog/tags/${tag.slug}`"
+      class="inline-block px-2 py-0.5 rounded border border-neutral-200 dark:border-gray-600 text-neutral-500 dark:text-gray-400 hover:text-primary dark:hover:text-gray-200 hover:border-primary/30 dark:hover:border-gray-400 transition-colors no-underline"
+    >{{ tag.label }}</a>
+  </p>
 </template>
 
 <script setup lang="ts">
@@ -42,6 +51,8 @@ const props = defineProps<{
   author: string
   readingTime?: number
   matchedResearcher?: { id: string; name: string; photo: string }
+  tags?: string[]
+  tagsId?: string[]
 }>()
 
 const { lang, t } = useI18n()
@@ -49,6 +60,23 @@ const { lang, t } = useI18n()
 const displayTitle = computed(() =>
   lang.value === 'id' && props.titleId ? props.titleId : props.title
 )
+
+const displayTags = computed(() => {
+  const en = props.tags ?? []
+  const id = props.tagsId ?? []
+  const max = Math.max(en.length, id.length)
+  const result: { label: string; slug: string }[] = []
+  for (let i = 0; i < max; i++) {
+    const label = (lang.value === 'id' && id[i]) ? id[i] : (en[i] ?? '')
+    const slug = slugify(en[i] ?? id[i] ?? '')
+    if (slug) result.push({ label, slug })
+  }
+  return result
+})
+
+function slugify(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+}
 
 const displayDate = computed(() => {
   const d = props.date instanceof Date ? props.date : new Date(props.date as string)

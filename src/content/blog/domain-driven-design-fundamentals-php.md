@@ -7,6 +7,12 @@ author: SE Lab
 lang: en
 featured: false
 stream: se-methodologies-architecture
+tags:
+  - Domain-Driven Design
+  - PHP
+tagsId:
+  - Domain-Driven Design
+  - PHP
 excerpt: "A hands-on guide to Domain-Driven Design (DDD) for PHP developers. Learn ubiquitous language, bounded contexts, entities, value objects, aggregates, repositories, and layered architecture — then refactor an anemic CRUD course registration model into a rich DDD-style domain model with runnable before-and-after code."
 excerptId: "Panduan praktis Domain-Driven Design (DDD) untuk pengembang PHP. Pelajari ubiquitous language, bounded context, entity, value object, aggregate, repository, dan arsitektur berlapis — lalu refactor model registrasi mata kuliah CRUD yang anemic menjadi domain model gaya DDD dengan kode before-and-after yang dapat dijalankan."
 ---

@@ -1,0 +1,90 @@
+---
+import VSCodeLayout from '../../../layouts/VSCodeLayout.astro'
+import BlogArchivePage from '../../../components/BlogArchivePage.vue'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog')
+  const tagSet = new Set<string>()
+
+  for (const post of posts) {
+    const tags = post.data.tags ?? []
+    const tagsId = post.data.tagsId ?? []
+    const max = Math.max(tags.length, tagsId.length)
+    for (let i = 0; i < max; i++) {
+      const enTag = tags[i] ?? ''
+      const idTag = tagsId[i] ?? ''
+      const slug = (enTag || idTag).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+      if (slug) tagSet.add(slug)
+    }
+  }
+
+  return Array.from(tagSet).map((tag) => ({ params: { tag } }))
+}
+
+const { tag } = Astro.params
+const slugParam = tag ?? ''
+
+const allPosts = await getCollection('blog')
+
+const taggedPosts = allPosts
+  .filter((post) => {
+    const tags = post.data.tags ?? []
+    const tagsId = post.data.tagsId ?? []
+    const max = Math.max(tags.length, tagsId.length)
+    for (let i = 0; i < max; i++) {
+      const enTag = tags[i] ?? ''
+      const idTag = tagsId[i] ?? ''
+      const s = (enTag || idTag).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+      if (s === slugParam) return true
+    }
+    return false
+  })
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((post) => ({
+    id: post.id,
+    title: post.data.title,
+    titleId: post.data.titleId,
+    excerpt: post.data.excerpt,
+    excerptId: post.data.excerptId,
+    category: post.data.category,
+    date: post.data.date,
+    tags: post.data.tags,
+    tagsId: post.data.tagsId,
+  }))
+
+let displayTag = slugParam
+const firstPost = allPosts.find((post) => {
+  const tags = post.data.tags ?? []
+  const tagsId = post.data.tagsId ?? []
+  const max = Math.max(tags.length, tagsId.length)
+  for (let i = 0; i < max; i++) {
+    const enTag = tags[i] ?? ''
+    const idTag = tagsId[i] ?? ''
+    const s = (enTag || idTag).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    if (s === slugParam) return true
+  }
+  return false
+})
+if (firstPost) {
+  const tags = firstPost.data.tags ?? []
+  const tagsId = firstPost.data.tagsId ?? []
+  const max = Math.max(tags.length, tagsId.length)
+  for (let i = 0; i < max; i++) {
+    const enTag = tags[i] ?? ''
+    const idTag = tagsId[i] ?? ''
+    const s = (enTag || idTag).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    if (s === slugParam) {
+      displayTag = idTag || enTag
+      break
+    }
+  }
+}
+
+const title = `Posts tagged "${displayTag}"`
+const description = `All posts tagged with "${displayTag}" from the Software Engineering Laboratory.`
+---
+
+<VSCodeLayout title={title} description={description}>
+  <BlogArchivePage client:load posts={taggedPosts} />
+</VSCodeLayout>

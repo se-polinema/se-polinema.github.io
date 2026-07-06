@@ -7,6 +7,14 @@ author: SE Lab
 lang: en
 featured: false
 stream: emerging-technologies-se
+tags:
+  - AI
+  - Requirements Engineering
+  - PHP
+tagsId:
+  - AI
+  - Rekayasa Kebutuhan
+  - PHP
 excerpt: "Learn how to use LLMs and AI-assisted workflows to turn vague stakeholder requests into structured user stories, SRS snippets, and acceptance criteria. Covers prompt engineering for requirements, a complete PHP helper to call LLM APIs, traceability mapping, and the limitations of AI-generated requirements — including hallucinations and bias."
 excerptId: "Pelajari cara menggunakan LLM dan alur kerja berbantuan AI untuk mengubah permintaan pemangku kepentingan yang samar menjadi user story terstruktur, potongan SRS, dan kriteria penerimaan. Mencakup prompt engineering untuk kebutuhan, helper PHP lengkap untuk memanggil LLM API, pemetaan ketertelusuran, dan keterbatasan kebutuhan yang dihasilkan AI — termasuk halusinasi dan bias."
 ---

@@ -171,18 +171,34 @@
     </nav>
 
     <!-- Blog / News filter panel -->
-    <nav v-else-if="activeSidebarView === 'blog'" key="blog" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Blog filters">
-      <div class="filter-header">Category</div>
-      <div class="flex flex-wrap gap-1 mt-2">
-        <button
-          v-for="cat in blogCategories"
-          :key="cat"
-          @click="toggleFilter('category', cat)"
-          class="filter-chip"
-          :class="activeFilters.category === cat ? 'chip-active' : 'chip-inactive'"
-        >
-          {{ cat }}
-        </button>
+    <nav v-else-if="activeSidebarView === 'blog'" key="blog" class="flex-1 overflow-y-auto pb-4 px-4 pt-3 space-y-5" aria-label="Blog filters">
+      <div>
+        <div class="filter-header">Category</div>
+        <div class="flex flex-wrap gap-1 mt-2">
+          <button
+            v-for="cat in blogCategories"
+            :key="cat"
+            @click="toggleFilter('category', cat)"
+            class="filter-chip"
+            :class="activeFilters.category === cat ? 'chip-active' : 'chip-inactive'"
+          >
+            {{ cat }}
+          </button>
+        </div>
+      </div>
+      <div v-if="blogTags.length > 0">
+        <div class="filter-header">{{ t.blog.tags }}</div>
+        <div class="flex flex-wrap gap-1 mt-2">
+          <button
+            v-for="tag in blogTags"
+            :key="tag"
+            @click="toggleFilter('tag', tag)"
+            class="filter-chip"
+            :class="activeFilters.tag === tag ? 'chip-active' : 'chip-inactive'"
+          >
+            {{ tag }}
+          </button>
+        </div>
       </div>
     </nav>
 
@@ -249,12 +265,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
+import { useI18n } from '../../composables/useI18n'
 
 const {
   sidebarOpen, activeSection, currentPage, layoutInitialized,
   activeSidebarView, activeFilters,
   initObserver, scrollTo,
 } = useVSCodeLayout()
+
+const { t } = useI18n()
 
 interface FileItem {
   id: string
@@ -290,6 +309,7 @@ const researcherList = ref<{ id: string; name: string }[]>([])
 const pubYears = ref<number[]>([])
 const pubTypes = ref<string[]>([])
 const blogCategories = ref<string[]>([])
+const blogTags = ref<string[]>([])
 const deckMembers = ref<{ id: string; name: string }[]>([])
 const deckTypes = ref<string[]>([])
 const achievementTypes = ref(['Grant', 'Award', 'Certification', 'Milestone'])
@@ -323,7 +343,7 @@ function navigate(item: FileItem) {
   if (item.href) window.location.href = item.href
 }
 
-function toggleFilter(key: 'year' | 'type' | 'category', value: number | string) {
+function toggleFilter(key: 'year' | 'type' | 'category' | 'tag', value: number | string) {
   if (activeFilters[key] === value) (activeFilters as Record<string, unknown>)[key] = null
   else (activeFilters as Record<string, unknown>)[key] = value
 }
@@ -348,6 +368,7 @@ onMounted(async () => {
   } else if (currentPage.value === 'blog') {
     const meta = await fetch('/api/posts-meta.json').then(r => r.json())
     blogCategories.value = meta.categories
+    blogTags.value = meta.tags || []
   } else if (currentPage.value === 'decks') {
     const meta = await fetch('/api/decks-meta.json').then(r => r.json())
     deckMembers.value = meta.members

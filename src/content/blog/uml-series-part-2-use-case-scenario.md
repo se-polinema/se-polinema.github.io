@@ -9,6 +9,14 @@ featured: false
 excerpt: "Part 2 of the UML Mini Series. Learn what a Use Case Scenario is, why it bridges requirements and design, and how to write a full scenario for the 'Enrol in Course' use case — with structured table, main success flow, and alternative flows."
 excerptId: "Bagian 2 dari Seri Mini UML. Pelajari apa itu Use Case Scenario, mengapa ia menjembatani persyaratan dan desain, dan cara menulis skenario lengkap untuk use case 'Daftar Mata Kuliah' — dengan tabel terstruktur, alur sukses utama, dan alur alternatif."
 stream: se-methodologies-architecture
+tags:
+  - UML
+  - PlantUML
+  - Software Design
+tagsId:
+  - UML
+  - PlantUML
+  - Desain Perangkat Lunak
 ---
 
 <nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">

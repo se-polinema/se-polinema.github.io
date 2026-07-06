@@ -8,6 +8,12 @@ lang: en
 featured: true
 excerpt: "Learn how the SE Laboratory uses IssueOps — a workflow where GitHub issues trigger AI-assisted planning and automated building — to manage this website without leaving GitHub."
 excerptId: "Pelajari bagaimana SE Laboratory menggunakan IssueOps — alur kerja di mana GitHub issue memicu perencanaan berbantuan AI dan pembangunan otomatis — untuk mengelola situs web ini tanpa meninggalkan GitHub."
+tags:
+  - IssueOps
+  - GitHub Actions
+tagsId:
+  - IssueOps
+  - GitHub Actions
 ---
 
 <section lang="en">

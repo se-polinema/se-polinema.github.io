@@ -7,6 +7,14 @@ author: SE Lab
 lang: en
 featured: false
 stream: domain-specific-se-applications
+tags:
+  - EdTech
+  - PHP
+  - Laravel
+tagsId:
+  - EdTech
+  - PHP
+  - Laravel
 excerpt: "Learn how software engineering principles adapt to the education domain. This tutorial walks through LMS architecture, data modeling, and a hands-on PHP course enrollment service with validation rules, capacity limits, prerequisite checks, and PHPUnit tests."
 excerptId: "Pelajari bagaimana prinsip-prinsip rekayasa perangkat lunak beradaptasi dengan domain pendidikan. Tutorial ini membahas arsitektur LMS, pemodelan data, dan layanan pendaftaran mata kuliah PHP dengan aturan validasi, batas kapasitas, pengecekan prasyarat, dan pengujian PHPUnit."
 ---

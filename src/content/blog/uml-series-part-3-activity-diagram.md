@@ -9,6 +9,14 @@ featured: false
 excerpt: "Part 3 of the UML Mini Series. Learn what an Activity Diagram is, why it is essential for business process modelling, and how to draw one for the 'Enrol in Course' workflow — with swimlanes, decisions, and merge nodes in PlantUML."
 excerptId: "Bagian 3 dari Seri Mini UML. Pelajari apa itu Activity Diagram, mengapa penting untuk pemodelan proses bisnis, dan cara menggambarnya untuk alur kerja 'Daftar Mata Kuliah' — dengan swimlanes, decision, dan merge node dalam PlantUML."
 stream: se-methodologies-architecture
+tags:
+  - UML
+  - PlantUML
+  - Software Design
+tagsId:
+  - UML
+  - PlantUML
+  - Desain Perangkat Lunak
 ---
 
 <nav aria-label="Series navigation" class="mb-8 p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg border border-neutral-200 dark:border-gray-700">

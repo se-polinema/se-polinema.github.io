@@ -9,6 +9,14 @@ featured: false
 excerpt: "Learn how to build a bug prediction classifier using PHP—from extracting code metrics (LOC, cyclomatic complexity, change churn) to training and evaluating a Naive Bayes model that identifies high-risk modules before they break."
 excerptId: "Pelajari cara membangun classifier prediksi bug menggunakan PHP—mulai dari mengekstrak metrik kode (LOC, cyclomatic complexity, change churn) hingga melatih dan mengevaluasi model Naive Bayes yang mengidentifikasi modul berisiko tinggi sebelum rusak."
 stream: emerging-technologies-se
+tags:
+  - Bug Prediction
+  - AI
+  - PHP
+tagsId:
+  - Prediksi Bug
+  - AI
+  - PHP
 ---
 
 <section lang="en">

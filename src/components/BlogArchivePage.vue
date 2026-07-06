@@ -30,6 +30,14 @@
           <p class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed mb-2">
             {{ lang === 'id' && post.excerptId ? post.excerptId : post.excerpt }}
           </p>
+          <div v-if="displayTags(post).length > 0" class="flex flex-wrap items-center gap-1 mb-2">
+            <a
+              v-for="tag in displayTags(post)"
+              :key="tag.slug"
+              :href="`/blog/tags/${tag.slug}`"
+              class="inline-block px-1.5 py-px text-[10px] font-mono rounded border border-neutral-200 dark:border-gray-600 text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 hover:border-primary/30 dark:hover:border-gray-400 transition-colors no-underline"
+            >{{ tag.label }}</a>
+          </div>
           <a :href="`/blog/${post.id}`" class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors">
             {{ t.news.readMore }} →
           </a>
@@ -53,6 +61,8 @@ const props = defineProps<{
     excerptId?: string
     category: string
     date: Date | string
+    tags?: string[]
+    tagsId?: string[]
   }>
   activeCategory?: string
 }>()
@@ -62,7 +72,21 @@ const { activeFilters } = useVSCodeLayout()
 
 const filteredPosts = computed(() => {
   if (props.activeCategory) return props.posts
-  return props.posts.filter(p => !activeFilters.category || p.category === activeFilters.category)
+  let result = props.posts
+  if (activeFilters.category) {
+    result = result.filter(p => p.category === activeFilters.category)
+  }
+  if (activeFilters.tag) {
+    result = result.filter(p => {
+      const tags = p.tags ?? []
+      const tagsId = p.tagsId ?? []
+      const allSlugs: string[] = []
+      for (const t of tags) allSlugs.push(t.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))
+      for (const t of tagsId) allSlugs.push(t.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))
+      return allSlugs.includes(activeFilters.tag!)
+    })
+  }
+  return result
 })
 
 const categoryLabelForHeader = computed(() => {
@@ -116,5 +140,22 @@ function categoryLabel(cat: string): string {
     tutorial: t.value.blog.categoryTutorial,
   }
   return map[cat] || cat
+}
+
+function displayTags(post: typeof props.posts[number]): { label: string; slug: string }[] {
+  const en = post.tags ?? []
+  const id = post.tagsId ?? []
+  const max = Math.max(en.length, id.length)
+  const result: { label: string; slug: string }[] = []
+  for (let i = 0; i < max; i++) {
+    const label = (lang.value === 'id' && id[i]) ? id[i] : (en[i] ?? '')
+    const slug = slugify(en[i] ?? id[i] ?? '')
+    if (slug) result.push({ label, slug })
+  }
+  return result
+}
+
+function slugify(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 }
 </script>

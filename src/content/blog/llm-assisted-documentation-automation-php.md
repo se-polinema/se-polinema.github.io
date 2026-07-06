@@ -7,6 +7,14 @@ author: SE Lab
 lang: en
 featured: false
 stream: emerging-technologies-se
+tags:
+  - AI
+  - Software Documentation
+  - PHP
+tagsId:
+  - AI
+  - Dokumentasi Perangkat Lunak
+  - PHP
 excerpt: "Learn how to use LLMs to generate, maintain, and validate API documentation, README files, inline comments, and changelogs for PHP/Laravel projects. Covers Scribe, PHPDoc, MkDocs, and custom LLM pipelines with a human-in-the-loop review workflow — and shows where LLMs fail and hallucinate."
 excerptId: "Pelajari cara menggunakan LLM untuk menghasilkan, memelihara, dan memvalidasi dokumentasi API, file README, komentar inline, dan changelog untuk proyek PHP/Laravel. Mencakup Scribe, PHPDoc, MkDocs, dan pipeline LLM kustom dengan alur kerja tinjauan human-in-the-loop — serta menunjukkan di mana LLM gagal dan berhalusinasi."
 ---

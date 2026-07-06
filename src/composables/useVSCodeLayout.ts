@@ -13,7 +13,8 @@ const activeFilters = reactive<{
   category: string | null
   year: number | null
   type: string | null
-}>({ category: null, year: null, type: null })
+  tag: string | null
+}>({ category: null, year: null, type: null, tag: null })
 
 let initialized = false
 let observerInit = false

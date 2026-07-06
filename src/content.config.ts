@@ -30,6 +30,8 @@ const blogCollection = defineCollection({
     registrationUrl: z.string().optional(),
     stream: z.string().optional(),
     managed: z.boolean().default(false),
+    tags: z.array(z.string()).optional(),
+    tagsId: z.array(z.string()).optional(),
   }),
 })
 
