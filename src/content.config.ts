@@ -121,6 +121,7 @@ const projectsCollection = defineCollection({
     researchers: z.array(z.string()).default([]),
     stream: z.string().optional(),
     demoUrl: z.string().optional(),
+    videoUrl: z.string().optional(),
     repo: z.string(),
     featured: z.boolean().default(false),
     private: z.boolean().default(false),

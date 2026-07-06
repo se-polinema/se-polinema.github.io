@@ -118,7 +118,14 @@
     "source": "Kode Sumber",
     "images": "Tangkapan Layar",
     "viewOnGithub": "Lihat di GitHub",
-    "noStream": "Tidak ada stream"
+    "noStream": "Tidak ada stream",
+    "promoVideo": "Video Promosi",
+    "noScreenshot": "Tidak ada tangkapan layar",
+    "projectStatus": "Status Proyek",
+    "privateRepo": "Repositori Privat",
+    "previousImage": "Gambar sebelumnya",
+    "nextImage": "Gambar berikutnya",
+    "imageCount": "dari"
   },
   "books": {
     "label": "Buku",
