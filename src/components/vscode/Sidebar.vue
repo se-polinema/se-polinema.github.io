@@ -301,6 +301,7 @@ const fileTree: FileItem[] = [
   { id: 'achievements',   name: 'achievements.json', ext: 'json', type: 'file',   sectionId: 'achievements', pageId: 'achievements', indent: 2, href: '/achievements' },
   { id: 'impact',         name: 'impact.json',       ext: 'json', type: 'file',   sectionId: '',             pageId: 'impact',       indent: 2, href: '/impact' },
   { id: 'learning-paths', name: 'learning-paths.astro', ext: 'astro', type: 'file', sectionId: '',           pageId: 'learning-paths', indent: 2, href: '/learning-paths' },
+  { id: 'tools',         name: 'tools.json',        ext: 'json',  type: 'file',   sectionId: '',             pageId: 'tools',          indent: 2, href: '/tools' },
   { id: 'blog',            name: 'blog.md',          ext: 'md',   type: 'file',   sectionId: 'blog',         pageId: 'blog',         indent: 2, href: '/blog' },
 ]
 

@@ -67,6 +67,7 @@ const allLinks = computed<LinkItem[]>(() => [
   { href: '/decks', label: t.value.nav.decks, external: false },
   { href: '/glossary', label: t.value.nav.glossary, external: false },
   { href: '/resources', label: t.value.nav.resources, external: false },
+  { href: '/tools', label: t.value.nav.tools, external: false },
   { href: '/publications', label: t.value.nav.publications, external: false },
   { href: '/achievements', label: t.value.achievements?.navLabel || 'Achievements', external: false },
   { href: '/impact', label: t.value.nav.impact, external: false },
