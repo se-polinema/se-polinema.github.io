@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "node scripts/validate-publications.mjs && astro check && astro build",
     "preview": "astro preview",
     "sync:events": "node scripts/sync-events.mjs",
-    "sync:books": "node scripts/scrape-books.mjs"
+    "sync:publications": "node scripts/update-publications.mjs",
+    "sync:books": "node scripts/scrape-books.mjs",
+    "validate:publications": "node scripts/validate-publications.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
