@@ -745,6 +745,9 @@
     "shareOnWhatsApp": "Bagikan ke WhatsApp",
     "shareOnTelegram": "Bagikan ke Telegram"
   },
+  "readingProgress": {
+    "label": "Progres membaca: {percent}%"
+  },
   "glossary": {
     "label": "Glosarium",
     "heading": "Glosarium SE Bilingual",

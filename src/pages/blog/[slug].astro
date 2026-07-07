@@ -1,6 +1,7 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogPostPage from '../../components/BlogPostPage.vue'
+import ReadingProgress from '../../components/ReadingProgress.vue'
 import TableOfContents from '../../components/TableOfContents.vue'
 import CodeCopyButtons from '../../components/CodeCopyButtons.vue'
 import ShareButtons from '../../components/ShareButtons.vue'
@@ -170,6 +171,7 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
   image={post.data.image ?? `/og/blog/${post.id}.png`}
 >
   <JsonLd slot="head" data={blogPostingJsonLd} />
+  <ReadingProgress client:load />
   <div class="px-8 py-6 flex gap-8">
     <div class="flex-1 min-w-0">
       <BlogPostPage
