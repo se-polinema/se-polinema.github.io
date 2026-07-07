@@ -56,6 +56,9 @@ export function useVSCodeLayout() {
     } else if (path.startsWith('/learning-paths')) {
       currentPage.value = 'learning-paths'
       activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/tools')) {
+      currentPage.value = 'tools'
+      activeSidebarView.value = 'explorer'
     } else {
       currentPage.value = 'home'
       activeSidebarView.value = 'explorer'

@@ -170,6 +170,7 @@ const innerPageTabMap: Record<string, { label: string; ext: string; href: string
   books:        { label: "books.md",         ext: "md",   href: "/books" },
   decks:        { label: "decks.md",         ext: "md",   href: "/decks" },
   'learning-paths': { label: "learning-paths.astro", ext: "astro", href: "/learning-paths" },
+  tools:        { label: "tools.json",         ext: "json", href: "/tools" },
 };
 
 const pageParentHrefMap: Record<string, string> = {
@@ -217,6 +218,7 @@ const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   books:        { path: ["se-lab", "src", "books", "index.md"],            lang: "Markdown" },
   decks:        { path: ["se-lab", "src", "decks", "index.md"],            lang: "Markdown" },
   'learning-paths': { path: ["se-lab", "src", "learning-paths.astro"],     lang: "Astro" },
+  tools:        { path: ["se-lab", "src", "tools", "index.json"],           lang: "JSON" },
 };
 
 const currentBreadcrumb = computed(() => {
