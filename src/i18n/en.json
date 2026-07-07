@@ -477,7 +477,16 @@
     "lastUpdated": "Last updated {date}",
     "reviewed": "Reviewed {date}",
     "outdatedWarning": "May be outdated",
-    "publishedDate": "Published {date}"
+    "publishedDate": "Published {date}",
+    "series": {
+      "partsLabel": "Parts",
+      "youAreHere": "You are here",
+      "previous": "Previous",
+      "next": "Next",
+      "seriesComplete": "Series Complete",
+      "seriesStart": "Series Start",
+      "continueSeries": "Continue the series"
+    }
   },
   "notFound": {
     "heading": "Page Not Found",

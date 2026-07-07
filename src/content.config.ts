@@ -35,6 +35,8 @@ const blogCollection = defineCollection({
     updated: z.date().optional(),
     reviewed: z.date().optional(),
     outdated: z.boolean().optional(),
+    series: z.string().optional(),
+    seriesOrder: z.number().int().optional(),
   }),
 })
 

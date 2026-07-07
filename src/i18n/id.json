@@ -477,7 +477,16 @@
     "lastUpdated": "Terakhir diperbarui {date}",
     "reviewed": "Ditinjau {date}",
     "outdatedWarning": "Mungkin kedaluwarsa",
-    "publishedDate": "Diterbitkan {date}"
+    "publishedDate": "Diterbitkan {date}",
+    "series": {
+      "partsLabel": "Bagian",
+      "youAreHere": "Anda di sini",
+      "previous": "Sebelumnya",
+      "next": "Selanjutnya",
+      "seriesComplete": "Seri Selesai",
+      "seriesStart": "Awal Seri",
+      "continueSeries": "Lanjutkan seri"
+    }
   },
   "notFound": {
     "heading": "Halaman Tidak Ditemukan",
