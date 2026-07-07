@@ -5,6 +5,7 @@ import PublicationsPageIntro from '../../components/PublicationsPageIntro.vue'
 import { getCollection } from 'astro:content'
 import { readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
+import researchData from '../../data/research.json'
 
 const publications = (await getCollection('publications'))
   .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
@@ -24,7 +25,13 @@ const researchers = (await getCollection('researchers'))
   .map((researcher) => ({
     id: researcher.id,
     name: researcher.data.name,
+    streams: researcher.data.streams ?? [],
   }))
+
+const streamNames: Record<string, { en: string; id: string }> = {}
+for (const stream of researchData as { id: string; name: { en: string; id: string } }[]) {
+  streamNames[stream.id] = { en: stream.name.en, id: stream.name.id }
+}
 
 let lastUpdated = null
 const syncMetaPath = resolve('src/data/_sync-meta.json')
@@ -54,6 +61,6 @@ if (existsSync(syncMetaPath)) {
         Subscribe to publications feed
       </a>
     </div>
-    <PublicationsArchive client:load publications={publications} researchers={researchers} />
+    <PublicationsArchive client:load publications={publications} researchers={researchers} streamNames={streamNames} />
   </div>
 </VSCodeLayout>

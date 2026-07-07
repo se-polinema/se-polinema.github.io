@@ -168,6 +168,20 @@
           </button>
         </div>
       </div>
+      <div v-if="pubStreams.length > 0">
+        <div class="filter-header">{{ t.publications.filterStream }}</div>
+        <div class="flex flex-wrap gap-1 mt-2">
+          <button
+            v-for="stream in pubStreams"
+            :key="stream.id"
+            @click="toggleFilter('stream', stream.id)"
+            class="filter-chip"
+            :class="activeFilters.stream === stream.id ? 'chip-active' : 'chip-inactive'"
+          >
+            {{ lang === 'id' ? stream.nameId : stream.nameEn }}
+          </button>
+        </div>
+      </div>
     </nav>
 
     <!-- Blog / News filter panel -->
@@ -273,7 +287,7 @@ const {
   initObserver, scrollTo,
 } = useVSCodeLayout()
 
-const { t } = useI18n()
+const { t, lang } = useI18n()
 
 interface FileItem {
   id: string
@@ -309,6 +323,7 @@ const fileTree: FileItem[] = [
 const researcherList = ref<{ id: string; name: string }[]>([])
 const pubYears = ref<number[]>([])
 const pubTypes = ref<string[]>([])
+const pubStreams = ref<{ id: string; nameEn: string; nameId: string }[]>([])
 const blogCategories = ref<string[]>([])
 const blogTags = ref<string[]>([])
 const deckMembers = ref<{ id: string; name: string }[]>([])
@@ -344,7 +359,7 @@ function navigate(item: FileItem) {
   if (item.href) window.location.href = item.href
 }
 
-function toggleFilter(key: 'year' | 'type' | 'category' | 'tag', value: number | string) {
+function toggleFilter(key: 'year' | 'type' | 'category' | 'tag' | 'stream', value: number | string) {
   if (activeFilters[key] === value) (activeFilters as Record<string, unknown>)[key] = null
   else (activeFilters as Record<string, unknown>)[key] = value
 }
@@ -366,6 +381,7 @@ onMounted(async () => {
     const meta = await fetch('/api/publications-meta.json').then(r => r.json())
     pubYears.value = meta.years
     pubTypes.value = meta.types
+    pubStreams.value = meta.streams ?? []
   } else if (currentPage.value === 'blog') {
     const meta = await fetch('/api/posts-meta.json').then(r => r.json())
     blogCategories.value = meta.categories
