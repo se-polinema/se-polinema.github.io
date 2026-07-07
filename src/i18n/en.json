@@ -745,6 +745,9 @@
     "shareOnWhatsApp": "Share on WhatsApp",
     "shareOnTelegram": "Share on Telegram"
   },
+  "readingProgress": {
+    "label": "Reading progress: {percent}%"
+  },
   "glossary": {
     "label": "Glossary",
     "heading": "Bilingual SE Glossary",
