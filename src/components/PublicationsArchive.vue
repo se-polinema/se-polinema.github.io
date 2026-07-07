@@ -32,7 +32,7 @@
     </div>
 
     <div v-else class="text-center py-20 border border-dashed border-primary/10 dark:border-gray-700">
-      <p class="text-neutral-400 dark:text-gray-500 text-sm max-w-sm mx-auto">{{ t.blog.noPosts }}</p>
+      <p class="text-neutral-400 dark:text-gray-500 text-sm max-w-sm mx-auto">{{ emptyMessage }}</p>
     </div>
   </section>
 </template>
@@ -56,11 +56,13 @@ type Publication = {
 type ResearcherOption = {
   id: string
   name: string
+  streams: string[]
 }
 
 const props = defineProps<{
   publications: Publication[]
   researchers: ResearcherOption[]
+  streamNames: Record<string, { en: string; id: string }>
 }>()
 
 const { t } = useI18n()
@@ -68,13 +70,44 @@ const { activeFilters } = useVSCodeLayout()
 
 const researcherMap = computed(() => new Map(props.researchers.map((researcher) => [researcher.id, researcher.name])))
 
+const researcherStreamMap = computed(() => {
+  const map = new Map<string, string[]>()
+  for (const r of props.researchers) {
+    map.set(r.id, r.streams)
+  }
+  return map
+})
+
+const publicationStreams = computed(() => {
+  const map = new Map<string, Set<string>>()
+  for (const pub of props.publications) {
+    const streams = new Set<string>()
+    for (const rid of pub.researchers) {
+      const resStreams = researcherStreamMap.value.get(rid) ?? []
+      for (const s of resStreams) streams.add(s)
+    }
+    map.set(pub.id, streams)
+  }
+  return map
+})
+
 const filteredPublications = computed(() =>
   props.publications.filter((publication) => {
     const byYear = !activeFilters.year || publication.year === activeFilters.year
     const byType = !activeFilters.type || publication.type === activeFilters.type
-    return byYear && byType
+    const byStream = !activeFilters.stream || (publicationStreams.value.get(publication.id)?.has(activeFilters.stream) ?? false)
+    return byYear && byType && byStream
   })
 )
+
+const hasAnyFilter = computed(() =>
+  activeFilters.year !== null || activeFilters.type !== null || activeFilters.stream !== null
+)
+
+const emptyMessage = computed(() => {
+  if (hasAnyFilter.value) return t.publications.noResults
+  return t.blog.noPosts
+})
 
 const groupedEntries = computed(() => {
   const groups = filteredPublications.value.reduce<Record<string, Publication[]>>((acc, publication) => {
