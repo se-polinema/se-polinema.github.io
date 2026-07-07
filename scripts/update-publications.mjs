@@ -165,13 +165,19 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
 
       if (!title || !pubYear) continue
 
-      const venue = bib.venue || bib.journal || bib.conference || 'Unknown Venue'
+      const venue = bib.venue || bib.journal || bib.conference || ''
+      const hasVenue = venue.trim().length > 0
 
       let authors = []
       if (Array.isArray(bib.author)) {
         authors = bib.author.map(a => a.trim()).filter(Boolean)
       } else if (typeof bib.author === 'string') {
         authors = bib.author.split(',').map(a => a.trim()).filter(Boolean)
+      }
+
+      if (authors.length === 0 || !hasVenue) {
+        console.warn(`  Skipping "${title}" (${pubYear}): missing ${authors.length === 0 ? 'authors' : 'venue'}`)
+        continue
       }
 
       const matchedResearchers = [researcher.slug]
