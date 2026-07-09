@@ -100,6 +100,13 @@
                 class="font-mono text-[9px] uppercase tracking-wide text-primary/55 dark:text-gray-400 bg-neutral-50 dark:bg-gray-800 border border-primary/10 dark:border-gray-600 px-1.5 py-0.5 leading-none"
               >{{ item }}</span>
             </div>
+
+            <!-- Contact Form -->
+            <ResearcherContactForm
+              :researcher-name="researcher.name"
+              :researcher-email="researcher.email"
+              :researcher-streams="researcher.streams || []"
+            />
           </div>
 
         </div>
@@ -222,6 +229,7 @@
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import researchData from '../data/research.json'
+import ResearcherContactForm from './ResearcherContactForm.vue'
 
 type Localized = { id: string; en: string }
 type Publication = { id: string; title: string; year: number; authors: string[]; venue: string; type: string; url: string; citedByCount: number }
