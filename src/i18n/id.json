@@ -776,6 +776,10 @@
     "formValidationMessage": "Silakan masukkan pesan.",
     "formValidationConsent": "Anda harus menyetujui ketentuan privasi sebelum mengirim."
   },
+  "announcement": {
+    "closeLabel": "Tutup pengumuman",
+    "fallbackText": "Pengumuman baru dari SE Lab"
+  },
   "glossary": {
     "label": "Glosarium",
     "heading": "Glosarium SE Bilingual",

@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "dismissible": true,
+  "type": "info",
+  "startDate": "",
+  "endDate": "",
+  "message": "",
+  "messageId": "",
+  "link": "",
+  "linkId": "",
+  "linkText": "",
+  "linkTextId": "",
+  "autoPromoteFallback": true
+}

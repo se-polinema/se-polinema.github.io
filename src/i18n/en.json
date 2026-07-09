@@ -776,6 +776,10 @@
     "formValidationMessage": "Please enter a message.",
     "formValidationConsent": "You must agree to the privacy terms before sending."
   },
+  "announcement": {
+    "closeLabel": "Close announcement",
+    "fallbackText": "New announcement from SE Lab"
+  },
   "glossary": {
     "label": "Glossary",
     "heading": "Bilingual SE Glossary",
