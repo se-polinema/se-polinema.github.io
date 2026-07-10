@@ -840,19 +840,21 @@ We evaluate with four metrics:
 ### 6.1 The Confusion Matrix
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-                   Actual
-                 Clean   Buggy
-       ┌────────┬───────┬───────┐
-       │ Clean  │  TN   │  FN   │  ← Predicted Clean
-Pred.  │        │ True  │ False │
-       │        │ Neg.  │ Neg.  │
-       ├────────┼───────┼───────┤
-       │ Buggy  │  FP   │  TP   │  ← Predicted Buggy
-       │        │ False │ True  │
-       │        │ Pos.  │ Pos.  │
-       └────────┴───────┴───────┘
-</pre>
+```mermaid
+graph TB
+    subgraph CM["Confusion Matrix"]
+        direction LR
+        subgraph R1["Predicted Clean"]
+            TN["TN (True Negative)<br/>Correctly predicted clean"]
+            FN["FN (False Negative)<br/>Missed bug"]
+        end
+        subgraph R2["Predicted Buggy"]
+            FP["FP (False Positive)<br/>False alarm"]
+            TP["TP (True Positive)<br/>Correctly predicted buggy"]
+        end
+    end
+    CM ~~~ L["Actual: Clean → Buggy"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 2: Confusion matrix layout. TP = correctly predicted buggy, TN = correctly predicted clean, FP = false alarm, FN = missed bug.</span>
   <span lang="id">Gambar 2: Tata letak confusion matrix. TP = benar diprediksi buggy, TN = benar diprediksi clean, FP = alarm palsu, FN = bug terlewatkan.</span>
@@ -1010,19 +1012,21 @@ Kita mengevaluasi dengan empat metrik:
 ### 6.1 Confusion Matrix
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-                   Aktual
-                 Clean   Buggy
-       ┌────────┬───────┬───────┐
-       │ Clean  │  TN   │  FN   │  ← Diprediksi Clean
-Pred.  │        │ True  │ False │
-       │        │ Neg.  │ Neg.  │
-       ├────────┼───────┼───────┤
-       │ Buggy  │  FP   │  TP   │  ← Diprediksi Buggy
-       │        │ False │ True  │
-       │        │ Pos.  │ Pos.  │
-       └────────┴───────┴───────┘
-</pre>
+```mermaid
+graph TB
+    subgraph CM["Confusion Matrix"]
+        direction LR
+        subgraph R1["Diprediksi Clean"]
+            TN["TN (True Negative)<br/>Benar diprediksi clean"]
+            FN["FN (False Negative)<br/>Bug terlewatkan"]
+        end
+        subgraph R2["Diprediksi Buggy"]
+            FP["FP (False Positive)<br/>Alarm palsu"]
+            TP["TP (True Positive)<br/>Benar diprediksi buggy"]
+        end
+    end
+    CM ~~~ L["Aktual: Clean → Buggy"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 2: Confusion matrix layout. TP = correctly predicted buggy, TN = correctly predicted clean, FP = false alarm, FN = missed bug.</span>
   <span lang="id">Gambar 2: Tata letak confusion matrix. TP = benar diprediksi buggy, TN = benar diprediksi clean, FP = alarm palsu, FN = bug terlewatkan.</span>
@@ -1198,21 +1202,15 @@ Our classifier uses a hard decision threshold of 0.5. If false positives are cos
 ### 7.4 Visualizing Risk Thresholds
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
- P(buggy)
-   1.0 ┤
-       │                 ██████  ← high-risk zone (P ≥ 0.7)
-   0.8 ┤          ████████
-       │     ████████░░░░░░░░
-   0.6 ┤████████░░░░░░░░░░░░░░  ← ambiguous zone
-       │░░░░░░░░░░░░░░░░░░
-   0.4 ┤░░░░░░░░░░░░░░░░░░
-       │░░░░░░░░░░░░░░░░░░░░░░
-   0.2 ┤░░░░░░░░░░░░░░░░░░░░░░  ← low-risk zone (P ≤ 0.3)
-       │░░░░░░░░░░░░░░░░░░░░░░░░░░
-   0.0 ┼──────────────────────────────→ Modules
-       M01 M05 M12 M03 M07 M20 M45 M50
-</pre>
+```mermaid
+graph TB
+    subgraph RD["Risk Score Distribution Across Modules"]
+        direction LR
+        H["HIGH-RISK ZONE (P ≥ 0.7)<br/>Clear review priorities"] -->|"threshold 0.7"| A["AMBIGUOUS ZONE (0.3 < P < 0.7)<br/>Investigate further"]
+        A -->|"threshold 0.3"| L["LOW-RISK ZONE (P ≤ 0.3)<br/>Likely clean"]
+    end
+    RD ~~~ N["Modules ordered from highest to lowest risk score"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 3: Risk-score distribution across modules. The dashed line at P=0.5 is the default decision boundary. Modules above P=0.7 are clear review priorities.</span>
   <span lang="id">Gambar 3: Distribusi skor risiko di seluruh modul. Garis putus-putus pada P=0.5 adalah batas keputusan default. Modul di atas P=0.7 adalah prioritas peninjauan yang jelas.</span>
@@ -1248,21 +1246,15 @@ Classifier kita menggunakan threshold keputusan keras 0.5. Jika false positive m
 ### 7.4 Visualisasi Threshold Risiko
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
- P(buggy)
-   1.0 ┤
-       │                 ██████  ← zona risiko tinggi (P ≥ 0.7)
-   0.8 ┤          ████████
-       │     ████████░░░░░░░░
-   0.6 ┤████████░░░░░░░░░░░░░░  ← zona ambigu
-       │░░░░░░░░░░░░░░░░░░
-   0.4 ┤░░░░░░░░░░░░░░░░░░
-       │░░░░░░░░░░░░░░░░░░░░░░
-   0.2 ┤░░░░░░░░░░░░░░░░░░░░░░  ← zona risiko rendah (P ≤ 0.3)
-       │░░░░░░░░░░░░░░░░░░░░░░░░░░
-   0.0 ┼──────────────────────────────→ Modul
-       M01 M05 M12 M03 M07 M20 M45 M50
-</pre>
+```mermaid
+graph TB
+    subgraph RD["Distribusi Skor Risiko di Seluruh Modul"]
+        direction LR
+        H["ZONA RISIKO TINGGI (P ≥ 0.7)<br/>Prioritas peninjauan yang jelas"] -->|"ambang 0.7"| A["ZONA AMBIGU (0.3 < P < 0.7)<br/>Investigasi lebih lanjut"]
+        A -->|"ambang 0.3"| L["ZONA RISIKO RENDAH (P ≤ 0.3)<br/>Kemungkinan bersih"]
+    end
+    RD ~~~ N["Modul diurutkan dari skor risiko tertinggi ke terendah"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 3: Risk-score distribution across modules. The dashed line at P=0.5 is the default decision boundary. Modules above P=0.7 are clear review priorities.</span>
   <span lang="id">Gambar 3: Distribusi skor risiko di seluruh modul. Garis putus-putus pada P=0.5 adalah batas keputusan default. Modul di atas P=0.7 adalah prioritas peninjauan yang jelas.</span>

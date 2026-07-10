@@ -59,24 +59,20 @@ Bayangkan pengujian seperti memeriksa pekerjaan rumah Anda sebelum mengumpulkann
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────┐
-│            SOFTWARE TESTING                  │
-│                                              │
-│   ┌─────────────┐    ┌─────────────┐         │
-│   │  BLACKBOX   │    │  WHITEBOX   │         │
-│   │  Testing    │    │  Testing    │         │
-│   │             │    │             │         │
-│   │ Only sees   │    │ Sees        │         │
-│   │ input &     │    │ internal    │         │
-│   │ output      │    │ code logic  │         │
-│   └──────┬──────┘    └──────┬──────┘         │
-│          │                  │                │
-│          ▼                  ▼                │
-│   Functional testing  Structural testing     │
-│   (What it does)      (How it does it)       │
-└──────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph T["SOFTWARE TESTING"]
+        direction LR
+        subgraph B["BLACKBOX Testing"]
+            B1["Only sees input & output"]
+        end
+        subgraph W["WHITEBOX Testing"]
+            W1["Sees internal code logic"]
+        end
+    end
+    B --> V1["Functional testing<br/>(What it does)"]
+    W --> V2["Structural testing<br/>(How it does it)"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The two main approaches to software testing</span>
   <span lang="id">Gambar: Dua pendekatan utama dalam pengujian perangkat lunak</span>

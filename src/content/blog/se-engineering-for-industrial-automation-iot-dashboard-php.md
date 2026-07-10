@@ -79,43 +79,19 @@ Batasan ini berarti bahwa **pola pengembangan web generik gagal di bawah beban k
 A production-grade industrial IoT monitoring system follows a layered architecture. Each layer has a specific responsibility and failure mode.
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌─────────────────────────────────────────────────────────────────┐
-│                        SENSOR LAYER                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────┐   │
-│  │  Temp    │  │  Vibration│  │  Pressure │  │  Flow Meter  │   │
-│  │  Sensor  │  │  Sensor   │  │  Sensor   │  │              │   │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └──────┬───────┘   │
-│       │              │              │               │           │
-│       └──────────────┴──────────────┴───────────────┘           │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                    EDGE GATEWAY                                 │
-│              (Modbus/OPC-UA → MQTT bridge)                      │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                    MQTT BROKER                                  │
-│                 (Mosquitto / EMQX)                              │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                   PHP INGESTION                                 │
-│            (MQTT subscriber + validation)                       │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                 TIME-SERIES DB                                  │
-│               (InfluxDB / TimescaleDB)                          │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│      ┌───────────────────┴───────────────────┐                  │
-│      │                                       │                  │
-│  ┌───┴──────────┐                   ┌───────┴──────────┐       │
-│  │  Dashboard    │                   │  Alert Engine    │       │
-│  │  API (REST)   │                   │  (Threshold/SSE) │       │
-│  └───────────────┘                   └──────────────────┘       │
-│                                                                 │
-│              PRESENTATION & ACTION LAYER                        │
-└─────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph SL["SENSOR LAYER"]
+        S1["Temp Sensor"] ~~~ S2["Vibration Sensor"] ~~~ S3["Pressure Sensor"] ~~~ S4["Flow Meter"]
+    end
+    SL --> EG["EDGE GATEWAY<br/>(Modbus/OPC-UA → MQTT bridge)"]
+    EG --> MB["MQTT BROKER<br/>(Mosquitto / EMQX)"]
+    MB --> PI["PHP INGESTION<br/>(MQTT subscriber + validation)"]
+    PI --> TS["TIME-SERIES DB<br/>(InfluxDB / TimescaleDB)"]
+    TS --> DA["Dashboard API (REST)"]
+    TS --> AE["Alert Engine (Threshold/SSE)"]
+    DA ~~~ PL["PRESENTATION & ACTION LAYER"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Industrial IoT monitoring system architecture — from sensor to dashboard.</span>
   <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri — dari sensor ke dasbor.</span>
@@ -164,43 +140,19 @@ Every arrow in these diagrams represents an integration point that can fail. The
 Sistem pemantauan IoT industri tingkat produksi mengikuti arsitektur berlapis. Setiap lapisan memiliki tanggung jawab dan mode kegagalan spesifik.
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌─────────────────────────────────────────────────────────────────┐
-│                     LAPISAN SENSOR                              │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────┐   │
-│  │  Sensor  │  │  Sensor  │  │  Sensor  │  │  Pengukur    │   │
-│  │  Suhu    │  │  Getaran │  │  Tekanan │  │  Aliran      │   │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └──────┬───────┘   │
-│       │              │              │               │           │
-│       └──────────────┴──────────────┴───────────────┘           │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                    GATEWAY EDGE                                 │
-│              (Jembatan Modbus/OPC-UA → MQTT)                    │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                    BROKER MQTT                                  │
-│                 (Mosquitto / EMQX)                              │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                    INGESTI PHP                                  │
-│            (Subscriber MQTT + validasi)                         │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│                 DATABASE TIME-SERIES                            │
-│               (InfluxDB / TimescaleDB)                          │
-│                          │                                      │
-├──────────────────────────┼──────────────────────────────────────┤
-│      ┌───────────────────┴───────────────────┐                  │
-│      │                                       │                  │
-│  ┌───┴──────────┐                   ┌───────┴──────────┐       │
-│  │  API Dasbor   │                   │  Mesin Peringatan│       │
-│  │  (REST)       │                   │  (Ambang/SSE)    │       │
-│  └───────────────┘                   └──────────────────┘       │
-│                                                                 │
-│              LAPISAN PRESENTASI & TINDAKAN                      │
-└─────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph SL["LAPISAN SENSOR"]
+        S1["Sensor Suhu"] ~~~ S2["Sensor Getaran"] ~~~ S3["Sensor Tekanan"] ~~~ S4["Pengukur Aliran"]
+    end
+    SL --> EG["GATEWAY EDGE<br/>(Jembatan Modbus/OPC-UA → MQTT)"]
+    EG --> MB["BROKER MQTT<br/>(Mosquitto / EMQX)"]
+    MB --> PI["INGESTI PHP<br/>(Subscriber MQTT + validasi)"]
+    PI --> TS["DATABASE TIME-SERIES<br/>(InfluxDB / TimescaleDB)"]
+    TS --> DA["API Dasbor (REST)"]
+    TS --> AE["Mesin Peringatan (Ambang/SSE)"]
+    DA ~~~ PL["LAPISAN PRESENTASI & TINDAKAN"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Industrial IoT monitoring system architecture — from sensor to dashboard.</span>
   <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri — dari sensor ke dasbor.</span>

@@ -258,4 +258,13 @@
   html.dark a.glossary-link {
     color: #F5A100;
   }
+
+  .mermaid-diagram {
+    @apply my-10 flex justify-center overflow-x-auto;
+  }
+
+  .mermaid-diagram svg {
+    max-width: 100%;
+    height: auto;
+  }
 }

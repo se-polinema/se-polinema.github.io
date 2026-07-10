@@ -61,35 +61,18 @@ Dalam tutorial ini, Anda akan mempelajari empat pilar DDD — Ubiquitous Languag
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────────┐
-│              DOMAIN-DRIVEN DESIGN — THE FOUR PILLARS                   │
-│                                                                      │
-│  ┌──────────────────┐  ┌──────────────────┐                          │
-│  │    UBIQUITOUS    │  │    BOUNDED       │                          │
-│  │    LANGUAGE      │  │    CONTEXTS      │                          │
-│  │                  │  │                  │                          │
-│  │  Shared glossary │  │  Splitting large │                          │
-│  │  between devs &  │  │  domains into    │                          │
-│  │  domain experts  │  │  manageable parts│                          │
-│  └────────┬─────────┘  └────────┬─────────┘                          │
-│           │                     │                                     │
-│           └──────────┬──────────┘                                     │
-│                      │                                                │
-│  ┌───────────────────┴───────────────────┐                            │
-│  │            BUILDING BLOCKS             │                            │
-│  │  Entities · Value Objects · Aggregates │                            │
-│  │  Repositories · Domain Services        │                            │
-│  └───────────────────┬───────────────────┘                            │
-│                      │                                                │
-│  ┌───────────────────┴───────────────────┐                            │
-│  │        LAYERED ARCHITECTURE            │                            │
-│  │  Domain → Application → Infrastructure│                            │
-│  └───────────────────────────────────────┘                            │
-│                                                                      │
-│  Each pillar supports the central goal: code = business model         │
-└──────────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph P["DOMAIN-DRIVEN DESIGN — THE FOUR PILLARS"]
+        direction LR
+        UL["UBIQUITOUS LANGUAGE<br/>Shared glossary between devs & domain experts"]
+        BC["BOUNDED CONTEXTS<br/>Splitting large domains into manageable parts"]
+        UL --> BB["BUILDING BLOCKS<br/>Entities · Value Objects · Aggregates<br/>Repositories · Domain Services"]
+        BC --> BB
+        BB --> LA["LAYERED ARCHITECTURE<br/>Domain → Application → Infrastructure"]
+    end
+    P --> G["Each pillar supports the central goal:<br/>code = business model"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The four pillars of Domain-Driven Design covered in this tutorial</span>
   <span lang="id">Gambar: Empat pilar Domain-Driven Design yang dibahas dalam tutorial ini</span>
@@ -373,36 +356,28 @@ Bounded context berkomunikasi melalui antarmuka yang terdefinisi dengan baik. Di
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────────┐
-│                 CAMPUS SYSTEM — CONTEXT MAP                           │
-│                                                                      │
-│   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐          │
-│   │   Identity   │    │  Enrolment   │    │   Billing    │          │
-│   │   Context    │    │   Context    │    │   Context    │          │
-│   │              │    │              │    │              │          │
-│   │  "User"      │    │  "Enrollee"  │    │  "Payer"     │          │
-│   │  • login     │    │  • enrol     │    │  • invoice   │          │
-│   │  • profile   │    │  • drop      │    │  • payment   │          │
-│   │  • role      │    │  • waitlist  │    │  • discount  │          │
-│   └──────┬───────┘    └──────┬───────┘    └──────┬───────┘          │
-│          │                   │                   │                   │
-│          │     StudentId     │     StudentId     │                   │
-│          │◄─────────────────►│◄─────────────────►│                   │
-│          │  (shared UUID)    │  (shared UUID)    │                   │
-│          │                   │                   │                   │
-│   ┌──────┴───────┐    ┌──────┴───────┐    ┌──────┴───────┐          │
-│   │   Library    │    │  Attendance  │    │  (future     │          │
-│   │   Context    │    │   Context    │    │   contexts)  │          │
-│   │              │    │              │    │              │          │
-│   │  "Borrower"  │    │  "Attendee"  │    │              │          │
-│   │  • borrow    │    │  • check-in  │    │              │          │
-│   │  • return    │    │  • absence   │    │              │          │
-│   └──────────────┘    └──────────────┘    └──────────────┘          │
-│                                                                      │
-│  Each context owns its own model of "Student"                       │
-└──────────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph ID["Identity Context<br/>User"]
+        ID1["login"] ~~~ ID2["profile"] ~~~ ID3["role"]
+    end
+    subgraph EN["Enrolment Context<br/>Enrollee"]
+        EN1["enrol"] ~~~ EN2["drop"] ~~~ EN3["waitlist"]
+    end
+    subgraph BL["Billing Context<br/>Payer"]
+        BL1["invoice"] ~~~ BL2["payment"] ~~~ BL3["discount"]
+    end
+    subgraph LB["Library Context<br/>Borrower"]
+        LB1["borrow"] ~~~ LB2["return"]
+    end
+    subgraph AT["Attendance Context<br/>Attendee"]
+        AT1["check-in"] ~~~ AT2["absence"]
+    end
+    ID ---|"StudentId (shared UUID)"| EN
+    EN ---|"StudentId (shared UUID)"| BL
+    ID --- LB
+    EN --- AT
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Bounded contexts in a campus system connected through shared identifiers</span>
   <span lang="id">Gambar: Bounded context dalam sistem kampus yang terhubung melalui identifier bersama</span>
