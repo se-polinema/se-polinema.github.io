@@ -67,23 +67,14 @@ Tiga masalah yang langsung dihadapi oleh microservices:
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────────┐
-│                     MONOLITH  →  MICROSERVICES                        │
-│                                                                      │
-│  ┌─────────────────────┐          ┌─────────┐  ┌─────────┐          │
-│  │                     │          │  Auth   │  │  Users  │          │
-│  │      MONOLITH       │   ──▶    │ Service │  │ Service │          │
-│  │  Auth + Users +     │          └────┬────┘  └────┬────┘          │
-│  │  Courses + Payment  │               │            │               │
-│  │                     │          ┌────┴────┐  ┌────┴────┐          │
-│  └─────────────────────┘          │Courses  │  │Payment  │          │
-│                                   │ Service │  │ Service │          │
-│                                   └─────────┘  └─────────┘          │
-│                                                                      │
-│  Each service has its own database, deployment pipeline, and team.   │
-└──────────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph LR
+    M["MONOLITH<br/>Auth + Users + Courses + Payment"] -->|"decompose"| AS["Auth Service"]
+    M -->|"decompose"| US["Users Service"]
+    M -->|"decompose"| CS["Courses Service"]
+    M -->|"decompose"| PS["Payment Service"]
+    AS ~~~ N1["Each service has its own<br/>database, deployment pipeline, and team."]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Decomposing a monolith into independent microservices</span>
   <span lang="id">Gambar: Mendekomposisi monolit menjadi microservices independen</span>
@@ -153,18 +144,16 @@ Microservices tidak dipisahkan berdasarkan layer teknis (controller, model, view
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────────┐
-│                 CHARACTERISTICS CHECKLIST                             │
-│                                                                      │
-│  ☑  Each service can be deployed independently                      │
-│  ☑  Each service owns its own database (no shared DB)               │
-│  ☑  Communication happens over well-defined APIs                    │
-│  ☑  Failures are isolated — one service failing ≠ system down       │
-│  ☑  Services are organised around business capabilities, not layers │
-│                                                                      │
-└──────────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph C["CHARACTERISTICS CHECKLIST"]
+        direction LR
+        CH1["Each service can be deployed independently"] ~~~ CH2["Each service owns its own database (no shared DB)"]
+        CH2 ~~~ CH3["Communication happens over well-defined APIs"]
+        CH3 ~~~ CH4["Failures are isolated"]
+        CH4 ~~~ CH5["Services organised around business capabilities, not layers"]
+    end
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The five core characteristics of microservices</span>
   <span lang="id">Gambar: Lima karakteristik inti microservices</span>
@@ -310,39 +299,32 @@ Setiap bounded context memiliki ubiquitous language-nya sendiri. Dalam context E
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────────┐
-│              EdTech BOUNDED CONTEXTS MAP                             │
-│                                                                      │
-│   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐          │
-│   │   Identity   │    │   Catalog    │    │ Enrollment   │          │
-│   │   Service    │    │   Service    │    │   Service    │          │
-│   │              │    │              │    │              │          │
-│   │  • register  │    │  • courses   │    │  • enroll     │          │
-│   │  • login     │    │  • syllabus  │    │  • waitlist   │          │
-│   │  • profile   │    │  • prereqs   │    │  • drop       │          │
-│   └──────┬───────┘    └──────┬───────┘    └──────┬───────┘          │
-│          │                   │                   │                   │
-│          └───────────────────┼───────────────────┘                   │
-│                              │                                       │
-│                     ┌────────┴────────┐                              │
-│                     │    Event Bus    │                              │
-│                     │  (RabbitMQ /    │                              │
-│                     │   Redis PubSub) │                              │
-│                     └────────┬────────┘                              │
-│                              │                                       │
-│          ┌───────────────────┼───────────────────┐                   │
-│          │                   │                   │                   │
-│   ┌──────┴───────┐    ┌──────┴───────┐    ┌──────┴───────┐          │
-│   │   Billing    │    │ Notification │    │              │          │
-│   │   Service    │◄───│   Service    │    │   (future)   │          │
-│   │              │    │              │    │              │          │
-│   │  • invoice   │    │  • email     │    │              │          │
-│   │  • payment   │    │  • push      │    │              │          │
-│   └──────────────┘    └──────────────┘    └──────────────┘          │
-│                                                                      │
-└──────────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph ID["Identity Service"]
+        ID1["register"] ~~~ ID2["login"] ~~~ ID3["profile"]
+    end
+    subgraph CT["Catalog Service"]
+        CT1["courses"] ~~~ CT2["syllabus"] ~~~ CT3["prereqs"]
+    end
+    subgraph EN["Enrollment Service"]
+        EN1["enroll"] ~~~ EN2["waitlist"] ~~~ EN3["drop"]
+    end
+    subgraph EB["Event Bus (RabbitMQ / Redis PubSub)"]
+    end
+    subgraph BL["Billing Service"]
+        BL1["invoice"] ~~~ BL2["payment"]
+    end
+    subgraph NT["Notification Service"]
+        NT1["email"] ~~~ NT2["push"]
+    end
+    ID --> EB
+    CT --> EB
+    EN --> EB
+    EB --> BL
+    EB --> NT
+    NT --> BL
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Bounded contexts connected through an event bus — asynchronous, loosely coupled</span>
   <span lang="id">Gambar: Bounded contexts terhubung melalui event bus — asinkron, loosely coupled</span>

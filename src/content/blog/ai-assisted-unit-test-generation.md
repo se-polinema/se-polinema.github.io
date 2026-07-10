@@ -277,31 +277,15 @@ Alur kerja: tulis kelas Anda, pilih di editor, dan minta Continue: "Buatkan peng
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────┐
-│              AI-ASSISTED TEST WORKFLOW                    │
-│                                                          │
-│  ┌─────────┐    ┌──────────┐    ┌────────┐              │
-│  │  WRITE  │───▶│   ASK   │───▶│ REVIEW │              │
-│  │  CODE   │    │   AI     │    │  & FIX │              │
-│  └─────────┘    └──────────┘    └───┬────┘              │
-│                                     │                   │
-│                                     ▼                   │
-│                               ┌──────────┐              │
-│                               │   RUN    │              │
-│                               │ PHPUnit  │              │
-│                               └────┬─────┘              │
-│                                    │                    │
-│                          ┌─────────┴─────────┐         │
-│                          ▼                   ▼         │
-│                    ┌──────────┐        ┌──────────┐    │
-│                    │  GREEN   │        │   RED    │    │
-│                    │ Commit   │        │  Fix &   │    │
-│                    │ tests    │        │  repeat  │    │
-│                    └──────────┘        └──────────┘    │
-│                                                          │
-└──────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    A["WRITE CODE"] --> B["ASK AI"]
+    B --> C["REVIEW & FIX"]
+    C --> D["RUN PHPUnit"]
+    D --> G["GREEN<br/>Commit tests"]
+    D --> R["RED<br/>Fix & repeat"]
+    R --> B
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The AI-assisted test workflow — AI drafts, you review, PHPUnit validates</span>
   <span lang="id">Gambar: Alur kerja pengujian berbantuan AI — AI membuat draf, Anda meninjau, PHPUnit memvalidasi</span>

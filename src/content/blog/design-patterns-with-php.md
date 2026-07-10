@@ -63,25 +63,22 @@ Dalam tutorial ini, kita membahas tiga pola GoF yang dipilih karena kegunaannya 
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────┐
-│                     DESIGN PATTERNS IN THIS TUTORIAL               │
-│                                                                    │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────────┐ │
-│  │   STRATEGY   │  │   OBSERVER   │  │     FACTORY METHOD       │ │
-│  │              │  │              │  │                          │ │
-│  │ Interchange- │  │ Publish /    │  │ Decouple object creation │ │
-│  │ able algo-   │  │ Subscribe    │  │ from business logic     │ │
-│  │ rithms       │  │ event        │  │                          │ │
-│  │              │  │ handling     │  │ Category: Creational     │ │
-│  │ Category:    │  │              │  │                          │ │
-│  │ Behavioural  │  │ Category:    │  │                          │ │
-│  │              │  │ Behavioural  │  │                          │ │
-│  └──────────────┘  └──────────────┘  └──────────────────────────┘ │
-│                                                                    │
-│  Each pattern: Motivation → Before (code smell) → After (pattern) │
-└──────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph DP["DESIGN PATTERNS IN THIS TUTORIAL"]
+        direction LR
+        subgraph S["STRATEGY (Behavioural)"]
+            S1["Interchangeable algorithms"]
+        end
+        subgraph O["OBSERVER (Behavioural)"]
+            O1["Publish / Subscribe event handling"]
+        end
+        subgraph F["FACTORY METHOD (Creational)"]
+            F1["Decouple object creation from business logic"]
+        end
+    end
+    DP --> L["Each pattern: Motivation → Before (code smell) → After (pattern)"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The three GoF design patterns covered in this tutorial — Strategy, Observer, and Factory Method</span>
   <span lang="id">Gambar: Tiga pola desain GoF yang dibahas dalam tutorial ini — Strategy, Observer, dan Factory Method</span>

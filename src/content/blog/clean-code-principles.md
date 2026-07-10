@@ -67,19 +67,17 @@ Dalam tutorial ini, kita akan membahas lima prinsip dasar Clean Code dengan cont
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────┐
-│                    CLEAN CODE PRINCIPLES                      │
-│                                                              │
-│   1. Meaningful Names                                        │
-│   2. Small Functions That Do One Thing                       │
-│   3. Comments vs. Self-Documenting Code                      │
-│   4. Avoid Magic Numbers and Strings                         │
-│   5. Error Handling with Early Returns                       │
-│                                                              │
-│   Your code is read far more often than it is written.       │
-└──────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph P["CLEAN CODE PRINCIPLES"]
+        direction LR
+        A["1. Meaningful Names"] ~~~ B["2. Small Functions"]
+        B ~~~ C["3. Comments vs. Self-Documenting Code"]
+        C ~~~ D["4. Avoid Magic Numbers and Strings"]
+        D ~~~ E["5. Error Handling with Early Returns"]
+        E ~~~ M["Code is read far more often than it is written"]
+    end
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The five Clean Code principles covered in this tutorial</span>
   <span lang="id">Gambar: Lima prinsip Clean Code yang dibahas dalam tutorial ini</span>

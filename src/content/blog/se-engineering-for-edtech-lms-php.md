@@ -325,60 +325,81 @@ Setiap modul memiliki domain model sendiri tetapi tinggal di codebase yang sama.
 A well-designed data model is the foundation of any LMS. Let us model the core entities and their relationships.
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────┐       ┌──────────────┐       ┌──────────────┐
-│   students   │       │   courses    │       │  lecturers   │
-├──────────────┤       ├──────────────┤       ├──────────────┤
-│ id (PK)      │       │ id (PK)      │       │ id (PK)      │
-│ student_code │       │ course_code  │       │ lecturer_code│
-│ name         │       │ name         │       │ name         │
-│ email        │       │ credits      │       │ email        │
-│ batch_year   │       │ department   │       │ department   │
-│ is_active    │       │ is_active    │       │ is_active    │
-└──────┬───────┘       └──────┬───────┘       └──────┬───────┘
-       │                      │                      │
-       │                      │                      │
-       │    ┌─────────────────┼──────────────────────┘
-       │    │                 │
-       ▼    ▼                 ▼
-┌──────────────┐       ┌──────────────┐
-│  enrollments │       │   classes    │
-├──────────────┤       ├──────────────┤
-│ id (PK)      │       │ id (PK)      │
-│ student_id   │──┐    │ course_id    │
-│ class_id     │──┤    │ lecturer_id  │
-│ status       │  │    │ semester     │
-│ enrolled_at  │  │    │ academic_year│
-│ updated_at   │  │    │ capacity     │
-│ final_grade  │  │    │ schedule     │
-└──────────────┘  │    │ room         │
-                  │    └──────────────┘
-                  │           │
-                  │           │
-                  ▼           ▼
-           ┌──────────┐ ┌──────────────┐
-           │  grades  │ │ prerequisites│
-           ├──────────┤ ├──────────────┤
-           │ id (PK)  │ │ course_id    │
-           │ enroll_id│ │ prereq_id    │
-           │ assess_id│ │ min_grade    │
-           │ score    │ └──────────────┘
-           │ graded_by│
-           │ graded_at│
-           └──────────┘
-                  │
-                  ▼
-           ┌──────────────┐
-           │ assessments  │
-           ├──────────────┤
-           │ id (PK)      │
-           │ class_id     │
-           │ type         │
-           │ weight       │
-           │ max_score    │
-           │ due_date     │
-           └──────────────┘
-</pre>
+```mermaid
+erDiagram
+    students {
+        int id PK
+        string student_code
+        string name
+        string email
+        int batch_year
+        bool is_active
+    }
+    courses {
+        int id PK
+        string course_code
+        string name
+        int credits
+        string department
+        bool is_active
+    }
+    lecturers {
+        int id PK
+        string lecturer_code
+        string name
+        string email
+        string department
+        bool is_active
+    }
+    classes {
+        int id PK
+        int course_id FK
+        int lecturer_id FK
+        string semester
+        string academic_year
+        int capacity
+        string schedule
+        string room
+    }
+    enrollments {
+        int id PK
+        int student_id FK
+        int class_id FK
+        string status
+        datetime enrolled_at
+        datetime updated_at
+        float final_grade
+    }
+    assessments {
+        int id PK
+        int class_id FK
+        string type
+        float weight
+        float max_score
+        date due_date
+    }
+    grades {
+        int id PK
+        int enroll_id FK
+        int assess_id FK
+        float score
+        string graded_by
+        datetime graded_at
+    }
+    prerequisites {
+        int course_id FK
+        int prereq_id FK
+        float min_grade
+    }
+    students ||--o{ enrollments : ""
+    courses ||--o{ classes : ""
+    lecturers ||--o{ classes : ""
+    classes ||--o{ enrollments : ""
+    enrollments ||--o{ grades : ""
+    assessments ||--o{ grades : ""
+    classes ||--o{ assessments : ""
+    courses ||--o{ prerequisites : ""
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
   <span lang="id">Gambar: Model data inti LMS — mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
@@ -477,60 +498,81 @@ This schema is intentionally simple — it focuses on the core enrollment flow. 
 Model data yang dirancang dengan baik adalah fondasi dari setiap LMS. Mari kita modelkan entitas inti dan hubungannya.
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────┐       ┌──────────────┐       ┌──────────────┐
-│   students   │       │   courses    │       │  lecturers   │
-├──────────────┤       ├──────────────┤       ├──────────────┤
-│ id (PK)      │       │ id (PK)      │       │ id (PK)      │
-│ student_code │       │ course_code  │       │ lecturer_code│
-│ name         │       │ name         │       │ name         │
-│ email        │       │ credits      │       │ email        │
-│ batch_year   │       │ department   │       │ department   │
-│ is_active    │       │ is_active    │       │ is_active    │
-└──────┬───────┘       └──────┬───────┘       └──────┬───────┘
-       │                      │                      │
-       │                      │                      │
-       │    ┌─────────────────┼──────────────────────┘
-       │    │                 │
-       ▼    ▼                 ▼
-┌──────────────┐       ┌──────────────┐
-│  enrollments │       │   classes    │
-├──────────────┤       ├──────────────┤
-│ id (PK)      │       │ id (PK)      │
-│ student_id   │──┐    │ course_id    │
-│ class_id     │──┤    │ lecturer_id  │
-│ status       │  │    │ semester     │
-│ enrolled_at  │  │    │ academic_year│
-│ updated_at   │  │    │ capacity     │
-│ final_grade  │  │    │ schedule     │
-└──────────────┘  │    │ room         │
-                  │    └──────────────┘
-                  │           │
-                  │           │
-                  ▼           ▼
-           ┌──────────┐ ┌──────────────┐
-           │  grades  │ │ prerequisites│
-           ├──────────┤ ├──────────────┤
-           │ id (PK)  │ │ course_id    │
-           │ enroll_id│ │ prereq_id    │
-           │ assess_id│ │ min_grade    │
-           │ score    │ └──────────────┘
-           │ graded_by│
-           │ graded_at│
-           └──────────┘
-                  │
-                  ▼
-           ┌──────────────┐
-           │ assessments  │
-           ├──────────────┤
-           │ id (PK)      │
-           │ class_id     │
-           │ type         │
-           │ weight       │
-           │ max_score    │
-           │ due_date     │
-           └──────────────┘
-</pre>
+```mermaid
+erDiagram
+    students {
+        int id PK
+        string student_code
+        string name
+        string email
+        int batch_year
+        bool is_active
+    }
+    courses {
+        int id PK
+        string course_code
+        string name
+        int credits
+        string department
+        bool is_active
+    }
+    lecturers {
+        int id PK
+        string lecturer_code
+        string name
+        string email
+        string department
+        bool is_active
+    }
+    classes {
+        int id PK
+        int course_id FK
+        int lecturer_id FK
+        string semester
+        string academic_year
+        int capacity
+        string schedule
+        string room
+    }
+    enrollments {
+        int id PK
+        int student_id FK
+        int class_id FK
+        string status
+        datetime enrolled_at
+        datetime updated_at
+        float final_grade
+    }
+    assessments {
+        int id PK
+        int class_id FK
+        string type
+        float weight
+        float max_score
+        date due_date
+    }
+    grades {
+        int id PK
+        int enroll_id FK
+        int assess_id FK
+        float score
+        string graded_by
+        datetime graded_at
+    }
+    prerequisites {
+        int course_id FK
+        int prereq_id FK
+        float min_grade
+    }
+    students ||--o{ enrollments : ""
+    courses ||--o{ classes : ""
+    lecturers ||--o{ classes : ""
+    classes ||--o{ enrollments : ""
+    enrollments ||--o{ grades : ""
+    assessments ||--o{ grades : ""
+    classes ||--o{ assessments : ""
+    courses ||--o{ prerequisites : ""
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
   <span lang="id">Gambar: Model data inti LMS — mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>

@@ -59,36 +59,24 @@ Tutorial ini membahas kedua pola menggunakan domain konkret yang sama — modul 
 </section>
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────────────┐
-│                    MVC  VS  MVVM  —  SIDE-BY-SIDE                         │
-│                                                                          │
-│   ┌─────────────────────────┐       ┌─────────────────────────┐          │
-│   │          MVC            │       │          MVVM           │          │
-│   │                         │       │                         │          │
-│   │   Browser sends request │       │   Browser renders View  │          │
-│   │          │              │       │          │              │          │
-│   │          ▼              │       │          ▼              │          │
-│   │   ┌──────────────┐      │       │   ┌──────────────┐      │          │
-│   │   │  Controller  │      │       │   │  ViewModel   │      │          │
-│   │   │  (orchestr.) │      │       │   │  (state +    │      │          │
-│   │   └──────┬───────┘      │       │   │   logic)     │      │          │
-│   │          │              │       │   └──────┬───────┘      │          │
-│   │    ┌─────┴─────┐        │       │         │              │          │
-│   │    ▼           ▼        │       │    ┌────┴────┐         │          │
-│   │ ┌──────┐  ┌──────────┐  │       │    ▼         ▼         │          │
-│   │ │Model │  │   View   │  │       │ ┌──────┐ ┌──────────┐  │          │
-│   │ │(data)│  │(template)│  │       │ │Model │ │   View   │  │          │
-│   │ └──────┘  └──────────┘  │       │ │(data)│ │(template)│  │          │
-│   │                         │       │ └──────┘ └──────────┘  │          │
-│   │  Flow: unidirectional   │       │  Binding: bidirectional │          │
-│   │  C→M, C→V, V reads M   │       │  VM↔V (auto-sync)      │          │
-│   └─────────────────────────┘       └─────────────────────────┘          │
-│                                                                          │
-│  MVC  = server decides what to render, sends full HTML to browser        │
-│  MVVM = ViewModel pushes state changes; View re-renders automatically    │
-└──────────────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    subgraph MVC["MVC (server-driven)"]
+        direction TB
+        BR1["Browser sends request"] --> C["Controller (orchestr.)"]
+        C --> M1["Model (data)"]
+        C --> V1["View (template)"]
+        V1 -.-> M1
+    end
+    subgraph MVVM["MVVM (client-driven)"]
+        direction TB
+        BR2["Browser renders View"] --> VM["ViewModel (state + logic)"]
+        VM --> M2["Model (data)"]
+        VM <--> V2["View (template)"]
+    end
+    M1 ~~~ N1["Flow: unidirectional<br/>C→M, C→V, V reads M"]
+    V2 ~~~ N2["Binding: bidirectional<br/>VM↔V (auto-sync)"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Architectural comparison between MVC (server-driven) and MVVM (client-driven with data binding)</span>
   <span lang="id">Gambar: Perbandingan arsitektur antara MVC (server-driven) dan MVVM (client-driven dengan data binding)</span>

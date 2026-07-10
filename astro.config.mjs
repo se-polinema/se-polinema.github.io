@@ -6,6 +6,7 @@ import rehypeRaw from 'rehype-raw'
 import { rehypeHeadingIds } from './src/utils/rehype-heading-ids'
 import { rehypeGlossary } from './src/utils/rehype-glossary'
 import { remarkPlantuml } from './src/utils/remark-plantuml'
+import { remarkMermaid } from './src/utils/remark-mermaid'
 
 export default defineConfig({
   site: 'https://se.polinema.ac.id',
@@ -27,6 +28,7 @@ export default defineConfig({
     },
     remarkPlugins: [
       [remarkPlantuml, { cacheDir: 'src/content/diagrams-cache' }],
+      [remarkMermaid, { cacheDir: 'src/content/diagrams-cache' }],
     ],
     rehypePlugins: [rehypeRaw, rehypeHeadingIds, rehypeGlossary],
   },

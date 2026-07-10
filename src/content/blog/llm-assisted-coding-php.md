@@ -697,35 +697,16 @@ Angka-angkanya cocok. Kelas yang dihasilkan LLM benar dan siap produksi — kare
 ---
 
 <figure class="my-10 text-center" role="figure">
-<pre class="inline-block text-left text-sm bg-neutral-900 text-green-400 p-6 rounded-lg">
-┌──────────────────────────────────────────────────────────────────────┐
-│                  LLM-ASSISTED CODING WORKFLOW                         │
-│                                                                      │
-│  ┌──────────┐     ┌──────────────┐     ┌──────────────┐             │
-│  │ SPEC /   │────▶│    PROMPT    │────▶│  AI DRAFTS   │            │
-│  │ REQUIRE- │     │  (CICE)      │     │  THE CODE    │            │
-│  │ MENTS    │     └──────────────┘     └──────┬───────┘             │
-│  └──────────┘                                │                      │
-│                                              ▼                      │
-│                                     ┌────────────────┐              │
-│                                     │  HUMAN REVIEW  │              │
-│                                     │  • Types ok?    │              │
-│                                     │  • Edge cases? │              │
-│                                     │  • Security?   │              │
-│                                     └───────┬────────┘              │
-│                                             │                       │
-│                           ┌─────────────────┼─────────────────┐     │
-│                           ▼                 ▼                 ▼     │
-│                    ┌──────────┐     ┌──────────────┐  ┌──────────┐  │
-│                    │  WRITE   │     │  REPROMPT /  │  │  REFINE  │  │
-│                    │  TESTS   │     │  FIX MANUAL  │  │  & COMMIT│  │
-│                    └──────────┘     └──────────────┘  └──────────┘  │
-│                                                                      │
-│  ┌──────────────────────────────────────────────────────────────┐   │
-│  │  EVERY ITERATION: Run tests → Lint → Security check → Commit  │   │
-│  └──────────────────────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────────────────────────┘
-</pre>
+```mermaid
+graph TB
+    A["SPEC / REQUIREMENTS"] --> B["PROMPT (CICE)"]
+    B --> C["AI DRAFTS THE CODE"]
+    C --> D["HUMAN REVIEW<br/>• Types ok?<br/>• Edge cases?<br/>• Security?"]
+    D --> E["WRITE TESTS"]
+    D --> F["REPROMPT / FIX MANUAL"]
+    D --> G["REFINE & COMMIT"]
+    E --> H["Run tests → Lint → Security check → Commit"]
+```
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The LLM-assisted coding workflow — AI drafts from spec, human reviews critically, tests validate the result</span>
   <span lang="id">Gambar: Alur kerja coding berbantuan LLM — AI membuat draf dari spesifikasi, manusia meninjau secara kritis, pengujian memvalidasi hasilnya</span>
