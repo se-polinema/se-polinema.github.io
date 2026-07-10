@@ -13,7 +13,10 @@ export default defineConfig({
   integrations: [
     vue(),
     sitemap({
-      filter: (page) => !page.includes('/404'),
+      filter: (page) => {
+        const excluded = ['/404', '/admin/', '/login/', '/register/', '/checkin/']
+        return !excluded.some((path) => page.includes(path))
+      },
       customPages: ['https://se.polinema.ac.id/rss.xml', 'https://se.polinema.ac.id/publications.xml', 'https://se.polinema.ac.id/resources'],
     }),
   ],
