@@ -521,6 +521,8 @@
     "projectsEmpty": "No projects are currently associated with this stream.",
     "publications": "Publications",
     "publicationsEmpty": "No publications are currently associated with this stream.",
+    "tutorials": "Tutorials & Resources",
+    "tutorialsEmpty": "No tutorials or resources are currently associated with this stream.",
     "topics": "Topics",
     "backToHome": "Back to Home"
   },
