@@ -156,6 +156,18 @@
       {
         "order": 13,
         "level": "intermediate",
+        "title": "MVC/MVVM Architecture Fundamentals with PHP",
+        "titleId": "Dasar-Dasar Arsitektur MVC/MVVM dengan PHP",
+        "description": "Understand Model-View-Controller and Model-View-ViewModel separation patterns with hands-on PHP/Laravel and Vue.js examples using a student-course enrolment domain.",
+        "descriptionId": "Pahami pola pemisahan Model-View-Controller dan Model-View-ViewModel dengan contoh langsung PHP/Laravel dan Vue.js menggunakan domain pendaftaran mata kuliah.",
+        "type": "tutorial",
+        "url": "/blog/mvc-mvvm-architecture-fundamentals-php",
+        "internal": true,
+        "estimatedTime": "~40 min read"
+      },
+      {
+        "order": 14,
+        "level": "intermediate",
         "title": "Laravel — The PHP Framework for Web Artisans",
         "titleId": "Laravel — Framework PHP untuk Web Artisans",
         "description": "Elegant PHP web framework with expressive syntax, used extensively in SE Lab projects and tutorials.",
@@ -166,7 +178,7 @@
         "estimatedTime": "~2 hours installation & tour"
       },
       {
-        "order": 14,
+        "order": 15,
         "level": "intermediate",
         "title": "Postman — API Development Platform",
         "titleId": "Postman — Platform Pengembangan API",
@@ -178,7 +190,7 @@
         "estimatedTime": "~1 hour hands-on"
       },
       {
-        "order": 15,
+        "order": 16,
         "level": "intermediate",
         "title": "GitHub Actions — CI/CD & Automation",
         "titleId": "GitHub Actions — CI/CD & Otomatisasi",
@@ -190,7 +202,7 @@
         "estimatedTime": "~1.5 hours setup & first workflow"
       },
       {
-        "order": 16,
+        "order": 17,
         "level": "advanced",
         "title": "Microservices Architecture Fundamentals with PHP",
         "titleId": "Dasar-Dasar Arsitektur Microservices dengan PHP",
@@ -202,7 +214,7 @@
         "estimatedTime": "~45 min read"
       },
       {
-        "order": 17,
+        "order": 18,
         "level": "advanced",
         "title": "Docker — Container Platform",
         "titleId": "Docker — Platform Kontainer",
@@ -214,7 +226,7 @@
         "estimatedTime": "~2 hours getting started"
       },
       {
-        "order": 18,
+        "order": 19,
         "level": "advanced",
         "title": "Software Engineering Body of Knowledge (SWEBOK v4)",
         "titleId": "Software Engineering Body of Knowledge (SWEBOK v4)",
@@ -226,7 +238,7 @@
         "estimatedTime": "~15 hours reference"
       },
       {
-        "order": 19,
+        "order": 20,
         "level": "advanced",
         "title": "The SE Lab Book Collection",
         "titleId": "Koleksi Buku SE Lab",
@@ -238,7 +250,7 @@
         "estimatedTime": "~varies by book"
       },
       {
-        "order": 20,
+        "order": 21,
         "level": "advanced",
         "title": "Presentation Decks Archive",
         "titleId": "Arsip Dek Presentasi",
