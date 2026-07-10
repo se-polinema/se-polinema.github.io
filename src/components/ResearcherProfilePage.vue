@@ -209,10 +209,11 @@
                       <span v-if="publication.citedByCount > 0" class="font-mono text-[10px] text-primary/45 dark:text-gray-400">{{ t.team.citedLabel.replace('{n}', String(publication.citedByCount)) }}</span>
                     </div>
                     <h3 class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">
-                      <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
+                      <a :href="`/publications/${publication.id}`" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
                     </h3>
                     <p class="mt-1 text-[13px] text-neutral-600 dark:text-gray-300">{{ publication.authors.join(', ') }}</p>
                     <p class="mt-0.5 text-[13px] text-neutral-400 dark:text-gray-500 italic">{{ publication.venue }}</p>
+                    <a v-if="publication.url" :href="publication.url" target="_blank" rel="noopener" class="inline-block mt-1.5 text-[13px] text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">{{ t.publications.viewPublication }} →</a>
                   </article>
                 </div>
               </div>
