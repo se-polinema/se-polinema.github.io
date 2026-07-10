@@ -3,6 +3,7 @@ import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import JsonLd from '../../components/JsonLd.astro'
 import { getCollection } from 'astro:content'
 import researchData from '../../data/research.json'
+import resourcesData from '../../data/resources.json'
 
 export function getStaticPaths() {
   return researchData.map((stream) => ({
@@ -62,6 +63,72 @@ const researcherProjects = streamResearchers.flatMap((r) =>
 
 const streamProjects = [...collectionStreamProjects, ...researcherProjects]
     .sort((a, b) => a.researcherName.localeCompare(b.researcherName))
+
+interface ResourceItem {
+  title: string
+  titleId: string
+  description: string
+  descriptionId: string
+  stream: string
+  type: string
+  level: string
+  url: string
+  internal?: boolean
+}
+
+const blogTutorials = (await getCollection('blog', ({ data }) =>
+  data.category === 'tutorial' && data.stream === stream.id
+)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+const blogTutorialUrls = new Set(blogTutorials.map((t) => `/blog/${t.id}`))
+
+const streamResources = (resourcesData as ResourceItem[]).filter(
+  (r) => r.stream === stream.id && r.internal === true && !blogTutorialUrls.has(r.url),
+)
+
+interface UnifiedTutorialResource {
+  title: string
+  titleId: string
+  description: string
+  descriptionId: string
+  url: string
+  date?: Date
+  level?: string
+  type?: string
+}
+
+const tutorialResources: UnifiedTutorialResource[] = [
+  ...blogTutorials.map((t) => ({
+    title: t.data.title,
+    titleId: t.data.titleId || t.data.title,
+    description: t.data.excerpt || '',
+    descriptionId: t.data.excerptId || t.data.excerpt || '',
+    url: `/blog/${t.id}`,
+    date: t.data.date,
+  })),
+  ...streamResources.map((r) => ({
+    title: r.title,
+    titleId: r.titleId,
+    description: r.description,
+    descriptionId: r.descriptionId,
+    url: r.url,
+    level: r.level,
+    type: r.type,
+  })),
+]
+
+function levelBadgeClass(level: string): string {
+  switch (level) {
+    case 'beginner':
+      return 'bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/20 dark:border-green-500/30'
+    case 'intermediate':
+      return 'bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/20 dark:border-amber-500/30'
+    case 'advanced':
+      return 'bg-red-500/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/20 dark:border-red-500/30'
+    default:
+      return 'bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400 border border-neutral-200 dark:border-gray-600'
+  }
+}
 
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const pageUrl = new URL(Astro.url.pathname, origin).href
@@ -211,6 +278,72 @@ const researchProjectJsonLd = {
           </p>
           <p lang="id" class="text-sm text-neutral-400 dark:text-gray-500 italic py-4 border border-dashed border-neutral-200 dark:border-gray-700 px-4 text-center">
             Belum ada proyek yang terkait dengan stream ini.
+          </p>
+        </div>
+      )
+    }
+
+    <h2 lang="en">Tutorials &amp; Resources</h2>
+    <h2 lang="id">Tutorial &amp; Sumber Daya</h2>
+    {
+      tutorialResources.length > 0 ? (
+        <div class="grid sm:grid-cols-2 gap-3 mb-10">
+          {tutorialResources.map((item) => (
+            <a
+              href={item.url}
+              target={item.url.startsWith('http') ? '_blank' : undefined}
+              rel={item.url.startsWith('http') ? 'noopener' : undefined}
+              class="stream-hub-researcher-card"
+            >
+              <div class="flex items-start gap-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary/60 shrink-0 mt-0.5">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <div class="min-w-0 flex-1">
+                  <h4 class="font-semibold text-sm text-primary dark:text-gray-100 mb-1">
+                    <span lang="en">{item.title}</span>
+                    <span lang="id">{item.titleId}</span>
+                  </h4>
+                  {item.description && (
+                    <p lang="en" class="text-xs text-neutral-500 dark:text-gray-400 line-clamp-2">
+                      {item.description}
+                    </p>
+                  )}
+                  {item.descriptionId && (
+                    <p lang="id" class="text-xs text-neutral-500 dark:text-gray-400 line-clamp-2">
+                      {item.descriptionId}
+                    </p>
+                  )}
+                  <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                    {item.date && (
+                      <span class="text-[10px] font-mono text-neutral-400 dark:text-gray-500">
+                        {item.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                      </span>
+                    )}
+                    {item.type && (
+                      <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400 capitalize">
+                        {item.type}
+                      </span>
+                    )}
+                    {item.level && (
+                      <span class={`text-[10px] font-mono px-1.5 py-0.5 rounded ${levelBadgeClass(item.level)} capitalize`}>
+                        {item.level}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="mb-10">
+          <p lang="en" class="text-sm text-neutral-400 dark:text-gray-500 italic py-4 border border-dashed border-neutral-200 dark:border-gray-700 px-4 text-center">
+            No tutorials or resources are currently associated with this stream.
+          </p>
+          <p lang="id" class="text-sm text-neutral-400 dark:text-gray-500 italic py-4 border border-dashed border-neutral-200 dark:border-gray-700 px-4 text-center">
+            Belum ada tutorial atau sumber daya yang terkait dengan stream ini.
           </p>
         </div>
       )

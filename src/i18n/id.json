@@ -521,6 +521,8 @@
     "projectsEmpty": "Belum ada proyek yang terkait dengan stream ini.",
     "publications": "Publikasi",
     "publicationsEmpty": "Belum ada publikasi yang terkait dengan stream ini.",
+    "tutorials": "Tutorial & Sumber Daya",
+    "tutorialsEmpty": "Belum ada tutorial atau sumber daya yang terkait dengan stream ini.",
     "topics": "Topik",
     "backToHome": "Kembali ke Beranda"
   },
