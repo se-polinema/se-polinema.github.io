@@ -19,11 +19,12 @@
             </div>
             <div>
               <h2 class="font-serif text-base md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug">
-                <a :href="publication.url" target="_blank" rel="noopener" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
+                <a :href="`/publications/${publication.id}`" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
               </h2>
               <p class="mt-2 text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">{{ publication.authors.join(', ') }}</p>
               <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-500 dark:text-gray-400">
                 <span>{{ publication.venue }}</span>
+                <a v-if="publication.url" :href="publication.url" target="_blank" rel="noopener" class="text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">{{ t.publications.viewPublication }} →</a>
               </div>
             </div>
           </article>

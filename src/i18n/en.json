@@ -262,7 +262,8 @@
     "lastUpdated": "Last updated",
     "subscribeFeed": "Subscribe to publications feed",
     "relatedHeading": "Related Research",
-    "browseAll": "Browse all publications"
+    "browseAll": "Browse all publications",
+    "viewPublication": "View publication"
   },
   "gallery": {
     "label": "Gallery",
