@@ -33,6 +33,6 @@
       "en": "AI-assisted tools and automation to accelerate software development and improve quality.",
       "id": "Alat berbasis AI dan otomatisasi untuk mempercepat pengembangan dan meningkatkan kualitas perangkat lunak."
     },
-    "topics": ["Code Quality Analysis", "Bug Prediction", "AI Test Generation", "Requirements Automation", "Documentation Automation"]
+    "topics": ["Code Quality Analysis", "Bug Prediction", "AI Test Generation", "Requirements Automation", "Documentation Automation", "LLM-Assisted Coding"]
   }
 ]
