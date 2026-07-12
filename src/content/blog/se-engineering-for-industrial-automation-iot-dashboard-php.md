@@ -79,6 +79,7 @@ Batasan ini berarti bahwa **pola pengembangan web generik gagal di bawah beban k
 A production-grade industrial IoT monitoring system follows a layered architecture. Each layer has a specific responsibility and failure mode.
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph SL["SENSOR LAYER"]
@@ -92,6 +93,7 @@ graph TB
     TS --> AE["Alert Engine (Threshold/SSE)"]
     DA ~~~ PL["PRESENTATION & ACTION LAYER"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Industrial IoT monitoring system architecture — from sensor to dashboard.</span>
   <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri — dari sensor ke dasbor.</span>
@@ -140,6 +142,7 @@ Every arrow in these diagrams represents an integration point that can fail. The
 Sistem pemantauan IoT industri tingkat produksi mengikuti arsitektur berlapis. Setiap lapisan memiliki tanggung jawab dan mode kegagalan spesifik.
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph SL["LAPISAN SENSOR"]
@@ -153,6 +156,7 @@ graph TB
     TS --> AE["Mesin Peringatan (Ambang/SSE)"]
     DA ~~~ PL["LAPISAN PRESENTASI & TINDAKAN"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Industrial IoT monitoring system architecture — from sensor to dashboard.</span>
   <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri — dari sensor ke dasbor.</span>

@@ -67,6 +67,7 @@ Tiga masalah yang langsung dihadapi oleh microservices:
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph LR
     M["MONOLITH<br/>Auth + Users + Courses + Payment"] -->|"decompose"| AS["Auth Service"]
@@ -75,6 +76,7 @@ graph LR
     M -->|"decompose"| PS["Payment Service"]
     AS ~~~ N1["Each service has its own<br/>database, deployment pipeline, and team."]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Decomposing a monolith into independent microservices</span>
   <span lang="id">Gambar: Mendekomposisi monolit menjadi microservices independen</span>
@@ -144,6 +146,7 @@ Microservices tidak dipisahkan berdasarkan layer teknis (controller, model, view
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph C["CHARACTERISTICS CHECKLIST"]
@@ -154,6 +157,7 @@ graph TB
         CH4 ~~~ CH5["Services organised around business capabilities, not layers"]
     end
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The five core characteristics of microservices</span>
   <span lang="id">Gambar: Lima karakteristik inti microservices</span>
@@ -299,6 +303,7 @@ Setiap bounded context memiliki ubiquitous language-nya sendiri. Dalam context E
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph ID["Identity Service"]
@@ -325,6 +330,7 @@ graph TB
     EB --> NT
     NT --> BL
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Bounded contexts connected through an event bus — asynchronous, loosely coupled</span>
   <span lang="id">Gambar: Bounded contexts terhubung melalui event bus — asinkron, loosely coupled</span>

@@ -61,6 +61,7 @@ Dalam tutorial ini, Anda akan mempelajari empat pilar DDD — Ubiquitous Languag
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph P["DOMAIN-DRIVEN DESIGN — THE FOUR PILLARS"]
@@ -73,6 +74,7 @@ graph TB
     end
     P --> G["Each pillar supports the central goal:<br/>code = business model"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The four pillars of Domain-Driven Design covered in this tutorial</span>
   <span lang="id">Gambar: Empat pilar Domain-Driven Design yang dibahas dalam tutorial ini</span>
@@ -356,6 +358,7 @@ Bounded context berkomunikasi melalui antarmuka yang terdefinisi dengan baik. Di
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph ID["Identity Context<br/>User"]
@@ -378,6 +381,7 @@ graph TB
     ID --- LB
     EN --- AT
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Bounded contexts in a campus system connected through shared identifiers</span>
   <span lang="id">Gambar: Bounded context dalam sistem kampus yang terhubung melalui identifier bersama</span>
