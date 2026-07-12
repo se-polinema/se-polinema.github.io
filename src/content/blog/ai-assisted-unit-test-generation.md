@@ -277,6 +277,7 @@ Alur kerja: tulis kelas Anda, pilih di editor, dan minta Continue: "Buatkan peng
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     A["WRITE CODE"] --> B["ASK AI"]
@@ -286,6 +287,7 @@ graph TB
     D --> R["RED<br/>Fix & repeat"]
     R --> B
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The AI-assisted test workflow — AI drafts, you review, PHPUnit validates</span>
   <span lang="id">Gambar: Alur kerja pengujian berbantuan AI — AI membuat draf, Anda meninjau, PHPUnit memvalidasi</span>

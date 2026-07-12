@@ -840,6 +840,7 @@ We evaluate with four metrics:
 ### 6.1 The Confusion Matrix
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph CM["Confusion Matrix"]
@@ -855,6 +856,7 @@ graph TB
     end
     CM ~~~ L["Actual: Clean → Buggy"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 2: Confusion matrix layout. TP = correctly predicted buggy, TN = correctly predicted clean, FP = false alarm, FN = missed bug.</span>
   <span lang="id">Gambar 2: Tata letak confusion matrix. TP = benar diprediksi buggy, TN = benar diprediksi clean, FP = alarm palsu, FN = bug terlewatkan.</span>
@@ -1012,6 +1014,7 @@ Kita mengevaluasi dengan empat metrik:
 ### 6.1 Confusion Matrix
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph CM["Confusion Matrix"]
@@ -1027,6 +1030,7 @@ graph TB
     end
     CM ~~~ L["Aktual: Clean → Buggy"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 2: Confusion matrix layout. TP = correctly predicted buggy, TN = correctly predicted clean, FP = false alarm, FN = missed bug.</span>
   <span lang="id">Gambar 2: Tata letak confusion matrix. TP = benar diprediksi buggy, TN = benar diprediksi clean, FP = alarm palsu, FN = bug terlewatkan.</span>
@@ -1202,6 +1206,7 @@ Our classifier uses a hard decision threshold of 0.5. If false positives are cos
 ### 7.4 Visualizing Risk Thresholds
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph RD["Risk Score Distribution Across Modules"]
@@ -1211,6 +1216,7 @@ graph TB
     end
     RD ~~~ N["Modules ordered from highest to lowest risk score"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 3: Risk-score distribution across modules. The dashed line at P=0.5 is the default decision boundary. Modules above P=0.7 are clear review priorities.</span>
   <span lang="id">Gambar 3: Distribusi skor risiko di seluruh modul. Garis putus-putus pada P=0.5 adalah batas keputusan default. Modul di atas P=0.7 adalah prioritas peninjauan yang jelas.</span>
@@ -1246,6 +1252,7 @@ Classifier kita menggunakan threshold keputusan keras 0.5. Jika false positive m
 ### 7.4 Visualisasi Threshold Risiko
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph RD["Distribusi Skor Risiko di Seluruh Modul"]
@@ -1255,6 +1262,7 @@ graph TB
     end
     RD ~~~ N["Modul diurutkan dari skor risiko tertinggi ke terendah"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 3: Risk-score distribution across modules. The dashed line at P=0.5 is the default decision boundary. Modules above P=0.7 are clear review priorities.</span>
   <span lang="id">Gambar 3: Distribusi skor risiko di seluruh modul. Garis putus-putus pada P=0.5 adalah batas keputusan default. Modul di atas P=0.7 adalah prioritas peninjauan yang jelas.</span>

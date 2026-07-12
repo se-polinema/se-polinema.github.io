@@ -59,6 +59,7 @@ Tutorial ini membahas kedua pola menggunakan domain konkret yang sama — modul 
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph MVC["MVC (server-driven)"]
@@ -77,6 +78,7 @@ graph TB
     M1 ~~~ N1["Flow: unidirectional<br/>C→M, C→V, V reads M"]
     V2 ~~~ N2["Binding: bidirectional<br/>VM↔V (auto-sync)"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Architectural comparison between MVC (server-driven) and MVVM (client-driven with data binding)</span>
   <span lang="id">Gambar: Perbandingan arsitektur antara MVC (server-driven) dan MVVM (client-driven dengan data binding)</span>

@@ -325,6 +325,7 @@ Setiap modul memiliki domain model sendiri tetapi tinggal di codebase yang sama.
 A well-designed data model is the foundation of any LMS. Let us model the core entities and their relationships.
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 erDiagram
     students {
@@ -400,6 +401,7 @@ erDiagram
     classes ||--o{ assessments : ""
     courses ||--o{ prerequisites : ""
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
   <span lang="id">Gambar: Model data inti LMS — mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
@@ -498,6 +500,7 @@ This schema is intentionally simple — it focuses on the core enrollment flow. 
 Model data yang dirancang dengan baik adalah fondasi dari setiap LMS. Mari kita modelkan entitas inti dan hubungannya.
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 erDiagram
     students {
@@ -573,6 +576,7 @@ erDiagram
     classes ||--o{ assessments : ""
     courses ||--o{ prerequisites : ""
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
   <span lang="id">Gambar: Model data inti LMS — mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>

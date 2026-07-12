@@ -697,6 +697,7 @@ Angka-angkanya cocok. Kelas yang dihasilkan LLM benar dan siap produksi — kare
 ---
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     A["SPEC / REQUIREMENTS"] --> B["PROMPT (CICE)"]
@@ -707,6 +708,7 @@ graph TB
     D --> G["REFINE & COMMIT"]
     E --> H["Run tests → Lint → Security check → Commit"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The LLM-assisted coding workflow — AI drafts from spec, human reviews critically, tests validate the result</span>
   <span lang="id">Gambar: Alur kerja coding berbantuan LLM — AI membuat draf dari spesifikasi, manusia meninjau secara kritis, pengujian memvalidasi hasilnya</span>

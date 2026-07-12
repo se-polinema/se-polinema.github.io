@@ -69,6 +69,7 @@ Perubahan kecil dalam urutan ini memiliki efek mendalam pada cara Anda mendesain
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     R["RED<br/>Write a failing test"] --> G["GREEN<br/>Write minimal code to pass"]
@@ -76,6 +77,7 @@ graph TB
     RF --> NT["NEXT TEST"]
     NT --> R
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The TDD cycle — Red, Green, Refactor, repeat</span>
   <span lang="id">Gambar: Siklus TDD — Red, Green, Refactor, ulangi</span>

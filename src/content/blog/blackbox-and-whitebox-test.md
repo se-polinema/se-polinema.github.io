@@ -59,6 +59,7 @@ Bayangkan pengujian seperti memeriksa pekerjaan rumah Anda sebelum mengumpulkann
 </section>
 
 <figure class="my-10 text-center" role="figure">
+
 ```mermaid
 graph TB
     subgraph T["SOFTWARE TESTING"]
@@ -73,6 +74,7 @@ graph TB
     B --> V1["Functional testing<br/>(What it does)"]
     W --> V2["Structural testing<br/>(How it does it)"]
 ```
+
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The two main approaches to software testing</span>
   <span lang="id">Gambar: Dua pendekatan utama dalam pengujian perangkat lunak</span>
