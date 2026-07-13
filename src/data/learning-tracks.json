@@ -216,6 +216,18 @@
       {
         "order": 18,
         "level": "advanced",
+        "title": "Docker & Containerization Fundamentals with PHP",
+        "titleId": "Dasar-Dasar Docker & Kontainerisasi dengan PHP",
+        "description": "A hands-on introduction to Docker for PHP developers. Learn images, containers, Dockerfiles, and docker-compose by building a PHP + Nginx + MySQL stack from scratch.",
+        "descriptionId": "Pengenalan langsung Docker untuk pengembang PHP. Pelajari image, container, Dockerfile, dan docker-compose dengan membangun stack PHP + Nginx + MySQL dari awal.",
+        "type": "tutorial",
+        "url": "/blog/docker-containerization-fundamentals-php",
+        "internal": true,
+        "estimatedTime": "~40 min read"
+      },
+      {
+        "order": 19,
+        "level": "advanced",
         "title": "Docker — Container Platform",
         "titleId": "Docker — Platform Kontainer",
         "description": "Package applications into containers for consistent development, testing, and deployment across environments.",
@@ -226,7 +238,7 @@
         "estimatedTime": "~2 hours getting started"
       },
       {
-        "order": 19,
+        "order": 20,
         "level": "advanced",
         "title": "Software Engineering Body of Knowledge (SWEBOK v4)",
         "titleId": "Software Engineering Body of Knowledge (SWEBOK v4)",
@@ -238,7 +250,7 @@
         "estimatedTime": "~15 hours reference"
       },
       {
-        "order": 20,
+        "order": 21,
         "level": "advanced",
         "title": "The SE Lab Book Collection",
         "titleId": "Koleksi Buku SE Lab",
@@ -250,7 +262,7 @@
         "estimatedTime": "~varies by book"
       },
       {
-        "order": 21,
+        "order": 22,
         "level": "advanced",
         "title": "Presentation Decks Archive",
         "titleId": "Arsip Dek Presentasi",
