@@ -172,8 +172,8 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
 >
   <JsonLd slot="head" data={blogPostingJsonLd} />
   <ReadingProgress client:load />
-  <div class="px-8 py-6 flex gap-8">
-    <div class="flex-1 min-w-0">
+  <div class="px-8 flex gap-8">
+    <div class="flex-1 min-w-0 py-6">
       <BlogPostPage
         client:load
         title={title}

@@ -1,28 +1,46 @@
 <template>
   <div>
-    <!-- Desktop: sidebar (normal flow) -->
+    <!-- Desktop: VSCode-styled panel locked to viewport -->
     <aside
-      class="hidden lg:block w-56 flex-shrink-0"
+      class="hidden lg:flex flex-col sticky top-0 max-h-screen flex-shrink-0"
+      style="background: var(--color-vscode-sidebar); width: 240px;"
       aria-label="Table of Contents"
     >
-      <nav v-if="visibleHeadings.length" class="sticky top-8">
-        <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 dark:text-gray-500 mb-3 ml-1">
-          Outline
+      <nav v-if="visibleHeadings.length" class="flex flex-col flex-1 overflow-hidden min-h-0">
+        <!-- Panel header -->
+        <div
+          class="flex items-center px-4 h-9 flex-shrink-0"
+          style="border-bottom: 1px solid rgba(255,255,255,0.08);"
+        >
+          <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 select-none">
+            Outline
+          </span>
         </div>
-        <ul class="space-y-0.5 border-l-2 border-neutral-200 dark:border-gray-700">
+
+        <!-- Scrollable heading list -->
+        <ul
+          class="flex-1 overflow-y-auto py-2 toc-scrollbar"
+          role="list"
+        >
           <li v-for="heading in visibleHeadings" :key="heading.id">
             <a
               :href="'#' + heading.id"
-              class="block py-0.5 pl-3 border-l-2 -ml-[2px] text-[12px] leading-tight transition-colors duration-150 truncate"
+              class="flex items-center gap-2 w-full text-left py-[5px] text-[12px] font-mono leading-tight truncate transition-colors duration-100"
               :class="[
-                heading.level === 3 ? 'pl-5 text-[11px]' : '',
+                heading.level === 3 ? 'pl-8' : 'pl-4',
                 heading.id === activeId
-                  ? 'border-[#F5A100] text-[#F5A100] font-medium'
-                  : 'border-transparent text-neutral-500 dark:text-gray-400 hover:text-neutral-800 dark:hover:text-gray-200',
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]',
               ]"
               @click.prevent="scrollToHeading(heading)"
             >
-              {{ heading.text }}
+              <span
+                v-if="heading.id === activeId"
+                class="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style="background: #F5A100"
+              />
+              <span v-else class="w-1.5 h-1.5 flex-shrink-0" />
+              <span class="truncate">{{ heading.text }}</span>
             </a>
           </li>
         </ul>
@@ -36,8 +54,9 @@
         @click="mobileOpen = !mobileOpen"
         class="fixed right-3 bottom-6 z-40 flex items-center gap-1.5 px-3 py-2 rounded-full shadow-lg border transition-colors"
         :class="mobileOpen
-          ? 'bg-[#F5A100] border-[#F5A100] text-[#002D6B]'
+          ? 'border-[#F5A100] text-[#002D6B]'
           : 'bg-white dark:bg-gray-800 border-neutral-200 dark:border-gray-600 text-neutral-600 dark:text-gray-300'"
+        :style="mobileOpen ? { background: '#F5A100' } : {}"
         :aria-expanded="mobileOpen"
         :aria-label="mobileOpen ? 'Close outline' : 'Open outline'"
       >
@@ -60,25 +79,53 @@
         >
           <div class="absolute inset-0 bg-black/30" />
           <nav
-            class="relative w-full max-h-[60vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-t-xl shadow-xl p-5"
+            class="relative w-full max-h-[65vh] flex flex-col overflow-hidden rounded-t-xl shadow-xl"
+            style="background: var(--color-vscode-sidebar);"
           >
-            <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 dark:text-gray-500 mb-3">
-              Outline
+            <!-- Sheet header -->
+            <div
+              class="flex items-center justify-between px-5 h-10 flex-shrink-0"
+              style="border-bottom: 1px solid rgba(255,255,255,0.08);"
+            >
+              <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 select-none">
+                Outline
+              </span>
+              <button
+                @click="mobileOpen = false"
+                class="text-white/35 hover:text-white/70 transition-colors"
+                aria-label="Close outline"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
             </div>
-            <ul class="space-y-0.5 border-l-2 border-neutral-200 dark:border-gray-700">
+
+            <!-- Scrollable heading list -->
+            <ul
+              class="flex-1 overflow-y-auto py-2 toc-scrollbar"
+              role="list"
+            >
               <li v-for="heading in visibleHeadings" :key="heading.id">
                 <a
                   :href="'#' + heading.id"
-                  class="block py-1.5 pl-3 border-l-2 -ml-[2px] text-[13px] leading-tight transition-colors duration-150"
+                  class="flex items-center gap-2 w-full text-left py-[6px] text-[13px] font-mono leading-tight transition-colors duration-100"
                   :class="[
-                    heading.level === 3 ? 'pl-5 text-[12px]' : '',
+                    heading.level === 3 ? 'pl-10' : 'pl-6',
                     heading.id === activeId
-                      ? 'border-[#F5A100] text-[#F5A100] font-medium'
-                      : 'border-transparent text-neutral-500 dark:text-gray-400 hover:text-neutral-800 dark:hover:text-gray-200',
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]',
                   ]"
                   @click.prevent="scrollToHeading(heading); mobileOpen = false"
                 >
-                  {{ heading.text }}
+                  <span
+                    v-if="heading.id === activeId"
+                    class="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style="background: #F5A100"
+                  />
+                  <span v-else class="w-1.5 h-1.5 flex-shrink-0" />
+                  <span class="truncate">{{ heading.text }}</span>
                 </a>
               </li>
             </ul>
@@ -287,5 +334,16 @@ watch(lang, () => {
 }
 .toc-sheet-leave-to nav {
   transform: translateY(100%);
+}
+
+.toc-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.toc-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}
+.toc-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 </style>
