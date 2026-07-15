@@ -1,14 +1,14 @@
 ---
-title: "UML Mini Series Part 5 — Class Diagram & Laravel Realization"
-titleId: "Seri Mini UML Bagian 5 — Class Diagram & Realisasi Laravel"
+title: "UML Mini Series Part 5: Class Diagram & Laravel Realization"
+titleId: "Seri Mini UML Bagian 5: Class Diagram & Realisasi Laravel"
 date: 2026-06-30
 updated: 2026-06-30
 category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "The final part of the UML Mini Series. Learn what a Class Diagram is, draw the complete domain model for the Campus Course Registration System, and implement it as Laravel Eloquent models, migrations, services, and a controller — with complete runnable code."
-excerptId: "Bagian terakhir dari Seri Mini UML. Pelajari apa itu Class Diagram, gambar domain model lengkap untuk Sistem Pendaftaran Mata Kuliah Kampus, dan implementasikan sebagai Laravel Eloquent models, migrations, services, dan controller — dengan kode lengkap yang dapat dijalankan."
+excerpt: "The final part of the UML Mini Series. Learn what a Class Diagram is, draw the complete domain model for the Campus Course Registration System, and implement it as Laravel Eloquent models, migrations, services, and a controller: with complete runnable code."
+excerptId: "Bagian terakhir dari Seri Mini UML. Pelajari apa itu Class Diagram, gambar domain model lengkap untuk Sistem Pendaftaran Mata Kuliah Kampus, dan implementasikan sebagai Laravel Eloquent models, migrations, services, dan controller: dengan kode lengkap yang dapat dijalankan."
 stream: se-methodologies-architecture
 tags:
   - UML
@@ -30,9 +30,9 @@ seriesOrder: 5
 
 ## 1. What is a Class Diagram?
 
-A **Class Diagram** is a structure diagram that shows the static architecture of a system. It describes the **classes** (or entities) in the system, their **attributes** (properties), **operations** (methods), and the **relationships** between them — inheritance, composition, aggregation, and associations with multiplicity constraints.
+A **Class Diagram** is a structure diagram that shows the static architecture of a system. It describes the **classes** (or entities) in the system, their **attributes** (properties), **operations** (methods), and the **relationships** between them: inheritance, composition, aggregation, and associations with multiplicity constraints.
 
-While the previous four parts focused on *behaviour* (what the system does), the class diagram focuses on *structure* (what the system is made of). It is the diagram that developers refer to most during implementation — and it maps directly to code.
+While the previous four parts focused on *behaviour* (what the system does), the class diagram focuses on *structure* (what the system is made of). It is the diagram that developers refer to most during implementation, and it maps directly to code.
 
 ### Key Elements of a Class Diagram
 
@@ -51,9 +51,9 @@ While the previous four parts focused on *behaviour* (what the system does), the
 
 ## 1. Apa Itu Class Diagram?
 
-**Class Diagram** adalah diagram struktur yang menunjukkan arsitektur statis dari sebuah sistem. Diagram ini mendeskripsikan **kelas** (atau entitas) dalam sistem, **atribut** (properti), **operasi** (method), dan **relasi** di antaranya — inheritance, composition, aggregation, dan association dengan batasan multiplisitas.
+**Class Diagram** adalah diagram struktur yang menunjukkan arsitektur statis dari sebuah sistem. Diagram ini mendeskripsikan **kelas** (atau entitas) dalam sistem, **atribut** (properti), **operasi** (method), dan **relasi** di antaranya: inheritance, composition, aggregation, dan association dengan batasan multiplisitas.
 
-Sementara empat bagian sebelumnya berfokus pada *perilaku* (apa yang dilakukan sistem), class diagram berfokus pada *struktur* (dari apa sistem dibuat). Ini adalah diagram yang paling sering dirujuk developer selama implementasi — dan ia dipetakan langsung ke kode.
+Sementara empat bagian sebelumnya berfokus pada *perilaku* (apa yang dilakukan sistem), class diagram berfokus pada *struktur* (dari apa sistem dibuat). Ini adalah diagram yang paling sering dirujuk developer selama implementasi, dan ia dipetakan langsung ke kode.
 
 ### Elemen Kunci Class Diagram
 
@@ -62,8 +62,8 @@ Sementara empat bagian sebelumnya berfokus pada *perilaku* (apa yang dilakukan s
 | **Class** | Persegi panjang dengan tiga kompartemen (nama, atribut, operasi) | Blueprint untuk objek. Atas: nama kelas. Tengah: atribut dengan tipe. Bawah: method dengan tipe parameter dan return. |
 | **Association** | Garis solid antar kelas | Hubungan semantik. "Seorang Student mendaftar di Course." |
 | **Multiplicity** | Angka di ujung association (1, 0..*, 1..*) | Berapa banyak instance yang berpartisipasi. "Satu Student dapat mendaftar di 0 atau lebih Course. Satu Course dapat memiliki 0 atau lebih Enrolment." |
-| **Aggregation** | Diamond kosong di ujung whole | Hubungan "has-a" di mana bagian dapat eksis secara independen. "Course memiliki Schedule, tetapi Schedule dapat eksis tanpa Course." |
-| **Composition** | Diamond terisi di ujung whole | Hubungan "has-a" di mana bagian tidak dapat eksis tanpa whole. "Enrolment berisi Payment; jika Enrolment dihapus, Payment juga dihapus." |
+| **Aggregation** | Diamond kosong di ujung whole | Hubungan "has-a" yang memungkinkan bagian berdiri sendiri secara independen. "Course memiliki Schedule, tetapi Schedule dapat tetap ada tanpa Course." |
+| **Composition** | Diamond terisi di ujung whole | Hubungan "has-a" yang tidak memungkinkan bagian berdiri sendiri tanpa whole. "Enrolment berisi Payment; jika Enrolment dihapus, Payment juga dihapus." |
 | **Generalisation** | Kepala panah segitiga kosong menunjuk ke parent | Inheritance. "Student adalah tipe dari User." "Lecturer adalah tipe dari User." |
 
 </section>
@@ -79,23 +79,23 @@ A class diagram is the structural blueprint of the system. It defines what class
 
 ### Why does it matter?
 - **Code generation.** Class diagrams map nearly 1:1 to object-oriented code. Each class becomes a file; each attribute becomes a property; each association becomes a relationship (foreign key, join table, or reference).
-- **Database schema design.** The class diagram's associations with multiplicities directly inform the database schema — one-to-many becomes a foreign key, many-to-many becomes a pivot table.
+- **Database schema design.** The class diagram's associations with multiplicities directly inform the database schema: one-to-many becomes a foreign key, many-to-many becomes a pivot table.
 - **Communication.** A class diagram is the quickest way for a new developer to understand the domain model. In 30 seconds, they can see that `User` has subclasses `Student` and `Lecturer`, that `Enrolment` links `Student` to `Course`, and that `Payment` is part of `Enrolment`.
-- **Refactoring safety.** When you know the intended structure, you can spot violations — a direct dependency between two classes that should not know about each other, or a missing class that should exist based on the domain.
+- **Refactoring safety.** When you know the intended structure, you can spot violations: a direct dependency between two classes that should not know about each other, or a missing class that should exist based on the domain.
 
 ### When do you use it?
-Create a class diagram during the **design phase**, after the behavioural diagrams (use case, activity, sequence) are complete. It is the last UML diagram before coding begins — and the one that developers reference throughout implementation.
+Create a class diagram during the **design phase**, after the behavioural diagrams (use case, activity, sequence) are complete. It is the last UML diagram before coding begins, and the one that developers reference throughout implementation.
 
 ### Where does it fit?
 Class diagrams appear in architecture documentation, API documentation, and database design documents. In many teams, they are also embedded in the project README.
 
 ### How do you create one?
-1. Collect all nouns from the use case scenario and sequence diagram — these are candidate classes.
+1. Collect all nouns from the use case scenario and sequence diagram: these are candidate classes.
 2. Identify attributes for each class based on the data flowing through messages in the sequence diagram.
 3. Identify operations (methods) based on the messages arriving at each lifeline.
 4. Define relationships and multiplicities between classes.
 5. Apply inheritance where classes share common structure and behaviour.
-6. Refine the diagram iteratively — the first draft is never the final model.
+6. Refine the diagram iteratively: the first draft is never the final model.
 
 </section>
 
@@ -108,23 +108,23 @@ Class diagram adalah blueprint struktural sistem. Diagram ini mendefinisikan kel
 
 ### Mengapa penting?
 - **Code generation.** Class diagram dipetakan hampir 1:1 ke kode berorientasi objek. Setiap kelas menjadi file; setiap atribut menjadi properti; setiap association menjadi relasi (foreign key, join table, atau referensi).
-- **Desain skema database.** Association class diagram dengan multiplisitas secara langsung menginformasikan skema database — one-to-many menjadi foreign key, many-to-many menjadi pivot table.
+- **Desain skema database.** Asosiasi pada class diagram beserta multiplisitasnya secara langsung menentukan skema database: one-to-many menjadi foreign key, many-to-many menjadi pivot table.
 - **Komunikasi.** Class diagram adalah cara tercepat bagi developer baru untuk memahami domain model. Dalam 30 detik, mereka dapat melihat bahwa `User` memiliki subclass `Student` dan `Lecturer`, bahwa `Enrolment` menghubungkan `Student` ke `Course`, dan bahwa `Payment` adalah bagian dari `Enrolment`.
-- **Keamanan refactoring.** Ketika Anda mengetahui struktur yang dimaksud, Anda dapat menemukan pelanggaran — dependensi langsung antara dua kelas yang seharusnya tidak saling mengenal, atau kelas yang hilang yang seharusnya ada berdasarkan domain.
+- **Keamanan refactoring.** Ketika Anda mengetahui struktur yang dimaksud, Anda dapat menemukan pelanggaran: dependensi langsung antara dua kelas yang seharusnya tidak saling mengenal, atau kelas yang seharusnya ada berdasarkan domain namun belum dibuat.
 
 ### Kapan digunakan?
-Buat class diagram selama **fase desain**, setelah diagram perilaku (use case, activity, sequence) selesai. Ini adalah diagram UML terakhir sebelum coding dimulai — dan yang dirujuk developer sepanjang implementasi.
+Buat class diagram selama **fase desain**, setelah diagram perilaku (use case, activity, sequence) selesai. Ini adalah diagram UML terakhir sebelum coding dimulai, dan yang dirujuk developer sepanjang implementasi.
 
 ### Di mana tempatnya?
 Class diagram muncul di dokumentasi arsitektur, dokumentasi API, dan dokumen desain database. Di banyak tim, diagram ini juga disematkan di README proyek.
 
 ### Bagaimana membuatnya?
-1. Kumpulkan semua kata benda dari use case scenario dan sequence diagram — ini adalah kandidat kelas.
+1. Kumpulkan semua kata benda dari use case scenario dan sequence diagram: ini adalah kandidat kelas.
 2. Identifikasi atribut untuk setiap kelas berdasarkan data yang mengalir melalui pesan di sequence diagram.
 3. Identifikasi operasi (method) berdasarkan pesan yang tiba di setiap lifeline.
 4. Definisikan relasi dan multiplisitas antar kelas.
-5. Terapkan inheritance di mana kelas berbagi struktur dan perilaku yang sama.
-6. Perbaiki diagram secara iteratif — draf pertama bukanlah model akhir.
+5. Terapkan inheritance ketika kelas berbagi struktur dan perilaku yang sama.
+6. Perbaiki diagram secara iteratif: draf pertama bukanlah model akhir.
 
 </section>
 
@@ -313,17 +313,17 @@ EnrolmentResource ..> Enrolment : transforms
 
 | Relationship | Type | Multiplicity | Meaning |
 |---|---|---|---|
-| User ← Student | Generalisation (inheritance) | — | Student inherits all User attributes and methods |
-| User ← Lecturer | Generalisation | — | Lecturer inherits from User |
-| User ← Admin | Generalisation | — | Admin inherits from User |
+| User ← Student | Generalisation (inheritance) | N/A | Student inherits all User attributes and methods |
+| User ← Lecturer | Generalisation | N/A | Lecturer inherits from User |
+| User ← Admin | Generalisation | N/A | Admin inherits from User |
 | Course → Lecturer | Association | 0..* to 1 | Each course is taught by exactly one lecturer; a lecturer can teach many courses |
 | Student → Enrolment | Association | 1 to 0..* | A student can have zero or more enrolments |
 | Course → Enrolment | Association | 1 to 0..* | A course can have zero or more enrolments (one per student) |
 | Enrolment → Payment | Composition | 1 to 1 | Every enrolment has exactly one payment; payment cannot exist without enrolment |
 | Student → Schedule | Association | 1 to 1 | Each student has one schedule |
-| EnrolmentController → Services | Dependency | — | The controller orchestrates Laravel services instead of querying models directly |
-| Form Requests → Controller | Dependency | — | Request classes validate the two HTTP messages from the sequence diagram |
-| Resources → Models | Dependency | — | API resources transform models into familiar Laravel response payloads |
+| EnrolmentController → Services | Dependency | N/A | The controller orchestrates Laravel services instead of querying models directly |
+| Form Requests → Controller | Dependency | N/A | Request classes validate the two HTTP messages from the sequence diagram |
+| Resources → Models | Dependency | N/A | API resources transform models into familiar Laravel response payloads |
 
 In the compact Laravel implementation below, `Schedule` is treated as a read model derived from a student's enrolments rather than a separate persisted table. This keeps the sample focused on the enrolment transaction while preserving the conceptual domain view from the class diagram.
 
@@ -508,19 +508,19 @@ EnrolmentResource ..> Enrolment : mentransformasi
 
 | Relasi | Tipe | Multiplisitas | Makna |
 |---|---|---|---|
-| User ← Student | Generalisation (inheritance) | — | Student mewarisi semua atribut dan method User |
-| User ← Lecturer | Generalisation | — | Lecturer mewarisi dari User |
-| User ← Admin | Generalisation | — | Admin mewarisi dari User |
+| User ← Student | Generalisation (inheritance) | N/A | Student mewarisi semua atribut dan method User |
+| User ← Lecturer | Generalisation | N/A | Lecturer mewarisi dari User |
+| User ← Admin | Generalisation | N/A | Admin mewarisi dari User |
 | Course → Lecturer | Association | 0..* ke 1 | Setiap course diajar oleh tepat satu dosen; seorang dosen dapat mengajar banyak course |
 | Student → Enrolment | Association | 1 ke 0..* | Seorang mahasiswa dapat memiliki nol atau lebih pendaftaran |
 | Course → Enrolment | Association | 1 ke 0..* | Sebuah course dapat memiliki nol atau lebih pendaftaran (satu per mahasiswa) |
-| Enrolment → Payment | Composition | 1 ke 1 | Setiap pendaftaran memiliki tepat satu pembayaran; pembayaran tidak dapat eksis tanpa pendaftaran |
+| Enrolment → Payment | Composition | 1 ke 1 | Setiap pendaftaran memiliki tepat satu pembayaran; pembayaran tidak dapat ada tanpa pendaftaran |
 | Student → Schedule | Association | 1 ke 1 | Setiap mahasiswa memiliki satu jadwal |
-| EnrolmentController → Services | Dependency | — | Controller mengorkestrasi service Laravel, bukan query model secara langsung |
-| Form Requests → Controller | Dependency | — | Request class memvalidasi dua HTTP message dari sequence diagram |
-| Resources → Models | Dependency | — | API resource mentransformasi model menjadi payload respons Laravel yang familiar |
+| EnrolmentController → Services | Dependency | N/A | Controller mengorkestrasi service Laravel, bukan langsung melakukan query ke model |
+| Form Requests → Controller | Dependency | N/A | Request class memvalidasi dua HTTP message dari sequence diagram |
+| Resources → Models | Dependency | N/A | API resource mentransformasi model menjadi payload respons Laravel yang familiar |
 
-Dalam implementasi Laravel ringkas di bawah, `Schedule` diperlakukan sebagai read model yang diturunkan dari enrolment mahasiswa, bukan tabel terpisah yang dipersistenkan. Ini menjaga contoh tetap fokus pada transaksi pendaftaran sambil mempertahankan tampilan domain konseptual dari class diagram.
+Dalam implementasi Laravel ringkas di bawah, `Schedule` diperlakukan sebagai read model yang diturunkan dari enrolment mahasiswa, bukan sebagai tabel terpisah yang disimpan permanen di database. Ini menjaga contoh tetap fokus pada transaksi pendaftaran sambil mempertahankan tampilan domain konseptual dari class diagram.
 
 </section>
 
@@ -532,10 +532,10 @@ Dalam implementasi Laravel ringkas di bawah, `Schedule` diperlakukan sebagai rea
 
 Now we implement the class diagram as a Laravel application. We will create:
 
-1. **Database Migrations** — the physical schema that realises the class attributes and relationships.
-2. **Eloquent Models** — the ORM layer that maps classes to database tables.
-3. **Services** — the business logic layer called by the controller in the sequence diagram.
-4. **Controller** — the HTTP layer that orchestrates the enrolment workflow.
+1. **Database Migrations**: the physical schema that realises the class attributes and relationships.
+2. **Eloquent Models**: the ORM layer that maps classes to database tables.
+3. **Services**: the business logic layer called by the controller in the sequence diagram.
+4. **Controller**: the HTTP layer that orchestrates the enrolment workflow.
 
 ### 4.1 Laravel Project Setup
 
@@ -731,10 +731,10 @@ return new class extends Migration
 
 Sekarang kita mengimplementasikan class diagram sebagai aplikasi Laravel. Kita akan membuat:
 
-1. **Database Migrations** — skema fisik yang merealisasikan atribut dan relasi kelas.
-2. **Eloquent Models** — lapisan ORM yang memetakan kelas ke tabel database.
-3. **Services** — lapisan logika bisnis yang dipanggil oleh controller di sequence diagram.
-4. **Controller** — lapisan HTTP yang mengorkestrasi alur kerja pendaftaran.
+1. **Database Migrations**: skema fisik yang merealisasikan atribut dan relasi kelas.
+2. **Eloquent Models**: lapisan ORM yang memetakan kelas ke tabel database.
+3. **Services**: lapisan logika bisnis yang dipanggil oleh controller di sequence diagram.
+4. **Controller**: lapisan HTTP yang mengorkestrasi alur kerja pendaftaran.
 
 ### 4.1 Setup Proyek Laravel
 
@@ -930,7 +930,7 @@ return new class extends Migration
 
 ### 4.3 Eloquent Models
 
-**User model** — already provided by Laravel, add role handling and relationships:
+**User model**: already provided by Laravel, add role handling and relationships:
 
 ```php
 <?php
@@ -1155,7 +1155,7 @@ class Payment extends Model
 
 ### 4.3 Eloquent Models
 
-**Model User** — sudah disediakan Laravel, tambahkan penanganan role dan relationships:
+**Model User**: sudah disediakan oleh Laravel, tambahkan penanganan role dan relationships:
 
 ```php
 <?php
@@ -1494,7 +1494,7 @@ class EnrolmentResource extends JsonResource
 
 ### 4.5 Service Layer
 
-The `CourseService` and `EnrolmentService` encapsulate business logic. The controller delegates to them — it never queries the database directly.
+The `CourseService` and `EnrolmentService` encapsulate business logic. The controller delegates to them: it never queries the database directly.
 
 **CourseService:**
 
@@ -1754,7 +1754,7 @@ class EnrolmentResource extends JsonResource
 
 ### 4.5 Service Layer
 
-`CourseService` dan `EnrolmentService` mengenkapsulasi logika bisnis. Controller mendelegasikan kepada mereka — controller tidak pernah melakukan query database secara langsung.
+`CourseService` dan `EnrolmentService` mengenkapsulasi logika bisnis. Controller mendelegasikan kepada mereka: controller tidak pernah melakukan query database secara langsung.
 
 **CourseService:**
 
@@ -1902,7 +1902,7 @@ class PaymentFailedException extends RuntimeException {}
 
 <section lang="en">
 
-### 4.7 EnrolmentController — The Complete Orchestrator
+### 4.7 EnrolmentController: The Complete Orchestrator
 
 This controller realises the sequence diagram from Part 4. The controller messages correspond to method calls below, while persistence details are encapsulated by services.
 
@@ -2058,7 +2058,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 <section lang="id">
 
-### 4.7 EnrolmentController — Orchestrator Lengkap
+### 4.7 EnrolmentController: Orchestrator Lengkap
 
 Controller ini merealisasikan sequence diagram dari Bagian 4. Pesan pada controller sesuai dengan pemanggilan method di bawah ini, sementara detail persistensi dienkapsulasi oleh service.
 
@@ -2218,7 +2218,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 ## 5. Traceability: From Diagrams to Code
 
-This five-part series has demonstrated **end-to-end traceability** — a core value of UML. The implementation snippets are intentionally compact, but each major code path can still be traced back to a diagram, and each diagram can be traced back to a line in the use case scenario.
+This five-part series has demonstrated **end-to-end traceability**: a core value of UML. The implementation snippets are intentionally compact, but each major code path can still be traced back to a diagram, and each diagram can be traced back to a line in the use case scenario.
 
 | Source | Artefact | Implementation |
 |---|---|---|
@@ -2250,7 +2250,7 @@ This traceability means that when a stakeholder asks *"What happens if the cours
 
 ## 5. Ketertelusuran: Dari Diagram ke Kode
 
-Seri lima bagian ini telah mendemonstrasikan **ketertelusuran end-to-end** — nilai inti dari UML. Cuplikan implementasi sengaja dibuat ringkas, tetapi setiap alur kode utama tetap dapat ditelusuri kembali ke diagram, dan setiap diagram dapat ditelusuri kembali ke baris dalam use case scenario.
+Seri lima bagian ini telah mendemonstrasikan **ketertelusuran end-to-end**: nilai inti dari UML. Cuplikan implementasi sengaja dibuat ringkas, tetapi setiap alur kode utama tetap dapat ditelusuri kembali ke diagram, dan setiap diagram dapat ditelusuri kembali ke baris dalam use case scenario.
 
 | Sumber | Artefak | Implementasi |
 |---|---|---|
@@ -2274,7 +2274,7 @@ Seri lima bagian ini telah mendemonstrasikan **ketertelusuran end-to-end** — n
 | Bagian 5: Class Diagram | `Enrolment → Payment` (composition) | `Enrolment::payment()` + cascade delete |
 | Bagian 5: Class Diagram | Class Form Request dan Resource | Validasi dan transformasi respons standar Laravel |
 
-Ketertelusuran ini berarti bahwa ketika stakeholder bertanya *"Apa yang terjadi jika mata kuliah penuh?"*, Anda dapat menunjuk ke alur alternatif dalam skenario, menelusurinya ke decision node di activity diagram, dan akhirnya ke pengecekan `if (!checkQuota(...))` di controller. Tidak ada yang hilang dalam penerjemahan.
+Ketertelusuran ini berarti bahwa ketika stakeholder bertanya *"Apa yang terjadi jika mata kuliah penuh?"*, Anda dapat menunjuk ke alur alternatif dalam skenario, menelusurinya ke decision node di activity diagram, dan akhirnya ke pengecekan `if (!checkQuota(...))` di controller. Tidak ada yang hilang dalam prosesnya, dari diagram hingga ke kode.
 
 </section>
 
@@ -2358,20 +2358,20 @@ curl -X POST http://localhost:8000/api/enrolments/confirm \
 
 Over five parts, we have:
 
-1. **Part 1** — Defined the system scope with a Use Case Diagram, identifying actors and their goals.
-2. **Part 2** — Specified the "Enrol in Course" use case in detail with a structured scenario, including preconditions, postconditions, main flow, and four alternative flows.
-3. **Part 3** — Visualised the business workflow as an Activity Diagram with decision nodes for every branching condition.
-4. **Part 4** — Modelled object-level interactions with a Sequence Diagram, defining precise method signatures, transactional boundaries, and external system communication.
-5. **Part 5** — Designed the static structure with a Class Diagram and implemented it as a working Laravel application with migrations, Eloquent models, services, and a controller.
+1. **Part 1**: Defined the system scope with a Use Case Diagram, identifying actors and their goals.
+2. **Part 2**: Specified the "Enrol in Course" use case in detail with a structured scenario, including preconditions, postconditions, main flow, and four alternative flows.
+3. **Part 3**: Visualised the business workflow as an Activity Diagram with decision nodes for every branching condition.
+4. **Part 4**: Modelled object-level interactions with a Sequence Diagram, defining precise method signatures, transactional boundaries, and external system communication.
+5. **Part 5**: Designed the static structure with a Class Diagram and implemented it as a working Laravel application with migrations, Eloquent models, services, and a controller.
 
 This is the power of UML: each diagram answers a different question, and together they form a complete specification that eliminates ambiguity before coding begins. The traceability from stakeholder requirement through to running code ensures that what you build is what was intended.
 
 ### What to Learn Next
 
-- **State Machine Diagram** — Model the lifecycle of an Enrolment (pending → paid → confirmed → completed → dropped).
-- **Deployment Diagram** — Show how the Laravel app, database, payment gateway, and web server are deployed across nodes.
-- **Communication Diagram** — An alternative to Sequence Diagrams that emphasises object structure over time ordering.
-- **Design Patterns in UML** — Express patterns like Observer, Strategy, and Factory as UML diagrams.
+- **State Machine Diagram**: Model the lifecycle of an Enrolment (pending → paid → confirmed → completed → dropped).
+- **Deployment Diagram**: Show how the Laravel app, database, payment gateway, and web server are deployed across nodes.
+- **Communication Diagram**: An alternative to Sequence Diagrams that emphasises object structure over time ordering.
+- **Design Patterns in UML**: Express patterns like Observer, Strategy, and Factory as UML diagrams.
 
 </section>
 
@@ -2381,19 +2381,19 @@ This is the power of UML: each diagram answers a different question, and togethe
 
 Selama lima bagian, kita telah:
 
-1. **Bagian 1** — Mendefinisikan ruang lingkup sistem dengan Use Case Diagram, mengidentifikasi aktor dan tujuan mereka.
-2. **Bagian 2** — Menspesifikasikan use case "Daftar Mata Kuliah" secara detail dengan skenario terstruktur, termasuk prasyarat, pascasyarat, alur utama, dan empat alur alternatif.
-3. **Bagian 3** — Memvisualisasikan alur kerja bisnis sebagai Activity Diagram dengan decision node untuk setiap kondisi percabangan.
-4. **Bagian 4** — Memodelkan interaksi level objek dengan Sequence Diagram, mendefinisikan signature method yang tepat, batas transaksional, dan komunikasi sistem eksternal.
-5. **Bagian 5** — Mendesain struktur statis dengan Class Diagram dan mengimplementasikannya sebagai aplikasi Laravel yang berfungsi dengan migrations, Eloquent models, services, dan controller.
+1. **Bagian 1**: Mendefinisikan ruang lingkup sistem dengan Use Case Diagram, mengidentifikasi aktor dan tujuan mereka.
+2. **Bagian 2**: Menspesifikasikan use case "Daftar Mata Kuliah" secara detail dengan skenario terstruktur, termasuk prasyarat, pascasyarat, alur utama, dan empat alur alternatif.
+3. **Bagian 3**: Memvisualisasikan alur kerja bisnis sebagai Activity Diagram dengan decision node untuk setiap kondisi percabangan.
+4. **Bagian 4**: Memodelkan interaksi level objek dengan Sequence Diagram, mendefinisikan signature method yang tepat, batas transaksional, dan komunikasi sistem eksternal.
+5. **Bagian 5**: Mendesain struktur statis dengan Class Diagram dan mengimplementasikannya sebagai aplikasi Laravel yang berfungsi dengan migrations, Eloquent models, services, dan controller.
 
 Inilah kekuatan UML: setiap diagram menjawab pertanyaan yang berbeda, dan bersama-sama mereka membentuk spesifikasi lengkap yang menghilangkan ambiguitas sebelum coding dimulai. Ketertelusuran dari persyaratan stakeholder hingga kode yang berjalan memastikan bahwa apa yang Anda bangun adalah apa yang dimaksudkan.
 
 ### Apa yang Dipelajari Selanjutnya
 
-- **State Machine Diagram** — Model siklus hidup Enrolment (pending → dibayar → dikonfirmasi → selesai → dropped).
-- **Deployment Diagram** — Tunjukkan bagaimana aplikasi Laravel, database, payment gateway, dan web server dideploy di berbagai node.
-- **Communication Diagram** — Alternatif untuk Sequence Diagram yang menekankan struktur objek daripada urutan waktu.
-- **Design Patterns dalam UML** — Ekspresikan pola seperti Observer, Strategy, dan Factory sebagai diagram UML.
+- **State Machine Diagram**: Model siklus hidup Enrolment (pending → dibayar → dikonfirmasi → selesai → dropped).
+- **Deployment Diagram**: Tunjukkan bagaimana aplikasi Laravel, database, payment gateway, dan web server dideploy di berbagai node.
+- **Communication Diagram**: Alternatif untuk Sequence Diagram yang menekankan struktur objek daripada urutan waktu.
+- **Design Patterns dalam UML**: Ekspresikan pola seperti Observer, Strategy, dan Factory sebagai diagram UML.
 
 </section>

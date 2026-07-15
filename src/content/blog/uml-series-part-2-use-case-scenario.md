@@ -1,14 +1,14 @@
 ---
-title: "UML Mini Series Part 2 — Use Case Scenario"
-titleId: "Seri Mini UML Bagian 2 — Use Case Scenario"
+title: "UML Mini Series Part 2: Use Case Scenario"
+titleId: "Seri Mini UML Bagian 2: Use Case Scenario"
 date: 2026-06-30
 updated: 2026-06-30
 category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 2 of the UML Mini Series. Learn what a Use Case Scenario is, why it bridges requirements and design, and how to write a full scenario for the 'Enrol in Course' use case — with structured table, main success flow, and alternative flows."
-excerptId: "Bagian 2 dari Seri Mini UML. Pelajari apa itu Use Case Scenario, mengapa ia menjembatani persyaratan dan desain, dan cara menulis skenario lengkap untuk use case 'Daftar Mata Kuliah' — dengan tabel terstruktur, alur sukses utama, dan alur alternatif."
+excerpt: "Part 2 of the UML Mini Series. Learn what a Use Case Scenario is, why it bridges requirements and design, and how to write a full scenario for the 'Enrol in Course' use case: with structured table, main success flow, and alternative flows."
+excerptId: "Bagian 2 dari Seri Mini UML. Pelajari apa itu Use Case Scenario, mengapa ia menjembatani persyaratan dan desain, dan cara menulis skenario lengkap untuk use case 'Daftar Mata Kuliah': dengan tabel terstruktur, alur sukses utama, dan alur alternatif."
 stream: se-methodologies-architecture
 tags:
   - UML
@@ -26,7 +26,7 @@ seriesOrder: 2
 
 ## 1. What is a Use Case Scenario?
 
-A **Use Case Scenario** (also called a Use Case Specification or Use Case Narrative) is a detailed textual description of how an actor interacts with a system to achieve a specific goal. While the Use Case Diagram gives you the "table of contents" of system functionality, the scenario gives you the full chapter — with step-by-step interactions, alternative paths, and failure conditions.
+A **Use Case Scenario** (also called a Use Case Specification or Use Case Narrative) is a detailed textual description of how an actor interacts with a system to achieve a specific goal. While the Use Case Diagram gives you the "table of contents" of system functionality, the scenario gives you the full chapter: with step-by-step interactions, alternative paths, and failure conditions.
 
 Think of it this way:
 - **Use Case Diagram** = the answer to *"What can users do?"*
@@ -38,7 +38,7 @@ Think of it this way:
 
 ## 1. Apa Itu Use Case Scenario?
 
-**Use Case Scenario** (juga disebut Use Case Specification atau Use Case Narrative) adalah deskripsi tekstual terperinci tentang bagaimana seorang aktor berinteraksi dengan sistem untuk mencapai tujuan tertentu. Sementara Use Case Diagram memberi Anda "daftar isi" fungsionalitas sistem, skenario memberi Anda bab lengkapnya — dengan interaksi langkah-demi-langkah, jalur alternatif, dan kondisi kegagalan.
+**Use Case Scenario** (juga disebut Use Case Specification atau Use Case Narrative) adalah deskripsi tekstual terperinci tentang bagaimana seorang aktor berinteraksi dengan sistem untuk mencapai tujuan tertentu. Sementara Use Case Diagram memberi Anda "daftar isi" fungsionalitas sistem, skenario memberi Anda bab lengkapnya: dengan interaksi langkah-demi-langkah, jalur alternatif, dan kondisi kegagalan.
 
 Pikirkan seperti ini:
 - **Use Case Diagram** = jawaban untuk *"Apa yang dapat dilakukan pengguna?"*
@@ -69,12 +69,12 @@ The use case scenario lives in the Software Requirements Specification (SRS) or 
 
 ### How do you create one?
 A complete use case scenario contains at minimum:
-1. **Use Case Name** — a verb-noun phrase matching the oval on the diagram
-2. **Primary Actor** — who initiates the use case
-3. **Preconditions** — what must be true before the use case starts
-4. **Postconditions** — what is true after the use case completes successfully
-5. **Main Success Scenario** — numbered steps of actor-system interaction
-6. **Alternative Flows** — what happens when something deviates from the main path
+1. **Use Case Name**: a verb-noun phrase matching the oval on the diagram
+2. **Primary Actor**: who initiates the use case
+3. **Preconditions**: what must be true before the use case starts
+4. **Postconditions**: what is true after the use case completes successfully
+5. **Main Success Scenario**: numbered steps of actor-system interaction
+6. **Alternative Flows**: what happens when something deviates from the main path
 
 </section>
 
@@ -86,8 +86,8 @@ A complete use case scenario contains at minimum:
 Use case scenario adalah dokumen terstruktur yang menangkap dialog antara aktor dan sistem. Ini mencakup prasyarat (apa yang harus benar sebelum use case dimulai), skenario sukses utama ("happy path"), alur alternatif (kondisi percabangan), dan pascasyarat (apa yang benar setelah use case selesai).
 
 ### Mengapa penting?
-- **Pemahaman bersama.** Developer, tester, product owner, dan stakeholder menyelaraskan diri tentang apa yang harus dilakukan sistem sebelum siapa pun menulis kode.
-- **Pembuatan test case.** Setiap langkah dalam alur utama dan alternatif menjadi test case. Jika satu langkah mengatakan "Sistem memvalidasi bahwa mahasiswa tidak memiliki konflik jadwal," QA menulis tes untuk itu.
+- **Pemahaman bersama.** Developer, tester, product owner, dan stakeholder memiliki pemahaman yang sama tentang apa yang harus dilakukan sistem sebelum siapa pun menulis kode.
+- **Pembuatan test case.** Setiap langkah dalam alur utama dan alternatif menjadi test case. Jika ada langkah yang berbunyi "Sistem memvalidasi bahwa mahasiswa tidak memiliki konflik jadwal," QA menulis tes untuk langkah tersebut.
 - **Estimasi.** Memecah fitur menjadi langkah bernomor memudahkan estimasi upaya implementasi.
 - **Ketertelusuran.** Skenario menghubungkan persyaratan (apa yang diinginkan stakeholder) ke desain (sequence diagram, class diagram) dan implementasi (kode).
 
@@ -95,16 +95,16 @@ Use case scenario adalah dokumen terstruktur yang menangkap dialog antara aktor 
 Tulis use case scenario **setelah** use case diagram disetujui dan **sebelum** Anda mulai menggambar activity diagram, sequence diagram, atau menulis kode. Ini adalah jembatan antara persyaratan dan desain.
 
 ### Di mana tempatnya?
-Use case scenario berada di Software Requirements Specification (SRS) atau dokumen use case khusus. Di tim modern, ini bisa berada di wiki, alat manajemen proyek, atau bahkan sebagai komentar terstruktur di tiket.
+Use case scenario berada di Software Requirements Specification (SRS) atau dokumen use case khusus. Dalam tim modern, ini bisa berada di wiki, alat manajemen proyek, atau bahkan sebagai komentar terstruktur di tiket.
 
 ### Bagaimana membuatnya?
 Use case scenario yang lengkap minimal berisi:
-1. **Nama Use Case** — frasa kata kerja-benda yang cocok dengan oval di diagram
-2. **Aktor Utama** — siapa yang memulai use case
-3. **Prasyarat** — apa yang harus benar sebelum use case dimulai
-4. **Pascasyarat** — apa yang benar setelah use case selesai dengan sukses
-5. **Skenario Sukses Utama** — langkah bernomor interaksi aktor-sistem
-6. **Alur Alternatif** — apa yang terjadi ketika sesuatu menyimpang dari jalur utama
+1. **Nama Use Case**: frasa kata kerja-benda yang cocok dengan oval di diagram
+2. **Aktor Utama**: siapa yang memulai use case
+3. **Prasyarat**: apa yang harus benar sebelum use case dimulai
+4. **Pascasyarat**: apa yang benar setelah use case selesai dengan sukses
+5. **Skenario Sukses Utama**: langkah bernomor interaksi aktor-sistem
+6. **Alur Alternatif**: apa yang terjadi ketika sesuatu menyimpang dari jalur utama
 
 </section>
 
@@ -126,7 +126,7 @@ We will focus on the **Enrol in Course** use case from our Campus Course Registr
 | **Secondary Actors** | Payment Gateway (external system) |
 | **Preconditions** | 1. Student is registered and logged into the system.<br>2. Student has browsed available courses.<br>3. The registration period for the selected course is open.<br>4. The course has available seats (quota > 0). |
 | **Postconditions (Success)** | 1. Student is enrolled in the selected course.<br>2. Course available quota is decremented by one.<br>3. Payment record is created with status "paid."<br>4. Student receives an enrolment confirmation (email or notification).<br>5. Student's schedule is updated to include the new course. |
-| **Postconditions (Failure)** | 1. System state is unchanged — no partial enrolment.<br>2. Payment is either not charged or automatically refunded.<br>3. Error message is displayed to the student explaining the reason. |
+| **Postconditions (Failure)** | 1. System state is unchanged: no partial enrolment.<br>2. Payment is either not charged or automatically refunded.<br>3. Error message is displayed to the student explaining the reason. |
 
 </section>
 
@@ -134,7 +134,7 @@ We will focus on the **Enrol in Course** use case from our Campus Course Registr
 
 ## 3. Use Case Scenario: Daftar Mata Kuliah
 
-Kita akan fokus pada use case **Daftar Mata Kuliah** dari Sistem Pendaftaran Mata Kuliah Kampus kita. Ini adalah use case yang paling kompleks dan mendemonstrasikan cara menangani dependensi, alur alternatif, dan interaksi sistem eksternal.
+Kita akan fokus pada use case **Daftar Mata Kuliah** dari Sistem Pendaftaran Mata Kuliah Kampus. Ini adalah use case yang paling kompleks dan mendemonstrasikan cara menangani dependensi, alur alternatif, dan interaksi sistem eksternal.
 
 ### Header Use Case
 
@@ -146,7 +146,7 @@ Kita akan fokus pada use case **Daftar Mata Kuliah** dari Sistem Pendaftaran Mat
 | **Aktor Sekunder** | Payment Gateway (sistem eksternal) |
 | **Prasyarat** | 1. Mahasiswa terdaftar dan login ke sistem.<br>2. Mahasiswa telah menelusuri mata kuliah yang tersedia.<br>3. Periode pendaftaran untuk mata kuliah yang dipilih terbuka.<br>4. Mata kuliah memiliki kursi tersedia (kuota > 0). |
 | **Pascasyarat (Sukses)** | 1. Mahasiswa terdaftar di mata kuliah yang dipilih.<br>2. Kuota mata kuliah yang tersedia berkurang satu.<br>3. Catatan pembayaran dibuat dengan status "lunas."<br>4. Mahasiswa menerima konfirmasi pendaftaran (email atau notifikasi).<br>5. Jadwal mahasiswa diperbarui untuk mencakup mata kuliah baru. |
-| **Pascasyarat (Gagal)** | 1. Status sistem tidak berubah — tidak ada pendaftaran parsial.<br>2. Pembayaran tidak dikenakan atau secara otomatis dikembalikan.<br>3. Pesan error ditampilkan kepada mahasiswa menjelaskan alasannya. |
+| **Pascasyarat (Gagal)** | 1. Status sistem tidak berubah: tidak ada pendaftaran parsial.<br>2. Pembayaran tidak dikenakan atau secara otomatis dikembalikan.<br>3. Pesan error yang menjelaskan alasannya ditampilkan kepada mahasiswa. |
 
 </section>
 
@@ -164,7 +164,7 @@ This is the ideal path where everything goes right. Each step is a discrete inte
 | 2 | | System checks that the student is authenticated. |
 | 3 | | System verifies that the registration period for this course is open. |
 | 4 | | System checks that the course still has available seats (quota > 0). |
-| 5 | | System checks for schedule conflicts — the student must not already be enrolled in another course at the same time slot. |
+| 5 | | System checks for schedule conflicts: the student must not already be enrolled in another course at the same time slot. |
 | 6 | | System calculates the tuition fee for the course and displays the enrolment summary screen: course name, credits, schedule, and fee amount. |
 | 7 | Student reviews the summary and clicks **"Confirm Enrolment."** | |
 | 8 | | System initiates a payment request to the Payment Gateway with the fee amount, student ID, and course ID. |
@@ -188,7 +188,7 @@ Ini adalah jalur ideal di mana semuanya berjalan dengan benar. Setiap langkah ad
 | 2 | | Sistem memeriksa bahwa mahasiswa sudah terotentikasi. |
 | 3 | | Sistem memverifikasi bahwa periode pendaftaran untuk mata kuliah ini terbuka. |
 | 4 | | Sistem memeriksa bahwa mata kuliah masih memiliki kursi tersedia (kuota > 0). |
-| 5 | | Sistem memeriksa konflik jadwal — mahasiswa tidak boleh sudah terdaftar di mata kuliah lain pada slot waktu yang sama. |
+| 5 | | Sistem memeriksa konflik jadwal: mahasiswa tidak boleh sudah terdaftar di mata kuliah lain pada slot waktu yang sama. |
 | 6 | | Sistem menghitung biaya kuliah untuk mata kuliah dan menampilkan layar ringkasan pendaftaran: nama mata kuliah, SKS, jadwal, dan jumlah biaya. |
 | 7 | Mahasiswa meninjau ringkasan dan mengklik **"Konfirmasi Pendaftaran."** | |
 | 8 | | Sistem memulai permintaan pembayaran ke Payment Gateway dengan jumlah biaya, ID mahasiswa, dan ID mata kuliah. |
@@ -307,7 +307,7 @@ Alur alternatif mendeskripsikan apa yang terjadi ketika happy path tidak dapat d
 Writing a good use case scenario is a skill. Here are guidelines refined from industry practice:
 
 ### Atomic Steps
-Each step should be a single interaction. Never combine "System validates credentials and redirects to dashboard" into one step — those are two distinct actions that can fail independently.
+Each step should be a single interaction. Never combine "System validates credentials and redirects to dashboard" into one step: those are two distinct actions that can fail independently.
 
 ### Active Voice
 Write from the system's perspective using active voice. "System validates the student's login credentials" is clearer than "The student's login credentials are validated."
@@ -336,10 +336,10 @@ For every `if` condition in the main flow, there should be a corresponding alter
 
 ## 6. Praktik Terbaik Skenario
 
-Menulis use case scenario yang baik adalah sebuah keterampilan. Berikut adalah panduan yang disempurnakan dari praktik industri:
+Menulis use case scenario yang baik adalah sebuah keterampilan. Berikut adalah panduan yang disarikan dari praktik industri:
 
 ### Langkah Atomik
-Setiap langkah harus berupa interaksi tunggal. Jangan pernah menggabungkan "Sistem memvalidasi kredensial dan mengarahkan ke dashboard" menjadi satu langkah — itu adalah dua aksi berbeda yang dapat gagal secara independen.
+Setiap langkah harus berupa interaksi tunggal. Jangan pernah menggabungkan "Sistem memvalidasi kredensial dan mengarahkan ke dashboard" menjadi satu langkah: itu adalah dua aksi berbeda yang dapat gagal secara independen.
 
 ### Kalimat Aktif
 Tulis dari perspektif sistem menggunakan kalimat aktif. "Sistem memvalidasi kredensial login mahasiswa" lebih jelas daripada "Kredensial login mahasiswa divalidasi."
@@ -348,7 +348,7 @@ Tulis dari perspektif sistem menggunakan kalimat aktif. "Sistem memvalidasi kred
 Hindari menyebutkan elemen UI spesifik seperti "mengklik tombol biru" atau "memilih dari dropdown." Katakan "mengklik Daftar" atau "memasukkan detail pembayaran." Skenario mendeskripsikan *apa* yang terjadi, bukan *bagaimana* tampilan UI.
 
 ### Agnostik Teknologi
-Skenario tidak boleh menyebutkan Laravel, MySQL, atau teknologi spesifik apa pun. Keputusan tersebut datang selama desain dan implementasi (Bagian 4 dan 5 dari seri ini).
+Skenario tidak boleh menyebutkan Laravel, MySQL, atau teknologi spesifik apa pun. Keputusan tersebut diambil pada tahap desain dan implementasi (Bagian 4 dan 5 dari seri ini).
 
 ### Dapat Diuji
 Setiap respons sistem harus menjadi sesuatu yang dapat diverifikasi oleh tester. "Sistem cepat" bukanlah langkah yang dapat diuji. "Sistem merespons dalam waktu 3 detik" adalah.
@@ -374,7 +374,7 @@ The use case scenario you just read is the **source of truth** for all downstrea
 
 - **Activity Diagram (Part 3):** The steps in the main success scenario and alternative flows map directly to actions and decision nodes in the activity diagram. We will visualise the entire enrolment workflow with swimlanes.
 - **Sequence Diagram (Part 4):** Steps 6–13 of the main flow show interactions between the actor, controller, services, payment gateway, and persistence boundary. The sequence diagram will show these messages in chronological order.
-- **Class Diagram (Part 5):** The nouns in the scenario — Student, Course, Enrolment, Payment — become the classes in our class diagram and ultimately the Eloquent models in Laravel.
+- **Class Diagram (Part 5):** The nouns in the scenario (Student, Course, Enrolment, Payment) become the classes in our class diagram and ultimately the Eloquent models in Laravel.
 
 This traceability is the power of UML. Every diagram connects back to a line in this scenario, which connects back to a stakeholder's requirement.
 
@@ -384,12 +384,12 @@ This traceability is the power of UML. Every diagram connects back to a line in 
 
 ## 7. Dari Skenario ke Diagram
 
-Use case scenario yang baru saja Anda baca adalah **sumber kebenaran** untuk semua pekerjaan desain selanjutnya:
+Use case scenario yang baru saja Anda baca adalah **acuan utama** untuk semua pekerjaan desain selanjutnya:
 
 - **Activity Diagram (Bagian 3):** Langkah-langkah dalam skenario sukses utama dan alur alternatif dipetakan langsung ke aksi dan decision node dalam activity diagram. Kita akan memvisualisasikan seluruh alur kerja pendaftaran dengan swimlanes.
 - **Sequence Diagram (Bagian 4):** Langkah 6–13 dari alur utama menunjukkan interaksi antara aktor, controller, service, payment gateway, dan batas persistensi. Sequence diagram akan menunjukkan pesan-pesan ini dalam urutan kronologis.
-- **Class Diagram (Bagian 5):** Kata benda dalam skenario — Student, Course, Enrolment, Payment — menjadi kelas-kelas dalam class diagram kita dan akhirnya menjadi Eloquent model di Laravel.
+- **Class Diagram (Bagian 5):** Kata benda dalam skenario (Student, Course, Enrolment, Payment) menjadi kelas-kelas dalam class diagram kita dan akhirnya menjadi Eloquent model di Laravel.
 
-Ketertelusuran inilah kekuatan UML. Setiap diagram terhubung kembali ke sebuah baris dalam skenario ini, yang terhubung kembali ke persyaratan stakeholder.
+Itulah kekuatan UML: ketertelusuran. Setiap diagram terhubung kembali ke sebuah baris dalam skenario ini, dan baris itu terhubung kembali ke persyaratan stakeholder.
 
 </section>

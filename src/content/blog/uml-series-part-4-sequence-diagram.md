@@ -1,14 +1,14 @@
 ---
-title: "UML Mini Series Part 4 — Sequence Diagram"
-titleId: "Seri Mini UML Bagian 4 — Sequence Diagram"
+title: "UML Mini Series Part 4: Sequence Diagram"
+titleId: "Seri Mini UML Bagian 4: Sequence Diagram"
 date: 2026-06-30
 updated: 2026-06-30
 category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 4 of the UML Mini Series. Learn what a Sequence Diagram is, why it reveals object interactions, and how to draw one for the 'Enrol in Course' payment and enrolment flow — with lifelines, messages, and activation boxes in PlantUML."
-excerptId: "Bagian 4 dari Seri Mini UML. Pelajari apa itu Sequence Diagram, mengapa diagram ini mengungkap interaksi objek, dan cara menggambarnya untuk alur pembayaran dan pendaftaran 'Daftar Mata Kuliah' — dengan lifelines, messages, dan activation box dalam PlantUML."
+excerpt: "Part 4 of the UML Mini Series. Learn what a Sequence Diagram is, why it reveals object interactions, and how to draw one for the 'Enrol in Course' payment and enrolment flow: with lifelines, messages, and activation boxes in PlantUML."
+excerptId: "Bagian 4 dari Seri Mini UML. Pelajari apa itu Sequence Diagram, mengapa diagram ini mengungkap interaksi objek, dan cara menggambarnya untuk alur pembayaran dan pendaftaran 'Daftar Mata Kuliah': dengan lifelines, messages, dan activation box dalam PlantUML."
 stream: se-methodologies-architecture
 tags:
   - UML
@@ -26,7 +26,7 @@ seriesOrder: 4
 
 ## 1. What is a Sequence Diagram?
 
-A **Sequence Diagram** is a behaviour diagram that models the interactions between objects over time. It shows **who calls whom, in what order, and with what data** — all arranged on a timeline that reads from top to bottom.
+A **Sequence Diagram** is a behaviour diagram that models the interactions between objects over time. It shows **who calls whom, in what order, and with what data**: all arranged on a timeline that reads from top to bottom.
 
 While the Activity Diagram (Part 3) shows the business process flow, the Sequence Diagram shows the **technical object-level interactions** that implement that flow. Together, they answer two different questions:
 
@@ -44,8 +44,8 @@ While the Activity Diagram (Part 3) shows the business process flow, the Sequenc
 | **Synchronous Message** | Solid arrow with filled head | A call that waits for a response (e.g., method call) |
 | **Return Message** | Dashed arrow with open head | The response to a synchronous call |
 | **Activation Box** | Thin rectangle on a lifeline | Shows the period during which an object is performing an operation |
-| **Alt Fragment** | Box labelled "alt" with dashed dividers | Conditional logic — "if/else" (only one operand executes) |
-| **Loop Fragment** | Box labelled "loop" | Repeating interaction — "while" or "for each" |
+| **Alt Fragment** | Box labelled "alt" with dashed dividers | Conditional logic: "if/else" (only one operand executes) |
+| **Loop Fragment** | Box labelled "loop" | Repeating interaction: "while" or "for each" |
 
 </section>
 
@@ -53,9 +53,9 @@ While the Activity Diagram (Part 3) shows the business process flow, the Sequenc
 
 ## 1. Apa Itu Sequence Diagram?
 
-**Sequence Diagram** adalah diagram perilaku yang memodelkan interaksi antar objek sepanjang waktu. Diagram ini menunjukkan **siapa memanggil siapa, dalam urutan apa, dan dengan data apa** — semuanya disusun pada timeline yang dibaca dari atas ke bawah.
+**Sequence Diagram** adalah diagram perilaku yang memodelkan interaksi antar objek sepanjang waktu. Diagram ini menunjukkan **siapa memanggil siapa, dalam urutan apa, dan dengan data apa**: semuanya disusun pada timeline yang dibaca dari atas ke bawah.
 
-Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence Diagram menunjukkan **interaksi teknis level objek** yang mengimplementasikan alur tersebut. Bersama-sama, keduanya menjawab dua pertanyaan berbeda:
+Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence Diagram menunjukkan **interaksi teknis pada level objek** yang mengimplementasikan alur tersebut. Bersama-sama, keduanya menjawab dua pertanyaan berbeda:
 
 | Diagram | Pertanyaan yang Dijawab |
 |---|---|
@@ -70,9 +70,9 @@ Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence D
 | **Object** | Persegi panjang di atas lifeline | Partisipan dalam interaksi (aktor, controller, model, service, database) |
 | **Synchronous Message** | Panah solid dengan ujung terisi | Panggilan yang menunggu respons (misalnya, pemanggilan method) |
 | **Return Message** | Panah putus-putus dengan ujung terbuka | Respons terhadap panggilan sinkron |
-| **Activation Box** | Persegi panjang tipis pada lifeline | Menunjukkan periode di mana objek sedang melakukan operasi |
-| **Alt Fragment** | Kotak berlabel "alt" dengan pembagi putus-putus | Logika kondisional — "if/else" (hanya satu operan yang dieksekusi) |
-| **Loop Fragment** | Kotak berlabel "loop" | Interaksi berulang — "while" atau "for each" |
+| **Activation Box** | Persegi panjang tipis pada lifeline | Menunjukkan periode ketika objek sedang melakukan operasi |
+| **Alt Fragment** | Kotak berlabel "alt" dengan pembagi putus-putus | Logika kondisional: "if/else" (hanya satu operan yang dieksekusi) |
+| **Loop Fragment** | Kotak berlabel "loop" | Interaksi berulang: "while" atau "for each" |
 
 </section>
 
@@ -86,7 +86,7 @@ Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence D
 A sequence diagram captures the dynamic interactions between objects in a specific scenario. It focuses on **time-ordered messages**: method calls, HTTP requests, database queries, and their responses.
 
 ### Why does it matter?
-- **Design precision.** A sequence diagram forces you to name every method, parameter, and important response before coding. You cannot hand-wave "then the system processes the payment" — you must specify `PaymentGateway::charge($amount, $studentId, $courseId)` and the response data it returns.
+- **Design precision.** A sequence diagram forces you to name every method, parameter, and important response before coding. You cannot hand-wave "then the system processes the payment": you must specify `PaymentGateway::charge($amount, $studentId, $courseId)` and the response data it returns.
 - **Discover hidden dependencies.** Drawing lifelines reveals when an object depends on another object it should not know about (violating the Law of Demeter or layered architecture).
 - **Concurrency visualisation.** Activation boxes show which operations happen in parallel and which block, making it easy to spot deadlock risks.
 - **Code generation.** Many IDEs can generate skeleton code from sequence diagrams. Even without tooling, a sequence diagram is an exact specification for what methods to implement.
@@ -115,7 +115,7 @@ Sequence diagrams live in technical design documents and API specifications. The
 Sequence diagram menangkap interaksi dinamis antar objek dalam skenario tertentu. Diagram ini berfokus pada **pesan terurut waktu**: pemanggilan method, HTTP request, query database, dan responsnya.
 
 ### Mengapa penting?
-- **Presisi desain.** Sequence diagram memaksa Anda menamai setiap method, parameter, dan respons penting sebelum coding. Anda tidak bisa mengabaikan "lalu sistem memproses pembayaran" — Anda harus menspesifikasikan `PaymentGateway::charge($amount, $studentId, $courseId)` dan data respons yang dikembalikan.
+- **Presisi desain.** Sequence diagram memaksa Anda menamai setiap method, parameter, dan respons penting sebelum coding. Anda tidak bisa melewatkan begitu saja "lalu sistem memproses pembayaran": Anda harus menspesifikasikan `PaymentGateway::charge($amount, $studentId, $courseId)` dan data respons yang dikembalikan.
 - **Temukan dependensi tersembunyi.** Menggambar lifelines mengungkapkan ketika sebuah objek bergantung pada objek lain yang seharusnya tidak diketahuinya (melanggar Law of Demeter atau arsitektur berlapis).
 - **Visualisasi konkurensi.** Activation box menunjukkan operasi mana yang terjadi secara paralel dan mana yang memblokir, memudahkan untuk menemukan risiko deadlock.
 - **Code generation.** Banyak IDE dapat menghasilkan kode kerangka dari sequence diagram. Bahkan tanpa tooling, sequence diagram adalah spesifikasi tepat untuk method apa yang harus diimplementasikan.
@@ -129,7 +129,7 @@ Sequence diagram berada di dokumen desain teknis dan spesifikasi API. Diagram in
 ### Bagaimana membuatnya?
 1. Identifikasi objek (partisipan) yang terlibat dalam skenario.
 2. Tempatkan mereka sebagai lifelines di bagian atas diagram, disusun dari kiri ke kanan.
-3. Telusuri alur utama dari use case scenario, mengonversi setiap langkah menjadi pesan antar objek.
+3. Telusuri alur utama dari use case scenario, lalu konversikan setiap langkah menjadi pesan antar objek.
 4. Tambahkan activation box untuk menunjukkan kapan setiap objek sibuk.
 5. Tambahkan fragmen `alt` untuk cabang kondisional dan fragmen `loop` untuk interaksi berulang.
 6. Beri anotasi return message di mana data respons penting.
@@ -149,10 +149,10 @@ Here are the participants (lifelines) in our scenario:
 | Participant | Type | Role in This Scenario |
 |---|---|---|
 | **Student** | Actor | Initiates the enrolment via the web browser |
-| **EnrolmentController** | Controller | Orchestrates the enrolment workflow — validates input, coordinates services, returns responses |
+| **EnrolmentController** | Controller | Orchestrates the enrolment workflow: validates input, coordinates services, returns responses |
 | **CourseService** | Service | Business logic for course-related operations: checking quota, fetching schedule, computing fees |
 | **EnrolmentService** | Service | Business logic for enrolment: checking conflicts, creating enrolment records, updating counts |
-| **PaymentGateway** | External Service | Processes the financial transaction — our system does not handle money directly |
+| **PaymentGateway** | External Service | Processes the financial transaction: our system does not handle money directly |
 | **Database** | Persistence | Stores course, enrolment, and payment records |
 
 ### Why These Participants?
@@ -179,10 +179,10 @@ Berikut adalah partisipan (lifelines) dalam skenario kita:
 | Partisipan | Tipe | Peran dalam Skenario Ini |
 |---|---|---|
 | **Student (Mahasiswa)** | Aktor | Memulai pendaftaran melalui browser web |
-| **EnrolmentController** | Controller | Mengorkestrasi alur kerja pendaftaran — memvalidasi input, mengoordinasikan service, mengembalikan respons |
+| **EnrolmentController** | Controller | Mengorkestrasi alur kerja pendaftaran: memvalidasi input, mengoordinasikan service, mengembalikan respons |
 | **CourseService** | Service | Logika bisnis untuk operasi terkait mata kuliah: memeriksa kuota, mengambil jadwal, menghitung biaya |
 | **EnrolmentService** | Service | Logika bisnis untuk pendaftaran: memeriksa konflik, membuat catatan pendaftaran, memperbarui jumlah |
-| **PaymentGateway** | Service Eksternal | Memproses transaksi keuangan — sistem kita tidak menangani uang secara langsung |
+| **PaymentGateway** | Service Eksternal | Memproses transaksi keuangan: sistem kita tidak menangani uang secara langsung |
 | **Database** | Persistensi | Menyimpan catatan mata kuliah, pendaftaran, dan pembayaran |
 
 ### Mengapa Partisipan Ini?
@@ -192,9 +192,9 @@ Dalam aplikasi Laravel (Bagian 5), ini dipetakan langsung ke:
 - **CourseService** → `App\Services\CourseService`
 - **EnrolmentService** → `App\Services\EnrolmentService`
 - **PaymentGateway** → `App\Services\PaymentGateway` (atau SDK pihak ketiga seperti Midtrans)
-- **Database** → Model Eloquent yang didukung MySQL/PostgreSQL
+- **Database** → Model Eloquent yang didukung oleh MySQL/PostgreSQL
 
-Pemisahan `CourseService` dan `EnrolmentService` mengikuti Single Responsibility Principle: logika mata kuliah (kuota, jadwal) dan logika pendaftaran (konflik, registrasi) berubah untuk alasan yang berbeda.
+Pemisahan `CourseService` dan `EnrolmentService` mengikuti Single Responsibility Principle: logika mata kuliah (kuota, jadwal) dan logika pendaftaran (konflik, registrasi) berubah karena alasan yang berbeda.
 
 </section>
 
@@ -315,17 +315,17 @@ deactivate EC
 
 ### Reading the Sequence Diagram
 
-Follow the arrows from top to bottom. Each arrow is a message — a method call or an HTTP request. The activation boxes (thin rectangles on the lifelines) show when each object is actively processing.
+Follow the arrows from top to bottom. Each arrow is a message: a method call or an HTTP request. The activation boxes (thin rectangles on the lifelines) show when each object is actively processing.
 
 Key observations:
 
 1. **Sequential validation.** The controller checks quota and schedule conflicts *before* asking for payment. This prevents charging the student for a course they cannot join.
 
-2. **External system boundary.** The `PaymentGateway` is a separate lifeline — the controller calls it, waits for a response, and only proceeds on success. This is a **synchronous boundary** with a timeout risk (which we handle in the implementation with try/catch and configurable timeouts).
+2. **External system boundary.** The `PaymentGateway` is a separate lifeline: the controller calls it, waits for a response, and only proceeds on success. This is a **synchronous boundary** with a timeout risk (which we handle in the implementation with try/catch and configurable timeouts).
 
 3. **Transactional boundary.** The `createPaidEnrolment(...)` call owns the `BEGIN TRANSACTION` → create enrolment → record payment → update quota → `COMMIT` block. If any persistence operation fails, the enrolment insert is rolled back. The updated schedule is then read from enrolment data as a derived view.
 
-4. **No direct model access from controller.** The controller never talks to the database directly. It delegates to `CourseService` and `EnrolmentService`, which encapsulate persistence details. This is the **Service Layer pattern** — the controller orchestrates, services execute.
+4. **No direct model access from controller.** The controller never talks to the database directly. It delegates to `CourseService` and `EnrolmentService`, which encapsulate persistence details. This is the **Service Layer pattern**: the controller orchestrates, services execute.
 
 </section>
 
@@ -444,17 +444,17 @@ deactivate EC
 
 ### Membaca Sequence Diagram
 
-Ikuti panah dari atas ke bawah. Setiap panah adalah pesan — pemanggilan method atau HTTP request. Activation box (persegi panjang tipis pada lifelines) menunjukkan kapan setiap objek sedang aktif memproses.
+Ikuti panah dari atas ke bawah. Setiap panah adalah pesan: pemanggilan method atau HTTP request. Activation box (persegi panjang tipis pada lifelines) menunjukkan kapan setiap objek sedang aktif memproses.
 
 Observasi kunci:
 
-1. **Validasi berurutan.** Controller memeriksa kuota dan konflik jadwal *sebelum* meminta pembayaran. Ini mencegah menagih mahasiswa untuk mata kuliah yang tidak bisa mereka ikuti.
+1. **Validasi berurutan.** Controller memeriksa kuota dan konflik jadwal *sebelum* meminta pembayaran. Ini mencegah penagihan kepada mahasiswa untuk mata kuliah yang tidak dapat mereka ikuti.
 
-2. **Batas sistem eksternal.** `PaymentGateway` adalah lifeline terpisah — controller memanggilnya, menunggu respons, dan hanya melanjutkan jika berhasil. Ini adalah **synchronous boundary** dengan risiko timeout (yang kita tangani dalam implementasi dengan try/catch dan timeout yang dapat dikonfigurasi).
+2. **Batas sistem eksternal.** `PaymentGateway` adalah lifeline terpisah: controller memanggilnya, menunggu respons, dan hanya melanjutkan jika berhasil. Ini adalah **synchronous boundary** dengan risiko timeout (yang kita tangani dalam implementasi dengan try/catch dan timeout yang dapat dikonfigurasi).
 
 3. **Batas transaksional.** Panggilan `createPaidEnrolment(...)` memiliki blok `BEGIN TRANSACTION` → buat pendaftaran → catat pembayaran → perbarui kuota → `COMMIT`. Jika operasi persistensi mana pun gagal, insert pendaftaran di-rollback. Jadwal terbaru lalu dibaca dari data enrolment sebagai view turunan.
 
-4. **Tidak ada akses model langsung dari controller.** Controller tidak pernah berbicara langsung ke database. Ia mendelegasikan ke `CourseService` dan `EnrolmentService`, yang mengenkapsulasi detail persistensi. Ini adalah pola **Service Layer** — controller mengorkestrasi, service mengeksekusi.
+4. **Tidak ada akses model langsung dari controller.** Controller tidak pernah berbicara langsung ke database. Ia mendelegasikan ke `CourseService` dan `EnrolmentService`, yang mengenkapsulasi detail persistensi. Ini adalah pola **Service Layer**: controller mengorkestrasi, service mengeksekusi.
 
 </section>
 
@@ -474,9 +474,9 @@ Now that we have both diagrams for the same workflow, let us compare them:
 | **Conditional logic** | Decision/merge nodes | Alt, opt, loop fragments |
 | **Actors** | Swimlanes partition by responsibility | Lifelines for every interacting object |
 | **Best for** | Stakeholder validation, process documentation | Developer specification, API design |
-| **Granularity** | Coarse — "System validates" | Fine — `checkQuota(course_id): bool` |
+| **Granularity** | Coarse: "System validates" | Fine: `checkQuota(course_id): bool` |
 
-**Rule of thumb:** If you are explaining a workflow to a product manager, use an activity diagram. If you are explaining the same workflow to a developer who will implement it, use a sequence diagram. In a complete UML model, you create both — the activity diagram for the business view, the sequence diagram for the technical view.
+**Rule of thumb:** If you are explaining a workflow to a product manager, use an activity diagram. If you are explaining the same workflow to a developer who will implement it, use a sequence diagram. In a complete UML model, you create both: the activity diagram for the business view, the sequence diagram for the technical view.
 
 </section>
 
@@ -488,15 +488,15 @@ Sekarang kita memiliki kedua diagram untuk alur kerja yang sama, mari kita bandi
 
 | Aspek | Activity Diagram | Sequence Diagram |
 |---|---|---|
-| **Fokus** | Alur proses bisnis | Pertukaran pesan level objek |
+| **Fokus** | Alur proses bisnis | Pertukaran pesan pada level objek |
 | **Representasi waktu** | Implisit (atas ke bawah) | Eksplisit (lifelines, activation box) |
 | **Paralelisme** | Node fork/join | Fragmen par |
 | **Logika kondisional** | Node decision/merge | Fragmen alt, opt, loop |
 | **Aktor** | Swimlanes mempartisi berdasarkan tanggung jawab | Lifelines untuk setiap objek yang berinteraksi |
 | **Terbaik untuk** | Validasi stakeholder, dokumentasi proses | Spesifikasi developer, desain API |
-| **Granularitas** | Kasar — "Sistem memvalidasi" | Halus — `checkQuota(course_id): bool` |
+| **Granularitas** | Kasar: "Sistem memvalidasi" | Halus: `checkQuota(course_id): bool` |
 
-**Aturan praktis:** Jika Anda menjelaskan alur kerja kepada product manager, gunakan activity diagram. Jika Anda menjelaskan alur kerja yang sama kepada developer yang akan mengimplementasikannya, gunakan sequence diagram. Dalam model UML yang lengkap, Anda membuat keduanya — activity diagram untuk tampilan bisnis, sequence diagram untuk tampilan teknis.
+**Aturan praktis:** Jika Anda menjelaskan alur kerja kepada product manager, gunakan activity diagram. Jika Anda menjelaskan alur kerja yang sama kepada developer yang akan mengimplementasikannya, gunakan sequence diagram. Dalam model UML yang lengkap, Anda membuat keduanya: activity diagram untuk tampilan bisnis, sequence diagram untuk tampilan teknis.
 
 </section>
 
@@ -510,7 +510,7 @@ Sekarang kita memiliki kedua diagram untuk alur kerja yang sama, mari kita bandi
 Avoid putting raw SQL such as `SELECT * FROM courses` directly in message labels when the diagram is otherwise written at the HTTP and service-method level. Prefer semantic persistence messages such as `findCourse(course_id)` or `recordPayment(...)`, and place SQL details in notes or implementation code if they are needed.
 
 ### Return Messages Matter When Data Flows
-If a return message carries data (e.g., `gateway response {success, transaction_id}`), include it. If it only signals completion (`OK`), you can omit it for brevity — but always include it when the data is used in subsequent messages.
+If a return message carries data (e.g., `gateway response {success, transaction_id}`), include it. If it only signals completion (`OK`), you can omit it for brevity, but always include it when the data is used in subsequent messages.
 
 ### Use Fragments for Conditional Logic
 Do not draw three separate diagrams for the success path, the quota-full path, and the payment-failure path. Use `alt` fragments to keep all paths in one diagram. This is what makes the sequence diagram a complete specification.
@@ -528,10 +528,10 @@ If one lifeline (usually the controller) receives 15+ messages, consider splitti
 ## 6. Praktik Terbaik Sequence Diagram
 
 ### Jaga Pesan pada Tingkat Abstraksi yang Konsisten
-Hindari menaruh SQL mentah seperti `SELECT * FROM courses` langsung pada label pesan ketika diagram lain ditulis pada level HTTP dan pemanggilan method service. Gunakan pesan persistensi semantik seperti `findCourse(course_id)` atau `recordPayment(...)`, lalu letakkan detail SQL di catatan atau kode implementasi jika memang diperlukan.
+Hindari menaruh SQL mentah seperti `SELECT * FROM courses` langsung pada label pesan ketika bagian lain dari diagram ditulis pada level HTTP dan pemanggilan method service. Gunakan pesan persistensi semantik seperti `findCourse(course_id)` atau `recordPayment(...)`, lalu letakkan detail SQL di catatan atau kode implementasi jika memang diperlukan.
 
 ### Return Message Penting Ketika Data Mengalir
-Jika return message membawa data (misalnya, `respons gateway {sukses, transaction_id}`), sertakan. Jika hanya menandakan penyelesaian (`OK`), Anda dapat menghilangkannya untuk keringkasan — tetapi selalu sertakan ketika data digunakan dalam pesan berikutnya.
+Jika return message membawa data (misalnya, `respons gateway {sukses, transaction_id}`), sertakan. Jika hanya menandakan penyelesaian (`OK`), Anda dapat menghilangkannya untuk keringkasan, tetapi selalu sertakan ketika data digunakan dalam pesan berikutnya.
 
 ### Gunakan Fragmen untuk Logika Kondisional
 Jangan menggambar tiga diagram terpisah untuk jalur sukses, jalur kuota penuh, dan jalur kegagalan pembayaran. Gunakan fragmen `alt` untuk menyimpan semua jalur dalam satu diagram. Inilah yang membuat sequence diagram menjadi spesifikasi yang lengkap.
@@ -552,7 +552,7 @@ Jika satu lifeline (biasanya controller) menerima 15+ pesan, pertimbangkan untuk
 
 The sequence diagram has revealed the methods each object must implement, the parameters they accept, and the data they return. This is the final piece of behavioural specification before we move to **structural design**.
 
-In Part 5, we will take the domain objects from this sequence diagram — `Student`, `Course`, `Enrolment`, `Payment`, along with the supporting entities (`Lecturer`, `Admin`, `Schedule`) — and add the Laravel realization classes that execute the messages: controller, form requests, services, gateway, and API resources. Then we will implement them as familiar Laravel code.
+In Part 5, we will take the domain objects from this sequence diagram (`Student`, `Course`, `Enrolment`, `Payment`, along with the supporting entities `Lecturer`, `Admin`, `Schedule`) and add the Laravel realization classes that execute the messages: controller, form requests, services, gateway, and API resources. Then we will implement them as familiar Laravel code.
 
 </section>
 
@@ -560,8 +560,8 @@ In Part 5, we will take the domain objects from this sequence diagram — `Stude
 
 ## 7. Dari Sequence ke Class Diagram
 
-Sequence diagram telah mengungkapkan method yang harus diimplementasikan setiap objek, parameter yang mereka terima, dan data yang mereka kembalikan. Ini adalah bagian terakhir dari spesifikasi perilaku sebelum kita beralih ke **desain struktural**.
+Sequence diagram telah mengungkapkan method yang harus diimplementasikan oleh setiap objek, parameter yang mereka terima, dan data yang mereka kembalikan. Ini adalah bagian terakhir dari spesifikasi perilaku sebelum kita beralih ke **desain struktural**.
 
-Di Bagian 5, kita akan mengambil objek domain dari sequence diagram ini — `Student`, `Course`, `Enrolment`, `Payment`, bersama dengan entitas pendukung (`Lecturer`, `Admin`, `Schedule`) — lalu menambahkan class realisasi Laravel yang mengeksekusi message: controller, form request, service, gateway, dan API resource. Kemudian kita akan mengimplementasikannya sebagai kode Laravel yang familiar.
+Di Bagian 5, kita akan mengambil objek domain dari sequence diagram ini (`Student`, `Course`, `Enrolment`, `Payment`, bersama dengan entitas pendukung `Lecturer`, `Admin`, `Schedule`) lalu menambahkan class realisasi Laravel yang mengeksekusi message: controller, form request, service, gateway, dan API resource. Kemudian kita akan mengimplementasikannya sebagai kode Laravel yang familiar.
 
 </section>
