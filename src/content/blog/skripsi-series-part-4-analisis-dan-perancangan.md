@@ -1,6 +1,6 @@
 ---
-title: "Skripsi Mini Series Part 4 — Analisis dan Perancangan Sistem (Analysis & Design)"
-titleId: "Seri Mini Skripsi Bagian 4 — Analisis dan Perancangan Sistem"
+title: "Skripsi Mini Series Part 4: Analisis dan Perancangan Sistem (Analysis & Design)"
+titleId: "Seri Mini Skripsi Bagian 4: Analisis dan Perancangan Sistem"
 date: 2026-07-14
 updated: 2026-07-14
 category: tutorial
@@ -26,16 +26,16 @@ seriesOrder: 4
 
 <section lang="en">
 
-## 1. What is BAB IV — Analisis dan Perancangan Sistem?
+## 1. What is BAB IV: Analisis dan Perancangan Sistem (System Analysis and Design)?
 
-**BAB IV** is usually the longest chapter in a JTI Polinema skripsi, and for good reason: it is where a vague idea becomes a **buildable blueprint**. It has four subsections:
+**BAB IV** is usually the longest chapter in a JTI Polinema **skripsi** (undergraduate thesis), and for good reason: it is where a vague idea becomes a **buildable blueprint**. It has four subsections:
 
 | Subsection | Purpose |
 |---|---|
-| **4.1 Analisis Kebutuhan** | Actors, preconditions, functional requirements (FR), non-functional requirements (NFR) |
-| **4.2 Perancangan Sistem** | Architecture diagram, Use Case, Activity, Sequence, and Class diagrams |
-| **4.3 Perancangan Desain Antarmuka** | UI wireframes / mockups |
-| **4.4 Rancangan Skenario Pengujian** | Blackbox and UAT test-scenario tables, planned before implementation |
+| **4.1 Analisis Kebutuhan (Requirements Analysis)** | Actors, preconditions, functional requirements (FR), non-functional requirements (NFR) |
+| **4.2 Perancangan Sistem (System Design)** | Architecture diagram, Use Case, Activity, Sequence, and Class diagrams |
+| **4.3 Perancangan Desain Antarmuka (Interface Design)** | UI wireframes / mockups |
+| **4.4 Rancangan Skenario Pengujian (Test Scenario Design)** | Blackbox and UAT test-scenario tables, planned before implementation |
 
 This chapter is pure software engineering: everything you learned in the [UML Mini Series](/blog/uml-series-part-1-introduction-use-case) applies directly here. If you haven't read that series, start there; this part assumes you know how to read a Use Case, Activity, Sequence, and Class diagram, including how it treats login as a precondition rather than a use case, and why CRUD operations should not be modelled as separate use cases.
 
@@ -43,7 +43,7 @@ This chapter is pure software engineering: everything you learned in the [UML Mi
 
 <section lang="id">
 
-## 1. Apa Itu BAB IV — Analisis dan Perancangan Sistem?
+## 1. Apa Itu BAB IV: Analisis dan Perancangan Sistem?
 
 **BAB IV** biasanya adalah bab terpanjang dalam skripsi JTI Polinema, dan dengan alasan yang jelas: di sinilah ide yang kabur menjadi **cetak biru yang dapat dibangun**. Bab ini memiliki empat subbab:
 
@@ -70,7 +70,7 @@ This chapter translates BAB I's scope and BAB III's methodology into diagrams an
 ### Why does it matter?
 - **It is the contract between design and code.** Every class in your Class Diagram should appear in BAB V; if implementation invents classes never designed here, your design was incomplete.
 - **It is where the case for Action Pattern becomes visible, not just asserted.** Showing the Fat Controller alternative as a conceptual Class Diagram, side by side with the Action Pattern design you will actually build, makes the structural difference concrete before a single line of code exists.
-- **Batasan Masalah (BAB I) is enforced here.** Anything outside your stated scope should not appear in a single diagram in this chapter; if it does, your scope has silently grown.
+- **Batasan Masalah (Scope and Limitations) (BAB I) is enforced here.** Anything outside your stated scope should not appear in a single diagram in this chapter; if it does, your scope has silently grown.
 - **A stated precondition must be implemented consistently, or it is a self-claim.** If BAB IV declares "User is authenticated" as a precondition, the database schema and code in BAB V must actually scope data to that user; otherwise the precondition is decoration, not a real constraint on the design.
 - **Test scenarios planned here (Section 4.4) prevent test-after-the-fact bias.** Defining "what correct behaviour looks like" before writing code keeps your Black Box tests honest.
 
@@ -81,7 +81,7 @@ Draft this immediately after BAB III is stable, since architecture and metric de
 BAB IV output is consumed entirely by BAB V (Implementasi): every diagram of the implemented design here should map to a corresponding class, method, or view built there. The conceptual Fat Controller diagrams are not built anywhere; they exist only to make BAB VI's later discussion concrete.
 
 ### How do you create one?
-1. Identify actors, state any preconditions (such as authentication), and turn Rumusan Masalah into functional/non-functional requirements.
+1. Identify actors, state any preconditions (such as authentication), and turn **Rumusan Masalah (Research Questions)** into functional/non-functional requirements.
 2. Draw the system architecture you will actually build, grouped into clear layers rather than a flat chain of boxes.
 3. Draw one Use Case Diagram. Group CRUD operations under one use case (e.g. "Manage X"), not one bubble per operation, and keep the behaviour identical to the user regardless of internal architecture. Add a short Use Case Description table (actor, description, precondition, postcondition) for immediate context.
 4. Draw one Activity Diagram per use case, elaborating its genuine decision logic within that single diagram (e.g. via a `switch`/`case` fork for a use case that bundles several operations); avoid mechanically producing one diagram per functional requirement, and avoid forcing every branch to repeat the same detail if it would just make the diagram harder to read.
@@ -97,14 +97,14 @@ BAB IV output is consumed entirely by BAB V (Implementasi): every diagram of the
 ## 2. Mengapa Menulis Analisis dan Perancangan dengan Benar Itu Penting?
 
 ### Apa itu?
-Bab ini menerjemahkan ruang lingkup BAB I dan metodologi BAB III menjadi diagram dan spesifikasi yang cukup presisi sehingga BAB V dapat dibangun langsung darinya, tanpa ambiguitas tersisa untuk diselesaikan di tengah implementasi.
+Bab ini menerjemahkan ruang lingkup BAB I dan metodologi BAB III menjadi diagram dan spesifikasi yang cukup presisi sehingga BAB V dapat dibangun langsung darinya, tanpa menyisakan ambiguitas yang harus diselesaikan di tengah implementasi.
 
 ### Mengapa penting?
 - **Ini adalah kontrak antara desain dan kode.** Setiap kelas di Class Diagram Anda seharusnya muncul di BAB V; jika implementasi mengarang kelas yang tidak pernah dirancang di sini, desain Anda tidak lengkap.
 - **Di sinilah alasan pemilihan Action Pattern menjadi terlihat, bukan sekadar diklaim.** Menampilkan alternatif Fat Controller sebagai Class Diagram konseptual, berdampingan dengan desain Action Pattern yang benar-benar akan Anda bangun, membuat perbedaan struktural menjadi konkret sebelum satu baris kode pun ada.
 - **Batasan Masalah (BAB I) ditegakkan di sini.** Apa pun di luar ruang lingkup yang dinyatakan seharusnya tidak muncul di satu pun diagram bab ini; jika muncul, ruang lingkup Anda diam-diam telah berkembang.
 - **Prasyarat yang dinyatakan harus diimplementasikan secara konsisten, atau itu hanya klaim sepihak.** Jika BAB IV menyatakan "User terautentikasi" sebagai prasyarat, skema database dan kode di BAB V harus benar-benar membatasi data ke user tersebut; jika tidak, prasyarat itu hanya hiasan, bukan batasan nyata pada desain.
-- **Skenario pengujian yang direncanakan di sini (bagian 4.4) mencegah bias test-setelah-fakta.** Mendefinisikan "seperti apa perilaku yang benar" sebelum menulis kode menjaga Black Box test Anda tetap jujur.
+- **Skenario pengujian yang direncanakan di sini (bagian 4.4) mencegah bias pengujian yang dilakukan setelah implementasi.** Mendefinisikan "seperti apa perilaku yang benar" sebelum menulis kode menjaga Black Box test Anda tetap objektif dan valid.
 
 ### Kapan digunakan?
 Susun segera setelah BAB III stabil, karena keputusan arsitektur dan metrik di BAB III langsung membentuk apa yang Anda gambarkan di sini.
@@ -114,9 +114,9 @@ Keluaran BAB IV sepenuhnya digunakan oleh BAB V (Implementasi): setiap diagram d
 
 ### Bagaimana membuatnya?
 1. Identifikasi aktor, nyatakan prasyarat apa pun (seperti autentikasi), dan ubah Rumusan Masalah menjadi kebutuhan fungsional/nonfungsional.
-2. Gambar arsitektur sistem yang benar-benar akan Anda bangun, dikelompokkan ke dalam lapisan yang jelas, bukan rantai kotak yang datar.
+2. Gambar arsitektur sistem yang benar-benar akan Anda bangun, dikelompokkan ke dalam lapisan yang jelas, bukan rantai datar berupa kotak-kotak.
 3. Gambar satu Use Case Diagram. Kelompokkan operasi CRUD di bawah satu use case (mis. "Kelola X"), bukan satu oval per operasi, dan jaga perilakunya identik bagi pengguna terlepas dari arsitektur internal. Tambahkan tabel Use Case Description singkat (aktor, deskripsi, prasyarat, pascasyarat) untuk konteks langsung.
-4. Gambar satu Activity Diagram per use case, merinci logika keputusan sesungguhnya di dalam satu diagram itu (mis. melalui percabangan `switch`/`case` untuk use case yang menggabungkan beberapa operasi); hindari mekanis menghasilkan satu diagram per kebutuhan fungsional, dan hindari memaksa setiap cabang mengulang detail yang sama jika itu hanya akan membuat diagram lebih sulit dibaca.
+4. Gambar satu Activity Diagram per use case, merinci logika keputusan sesungguhnya di dalam satu diagram itu (mis. melalui percabangan `switch`/`case` untuk use case yang menggabungkan beberapa operasi); hindari secara mekanis menghasilkan satu diagram per kebutuhan fungsional, dan hindari memaksa setiap cabang mengulang detail yang sama jika itu hanya akan membuat diagram lebih sulit dibaca.
 5. Gambar Sequence Diagram yang mengontraskan bagaimana tanggung jawab mengalir untuk skenario yang representatif.
 6. Gambar **dua** Class Diagram sebagai finalisasi desain: satu ilustrasi konseptual alternatif Fat Controller (diberi label jelas sebagai tidak diimplementasikan maupun diukur), dan satu untuk desain Action Pattern yang benar-benar akan Anda bangun dan ukur. Class diletakkan terakhir karena mensintesis semua yang ditetapkan Activity dan Sequence Diagram menjadi satu struktur statis, persis urutan yang digunakan Seri Mini UML sendiri (Activity, lalu Sequence, lalu Class).
 7. Sketsa wireframe antarmuka.
@@ -128,7 +128,7 @@ Keluaran BAB IV sepenuhnya digunakan oleh BAB V (Implementasi): setiap diagram d
 
 <section lang="en">
 
-## 3. 4.1 Analisis Kebutuhan
+## 3. 4.1 Analisis Kebutuhan (Requirements Analysis)
 
 ### Identifikasi Aktor
 
@@ -214,7 +214,7 @@ Menyebutkan metode verifikasi untuk setiap NFR itu penting: NFR tanpa cara untuk
 
 <section lang="en">
 
-## 4. 4.2 Perancangan Sistem
+## 4. 4.2 Perancangan Sistem (System Design)
 
 ### Arsitektur Diagram
 
@@ -563,7 +563,7 @@ Notice the qualitative difference already visible **before writing a line of cod
 
 ### Arsitektur Diagram
 
-Ini adalah arsitektur yang benar-benar dibangun oleh penelitian ini, dikelompokkan ke dalam lapisan eksplisit alih-alih rantai kotak bergaya sama yang datar, sehingga pengelompokan itu sendiri mengomunikasikan struktur berlapis.
+Ini adalah arsitektur yang benar-benar dibangun oleh penelitian ini, dikelompokkan ke dalam lapisan eksplisit alih-alih rantai datar berisi kotak-kotak bergaya sama, sehingga pengelompokan itu sendiri mengomunikasikan struktur berlapis.
 
 ```plantuml
 @startuml
@@ -608,7 +608,7 @@ Model --> DB
 @enduml
 ```
 
-Pada alternatif Fat Controller konseptual yang dibahas di BAB II, Application Layer ini tidak akan ada sama sekali: `TodoController` di Presentation Layer akan memanggil Model secara langsung, menyerap semua validasi dan business logic sendiri.
+Pada alternatif Fat Controller konseptual yang dibahas di BAB II, Application Layer ini tidak akan ada sama sekali: `TodoController` di Presentation Layer akan memanggil Model secara langsung, menangani sendiri semua validasi dan business logic.
 
 ### Use Case Diagram
 
@@ -668,7 +668,7 @@ Tabel deskripsi singkat memberi setiap use case konteks langsung, tanpa membutuh
 
 ### Activity Diagram: Kelola Todo
 
-Satu diagram, satu use case. Percabangan `switch`/`case` merepresentasikan pilihan aksi User; setiap cabang mendapat detail sebanyak yang dibutuhkannya saja. Buat dan Hapus membawa logika keputusan sesungguhnya (validasi, dan langkah konfirmasi/batal), sehingga ditampilkan lengkap; Edit mengikuti bentuk validasi yang identik dengan Buat, sehingga dicatat alih-alih digambar ulang, dan Selesaikan tidak memiliki percabangan yang layak ditampilkan.
+Satu diagram, satu use case. Percabangan `switch`/`case` merepresentasikan pilihan aksi User; setiap cabang mendapat detail sebanyak yang dibutuhkannya saja. Buat dan Hapus memiliki logika keputusan sesungguhnya (validasi, dan langkah konfirmasi/batal), sehingga ditampilkan lengkap; Edit mengikuti bentuk validasi yang identik dengan Buat, sehingga dicatat alih-alih digambar ulang, dan Selesaikan tidak memiliki percabangan yang layak ditampilkan.
 
 ```plantuml
 @startuml
@@ -729,7 +729,7 @@ stop
 
 ### Activity Diagram: Filter Todo
 
-Filter Todo tidak memiliki percabangan sesungguhnya, sehingga diagramnya memang singkat: akan menjadi padding yang tidak jujur jika mengarang logika keputusan yang tidak ada hanya agar diagram terlihat lebih substansial.
+Filter Todo tidak memiliki percabangan sesungguhnya, sehingga diagramnya memang singkat: akan menjadi penambahan yang menyesatkan jika mengarang logika keputusan yang tidak ada hanya agar diagram terlihat lebih substansial.
 
 ```plantuml
 @startuml
@@ -906,7 +906,7 @@ Perhatikan perbedaan kualitatif yang sudah terlihat **sebelum menulis satu baris
 
 <section lang="en">
 
-## 5. 4.3 Perancangan Desain Antarmuka
+## 5. 4.3 Perancangan Desain Antarmuka (Interface Design)
 
 A skripsi typically includes actual mockup screenshots (Figma, Balsamiq). For this series we describe the wireframe structurally: translate this into a real mockup tool for your own report.
 
@@ -920,7 +920,7 @@ A skripsi typically includes actual mockup screenshots (Figma, Balsamiq). For th
 
 The interface is a controlled constant, and it does not change between the conceptual Fat Controller illustration and the built Action Pattern implementation, since only the backend structure varies between them.
 
-## 6. 4.4 Rancangan Skenario Pengujian
+## 6. 4.4 Rancangan Skenario Pengujian (Test Scenario Design)
 
 Plan test scenarios **before** implementation. These scenarios validate the Action Pattern implementation, the only thing actually built and run.
 
@@ -1034,7 +1034,7 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 
 ## 8. What Comes Next?
 
-With the design fully worked out (a layered architecture, the consolidated Use Case Diagram with its description table, one Activity Diagram per use case, the Sequence Diagram, and the conceptual-versus-implemented Class Diagrams as the finalisation, plus wireframes and test scenarios), we are ready to build. In Part 5, we cover **BAB V (Implementasi dan Pengujian)**: setting up the environment, implementing the database including the `user_id` scoping designed here, and writing the actual PHP code for the Action Pattern implementation, showing exactly where the low complexity we designed here comes from.
+With the design fully worked out (a layered architecture, the consolidated Use Case Diagram with its description table, one Activity Diagram per use case, the Sequence Diagram, and the conceptual-versus-implemented Class Diagrams as the finalisation, plus wireframes and test scenarios), we are ready to build. In Part 5, we cover **BAB V (Implementasi dan Pengujian, Implementation and Testing)**: setting up the environment, implementing the database including the `user_id` scoping designed here, and writing the actual PHP code for the Action Pattern implementation, showing exactly where the low complexity we designed here comes from.
 
 </section>
 

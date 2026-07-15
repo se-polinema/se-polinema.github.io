@@ -1,6 +1,6 @@
 ---
-title: "Skripsi Mini Series Part 5 — Implementasi dan Pengujian (Implementation & Testing)"
-titleId: "Seri Mini Skripsi Bagian 5 — Implementasi dan Pengujian"
+title: "Skripsi Mini Series Part 5: Implementasi dan Pengujian (Implementation & Testing)"
+titleId: "Seri Mini Skripsi Bagian 5: Implementasi dan Pengujian"
 date: 2026-07-14
 updated: 2026-07-15
 category: tutorial
@@ -26,7 +26,7 @@ seriesOrder: 5
 
 <section lang="en">
 
-## 1. What is BAB V — Implementasi dan Pengujian?
+## 1. What is BAB V: Implementasi dan Pengujian (Implementation and Testing)?
 
 **BAB V** is where design (BAB IV) becomes running code, and where the test plan (BAB IV Section 4.4) gets executed. It has five subsections:
 
@@ -44,7 +44,7 @@ seriesOrder: 5
 
 <section lang="id">
 
-## 1. Apa Itu BAB V — Implementasi dan Pengujian?
+## 1. Apa Itu BAB V: Implementasi dan Pengujian?
 
 **BAB V** adalah tempat desain (BAB IV) menjadi kode yang berjalan, dan tempat rencana pengujian (BAB IV bagian 4.4) dieksekusi. Bab ini memiliki lima subbab:
 
@@ -101,14 +101,14 @@ Bab ini adalah bukti bahwa desain Anda (BAB IV) benar-benar berfungsi: setiap ke
 ### Mengapa penting?
 - **Di sinilah evaluasi Anda menjadi data nyata.** Cyclomatic complexity, coupling, LOC, dan coverage tidak dapat diukur terhadap diagram; membutuhkan kode yang ter-compile dan dapat dijalankan, dan tool yang mengukurnya harus benar-benar dijalankan, bukan hanya disebutkan di BAB III.
 - **Pengujian berkelanjutan mencegah krisis minggu ke-16.** Menjalankan test suite Anda setelah setiap fitur, bukan sekali di akhir, menangkap regresi selagi murah untuk diperbaiki.
-- **Version control adalah jaring pengaman Anda, sekaligus bukti Prototyping Anda.** Karena BAB III memilih Prototyping, metodologi yang dibangun di sekitar penyempurnaan iteratif, riwayat commit Anda adalah yang membuktikan loop "bangun, evaluasi, sempurnakan" benar-benar terjadi, bukan hanya bahwa versi akhir ada.
+- **Version control adalah pelindung utama Anda, sekaligus bukti Prototyping Anda.** Karena BAB III memilih Prototyping, metodologi yang dibangun di sekitar penyempurnaan iteratif, riwayat commit Anda membuktikan bahwa loop "bangun, evaluasi, sempurnakan" benar-benar terjadi, bukan hanya bahwa versi akhir ada.
 - **Prasyarat tanpa test adalah klaim sepihak.** BAB IV menyatakan "User terautentikasi" dan membatasi `Todo` dengan `user_id`; klaim itu baru menjadi bukti nyata setelah sebuah test benar-benar mencoba melanggarnya dan mengonfirmasi bahwa itu diblokir.
 
 ### Kapan digunakan?
 Bangun secara bertahap, fitur demi fitur, segera setelah desain BAB IV selesai, bukan sekaligus di minggu-minggu akhir (lihat linimasa di Bagian 3).
 
 ### Di mana tempatnya?
-Kode BAB V adalah objek langsung yang diukur di BAB VI: setiap angka yang dilaporkan di sana harus tertelusur ke file, kelas, hasil tool run, atau hasil test run spesifik di sini.
+Kode BAB V adalah objek langsung yang diukur di BAB VI: setiap angka yang dilaporkan di sana harus tertelusur ke file, kelas, hasil eksekusi tool, atau hasil eksekusi test spesifik di sini.
 
 ### Bagaimana membuatnya?
 1. Dokumentasikan environment Anda secara presisi (agar siapa pun dapat mereproduksi pengukuran Anda).
@@ -124,14 +124,14 @@ Kode BAB V adalah objek langsung yang diukur di BAB VI: setiap angka yang dilapo
 
 <section lang="en">
 
-## 3. 5.1 Lingkungan Implementasi
+## 3. 5.1 Lingkungan Implementasi (Implementation Environment)
 
 | Category | Item |
 |---|---|
 | **Software** | PHP 8.3, Laravel 11, MySQL 8, Composer 2, PHPUnit 11, PHPMD 2.x |
 | **Hardware** | Any development machine capable of running the above (document your actual specs for reproducibility) |
 
-## 4. 5.2 Implementasi Basis Data
+## 4. 5.2 Implementasi Basis Data (Database Implementation)
 
 The `user_id` column is the direct implementation of the authentication precondition stated in BAB IV Section 4.1: it is what turns "User is authenticated" from a design assertion into an enforceable constraint.
 
@@ -147,11 +147,11 @@ Schema::create('todos', function (Blueprint $table) {
 });
 ```
 
-## 5. 5.3 Implementasi Antarmuka
+## 5. 5.3 Implementasi Antarmuka (Interface Implementation)
 
 The Blade view implements the wireframe from BAB IV Section 4.3: a single `index.blade.php` with a form, filter tabs, a todo list partial, and a confirmation dialog before delete requests are submitted.
 
-## 6. 5.4 Implementasi Algoritma Inti
+## 6. 5.4 Implementasi Algoritma Inti (Core Algorithm Implementation)
 
 This is the section where the BAB IV Class Diagrams become real. First, the implementation we actually build, test, and measure, matching every class and method the Class Diagram promised.
 
@@ -300,7 +300,7 @@ Only the Action Pattern column reflects code that is actually built and measured
 
 ### Prototype Iteration Log
 
-BAB III chose Prototyping specifically because it iterates: build, evaluate, refine, repeat. Writing a full diagram-and-code narrative for every iteration would bloat this chapter far past what a mini-skripsi needs; instead, keep a **compact log of meaningful milestones**, each tied to a concrete trigger and a git reference, and let the repository itself carry the detailed evidence (see the tagged-release packaging guidance in Part 7). This is the same principle BAB IV already applied to diagrams: document what is meaningful, not everything.
+BAB III chose Prototyping specifically because it iterates: build, evaluate, refine, repeat. Writing a full diagram-and-code narrative for every iteration would bloat this chapter far past what a **mini-skripsi** (course-scale thesis project) needs; instead, keep a **compact log of meaningful milestones**, each tied to a concrete trigger and a git reference, and let the repository itself carry the detailed evidence (see the tagged-release packaging guidance in Part 7). This is the same principle BAB IV already applied to diagrams: document what is meaningful, not everything.
 
 | Iteration | What Changed | Trigger | Git Reference |
 |---|---|---|---|
@@ -319,11 +319,11 @@ Notice each row exists because an **evaluation** surfaced a real gap, not becaus
 | Kategori | Item |
 |---|---|
 | **Software** | PHP 8.3, Laravel 11, MySQL 8, Composer 2, PHPUnit 11, PHPMD 2.x |
-| **Hardware** | Mesin pengembangan apa pun yang mampu menjalankan hal di atas (dokumentasikan spesifikasi aktual Anda demi reproduktivitas) |
+| **Hardware** | Mesin pengembangan apa pun yang mampu menjalankan hal di atas (dokumentasikan spesifikasi aktual Anda demi reproduksibilitas) |
 
 ## 4. 5.2 Implementasi Basis Data
 
-Kolom `user_id` adalah implementasi langsung dari prasyarat autentikasi yang dinyatakan di BAB IV bagian 4.1: inilah yang mengubah "User terautentikasi" dari asersi desain menjadi batasan yang dapat ditegakkan.
+Kolom `user_id` adalah implementasi langsung dari prasyarat autentikasi yang dinyatakan di BAB IV bagian 4.1: inilah yang mengubah "User terautentikasi" dari klaim desain menjadi batasan yang dapat ditegakkan.
 
 ```php
 // database/migrations/xxxx_xx_xx_create_todos_table.php
@@ -448,7 +448,7 @@ class FilterTodosAction
 
 `UpdateTodoAction` sendiri tidak ditampilkan di sini: method `execute()`-nya mengikuti bentuk validasi-lalu-simpan yang identik dengan `CreateTodoAction`, hanya memperbarui `Todo` yang sudah ada alih-alih membuat yang baru, persis catatan "bentuk sama, tidak digambar ulang" yang sudah dibuat BAB IV untuk cabang Edit pada Activity Diagram.
 
-Controller sekarang hanya mengorkestrasi urusan HTTP (validasi, otorisasi, redirect); business logic terisolasi di kelas Action, masing-masing dapat diuji sepenuhnya terisolasi dari lapisan HTTP. Pengecekan `abort_unless` adalah bentuk konkret dan dapat diuji dari prasyarat autentikasi BAB IV: tanpanya, user terautentikasi mana pun dapat menyelesaikan atau menghapus todo milik user lain, dan prasyarat itu tidak lebih dari sekadar komentar.
+Controller sekarang hanya mengoordinasikan urusan HTTP (validasi, otorisasi, redirect); business logic terisolasi di kelas Action, masing-masing dapat diuji sepenuhnya terisolasi dari lapisan HTTP. Pengecekan `abort_unless` adalah bentuk konkret dan dapat diuji dari prasyarat autentikasi BAB IV: tanpanya, user terautentikasi mana pun dapat menyelesaikan atau menghapus todo milik user lain, dan prasyarat itu tidak lebih dari sekadar komentar.
 
 ### Fat Controller (Cuplikan Ilustratif Saja, Bukan Bagian dari Codebase yang Diukur)
 
@@ -476,7 +476,7 @@ class TodoController extends Controller
 }
 ```
 
-Validasi, konstruksi model, dan persistensi semuanya akan berada langsung di dalam method controller ini, yang membuatnya sulit diuji secara unit tanpa menjalankan seluruh siklus HTTP request.
+Validasi, konstruksi model, dan persistensi semuanya akan berada langsung di dalam method controller ini, yang membuatnya sulit diuji secara terisolasi (unit test) tanpa menjalankan seluruh siklus HTTP request.
 
 ### Sekilas Perbedaan (sebelum pengukuran formal)
 
@@ -495,10 +495,10 @@ BAB III memilih Prototyping secara spesifik karena bersifat iteratif: bangun, ev
 | Iterasi | Apa yang Berubah | Pemicu | Referensi Git |
 |---|---|---|---|
 | Prototipe v1 | Logika CRUD awal melalui Action Pattern, tanpa pembatasan user | Implementasi baseline dari desain BAB IV | `v0.1-prototype` |
-| Prototipe v2 | Menambahkan `user_id` pada `Todo` dan pengecekan kepemilikan `abort_unless` pada controller | Tinjauan desain menemukan prasyarat autentikasi (BAB IV bagian 4.1) tidak memiliki konsekuensi yang ditegakkan: gap klaim sepihak | `v0.2-prototype` |
+| Prototipe v2 | Menambahkan `user_id` pada `Todo` dan pengecekan kepemilikan `abort_unless` pada controller | Tinjauan desain menemukan prasyarat autentikasi (BAB IV bagian 4.1) tidak memiliki konsekuensi yang ditegakkan: celah klaim sepihak | `v0.2-prototype` |
 | Prototipe v3 (final) | Menambahkan alur konfirmasi hapus (dialog, lalu konfirmasi/batal) | Tinjauan Activity Diagram menemukan Hapus tidak memiliki logika keputusan sesungguhnya yang membedakannya dari Buat | `v0.3-final` (versi ini yang diukur di BAB VI) |
 
-Perhatikan setiap baris ada karena sebuah **evaluasi** mengungkap gap nyata, bukan karena polesan kosmetik; itulah yang menjadikannya bukti Prototyping, bukan sekadar changelog. Mahasiswa yang mengikuti template ini seharusnya mengharapkan dua hingga empat baris, bukan satu per commit dan bukan satu untuk setiap perubahan gaya kecil.
+Perhatikan bahwa setiap baris ada karena sebuah **evaluasi** mengungkap kesenjangan nyata, bukan karena polesan kosmetik; itulah yang menjadikannya bukti Prototyping, bukan sekadar changelog. Mahasiswa yang mengikuti template ini seharusnya menyiapkan dua hingga empat baris, bukan satu per commit dan bukan satu untuk setiap perubahan kecil pada gaya.
 
 </section>
 
@@ -506,7 +506,7 @@ Perhatikan setiap baris ada karena sebuah **evaluasi** mengungkap gap nyata, buk
 
 <section lang="en">
 
-## 7. 5.5 Implementasi Pengujian
+## 7. 5.5 Implementasi Pengujian (Testing Implementation)
 
 ### Metode
 
@@ -563,7 +563,7 @@ public function test_create_todo_action_scopes_the_todo_to_the_given_user(): voi
 }
 ```
 
-Notice these tests need no `Request`, no route, no controller: a direct consequence of the Action Pattern's isolation, which is exactly the testability claim from our Rumusan Masalah. The second test is what actually verifies BAB IV's precondition; without it, "User is authenticated" and "todos are scoped to their owner" would be design claims with no supporting evidence, the same self-claim problem BAB IV Section 2 warns against for NFRs.
+Notice these tests need no `Request`, no route, no controller: a direct consequence of the Action Pattern's isolation, which is exactly the testability claim from our **Rumusan Masalah (Research Questions)**. The second test is what actually verifies BAB IV's precondition; without it, "User is authenticated" and "todos are scoped to their owner" would be design claims with no supporting evidence, the same self-claim problem BAB IV Section 2 warns against for NFRs.
 
 </section>
 
@@ -626,7 +626,7 @@ public function test_create_todo_action_scopes_the_todo_to_the_given_user(): voi
 }
 ```
 
-Perhatikan test ini tidak membutuhkan `Request`, rute, atau controller: konsekuensi langsung dari isolasi Action Pattern, yang persis merupakan klaim testability dari Rumusan Masalah penelitian ini. Test kedua adalah yang benar-benar memverifikasi prasyarat BAB IV; tanpanya, "User terautentikasi" dan "todo dibatasi ke pemiliknya" hanya akan menjadi klaim desain tanpa bukti pendukung, masalah klaim sepihak yang sama yang diperingatkan BAB IV bagian 2 untuk NFR.
+Perhatikan bahwa test ini tidak membutuhkan `Request`, rute, atau controller: konsekuensi langsung dari isolasi Action Pattern, yang persis merupakan klaim testability dari Rumusan Masalah penelitian ini. Test kedua adalah yang benar-benar memverifikasi prasyarat BAB IV; tanpanya, "User terautentikasi" dan "todo dibatasi ke pemiliknya" hanya akan menjadi klaim desain tanpa bukti pendukung, masalah klaim sepihak yang sama yang diperingatkan BAB IV bagian 2 untuk NFR.
 
 </section>
 
@@ -638,7 +638,7 @@ Perhatikan test ini tidak membutuhkan `Request`, rute, atau controller: konsekue
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
-| **Building the Fat Controller illustration as a full, working, separate application** | Doubles implementation effort for no additional evidence; Batasan Masalah (BAB I) explicitly scoped this out. | Keep the illustration to a short, clearly labelled snippet, as in Section 6. |
+| **Building the Fat Controller illustration as a full, working, separate application** | Doubles implementation effort for no additional evidence; **Batasan Masalah (Scope and Limitations)** (BAB I) explicitly scoped this out. | Keep the illustration to a short, clearly labelled snippet, as in Section 6. |
 | **Not labelling which code is measured and which is illustrative** | An examiner reading BAB V cannot tell what the actual research artefact is. | Label every code block explicitly, as done throughout this chapter. |
 | **Implementing fewer classes or methods than the Class Diagram promised** | Leaves an unexplained gap between design and implementation an examiner will notice immediately. | Match every class/method, or explicitly note why one is omitted (e.g. `UpdateTodoAction` following `CreateTodoAction`'s shape), as in Section 6. |
 | **Naming a metric tool in BAB III but never actually running it in BAB V** | The numbers BAB VI reports become unverifiable claims, not measurements. | Show the actual commands and record their raw output, as in Section 7. |
@@ -672,7 +672,7 @@ Perhatikan test ini tidak membutuhkan `Request`, rute, atau controller: konsekue
 
 ## 9. What Comes Next?
 
-The Action Pattern implementation is now built, tested, and functionally validated, including the authentication precondition itself, with a compact iteration log giving real evidence that Prototyping was actually followed. In Part 6, we cover **BAB VI (Hasil dan Pembahasan)**: running the metric-measurement tools for real, presenting the results against literature thresholds, and, most importantly, discussing what the numbers actually mean, tying every result back to the Rumusan Masalah from Part 1.
+The Action Pattern implementation is now built, tested, and functionally validated, including the authentication precondition itself, with a compact iteration log giving real evidence that Prototyping was actually followed. In Part 6, we cover **BAB VI (Hasil dan Pembahasan, Results and Discussion)**: running the metric-measurement tools for real, presenting the results against literature thresholds, and, most importantly, discussing what the numbers actually mean, tying every result back to the Rumusan Masalah from Part 1.
 
 </section>
 
