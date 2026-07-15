@@ -490,7 +490,8 @@
       "next": "Next",
       "seriesComplete": "Series Complete",
       "seriesStart": "Series Start",
-      "continueSeries": "Continue the series"
+      "continueSeries": "Continue the series",
+      "moreComingSoon": "More parts coming soon."
     }
   },
   "notFound": {

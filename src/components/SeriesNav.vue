@@ -30,7 +30,10 @@
       <p class="font-semibold mb-2">
         {{ bottomHeading }}
       </p>
-      <div v-if="isFirst" class="text-sm">
+      <div v-if="!prev && !next" class="text-sm text-neutral-500 dark:text-gray-400">
+        {{ t.blog.series.moreComingSoon }}
+      </div>
+      <div v-else-if="isFirst" class="text-sm">
         <strong>{{ t.blog.series.next }}:</strong>
         <a :href="`/blog/${next!.slug}`">{{ partTitle(next!) }} &rarr;</a>
       </div>
@@ -97,7 +100,7 @@ const isFirst = computed(() => currentIndex.value === 0)
 const isLast = computed(() => currentIndex.value === props.parts.length - 1)
 
 const bottomHeading = computed(() => {
-  if (isLast.value) {
+  if (isLast.value && props.parts.length > 1) {
     const name = seriesDisplayName.value
     return `${name} &mdash; ${t.value.blog.series.seriesComplete}`
   }
