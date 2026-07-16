@@ -171,6 +171,21 @@ const innerPageTabMap: Record<string, { label: string; ext: string; href: string
   decks:        { label: "decks.md",         ext: "md",   href: "/decks" },
   'learning-paths': { label: "learning-paths.astro", ext: "astro", href: "/learning-paths" },
   tools:        { label: "tools.json",         ext: "json", href: "/tools" },
+  members:      { label: "students.json",      ext: "json", href: "/members" },
+  alumni:       { label: "alumni.json",        ext: "json", href: "/alumni" },
+  research:     { label: "index.json",         ext: "json", href: "/research" },
+  contact:      { label: "contact.astro",      ext: "astro", href: "/contact" },
+  faq:          { label: "faq.md",             ext: "md",   href: "/faq" },
+  glossary:     { label: "glossary.json",      ext: "json", href: "/glossary" },
+  join:         { label: "join.astro",         ext: "astro", href: "/join" },
+  login:        { label: "login.astro",        ext: "astro", href: "/login" },
+  newsletter:   { label: "newsletter.astro",   ext: "astro", href: "/newsletter" },
+  partners:     { label: "partners.json",      ext: "json", href: "/partners" },
+  privacy:      { label: "privacy.md",         ext: "md",   href: "/privacy" },
+  register:     { label: "register.astro",     ext: "astro", href: "/register" },
+  resources:    { label: "resources.json",     ext: "json", href: "/resources" },
+  admin:        { label: "admin.astro",        ext: "astro", href: "/admin" },
+  checkin:      { label: "checkin.astro",      ext: "astro", href: "/checkin" },
 };
 
 const pageParentHrefMap: Record<string, string> = {
@@ -181,6 +196,8 @@ const pageParentHrefMap: Record<string, string> = {
   projects:     "/projects",
   books:        "/books",
   decks:        "/decks",
+  members:      "/members",
+  alumni:       "/alumni",
 };
 
 const innerTab = computed(() => {
@@ -219,6 +236,21 @@ const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   decks:        { path: ["se-lab", "src", "decks", "index.md"],            lang: "Markdown" },
   'learning-paths': { path: ["se-lab", "src", "learning-paths.astro"],     lang: "Astro" },
   tools:        { path: ["se-lab", "src", "tools", "index.json"],           lang: "JSON" },
+  members:      { path: ["se-lab", "src", "members", "students.json"],     lang: "JSON" },
+  alumni:       { path: ["se-lab", "src", "members", "alumni.json"],       lang: "JSON" },
+  research:     { path: ["se-lab", "src", "research", "index.json"],       lang: "JSON" },
+  contact:      { path: ["se-lab", "src", "contact.astro"],                lang: "Astro" },
+  faq:          { path: ["se-lab", "src", "faq.md"],                       lang: "Markdown" },
+  glossary:     { path: ["se-lab", "src", "glossary.json"],                lang: "JSON" },
+  join:         { path: ["se-lab", "src", "join.astro"],                   lang: "Astro" },
+  login:        { path: ["se-lab", "src", "login.astro"],                  lang: "Astro" },
+  newsletter:   { path: ["se-lab", "src", "newsletter.astro"],             lang: "Astro" },
+  partners:     { path: ["se-lab", "src", "partners.json"],                lang: "JSON" },
+  privacy:      { path: ["se-lab", "src", "privacy.md"],                   lang: "Markdown" },
+  register:     { path: ["se-lab", "src", "register.astro"],               lang: "Astro" },
+  resources:    { path: ["se-lab", "src", "resources.json"],               lang: "JSON" },
+  admin:        { path: ["se-lab", "src", "admin.astro"],                  lang: "Astro" },
+  checkin:      { path: ["se-lab", "src", "checkin.astro"],                lang: "Astro" },
 };
 
 const currentBreadcrumb = computed(() => {

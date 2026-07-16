@@ -96,6 +96,20 @@
         </svg>
       </button>
 
+      <!-- Members -->
+      <button
+        @click="setView('members')"
+        class="activity-btn"
+        :class="activeSidebarView === 'members' ? 'activity-active' : 'activity-inactive'"
+        title="Members"
+        aria-label="Open student members and alumni"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10L12 5 2 10l10 5 10-5v6"/>
+          <path d="M6 12v5c3 1.5 9 1.5 12 0v-5"/>
+        </svg>
+      </button>
+
       <!-- Publications -->
       <button
         @click="setView('publications')"

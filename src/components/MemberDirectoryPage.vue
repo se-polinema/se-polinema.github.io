@@ -19,7 +19,7 @@
             :key="member.id"
             class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors"
           >
-            <div class="flex items-start gap-3 md:gap-4 mb-5">
+            <a :href="`/profile?id=${member.id}`" class="flex items-start gap-3 md:gap-4 mb-5 no-underline">
               <div
                 v-if="member.photo"
                 class="relative h-20 w-16 md:h-24 md:w-[4.5rem] shrink-0 bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden"
@@ -38,14 +38,14 @@
                 <span class="font-serif text-xl text-primary/30 dark:text-gray-500">{{ member.name.charAt(0) }}</span>
               </div>
               <div class="min-w-0">
-                <h3 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug">
+                <h3 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
                   {{ member.name }}
                 </h3>
                 <p class="mt-1 text-sm text-primary/50 dark:text-gray-400">
                   {{ lang === 'id' ? member.role_id : member.role_en }}
                 </p>
               </div>
-            </div>
+            </a>
 
             <div class="space-y-2 text-sm text-neutral-600 dark:text-gray-300">
               <div v-if="hasCurrentInfo(member)">

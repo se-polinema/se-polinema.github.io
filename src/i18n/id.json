@@ -567,6 +567,15 @@
     "navLabel": "Anggota",
     "empty": "Belum ada anggota mahasiswa."
   },
+  "memberProfile": {
+    "loading": "Memuat profil...",
+    "notFound": "Profil ini tidak dapat ditemukan.",
+    "streamsLabel": "Stream Riset",
+    "researchTopicsLabel": "Topik Riset",
+    "careerUpdateLabel": "Pembaruan Karier Terbaru",
+    "backToMembers": "Kembali ke Anggota Mahasiswa",
+    "backToAlumni": "Kembali ke Alumni"
+  },
   "membersAdmin": {
     "tabLabel": "Anggota",
     "eventsTabLabel": "Acara",

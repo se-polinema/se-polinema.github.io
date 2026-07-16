@@ -19,6 +19,7 @@
           : activeSidebarView === 'blog' ? 'Blog'
           : activeSidebarView === 'events' ? 'Events'
           : activeSidebarView === 'achievements' ? 'Achievements'
+          : activeSidebarView === 'members' ? 'Members'
           : 'Explorer' }}
       </span>
     </div>
@@ -227,6 +228,29 @@
         <a href="/events" class="flex items-center gap-2 text-white/55 hover:text-white/85 transition-colors py-1">
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-white/30" />
           Past Events
+        </a>
+      </div>
+    </nav>
+
+    <!-- Members sidebar -->
+    <nav v-else-if="activeSidebarView === 'members'" key="members" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Members">
+      <div class="filter-header">Members</div>
+      <div class="mt-3 text-[11px] font-mono text-white/55 space-y-2">
+        <a
+          href="/members"
+          class="flex items-center gap-2 py-1 transition-colors"
+          :class="currentPage === 'members' ? 'text-white' : 'text-white/55 hover:text-white/85'"
+        >
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'members' ? 'bg-accent' : 'bg-white/30'" />
+          Student Members
+        </a>
+        <a
+          href="/alumni"
+          class="flex items-center gap-2 py-1 transition-colors"
+          :class="currentPage === 'alumni' ? 'text-white' : 'text-white/55 hover:text-white/85'"
+        >
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'alumni' ? 'bg-accent' : 'bg-white/30'" />
+          Alumni
         </a>
       </div>
     </nav>

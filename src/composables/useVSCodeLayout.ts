@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
 
-type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'researchers' | 'publications' | 'decks' | 'achievements'
+type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'researchers' | 'publications' | 'decks' | 'achievements' | 'members'
 
 const sidebarOpen = ref(false)
 const activeSection = ref('hero')
@@ -105,6 +105,51 @@ export function useVSCodeLayout() {
     } else if (path.startsWith('/tools')) {
       currentPage.value = 'tools'
       activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/alumni')) {
+      currentPage.value = 'alumni'
+      activeSidebarView.value = 'members'
+    } else if (path.startsWith('/members') || path.startsWith('/profile')) {
+      currentPage.value = 'members'
+      activeSidebarView.value = 'members'
+    } else if (path.startsWith('/research/')) {
+      currentPage.value = 'research'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/contact')) {
+      currentPage.value = 'contact'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/faq')) {
+      currentPage.value = 'faq'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/glossary')) {
+      currentPage.value = 'glossary'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/join')) {
+      currentPage.value = 'join'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/login')) {
+      currentPage.value = 'login'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/newsletter')) {
+      currentPage.value = 'newsletter'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/partners')) {
+      currentPage.value = 'partners'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/privacy')) {
+      currentPage.value = 'privacy'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/register')) {
+      currentPage.value = 'register'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/resources')) {
+      currentPage.value = 'resources'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/admin')) {
+      currentPage.value = 'admin'
+      activeSidebarView.value = 'explorer'
+    } else if (path.startsWith('/checkin')) {
+      currentPage.value = 'checkin'
+      activeSidebarView.value = 'explorer'
     } else {
       currentPage.value = 'home'
       activeSidebarView.value = 'explorer'
@@ -140,6 +185,7 @@ export function useVSCodeLayout() {
     publications: { href: '/publications', page: 'publications' },
     decks:        { href: '/decks',        page: 'decks'        },
     achievements: { href: '/achievements', page: 'achievements' },
+    members:      { href: '/members',      page: 'members'      },
   }
 
   // Activity Bar icons are direct navigation controls for routed sections.

@@ -567,6 +567,15 @@
     "navLabel": "Members",
     "empty": "No student members yet."
   },
+  "memberProfile": {
+    "loading": "Loading profile...",
+    "notFound": "This profile could not be found.",
+    "streamsLabel": "Research Streams",
+    "researchTopicsLabel": "Research Topics",
+    "careerUpdateLabel": "Latest Career Update",
+    "backToMembers": "Back to Student Members",
+    "backToAlumni": "Back to Alumni"
+  },
   "membersAdmin": {
     "tabLabel": "Members",
     "eventsTabLabel": "Events",

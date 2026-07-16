@@ -136,12 +136,12 @@
       <!-- QUICK LINKS -->
       <div
         v-show="activePanelTab === 'quickLinks'"
-        class="p-3"
+        class="p-3 @container"
         role="tabpanel"
         :id="`panel-body-quickLinks`"
         :aria-labelledby="`panel-tab-quickLinks`"
       >
-        <div class="grid grid-cols-2 gap-1">
+        <div class="grid grid-cols-2 @sm:grid-cols-3 gap-1">
           <a
             v-for="link in quickLinks"
             :key="link.href"
