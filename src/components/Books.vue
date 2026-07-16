@@ -6,7 +6,7 @@
         <a
           v-if="books.length > 0"
           href="/books"
-          class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors hidden sm:block"
+          class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors hidden sm:block"
         >{{ t.books.viewAll }} →</a>
       </div>
       <div class="flex items-end justify-between mb-16">
@@ -38,7 +38,7 @@
                 :href="book.url"
                 target="_blank"
                 rel="noopener"
-                class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+                class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
               >{{ t.books.viewBookSite }} ↗</a>
             </div>
             <div v-if="book.playstoreUrl" class="mt-1">
@@ -46,7 +46,7 @@
                 :href="book.playstoreUrl"
                 target="_blank"
                 rel="noopener"
-                class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+                class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
               >Buy on Google Play Books →</a>
             </div>
             <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5 dark:border-gray-600 flex-wrap">
@@ -54,7 +54,7 @@
               <template v-for="(author, idx) in book.authors" :key="author.id">
                 <a
                   :href="`/researchers/${author.id}`"
-                  class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+                  class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
                 >{{ author.name }}</a>
                 <span v-if="idx < book.authors.length - 1" class="text-[12px] text-neutral-400 dark:text-gray-500">,</span>
               </template>
@@ -62,7 +62,7 @@
           </div>
         </CardCarousel>
         <div class="mt-6 sm:hidden">
-          <a href="/books" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors">{{ t.books.viewAll }} →</a>
+          <a href="/books" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.books.viewAll }} →</a>
         </div>
       </template>
 

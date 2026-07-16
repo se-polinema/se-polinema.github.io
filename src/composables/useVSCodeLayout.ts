@@ -19,12 +19,57 @@ const activeFilters = reactive<{
 
 let initialized = false
 let observerInit = false
+let panelStateRestored = false
 
 export function useVSCodeLayout() {
   if (typeof window !== 'undefined' && !initialized) {
     initialized = true
     sidebarOpen.value = window.innerWidth >= 1024
     layoutInitialized.value = true
+
+    // Panel open/tab state and route→page detection are intentionally NOT
+    // restored here. Doing it during setup() would make the very first
+    // client render disagree with the SSR render (which always shows the
+    // default 'contact' tab / 'home' page), causing a Vue hydration
+    // mismatch that can strand the UI on the SSR default (e.g. the file
+    // tree always highlighting index.html). Call restorePanelState() and
+    // restoreRouteState() from onMounted (post-hydration) instead.
+    panelOpen.value = window.innerWidth >= 1024
+  }
+
+  // Restores persisted panel open/tab state. Must be called post-hydration
+  // (e.g. from a component's onMounted) so the initial client render matches
+  // the server render before we mutate reactive state from localStorage.
+  function restorePanelState() {
+    if (typeof window === 'undefined' || panelStateRestored) return
+    panelStateRestored = true
+
+    const savedPanelOpen = localStorage.getItem('se-lab-panel-open')
+    if (savedPanelOpen !== null) panelOpen.value = savedPanelOpen === 'true'
+
+    const savedPanelTab = localStorage.getItem('se-lab-panel-tab')
+    if (savedPanelTab) {
+      const validTabs = ['contact', 'output', 'quickLinks', 'newsletter']
+      if (validTabs.includes(savedPanelTab)) {
+        activePanelTab.value = savedPanelTab as 'contact' | 'output' | 'quickLinks' | 'newsletter'
+      }
+    }
+  }
+
+  // Resolves the current route into `currentPage`/`activeSidebarView`. Must
+  // be called post-hydration (e.g. from a component's onMounted) for the
+  // same reason as restorePanelState() above — mutating these during
+  // setup() desyncs the first client render from the SSR-rendered defaults
+  // ('home' / 'explorer') and can strand active-state UI (file tree,
+  // activity bar icon, tab bar) on the SSR default.
+  //
+  // Deliberately NOT guarded behind a "restore once ever" flag like
+  // restorePanelState() — unlike the one-time localStorage restore, route
+  // state should always reflect window.location.pathname, so this always
+  // recomputes from scratch. Safe and cheap to call from multiple islands
+  // on every mount: they'll all independently arrive at the same value.
+  function restoreRouteState() {
+    if (typeof window === 'undefined') return
 
     const path = window.location.pathname
     if (path.startsWith('/events')) {
@@ -63,17 +108,6 @@ export function useVSCodeLayout() {
     } else {
       currentPage.value = 'home'
       activeSidebarView.value = 'explorer'
-    }
-
-    panelOpen.value = window.innerWidth >= 1024
-    const savedPanelOpen = localStorage.getItem('se-lab-panel-open')
-    if (savedPanelOpen !== null) panelOpen.value = savedPanelOpen === 'true'
-    const savedPanelTab = localStorage.getItem('se-lab-panel-tab')
-    if (savedPanelTab) {
-      const validTabs = ['contact', 'output', 'quickLinks', 'newsletter']
-      activePanelTab.value = validTabs.includes(savedPanelTab)
-        ? savedPanelTab as 'contact' | 'output' | 'quickLinks' | 'newsletter'
-        : 'contact'
     }
   }
 
@@ -159,6 +193,8 @@ export function useVSCodeLayout() {
     toggleSidebar,
     togglePanel,
     openPanel,
+    restorePanelState,
+    restoreRouteState,
     setView,
     initObserver,
     scrollTo,

@@ -1,47 +1,64 @@
 <template>
   <div>
-    <!-- Desktop: VSCode-styled panel locked to viewport -->
+    <!-- Desktop: borderless panel that blends into the article surface -->
     <aside
-      class="hidden lg:flex flex-col sticky top-0 max-h-screen flex-shrink-0"
-      style="background: var(--color-vscode-sidebar); width: 240px;"
+      class="hidden lg:flex flex-col sticky top-0 max-h-screen flex-shrink-0 bg-white dark:bg-gray-900 border-l border-neutral-200 dark:border-gray-800"
+      style="width: 240px;"
       aria-label="Table of Contents"
     >
       <nav v-if="visibleHeadings.length" class="flex flex-col flex-1 overflow-hidden min-h-0">
         <!-- Panel header -->
-        <div
-          class="flex items-center px-4 h-9 flex-shrink-0"
-          style="border-bottom: 1px solid rgba(255,255,255,0.08);"
-        >
-          <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 select-none">
+        <div class="flex items-center px-4 h-9 flex-shrink-0 border-b border-neutral-100 dark:border-gray-800">
+          <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 dark:text-white/40 select-none">
             Outline
           </span>
         </div>
 
-        <!-- Scrollable heading list -->
+        <!-- Scrollable symbol outline -->
         <ul
           class="flex-1 overflow-y-auto py-2 toc-scrollbar"
           role="list"
         >
-          <li v-for="heading in visibleHeadings" :key="heading.id">
+          <li v-for="group in headingGroups" :key="group.parent.id">
             <a
-              :href="'#' + heading.id"
-              class="flex items-center gap-2 w-full text-left py-[5px] text-[12px] font-mono leading-tight truncate transition-colors duration-100"
-              :class="[
-                heading.level === 3 ? 'pl-8' : 'pl-4',
-                heading.id === activeId
-                  ? 'bg-white/10 text-white'
-                  : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]',
-              ]"
-              @click.prevent="scrollToHeading(heading)"
+              :href="'#' + group.parent.id"
+              class="flex items-center gap-1.5 w-full text-left pl-2 pr-3 py-[5px] text-[12px] font-mono leading-tight truncate transition-colors duration-100 border-l-2"
+              :class="group.parent.id === activeId
+                ? 'bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white border-[#F5A100]'
+                : 'text-neutral-600 dark:text-white/50 hover:text-neutral-900 dark:hover:text-white/80 hover:bg-neutral-50 dark:hover:bg-white/[0.04] border-transparent'"
+              @click.prevent="scrollToHeading(group.parent)"
             >
-              <span
-                v-if="heading.id === activeId"
-                class="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style="background: #F5A100"
-              />
-              <span v-else class="w-1.5 h-1.5 flex-shrink-0" />
-              <span class="truncate">{{ heading.text }}</span>
+              <svg
+                width="8" height="8" viewBox="0 0 10 10" fill="none"
+                class="flex-shrink-0"
+                :class="group.hasChildren ? 'text-neutral-400 dark:text-white/30' : 'text-transparent'"
+              >
+                <path d="M2.5 3.5l2.5 3 2.5-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <svg width="11" height="11" viewBox="0 0 12 12" class="flex-shrink-0" aria-hidden="true">
+                <polygon points="6,1 10.5,3.5 10.5,8.5 6,11 1.5,8.5 1.5,3.5" fill="#EE9D28" fill-opacity="0.85"/>
+              </svg>
+              <span class="truncate">{{ group.parent.text }}</span>
             </a>
+
+            <ul v-if="group.children.length" class="relative" role="list">
+              <span class="absolute left-[12px] top-0 bottom-0 w-px bg-neutral-200 dark:bg-white/10" aria-hidden="true" />
+              <li v-for="child in group.children" :key="child.id">
+                <a
+                  :href="'#' + child.id"
+                  class="flex items-center gap-1.5 w-full text-left pl-8 pr-3 py-[5px] text-[12px] font-mono leading-tight truncate transition-colors duration-100 border-l-2"
+                  :class="child.id === activeId
+                    ? 'bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white border-[#F5A100]'
+                    : 'text-neutral-600 dark:text-white/50 hover:text-neutral-900 dark:hover:text-white/80 hover:bg-neutral-50 dark:hover:bg-white/[0.04] border-transparent'"
+                  @click.prevent="scrollToHeading(child)"
+                >
+                  <svg width="8" height="8" viewBox="0 0 12 12" class="flex-shrink-0" aria-hidden="true">
+                    <polygon points="6,1 11,6 6,11 1,6" fill="#B180D7" fill-opacity="0.85"/>
+                  </svg>
+                  <span class="truncate">{{ child.text }}</span>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
@@ -79,20 +96,16 @@
         >
           <div class="absolute inset-0 bg-black/30" />
           <nav
-            class="relative w-full max-h-[65vh] flex flex-col overflow-hidden rounded-t-xl shadow-xl"
-            style="background: var(--color-vscode-sidebar);"
+            class="relative w-full max-h-[65vh] flex flex-col overflow-hidden rounded-t-xl shadow-xl bg-white dark:bg-gray-900"
           >
             <!-- Sheet header -->
-            <div
-              class="flex items-center justify-between px-5 h-10 flex-shrink-0"
-              style="border-bottom: 1px solid rgba(255,255,255,0.08);"
-            >
-              <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 select-none">
+            <div class="flex items-center justify-between px-5 h-10 flex-shrink-0 border-b border-neutral-100 dark:border-gray-800">
+              <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 dark:text-white/40 select-none">
                 Outline
               </span>
               <button
                 @click="mobileOpen = false"
-                class="text-white/35 hover:text-white/70 transition-colors"
+                class="text-neutral-400 dark:text-white/35 hover:text-neutral-700 dark:hover:text-white/70 transition-colors"
                 aria-label="Close outline"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,31 +115,51 @@
               </button>
             </div>
 
-            <!-- Scrollable heading list -->
+            <!-- Scrollable symbol outline -->
             <ul
               class="flex-1 overflow-y-auto py-2 toc-scrollbar"
               role="list"
             >
-              <li v-for="heading in visibleHeadings" :key="heading.id">
+              <li v-for="group in headingGroups" :key="group.parent.id">
                 <a
-                  :href="'#' + heading.id"
-                  class="flex items-center gap-2 w-full text-left py-[6px] text-[13px] font-mono leading-tight transition-colors duration-100"
-                  :class="[
-                    heading.level === 3 ? 'pl-10' : 'pl-6',
-                    heading.id === activeId
-                      ? 'bg-white/10 text-white'
-                      : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]',
-                  ]"
-                  @click.prevent="scrollToHeading(heading); mobileOpen = false"
+                  :href="'#' + group.parent.id"
+                  class="flex items-center gap-2 w-full text-left pl-3 pr-4 py-[6px] text-[13px] font-mono leading-tight transition-colors duration-100 border-l-2"
+                  :class="group.parent.id === activeId
+                    ? 'bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white border-[#F5A100]'
+                    : 'text-neutral-600 dark:text-white/50 hover:text-neutral-900 dark:hover:text-white/80 hover:bg-neutral-50 dark:hover:bg-white/[0.04] border-transparent'"
+                  @click.prevent="scrollToHeading(group.parent); mobileOpen = false"
                 >
-                  <span
-                    v-if="heading.id === activeId"
-                    class="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                    style="background: #F5A100"
-                  />
-                  <span v-else class="w-1.5 h-1.5 flex-shrink-0" />
-                  <span class="truncate">{{ heading.text }}</span>
+                  <svg
+                    width="9" height="9" viewBox="0 0 10 10" fill="none"
+                    class="flex-shrink-0"
+                    :class="group.hasChildren ? 'text-neutral-400 dark:text-white/30' : 'text-transparent'"
+                  >
+                    <path d="M2.5 3.5l2.5 3 2.5-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <svg width="12" height="12" viewBox="0 0 12 12" class="flex-shrink-0" aria-hidden="true">
+                    <polygon points="6,1 10.5,3.5 10.5,8.5 6,11 1.5,8.5 1.5,3.5" fill="#EE9D28" fill-opacity="0.85"/>
+                  </svg>
+                  <span class="truncate">{{ group.parent.text }}</span>
                 </a>
+
+                <ul v-if="group.children.length" class="relative" role="list">
+                  <span class="absolute left-[16px] top-0 bottom-0 w-px bg-neutral-200 dark:bg-white/10" aria-hidden="true" />
+                  <li v-for="child in group.children" :key="child.id">
+                    <a
+                      :href="'#' + child.id"
+                      class="flex items-center gap-2 w-full text-left pl-10 pr-4 py-[6px] text-[13px] font-mono leading-tight transition-colors duration-100 border-l-2"
+                      :class="child.id === activeId
+                        ? 'bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white border-[#F5A100]'
+                        : 'text-neutral-600 dark:text-white/50 hover:text-neutral-900 dark:hover:text-white/80 hover:bg-neutral-50 dark:hover:bg-white/[0.04] border-transparent'"
+                      @click.prevent="scrollToHeading(child); mobileOpen = false"
+                    >
+                      <svg width="9" height="9" viewBox="0 0 12 12" class="flex-shrink-0" aria-hidden="true">
+                        <polygon points="6,1 11,6 6,11 1,6" fill="#B180D7" fill-opacity="0.85"/>
+                      </svg>
+                      <span class="truncate">{{ child.text }}</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </nav>
@@ -137,7 +170,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useI18n } from '../composables/useI18n'
 
 const { lang } = useI18n()
@@ -149,9 +182,34 @@ interface Heading {
   el: HTMLElement
 }
 
+interface HeadingGroup {
+  parent: Heading
+  hasChildren: boolean
+  children: Heading[]
+}
+
 const visibleHeadings = ref<Heading[]>([])
 const activeId = ref('')
 const mobileOpen = ref(false)
+
+// Display-only grouping of the flat heading list into a VSCode-outline-style
+// tree (H2 = top-level "class" symbol, H3 = nested "method" symbol). Purely
+// a rendering concern — extraction, observing, and scrolling all continue to
+// operate on the flat `visibleHeadings` list untouched.
+const headingGroups = computed<HeadingGroup[]>(() => {
+  const groups: HeadingGroup[] = []
+  let current: HeadingGroup | null = null
+  for (const h of visibleHeadings.value) {
+    if (h.level !== 3 || !current) {
+      current = { parent: h, hasChildren: false, children: [] }
+      groups.push(current)
+    } else {
+      current.hasChildren = true
+      current.children.push(h)
+    }
+  }
+  return groups
+})
 
 let observer: IntersectionObserver | null = null
 let langObserver: MutationObserver | null = null
@@ -340,8 +398,11 @@ watch(lang, () => {
   width: 4px;
 }
 .toc-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 2px;
+}
+:global(.dark) .toc-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
 }
 .toc-scrollbar::-webkit-scrollbar-track {
   background: transparent;

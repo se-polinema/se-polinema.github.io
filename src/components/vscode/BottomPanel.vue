@@ -136,19 +136,27 @@
       <!-- QUICK LINKS -->
       <div
         v-show="activePanelTab === 'quickLinks'"
-        class="p-4"
+        class="p-3"
         role="tabpanel"
         :id="`panel-body-quickLinks`"
         :aria-labelledby="`panel-tab-quickLinks`"
       >
-        <h4 class="font-mono text-[10px] uppercase tracking-wider text-white/25 mb-2">{{ t.footer.links }}</h4>
-        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5">
-          <a href="/faq" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.faq }}</a>
-          <a href="/learning-paths" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.learningPaths?.label || 'Learning Paths' }}</a>
-          <a href="/alumni" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.alumni }}</a>
-          <a href="/books" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.books }}</a>
-          <a href="/#research" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.research }}</a>
-          <a href="/contact" class="text-[11px] text-white/50 hover:text-white transition-colors leading-relaxed">{{ t.nav.contact }}</a>
+        <div class="grid grid-cols-2 gap-1">
+          <a
+            v-for="link in quickLinks"
+            :key="link.href"
+            :href="link.href"
+            class="flex items-center gap-2 px-2 py-1.5 rounded text-[11.5px] text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors leading-relaxed"
+          >
+            <svg
+              width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              class="flex-shrink-0 text-accent/70"
+            >
+              <polyline points="9 6 15 12 9 18"/>
+            </svg>
+            <span class="truncate">{{ link.label }}</span>
+          </a>
         </div>
       </div>
 
@@ -160,6 +168,8 @@
         :id="`panel-body-newsletter`"
         :aria-labelledby="`panel-tab-newsletter`"
       >
+        <h4 class="font-mono text-[12px] text-white/85 mb-1">{{ t.newsletter.heading }}</h4>
+        <p class="font-mono text-[11px] text-white/45 leading-relaxed mb-3">{{ t.newsletter.description }}</p>
         <NewsletterForm compact :showInterests="false" :minimal="true" />
       </div>
 
@@ -168,12 +178,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import NewsletterForm from '../NewsletterForm.vue'
 
-const { panelOpen, activePanelTab, togglePanel, openPanel } = useVSCodeLayout()
+const { panelOpen, activePanelTab, togglePanel, openPanel, restorePanelState } = useVSCodeLayout()
 const { t } = useI18n()
 
 interface Stats {
@@ -196,6 +206,16 @@ const tabs = [
 
 const tabIds = ['contact', 'output', 'quickLinks', 'newsletter'] as const
 
+const quickLinks = computed(() => [
+  { href: '/faq', label: t.value.nav.faq },
+  { href: '/learning-paths', label: t.value.learningPaths?.label || 'Learning Paths' },
+  { href: '/members', label: t.value.nav.members },
+  { href: '/alumni', label: t.value.nav.alumni },
+  { href: '/books', label: t.value.nav.books },
+  { href: '/#research', label: t.value.nav.research },
+  { href: '/contact', label: t.value.nav.contact },
+])
+
 function onTabKeydown(event: KeyboardEvent, currentId: typeof tabIds[number]) {
   const idx = tabIds.indexOf(currentId)
   let next = idx
@@ -209,6 +229,8 @@ function onTabKeydown(event: KeyboardEvent, currentId: typeof tabIds[number]) {
 }
 
 onMounted(async () => {
+  restorePanelState()
+
   try {
     const res = await fetch('/api/lab-stats.json')
     if (res.ok) {

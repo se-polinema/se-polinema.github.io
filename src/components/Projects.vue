@@ -6,7 +6,7 @@
         <a
           v-if="projects.length > 0"
           href="/projects"
-          class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors hidden sm:block"
+          class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors hidden sm:block"
         >{{ t.projects.viewAll }} →</a>
       </div>
       <div class="flex items-end justify-between mb-16">
@@ -53,7 +53,7 @@
                 :href="project.slug ? `/projects/${project.slug}` : `https://github.com/${project.repo}`"
                 :target="project.slug ? undefined : '_blank'"
                 :rel="project.slug ? undefined : 'noopener'"
-                class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors break-all leading-snug"
+                class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all leading-snug"
               >{{ lang === 'id' && project.nameId ? project.nameId : (project.name ?? project.repo) }}</a>
               <p v-if="project.description || project.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed flex-1">
                 {{ lang === 'id' && project.descriptionId ? project.descriptionId : project.description }}
@@ -62,7 +62,7 @@
                 <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.projects.by }}</span>
                 <a
                   :href="`/researchers/${project.researcherId}`"
-                  class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+                  class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
                 >{{ project.researcherName }}</a>
                 <template v-if="project.slug">
                   <span class="text-[12px] text-neutral-300 dark:text-gray-600">|</span>
@@ -70,7 +70,7 @@
                     :href="`https://github.com/${project.repo}`"
                     target="_blank"
                     rel="noopener"
-                    class="text-[12px] text-neutral-400 dark:text-gray-500 hover:text-accent dark:hover:text-yellow-300 transition-colors font-mono"
+                    class="text-[12px] text-neutral-400 dark:text-gray-500 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono"
                   >GitHub</a>
                 </template>
               </div>
@@ -78,7 +78,7 @@
           </div>
         </CardCarousel>
         <div class="mt-6 sm:hidden">
-          <a href="/projects" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors">{{ t.projects.viewAll }} →</a>
+          <a href="/projects" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.projects.viewAll }} →</a>
         </div>
       </template>
 

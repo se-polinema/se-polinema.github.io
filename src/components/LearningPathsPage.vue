@@ -109,7 +109,7 @@
                       :href="step.url"
                       :target="step.internal ? undefined : '_blank'"
                       :rel="step.internal ? undefined : 'noopener'"
-                      class="inline-flex items-center gap-1 text-[12px] font-mono text-accent dark:text-yellow-300 hover:underline transition-colors"
+                      class="inline-flex items-center gap-1 text-[12px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors"
                     >
                       {{ step.internal ? t.learningPaths.viewResource : t.learningPaths.visitExternal }}
                       <span class="text-[10px]">{{ step.internal ? '→' : '↗' }}</span>

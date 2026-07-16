@@ -80,7 +80,7 @@
       </a>
     </div>
 
-    <div class="prose prose-slate max-w-none bilingual-post">
+    <div class="prose prose-slate dark:prose-invert max-w-none bilingual-post">
       <Content />
     </div>
   </div>

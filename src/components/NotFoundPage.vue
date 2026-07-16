@@ -12,16 +12,16 @@
       </p>
 
       <nav class="flex flex-wrap items-center justify-center gap-4 mt-8" aria-label="404 navigation">
-        <a href="/" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors">
+        <a href="/" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.home }}
         </a>
-        <a href="/blog" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors">
+        <a href="/blog" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.blog }}
         </a>
-        <a href="/researchers" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors">
+        <a href="/researchers" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.researchers }}
         </a>
-        <a href="/publications" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors">
+        <a href="/publications" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.publications }}
         </a>
       </nav>

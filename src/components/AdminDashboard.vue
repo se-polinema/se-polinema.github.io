@@ -71,6 +71,30 @@
         </button>
       </div>
 
+      <!-- Tab bar -->
+      <div class="flex items-center gap-1 mb-8 border-b border-primary/10 dark:border-gray-700">
+        <button
+          @click="adminTab = 'events'"
+          class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
+          :class="adminTab === 'events'
+            ? 'border-accent text-primary dark:text-gray-100'
+            : 'border-transparent text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300'"
+        >
+          {{ t.membersAdmin.eventsTabLabel }}
+        </button>
+        <button
+          @click="adminTab = 'members'"
+          class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
+          :class="adminTab === 'members'
+            ? 'border-accent text-primary dark:text-gray-100'
+            : 'border-transparent text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300'"
+        >
+          {{ t.membersAdmin.tabLabel }}
+        </button>
+      </div>
+
+      <!-- EVENTS TAB -->
+      <template v-if="adminTab === 'events'">
       <div v-if="loadingData" class="py-10 text-center">
         <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
       </div>
@@ -90,7 +114,7 @@
               <div class="text-right">
                 <div class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-0.5">{{ t.events.admin.checkInCode }}</div>
                 <div class="flex items-center gap-2">
-                  <code class="text-sm font-mono font-bold text-accent bg-accent/10 px-2 py-0.5">{{ event.check_in_code }}</code>
+                  <code class="text-sm font-mono font-bold text-accent-700 dark:text-accent-400 bg-accent/10 px-2 py-0.5">{{ event.check_in_code }}</code>
                   <button
                     @click="copyCode(event.check_in_code)"
                     class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors"
@@ -143,6 +167,176 @@
           <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.noParticipants }}</p>
         </div>
       </div>
+      </template>
+
+      <!-- MEMBERS TAB -->
+      <template v-else>
+        <div v-if="loadingData" class="py-10 text-center">
+          <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
+        </div>
+
+        <div v-else>
+          <div class="flex items-center gap-2 mb-6">
+            <button
+              v-for="f in memberFilterOptions"
+              :key="f"
+              @click="memberFilter = f"
+              class="px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors"
+              :class="memberFilter === f
+                ? 'bg-primary text-white border-primary'
+                : 'text-primary/60 dark:text-gray-400 border-primary/20 dark:border-gray-600 hover:border-primary/40'"
+            >
+              {{ f === 'all' ? t.membersAdmin.filterAll : f === 'student' ? t.membersAdmin.statusStudent : t.membersAdmin.statusAlumni }}
+            </button>
+            <button
+              @click="openAddMemberForm"
+              class="ml-auto inline-flex items-center gap-2 px-4 py-1.5 text-xs font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
+            >
+              {{ t.membersAdmin.addNew }}
+            </button>
+          </div>
+
+          <form
+            v-if="showMemberForm"
+            @submit.prevent="handleSaveMember"
+            class="mb-8 p-5 border border-primary/10 dark:border-gray-700 space-y-4"
+          >
+            <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100">
+              {{ editingMemberId ? t.membersAdmin.editEntry : t.membersAdmin.addNew }}
+            </h2>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.statusLabel }}</label>
+                <select v-model="memberForm.status" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors">
+                  <option value="student">{{ t.membersAdmin.statusStudent }}</option>
+                  <option value="alumni">{{ t.membersAdmin.statusAlumni }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.nameLabel }}</label>
+                <input v-model="memberForm.name" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.photoLabel }}</label>
+                <input v-model="memberForm.photo" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.cohortYearLabel }}</label>
+                <input v-model.number="memberForm.cohort_year" type="number" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div v-if="memberForm.status === 'alumni'">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.exitYearLabel }}</label>
+                <input v-model.number="memberForm.exit_year" type="number" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.roleIdLabel }}</label>
+                <input v-model="memberForm.role_id" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.roleEnLabel }}</label>
+                <input v-model="memberForm.role_en" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <template v-if="memberForm.status === 'alumni'">
+                <div>
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.currentRoleIdLabel }}</label>
+                  <input v-model="memberForm.current_role_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.currentRoleEnLabel }}</label>
+                  <input v-model="memberForm.current_role_en" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.currentOrgIdLabel }}</label>
+                  <input v-model="memberForm.current_organization_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.currentOrgEnLabel }}</label>
+                  <input v-model="memberForm.current_organization_en" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+              </template>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.linkedinLabel }}</label>
+                <input v-model="memberForm.linkedin_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.profileUrlLabel }}</label>
+                <input v-model="memberForm.profile_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.streamsLabel }}</label>
+                <input v-model="memberForm.streamsText" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.researchTopicsLabel }}</label>
+                <textarea v-model="memberForm.research_topics" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.careerUpdateLabel }}</label>
+                <textarea v-model="memberForm.career_update" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button
+                type="submit"
+                :disabled="savingMember"
+                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {{ savingMember ? t.membersAdmin.savingLabel : t.membersAdmin.saveLabel }}
+              </button>
+              <button
+                type="button"
+                @click="closeMemberForm"
+                class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors"
+              >
+                {{ t.membersAdmin.cancelLabel }}
+              </button>
+            </div>
+          </form>
+
+          <div v-if="filteredMembers.length === 0" class="py-10 text-center">
+            <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.membersAdmin.noEntries }}</p>
+          </div>
+
+          <div v-else class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-primary/10 dark:border-gray-700">
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.membersAdmin.nameLabel }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.membersAdmin.statusLabel }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.membersAdmin.cohortYearLabel }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-primary/5 dark:divide-gray-700">
+                <tr v-for="m in filteredMembers" :key="m.id">
+                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100">{{ m.name }}</td>
+                  <td class="py-2.5 pr-4">
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider"
+                      :class="m.status === 'alumni'
+                        ? 'bg-accent/10 text-accent-700 dark:text-accent-400'
+                        : 'bg-primary/10 text-primary dark:text-gray-300'"
+                    >
+                      {{ m.status === 'alumni' ? t.membersAdmin.statusAlumni : t.membersAdmin.statusStudent }}
+                    </span>
+                  </td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-400 dark:text-gray-500">{{ m.cohort_year }}</td>
+                  <td class="py-2.5 text-right space-x-3">
+                    <button @click="editMember(m)" class="text-xs font-mono text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
+                      {{ t.membersAdmin.editAction }}
+                    </button>
+                    <button @click="deleteMember(m)" class="text-xs font-mono text-red-500/70 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                      {{ t.membersAdmin.deleteAction }}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -183,6 +377,151 @@ interface Participant {
 
 const events = ref<EventRow[]>([])
 const participantsByEvent = ref<Record<string, Participant[]>>({})
+
+type MemberStatus = 'student' | 'alumni'
+
+interface MemberRow {
+  id: string
+  name: string
+  photo: string | null
+  status: MemberStatus
+  cohort_year: number
+  exit_year: number | null
+  role_id: string
+  role_en: string
+  current_role_id: string | null
+  current_role_en: string | null
+  current_organization_id: string | null
+  current_organization_en: string | null
+  linkedin_url: string | null
+  profile_url: string | null
+  streams: string[] | null
+  research_topics: string | null
+  career_update: string | null
+}
+
+const adminTab = ref<'events' | 'members'>('events')
+const members = ref<MemberRow[]>([])
+const memberFilterOptions = ['all', 'student', 'alumni'] as const
+const memberFilter = ref<typeof memberFilterOptions[number]>('all')
+const showMemberForm = ref(false)
+const editingMemberId = ref<string | null>(null)
+const savingMember = ref(false)
+
+function emptyMemberForm() {
+  return {
+    status: 'student' as MemberStatus,
+    name: '',
+    photo: '',
+    cohort_year: new Date().getFullYear(),
+    exit_year: null as number | null,
+    role_id: '',
+    role_en: '',
+    current_role_id: '',
+    current_role_en: '',
+    current_organization_id: '',
+    current_organization_en: '',
+    linkedin_url: '',
+    profile_url: '',
+    streamsText: '',
+    research_topics: '',
+    career_update: '',
+  }
+}
+
+const memberForm = reactive(emptyMemberForm())
+
+const filteredMembers = computed(() => {
+  if (memberFilter.value === 'all') return members.value
+  return members.value.filter((m) => m.status === memberFilter.value)
+})
+
+function resetMemberForm() {
+  Object.assign(memberForm, emptyMemberForm())
+  editingMemberId.value = null
+}
+
+function openAddMemberForm() {
+  resetMemberForm()
+  showMemberForm.value = true
+}
+
+function closeMemberForm() {
+  showMemberForm.value = false
+  resetMemberForm()
+}
+
+function editMember(m: MemberRow) {
+  editingMemberId.value = m.id
+  Object.assign(memberForm, {
+    status: m.status,
+    name: m.name,
+    photo: m.photo ?? '',
+    cohort_year: m.cohort_year,
+    exit_year: m.exit_year,
+    role_id: m.role_id,
+    role_en: m.role_en,
+    current_role_id: m.current_role_id ?? '',
+    current_role_en: m.current_role_en ?? '',
+    current_organization_id: m.current_organization_id ?? '',
+    current_organization_en: m.current_organization_en ?? '',
+    linkedin_url: m.linkedin_url ?? '',
+    profile_url: m.profile_url ?? '',
+    streamsText: (m.streams ?? []).join(', '),
+    research_topics: m.research_topics ?? '',
+    career_update: m.career_update ?? '',
+  })
+  showMemberForm.value = true
+}
+
+async function loadMembers() {
+  const { data } = await supabase
+    .schema('se')
+    .from('members')
+    .select('*')
+    .order('cohort_year', { ascending: false })
+
+  members.value = data ?? []
+}
+
+async function handleSaveMember() {
+  savingMember.value = true
+
+  const payload = {
+    status: memberForm.status,
+    name: memberForm.name.trim(),
+    photo: memberForm.photo.trim() || null,
+    cohort_year: memberForm.cohort_year,
+    exit_year: memberForm.status === 'alumni' ? memberForm.exit_year : null,
+    role_id: memberForm.role_id.trim(),
+    role_en: memberForm.role_en.trim(),
+    current_role_id: memberForm.current_role_id.trim() || null,
+    current_role_en: memberForm.current_role_en.trim() || null,
+    current_organization_id: memberForm.current_organization_id.trim() || null,
+    current_organization_en: memberForm.current_organization_en.trim() || null,
+    linkedin_url: memberForm.linkedin_url.trim() || null,
+    profile_url: memberForm.profile_url.trim() || null,
+    streams: memberForm.streamsText.split(',').map((s) => s.trim()).filter(Boolean),
+    research_topics: memberForm.research_topics.trim() || null,
+    career_update: memberForm.career_update.trim() || null,
+  }
+
+  if (editingMemberId.value) {
+    await supabase.schema('se').from('members').update(payload).eq('id', editingMemberId.value)
+  } else {
+    await supabase.schema('se').from('members').insert(payload)
+  }
+
+  savingMember.value = false
+  closeMemberForm()
+  await loadMembers()
+}
+
+async function deleteMember(m: MemberRow) {
+  if (!confirm(t.value.membersAdmin.deleteConfirm)) return
+  await supabase.schema('se').from('members').delete().eq('id', m.id)
+  await loadMembers()
+}
 
 onMounted(async () => {
   const { data: { user } } = await supabase.auth.getUser()
@@ -238,6 +577,8 @@ async function loadData() {
   }
   participantsByEvent.value = byEvent
 
+  await loadMembers()
+
   loadingData.value = false
 }
 
@@ -265,6 +606,7 @@ async function handleSignOut() {
   authState.value = 'unauthenticated'
   events.value = []
   participantsByEvent.value = {}
+  members.value = []
 }
 
 async function copyCode(code: string) {

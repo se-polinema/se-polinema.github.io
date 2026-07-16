@@ -41,7 +41,7 @@
             :href="deck.url"
             target="_blank"
             rel="noopener"
-            class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors break-all leading-snug font-medium"
+            class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all leading-snug font-medium"
           >{{ deck.title }}</a>
 
           <p v-if="deck.description" class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed flex-1">
@@ -51,7 +51,7 @@
           <div v-if="deck.embedUrl" class="mt-1">
             <button
               @click="togglePreview(deck.url)"
-              class="text-[11px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+              class="text-[11px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >
               {{ previewOpen === deck.url ? t.decks.hidePreview : t.decks.showPreview }}
             </button>
@@ -66,7 +66,7 @@
               />
               <p class="text-[10px] text-neutral-400 dark:text-gray-500 px-2 py-1.5 bg-neutral-50 dark:bg-gray-700">
                 {{ t.decks.previewFallback }}
-                <a :href="deck.url" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">{{ t.decks.openExternally }}</a>
+                <a :href="deck.url" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.decks.openExternally }}</a>
               </p>
             </div>
           </div>
@@ -75,7 +75,7 @@
             <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.decks.by }}</span>
             <a
               :href="`/researchers/${deck.researcherId}`"
-              class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+              class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >{{ deck.researcherName }}</a>
           </div>
         </li>

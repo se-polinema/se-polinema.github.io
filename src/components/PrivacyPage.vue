@@ -94,7 +94,7 @@
         </h2>
         <p>{{ t.privacy.contactText }}</p>
         <p class="mt-2">
-          <a :href="'mailto:' + t.privacy.contactEmail" class="text-primary dark:text-gray-200 hover:text-accent dark:hover:text-yellow-300 underline underline-offset-2 transition-colors">
+          <a :href="'mailto:' + t.privacy.contactEmail" class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors">
             {{ t.privacy.contactEmail }}
           </a>
         </p>

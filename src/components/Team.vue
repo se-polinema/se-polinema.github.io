@@ -50,7 +50,7 @@
             </div>
             <a
               :href="`/researchers/${member.id}`"
-              class="inline-flex items-center gap-1.5 text-xs font-medium text-primary/50 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+              class="inline-flex items-center gap-1.5 text-xs font-medium text-primary/50 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >
               {{ t.team.viewProfile }} →
             </a>

@@ -62,6 +62,7 @@ const allLinks = computed<LinkItem[]>(() => [
   { href: '/faq', label: t.value.nav.faq, external: false },
   { href: '/blog', label: t.value.nav.blog, external: false },
   { href: '/researchers', label: t.value.nav.researchers, external: false },
+  { href: '/members', label: t.value.nav.members, external: false },
   { href: '/alumni', label: t.value.nav.alumni, external: false },
   { href: '/books', label: t.value.nav.books, external: false },
   { href: '/decks', label: t.value.nav.decks, external: false },

@@ -180,7 +180,7 @@ const statusColor = {
                     <span lang="en">Research Stream</span>
                     <span lang="id">Stream Riset</span>
                   </div>
-                  <a href={`/research/${stream}`} class="text-sm text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors font-mono">
+                  <a href={`/research/${stream}`} class="text-sm text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono">
                     <span lang="en">{streamName.en}</span>
                     <span lang="id">{streamName.id}</span>
                   </a>
@@ -279,7 +279,7 @@ const statusColor = {
                         class="w-8 h-8 rounded-full object-cover border border-primary/10 dark:border-gray-600 shrink-0"
                         style={r.data.photoPosition ? { objectPosition: r.data.photoPosition } : undefined}
                       />
-                      <span class="text-xs text-neutral-500 dark:text-gray-400 group-hover:text-accent dark:group-hover:text-yellow-300 transition-colors truncate max-w-[140px]">{r.data.name}</span>
+                      <span class="text-xs text-neutral-500 dark:text-gray-400 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors truncate max-w-[140px]">{r.data.name}</span>
                     </a>
                   ))}
                 </div>
@@ -291,7 +291,7 @@ const statusColor = {
     </div>
 
     <!-- Body Content (full width below hero) -->
-    <div class="prose prose-slate max-w-none bilingual-post mb-12">
+    <div class="prose prose-slate dark:prose-invert max-w-none bilingual-post mb-12">
       <Content />
     </div>
 
@@ -319,7 +319,7 @@ const statusColor = {
       {streamName ? (
         <a
           href={`/research/${stream}`}
-          class="inline-flex items-center gap-1 text-sm text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors font-mono"
+          class="inline-flex items-center gap-1 text-sm text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono"
         >
           <span lang="en">{streamName.en}</span>
           <span lang="id">{streamName.id}</span>
@@ -350,7 +350,7 @@ const statusColor = {
                     style={r.data.photoPosition ? { objectPosition: r.data.photoPosition } : undefined}
                   />
                   <div class="min-w-0">
-                    <h3 class="font-serif text-base font-semibold text-primary dark:text-gray-100 group-hover:text-accent dark:group-hover:text-accent transition-colors leading-snug">
+                    <h3 class="font-serif text-base font-semibold text-primary dark:text-gray-100 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors leading-snug">
                       {r.data.name}
                     </h3>
                     <p class="text-xs text-neutral-500 dark:text-gray-400 mt-0.5 line-clamp-2">

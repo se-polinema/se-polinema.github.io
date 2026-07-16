@@ -29,7 +29,7 @@
             v-for="item in navItems"
             :key="item.id"
             :href="item.href"
-            class="text-sm text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors font-medium"
+            class="text-sm text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-medium"
             @click="handleNavClick($event, item)"
           >
             {{ item.label }}
@@ -53,9 +53,9 @@
             class="hidden lg:flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors min-w-[44px] min-h-[44px] px-2 py-1 justify-center"
             :aria-label="lang === 'en' ? 'Switch to Indonesian' : 'Beralih ke Inggris'"
           >
-            <span :class="{ 'text-accent font-semibold': lang === 'en' }" :class="lang === 'en' ? 'text-accent dark:text-yellow-300 font-semibold' : ''">EN</span>
+            <span :class="{ 'text-accent font-semibold': lang === 'en' }" :class="lang === 'en' ? 'text-accent-700 dark:text-accent-400 font-semibold' : ''">EN</span>
             <span class="text-primary/30 dark:text-gray-600">/</span>
-            <span :class="{ 'text-accent font-semibold': lang === 'id' }" :class="lang === 'id' ? 'text-accent dark:text-yellow-300 font-semibold' : ''">ID</span>
+            <span :class="{ 'text-accent font-semibold': lang === 'id' }" :class="lang === 'id' ? 'text-accent-700 dark:text-accent-400 font-semibold' : ''">ID</span>
           </button>
 
           <button
@@ -124,6 +124,7 @@ const navItems = computed(() => [
   { id: 'about', href: '/#about', label: t.value.nav.about },
   { id: 'research', href: '/#research', label: t.value.nav.research },
   { id: 'researchers', href: '/researchers', label: t.value.nav.researchers },
+  { id: 'members', href: '/members', label: t.value.nav.members },
   { id: 'alumni', href: '/alumni', label: t.value.nav.alumni },
   { id: 'projects', href: '/projects', label: t.value.nav.projects },
   { id: 'partners', href: '/partners', label: t.value.nav.partners },

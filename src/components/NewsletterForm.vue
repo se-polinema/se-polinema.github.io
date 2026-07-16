@@ -136,7 +136,7 @@
             {{ t.newsletter.privacyNote }}
             <a
               href="/privacy"
-              class="underline underline-offset-2 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+              class="underline underline-offset-2 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >{{ t.privacy.navLabel }}</a>
           </p>
         </template>

@@ -122,9 +122,9 @@ const freshnessText = computed(() => {
 })
 
 const freshnessBadgeClass = computed(() => {
-  if (props.updated) return 'inline-block px-2 py-0.5 rounded text-green-700 dark:text-green-400'
-  if (props.reviewed) return 'inline-block px-2 py-0.5 rounded text-blue-700 dark:text-blue-400'
-  if (isStale.value) return 'inline-block px-2 py-0.5 rounded border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-400'
+  if (props.updated) return 'inline-block px-2 py-0.5 rounded text-success'
+  if (props.reviewed) return 'inline-block px-2 py-0.5 rounded text-info'
+  if (isStale.value) return 'inline-block px-2 py-0.5 rounded border border-warning/40 text-warning'
   return 'hidden'
 })
 

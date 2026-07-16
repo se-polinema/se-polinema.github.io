@@ -130,10 +130,26 @@ if (announcementData.enabled && announcementData.message) {
       ) : (
         <script is:inline>
           if ('serviceWorker' in navigator) {
+            // A stale service worker from an earlier production/preview
+            // session on this origin can still be actively controlling
+            // this page load even in dev mode (unregistering here only
+            // stops it from intercepting *future* navigations, not the one
+            // that already served this document). If that's the case,
+            // force one self-healing reload after unregistering so the
+            // very next navigation is guaranteed uncontrolled, instead of
+            // leaving it to intermittently race network vs. stale cache on
+            // every subsequent page load.
+            var wasControlled = !!navigator.serviceWorker.controller
             navigator.serviceWorker
               .getRegistrations()
-              .then((registrations) => {
-                registrations.forEach((registration) => registration.unregister())
+              .then((registrations) =>
+                Promise.all(registrations.map((registration) => registration.unregister())),
+              )
+              .then(() => {
+                if (wasControlled && !sessionStorage.getItem('se-lab-sw-cleared')) {
+                  sessionStorage.setItem('se-lab-sw-cleared', '1')
+                  window.location.reload()
+                }
               })
               .catch(() => {})
           }

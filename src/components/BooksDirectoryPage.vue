@@ -64,7 +64,7 @@
             <template v-for="(author, idx) in book.authors" :key="author.id">
               <a
                 :href="`/researchers/${author.id}`"
-                class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+                class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
               >{{ author.name }}</a>
               <span v-if="idx < book.authors.length - 1" class="text-[12px] text-neutral-400 dark:text-gray-500">,</span>
             </template>

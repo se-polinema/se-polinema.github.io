@@ -13,7 +13,7 @@
           {{ t.cookieConsent.message }}
           <a
             href="/privacy"
-            class="text-primary dark:text-gray-200 hover:text-accent dark:hover:text-yellow-300 underline underline-offset-2 transition-colors"
+            class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors"
           >{{ t.cookieConsent.learnMore }}</a>
         </p>
         <div class="flex items-center gap-2 flex-shrink-0">

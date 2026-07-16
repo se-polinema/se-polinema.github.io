@@ -277,14 +277,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 
 const {
   sidebarOpen, activeSection, currentPage, layoutInitialized,
   activeSidebarView, activeFilters,
-  initObserver, scrollTo,
+  initObserver, scrollTo, restoreRouteState,
 } = useVSCodeLayout()
 
 const { t, lang } = useI18n()
@@ -325,7 +325,8 @@ const pubYears = ref<number[]>([])
 const pubTypes = ref<string[]>([])
 const pubStreams = ref<{ id: string; nameEn: string; nameId: string }[]>([])
 const blogCategories = ref<string[]>([])
-const blogTags = ref<string[]>([])
+const blogTagsByLang = ref<{ en: string[]; id: string[] }>({ en: [], id: [] })
+const blogTags = computed(() => blogTagsByLang.value[lang.value] ?? blogTagsByLang.value.en ?? [])
 const deckMembers = ref<{ id: string; name: string }[]>([])
 const deckTypes = ref<string[]>([])
 const achievementTypes = ref(['Grant', 'Award', 'Certification', 'Milestone'])
@@ -370,6 +371,8 @@ function toggleAchievementFilter(type: string) {
 }
 
 onMounted(async () => {
+  restoreRouteState()
+
   const editor = document.getElementById('editor')
   if (editor) initObserver(editor)
 
@@ -385,7 +388,7 @@ onMounted(async () => {
   } else if (currentPage.value === 'blog') {
     const meta = await fetch('/api/posts-meta.json').then(r => r.json())
     blogCategories.value = meta.categories
-    blogTags.value = meta.tags || []
+    blogTagsByLang.value = meta.tags || { en: [], id: [] }
   } else if (currentPage.value === 'decks') {
     const meta = await fetch('/api/decks-meta.json').then(r => r.json())
     deckMembers.value = meta.members

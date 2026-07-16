@@ -23,13 +23,13 @@
           <div class="md:sticky md:top-24">
             <!-- JSDoc-style vision block -->
             <div class="font-mono text-sm leading-loose bg-neutral-50 dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 p-6">
-              <p class="text-accent dark:text-yellow-300 font-semibold">/**</p>
+              <p class="text-accent-700 dark:text-accent-400 font-semibold">/**</p>
               <p class="text-primary/40 dark:text-gray-500"> * {{ t.about.vision.label }}</p>
               <p class="text-primary/70 dark:text-gray-300 mt-1 leading-relaxed"> * {{ t.about.vision.text }}</p>
               <p class="text-primary/70 dark:text-gray-300 mt-1"> *</p>
               <p class="text-primary/40 dark:text-gray-500"> * @institution Politeknik Negeri Malang</p>
               <p class="text-primary/40 dark:text-gray-500"> * @unit Jurusan Teknologi Informasi</p>
-              <p class="text-accent dark:text-yellow-300 font-semibold mt-1"> */</p>
+              <p class="text-accent-700 dark:text-accent-400 font-semibold mt-1"> */</p>
             </div>
           </div>
         </div>

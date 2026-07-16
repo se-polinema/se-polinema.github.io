@@ -43,7 +43,7 @@
           <dt class="px-5 py-4">
             <a
               :href="`#${entry.slug}`"
-              class="text-base md:text-lg font-semibold text-primary dark:text-gray-100 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+              class="text-base md:text-lg font-semibold text-primary dark:text-gray-100 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >
               {{ entry.term }}
               <span class="text-sm font-normal text-neutral-400 dark:text-gray-500 ml-2">{{ entry.termId }}</span>
@@ -66,7 +66,7 @@
                 v-for="related in resolvedRelated(entry.relatedTerms)"
                 :key="related.slug"
                 :href="`#${related.slug}`"
-                class="text-[12px] font-mono text-accent dark:text-yellow-300 hover:underline transition-colors"
+                class="text-[12px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors"
               >{{ related.term }}</a>
             </div>
           </dd>
@@ -84,7 +84,7 @@
     <div class="border-t border-primary/10 dark:border-gray-700 pt-6 mt-6">
       <p class="text-sm text-neutral-500 dark:text-gray-400">
         {{ t.glossary.suggestionText }}
-        <a href="/contact" class="text-primary dark:text-gray-200 hover:text-accent dark:hover:text-yellow-300 underline underline-offset-2 transition-colors">{{ t.glossary.suggestionLink }}</a>
+        <a href="/contact" class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors">{{ t.glossary.suggestionLink }}</a>
       </p>
     </div>
   </div>

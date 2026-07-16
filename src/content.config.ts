@@ -145,21 +145,9 @@ const presentationsCollection = defineCollection({
   }),
 })
 
-const alumniCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/alumni' }),
-  schema: z.object({
-    name: z.string(),
-    photo: z.string().optional(),
-    cohortYear: z.number().int(),
-    exitYear: z.number().int(),
-    role: localizedText,
-    currentRole: localizedText,
-    currentOrganization: localizedText,
-    linkedinUrl: z.string().optional(),
-    profileUrl: z.string().optional(),
-    streams: z.array(z.string()).optional(),
-  }),
-})
+// Alumni (and current student members) moved to Supabase (se.members table) —
+// see MemberDirectoryPage.vue, src/pages/alumni/, src/pages/members/, and
+// supabase/migrations/008_members.sql. No longer a content collection.
 
 export const RESOURCE_TYPES = ['tutorial', 'book', 'deck', 'tool', 'dataset', 'course', 'paper'] as const
 export type ResourceType = (typeof RESOURCE_TYPES)[number]
@@ -187,5 +175,4 @@ export const collections = {
   publications: publicationsCollection,
   projects: projectsCollection,
   presentations: presentationsCollection,
-  alumni: alumniCollection,
 }

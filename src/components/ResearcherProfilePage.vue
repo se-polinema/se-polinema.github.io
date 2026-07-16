@@ -23,15 +23,15 @@
             </div>
             <div>
               <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.contact }}</div>
-              <a :href="`mailto:${researcher.email}`" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors break-all">{{ researcher.email }}</a>
+              <a :href="`mailto:${researcher.email}`" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.email }}</a>
             </div>
             <div>
               <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.externalProfiles }}</div>
               <ul class="space-y-0.5">
-                <li><a :href="researcher.googleScholarUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">Google Scholar</a></li>
-                <li v-if="researcher.institutionalUrl"><a :href="researcher.institutionalUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">{{ t.team.institutionalPage }}</a></li>
-                <li v-if="researcher.orcidUrl"><a :href="researcher.orcidUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">ORCID</a></li>
-                <li v-if="researcher.scopusUrl"><a :href="researcher.scopusUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">Scopus</a></li>
+                <li><a :href="researcher.googleScholarUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">Google Scholar</a></li>
+                <li v-if="researcher.institutionalUrl"><a :href="researcher.institutionalUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.team.institutionalPage }}</a></li>
+                <li v-if="researcher.orcidUrl"><a :href="researcher.orcidUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">ORCID</a></li>
+                <li v-if="researcher.scopusUrl"><a :href="researcher.scopusUrl" target="_blank" rel="noopener" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">Scopus</a></li>
               </ul>
             </div>
           </div>
@@ -154,10 +154,10 @@
                     <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">{{ lang === 'id' && book.titleId ? book.titleId : book.title }}</div>
                     <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}</p>
                     <div v-if="book.url" class="mt-1.5">
-                      <a :href="book.url" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">{{ t.books.viewBookSite }} ↗</a>
+                      <a :href="book.url" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.books.viewBookSite }} ↗</a>
                     </div>
                     <div v-if="book.playstoreUrl" class="mt-1.5">
-                      <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors">Buy on Google Play Books →</a>
+                      <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">Buy on Google Play Books →</a>
                     </div>
                   </div>
                 </li>
@@ -175,7 +175,7 @@
                   <a
                     :href="`https://github.com/${project.repo}`"
                     target="_blank" rel="noopener"
-                    class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent dark:hover:text-yellow-300 transition-colors"
+                    class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
                   >{{ lang === 'id' && project.nameId ? project.nameId : (project.name ?? project.repo) }}</a>
                   <p v-if="project.description || project.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 mt-1 leading-relaxed max-w-xl">{{ lang === 'id' && project.descriptionId ? project.descriptionId : project.description }}</p>
                 </li>

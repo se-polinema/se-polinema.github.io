@@ -11,7 +11,7 @@
     <div class="mb-8">
       <a
         href="/learning-paths"
-        class="inline-flex items-center gap-1.5 text-[13px] font-mono text-accent dark:text-yellow-300 hover:underline transition-colors"
+        class="inline-flex items-center gap-1.5 text-[13px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors"
       >
         {{ t.learningPaths?.viewLearningPaths || 'View Learning Paths' }}
         <span class="text-[10px]">→</span>
@@ -93,7 +93,7 @@
               :href="resource.url"
               :target="resource.internal ? undefined : '_blank'"
               :rel="resource.internal ? undefined : 'noopener'"
-              class="inline-flex items-center gap-1.5 text-[13px] font-mono text-accent dark:text-yellow-300 hover:underline transition-colors mt-1 self-start"
+              class="inline-flex items-center gap-1.5 text-[13px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors mt-1 self-start"
             >
               {{ resource.internal ? t.resources.viewResource : t.resources.visitExternal }}
               <span class="text-[10px]">{{ resource.internal ? '→' : '↗' }}</span>

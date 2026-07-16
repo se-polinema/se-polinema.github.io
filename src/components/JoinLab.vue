@@ -16,7 +16,7 @@
           :key="card.title"
           class="border border-primary/10 dark:border-gray-600 bg-white dark:bg-gray-800 p-6 flex flex-col gap-3 hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
         >
-          <div class="font-mono text-[11px] uppercase tracking-widest text-accent dark:text-yellow-300">{{ card.icon }}</div>
+          <div class="font-mono text-[11px] uppercase tracking-widest text-accent-700 dark:text-accent-400">{{ card.icon }}</div>
           <h3 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 leading-snug">{{ card.title }}</h3>
           <p class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed flex-1">{{ card.desc }}</p>
         </div>

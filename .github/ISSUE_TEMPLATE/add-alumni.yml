@@ -6,11 +6,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        > **Context for Opencode**: Add a new Markdown file to `src/content/alumni/`.
-        > The filename should be a slug derived from the alumni name (e.g. `john-doe.md`).
-        > Required frontmatter: `name`, `cohortYear`, `exitYear`, `role` (localized), `currentRole` (localized), `currentOrganization` (localized).
-        > Optional: `photo`, `linkedinUrl`, `profileUrl`, `streams`.
-        > See `src/content.config.ts` → `alumniCollection` for the full schema.
+        > **Context for Opencode**: Do NOT create a Markdown file for this submission.
+        > Alumni and student member data now lives in Supabase (`se.members` table,
+        > see `supabase/migrations/008_members.sql`), curated by an admin through
+        > `/admin`'s Members tab (`src/components/AdminDashboard.vue`). This issue
+        > should stay open until a maintainer manually reviews it and adds the
+        > entry via that admin UI — no automated `/build` action is expected here.
 
   - type: input
     id: name

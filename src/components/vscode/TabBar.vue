@@ -107,7 +107,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useVSCodeLayout } from "../../composables/useVSCodeLayout";
 
-const { activeSection, currentPage, initObserver, scrollTo } =
+const { activeSection, currentPage, initObserver, scrollTo, restoreRouteState } =
   useVSCodeLayout();
 
 const isDetailPage = ref(false);
@@ -265,6 +265,8 @@ function dotColor(ext: string): string {
 }
 
 onMounted(() => {
+  restoreRouteState();
+
   const editor = document.getElementById("editor");
   if (editor) initObserver(editor);
 

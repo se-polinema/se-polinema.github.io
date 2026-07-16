@@ -52,11 +52,66 @@
   --color-editor-blockquote-bg: rgba(139, 127, 199, 0.08);
   --color-editor-section-divider: #2D2D30;
   --color-editor-hash: #6A6A6A;
+
+  /* Brand + semantic tokens re-tinted for the dark surface. Light-mode values
+     (below, in @theme) are unchanged — this is the only place brand color
+     shifts for dark mode, so it cascades to every text-primary/bg-accent/...
+     usage site-wide without touching individual components. */
+  --color-primary: var(--color-primary-400);
+  --color-accent: var(--color-accent-400);
+  --color-success: oklch(0.75 0.16 150);
+  --color-warning: oklch(0.78 0.15 55);
+  --color-error: oklch(0.72 0.17 25);
+  --color-info: var(--color-primary-400);
 }
 
 @theme {
-  --color-primary: #004EA2;
-  --color-accent: #F5A100;
+  /* Primary — brand blue, OKLCH tonal ramp (hue ~257). primary-600 is the
+     original brand hex (#004EA2), so --color-primary itself is unchanged in
+     light mode: every existing text-primary/bg-primary/... usage keeps its
+     exact current appearance. Passes WCAG AA/AAA as text on white (~7:1). */
+  --color-primary-50:  oklch(0.97 0.015 257);
+  --color-primary-100: oklch(0.93 0.03  257);
+  --color-primary-200: oklch(0.86 0.06  257);
+  --color-primary-300: oklch(0.77 0.095 257);
+  --color-primary-400: oklch(0.65 0.13  257);
+  --color-primary-500: oklch(0.545 0.145 257);
+  --color-primary-600: oklch(0.44 0.152 257);
+  --color-primary-700: oklch(0.37 0.135 257);
+  --color-primary-800: oklch(0.30 0.11  257);
+  --color-primary-900: oklch(0.24 0.085 257);
+  --color-primary-950: oklch(0.17 0.06  257);
+  --color-primary: var(--color-primary-600);
+
+  /* Accent — brand gold, OKLCH tonal ramp (hue ~71, drifting toward amber/
+     brown as it darkens so it doesn't turn muddy). accent-500 is the
+     original brand hex (#F5A100): --color-accent is unchanged in light mode
+     for its intended use (borders, badges, active indicators, large/bold
+     UI). Gold is inherently light, so it fails WCAG as body-sized text on
+     white (~1.9:1) — accent-700/800 are the safe tones for that case. */
+  --color-accent-50:  oklch(0.97 0.025 75);
+  --color-accent-100: oklch(0.94 0.05  74);
+  --color-accent-200: oklch(0.89 0.09  73);
+  --color-accent-300: oklch(0.84 0.13  72);
+  --color-accent-400: oklch(0.80 0.155 71.5);
+  --color-accent-500: oklch(0.774 0.166 71);
+  --color-accent-600: oklch(0.62 0.15  63);
+  --color-accent-700: oklch(0.46 0.13  56);
+  --color-accent-800: oklch(0.38 0.11  50);
+  --color-accent-900: oklch(0.31 0.09  46);
+  --color-accent-950: oklch(0.20 0.06  42);
+  --color-accent: var(--color-accent-500);
+
+  /* Semantic colors, harmonized against the brand hues and each other.
+     Warning deliberately sits at hue ~50 (orange), not ~71 (brand gold), so
+     "stale/warning" state never visually collides with brand accent. All
+     four pass WCAG AA as text on their intended surface (light and dark,
+     see .dark overrides above). */
+  --color-success: oklch(0.45 0.14 150);
+  --color-warning: oklch(0.48 0.15 50);
+  --color-error: oklch(0.47 0.19 25);
+  --color-info: var(--color-primary-600);
+
   --color-vscode-activitybar: #002D6B;
   --color-vscode-sidebar: #003A84;
   --color-vscode-tabbar: #1E2D4E;
@@ -254,9 +309,6 @@
   a.glossary-link:hover {
     text-decoration-style: solid;
     color: var(--color-accent);
-  }
-  html.dark a.glossary-link {
-    color: #F5A100;
   }
 
   .mermaid-diagram {

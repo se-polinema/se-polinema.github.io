@@ -36,7 +36,7 @@
           <div
             v-for="item in group.items"
             :key="item.title"
-            class="group border-l-2 border-primary/10 dark:border-gray-700 hover:border-accent dark:hover:border-yellow-300 transition-colors pl-5 py-3"
+            class="group border-l-2 border-primary/10 dark:border-gray-700 hover:border-accent dark:hover:border-accent-400 transition-colors pl-5 py-3"
           >
             <div class="flex flex-wrap items-center gap-3 mb-2">
               <span

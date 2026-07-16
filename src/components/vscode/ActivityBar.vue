@@ -160,15 +160,20 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 
-const { activeSidebarView, setView } = useVSCodeLayout()
+const { activeSidebarView, setView, restoreRouteState } = useVSCodeLayout()
 const { lang, toggleLang } = useI18n()
 
 function openSearch() {
   window.dispatchEvent(new CustomEvent('se-lab-open-search'))
 }
+
+onMounted(() => {
+  restoreRouteState()
+})
 </script>
 
 <style scoped>

@@ -10,14 +10,20 @@ export const GET: APIRoute = async () => {
   const posts = await getCollection('blog')
   const categories = [...new Set(posts.map(p => p.data.category))].filter(c => (BLOG_CATEGORIES as readonly string[]).includes(c)).sort()
 
-  const tagSet = new Set<string>()
+  const tagSetEn = new Set<string>()
+  const tagSetId = new Set<string>()
   for (const post of posts) {
     const tags = post.data.tags ?? []
     const tagsId = post.data.tagsId ?? []
-    for (const t of tags) { const s = slugify(t); if (s) tagSet.add(s) }
-    for (const t of tagsId) { const s = slugify(t); if (s) tagSet.add(s) }
+    for (const t of tags) { const s = slugify(t); if (s) tagSetEn.add(s) }
+    for (const t of tagsId) { const s = slugify(t); if (s) tagSetId.add(s) }
   }
-  const tags = Array.from(tagSet).sort()
+  // Grouped by language so the UI can show only the tags relevant to the
+  // active site language instead of a merged, doubled-up list.
+  const tags = {
+    en: Array.from(tagSetEn).sort(),
+    id: Array.from(tagSetId).sort(),
+  }
 
   return new Response(JSON.stringify({ categories, tags }), {
     headers: { 'Content-Type': 'application/json' },

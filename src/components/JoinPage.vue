@@ -69,7 +69,7 @@
 
           <button
             @click="expandedIndex === index ? (expandedIndex = null) : (expandedIndex = index)"
-            class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors self-start flex items-center gap-1"
+            class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors self-start flex items-center gap-1"
           >
             {{ expandedIndex === index ? t.join.page.collapseDetails : t.join.page.expandDetails }}
             <span class="text-[10px]" :class="expandedIndex === index ? 'rotate-180' : ''" style="transition: transform 0.2s;">&#9660;</span>
@@ -110,7 +110,7 @@
             <a
               v-if="opp.stream"
               :href="`/research/${opp.stream}`"
-              class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent dark:hover:text-yellow-300 transition-colors self-start"
+              class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors self-start"
             >
               {{ t.join.page.viewStream }} →
             </a>

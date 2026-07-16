@@ -125,7 +125,7 @@ function formatDate(date: Date | string): string {
 function categoryStyle(cat: string): string {
   const styles: Record<string, string> = {
     announcement: 'text-primary',
-    news: 'text-accent',
+    news: 'text-accent-700 dark:text-accent-400',
     event: 'text-primary',
     tutorial: 'text-green-600 dark:text-green-400',
   }

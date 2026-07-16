@@ -57,7 +57,7 @@
     <div class="border-t border-primary/10 dark:border-gray-700 pt-6 mt-4">
       <p class="text-sm text-neutral-500 dark:text-gray-400">
         {{ t.faq.notFoundText }}
-        <a href="/contact" class="text-primary dark:text-gray-200 hover:text-accent dark:hover:text-yellow-300 underline underline-offset-2 transition-colors">{{ t.faq.notFoundLink }}</a>
+        <a href="/contact" class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors">{{ t.faq.notFoundLink }}</a>
       </p>
     </div>
   </div>

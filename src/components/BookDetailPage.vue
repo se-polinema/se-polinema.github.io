@@ -35,7 +35,7 @@
               v-for="author in book.authors"
               :key="author.id"
               :href="`/researchers/${author.id}`"
-              class="text-sm text-primary/70 dark:text-gray-300 hover:text-accent dark:hover:text-yellow-300 transition-colors font-mono"
+              class="text-sm text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono"
             >{{ author.name }}</a>
           </div>
         </div>
