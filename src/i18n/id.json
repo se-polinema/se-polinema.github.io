@@ -735,7 +735,8 @@
     "license": "Lisensi",
     "techStack": "Stack Teknologi",
     "viewProfile": "Lihat profil",
-    "empty": "Tidak ada alat yang cocok dengan filter yang dipilih. Coba sesuaikan kriteria atau hapus semua filter untuk menjelajahi seluruh katalog."
+    "empty": "Tidak ada alat yang cocok dengan filter yang dipilih. Coba sesuaikan kriteria atau hapus semua filter untuk menjelajahi seluruh katalog.",
+    "emptyCatalog": "Belum ada perangkat lunak atau alat riset yang dipublikasikan. Kunjungi kembali nanti."
   },
   "privacy": {
     "label": "Kebijakan Privasi",

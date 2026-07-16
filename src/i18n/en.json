@@ -735,7 +735,8 @@
     "license": "License",
     "techStack": "Tech Stack",
     "viewProfile": "View profile",
-    "empty": "No tools match the selected filters. Try adjusting your criteria or clearing all filters to browse the full catalog."
+    "empty": "No tools match the selected filters. Try adjusting your criteria or clearing all filters to browse the full catalog.",
+    "emptyCatalog": "No research software or tools published yet. Check back soon."
   },
   "privacy": {
     "label": "Privacy Policy",

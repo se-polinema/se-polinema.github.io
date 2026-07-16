@@ -142,7 +142,7 @@
     <template v-else>
       <div class="text-center py-20 border border-dashed border-primary/10 dark:border-gray-600">
         <div class="font-mono text-5xl text-primary/10 dark:text-gray-600 mb-4 select-none">&#123;&nbsp;&#125;</div>
-        <p class="text-neutral-400 dark:text-gray-500 text-sm max-w-sm mx-auto">{{ t.tools.empty }}</p>
+        <p class="text-neutral-400 dark:text-gray-500 text-sm max-w-sm mx-auto">{{ emptyMessage }}</p>
       </div>
     </template>
   </div>
@@ -199,6 +199,12 @@ const groupByStream = computed(() => {
 
 const visibleStreams = computed(() => {
   return props.streams.filter((s) => groupByStream.value[s.id].length > 0)
+})
+
+// Distinguish "nothing published yet" from "filters excluded everything" —
+// they need different messaging.
+const emptyMessage = computed(() => {
+  return props.tools.length === 0 ? t.value.tools.emptyCatalog : t.value.tools.empty
 })
 
 function typeLabel(type: string): string {
