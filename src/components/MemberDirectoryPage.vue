@@ -41,27 +41,25 @@
                 <h3 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
                   {{ member.name }}
                 </h3>
-                <p class="mt-1 text-sm text-primary/50 dark:text-gray-400">
-                  {{ lang === 'id' ? member.role_id : member.role_en }}
-                </p>
               </div>
             </a>
 
             <div class="space-y-2 text-sm text-neutral-600 dark:text-gray-300">
-              <div v-if="hasCurrentInfo(member)">
-                <span class="text-xs font-mono uppercase tracking-wide text-primary/40 dark:text-gray-500">{{ t.alumni.now }} </span>
-                <span class="font-medium">{{ lang === 'id' ? member.current_role_id : member.current_role_en }}</span>
-                <span class="text-primary/40 dark:text-gray-500"> {{ t.alumni.at }} </span>
-                <span class="font-medium">{{ lang === 'id' ? member.current_organization_id : member.current_organization_en }}</span>
+              <div v-if="hasCurrentInfo(member)" class="space-y-0.5">
+                <div>
+                  <span class="text-xs font-mono uppercase tracking-wide text-primary/40 dark:text-gray-500">{{ t.alumni.now }} </span>
+                  <span class="font-medium">{{ lang === 'id' ? member.current_role_id : member.current_role_en }}</span>
+                </div>
+                <div class="text-primary/40 dark:text-gray-500">
+                  {{ t.alumni.at }} <span class="font-medium text-neutral-600 dark:text-gray-300">{{ lang === 'id' ? member.current_organization_id : member.current_organization_en }}</span>
+                </div>
               </div>
-              <div class="text-xs text-primary/40 dark:text-gray-500 font-mono">
-                <template v-if="member.status === 'alumni'">
-                  {{ t.alumni.period }}: {{ member.cohort_year }} – {{ member.exit_year }}
-                </template>
-                <template v-else>
-                  {{ t.alumni.sinceLabel }} {{ member.cohort_year }}
-                </template>
-              </div>
+              <span
+                v-if="primaryStream(member)"
+                class="inline-block px-2 py-1 text-xs font-mono bg-primary/5 dark:bg-gray-800 text-primary/70 dark:text-gray-300 border border-primary/10 dark:border-gray-700"
+              >
+                {{ primaryStream(member) }}
+              </span>
             </div>
 
             <div class="flex items-center gap-4 mt-5">
@@ -98,6 +96,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import research from '../data/research.json'
 
 interface MemberRow {
   id: string
@@ -132,6 +131,14 @@ const emptyText = computed(() => (props.status === 'alumni' ? t.value.alumni.emp
 
 function hasCurrentInfo(member: MemberRow): boolean {
   return !!(member.current_role_id || member.current_role_en)
+}
+
+function primaryStream(member: MemberRow): string | null {
+  const id = member.streams?.[0]
+  if (!id) return null
+  const stream = research.find((s) => s.id === id)
+  if (!stream) return null
+  return lang.value === 'id' ? stream.name.id : stream.name.en
 }
 
 const groupedByCohort = computed(() => {

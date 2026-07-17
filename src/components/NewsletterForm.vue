@@ -57,7 +57,7 @@
             :class="[
               'text-xs font-mono border focus:outline-none focus:border-accent dark:focus:border-accent transition-colors',
               minimal
-                ? 'flex-1 bg-white/10 border-white/20 text-white placeholder-white/40 px-2 py-1'
+                ? 'flex-1 bg-[color:var(--color-vscode-chrome-border)] border-[color:var(--color-vscode-chrome-border)] text-[color:var(--color-vscode-chrome-fg)] placeholder:text-[color:var(--color-vscode-chrome-fg-muted)] px-2 py-1'
                 : compact
                   ? 'w-full text-sm bg-white/10 border-white/20 text-white placeholder-white/40 px-2.5 py-1.5'
                   : 'w-full text-sm bg-white dark:bg-gray-900 border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 px-3 py-2'
@@ -68,7 +68,7 @@
             v-if="minimal"
             type="submit"
             :disabled="submitting"
-            class="inline-flex items-center gap-1 font-mono font-semibold bg-white text-primary hover:bg-white/90 px-2.5 py-1 text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            class="inline-flex items-center gap-1 font-mono font-semibold bg-accent text-white hover:opacity-90 px-2.5 py-1 text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
           >
             <svg v-if="submitting" class="animate-spin" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 12a9 9 0 11-6.219-8.56"/>

@@ -54,11 +54,14 @@
         </div>
       </div>
 
-      <div v-if="hasCurrentInfo" class="mb-8 text-sm text-neutral-600 dark:text-gray-300">
-        <span class="text-xs font-mono uppercase tracking-wide text-primary/40 dark:text-gray-500">{{ t.alumni.now }} </span>
-        <span class="font-medium">{{ lang === 'id' ? member.current_role_id : member.current_role_en }}</span>
-        <span class="text-primary/40 dark:text-gray-500"> {{ t.alumni.at }} </span>
-        <span class="font-medium">{{ lang === 'id' ? member.current_organization_id : member.current_organization_en }}</span>
+      <div v-if="hasCurrentInfo" class="mb-8 text-sm text-neutral-600 dark:text-gray-300 space-y-0.5">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wide text-primary/40 dark:text-gray-500">{{ t.alumni.now }} </span>
+          <span class="font-medium">{{ lang === 'id' ? member.current_role_id : member.current_role_en }}</span>
+        </div>
+        <div class="text-primary/40 dark:text-gray-500">
+          {{ t.alumni.at }} <span class="font-medium text-neutral-600 dark:text-gray-300">{{ lang === 'id' ? member.current_organization_id : member.current_organization_en }}</span>
+        </div>
       </div>
 
       <div v-if="member.streams && member.streams.length" class="mb-8">
@@ -71,7 +74,7 @@
             :key="stream"
             class="px-2 py-1 text-xs font-mono bg-primary/5 dark:bg-gray-800 text-primary/70 dark:text-gray-300 border border-primary/10 dark:border-gray-700"
           >
-            {{ stream }}
+            {{ streamName(stream) }}
           </span>
         </div>
       </div>
@@ -117,6 +120,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import research from '../data/research.json'
 
 interface MemberRow {
   id: string
@@ -144,6 +148,12 @@ const member = ref<MemberRow | null>(null)
 const loading = ref(true)
 
 const hasCurrentInfo = computed(() => !!(member.value?.current_role_id || member.value?.current_role_en))
+
+function streamName(id: string): string {
+  const stream = research.find((s) => s.id === id)
+  if (!stream) return id
+  return lang.value === 'id' ? stream.name.id : stream.name.en
+}
 
 onMounted(async () => {
   const id = new URLSearchParams(window.location.search).get('id')
