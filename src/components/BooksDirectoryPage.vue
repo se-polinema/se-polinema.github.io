@@ -39,15 +39,9 @@
             class="flex gap-4 p-4"
           >
             <div
-              v-if="book.coverImage"
               class="w-24 sm:w-28 flex-shrink-0 bg-neutral-100 dark:bg-gray-700 border border-primary/5 dark:border-gray-600 overflow-hidden"
             >
-              <img
-                :src="book.coverImage"
-                :alt="`Cover of ${book.title}`"
-                class="w-full h-auto object-contain"
-                loading="lazy"
-              />
+              <BookCover :src="book.coverImage" :title="book.title" fit="contain" />
             </div>
             <div class="flex flex-col gap-2 min-w-0 flex-1">
               <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug line-clamp-2">
@@ -86,6 +80,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import BookCover from './BookCover.vue'
 
 interface MemberBook {
   title: string

@@ -91,6 +91,14 @@ const researchersCollection = defineCollection({
       date: z.string().optional(),
     })).optional(),
     streams: z.array(z.string()).optional(),
+    certifications: z.array(z.object({
+      name: z.string(),
+      nameId: z.string().optional(),
+      issuer: z.string(),
+      issueDate: z.string().optional(),
+      credentialUrl: z.url().optional(),
+      logo: z.string().optional(),
+    })).optional(),
   }),
 })
 

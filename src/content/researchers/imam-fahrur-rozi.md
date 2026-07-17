@@ -38,28 +38,28 @@ streams:
 books:
   - title: "Penuntun Praktikum Struktur Data"
     url: "https://polinemapress21.com/produk/penuntun-praktikum-struktur-data/"
-    coverImage: "https://polinemapress21.com/wp-content/uploads/2026/02/Screenshot-2026-02-13-092216.jpg"
+    coverImage: "/images/books/penuntun-praktikum-struktur-data.jpg"
     year: 2020
     isbn: "978-623-7408-91-8"
     description: "A hands-on guide to data structures covering classes, objects, arrays, searching and sorting algorithms, stacks, queues, linked lists, binary trees, binary search trees, and graphs. Uses a step-by-step approach with exercises that build logical thinking, structured reasoning, and analytical depth."
     descriptionId: "Struktur data bukan sekadar istilah teknis dalam dunia komputasi. Ia adalah cara berpikir. Buku Penuntun Praktikum Struktur Data hadir sebagai sahabat belajar yang mengajak pembaca menelusuri fondasi penting dalam pemrograman dengan alur yang runtut, jernih, dan membumi. Pembahasan dimulai dari class dan objek, pengelolaan array, pencarian dan pengurutan (sequential search, bubble sort, selection sort, insertion sort, merge sort), stack dan queue, linked list, binary tree, binary search tree, hingga graph. Setiap bagian dirancang agar pembaca tidak hanya mengetahui, tetapi juga memahami alasan di balik setiap algoritma dan struktur yang digunakan."
   - title: "Dasar Pemrograman – Pengetahuan Teoretis Pemrograman Java"
     url: "https://polinemapress21.com/produk/dasar-pemrograman-pengetahuan-teoretis-pemrograman-java/"
-    coverImage: "https://polinemapress21.com/wp-content/uploads/2025/10/image-13.png"
+    coverImage: "/images/books/dasar-pemrograman-pengetahuan-teoretis-pemrograman-java.png"
     year: 2025
     isbn: "978-634-7040-93-0"
     description: "An introductory guide to Java programming covering logic, data structures, and core principles. Emphasizes computational thinking and problem-solving with everyday examples that make complex concepts approachable. Suitable for students, educators, and anyone beginning their programming journey."
     descriptionId: "Buku Dasar Pemrograman – Pengetahuan Teoretis Pemrograman Java hadir sebagai panduan bagi siapa pun yang ingin memahami dunia pemrograman dengan cara yang sederhana, logis, dan menyenangkan. Setiap bab disusun dengan alur yang membantu pembaca membangun pemahaman secara bertahap, mulai dari konsep logika pemrograman, struktur data, hingga prinsip-prinsip utama dalam bahasa Java. Dilengkapi contoh-contoh aplikatif dan penjelasan yang relevan dengan kehidupan sehari-hari."
   - title: "Algoritma & Struktur Data Berbasis Studi Kasus"
     url: "https://polinemapress21.com/produk/algoritma-struktur-data-berbasis-studi-kasus/"
-    coverImage: "https://polinemapress21.com/wp-content/uploads/2025/11/image-10.png"
+    coverImage: "/images/books/algoritma-struktur-data-berbasis-studi-kasus.png"
     year: 2025
     isbn: "978-634-7448-17-0"
     description: "Bridges programming theory with practical application through real-world case studies. Covers arrays, linked lists, stacks, queues, trees, and graphs, presenting each data structure in the context of everyday problems. Emphasizes computational thinking, logical reasoning, and the beauty of efficient, elegant solutions."
     descriptionId: "Buku Algoritma & Struktur Data Berbasis Studi Kasus hadir untuk menjembatani dunia teori pemrograman yang sering terasa rumit dengan penerapan nyata yang bisa dipahami oleh siapa saja. Melalui beragam studi kasus yang dekat dengan kehidupan sehari-hari, konsep array, linked list, stack, queue, tree, hingga graph terasa hidup, mudah diikuti, dan relevan dengan kebutuhan zaman digital saat ini. Setiap bab disusun dengan alur yang mengalir, dimulai dari pemahaman logika dasar hingga penerapan yang lebih kompleks."
   - title: "Mengenal Algoritma dan Struktur Data dengan Panduan Praktis"
     url: "https://polinemapress21.com/produk/mengenal-algoritma-dan-struktur-data-dengan-panduan-praktis/"
-    coverImage: "https://polinemapress21.com/wp-content/uploads/2024/09/image-9.png"
+    coverImage: "/images/books/mengenal-algoritma-dan-struktur-data-dengan-panduan-praktis.png"
     year: 2024
     publisher: "Polinema Press"
     isbn: "978-623-8452-75-0"

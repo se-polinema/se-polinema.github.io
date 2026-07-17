@@ -140,15 +140,9 @@
               <ul class="space-y-4">
                 <li v-for="book in props.researcher.books" :key="book.title" class="flex flex-col sm:flex-row gap-4">
                   <div
-                    v-if="book.coverImage"
                     class="w-28 shrink-0 aspect-[3/4] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/10 dark:border-gray-600"
                   >
-                    <img
-                      :src="book.coverImage"
-                      :alt="`Cover of ${book.title}`"
-                      class="w-full h-full object-cover object-center"
-                      loading="lazy"
-                    />
+                    <BookCover :src="book.coverImage" :title="book.title" fit="cover" />
                   </div>
                   <div class="min-w-0">
                     <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">{{ lang === 'id' && book.titleId ? book.titleId : book.title }}</div>
@@ -164,6 +158,20 @@
               </ul>
             </template>
             <p v-else class="text-neutral-500 dark:text-gray-400 text-sm">{{ t.team.booksEmpty }}</p>
+          </section>
+
+          <!-- Certifications -->
+          <section v-if="props.researcher.certifications?.length" class="mb-7">
+            <h2>{{ t.team.certificationsHeading }}</h2>
+            <ul class="space-y-3">
+              <li v-for="cert in props.researcher.certifications" :key="cert.name" class="flex items-baseline justify-between gap-4 border-t border-primary/10 dark:border-gray-600 pt-3 first:border-t-0 first:pt-0">
+                <div class="min-w-0">
+                  <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">{{ lang === 'id' && cert.nameId ? cert.nameId : cert.name }}</div>
+                  <p class="text-sm text-neutral-500 dark:text-gray-400 mt-0.5">{{ cert.issuer }}<span v-if="cert.issueDate"> · {{ cert.issueDate }}</span></p>
+                </div>
+                <a v-if="cert.credentialUrl" :href="cert.credentialUrl" target="_blank" rel="noopener" class="shrink-0 text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors whitespace-nowrap">{{ t.team.verifyCredential }} ↗</a>
+              </li>
+            </ul>
           </section>
 
           <!-- Projects -->
@@ -231,6 +239,7 @@ import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import researchData from '../data/research.json'
 import ResearcherContactForm from './ResearcherContactForm.vue'
+import BookCover from './BookCover.vue'
 
 type Localized = { id: string; en: string }
 type Publication = { id: string; title: string; year: number; authors: string[]; venue: string; type: string; url: string; citedByCount: number }
@@ -253,6 +262,7 @@ const props = defineProps<{
     projects?: Array<{ name?: string; nameId?: string; repo: string; description?: string; descriptionId?: string }>
     books?: Array<{ title: string; titleId?: string; url?: string; playstoreUrl?: string; coverImage?: string; description?: string; descriptionId?: string; year?: number; publisher?: string; isbn?: string }>
     streams?: string[]
+    certifications?: Array<{ name: string; nameId?: string; issuer: string; issueDate?: string; credentialUrl?: string; logo?: string }>
     scholarMetrics?: {
       hindex: number
       i10index: number

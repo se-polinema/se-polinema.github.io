@@ -56,7 +56,7 @@ books:
     descriptionId: "Panduan menyeluruh tentang konsep teknologi informasi, mencakup dasar perangkat keras dan perangkat lunak, jaringan komputer, sistem informasi, hingga tren mutakhir seperti cloud computing, big data, kecerdasan buatan, dan keamanan siber. Mengupas peran TI dalam transformasi sosial, bisnis, dan pendidikan."
   - title: "Perancangan Sistem E-Learning dengan Framework Laravel"
     url: "https://polinemapress21.com/produk/perancangan-sistem-e-learning-dengan-framework-laravel/"
-    coverImage: "https://polinemapress21.com/wp-content/uploads/2023/11/63265781641989.jpg"
+    coverImage: "/images/books/perancangan-sistem-e-learning-dengan-framework-laravel.jpg"
     year: 2023
     publisher: "Polinema Press"
     isbn: "978-623-8452-08-8"
@@ -64,7 +64,7 @@ books:
     descriptionId: "Buku ini menyajikan panduan komprehensif dalam membangun aplikasi e-learning modern dengan memanfaatkan framework PHP populer, Laravel. Materi yang disajikan mencakup konsep dasar e-learning, perancangan arsitektur sistem, manajemen basis data, autentikasi pengguna, pengelolaan konten pembelajaran, hingga implementasi fitur interaktif seperti forum diskusi, kuis, dan laporan kemajuan belajar."
   - title: "Pemrograman Web Lanjut (Laravel 10)"
     url: "https://polinemapress21.com/produk/pemrograman-web-lanjut-laravel-10/"
-    coverImage: "https://polinemapress21.com/wp-content/uploads/2024/11/image-3.png"
+    coverImage: "/images/books/pemrograman-web-lanjut-laravel-10.png"
     publisher: "Polinema Press"
     isbn: "978-634-7040-51-0"
     description: "A comprehensive guide for advanced web development using Laravel 10, covering routing, middleware, Eloquent ORM, authentication, and RESTful API project management. Includes case studies, exercises, and code examples focused on best practices and production efficiency."

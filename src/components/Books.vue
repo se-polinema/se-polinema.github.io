@@ -24,8 +24,8 @@
             class="flex-shrink-0 w-80 snap-start border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 flex flex-col gap-3 hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
           >
             <!-- Cover image -->
-            <div v-if="book.coverImage" class="w-full aspect-[3/4] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/5 dark:border-gray-600 -mx-5 -mt-5 mb-1" style="width: calc(100% + 2.5rem);">
-              <img :src="book.coverImage" :alt="`Cover of ${book.title}`" class="w-full h-full object-cover object-center" loading="lazy" />
+            <div class="w-full aspect-[3/4] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/5 dark:border-gray-600 -mx-5 -mt-5 mb-1" style="width: calc(100% + 2.5rem);">
+              <BookCover :src="book.coverImage" :title="book.title" fit="cover" />
             </div>
             <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">
               {{ lang === 'id' && book.titleId ? book.titleId : book.title }}
@@ -79,6 +79,7 @@
 
 <script setup lang="ts">
 import CardCarousel from './CardCarousel.vue'
+import BookCover from './BookCover.vue'
 import { useI18n } from '../composables/useI18n'
 
 export interface MemberBook {

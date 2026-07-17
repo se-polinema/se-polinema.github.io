@@ -73,6 +73,8 @@
     "researchInterests": "Research Interests",
     "biographyHeading": "Biography",
     "booksHeading": "Books",
+    "certificationsHeading": "Certifications",
+    "verifyCredential": "Verify credential",
     "projectsHeading": "Projects",
     "booksEmpty": "Verified book records will be added as curated data is compiled from authoritative sources.",
     "projectsEmpty": "Selected projects will be added as project records are curated and linked to laboratory activities.",
