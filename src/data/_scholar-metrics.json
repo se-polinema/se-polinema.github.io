@@ -1,0 +1,80 @@
+{
+  "lastUpdated": "2026-07-17T00:25:05.761Z",
+  "labMetrics": {
+    "totalCitations": 1348,
+    "totalCitations5y": 1081,
+    "totalCitedPublications": 0,
+    "totalPublicationCitations": 0,
+    "avgCitationsPerPublication": 0
+  },
+  "researcherMetrics": [
+    {
+      "researcher": "ariadi-retno-tri-hayati-ririd",
+      "name": "Ariadi Retno Tri Hayati Ririd",
+      "scholarId": "qoWiXaQAAAAJ",
+      "citedby": 30,
+      "citedby5y": 21,
+      "hindex": 4,
+      "hindex5y": 3,
+      "i10index": 1,
+      "i10index5y": 0
+    },
+    {
+      "researcher": "dian-hanifudin-subhi",
+      "name": "Dian Hanifudin Subhi",
+      "scholarId": "pR2Dn7MAAAAJ",
+      "citedby": 65,
+      "citedby5y": 58,
+      "hindex": 4,
+      "hindex5y": 3,
+      "i10index": 1,
+      "i10index5y": 1
+    },
+    {
+      "researcher": "elok-nur-hamdana",
+      "name": "Elok Nur Hamdana",
+      "scholarId": "cduv_fAAAAAJ",
+      "citedby": 209,
+      "citedby5y": 188,
+      "hindex": 8,
+      "hindex5y": 8,
+      "i10index": 6,
+      "i10index5y": 6
+    },
+    {
+      "researcher": "imam-fahrur-rozi",
+      "name": "Imam Fahrur Rozi",
+      "scholarId": "WwrDWnEAAAAJ",
+      "citedby": 622,
+      "citedby5y": 437,
+      "hindex": 10,
+      "hindex5y": 9,
+      "i10index": 11,
+      "i10index5y": 8
+    },
+    {
+      "researcher": "moch-zawaruddin-abdullah",
+      "name": "Moch. Zawaruddin Abdullah",
+      "scholarId": "0uPC_KcAAAAJ",
+      "citedby": 217,
+      "citedby5y": 203,
+      "hindex": 7,
+      "hindex5y": 7,
+      "i10index": 3,
+      "i10index5y": 3
+    },
+    {
+      "researcher": "ridwan-rismanto",
+      "name": "Ridwan Rismanto",
+      "scholarId": "fJc_GegAAAAJ",
+      "citedby": 205,
+      "citedby5y": 174,
+      "hindex": 8,
+      "hindex5y": 7,
+      "i10index": 5,
+      "i10index5y": 4
+    }
+  ],
+  "publicationCitations": {},
+  "mostCitedPublications": []
+}

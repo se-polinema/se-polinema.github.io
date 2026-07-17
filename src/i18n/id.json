@@ -36,7 +36,7 @@
     "focusThree": "Produk perangkat lunak akademik terapan",
     "statTeam": "Peneliti",
     "statFocus": "Bidang Fokus",
-    "statProjects": "Publikasi Pilihan"
+    "statProjects": "Publikasi"
   },
   "about": {
     "label": "Tentang Lab",
@@ -79,6 +79,8 @@
     "booksEmpty": "Catatan buku terverifikasi akan ditambahkan setelah data kurasi dari sumber otoritatif tersedia.",
     "projectsEmpty": "Proyek terpilih akan ditambahkan setelah rekam proyek dikurasi dan dihubungkan dengan aktivitas laboratorium.",
     "worksLabel": "Karya",
+    "areasLabel": "Bidang",
+    "profilesLabel": "Profil",
     "hindexLabel": "h-index",
     "i10indexLabel": "i10-index",
     "citedByLabel": "Sitasi",

@@ -74,19 +74,19 @@
           <!-- Stats: mobile only — desktop sees them in the terminal -->
           <div class="grid grid-cols-3 gap-4 max-w-xs lg:hidden">
             <div class="border-t border-primary/10 dark:border-gray-600 pt-4">
-              <div class="font-serif text-3xl font-bold text-accent-700 dark:text-accent-400">6</div>
+              <div class="font-serif text-3xl font-bold text-accent-700 dark:text-accent-400">{{ researchers }}</div>
               <div class="text-xs text-primary/50 dark:text-gray-400 mt-1">
                 {{ t.hero.statTeam }}
               </div>
             </div>
             <div class="border-t border-primary/10 dark:border-gray-600 pt-4">
-              <div class="font-serif text-3xl font-bold text-accent-700 dark:text-accent-400">3</div>
+              <div class="font-serif text-3xl font-bold text-accent-700 dark:text-accent-400">{{ focusAreas }}</div>
               <div class="text-xs text-primary/50 dark:text-gray-400 mt-1">
                 {{ t.hero.statFocus }}
               </div>
             </div>
             <div class="border-t border-primary/10 dark:border-gray-600 pt-4">
-              <div class="font-serif text-3xl font-bold text-accent-700 dark:text-accent-400">20+</div>
+              <div class="font-serif text-3xl font-bold text-accent-700 dark:text-accent-400">{{ publications }}</div>
               <div class="text-xs text-primary/50 dark:text-gray-400 mt-1">
                 {{ t.hero.statProjects }}
               </div>
@@ -128,19 +128,19 @@
                 <p class="pl-4">
                   <span class="text-[#9CDCFE]">"researchers"</span
                   ><span class="text-white/40">: </span
-                  ><span class="text-[#98C379]">6</span
+                  ><span class="text-[#98C379]">{{ researchers }}</span
                   ><span class="text-white/40">,</span>
                 </p>
                 <p class="pl-4">
                   <span class="text-[#9CDCFE]">"focus_areas"</span
                   ><span class="text-white/40">: </span
-                  ><span class="text-[#98C379]">3</span
+                  ><span class="text-[#98C379]">{{ focusAreas }}</span
                   ><span class="text-white/40">,</span>
                 </p>
                 <p class="pl-4">
                   <span class="text-[#9CDCFE]">"publications"</span
                   ><span class="text-white/40">: </span
-                  ><span class="text-[#CE9178]">"20+"</span>
+                  ><span class="text-[#98C379]">{{ publications }}</span>
                 </p>
                 <p><span class="text-accent/80">}</span></p>
               </div>
@@ -155,6 +155,12 @@
 
 <script setup lang="ts">
 import { useI18n } from "../composables/useI18n";
+
+defineProps<{
+  researchers: number;
+  focusAreas: number;
+  publications: number;
+}>();
 
 const { t } = useI18n();
 

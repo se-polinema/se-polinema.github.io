@@ -10,6 +10,7 @@ const RESEARCHERS_DIR = resolve(ROOT, 'src/content/researchers')
 const PUBLICATIONS_DIR = resolve(ROOT, 'src/content/publications')
 const DATA_DIR = resolve(ROOT, 'src/data')
 const SYNC_META_FILE = resolve(DATA_DIR, '_sync-meta.json')
+const SCHOLAR_METRICS_FILE = resolve(DATA_DIR, '_scholar-metrics.json')
 
 const PUBLICATION_LIMIT = 100
 const REQUEST_DELAY_MS = 5000
@@ -155,6 +156,21 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
     const author = await scholarly.searchAuthorId(researcher.userId, true, 'date', PUBLICATION_LIMIT)
     const publications = author.publications || []
 
+    // Author-level metrics (h-index, i10-index, citations) come from this
+    // same searchAuthorId() call — reused here instead of a second, separate
+    // Google Scholar fetch (see scripts/sync-scholar-metrics.mjs, now removed).
+    const metrics = {
+      researcher: researcher.slug,
+      name: researcher.name,
+      scholarId: researcher.userId,
+      citedby: author.citedby ?? 0,
+      citedby5y: author.citedby5y ?? 0,
+      hindex: author.hindex ?? 0,
+      hindex5y: author.hindex5y ?? 0,
+      i10index: author.i10index ?? 0,
+      i10index5y: author.i10index5y ?? 0,
+    }
+
     console.log(`  Found ${publications.length} publications in profile.`)
 
     const results = []
@@ -215,10 +231,24 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
       })
     }
 
-    return results
+    return { publications: results, metrics }
   } catch (err) {
     console.error(`  Error fetching for ${researcher.name}:`, err.message)
-    return []
+    return {
+      publications: [],
+      metrics: {
+        researcher: researcher.slug,
+        name: researcher.name,
+        scholarId: researcher.userId,
+        citedby: 0,
+        citedby5y: 0,
+        hindex: 0,
+        hindex5y: 0,
+        i10index: 0,
+        i10index5y: 0,
+        _error: err.message,
+      },
+    }
   }
 }
 
@@ -238,19 +268,36 @@ async function main() {
   console.log('Loading existing publications...')
   const existing = loadExistingPublications()
   const existingKeys = new Set(existing.map(e => e.key))
+  const originalExistingKeys = new Set(existingKeys)
   console.log(`Found ${existing.length} existing publications.\n`)
 
   const allNew = []
   let totalFetched = 0
+  const researcherMetrics = []
+  const allPublicationCitations = {}
 
   for (const researcher of researchers) {
-    const pubs = await fetchPublicationsForResearcher(researcher, researchers)
+    const { publications: pubs, metrics } = await fetchPublicationsForResearcher(researcher, researchers)
     totalFetched += pubs.length
+    researcherMetrics.push(metrics)
 
     for (const pub of pubs) {
       if (!existingKeys.has(pub.key)) {
         allNew.push(pub)
         existingKeys.add(pub.key)
+      }
+
+      if (pub.citedByCount != null) {
+        const citation = { title: pub.title, year: pub.year, citedByCount: pub.citedByCount }
+        if (originalExistingKeys.has(pub.key)) {
+          allPublicationCitations[pub.key] = citation
+        } else if (allPublicationCitations[pub.key]) {
+          if (citation.citedByCount > allPublicationCitations[pub.key].citedByCount) {
+            allPublicationCitations[pub.key] = citation
+          }
+        } else {
+          allPublicationCitations[pub.key] = citation
+        }
       }
     }
 
@@ -301,6 +348,52 @@ async function main() {
   }
   writeFileSync(SYNC_META_FILE, JSON.stringify(syncMeta, null, 2) + '\n', 'utf-8')
   console.log(`\nSync meta written to ${SYNC_META_FILE}`)
+
+  const totalLabCitedby = researcherMetrics.reduce((sum, m) => sum + (m.citedby || 0), 0)
+  const totalLabCitedby5y = researcherMetrics.reduce((sum, m) => sum + (m.citedby5y || 0), 0)
+
+  const citationCounts = Object.values(allPublicationCitations).map(p => p.citedByCount || 0)
+  const totalPubCitations = citationCounts.reduce((sum, c) => sum + c, 0)
+  const avgCitations = citationCounts.length > 0
+    ? Math.round((totalPubCitations / citationCounts.length) * 100) / 100
+    : 0
+
+  const mostCited = Object.entries(allPublicationCitations)
+    .sort((a, b) => (b[1].citedByCount || 0) - (a[1].citedByCount || 0))
+    .slice(0, 10)
+    .map(([key, val]) => ({
+      key,
+      title: val.title,
+      year: val.year,
+      citedByCount: val.citedByCount || 0,
+    }))
+
+  const errors = researcherMetrics.filter(m => m._error).map(m => `${m.name}: ${m._error}`)
+
+  const scholarMetricsData = {
+    lastUpdated: new Date().toISOString(),
+    labMetrics: {
+      totalCitations: totalLabCitedby,
+      totalCitations5y: totalLabCitedby5y,
+      totalCitedPublications: Object.keys(allPublicationCitations).length,
+      totalPublicationCitations: totalPubCitations,
+      avgCitationsPerPublication: avgCitations,
+    },
+    researcherMetrics,
+    publicationCitations: allPublicationCitations,
+    mostCitedPublications: mostCited,
+    errors: errors.length > 0 ? errors : undefined,
+  }
+
+  writeFileSync(SCHOLAR_METRICS_FILE, JSON.stringify(scholarMetricsData, null, 2) + '\n', 'utf-8')
+  console.log(`Scholar metrics written to ${SCHOLAR_METRICS_FILE}`)
+
+  console.log('\n=== Per-Researcher Scholar Metrics ===')
+  for (const m of researcherMetrics) {
+    const err = m._error ? ` (error: ${m._error})` : ''
+    console.log(`  ${m.name}: h=${m.hindex} i10=${m.i10index} citedby=${m.citedby}${err}`)
+  }
+
   console.log('=== Done ===')
 }
 

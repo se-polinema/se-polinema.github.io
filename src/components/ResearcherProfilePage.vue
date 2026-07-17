@@ -46,11 +46,11 @@
               </div>
               <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
                 <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ researcher.expertise.length }}</div>
-                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">Areas</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">{{ t.team.areasLabel }}</div>
               </div>
               <div class="border border-primary/10 dark:border-gray-600 p-2 text-center">
                 <div class="font-serif text-lg font-bold text-primary dark:text-gray-100 tabular-nums leading-none">{{ externalProfileCount }}</div>
-                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">Profiles</div>
+                <div class="font-mono text-[8px] uppercase tracking-wide text-primary/35 dark:text-gray-500 mt-1 leading-tight">{{ t.team.profilesLabel }}</div>
               </div>
             </div>
 

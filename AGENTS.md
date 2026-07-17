@@ -16,10 +16,14 @@ npm run preview    # preview production build (astro preview)
 
 ## Sync Scripts
 
-### Publication Sync (`npm run sync:publications` — manual)
+### Publication Sync (`npm run sync:publications` — scheduled + manual)
 
-Fetches Google Scholar publications for all researchers and writes new entries as
-Markdown files under `src/content/publications/`.
+Fetches Google Scholar publications *and* author-level metrics (h-index,
+i10-index, total/5-year citations, per-publication citation counts) for all
+researchers in a single pass, and writes new publications as Markdown files
+under `src/content/publications/`. Runs on a bi-monthly schedule via
+`.github/workflows/update-publications.yml` (opens a PR with any changes);
+can also be run manually.
 
 ```bash
 node scripts/update-publications.mjs
@@ -27,31 +31,20 @@ node scripts/update-publications.mjs
 
 - Reads all researchers from `src/content/researchers/*.md`
 - Extracts Google Scholar user IDs from `googleScholarUrl`
-- Fetches up to 100 publications per researcher via `node-scholarly`
-- Deduplicates against existing publications (by normalized title + year)
+- For each researcher, calls `node-scholarly`'s `searchAuthorId()` once —
+  this single call returns both the publication list (up to 100 per
+  researcher) and author-level metrics, so nothing is fetched twice
+- Deduplicates new publications against existing ones (by normalized title + year)
 - Generates Markdown frontmatter with `title`, `year`, `type`, `venue`, `authors`,
   `url`, `doi` (if available), `googleScholarUrl`, `citedByCount` (if available),
   `researchers[]`, `featured`, `language`
-- Writes `src/data/_sync-meta.json` with `lastUpdated` timestamp and counts
+- Writes `src/data/_sync-meta.json` with `lastUpdated` timestamp and publication counts
+- Writes `src/data/_scholar-metrics.json` with h-index/i10-index/citation data
+  (same shape as below); falls back gracefully per-researcher if Google Scholar
+  blocks a request (stores zero values + an `_error` field, never crashes the sync)
 - Rate-limited: 5-second delay between researcher fetches, 15s timeout, 2 retries
 
-### Scholar Metrics Sync
-
-Fetches h-index, i10-index, total citations per researcher and per-publication
-citation counts from Google Scholar.
-
-```bash
-node scripts/sync-scholar-metrics.mjs
-```
-
-**What it does:**
-- For each researcher, fetches author profile metrics (h-index, i10-index, cited-by,
-  5-year variants) and the top 20 most-cited publications with citation counts
-- Writes all metrics to `src/data/_scholar-metrics.json` with a `lastUpdated` timestamp
-- Falls back gracefully if Google Scholar blocks (stores zero values and error metadata,
-  never crashes the build)
-
-**Output file:** `src/data/_scholar-metrics.json`
+**`_scholar-metrics.json` shape:**
 
 ```json
 {
@@ -86,16 +79,14 @@ node scripts/sync-scholar-metrics.mjs
 }
 ```
 
-**Rate limits:** 8-second delay between researcher fetches, 30s timeout, 3 retries.
-Adjust `REQUEST_DELAY_MS` and `PUBLICATION_LIMIT` in the script if needed.
-
 ### Metrics refresh workflow
 
-1. Run `node scripts/update-publications.mjs` to sync new publications from Scholar
-2. Run `node scripts/sync-scholar-metrics.mjs` to fetch latest citation counts
-3. Commit both updated data files (`_sync-meta.json`, `_scholar-metrics.json`)
-   and any new publication `.md` files
-4. The Astro build reads these files at build time — no runtime calls to Scholar
+1. Run `node scripts/update-publications.mjs` — syncs new publications *and*
+   scholar metrics from Google Scholar in one pass
+2. Commit both updated data files (`_sync-meta.json`, `_scholar-metrics.json`)
+   and any new publication `.md` files (the scheduled workflow does this
+   automatically via PR)
+3. The Astro build reads these files at build time — no runtime calls to Scholar
 
 The site gracefully handles missing metrics data:
 - `_scholar-metrics.json` is optional (not required for build)

@@ -36,7 +36,7 @@
     "focusThree": "Applied academic software products",
     "statTeam": "Researchers",
     "statFocus": "Focus Areas",
-    "statProjects": "Selected Publications"
+    "statProjects": "Publications"
   },
   "about": {
     "label": "About the Lab",
@@ -79,6 +79,8 @@
     "booksEmpty": "Verified book records will be added as curated data is compiled from authoritative sources.",
     "projectsEmpty": "Selected projects will be added as project records are curated and linked to laboratory activities.",
     "worksLabel": "Works",
+    "areasLabel": "Areas",
+    "profilesLabel": "Profiles",
     "hindexLabel": "h-index",
     "i10indexLabel": "i10-index",
     "citedByLabel": "Citations",

@@ -14,10 +14,13 @@ import JsonLd from '../components/JsonLd.astro'
 import EditOnGitHub from '../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
 import { getMemberProjects, getMemberBooks, getCollectionProjects } from '../lib/memberWorks'
+import { getLabStats } from '../lib/labStats'
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import achievementsData from '../data/achievements.json'
 import type { Achievement } from '../types/achievement'
+
+const labStats = await getLabStats()
 
 const posts = await getCollection('blog', ({ data }) => data.lang === 'en' || data.lang === 'id')
 const sortedPosts = posts
@@ -127,7 +130,7 @@ const organizationJsonLd = {
 
 <VSCodeLayout title="Software Engineering Laboratory">
   <JsonLd slot="head" data={organizationJsonLd} />
-  <Hero client:load />
+  <Hero client:load researchers={labStats.researchers} focusAreas={labStats.focusAreas} publications={labStats.publications} />
   <About client:load />
   <Research client:load />
   <Projects client:load projects={projects} />
