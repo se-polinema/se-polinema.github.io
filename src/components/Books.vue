@@ -17,7 +17,7 @@
 
       <!-- Carousel -->
       <template v-if="books.length > 0">
-        <CardCarousel>
+        <CardCarousel autoplay>
           <div
             v-for="book in books"
             :key="book.title"

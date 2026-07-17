@@ -41,6 +41,16 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 
+const props = withDefaults(defineProps<{
+  /** Auto-advance the carousel when it's not being interacted with. Off by default. */
+  autoplay?: boolean
+  /** Milliseconds between auto-advance ticks. */
+  intervalMs?: number
+}>(), {
+  autoplay: false,
+  intervalMs: 4500,
+})
+
 const { t } = useI18n()
 const trackRef = ref<HTMLElement | null>(null)
 const showButtons = ref(false)
@@ -61,6 +71,36 @@ function scroll(dir: 1 | -1) {
   trackRef.value?.scrollBy({ left: dir * CARD_WIDTH, behavior: 'smooth' })
 }
 
+let autoplayTimer: ReturnType<typeof setInterval> | null = null
+
+function tick() {
+  const el = trackRef.value
+  if (!el || !showButtons.value) return
+  if (atEnd.value) {
+    el.scrollTo({ left: 0, behavior: 'smooth' })
+  } else {
+    scroll(1)
+  }
+}
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== 'undefined'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function startAutoplay() {
+  if (!props.autoplay || !showButtons.value || prefersReducedMotion()) return
+  stopAutoplay()
+  autoplayTimer = setInterval(tick, props.intervalMs)
+}
+
+function stopAutoplay() {
+  if (autoplayTimer !== null) {
+    clearInterval(autoplayTimer)
+    autoplayTimer = null
+  }
+}
+
 onMounted(() => {
   const el = trackRef.value
   if (!el) return
@@ -68,9 +108,30 @@ onMounted(() => {
   el.addEventListener('scroll', updateState, { passive: true })
   const ro = new ResizeObserver(updateState)
   ro.observe(el)
+
+  // Pause autoplay on hover, keyboard focus, or an in-flight drag/swipe —
+  // the standard accessible-carousel pattern — and resume once the user
+  // steps away. pointerenter/pointerleave don't bubble for child elements,
+  // so moving between cards inside the track doesn't spuriously toggle this.
+  el.addEventListener('pointerenter', stopAutoplay)
+  el.addEventListener('pointerleave', startAutoplay)
+  el.addEventListener('focusin', stopAutoplay)
+  el.addEventListener('focusout', startAutoplay)
+  el.addEventListener('pointerdown', stopAutoplay)
+  el.addEventListener('pointerup', startAutoplay)
+
+  startAutoplay()
+
   onUnmounted(() => {
     el.removeEventListener('scroll', updateState)
     ro.disconnect()
+    el.removeEventListener('pointerenter', stopAutoplay)
+    el.removeEventListener('pointerleave', startAutoplay)
+    el.removeEventListener('focusin', stopAutoplay)
+    el.removeEventListener('focusout', startAutoplay)
+    el.removeEventListener('pointerdown', stopAutoplay)
+    el.removeEventListener('pointerup', startAutoplay)
+    stopAutoplay()
   })
 })
 </script>

@@ -17,7 +17,7 @@
 
       <!-- Carousel -->
       <template v-if="projects.length > 0">
-        <CardCarousel>
+        <CardCarousel autoplay>
           <div
             v-for="project in projects"
             :key="project.repo"
