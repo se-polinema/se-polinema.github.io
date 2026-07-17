@@ -1,13 +1,13 @@
 <template>
   <section class="impact-dashboard w-full max-w-4xl mx-auto px-4 py-8 md:py-12">
     <header class="mb-10">
-      <h1 class="font-serif text-3xl md:text-4xl font-bold text-white mb-3">
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-primary dark:text-gray-100 mb-3">
         {{ tr('heading') }}
       </h1>
-      <p class="font-sans text-white/55 text-sm md:text-base max-w-2xl">
+      <p class="font-sans text-neutral-500 dark:text-gray-400 text-sm md:text-base max-w-2xl">
         {{ tr('description') }}
       </p>
-      <p v-if="stats.lastUpdated" class="font-mono text-[11px] uppercase tracking-wider text-white/25 mt-3">
+      <p v-if="stats.lastUpdated" class="font-mono text-[11px] uppercase tracking-wider text-neutral-400 dark:text-gray-500 mt-3">
         {{ tr('lastUpdated') }}: {{ new Date(stats.lastUpdated).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}
       </p>
     </header>
@@ -15,10 +15,10 @@
     <!-- Summary Stat Cards -->
     <dl class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
       <div v-for="card in statCards" :key="card.key" class="stat-card">
-        <dd class="font-serif text-3xl md:text-4xl font-bold leading-none" :style="{ color: card.color }">
+        <dd class="font-serif text-3xl md:text-4xl font-bold leading-none" :style="{ color: isDark ? card.color : card.colorLight }">
           {{ card.value }}
         </dd>
-        <dt class="font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-white/35 mt-1.5">
+        <dt class="font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-neutral-400 dark:text-gray-500 mt-1.5">
           {{ card.label }}
         </dt>
       </div>
@@ -26,7 +26,7 @@
 
     <!-- Publication Trend Chart -->
     <div class="mb-12">
-      <h2 class="font-serif text-xl font-bold text-white mb-5">{{ tr('pubTrend') }}</h2>
+      <h2 class="font-serif text-xl font-bold text-primary dark:text-gray-100 mb-5">{{ tr('pubTrend') }}</h2>
       <div class="chart-container">
         <svg
           :viewBox="`0 0 ${chartWidth} ${chartHeight}`"
@@ -41,7 +41,7 @@
             :x2="chartWidth - 12"
             :y1="yPos(i)"
             :y2="yPos(i)"
-            stroke="rgba(255,255,255,0.06)"
+            class="chart-grid"
             stroke-width="1"
           />
           <text
@@ -51,7 +51,6 @@
             :y="yPos(i) + 4"
             text-anchor="end"
             class="chart-label"
-            fill="rgba(255,255,255,0.3)"
             font-size="10"
             font-family="monospace"
           >{{ Math.round(i) }}</text>
@@ -100,7 +99,6 @@
             :y="chartHeight - 4"
             text-anchor="middle"
             class="chart-label"
-            fill="rgba(255,255,255,0.3)"
             font-size="10"
             font-family="monospace"
           >{{ entry.year }}</text>
@@ -113,7 +111,7 @@
       <!-- Publications by Type -->
       <div>
         <div class="flex items-center justify-between mb-3">
-          <h2 class="font-serif text-lg font-bold text-white">{{ tr('pubByType') }}</h2>
+          <h2 class="font-serif text-lg font-bold text-primary dark:text-gray-100">{{ tr('pubByType') }}</h2>
         </div>
         <table class="data-table" role="grid">
           <thead>
@@ -140,7 +138,7 @@
       <!-- Publications by Stream -->
       <div>
         <div class="flex items-center justify-between mb-3">
-          <h2 class="font-serif text-lg font-bold text-white">{{ tr('pubByStream') }}</h2>
+          <h2 class="font-serif text-lg font-bold text-primary dark:text-gray-100">{{ tr('pubByStream') }}</h2>
         </div>
         <table class="data-table" role="grid">
           <thead>
@@ -167,7 +165,7 @@
       <!-- Researcher Productivity -->
       <div class="md:col-span-2">
         <div class="flex items-center justify-between mb-3">
-          <h2 class="font-serif text-lg font-bold text-white">{{ tr('researcherProductivity') }}</h2>
+          <h2 class="font-serif text-lg font-bold text-primary dark:text-gray-100">{{ tr('researcherProductivity') }}</h2>
         </div>
         <table class="data-table" role="grid">
           <thead>
@@ -201,9 +199,9 @@
               <td class="font-mono">{{ r.publicationCount }}</td>
               <td class="font-mono">{{ r.citedBy }}</td>
               <td class="font-mono">{{ r.hindex }}</td>
-              <td class="text-white/60 text-sm">{{ primaryStreamLabel(r) }}</td>
+              <td class="text-neutral-500 dark:text-gray-400 text-sm">{{ primaryStreamLabel(r) }}</td>
               <td class="hidden sm:table-cell">
-                <a :href="`/researchers/${r.id}`" class="text-[#6AB0F5] hover:underline text-sm font-mono">
+                <a :href="`/researchers/${r.id}`" class="text-accent-700 dark:text-accent-400 hover:underline text-sm font-mono">
                   {{ tr('viewProfile') }}
                 </a>
               </td>
@@ -215,7 +213,7 @@
       <!-- Most-Cited Publications -->
       <div class="md:col-span-2">
         <div class="flex items-center justify-between mb-3">
-          <h2 class="font-serif text-lg font-bold text-white">{{ tr('mostCitedPubs') }}</h2>
+          <h2 class="font-serif text-lg font-bold text-primary dark:text-gray-100">{{ tr('mostCitedPubs') }}</h2>
         </div>
         <table class="data-table" role="grid" v-if="mostCitedSorted.length > 0">
           <thead>
@@ -233,7 +231,7 @@
             </tr>
           </tbody>
         </table>
-        <p v-else class="text-white/40 text-sm">{{ tr('noMostCited') }}</p>
+        <p v-else class="text-neutral-400 dark:text-gray-500 text-sm">{{ tr('noMostCited') }}</p>
       </div>
     </div>
   </section>
@@ -242,6 +240,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { useTheme } from '../composables/useTheme'
 import en from '../i18n/en.json'
 import id from '../i18n/id.json'
 
@@ -289,6 +288,28 @@ const props = defineProps<{
 }>()
 
 const { lang } = useI18n()
+const { theme } = useTheme()
+const isDark = computed(() => theme.value === 'dark')
+
+// Theme-derived CSS values for the scoped <style> block below (bound via
+// v-bind() so they react live to theme toggles). Vue's :global() pseudo-class
+// only accepts a standalone selector — it can't express "ancestor .dark
+// overrides this scoped descendant class" — so v-bind() is the correct
+// mechanism here instead of hand-rolled :global(html.dark) .foo rules.
+const statCardBg = computed(() => (isDark.value ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)'))
+const statCardBorder = computed(() => (isDark.value ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)'))
+const statCardHoverBg = computed(() => (isDark.value ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)'))
+const statCardHoverBorder = computed(() => (isDark.value ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'))
+const chartContainerBg = computed(() => (isDark.value ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.015)'))
+const chartContainerBorder = computed(() => (isDark.value ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)'))
+const chartGridStroke = computed(() => (isDark.value ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)'))
+const chartLabelFill = computed(() => (isDark.value ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.45)'))
+const tableTheadBorder = computed(() => (isDark.value ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'))
+const tableThColor = computed(() => (isDark.value ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.45)'))
+const tableThHoverColor = computed(() => (isDark.value ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,0.7)'))
+const tableTdColor = computed(() => (isDark.value ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.8)'))
+const tableTdBorder = computed(() => (isDark.value ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.06)'))
+const tableRowHoverBg = computed(() => (isDark.value ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)'))
 
 const translations = { en: (en as Record<string, unknown>).impact as Record<string, string>, id: (id as Record<string, unknown>).impact as Record<string, string> }
 
@@ -316,16 +337,16 @@ const statsDict = computed(() => {
 const hoveredBar = ref<number | null>(null)
 
 const statCards = computed(() => [
-  { key: 'researchers',   label: statsDict.value.researchers  ?? defaultStats.researchers,   value: props.stats.researchers,   color: '#F5A100' },
-  { key: 'publications',  label: statsDict.value.publications ?? defaultStats.publications,  value: props.stats.publications,  color: '#6AB0F5' },
-  { key: 'totalCitations', label: tr('totalCitations')       ?? 'Total Citations',          value: props.stats.totalCitations, color: '#F5A100' },
-  { key: 'avgCitations',  label: tr('avgCitations')          ?? 'Avg Citations/Pub',        value: formatAvg(props.stats.avgCitationsPerPublication), color: '#98C379' },
-  { key: 'projects',      label: statsDict.value.projects     ?? defaultStats.projects,      value: props.stats.projects,      color: '#98C379' },
-  { key: 'books',         label: statsDict.value.books        ?? defaultStats.books,         value: props.stats.books,         color: '#CE9178' },
-  { key: 'tutorials',     label: tr('tutorials')              ?? 'Tutorials',                value: props.stats.tutorials,     color: '#C586C0' },
-  { key: 'events',        label: tr('events')                 ?? 'Events',                   value: props.stats.events,        color: '#D4D4D4' },
-  { key: 'achievements',  label: tr('achievements')           ?? 'Achievements',             value: props.stats.achievements,  color: '#DCDCAA' },
-  { key: 'focusAreas',    label: tr('focusAreas')             ?? 'Focus Areas',              value: props.stats.focusAreas,    color: '#F44747' },
+  { key: 'researchers',   label: statsDict.value.researchers  ?? defaultStats.researchers,   value: props.stats.researchers,   color: '#F5A100', colorLight: '#9A6A00' },
+  { key: 'publications',  label: statsDict.value.publications ?? defaultStats.publications,  value: props.stats.publications,  color: '#6AB0F5', colorLight: '#1E6FB8' },
+  { key: 'totalCitations', label: tr('totalCitations')       ?? 'Total Citations',          value: props.stats.totalCitations, color: '#F5A100', colorLight: '#9A6A00' },
+  { key: 'avgCitations',  label: tr('avgCitations')          ?? 'Avg Citations/Pub',        value: formatAvg(props.stats.avgCitationsPerPublication), color: '#98C379', colorLight: '#4E8A2F' },
+  { key: 'projects',      label: statsDict.value.projects     ?? defaultStats.projects,      value: props.stats.projects,      color: '#98C379', colorLight: '#4E8A2F' },
+  { key: 'books',         label: statsDict.value.books        ?? defaultStats.books,         value: props.stats.books,         color: '#CE9178', colorLight: '#A85D3E' },
+  { key: 'tutorials',     label: tr('tutorials')              ?? 'Tutorials',                value: props.stats.tutorials,     color: '#C586C0', colorLight: '#8B4E86' },
+  { key: 'events',        label: tr('events')                 ?? 'Events',                   value: props.stats.events,        color: '#D4D4D4', colorLight: '#6B7280' },
+  { key: 'achievements',  label: tr('achievements')           ?? 'Achievements',             value: props.stats.achievements,  color: '#DCDCAA', colorLight: '#8A7A2E' },
+  { key: 'focusAreas',    label: tr('focusAreas')             ?? 'Focus Areas',              value: props.stats.focusAreas,    color: '#F44747', colorLight: '#C62828' },
 ])
 
 type TableKey = 'byType' | 'byStream' | 'byResearcher'
@@ -461,8 +482,8 @@ function barX(idx: number): number {
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: v-bind(statCardBg);
+  border: 1px solid v-bind(statCardBorder);
   border-radius: 6px;
   padding: 16px 14px;
   text-align: center;
@@ -470,21 +491,26 @@ function barX(idx: number): number {
 }
 
 .stat-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: v-bind(statCardHoverBg);
+  border-color: v-bind(statCardHoverBorder);
 }
 
 .chart-container {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: v-bind(chartContainerBg);
+  border: 1px solid v-bind(chartContainerBorder);
   border-radius: 8px;
   padding: 16px 8px 8px;
   overflow-x: auto;
 }
 
+.chart-grid {
+  stroke: v-bind(chartGridStroke);
+}
+
 .chart-label {
   user-select: none;
   pointer-events: none;
+  fill: v-bind(chartLabelFill);
 }
 
 .trend-bar {
@@ -507,7 +533,7 @@ function barX(idx: number): number {
 }
 
 .data-table thead {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid v-bind(tableTheadBorder);
 }
 
 .data-table th {
@@ -517,24 +543,24 @@ function barX(idx: number): number {
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.35);
+  color: v-bind(tableThColor);
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
 }
 
 .data-table th:hover {
-  color: rgba(255, 255, 255, 0.65);
+  color: v-bind(tableThHoverColor);
 }
 
 .data-table td {
   padding: 8px 10px;
-  color: rgba(255, 255, 255, 0.75);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: v-bind(tableTdColor);
+  border-bottom: 1px solid v-bind(tableTdBorder);
 }
 
 .data-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: v-bind(tableRowHoverBg);
 }
 
 .sort-arrow {
