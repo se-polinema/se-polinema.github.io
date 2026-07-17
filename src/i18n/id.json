@@ -608,6 +608,16 @@
     "deleteAction": "Hapus",
     "noEntries": "Belum ada anggota."
   },
+  "confirmDialog": {
+    "deleteTitle": "Hapus Anggota",
+    "deleteMessage": "Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus anggota ini?",
+    "deleteConfirmLabel": "Hapus",
+    "cancelLabel": "Batal",
+    "unsavedTitle": "Perubahan Belum Disimpan",
+    "unsavedMessage": "Apakah Anda ingin menyimpan perubahan yang Anda buat? Perubahan akan hilang jika tidak disimpan.",
+    "saveLabel": "Simpan",
+    "dontSaveLabel": "Jangan Simpan"
+  },
   "search": {
     "placeholder": "Cari peneliti, publikasi, proyek, blog, dan acara...",
     "noResults": "Tidak ada hasil ditemukan",

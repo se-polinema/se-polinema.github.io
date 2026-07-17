@@ -608,6 +608,16 @@
     "deleteAction": "Delete",
     "noEntries": "No members yet."
   },
+  "confirmDialog": {
+    "deleteTitle": "Delete Member",
+    "deleteMessage": "This action cannot be undone. Are you sure you want to delete this member?",
+    "deleteConfirmLabel": "Delete",
+    "cancelLabel": "Cancel",
+    "unsavedTitle": "Unsaved Changes",
+    "unsavedMessage": "Do you want to save the changes you made? Your changes will be lost if you don't save them.",
+    "saveLabel": "Save",
+    "dontSaveLabel": "Don't Save"
+  },
   "search": {
     "placeholder": "Search researchers, publications, projects, blog, and events...",
     "noResults": "No results found",

@@ -176,6 +176,10 @@
         </div>
 
         <div v-else>
+          <div v-if="memberActionError" class="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
+            {{ memberActionError }}
+          </div>
+
           <div class="flex items-center gap-2 mb-6">
             <button
               v-for="f in memberFilterOptions"
@@ -344,9 +348,11 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { useConfirmDialog } from '../composables/useConfirmDialog'
 import { supabase } from '../lib/supabase'
 
 const { t } = useI18n()
+const { confirm, confirmUnsaved } = useConfirmDialog()
 
 type AuthState = 'loading' | 'unauthenticated' | 'unauthorized' | 'admin'
 
@@ -407,6 +413,8 @@ const memberFilter = ref<typeof memberFilterOptions[number]>('all')
 const showMemberForm = ref(false)
 const editingMemberId = ref<string | null>(null)
 const savingMember = ref(false)
+const memberActionError = ref('')
+let memberFormSnapshot = ''
 
 function emptyMemberForm() {
   return {
@@ -441,14 +449,50 @@ function resetMemberForm() {
   editingMemberId.value = null
 }
 
-function openAddMemberForm() {
-  resetMemberForm()
-  showMemberForm.value = true
+function snapshotMemberForm() {
+  memberFormSnapshot = JSON.stringify(memberForm)
 }
 
-function closeMemberForm() {
+function isMemberFormDirty(): boolean {
+  return JSON.stringify(memberForm) !== memberFormSnapshot
+}
+
+function openAddMemberForm() {
+  resetMemberForm()
+  memberActionError.value = ''
+  showMemberForm.value = true
+  snapshotMemberForm()
+}
+
+// The actual, unconditional close — used after a successful save, and as
+// the "discard" outcome of the unsaved-changes dialog. Does not itself
+// check for unsaved changes; closeMemberForm() below is the guarded
+// entry point used by the Cancel button.
+function forceCloseMemberForm() {
   showMemberForm.value = false
   resetMemberForm()
+}
+
+async function closeMemberForm() {
+  if (!isMemberFormDirty()) {
+    forceCloseMemberForm()
+    return
+  }
+
+  const result = await confirmUnsaved({
+    title: t.value.confirmDialog.unsavedTitle,
+    message: t.value.confirmDialog.unsavedMessage,
+    saveLabel: t.value.confirmDialog.saveLabel,
+    discardLabel: t.value.confirmDialog.dontSaveLabel,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+  })
+
+  if (result === 'save') {
+    await handleSaveMember()
+  } else if (result === 'discard') {
+    forceCloseMemberForm()
+  }
+  // 'cancel' → leave the form open, do nothing.
 }
 
 function editMember(m: MemberRow) {
@@ -471,7 +515,9 @@ function editMember(m: MemberRow) {
     research_topics: m.research_topics ?? '',
     career_update: m.career_update ?? '',
   })
+  memberActionError.value = ''
   showMemberForm.value = true
+  snapshotMemberForm()
 }
 
 async function loadMembers() {
@@ -486,6 +532,7 @@ async function loadMembers() {
 
 async function handleSaveMember() {
   savingMember.value = true
+  memberActionError.value = ''
 
   const payload = {
     status: memberForm.status,
@@ -506,20 +553,36 @@ async function handleSaveMember() {
     career_update: memberForm.career_update.trim() || null,
   }
 
-  if (editingMemberId.value) {
-    await supabase.schema('se').from('members').update(payload).eq('id', editingMemberId.value)
-  } else {
-    await supabase.schema('se').from('members').insert(payload)
-  }
+  const { error } = editingMemberId.value
+    ? await supabase.schema('se').from('members').update(payload).eq('id', editingMemberId.value)
+    : await supabase.schema('se').from('members').insert(payload)
 
   savingMember.value = false
-  closeMemberForm()
+
+  if (error) {
+    memberActionError.value = error.message
+    return
+  }
+
+  forceCloseMemberForm()
   await loadMembers()
 }
 
 async function deleteMember(m: MemberRow) {
-  if (!confirm(t.value.membersAdmin.deleteConfirm)) return
-  await supabase.schema('se').from('members').delete().eq('id', m.id)
+  const ok = await confirm({
+    title: t.value.confirmDialog.deleteTitle,
+    message: t.value.confirmDialog.deleteMessage,
+    confirmLabel: t.value.confirmDialog.deleteConfirmLabel,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+    variant: 'danger',
+  })
+  if (!ok) return
+
+  const { error } = await supabase.schema('se').from('members').delete().eq('id', m.id)
+  if (error) {
+    memberActionError.value = error.message
+    return
+  }
   await loadMembers()
 }
 

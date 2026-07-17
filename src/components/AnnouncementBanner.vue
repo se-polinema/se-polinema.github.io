@@ -1,56 +1,63 @@
 <template>
-  <div
-    v-if="isVisible && mounted"
-    ref="bannerRef"
-    role="banner"
-    :aria-label="bannerMessage"
-    :class="[
-      'fixed top-0 left-0 right-0 z-[10000] border-b backdrop-blur-sm shadow-md transition-all duration-300',
-      typeClasses[config.type] || typeClasses.info,
-    ]"
-  >
-    <div class="section-container py-2.5 md:py-3">
-      <div class="flex items-start gap-3">
-        <p class="text-xs md:text-sm leading-relaxed flex-1 min-w-0 pt-0.5">
-          <span>{{ bannerMessage }}</span>
-          <a
-            v-if="bannerLink && bannerLinkText"
-            :href="bannerLink"
-            class="ml-1.5 font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity inline-flex items-center gap-0.5"
-          >
-            {{ bannerLinkText }}
-            <span aria-hidden="true" class="text-[10px]">&rsaquo;</span>
-          </a>
-        </p>
-        <button
-          v-if="config.dismissible !== false"
-          @click="handleDismiss"
-          ref="closeBtn"
-          :aria-label="t.announcement.closeLabel"
-          class="flex-shrink-0 p-1 -mr-1 opacity-60 hover:opacity-100 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-1"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            aria-hidden="true"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+  <Teleport to="body">
+    <Transition name="dialog-fade">
+      <div
+        v-if="isVisible && mounted"
+        class="vscode-dialog-overlay"
+        role="dialog"
+        aria-modal="true"
+        :aria-label="bannerMessage"
+        @click.self="config.dismissible !== false ? handleDismiss() : undefined"
+      >
+        <div ref="panelEl" class="vscode-dialog-panel" tabindex="-1" @keydown="onKeydown">
+          <div class="vscode-dialog-icon" :class="iconClass">
+            <svg v-if="config.type === 'success'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <svg v-else-if="config.type === 'warning'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+          </div>
+
+          <p class="vscode-dialog-message">{{ bannerMessage }}</p>
+
+          <div class="vscode-dialog-actions">
+            <button
+              v-if="config.dismissible !== false"
+              ref="closeBtn"
+              class="vscode-dialog-btn vscode-dialog-btn-ghost"
+              :aria-label="t.announcement.closeLabel"
+              @click="handleDismiss"
+            >
+              {{ t.announcement.closeLabel }}
+            </button>
+            <a
+              v-if="bannerLink && bannerLinkText"
+              :href="bannerLink"
+              class="vscode-dialog-btn vscode-dialog-btn-primary"
+            >
+              {{ bannerLinkText }}
+              <span aria-hidden="true">&rsaquo;</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import '../styles/vscode-dialog.css'
 
 interface AnnouncementConfig {
   enabled: boolean
@@ -76,14 +83,14 @@ const STORAGE_PREFIX = 'se-lab-ann-'
 
 const mounted = ref(false)
 const locallyDismissed = ref(false)
-const bannerRef = ref<HTMLElement | null>(null)
+const panelEl = ref<HTMLElement | null>(null)
 const closeBtn = ref<HTMLButtonElement | null>(null)
 
-const typeClasses: Record<string, string> = {
-  info: 'bg-primary/95 text-white border-primary/30',
-  warning: 'bg-accent/95 text-white border-accent/30',
-  success: 'bg-green-700/95 text-white border-green-700/30',
-}
+const iconClass = computed(() => {
+  if (props.config.type === 'success') return 'vscode-dialog-icon-success'
+  if (props.config.type === 'warning') return 'vscode-dialog-icon-warning'
+  return 'vscode-dialog-icon-info'
+})
 
 function hashConfig(config: AnnouncementConfig): string {
   const content = (config.message || '') + (config.messageId || '')
@@ -147,25 +154,31 @@ onMounted(() => {
     }
   } catch {}
 
-  if (isVisible.value && closeBtn.value) {
-    closeBtn.value.focus()
-  }
-
-  function handleKeydown(e: KeyboardEvent) {
-    if (!bannerRef.value) return
-    if (e.key === 'Escape') {
-      handleDismiss()
+  if (isVisible.value) {
+    if (closeBtn.value) {
+      closeBtn.value.focus()
+    } else {
+      panelEl.value?.focus()
     }
   }
-
-  document.addEventListener('keydown', handleKeydown)
 })
 
 watch(lang, () => {
-  if (isVisible.value && closeBtn.value) {
-    closeBtn.value.focus()
+  if (isVisible.value) {
+    if (closeBtn.value) {
+      closeBtn.value.focus()
+    } else {
+      panelEl.value?.focus()
+    }
   }
 })
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && props.config.dismissible !== false) {
+    e.preventDefault()
+    handleDismiss()
+  }
+}
 
 function handleDismiss() {
   locallyDismissed.value = true

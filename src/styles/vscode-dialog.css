@@ -1,0 +1,145 @@
+/*
+ * Shared visual primitives for VSCode-chrome-styled modal dialogs
+ * (ConfirmDialog.vue, AnnouncementBanner.vue). Deliberately unscoped/global
+ * (not a Vue <style scoped> block) so both components render an identical
+ * dialog shell without copy-pasted CSS. These are part of the site's
+ * always-dark VSCode chrome — independent of the site's light/dark theme
+ * toggle, matching SearchOverlay.vue's approach of literal hex values.
+ */
+
+.vscode-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.vscode-dialog-panel {
+  width: 420px;
+  max-width: 100%;
+  padding: 24px;
+  background: #1a1f2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+.vscode-dialog-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+}
+
+.vscode-dialog-icon-danger {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.vscode-dialog-icon-warning {
+  color: #f5a100;
+  background: rgba(245, 161, 0, 0.12);
+}
+
+.vscode-dialog-icon-info {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+}
+
+.vscode-dialog-icon-success {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.vscode-dialog-title {
+  margin: 0 0 8px;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.vscode-dialog-message {
+  margin: 0 0 20px;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.vscode-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.vscode-dialog-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 16px;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease;
+}
+
+.vscode-dialog-btn-ghost {
+  color: #e0e4ef;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.vscode-dialog-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.vscode-dialog-btn-danger {
+  color: #ffffff;
+  background: #dc2626;
+}
+
+.vscode-dialog-btn-danger:hover {
+  background: #b91c1c;
+}
+
+.vscode-dialog-btn-primary {
+  color: #1a1f2e;
+  background: #f5a100;
+}
+
+.vscode-dialog-btn-primary:hover {
+  background: #ffb524;
+}
+
+.dialog-fade-enter-active {
+  transition: opacity 0.12s ease;
+}
+
+.dialog-fade-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.dialog-fade-enter-from,
+.dialog-fade-leave-to {
+  opacity: 0;
+}
+
+.dialog-fade-enter-to,
+.dialog-fade-leave-from {
+  opacity: 1;
+}

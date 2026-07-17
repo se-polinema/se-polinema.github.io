@@ -6,6 +6,7 @@ import TabBar from '../components/vscode/TabBar.vue'
 import BottomPanel from '../components/vscode/BottomPanel.vue'
 import StatusBar from '../components/vscode/StatusBar.vue'
 import SearchOverlay from '../components/vscode/SearchOverlay.vue'
+import ConfirmDialog from '../components/vscode/ConfirmDialog.vue'
 
 export interface Props {
   title: string
@@ -87,6 +88,7 @@ const { title, description, image, type, lang } = Astro.props
 
     <StatusBar client:only="vue" />
     <SearchOverlay client:load />
+    <ConfirmDialog client:load />
   </div>
 
   <script>
