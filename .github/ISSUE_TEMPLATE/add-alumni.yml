@@ -61,8 +61,8 @@ body:
   - type: input
     id: current_role_id
     attributes:
-      label: Current Role (Bahasa Indonesia)
-      description: Their current professional role, in Bahasa Indonesia
+      label: Current Position (Bahasa Indonesia)
+      description: Their current job title, or study program if continuing their education (e.g. "Mahasiswa S2 Ilmu Komputer"), in Bahasa Indonesia
       placeholder: Software Engineer
     validations:
       required: true
@@ -70,8 +70,8 @@ body:
   - type: input
     id: current_role_en
     attributes:
-      label: Current Role (English)
-      description: Their current professional role, in English
+      label: Current Position (English)
+      description: Their current job title, or study program if continuing their education (e.g. "MSc student in Computer Science"), in English
       placeholder: Software Engineer
     validations:
       required: true
@@ -79,8 +79,8 @@ body:
   - type: input
     id: current_org_id
     attributes:
-      label: Current Organization (Bahasa Indonesia)
-      description: Their current workplace/organization, in Bahasa Indonesia
+      label: Current Affiliation (Bahasa Indonesia)
+      description: Their current employer, or the university/institute if continuing their studies — what's next for them after the lab, in Bahasa Indonesia. This is NOT Politeknik Negeri Malang (that's already captured by Exit Year above).
       placeholder: PT Maju Teknologi
     validations:
       required: true
@@ -88,8 +88,8 @@ body:
   - type: input
     id: current_org_en
     attributes:
-      label: Current Organization (English)
-      description: Their current workplace/organization, in English
+      label: Current Affiliation (English)
+      description: Their current employer, or the university/institute if continuing their studies — what's next for them after the lab, in English. This is NOT Politeknik Negeri Malang (that's already captured by Exit Year above).
       placeholder: PT Maju Teknologi
     validations:
       required: true
