@@ -91,6 +91,25 @@
         {{ lang === 'en' ? 'EN' : 'ID' }}
       </button>
 
+      <span class="w-px h-3.5 bg-primary/20" />
+
+      <!-- Palette switcher (discussion tool — cycles through candidate palettes) -->
+      <button
+        @click="cyclePalette"
+        class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-primary font-semibold hover:bg-primary/10 transition-colors capitalize"
+        :title="`Palette: ${palette} — click to cycle`"
+        :aria-label="`Switch color palette, current: ${palette}`"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="13.5" cy="6.5" r=".5"/>
+          <circle cx="17.5" cy="10.5" r=".5"/>
+          <circle cx="8.5" cy="7.5" r=".5"/>
+          <circle cx="6.5" cy="12.5" r=".5"/>
+          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+        </svg>
+        <span class="hidden md:inline">{{ palette }}</span>
+      </button>
+
       <span class="text-[11px] font-mono text-primary/60 ml-1">UTF-8</span>
     </div>
   </div>
@@ -100,8 +119,10 @@
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import { useTheme } from '../../composables/useTheme'
+import { usePalette } from '../../composables/usePalette'
 
 const { panelOpen, togglePanel } = useVSCodeLayout()
 const { lang, t, toggleLang } = useI18n()
 const { theme, toggleTheme } = useTheme()
+const { palette, cyclePalette } = usePalette()
 </script>

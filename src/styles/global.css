@@ -25,6 +25,16 @@
   --color-vscode-statusbar: #F5A100;
   --color-vscode-panel: #0D1B2E;
   --color-vscode-panel-tab: #162032;
+  /* Text/icon/hairline colors that sit ON TOP OF the chrome regions above
+     (activity bar, sidebar, tab bar, panel). Compass's chrome is always
+     dark, so these match today's hardcoded white-based literals exactly —
+     zero visual change. Palettes whose chrome relaxes to a light surface
+     in light mode override these to dark-based values instead (see the
+     palette blocks below). Consumed by ActivityBar.vue, Sidebar.vue,
+     TabBar.vue. */
+  --color-vscode-chrome-fg: rgba(255, 255, 255, 0.95);
+  --color-vscode-chrome-fg-muted: rgba(255, 255, 255, 0.55);
+  --color-vscode-chrome-border: rgba(255, 255, 255, 0.1);
   --color-vscode-gutter-bg: #FAFAFA;
   --color-vscode-gutter-border: #EBEBEB;
   --color-vscode-gutter-text: #C0C4CC;
@@ -119,6 +129,402 @@
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --max-width-content: 1200px;
+}
+
+/* ============================================================
+   Live-switchable palette system (src/composables/usePalette.ts)
+   ============================================================
+   'compass' (the values above) is the default and has NO attribute —
+   selecting it just removes data-palette entirely, so the default site
+   look is untouched. Each other palette re-points the same custom
+   properties the ".dark" block above already re-points, via a
+   [data-palette="x"] attribute selector instead of a class — identical
+   mechanism, same specificity, just keyed on a different attribute.
+   ".dark[data-palette=x]" (specificity 0,2,0) correctly wins over both
+   plain ".dark" and plain "[data-palette=x]" (each 0,1,0) when a
+   non-default palette is active in dark mode.
+
+   Primary ramps keep the exact lightness/chroma progression already
+   tuned above (only the hue angle changes per palette); accent ramps
+   keep the same per-step hue *offset* from accent-500 that the drifting
+   compass ramp uses. This is a deliberate, scoped implementation — see
+   the "Scope boundary" section of the plan this was built from: chrome
+   region colors + primary/accent ramps are palette-aware; a number of
+   smaller decorative literals elsewhere in the app (search overlay
+   icons, bottom-panel terminal colors, a few active-indicator borders,
+   dialog icon colors) are not yet, and stay compass-styled regardless
+   of the selected palette. ============================================================ */
+
+[data-palette="harbor"] {
+  /* harbor — light */
+  --color-vscode-window: #ffffff;
+  --color-vscode-workspace: #ffffff;
+  --color-vscode-activitybar: #f6f8fa;
+  --color-vscode-sidebar: #eaeef2;
+  --color-vscode-tabbar: #ffffff;
+  --color-vscode-tabbar-breadcrumb: #f6f8fa;
+  --color-vscode-panel: #f6f8fa;
+  --color-vscode-panel-tab: #eaeef2;
+  --color-primary-50: oklch(0.97 0.015 255);
+  --color-primary-100: oklch(0.93 0.03 255);
+  --color-primary-200: oklch(0.86 0.06 255);
+  --color-primary-300: oklch(0.77 0.095 255);
+  --color-primary-400: oklch(0.65 0.13 255);
+  --color-primary-500: oklch(0.545 0.145 255);
+  --color-primary-600: oklch(0.44 0.152 255);
+  --color-primary-700: oklch(0.37 0.135 255);
+  --color-primary-800: oklch(0.3 0.11 255);
+  --color-primary-900: oklch(0.24 0.085 255);
+  --color-primary-950: oklch(0.17 0.06 255);
+  --color-accent-50: oklch(0.97 0.025 304);
+  --color-accent-100: oklch(0.94 0.05 303);
+  --color-accent-200: oklch(0.89 0.09 302);
+  --color-accent-300: oklch(0.84 0.13 301);
+  --color-accent-400: oklch(0.8 0.155 300.5);
+  --color-accent-500: oklch(0.774 0.166 300);
+  --color-accent-600: oklch(0.62 0.15 292);
+  --color-accent-700: oklch(0.46 0.13 285);
+  --color-accent-800: oklch(0.38 0.11 279);
+  --color-accent-900: oklch(0.31 0.09 275);
+  --color-accent-950: oklch(0.2 0.06 271);
+  --color-vscode-statusbar: oklch(0.62 0.15 300);
+  --color-primary: var(--color-primary-600);
+  --color-accent: var(--color-accent-500);  --color-vscode-chrome-fg: rgba(0, 0, 0, 0.85);
+  --color-vscode-chrome-fg-muted: rgba(0, 0, 0, 0.6);
+  --color-vscode-chrome-border: rgba(0, 0, 0, 0.08);
+
+}
+
+.dark[data-palette="harbor"] {
+  /* harbor — dark */
+  --color-vscode-window: #0d1117;
+  --color-vscode-workspace: #0d1117;
+  --color-vscode-activitybar: #161b22;
+  --color-vscode-sidebar: #010409;
+  --color-vscode-tabbar: #0d1117;
+  --color-vscode-tabbar-breadcrumb: #161b22;
+  --color-vscode-panel: #0d1117;
+  --color-vscode-panel-tab: #161b22;
+  --color-primary-50: oklch(0.97 0.015 255);
+  --color-primary-100: oklch(0.93 0.03 255);
+  --color-primary-200: oklch(0.86 0.06 255);
+  --color-primary-300: oklch(0.77 0.095 255);
+  --color-primary-400: oklch(0.65 0.13 255);
+  --color-primary-500: oklch(0.545 0.145 255);
+  --color-primary-600: oklch(0.44 0.152 255);
+  --color-primary-700: oklch(0.37 0.135 255);
+  --color-primary-800: oklch(0.3 0.11 255);
+  --color-primary-900: oklch(0.24 0.085 255);
+  --color-primary-950: oklch(0.17 0.06 255);
+  --color-accent-50: oklch(0.97 0.025 304);
+  --color-accent-100: oklch(0.94 0.05 303);
+  --color-accent-200: oklch(0.89 0.09 302);
+  --color-accent-300: oklch(0.84 0.13 301);
+  --color-accent-400: oklch(0.8 0.155 300.5);
+  --color-accent-500: oklch(0.774 0.166 300);
+  --color-accent-600: oklch(0.62 0.15 292);
+  --color-accent-700: oklch(0.46 0.13 285);
+  --color-accent-800: oklch(0.38 0.11 279);
+  --color-accent-900: oklch(0.31 0.09 275);
+  --color-accent-950: oklch(0.2 0.06 271);
+  --color-vscode-statusbar: oklch(0.774 0.166 300);
+  --color-primary: var(--color-primary-400);
+  --color-accent: var(--color-accent-400);  --color-vscode-chrome-fg: rgba(255, 255, 255, 0.95);
+  --color-vscode-chrome-fg-muted: rgba(255, 255, 255, 0.55);
+  --color-vscode-chrome-border: rgba(255, 255, 255, 0.1);
+  --color-gray-100: oklch(96.7% 0.003 255);
+  --color-gray-200: oklch(92.8% 0.006 255);
+  --color-gray-300: oklch(87.2% 0.01 255);
+  --color-gray-400: oklch(70.7% 0.022 255);
+  --color-gray-500: oklch(55.1% 0.027 255);
+  --color-gray-600: oklch(44.6% 0.03 255);
+  --color-gray-700: oklch(37.3% 0.034 255);
+  --color-gray-800: oklch(27.8% 0.033 255);
+  --color-gray-900: oklch(21% 0.034 255);
+  --color-gray-950: oklch(13% 0.028 255);
+  --color-blue-200: var(--color-primary-200);
+  --color-blue-300: var(--color-primary-300);
+  --color-blue-400: var(--color-primary-400);
+
+}
+
+[data-palette="foundry"] {
+  /* foundry — light */
+  --color-vscode-window: #fafafa;
+  --color-vscode-workspace: #fafafa;
+  --color-vscode-activitybar: #eaeaeb;
+  --color-vscode-sidebar: #eaeaeb;
+  --color-vscode-tabbar: #f0f0f1;
+  --color-vscode-tabbar-breadcrumb: #eaeaeb;
+  --color-vscode-panel: #f0f0f1;
+  --color-vscode-panel-tab: #eaeaeb;
+  --color-primary-50: oklch(0.97 0.015 235);
+  --color-primary-100: oklch(0.93 0.03 235);
+  --color-primary-200: oklch(0.86 0.06 235);
+  --color-primary-300: oklch(0.77 0.095 235);
+  --color-primary-400: oklch(0.65 0.13 235);
+  --color-primary-500: oklch(0.545 0.145 235);
+  --color-primary-600: oklch(0.44 0.152 235);
+  --color-primary-700: oklch(0.37 0.135 235);
+  --color-primary-800: oklch(0.3 0.11 235);
+  --color-primary-900: oklch(0.24 0.085 235);
+  --color-primary-950: oklch(0.17 0.06 235);
+  --color-accent-50: oklch(0.97 0.025 324);
+  --color-accent-100: oklch(0.94 0.05 323);
+  --color-accent-200: oklch(0.89 0.09 322);
+  --color-accent-300: oklch(0.84 0.13 321);
+  --color-accent-400: oklch(0.8 0.155 320.5);
+  --color-accent-500: oklch(0.774 0.166 320);
+  --color-accent-600: oklch(0.62 0.15 312);
+  --color-accent-700: oklch(0.46 0.13 305);
+  --color-accent-800: oklch(0.38 0.11 299);
+  --color-accent-900: oklch(0.31 0.09 295);
+  --color-accent-950: oklch(0.2 0.06 291);
+  --color-vscode-statusbar: oklch(0.62 0.15 320);
+  --color-primary: var(--color-primary-600);
+  --color-accent: var(--color-accent-500);  --color-vscode-chrome-fg: rgba(0, 0, 0, 0.85);
+  --color-vscode-chrome-fg-muted: rgba(0, 0, 0, 0.6);
+  --color-vscode-chrome-border: rgba(0, 0, 0, 0.08);
+
+}
+
+.dark[data-palette="foundry"] {
+  /* foundry — dark */
+  --color-vscode-window: #282c34;
+  --color-vscode-workspace: #282c34;
+  --color-vscode-activitybar: #21252b;
+  --color-vscode-sidebar: #21252b;
+  --color-vscode-tabbar: #2c313a;
+  --color-vscode-tabbar-breadcrumb: #21252b;
+  --color-vscode-panel: #21252b;
+  --color-vscode-panel-tab: #2c313a;
+  --color-primary-50: oklch(0.97 0.015 235);
+  --color-primary-100: oklch(0.93 0.03 235);
+  --color-primary-200: oklch(0.86 0.06 235);
+  --color-primary-300: oklch(0.77 0.095 235);
+  --color-primary-400: oklch(0.65 0.13 235);
+  --color-primary-500: oklch(0.545 0.145 235);
+  --color-primary-600: oklch(0.44 0.152 235);
+  --color-primary-700: oklch(0.37 0.135 235);
+  --color-primary-800: oklch(0.3 0.11 235);
+  --color-primary-900: oklch(0.24 0.085 235);
+  --color-primary-950: oklch(0.17 0.06 235);
+  --color-accent-50: oklch(0.97 0.025 324);
+  --color-accent-100: oklch(0.94 0.05 323);
+  --color-accent-200: oklch(0.89 0.09 322);
+  --color-accent-300: oklch(0.84 0.13 321);
+  --color-accent-400: oklch(0.8 0.155 320.5);
+  --color-accent-500: oklch(0.774 0.166 320);
+  --color-accent-600: oklch(0.62 0.15 312);
+  --color-accent-700: oklch(0.46 0.13 305);
+  --color-accent-800: oklch(0.38 0.11 299);
+  --color-accent-900: oklch(0.31 0.09 295);
+  --color-accent-950: oklch(0.2 0.06 291);
+  --color-vscode-statusbar: oklch(0.774 0.166 320);
+  --color-primary: var(--color-primary-400);
+  --color-accent: var(--color-accent-400);  --color-vscode-chrome-fg: rgba(255, 255, 255, 0.95);
+  --color-vscode-chrome-fg-muted: rgba(255, 255, 255, 0.55);
+  --color-vscode-chrome-border: rgba(255, 255, 255, 0.1);
+  --color-gray-100: oklch(96.7% 0.003 235);
+  --color-gray-200: oklch(92.8% 0.006 235);
+  --color-gray-300: oklch(87.2% 0.01 235);
+  --color-gray-400: oklch(70.7% 0.022 235);
+  --color-gray-500: oklch(55.1% 0.027 235);
+  --color-gray-600: oklch(44.6% 0.03 235);
+  --color-gray-700: oklch(37.3% 0.034 235);
+  --color-gray-800: oklch(27.8% 0.033 235);
+  --color-gray-900: oklch(21% 0.034 235);
+  --color-gray-950: oklch(13% 0.028 235);
+  --color-blue-200: var(--color-primary-200);
+  --color-blue-300: var(--color-primary-300);
+  --color-blue-400: var(--color-primary-400);
+
+}
+
+[data-palette="aurora"] {
+  /* aurora — light */
+  --color-vscode-window: #FBFBFB;
+  --color-vscode-workspace: #FBFBFB;
+  --color-vscode-activitybar: #eeeeee;
+  --color-vscode-sidebar: #f0f0f0;
+  --color-vscode-tabbar: #e6e6e6;
+  --color-vscode-tabbar-breadcrumb: #eeeeee;
+  --color-vscode-panel: #f0f0f0;
+  --color-vscode-panel-tab: #e6e6e6;
+  --color-primary-50: oklch(0.97 0.015 262);
+  --color-primary-100: oklch(0.93 0.03 262);
+  --color-primary-200: oklch(0.86 0.06 262);
+  --color-primary-300: oklch(0.77 0.095 262);
+  --color-primary-400: oklch(0.65 0.13 262);
+  --color-primary-500: oklch(0.545 0.145 262);
+  --color-primary-600: oklch(0.44 0.152 262);
+  --color-primary-700: oklch(0.37 0.135 262);
+  --color-primary-800: oklch(0.3 0.11 262);
+  --color-primary-900: oklch(0.24 0.085 262);
+  --color-primary-950: oklch(0.17 0.06 262);
+  --color-accent-50: oklch(0.97 0.025 329);
+  --color-accent-100: oklch(0.94 0.05 328);
+  --color-accent-200: oklch(0.89 0.09 327);
+  --color-accent-300: oklch(0.84 0.13 326);
+  --color-accent-400: oklch(0.8 0.155 325.5);
+  --color-accent-500: oklch(0.774 0.166 325);
+  --color-accent-600: oklch(0.62 0.15 317);
+  --color-accent-700: oklch(0.46 0.13 310);
+  --color-accent-800: oklch(0.38 0.11 304);
+  --color-accent-900: oklch(0.31 0.09 300);
+  --color-accent-950: oklch(0.2 0.06 296);
+  --color-vscode-statusbar: oklch(0.62 0.15 325);
+  --color-primary: var(--color-primary-600);
+  --color-accent: var(--color-accent-500);  --color-vscode-chrome-fg: rgba(0, 0, 0, 0.85);
+  --color-vscode-chrome-fg-muted: rgba(0, 0, 0, 0.6);
+  --color-vscode-chrome-border: rgba(0, 0, 0, 0.08);
+
+}
+
+.dark[data-palette="aurora"] {
+  /* aurora — dark */
+  --color-vscode-window: #011627;
+  --color-vscode-workspace: #011627;
+  --color-vscode-activitybar: #010e1a;
+  --color-vscode-sidebar: #011627;
+  --color-vscode-tabbar: #0b2942;
+  --color-vscode-tabbar-breadcrumb: #010e1a;
+  --color-vscode-panel: #01111d;
+  --color-vscode-panel-tab: #0b2942;
+  --color-primary-50: oklch(0.97 0.015 262);
+  --color-primary-100: oklch(0.93 0.03 262);
+  --color-primary-200: oklch(0.86 0.06 262);
+  --color-primary-300: oklch(0.77 0.095 262);
+  --color-primary-400: oklch(0.65 0.13 262);
+  --color-primary-500: oklch(0.545 0.145 262);
+  --color-primary-600: oklch(0.44 0.152 262);
+  --color-primary-700: oklch(0.37 0.135 262);
+  --color-primary-800: oklch(0.3 0.11 262);
+  --color-primary-900: oklch(0.24 0.085 262);
+  --color-primary-950: oklch(0.17 0.06 262);
+  --color-accent-50: oklch(0.97 0.025 329);
+  --color-accent-100: oklch(0.94 0.05 328);
+  --color-accent-200: oklch(0.89 0.09 327);
+  --color-accent-300: oklch(0.84 0.13 326);
+  --color-accent-400: oklch(0.8 0.155 325.5);
+  --color-accent-500: oklch(0.774 0.166 325);
+  --color-accent-600: oklch(0.62 0.15 317);
+  --color-accent-700: oklch(0.46 0.13 310);
+  --color-accent-800: oklch(0.38 0.11 304);
+  --color-accent-900: oklch(0.31 0.09 300);
+  --color-accent-950: oklch(0.2 0.06 296);
+  --color-vscode-statusbar: oklch(0.774 0.166 325);
+  --color-primary: var(--color-primary-400);
+  --color-accent: var(--color-accent-400);  --color-vscode-chrome-fg: rgba(255, 255, 255, 0.95);
+  --color-vscode-chrome-fg-muted: rgba(255, 255, 255, 0.55);
+  --color-vscode-chrome-border: rgba(255, 255, 255, 0.1);
+  --color-gray-100: oklch(96.7% 0.003 262);
+  --color-gray-200: oklch(92.8% 0.006 262);
+  --color-gray-300: oklch(87.2% 0.01 262);
+  --color-gray-400: oklch(70.7% 0.022 262);
+  --color-gray-500: oklch(55.1% 0.027 262);
+  --color-gray-600: oklch(44.6% 0.03 262);
+  --color-gray-700: oklch(37.3% 0.034 262);
+  --color-gray-800: oklch(27.8% 0.033 262);
+  --color-gray-900: oklch(21% 0.034 262);
+  --color-gray-950: oklch(13% 0.028 262);
+  --color-blue-200: var(--color-primary-200);
+  --color-blue-300: var(--color-primary-300);
+  --color-blue-400: var(--color-primary-400);
+
+}
+
+[data-palette="glacier"] {
+  /* glacier — light */
+  --color-vscode-window: #eceff4;
+  --color-vscode-workspace: #eceff4;
+  --color-vscode-activitybar: #e5e9f0;
+  --color-vscode-sidebar: #d8dee9;
+  --color-vscode-tabbar: #e5e9f0;
+  --color-vscode-tabbar-breadcrumb: #e5e9f0;
+  --color-vscode-panel: #e5e9f0;
+  --color-vscode-panel-tab: #d8dee9;
+  --color-primary-50: oklch(0.97 0.015 205);
+  --color-primary-100: oklch(0.93 0.03 205);
+  --color-primary-200: oklch(0.86 0.06 205);
+  --color-primary-300: oklch(0.77 0.095 205);
+  --color-primary-400: oklch(0.65 0.13 205);
+  --color-primary-500: oklch(0.545 0.145 205);
+  --color-primary-600: oklch(0.44 0.152 205);
+  --color-primary-700: oklch(0.37 0.135 205);
+  --color-primary-800: oklch(0.3 0.11 205);
+  --color-primary-900: oklch(0.24 0.085 205);
+  --color-primary-950: oklch(0.17 0.06 205);
+  --color-accent-50: oklch(0.97 0.025 349);
+  --color-accent-100: oklch(0.94 0.05 348);
+  --color-accent-200: oklch(0.89 0.09 347);
+  --color-accent-300: oklch(0.84 0.13 346);
+  --color-accent-400: oklch(0.8 0.155 345.5);
+  --color-accent-500: oklch(0.774 0.166 345);
+  --color-accent-600: oklch(0.62 0.15 337);
+  --color-accent-700: oklch(0.46 0.13 330);
+  --color-accent-800: oklch(0.38 0.11 324);
+  --color-accent-900: oklch(0.31 0.09 320);
+  --color-accent-950: oklch(0.2 0.06 316);
+  --color-vscode-statusbar: oklch(0.62 0.15 345);
+  --color-primary: var(--color-primary-600);
+  --color-accent: var(--color-accent-500);  --color-vscode-chrome-fg: rgba(0, 0, 0, 0.85);
+  --color-vscode-chrome-fg-muted: rgba(0, 0, 0, 0.6);
+  --color-vscode-chrome-border: rgba(0, 0, 0, 0.08);
+
+}
+
+.dark[data-palette="glacier"] {
+  /* glacier — dark */
+  --color-vscode-window: #2e3440;
+  --color-vscode-workspace: #2e3440;
+  --color-vscode-activitybar: #2e3440;
+  --color-vscode-sidebar: #3b4252;
+  --color-vscode-tabbar: #3b4252;
+  --color-vscode-tabbar-breadcrumb: #2e3440;
+  --color-vscode-panel: #3b4252;
+  --color-vscode-panel-tab: #3b4252;
+  --color-primary-50: oklch(0.97 0.015 205);
+  --color-primary-100: oklch(0.93 0.03 205);
+  --color-primary-200: oklch(0.86 0.06 205);
+  --color-primary-300: oklch(0.77 0.095 205);
+  --color-primary-400: oklch(0.65 0.13 205);
+  --color-primary-500: oklch(0.545 0.145 205);
+  --color-primary-600: oklch(0.44 0.152 205);
+  --color-primary-700: oklch(0.37 0.135 205);
+  --color-primary-800: oklch(0.3 0.11 205);
+  --color-primary-900: oklch(0.24 0.085 205);
+  --color-primary-950: oklch(0.17 0.06 205);
+  --color-accent-50: oklch(0.97 0.025 349);
+  --color-accent-100: oklch(0.94 0.05 348);
+  --color-accent-200: oklch(0.89 0.09 347);
+  --color-accent-300: oklch(0.84 0.13 346);
+  --color-accent-400: oklch(0.8 0.155 345.5);
+  --color-accent-500: oklch(0.774 0.166 345);
+  --color-accent-600: oklch(0.62 0.15 337);
+  --color-accent-700: oklch(0.46 0.13 330);
+  --color-accent-800: oklch(0.38 0.11 324);
+  --color-accent-900: oklch(0.31 0.09 320);
+  --color-accent-950: oklch(0.2 0.06 316);
+  --color-vscode-statusbar: oklch(0.774 0.166 345);
+  --color-primary: var(--color-primary-400);
+  --color-accent: var(--color-accent-400);  --color-vscode-chrome-fg: rgba(255, 255, 255, 0.95);
+  --color-vscode-chrome-fg-muted: rgba(255, 255, 255, 0.55);
+  --color-vscode-chrome-border: rgba(255, 255, 255, 0.1);
+  --color-gray-100: oklch(96.7% 0.003 205);
+  --color-gray-200: oklch(92.8% 0.006 205);
+  --color-gray-300: oklch(87.2% 0.01 205);
+  --color-gray-400: oklch(70.7% 0.022 205);
+  --color-gray-500: oklch(55.1% 0.027 205);
+  --color-gray-600: oklch(44.6% 0.03 205);
+  --color-gray-700: oklch(37.3% 0.034 205);
+  --color-gray-800: oklch(27.8% 0.033 205);
+  --color-gray-900: oklch(21% 0.034 205);
+  --color-gray-950: oklch(13% 0.028 205);
+  --color-blue-200: var(--color-primary-200);
+  --color-blue-300: var(--color-primary-300);
+  --color-blue-400: var(--color-primary-400);
+
 }
 
 @layer base {

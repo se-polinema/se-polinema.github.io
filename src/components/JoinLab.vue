@@ -26,8 +26,7 @@
       <div class="flex flex-wrap gap-4">
         <a
           :href="`mailto:${t.contact.email}`"
-          class="inline-flex items-center gap-2 px-6 py-3 font-mono text-[13px] font-medium text-primary transition-colors"
-          style="background: #F5A100;"
+          class="inline-flex items-center gap-2 px-6 py-3 font-mono text-[13px] font-medium text-primary transition-colors bg-accent"
         >
           {{ t.join.emailCta }} ↗
         </a>

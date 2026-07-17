@@ -5,7 +5,7 @@
   >
     <div
       class="h-full transition-[width] duration-150 ease-out"
-      :class="progress > 0 ? 'bg-[#F5A100]' : 'bg-transparent'"
+      :class="progress > 0 ? 'bg-accent' : 'bg-transparent'"
       :style="{ width: `${progress}%` }"
       role="progressbar"
       :aria-valuenow="Math.round(progress)"

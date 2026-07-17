@@ -101,8 +101,7 @@
 
             <a
               :href="`mailto:${opp.supervisorEmail}`"
-              class="inline-flex items-center gap-2 self-start px-4 py-2 font-mono text-[12px] font-medium text-primary transition-colors mt-1"
-              style="background: #F5A100;"
+              class="inline-flex items-center gap-2 self-start px-4 py-2 font-mono text-[12px] font-medium text-primary transition-colors mt-1 bg-accent"
             >
               {{ t.join.page.contactSupervisor }} ↗
             </a>

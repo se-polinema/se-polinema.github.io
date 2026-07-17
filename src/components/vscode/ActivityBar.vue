@@ -206,13 +206,13 @@ onMounted(() => {
   cursor: pointer;
 }
 .activity-active {
-  color: rgba(255, 255, 255, 0.95);
-  border-left-color: #F5A100;
+  color: var(--color-vscode-chrome-fg);
+  border-left-color: var(--color-accent);
 }
 .activity-inactive {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--color-vscode-chrome-fg-muted);
 }
 .activity-inactive:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-vscode-chrome-fg);
 }
 </style>

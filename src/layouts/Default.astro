@@ -185,6 +185,21 @@ if (announcementData.enabled && announcementData.message) {
         const lang = localStorage.getItem('se-lab-lang');
         if (lang === 'en' || lang === 'id') document.documentElement.lang = lang;
       } catch {}
+      try {
+        const PALETTES = ['compass', 'harbor', 'foundry', 'aurora', 'glacier'];
+        const fromUrl = new URLSearchParams(window.location.search).get('palette');
+        let palette = null;
+        if (fromUrl && PALETTES.includes(fromUrl)) {
+          palette = fromUrl;
+          localStorage.setItem('se-lab-palette', palette);
+        } else {
+          const stored = localStorage.getItem('se-lab-palette');
+          if (stored && PALETTES.includes(stored)) palette = stored;
+        }
+        if (palette && palette !== 'compass') {
+          document.documentElement.setAttribute('data-palette', palette);
+        }
+      } catch {}
     </script>
   </head>
   <body>

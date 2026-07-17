@@ -9,9 +9,9 @@
     <!-- Header -->
     <div
       class="flex items-center px-4 h-9 flex-shrink-0"
-      style="border-bottom: 1px solid rgba(255,255,255,0.08);"
+      style="border-bottom: 1px solid var(--color-vscode-chrome-border);"
     >
-      <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 select-none">
+      <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-[color:var(--color-vscode-chrome-fg-muted)] select-none">
         {{ activeSidebarView === 'github' ? 'Source Control'
           : activeSidebarView === 'researchers' ? 'Researchers'
           : activeSidebarView === 'publications' ? 'Publications'
@@ -30,8 +30,8 @@
     <!-- GitHub / Source Control panel -->
     <nav v-if="activeSidebarView === 'github'" key="github" class="flex-1 overflow-y-auto p-4 space-y-5">
       <div class="space-y-1">
-        <div class="text-[12px] font-mono text-white/80 font-medium">se-polinema</div>
-        <div class="text-[11px] font-mono text-white/45 leading-relaxed">
+        <div class="text-[12px] font-mono text-[color:var(--color-vscode-chrome-fg)] font-medium">se-polinema</div>
+        <div class="text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] leading-relaxed">
           Software Engineering Laboratory — Politeknik Negeri Malang
         </div>
       </div>
@@ -40,7 +40,7 @@
           href="https://github.com/se-polinema"
           target="_blank"
           rel="noopener"
-          class="flex items-center gap-2 text-[11px] font-mono text-white/55 hover:text-white/85 transition-colors py-1"
+          class="flex items-center gap-2 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1"
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
@@ -53,7 +53,7 @@
           href="https://github.com/se-polinema/se-polinema.github.io"
           target="_blank"
           rel="noopener"
-          class="flex items-center gap-2 text-[11px] font-mono text-white/55 hover:text-white/85 transition-colors py-1"
+          class="flex items-center gap-2 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1"
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -64,7 +64,7 @@
           href="https://github.com/se-polinema/se-polinema.github.io/releases"
           target="_blank"
           rel="noopener"
-          class="flex items-center gap-2 text-[11px] font-mono text-white/55 hover:text-white/85 transition-colors py-1"
+          class="flex items-center gap-2 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1"
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
@@ -79,10 +79,10 @@
     <div v-else-if="activeSidebarView === 'explorer'" key="explorer" class="flex flex-col flex-1 overflow-hidden min-h-0">
       <!-- Folder heading -->
       <div class="flex items-center gap-1.5 px-3 py-1.5 select-none flex-shrink-0">
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="text-white/30 flex-shrink-0">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="text-[color:var(--color-vscode-chrome-fg-muted)] flex-shrink-0">
           <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span class="text-[11px] font-mono uppercase tracking-wider text-white/40">SE-LAB</span>
+        <span class="text-[11px] font-mono uppercase tracking-wider text-[color:var(--color-vscode-chrome-fg-muted)]">SE-LAB</span>
       </div>
 
       <!-- File tree -->
@@ -91,7 +91,7 @@
           <!-- Folder -->
           <div
             v-if="item.type === 'folder'"
-            class="flex items-center gap-2 py-[3px] text-white/30 select-none"
+            class="flex items-center gap-2 py-[3px] text-[color:var(--color-vscode-chrome-fg-muted)] select-none"
             :style="{ paddingLeft: `${item.indent * 12 + 8}px` }"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" class="flex-shrink-0">
@@ -107,8 +107,8 @@
             class="w-full flex items-center gap-2 py-[3px] text-left transition-colors duration-100 text-[12px] font-mono"
             :style="{ paddingLeft: `${item.indent * 12 + 8}px` }"
             :class="isActive(item)
-              ? 'bg-white/10 text-white'
-              : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'"
+              ? 'text-[color:var(--color-vscode-chrome-fg)] bg-[color:var(--color-vscode-chrome-border)]'
+              : 'text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] hover:bg-[color:var(--color-vscode-chrome-border)]'"
             :aria-current="isActive(item) ? 'page' : undefined"
           >
             <span class="w-2 h-2 rounded-full flex-shrink-0" :class="dotColor(item.ext)" />
@@ -116,7 +116,7 @@
             <span
               v-if="isActive(item)"
               class="w-1.5 h-1.5 rounded-full mr-2 flex-shrink-0"
-              style="background: #F5A100"
+              style="background: var(--color-accent)"
             />
           </button>
         </template>
@@ -131,8 +131,8 @@
         :href="`/researchers/${r.id}`"
         class="flex items-center gap-2 py-[5px] px-4 text-[12px] font-mono transition-colors duration-100"
         :class="currentPath.endsWith(r.id)
-          ? 'bg-white/10 text-white'
-          : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'"
+          ? 'bg-[color:var(--color-vscode-chrome-border)] text-[color:var(--color-vscode-chrome-fg)]'
+          : 'text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] hover:bg-[color:var(--color-vscode-chrome-border)]'"
       >
         <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-blue-400" />
         <span class="truncate">{{ r.name }}</span>
@@ -220,13 +220,13 @@
     <!-- Events sidebar -->
     <nav v-else-if="activeSidebarView === 'events'" key="events" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Events">
       <div class="filter-header">Events</div>
-      <div class="mt-3 text-[11px] font-mono text-white/55 space-y-2">
-        <a href="/events" class="flex items-center gap-2 text-white/55 hover:text-white/85 transition-colors py-1">
+      <div class="mt-3 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] space-y-2">
+        <a href="/events" class="flex items-center gap-2 text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1">
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-purple-400" />
           Upcoming Events
         </a>
-        <a href="/events" class="flex items-center gap-2 text-white/55 hover:text-white/85 transition-colors py-1">
-          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-white/30" />
+        <a href="/events" class="flex items-center gap-2 text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1">
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[color:var(--color-vscode-chrome-fg-muted)]" />
           Past Events
         </a>
       </div>
@@ -235,21 +235,21 @@
     <!-- Members sidebar -->
     <nav v-else-if="activeSidebarView === 'members'" key="members" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Members">
       <div class="filter-header">Members</div>
-      <div class="mt-3 text-[11px] font-mono text-white/55 space-y-2">
+      <div class="mt-3 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] space-y-2">
         <a
           href="/members"
           class="flex items-center gap-2 py-1 transition-colors"
-          :class="currentPage === 'members' ? 'text-white' : 'text-white/55 hover:text-white/85'"
+          :class="currentPage === 'members' ? 'text-[color:var(--color-vscode-chrome-fg)]' : 'text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]'"
         >
-          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'members' ? 'bg-accent' : 'bg-white/30'" />
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'members' ? 'bg-accent' : 'bg-[color:var(--color-vscode-chrome-fg-muted)]'" />
           Student Members
         </a>
         <a
           href="/alumni"
           class="flex items-center gap-2 py-1 transition-colors"
-          :class="currentPage === 'alumni' ? 'text-white' : 'text-white/55 hover:text-white/85'"
+          :class="currentPage === 'alumni' ? 'text-[color:var(--color-vscode-chrome-fg)]' : 'text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]'"
         >
-          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'alumni' ? 'bg-accent' : 'bg-white/30'" />
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'alumni' ? 'bg-accent' : 'bg-[color:var(--color-vscode-chrome-fg-muted)]'" />
           Alumni
         </a>
       </div>
@@ -373,7 +373,7 @@ function dotColor(ext: string): string {
     ics:  'bg-purple-400',
     astro: 'bg-orange-500',
   }
-  return map[ext] ?? 'bg-white/30'
+  return map[ext] ?? 'bg-[color:var(--color-vscode-chrome-fg-muted)]'
 }
 
 function navigate(item: FileItem) {
@@ -436,7 +436,7 @@ onMounted(async () => {
   font-family: monospace;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.30);
+  color: var(--color-vscode-chrome-fg-muted);
 }
 
 .filter-chip {
@@ -449,18 +449,18 @@ onMounted(async () => {
 }
 
 .chip-active {
-  background: #F5A100;
-  color: #002D6B;
+  background: var(--color-accent);
+  color: var(--color-accent-950);
   font-weight: 600;
 }
 
 .chip-inactive {
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.55);
+  background: var(--color-vscode-chrome-border);
+  color: var(--color-vscode-chrome-fg-muted);
 }
 
 .chip-inactive:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.85);
+  background: var(--color-vscode-chrome-border);
+  color: var(--color-vscode-chrome-fg);
 }
 </style>

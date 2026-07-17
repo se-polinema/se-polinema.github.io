@@ -22,8 +22,8 @@
           class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 transition-colors duration-150 whitespace-nowrap h-full"
           :class="
             isActiveTab(tab)
-              ? 'bg-white dark:bg-gray-900 text-primary dark:text-blue-300 border-t-[#F5A100]'
-              : 'bg-transparent text-white/40 hover:text-white/70 hover:bg-white/5 border-transparent'
+              ? 'bg-white dark:bg-gray-900 text-primary dark:text-blue-300 border-t-accent'
+              : 'bg-transparent text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] hover:bg-[color:var(--color-vscode-chrome-border)] border-transparent'
           "
         >
           <span
@@ -42,7 +42,7 @@
           :href="isDetailPage ? undefined : innerTab.href"
           role="tab"
           aria-selected="true"
-          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 border-t-[#F5A100] whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
+          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 border-t-accent whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
           @click.prevent="isDetailPage ? null : undefined"
         >
           <span
@@ -62,7 +62,7 @@
     style="
       height: 26px;
       background: var(--color-vscode-tabbar-breadcrumb);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid var(--color-vscode-chrome-border);
     "
   >
     <Transition name="breadcrumb" mode="out-in">
@@ -75,11 +75,11 @@
           :key="i"
           class="flex items-center gap-0.5"
         >
-          <span v-if="i > 0" class="text-white/35 mx-1">›</span>
+          <span v-if="i > 0" class="text-[color:var(--color-vscode-chrome-fg-muted)] mx-1">›</span>
           <a
             v-if="isDetailPage && i === currentBreadcrumb.path.length - 2 && parentHref"
             :href="parentHref"
-            class="text-white/45 hover:text-white/75 transition-colors"
+            class="text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors"
           >
             {{ part }}
           </a>
@@ -87,8 +87,8 @@
             v-else
             :class="
               i === currentBreadcrumb.path.length - 1
-                ? 'text-white/80'
-                : 'text-white/45'
+                ? 'text-[color:var(--color-vscode-chrome-fg)]'
+                : 'text-[color:var(--color-vscode-chrome-fg-muted)]'
             "
           >
             {{ part }}
@@ -96,7 +96,7 @@
         </span>
       </div>
     </Transition>
-    <div class="flex items-center gap-4 text-[11px] font-mono text-white/45">
+    <div class="flex items-center gap-4 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)]">
       <span>Ln 1, Col 1</span>
       <span>{{ currentBreadcrumb.lang }}</span>
     </div>
@@ -293,7 +293,7 @@ function dotColor(ext: string): string {
     ics: "bg-purple-400",
     astro: "bg-orange-500",
   };
-  return map[ext] ?? "bg-white/30";
+  return map[ext] ?? "bg-[color:var(--color-vscode-chrome-fg-muted)]";
 }
 
 onMounted(() => {
