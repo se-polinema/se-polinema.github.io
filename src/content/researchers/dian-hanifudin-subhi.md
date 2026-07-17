@@ -44,6 +44,13 @@ projects:
     repo: "dhanifudin/pakai"
     description: "Unified AI subscription usage tracker. Surfaces Claude, OpenAI Codex, and OpenCode Go usage — per provider, per window (5h / weekly / monthly) — directly in your tmux status bar, Waybar panel, CLI, or a TUI dashboard."
 books:
+  - title: "Penuntun Praktikum Struktur Data"
+    url: "https://polinemapress21.com/produk/penuntun-praktikum-struktur-data/"
+    coverImage: "/images/books/penuntun-praktikum-struktur-data.jpg"
+    year: 2020
+    isbn: "978-623-7408-91-8"
+    description: "A hands-on guide to data structures covering classes, objects, arrays, searching and sorting algorithms, stacks, queues, linked lists, binary trees, binary search trees, and graphs. Uses a step-by-step approach with exercises that build logical thinking, structured reasoning, and analytical depth."
+    descriptionId: "Struktur data bukan sekadar istilah teknis dalam dunia komputasi. Ia adalah cara berpikir. Buku Penuntun Praktikum Struktur Data hadir sebagai sahabat belajar yang mengajak pembaca menelusuri fondasi penting dalam pemrograman dengan alur yang runtut, jernih, dan membumi. Pembahasan dimulai dari class dan objek, pengelolaan array, pencarian dan pengurutan (sequential search, bubble sort, selection sort, insertion sort, merge sort), stack dan queue, linked list, binary tree, binary search tree, hingga graph. Setiap bagian dirancang agar pembaca tidak hanya mengetahui, tetapi juga memahami alasan di balik setiap algoritma dan struktur yang digunakan."
   - title: "Git Tanpa Drama"
     coverImage: "/images/books/git-tanpa-drama.jpg"
     description: "A practical Indonesian-language guide that helps beginners use Git with confidence, from branching and merging to collaboration and everyday version-control workflows."
