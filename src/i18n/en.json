@@ -446,7 +446,17 @@
       "copyCode": "Copy",
       "codeCopied": "Copied!",
       "manageEvents": "Events",
-      "toggleRegistration": "Toggle Registration"
+      "toggleRegistration": "Toggle Registration",
+      "pendingApprovalsStat": "Pending Approvals",
+      "registeredThisWeekStat": "Registered This Week",
+      "upcomingEventsStat": "Upcoming Events",
+      "needsReviewHeading": "Needs Review",
+      "reviewAction": "Review",
+      "pastEventsHeading": "Past Events",
+      "showAction": "Show",
+      "hideAction": "Hide",
+      "registrationOpenLabel": "Open",
+      "registrationClosedLabel": "Closed"
     }
   },
   "faq": {

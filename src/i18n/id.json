@@ -446,7 +446,17 @@
       "copyCode": "Salin",
       "codeCopied": "Tersalin!",
       "manageEvents": "Acara",
-      "toggleRegistration": "Buka/Tutup Pendaftaran"
+      "toggleRegistration": "Buka/Tutup Pendaftaran",
+      "pendingApprovalsStat": "Menunggu Persetujuan",
+      "registeredThisWeekStat": "Terdaftar Minggu Ini",
+      "upcomingEventsStat": "Acara Mendatang",
+      "needsReviewHeading": "Perlu Ditinjau",
+      "reviewAction": "Tinjau",
+      "pastEventsHeading": "Acara Selesai",
+      "showAction": "Tampilkan",
+      "hideAction": "Sembunyikan",
+      "registrationOpenLabel": "Dibuka",
+      "registrationClosedLabel": "Ditutup"
     }
   },
   "faq": {

@@ -71,6 +71,43 @@
         </button>
       </div>
 
+      <!-- Overview -->
+      <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="border border-primary/10 dark:border-gray-700 p-4">
+          <div class="font-serif text-3xl font-bold text-primary dark:text-gray-100">{{ pendingApprovalsCount }}</div>
+          <div class="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mt-1">{{ t.events.admin.pendingApprovalsStat }}</div>
+        </div>
+        <div class="border border-primary/10 dark:border-gray-700 p-4">
+          <div class="font-serif text-3xl font-bold text-primary dark:text-gray-100">{{ registeredThisWeekCount }}</div>
+          <div class="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mt-1">{{ t.events.admin.registeredThisWeekStat }}</div>
+        </div>
+        <div class="border border-primary/10 dark:border-gray-700 p-4">
+          <div class="font-serif text-3xl font-bold text-primary dark:text-gray-100">{{ upcomingEvents.length }}</div>
+          <div class="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mt-1">{{ t.events.admin.upcomingEventsStat }}</div>
+        </div>
+      </div>
+
+      <!-- Needs Review -->
+      <div v-if="pendingMembers.length > 0" class="mb-8 p-4 border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20">
+        <h2 class="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-amber-400 mb-3">
+          {{ t.events.admin.needsReviewHeading }} ({{ pendingMembers.length }})
+        </h2>
+        <ul class="space-y-2">
+          <li v-for="m in pendingMembers" :key="m.id" class="flex items-center justify-between gap-3 text-sm">
+            <span class="text-primary dark:text-gray-100">
+              {{ m.name }}
+              <span class="text-xs font-mono text-neutral-400 dark:text-gray-500 ml-2">{{ formatDate(m.created_at) }}</span>
+            </span>
+            <button
+              @click="reviewMember(m)"
+              class="text-xs font-mono font-semibold text-accent-700 dark:text-accent-400 hover:text-accent transition-colors flex-shrink-0"
+            >
+              {{ t.events.admin.reviewAction }} →
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <!-- Tab bar -->
       <div class="flex items-center gap-1 mb-8 border-b border-primary/10 dark:border-gray-700">
         <button
@@ -100,68 +137,33 @@
       </div>
 
       <div v-else class="space-y-12">
-        <section v-for="event in events" :key="event.slug">
-          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4 pb-3 border-b border-primary/10 dark:border-gray-700">
-            <div>
-              <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100">{{ event.title }}</h2>
-              <p class="text-xs font-mono text-neutral-400 dark:text-gray-500 mt-0.5">
-                {{ participantCounts(event.slug).registered }} {{ t.events.admin.registeredCount }}
-                &nbsp;·&nbsp;
-                {{ participantCounts(event.slug).checkedIn }} {{ t.events.admin.checkedInCount }}
-              </p>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="text-right">
-                <div class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-0.5">{{ t.events.admin.checkInCode }}</div>
-                <div class="flex items-center gap-2">
-                  <code class="text-sm font-mono font-bold text-accent-700 dark:text-accent-400 bg-accent/10 px-2 py-0.5">{{ event.check_in_code }}</code>
-                  <button
-                    @click="copyCode(event.check_in_code)"
-                    class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors"
-                  >
-                    {{ copiedSlug === event.slug ? t.events.admin.codeCopied : t.events.admin.copyCode }}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <AdminEventSection
+          v-for="event in upcomingEvents"
+          :key="event.slug"
+          :event="event"
+          :participants="participantsByEvent[event.slug] ?? []"
+          :copied="copiedCode === event.check_in_code"
+          @toggle-registration="toggleRegistration(event)"
+          @copy-code="copyCode(event.check_in_code)"
+        />
 
-          <div v-if="participantsByEvent[event.slug]?.length === 0" class="py-6">
-            <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.noParticipants }}</p>
+        <div v-if="pastEvents.length > 0">
+          <h2 class="font-mono text-xs uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-4 pb-2 border-b border-primary/10 dark:border-gray-700">
+            {{ t.events.admin.pastEventsHeading }} ({{ pastEvents.length }})
+          </h2>
+          <div class="space-y-8">
+            <AdminEventSection
+              v-for="event in pastEvents"
+              :key="event.slug"
+              :event="event"
+              :participants="participantsByEvent[event.slug] ?? []"
+              collapsible
+              :copied="copiedCode === event.check_in_code"
+              @toggle-registration="toggleRegistration(event)"
+              @copy-code="copyCode(event.check_in_code)"
+            />
           </div>
-
-          <div v-else class="overflow-x-auto">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="border-b border-primary/10 dark:border-gray-700">
-                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.events.admin.nameCol }}</th>
-                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.events.admin.emailCol }}</th>
-                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.events.admin.statusCol }}</th>
-                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2">{{ t.events.admin.registeredAt }}</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-primary/5 dark:divide-gray-700">
-                <tr v-for="p in participantsByEvent[event.slug]" :key="p.id">
-                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100">{{ p.profiles?.full_name ?? '—' }}</td>
-                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">{{ p.profiles?.email ?? '—' }}</td>
-                  <td class="py-2.5 pr-4">
-                    <span
-                      class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider"
-                      :class="p.status === 'checked_in'
-                        ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                        : 'bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400'"
-                    >
-                      {{ p.status === 'checked_in' ? t.events.admin.statusCheckedIn : t.events.admin.statusRegistered }}
-                    </span>
-                  </td>
-                  <td class="py-2.5 font-mono text-xs text-neutral-400 dark:text-gray-500">
-                    {{ formatDate(p.registered_at) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+        </div>
 
         <div v-if="events.length === 0" class="py-10 text-center">
           <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.noParticipants }}</p>
@@ -361,14 +363,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useConfirmDialog } from '../composables/useConfirmDialog'
+import { useAuth } from '../composables/useAuth'
 import { supabase } from '../lib/supabase'
 import MemberPhotoUpload from './MemberPhotoUpload.vue'
+import AdminEventSection from './AdminEventSection.vue'
 
 const { t } = useI18n()
 const { confirm, confirmUnsaved } = useConfirmDialog()
+const { user, ready, signOut } = useAuth()
 
 type AuthState = 'loading' | 'unauthenticated' | 'unauthorized' | 'admin'
 
@@ -376,7 +381,7 @@ const authState = ref<AuthState>('loading')
 const signingIn = ref(false)
 const signInError = ref('')
 const loadingData = ref(false)
-const copiedSlug = ref('')
+const copiedCode = ref('')
 
 const signInForm = reactive({ email: '', password: '' })
 
@@ -397,8 +402,15 @@ interface Participant {
   checked_in_at: string | null
 }
 
+interface EventDateInfo {
+  slug: string
+  eventDate: string
+  eventEndDate: string | null
+}
+
 const events = ref<EventRow[]>([])
 const participantsByEvent = ref<Record<string, Participant[]>>({})
+const eventDates = ref<Record<string, EventDateInfo>>({})
 
 type MemberStatus = 'student' | 'alumni'
 
@@ -422,6 +434,7 @@ interface MemberRow {
   career_update: string | null
   user_id: string | null
   approved: boolean
+  created_at: string
 }
 
 const adminTab = ref<'events' | 'members'>('events')
@@ -464,6 +477,18 @@ const filteredMembers = computed(() => {
   if (memberFilter.value === 'pending') return members.value.filter((m) => !m.approved)
   return members.value.filter((m) => m.status === memberFilter.value)
 })
+
+const pendingMembers = computed(() => members.value.filter((m) => !m.approved))
+const pendingApprovalsCount = computed(() => pendingMembers.value.length)
+
+// Jumps straight to reviewing a specific pending submission's full edit
+// form from the Needs Review callout, instead of making the admin find it
+// again after switching tabs/filters manually.
+function reviewMember(m: MemberRow) {
+  adminTab.value = 'members'
+  memberFilter.value = 'pending'
+  editMember(m)
+}
 
 function resetMemberForm() {
   Object.assign(memberForm, emptyMemberForm())
@@ -619,32 +644,41 @@ async function deleteMember(m: MemberRow) {
   await loadMembers()
 }
 
-onMounted(async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
-    authState.value = 'unauthenticated'
-    return
-  }
-  await loadAfterAuth(user.id)
-})
+// Reactive session from the shared useAuth() composable, instead of a
+// one-time getUser() + hand-rolled state machine — covers initial load,
+// sign-in, and sign-out through this single watcher, and keeps this page's
+// session in sync with the status bar's AccountStatusItem for free.
+watch(
+  () => [ready.value, user.value] as const,
+  async ([isReady, currentUser]) => {
+    if (!isReady) return
 
-async function loadAfterAuth(userId: string) {
-  authState.value = 'loading'
-  const { data: profile } = await supabase
-    .schema('se')
-    .from('profiles')
-    .select('role')
-    .eq('id', userId)
-    .single()
+    if (!currentUser) {
+      authState.value = 'unauthenticated'
+      events.value = []
+      participantsByEvent.value = {}
+      members.value = []
+      return
+    }
 
-  if (!profile || profile.role !== 'admin') {
-    authState.value = 'unauthorized'
-    return
-  }
+    authState.value = 'loading'
+    const { data: profile } = await supabase
+      .schema('se')
+      .from('profiles')
+      .select('role')
+      .eq('id', currentUser.id)
+      .single()
 
-  authState.value = 'admin'
-  await loadData()
-}
+    if (!profile || profile.role !== 'admin') {
+      authState.value = 'unauthorized'
+      return
+    }
+
+    authState.value = 'admin'
+    await loadData()
+  },
+  { immediate: true }
+)
 
 async function loadData() {
   loadingData.value = true
@@ -674,50 +708,126 @@ async function loadData() {
   participantsByEvent.value = byEvent
 
   await loadMembers()
+  await loadEventDates()
 
   loadingData.value = false
+}
+
+async function loadEventDates() {
+  try {
+    const res = await fetch('/api/events.json')
+    const data: EventDateInfo[] = await res.json()
+    const map: Record<string, EventDateInfo> = {}
+    for (const d of data) map[d.slug] = d
+    eventDates.value = map
+  } catch {
+    // Missing/unreachable events.json shouldn't break the dashboard — just
+    // means no event defaults to "past" (isEventPast() below treats an
+    // unknown slug as not-past, so it stays visible rather than hidden).
+    eventDates.value = {}
+  }
 }
 
 async function handleSignIn() {
   signingIn.value = true
   signInError.value = ''
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email: signInForm.email,
     password: signInForm.password,
   })
 
-  signingIn.value = false
-
-  if (error || !data.user) {
-    signInError.value = error?.message ?? 'Sign in failed'
+  if (error) {
+    signingIn.value = false
+    signInError.value = error.message
     return
   }
-
-  await loadAfterAuth(data.user.id)
+  // On success, leave signingIn=true — useAuth()'s onAuthStateChange fires
+  // reactively and the watch() above transitions authState away from the
+  // sign-in form entirely, so there's no separate "re-enabled button" flash
+  // to avoid here.
 }
 
 async function handleSignOut() {
-  await supabase.auth.signOut()
-  authState.value = 'unauthenticated'
-  events.value = []
-  participantsByEvent.value = {}
-  members.value = []
+  await signOut()
+  // The watch() above reactively resets authState/events/participants/members
+  // once user becomes null — no need to duplicate that here.
 }
 
 async function copyCode(code: string) {
   await navigator.clipboard.writeText(code)
-  copiedSlug.value = code
-  setTimeout(() => { copiedSlug.value = '' }, 2000)
+  copiedCode.value = code
+  setTimeout(() => { copiedCode.value = '' }, 2000)
 }
 
-function participantCounts(slug: string) {
-  const ps = participantsByEvent.value[slug] ?? []
-  return {
-    registered: ps.length,
-    checkedIn: ps.filter(p => p.status === 'checked_in').length,
-  }
+function toggleRegistration(event: EventRow) {
+  const nextValue = !event.registration_open
+  supabase.schema('se').from('events').update({ registration_open: nextValue }).eq('slug', event.slug)
+    .then(({ error }) => {
+      if (!error) event.registration_open = nextValue
+    })
 }
+
+function resolvedEventDate(slug: string): { start: Date; end: Date } | null {
+  const info = eventDates.value[slug]
+  if (!info) return null
+  const start = new Date(info.eventDate)
+  const end = info.eventEndDate ? new Date(info.eventEndDate) : start
+  return { start, end }
+}
+
+// Day-granular, mirrors EventsPage.vue's public-facing past/upcoming split.
+// A slug missing from eventDates (fetch failure, or an event not present in
+// the managed blog collection) is treated as NOT past, so it stays visible
+// rather than silently hidden.
+function isEventPast(slug: string): boolean {
+  const resolved = resolvedEventDate(slug)
+  if (!resolved) return false
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return resolved.end < today
+}
+
+function eventDateSortKey(slug: string): number | null {
+  const resolved = resolvedEventDate(slug)
+  return resolved ? resolved.start.getTime() : null
+}
+
+const upcomingEvents = computed(() =>
+  events.value
+    .filter((e) => !isEventPast(e.slug))
+    .sort((a, b) => {
+      const ka = eventDateSortKey(a.slug)
+      const kb = eventDateSortKey(b.slug)
+      if (ka === null && kb === null) return 0
+      if (ka === null) return 1
+      if (kb === null) return -1
+      return ka - kb // soonest first
+    })
+)
+
+const pastEvents = computed(() =>
+  events.value
+    .filter((e) => isEventPast(e.slug))
+    .sort((a, b) => {
+      const ka = eventDateSortKey(a.slug)
+      const kb = eventDateSortKey(b.slug)
+      if (ka === null && kb === null) return 0
+      if (ka === null) return 1
+      if (kb === null) return -1
+      return kb - ka // most recent first
+    })
+)
+
+const registeredThisWeekCount = computed(() => {
+  const weekAgo = new Date()
+  weekAgo.setDate(weekAgo.getDate() - 7)
+  let count = 0
+  for (const list of Object.values(participantsByEvent.value)) {
+    count += list.filter((p) => new Date(p.registered_at) >= weekAgo).length
+  }
+  return count
+})
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString('en-US', {
