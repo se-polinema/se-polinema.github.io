@@ -8,6 +8,7 @@
     "build": "node scripts/validate-publications.mjs && astro check && astro build",
     "preview": "astro preview",
     "sync:events": "node scripts/sync-events.mjs",
+    "migrate:member-photos": "node scripts/migrate-member-photos.mjs",
     "sync:publications": "node scripts/update-publications.mjs",
     "sync:books": "node scripts/scrape-books.mjs",
     "validate:publications": "node scripts/validate-publications.mjs"

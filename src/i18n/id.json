@@ -521,6 +521,13 @@
     "signOut": "Keluar",
     "accountLabel": "Akun"
   },
+  "memberPhotoUpload": {
+    "uploadLabel": "Unggah Foto",
+    "changeLabel": "Ganti Foto",
+    "uploadingLabel": "Mengunggah...",
+    "removeLabel": "Hapus",
+    "genericError": "Gagal mengunggah foto. Silakan coba lagi."
+  },
   "citation": {
     "heading": "Kutip",
     "bibtex": "BibTeX",

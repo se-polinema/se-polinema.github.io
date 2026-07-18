@@ -7,6 +7,7 @@ on:
       - 'supabase/**'
       - 'src/content/blog/**'
       - 'scripts/sync-events.mjs'
+      - 'scripts/migrate-member-photos.mjs'
   workflow_dispatch:
 
 jobs:
@@ -71,6 +72,12 @@ jobs:
 
       - name: Sync managed events into se.events
         run: npm run sync:events
+        env:
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Migrate legacy member photos into Storage
+        run: npm run migrate:member-photos
         env:
           PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

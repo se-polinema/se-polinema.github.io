@@ -44,9 +44,9 @@
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.nameLabel }} <span class="text-red-400">*</span></label>
           <input v-model="form.name" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
-        <div>
+        <div class="sm:col-span-2">
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.photoLabel }}</label>
-          <input v-model="form.photo" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+          <MemberPhotoUpload v-model="form.photo" :upload-path-prefix="user?.id ?? ''" />
         </div>
         <div>
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.cohortYearLabel }} <span class="text-red-400">*</span></label>
@@ -126,6 +126,7 @@ import { reactive, ref, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
 import GitHubSignInButton from './GitHubSignInButton.vue'
+import MemberPhotoUpload from './MemberPhotoUpload.vue'
 import research from '../data/research.json'
 
 const { t, lang } = useI18n()
@@ -142,7 +143,7 @@ const redirectTo = typeof window !== 'undefined' ? window.location.href : undefi
 
 const form = reactive({
   name: '',
-  photo: '',
+  photo: null as string | null,
   cohort_year: new Date().getFullYear(),
   exit_year: new Date().getFullYear(),
   current_role_id: '',
@@ -182,7 +183,6 @@ watch(
 
     const meta = user.value.user_metadata as Record<string, string> | undefined
     form.name = meta?.full_name || meta?.name || meta?.user_name || ''
-    form.photo = meta?.avatar_url || ''
     state.value = 'form'
   },
   { immediate: true }
@@ -200,7 +200,7 @@ async function handleSubmit() {
     status: 'alumni',
     approved: false,
     name: form.name.trim(),
-    photo: form.photo.trim() || null,
+    photo: form.photo || null,
     cohort_year: form.cohort_year,
     exit_year: form.exit_year,
     role_id: 'Mahasiswa',

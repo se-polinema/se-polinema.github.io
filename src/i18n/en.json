@@ -521,6 +521,13 @@
     "signOut": "Sign out",
     "accountLabel": "Account"
   },
+  "memberPhotoUpload": {
+    "uploadLabel": "Upload Photo",
+    "changeLabel": "Change Photo",
+    "uploadingLabel": "Uploading...",
+    "removeLabel": "Remove",
+    "genericError": "Couldn't upload this photo. Please try again."
+  },
   "citation": {
     "heading": "Cite",
     "bibtex": "BibTeX",

@@ -227,9 +227,9 @@
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.nameLabel }}</label>
                 <input v-model="memberForm.name" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
               </div>
-              <div>
+              <div class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.photoLabel }}</label>
-                <input v-model="memberForm.photo" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <MemberPhotoUpload v-model="memberForm.photo" :upload-path-prefix="editingMemberId ? `admin/${editingMemberId}` : adminUploadPrefix" />
               </div>
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.cohortYearLabel }}</label>
@@ -365,6 +365,7 @@ import { ref, reactive, onMounted, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useConfirmDialog } from '../composables/useConfirmDialog'
 import { supabase } from '../lib/supabase'
+import MemberPhotoUpload from './MemberPhotoUpload.vue'
 
 const { t } = useI18n()
 const { confirm, confirmUnsaved } = useConfirmDialog()
@@ -428,6 +429,7 @@ const members = ref<MemberRow[]>([])
 const memberFilterOptions = ['all', 'student', 'alumni', 'pending'] as const
 const memberFilter = ref<typeof memberFilterOptions[number]>('all')
 const showMemberForm = ref(false)
+const adminUploadPrefix = ref(`admin/new-${crypto.randomUUID()}`)
 const editingMemberId = ref<string | null>(null)
 const savingMember = ref(false)
 const memberActionError = ref('')
@@ -437,7 +439,7 @@ function emptyMemberForm() {
   return {
     status: 'student' as MemberStatus,
     name: '',
-    photo: '',
+    photo: null as string | null,
     cohort_year: new Date().getFullYear(),
     exit_year: null as number | null,
     role_id: '',
@@ -478,6 +480,7 @@ function isMemberFormDirty(): boolean {
 
 function openAddMemberForm() {
   resetMemberForm()
+  adminUploadPrefix.value = `admin/new-${crypto.randomUUID()}`
   memberActionError.value = ''
   showMemberForm.value = true
   snapshotMemberForm()
@@ -519,7 +522,7 @@ function editMember(m: MemberRow) {
   Object.assign(memberForm, {
     status: m.status,
     name: m.name,
-    photo: m.photo ?? '',
+    photo: m.photo,
     cohort_year: m.cohort_year,
     exit_year: m.exit_year,
     role_id: m.role_id,
@@ -557,7 +560,7 @@ async function handleSaveMember() {
   const payload = {
     status: memberForm.status,
     name: memberForm.name.trim(),
-    photo: memberForm.photo.trim() || null,
+    photo: memberForm.photo || null,
     cohort_year: memberForm.cohort_year,
     exit_year: memberForm.status === 'alumni' ? memberForm.exit_year : null,
     role_id: memberForm.role_id.trim(),
