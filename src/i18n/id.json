@@ -516,6 +516,11 @@
     "switchToDark": "Ganti ke tema gelap",
     "switchToLight": "Ganti ke tema terang"
   },
+  "account": {
+    "signIn": "Masuk",
+    "signOut": "Keluar",
+    "accountLabel": "Akun"
+  },
   "citation": {
     "heading": "Kutip",
     "bibtex": "BibTeX",

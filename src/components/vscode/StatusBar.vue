@@ -54,8 +54,13 @@
       Jurusan Teknologi Informasi — Politeknik Negeri Malang
     </span>
 
-    <!-- Right: theme toggle + language toggle + encoding -->
+    <!-- Right: account + theme toggle + language toggle + encoding -->
     <div class="flex items-center gap-0">
+      <!-- Account / Sign In -->
+      <AccountStatusItem />
+
+      <span class="w-px h-3.5 bg-primary/20" />
+
       <!-- Theme toggle -->
       <button
         @click="toggleTheme"
@@ -120,6 +125,7 @@ import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import { useTheme } from '../../composables/useTheme'
 import { usePalette } from '../../composables/usePalette'
+import AccountStatusItem from './AccountStatusItem.vue'
 
 const { panelOpen, togglePanel } = useVSCodeLayout()
 const { lang, t, toggleLang } = useI18n()

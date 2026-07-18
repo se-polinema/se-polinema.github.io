@@ -516,6 +516,11 @@
     "switchToDark": "Switch to dark theme",
     "switchToLight": "Switch to light theme"
   },
+  "account": {
+    "signIn": "Sign In",
+    "signOut": "Sign out",
+    "accountLabel": "Account"
+  },
   "citation": {
     "heading": "Cite",
     "bibtex": "BibTeX",
