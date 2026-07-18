@@ -24,16 +24,26 @@
       >
         <!-- Left: Main content -->
         <div>
-          <div class="flex items-center gap-3 mb-6">
-            <img
-              src="/images/logo-jti.png"
-              alt="JTI Polinema"
-              class="h-8 w-auto opacity-80"
-            />
-            <span
-              class="text-xs font-mono uppercase tracking-[0.2em] text-primary/50 dark:text-gray-400"
-              >{{ t.hero.subtitle }}</span
-            >
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mb-6">
+            <div class="flex items-center gap-2.5">
+              <span
+                aria-hidden="true"
+                class="inline-block w-7 h-7 flex-shrink-0 bg-[#051C38] dark:bg-gray-100"
+                style="-webkit-mask-image: url('/images/logo-se-hexagon.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('/images/logo-se-hexagon.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"
+              ></span>
+              <span class="font-serif text-lg font-semibold text-primary dark:text-gray-100 tracking-tight">SE Laboratory</span>
+            </div>
+            <div class="flex items-center gap-2 border-l border-primary/15 dark:border-gray-600 pl-6">
+              <img
+                src="/images/logo-polinema.png"
+                alt="Politeknik Negeri Malang"
+                class="h-6 w-auto opacity-70"
+              />
+              <span
+                class="text-xs font-mono uppercase tracking-[0.2em] text-primary/50 dark:text-gray-400"
+                >{{ t.hero.subtitle }}</span
+              >
+            </div>
           </div>
 
           <h1

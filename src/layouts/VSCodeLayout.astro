@@ -38,9 +38,11 @@ const { title, description, image, type, lang } = Astro.props
           class="flex items-center gap-1.5 px-2 h-[18px] text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg)]"
           style="background: var(--color-vscode-chrome-border); border: 1px solid var(--color-vscode-chrome-border); border-radius: 2px;"
         >
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-accent); flex-shrink: 0;">
-            <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
-          </svg>
+          <span
+            aria-hidden="true"
+            class="inline-block w-[11px] h-[11px] flex-shrink-0"
+            style="background-color: var(--color-vscode-chrome-fg); -webkit-mask-image: url('/images/logo-se-hexagon.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('/images/logo-se-hexagon.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"
+          ></span>
           <span>SE Laboratory</span>
         </div>
       </div>
