@@ -1,7 +1,16 @@
 <template>
   <div class="px-8 py-5">
     <h1>{{ heading }}</h1>
-    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">{{ description }}</p>
+    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-4">{{ description }}</p>
+
+    <div v-if="props.status === 'alumni'" class="mb-8">
+      <a
+        href="/alumni/submit"
+        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
+      >
+        {{ t.alumniSubmit.addAlumniCta }}
+      </a>
+    </div>
 
     <div v-if="loading" class="text-center py-12 text-neutral-500 dark:text-gray-400">
       {{ t.events.admin.loading }}
@@ -54,12 +63,6 @@
                   {{ t.alumni.at }} <span class="font-medium text-neutral-600 dark:text-gray-300">{{ lang === 'id' ? member.current_organization_id : member.current_organization_en }}</span>
                 </div>
               </div>
-              <span
-                v-if="primaryStream(member)"
-                class="inline-block px-2 py-1 text-xs font-mono bg-primary/5 dark:bg-gray-800 text-primary/70 dark:text-gray-300 border border-primary/10 dark:border-gray-700"
-              >
-                {{ primaryStream(member) }}
-              </span>
             </div>
 
             <div class="flex items-center gap-4 mt-5">
@@ -96,7 +99,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
-import research from '../data/research.json'
 
 interface MemberRow {
   id: string
@@ -131,14 +133,6 @@ const emptyText = computed(() => (props.status === 'alumni' ? t.value.alumni.emp
 
 function hasCurrentInfo(member: MemberRow): boolean {
   return !!(member.current_role_id || member.current_role_en)
-}
-
-function primaryStream(member: MemberRow): string | null {
-  const id = member.streams?.[0]
-  if (!id) return null
-  const stream = research.find((s) => s.id === id)
-  if (!stream) return null
-  return lang.value === 'id' ? stream.name.id : stream.name.en
 }
 
 const groupedByCohort = computed(() => {

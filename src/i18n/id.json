@@ -573,6 +573,23 @@
     "profile": "Profil",
     "empty": "Belum ada data alumni."
   },
+  "alumniSubmit": {
+    "addAlumniCta": "+ Tambahkan Profil Alumni Anda",
+    "heading": "Tambahkan Profil Alumni Anda",
+    "description": "Kirimkan data Anda untuk direktori alumni. Data akan ditinjau oleh admin sebelum tampil secara publik.",
+    "signInPrompt": "Masuk untuk mengirimkan profil alumni Anda.",
+    "backToLogin": "Masuk di halaman login",
+    "alreadyListedNote": "Sudah ditambahkan oleh admin dari kiriman sebelumnya? Hubungi kami untuk menautkan akun Anda daripada mengirim ulang.",
+    "pendingHeading": "Kiriman diterima",
+    "pendingMessage": "Profil alumni Anda sedang menunggu tinjauan admin. Akan tampil di halaman Alumni setelah disetujui.",
+    "approvedHeading": "Anda sudah terdaftar",
+    "approvedMessage": "Profil alumni Anda sudah tampil.",
+    "viewProfileLink": "Lihat profil Anda",
+    "streamsLabel": "Stream Riset",
+    "submitBtn": "Kirim untuk Ditinjau",
+    "submittingLabel": "Mengirim...",
+    "genericError": "Terjadi kesalahan. Silakan coba lagi."
+  },
   "members": {
     "heading": "Anggota Mahasiswa",
     "description": "Anggota mahasiswa aktif Software Engineering Laboratory dan apa yang sedang mereka kerjakan.",
@@ -618,7 +635,11 @@
     "savingLabel": "Menyimpan...",
     "editAction": "Edit",
     "deleteAction": "Hapus",
-    "noEntries": "Belum ada anggota."
+    "noEntries": "Belum ada anggota.",
+    "filterPending": "Menunggu",
+    "pendingBadge": "Menunggu",
+    "approveAction": "Setujui",
+    "approvedFieldLabel": "Tampil ke publik"
   },
   "confirmDialog": {
     "deleteTitle": "Hapus Anggota",

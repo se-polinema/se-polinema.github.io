@@ -573,6 +573,23 @@
     "profile": "Profile",
     "empty": "No alumni entries yet."
   },
+  "alumniSubmit": {
+    "addAlumniCta": "+ Add Your Alumni Profile",
+    "heading": "Add Your Alumni Profile",
+    "description": "Submit your own entry for the alumni directory. It will be reviewed by an admin before it appears publicly.",
+    "signInPrompt": "Sign in to submit your alumni profile.",
+    "backToLogin": "Sign in on the login page",
+    "alreadyListedNote": "Already added by an admin from a previous submission? Contact us to link your account instead of submitting again.",
+    "pendingHeading": "Submission received",
+    "pendingMessage": "Your alumni profile is awaiting admin review. It will appear on the Alumni page once approved.",
+    "approvedHeading": "You're already listed",
+    "approvedMessage": "Your alumni profile is live.",
+    "viewProfileLink": "View your profile",
+    "streamsLabel": "Research Streams",
+    "submitBtn": "Submit for Review",
+    "submittingLabel": "Submitting...",
+    "genericError": "Something went wrong. Please try again."
+  },
   "members": {
     "heading": "Student Members",
     "description": "Current student members of the Software Engineering Laboratory and what they're working on.",
@@ -618,7 +635,11 @@
     "savingLabel": "Saving...",
     "editAction": "Edit",
     "deleteAction": "Delete",
-    "noEntries": "No members yet."
+    "noEntries": "No members yet.",
+    "filterPending": "Pending",
+    "pendingBadge": "Pending",
+    "approveAction": "Approve",
+    "approvedFieldLabel": "Visible to public"
   },
   "confirmDialog": {
     "deleteTitle": "Delete Member",

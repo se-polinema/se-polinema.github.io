@@ -190,7 +190,7 @@
                 ? 'bg-primary text-white border-primary'
                 : 'text-primary/60 dark:text-gray-400 border-primary/20 dark:border-gray-600 hover:border-primary/40'"
             >
-              {{ f === 'all' ? t.membersAdmin.filterAll : f === 'student' ? t.membersAdmin.statusStudent : t.membersAdmin.statusAlumni }}
+              {{ f === 'all' ? t.membersAdmin.filterAll : f === 'student' ? t.membersAdmin.statusStudent : f === 'alumni' ? t.membersAdmin.statusAlumni : t.membersAdmin.filterPending }}
             </button>
             <button
               @click="openAddMemberForm"
@@ -216,6 +216,12 @@
                   <option value="student">{{ t.membersAdmin.statusStudent }}</option>
                   <option value="alumni">{{ t.membersAdmin.statusAlumni }}</option>
                 </select>
+              </div>
+              <div class="flex items-end pb-2">
+                <label class="inline-flex items-center gap-2 text-sm font-mono text-primary dark:text-gray-100">
+                  <input v-model="memberForm.approved" type="checkbox" class="h-4 w-4" />
+                  {{ t.membersAdmin.approvedFieldLabel }}
+                </label>
               </div>
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.nameLabel }}</label>
@@ -325,9 +331,18 @@
                     >
                       {{ m.status === 'alumni' ? t.membersAdmin.statusAlumni : t.membersAdmin.statusStudent }}
                     </span>
+                    <span
+                      v-if="!m.approved"
+                      class="inline-flex items-center px-2 py-0.5 ml-1.5 text-[10px] font-mono uppercase tracking-wider bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                    >
+                      {{ t.membersAdmin.pendingBadge }}
+                    </span>
                   </td>
                   <td class="py-2.5 pr-4 font-mono text-xs text-neutral-400 dark:text-gray-500">{{ m.cohort_year }}</td>
                   <td class="py-2.5 text-right space-x-3">
+                    <button v-if="!m.approved" @click="approveMember(m)" class="text-xs font-mono text-accent-700 dark:text-accent-400 hover:text-accent transition-colors">
+                      {{ t.membersAdmin.approveAction }}
+                    </button>
                     <button @click="editMember(m)" class="text-xs font-mono text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
                       {{ t.membersAdmin.editAction }}
                     </button>
@@ -404,11 +419,13 @@ interface MemberRow {
   streams: string[] | null
   research_topics: string | null
   career_update: string | null
+  user_id: string | null
+  approved: boolean
 }
 
 const adminTab = ref<'events' | 'members'>('events')
 const members = ref<MemberRow[]>([])
-const memberFilterOptions = ['all', 'student', 'alumni'] as const
+const memberFilterOptions = ['all', 'student', 'alumni', 'pending'] as const
 const memberFilter = ref<typeof memberFilterOptions[number]>('all')
 const showMemberForm = ref(false)
 const editingMemberId = ref<string | null>(null)
@@ -434,6 +451,7 @@ function emptyMemberForm() {
     streamsText: '',
     research_topics: '',
     career_update: '',
+    approved: true,
   }
 }
 
@@ -441,6 +459,7 @@ const memberForm = reactive(emptyMemberForm())
 
 const filteredMembers = computed(() => {
   if (memberFilter.value === 'all') return members.value
+  if (memberFilter.value === 'pending') return members.value.filter((m) => !m.approved)
   return members.value.filter((m) => m.status === memberFilter.value)
 })
 
@@ -514,6 +533,7 @@ function editMember(m: MemberRow) {
     streamsText: (m.streams ?? []).join(', '),
     research_topics: m.research_topics ?? '',
     career_update: m.career_update ?? '',
+    approved: m.approved,
   })
   memberActionError.value = ''
   showMemberForm.value = true
@@ -551,6 +571,7 @@ async function handleSaveMember() {
     streams: memberForm.streamsText.split(',').map((s) => s.trim()).filter(Boolean),
     research_topics: memberForm.research_topics.trim() || null,
     career_update: memberForm.career_update.trim() || null,
+    approved: memberForm.approved,
   }
 
   const { error } = editingMemberId.value
@@ -565,6 +586,15 @@ async function handleSaveMember() {
   }
 
   forceCloseMemberForm()
+  await loadMembers()
+}
+
+async function approveMember(m: MemberRow) {
+  const { error } = await supabase.schema('se').from('members').update({ approved: true }).eq('id', m.id)
+  if (error) {
+    memberActionError.value = error.message
+    return
+  }
   await loadMembers()
 }
 
