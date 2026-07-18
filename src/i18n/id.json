@@ -384,7 +384,10 @@
       "signInLink": "Masuk",
       "loginError": "Gagal masuk. Periksa kredensial Anda.",
       "registerError": "Gagal membuat akun. Silakan coba lagi.",
-      "genericError": "Terjadi kesalahan. Silakan coba lagi."
+      "genericError": "Terjadi kesalahan. Silakan coba lagi.",
+      "githubBtn": "Lanjutkan dengan GitHub",
+      "orDivider": "atau",
+      "githubError": "Gagal masuk dengan GitHub. Silakan coba lagi."
     },
     "registration": {
       "heading": "Pendaftaran Acara",

@@ -9,6 +9,14 @@
         {{ errorMessage }}
       </div>
 
+      <GitHubSignInButton :redirect-to="oauthRedirectTo" />
+
+      <div class="flex items-center gap-3 my-5">
+        <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
+        <span class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500">{{ t.events.auth.orDivider }}</span>
+        <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
+      </div>
+
       <form @submit.prevent="handleSubmit" class="space-y-4">
         <div v-if="props.mode === 'register'">
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
@@ -90,6 +98,7 @@
 import { ref, reactive } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { supabase } from '../lib/supabase'
+import GitHubSignInButton from './GitHubSignInButton.vue'
 
 const props = defineProps<{
   mode: 'login' | 'register'
@@ -113,6 +122,15 @@ const redirectParam = typeof window !== 'undefined'
       return redirect ? `?redirect=${encodeURIComponent(redirect)}` : ''
     })()
   : ''
+
+// Same ?redirect= convention as handleSubmit's post-auth navigation below,
+// resolved to an absolute URL since Supabase's OAuth redirectTo requires one.
+const oauthRedirectTo = typeof window !== 'undefined'
+  ? (() => {
+      const redirect = new URLSearchParams(window.location.search).get('redirect')
+      return redirect ? new URL(redirect, window.location.origin).toString() : window.location.origin + '/'
+    })()
+  : undefined
 
 async function handleSubmit() {
   submitting.value = true

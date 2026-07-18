@@ -384,7 +384,10 @@
       "signInLink": "Sign in",
       "loginError": "Sign in failed. Please check your credentials.",
       "registerError": "Account creation failed. Please try again.",
-      "genericError": "Something went wrong. Please try again."
+      "genericError": "Something went wrong. Please try again.",
+      "githubBtn": "Continue with GitHub",
+      "orDivider": "or",
+      "githubError": "GitHub sign-in failed. Please try again."
     },
     "registration": {
       "heading": "Event Registration",

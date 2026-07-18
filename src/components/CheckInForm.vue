@@ -22,6 +22,15 @@
         <div v-if="signInError" class="px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
           {{ signInError }}
         </div>
+
+        <GitHubSignInButton />
+
+        <div class="flex items-center gap-3">
+          <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
+          <span class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500">{{ t.events.auth.orDivider }}</span>
+          <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
+        </div>
+
         <div>
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
             {{ t.events.auth.emailLabel }} <span class="text-red-400">*</span>
@@ -119,6 +128,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { supabase } from '../lib/supabase'
+import GitHubSignInButton from './GitHubSignInButton.vue'
 
 defineProps<{
   events: Array<{ id: string; title: string; titleId?: string }>

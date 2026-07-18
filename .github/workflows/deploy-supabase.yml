@@ -36,6 +36,25 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
 
+      - name: Enable GitHub OAuth provider
+        run: |
+          curl --fail-with-body -sS -X PATCH \
+            "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/config/auth" \
+            -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "external_github_enabled": true,
+              "external_github_client_id": "'"$SUPABASE_AUTH_GITHUB_CLIENT_ID"'",
+              "external_github_secret": "'"$SUPABASE_AUTH_GITHUB_SECRET"'",
+              "site_url": "https://se.polinema.ac.id",
+              "uri_allow_list": "https://se.polinema.ac.id/**"
+            }'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_AUTH_GITHUB_CLIENT_ID: ${{ secrets.SUPABASE_AUTH_GITHUB_CLIENT_ID }}
+          SUPABASE_AUTH_GITHUB_SECRET: ${{ secrets.SUPABASE_AUTH_GITHUB_SECRET }}
+
       - name: Push database migrations
         run: supabase db push
         env:

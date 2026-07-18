@@ -57,6 +57,14 @@
         {{ errorMessage }}
       </div>
 
+      <GitHubSignInButton />
+
+      <div class="flex items-center gap-3">
+        <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
+        <span class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500">{{ t.events.auth.orDivider }}</span>
+        <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
+      </div>
+
       <!-- Name — register mode only -->
       <div v-if="mode === 'register'">
         <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
@@ -150,6 +158,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { supabase } from '../lib/supabase'
+import GitHubSignInButton from './GitHubSignInButton.vue'
 
 const props = defineProps<{
   eventSlug: string
