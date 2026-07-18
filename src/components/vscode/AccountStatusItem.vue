@@ -5,19 +5,19 @@
     <a
       v-if="!user"
       :href="signInHref"
-      class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-primary font-semibold hover:bg-primary/10 transition-colors"
+      class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-[color:var(--color-vscode-statusbar-fg)] font-semibold hover:bg-[color:var(--color-vscode-statusbar-border)] transition-colors flex-shrink-0"
       :title="t.account.accountLabel"
     >
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="7" r="4"/>
         <path d="M5.5 21a6.5 6.5 0 0113 0"/>
       </svg>
-      <span class="hidden sm:inline">{{ t.account.signIn }}</span>
+      <span class="hidden sm:inline whitespace-nowrap">{{ t.account.signIn }}</span>
     </a>
 
-    <div v-else class="flex items-center h-6">
+    <div v-else class="flex items-center h-6 flex-shrink-0">
       <span
-        class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-primary font-semibold"
+        class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-[color:var(--color-vscode-statusbar-fg)] font-semibold"
         :title="t.account.accountLabel"
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -29,7 +29,7 @@
       <button
         @click="handleSignOut"
         :disabled="signingOut"
-        class="flex items-center justify-center h-6 min-w-[24px] px-1.5 text-primary hover:bg-primary/10 transition-colors disabled:opacity-50"
+        class="flex items-center justify-center h-6 min-w-[24px] px-1.5 text-[color:var(--color-vscode-statusbar-fg)] hover:bg-[color:var(--color-vscode-statusbar-border)] transition-colors disabled:opacity-50"
         :title="t.account.signOut"
         :aria-label="t.account.signOut"
       >

@@ -35,6 +35,15 @@
   --color-vscode-chrome-fg: rgba(255, 255, 255, 0.95);
   --color-vscode-chrome-fg-muted: rgba(255, 255, 255, 0.55);
   --color-vscode-chrome-border: rgba(255, 255, 255, 0.1);
+  /* Unlike chrome-fg above (which inverts light/dark-mode across ActivityBar/
+     Sidebar/TabBar), the statusbar's own background stays medium-to-bright in
+     every palette AND every mode (oklch L 0.62 in light-mode palette blocks,
+     0.774 in dark-mode palette blocks; Compass's fixed #F5A100 in both) — so
+     one dark foreground works everywhere and this is defined once here rather
+     than per-palette-block. Consumed by StatusBar.vue, AccountStatusItem.vue. */
+  --color-vscode-statusbar-fg: rgba(0, 0, 0, 0.85);
+  --color-vscode-statusbar-fg-muted: rgba(0, 0, 0, 0.6);
+  --color-vscode-statusbar-border: rgba(0, 0, 0, 0.12);
   --color-vscode-gutter-bg: #FAFAFA;
   --color-vscode-gutter-border: #EBEBEB;
   --color-vscode-gutter-text: #C0C4CC;
