@@ -277,15 +277,24 @@
               </div>
               <div class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.streamsLabel }}</label>
-                <input v-model="memberForm.streamsText" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <div class="flex flex-wrap gap-3">
+                  <label
+                    v-for="stream in research"
+                    :key="stream.id"
+                    class="inline-flex items-center gap-1.5 text-xs font-mono text-primary dark:text-gray-100"
+                  >
+                    <input type="checkbox" :value="stream.id" v-model="memberForm.streams" class="h-3.5 w-3.5" />
+                    {{ stream.name.en }} / {{ stream.name.id }}
+                  </label>
+                </div>
               </div>
               <div class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.researchTopicsLabel }}</label>
-                <textarea v-model="memberForm.research_topics" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <textarea v-model="memberForm.research_topics" rows="5" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
               </div>
               <div class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.careerUpdateLabel }}</label>
-                <textarea v-model="memberForm.career_update" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <textarea v-model="memberForm.career_update" rows="5" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
               </div>
             </div>
 
@@ -370,6 +379,7 @@ import { useAuth } from '../composables/useAuth'
 import { supabase } from '../lib/supabase'
 import MemberPhotoUpload from './MemberPhotoUpload.vue'
 import AdminEventSection from './AdminEventSection.vue'
+import research from '../data/research.json'
 
 const { t } = useI18n()
 const { confirm, confirmUnsaved } = useConfirmDialog()
@@ -463,7 +473,7 @@ function emptyMemberForm() {
     current_organization_en: '',
     linkedin_url: '',
     profile_url: '',
-    streamsText: '',
+    streams: [] as string[],
     research_topics: '',
     career_update: '',
     approved: true,
@@ -558,7 +568,7 @@ function editMember(m: MemberRow) {
     current_organization_en: m.current_organization_en ?? '',
     linkedin_url: m.linkedin_url ?? '',
     profile_url: m.profile_url ?? '',
-    streamsText: (m.streams ?? []).join(', '),
+    streams: m.streams ?? [],
     research_topics: m.research_topics ?? '',
     career_update: m.career_update ?? '',
     approved: m.approved,
@@ -596,7 +606,7 @@ async function handleSaveMember() {
     current_organization_en: memberForm.current_organization_en.trim() || null,
     linkedin_url: memberForm.linkedin_url.trim() || null,
     profile_url: memberForm.profile_url.trim() || null,
-    streams: memberForm.streamsText.split(',').map((s) => s.trim()).filter(Boolean),
+    streams: memberForm.streams,
     research_topics: memberForm.research_topics.trim() || null,
     career_update: memberForm.career_update.trim() || null,
     approved: memberForm.approved,
