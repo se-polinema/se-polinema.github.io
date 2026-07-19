@@ -100,6 +100,23 @@ function loadResearchers() {
   return researchers
 }
 
+// Reads the previous sync's per-researcher metrics (if any), keyed by
+// researcher slug, so a researcher whose fetch fails this run (e.g. a
+// Scholar rate-limit) can fall back to their last-known-good numbers
+// instead of the fetch error path's zeroed placeholder values silently
+// overwriting real data.
+function loadPreviousResearcherMetrics() {
+  if (!existsSync(SCHOLAR_METRICS_FILE)) return new Map()
+  try {
+    const previous = JSON.parse(readFileSync(SCHOLAR_METRICS_FILE, 'utf-8'))
+    const entries = (previous.researcherMetrics || []).map(m => [m.researcher, m])
+    return new Map(entries)
+  } catch (err) {
+    console.warn(`  Warning: could not read previous ${SCHOLAR_METRICS_FILE}: ${err.message}`)
+    return new Map()
+  }
+}
+
 function loadExistingPublications() {
   const existing = []
   if (!existsSync(PUBLICATIONS_DIR)) return existing
@@ -424,6 +441,25 @@ async function main() {
   }
   writeFileSync(SYNC_META_FILE, JSON.stringify(syncMeta, null, 2) + '\n', 'utf-8')
   console.log(`\nSync meta written to ${SYNC_META_FILE}`)
+
+  // A researcher whose fetch errored this run currently has zeroed
+  // placeholder metrics (see the catch block in
+  // fetchPublicationsForResearcher) — fall back to their previous synced
+  // values here rather than let a transient failure regress real data.
+  // _error stays set so the failure is still visible in the output.
+  const previousMetrics = loadPreviousResearcherMetrics()
+  for (const m of researcherMetrics) {
+    if (!m._error) continue
+    const prev = previousMetrics.get(m.researcher)
+    if (!prev) continue
+    m.citedby = prev.citedby ?? m.citedby
+    m.citedby5y = prev.citedby5y ?? m.citedby5y
+    m.hindex = prev.hindex ?? m.hindex
+    m.hindex5y = prev.hindex5y ?? m.hindex5y
+    m.i10index = prev.i10index ?? m.i10index
+    m.i10index5y = prev.i10index5y ?? m.i10index5y
+    console.log(`  Preserved previous metrics for ${m.name} (fetch failed this run)`)
+  }
 
   const totalLabCitedby = researcherMetrics.reduce((sum, m) => sum + (m.citedby || 0), 0)
   const totalLabCitedby5y = researcherMetrics.reduce((sum, m) => sum + (m.citedby5y || 0), 0)
