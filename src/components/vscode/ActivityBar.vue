@@ -4,7 +4,12 @@
     style="width: 48px; background: var(--color-vscode-activitybar);"
     aria-label="Activity Bar"
   >
-    <nav class="flex flex-col items-center flex-1 w-full">
+    <!-- Scrolls independently (min-h-0 lets it actually shrink instead of
+         forcing the aside to overflow) so a short viewport clips nothing —
+         the bottom account/command-palette/language group stays pinned via
+         mt-auto below, matching real VS Code's own activity bar behavior
+         when there are more icons than vertical space. -->
+    <nav class="flex flex-col items-center flex-1 w-full overflow-y-auto min-h-0">
       <!-- Explorer -->
       <button
         @click="setView('explorer')"
@@ -155,8 +160,19 @@
       </button>
     </nav>
 
-    <!-- Bottom: command palette + language toggle -->
+    <!-- Bottom: account + command palette + language toggle -->
     <div class="mt-auto mb-2 w-full">
+      <a
+        :href="accountHref"
+        class="activity-btn activity-inactive"
+        :title="accountTitle"
+        :aria-label="accountTitle"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M5.5 21a6.5 6.5 0 0113 0"/>
+        </svg>
+      </a>
       <button
         @click="openCommandPalette"
         class="activity-btn activity-inactive"
@@ -185,14 +201,40 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
+import { useAuth } from '../../composables/useAuth'
 
 const props = defineProps<{ initialPath?: string }>()
 
 const { activeSidebarView, setView, restoreRouteState } = useVSCodeLayout(props.initialPath)
-const { lang, toggleLang } = useI18n()
+const { lang, t, toggleLang } = useI18n()
+const { user } = useAuth()
+
+// Mirrors AccountStatusItem.vue's signInHref/accountLabel logic — same
+// module-singleton useAuth() instance, so this always agrees with the
+// StatusBar's own account item. Unlike that component (which gates its
+// whole signed-out branch behind `ready`, so it's always a fresh mount,
+// never a hydration patch), this icon is always rendered — no `ready`
+// gate, to avoid the icon rail shifting as it appears/disappears. That
+// means the redirect path can't be read from `window.location` directly
+// in a computed: Vue's hydration doesn't rectify attribute mismatches in
+// production, so an SSR-vs-client `href` difference would silently keep
+// the stale SSR value. Seed a safe SSR default ('') and correct it in
+// onMounted instead — a normal reactive update after hydration, which
+// does patch the DOM — same discipline used throughout this codebase for
+// window-dependent state (see useVSCodeLayout.ts's restorePanelState()).
+const redirectPath = ref('')
+
+const accountHref = computed(() => {
+  if (user.value) return '/account'
+  return redirectPath.value ? `/login?redirect=${encodeURIComponent(redirectPath.value)}` : '/login'
+})
+
+const accountTitle = computed(() =>
+  user.value ? t.value.account.accountLabel : t.value.account.signIn
+)
 
 function openSearch() {
   window.dispatchEvent(new CustomEvent('se-lab-open-search'))
@@ -204,6 +246,7 @@ function openCommandPalette() {
 
 onMounted(() => {
   restoreRouteState()
+  redirectPath.value = window.location.pathname + window.location.search
 })
 </script>
 
