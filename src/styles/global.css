@@ -560,6 +560,27 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Neutralizes the VS Code chrome's transitions/animations (sidebar
+     width, panel height, tab/breadcrumb/overlay fades, editor smooth
+     scroll, etc.) for users who've asked the OS not to animate things. A
+     blanket rule rather than annotating every transition individually —
+     robust against new chrome animations added later without needing a
+     matching opt-out written alongside each one. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   body {
     @apply font-sans text-neutral-800 bg-white dark:text-gray-100 dark:bg-gray-900;
   }

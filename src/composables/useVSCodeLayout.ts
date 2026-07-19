@@ -22,6 +22,12 @@ const PANEL_MAX_HEIGHT_HARD = 480
 const PANEL_DEFAULT_HEIGHT = 180
 const sidebarWidth = ref(SIDEBAR_DEFAULT_WIDTH)
 const panelHeight = ref(PANEL_DEFAULT_HEIGHT)
+// Mirrors the same `lg` (1024px) breakpoint the width-based sidebarOpen/
+// panelOpen defaults already use elsewhere in this file. Seeded false for
+// SSR/first-paint parity (same discipline as sidebarOpen/panelOpen below);
+// corrected post-hydration in restorePanelState() and kept in sync via a
+// resize listener registered there.
+const isMobile = ref(false)
 const activeFilters = reactive<{
   category: string | null
   year: number | null
@@ -71,12 +77,15 @@ function clampSidebarWidth(px: number): number {
   return Math.min(Math.max(px, SIDEBAR_MIN_WIDTH), SIDEBAR_MAX_WIDTH)
 }
 
-// Caps the panel at half the viewport height (never more than the hard
-// 480px ceiling) so a drag can't swallow a short screen. Falls back to
-// the hard ceiling during SSR, where `window` doesn't exist.
+// Caps the panel at half the viewport height on desktop (tighter, 40%, on
+// mobile — a short phone screen can't afford as much), never more than the
+// hard 480px ceiling, so a drag (or a persisted desktop value loaded on a
+// narrow phone) can't swallow the screen. Falls back to the hard ceiling
+// during SSR, where `window` doesn't exist.
 function panelMaxHeight(): number {
   if (typeof window === 'undefined') return PANEL_MAX_HEIGHT_HARD
-  return Math.min(window.innerHeight * 0.5, PANEL_MAX_HEIGHT_HARD)
+  const viewportFraction = isMobile.value ? 0.4 : 0.5
+  return Math.min(window.innerHeight * viewportFraction, PANEL_MAX_HEIGHT_HARD)
 }
 
 function clampPanelHeight(px: number): number {
@@ -111,11 +120,18 @@ export function useVSCodeLayout(initialPath?: string) {
   // (e.g. from a component's onMounted) so the initial client render matches
   // the server render before we mutate reactive state from window.innerWidth
   // or localStorage.
+  function updateIsMobile() {
+    isMobile.value = window.innerWidth < 1024
+  }
+
   function restorePanelState() {
     if (typeof window === 'undefined' || panelStateRestored) return
     panelStateRestored = true
 
-    sidebarOpen.value = window.innerWidth >= 1024
+    updateIsMobile()
+    window.addEventListener('resize', updateIsMobile)
+
+    sidebarOpen.value = !isMobile.value
     layoutInitialized.value = true
 
     const savedPanelOpen = localStorage.getItem('se-lab-panel-open')
@@ -124,7 +140,7 @@ export function useVSCodeLayout(initialPath?: string) {
     } else {
       // No stored preference yet (first-ever visit) — fall back to the
       // same width-based default the sync init block used to apply.
-      panelOpen.value = window.innerWidth >= 1024
+      panelOpen.value = !isMobile.value
     }
 
     const savedPanelTab = localStorage.getItem('se-lab-panel-tab')
@@ -271,6 +287,12 @@ export function useVSCodeLayout(initialPath?: string) {
     if (editor && target) {
       editor.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
     }
+    // Same-page section jumps (unlike cross-page links) don't reload and
+    // so wouldn't otherwise reset sidebarOpen — close the mobile drawer
+    // explicitly so it doesn't keep covering the section just jumped to.
+    if (isMobile.value) {
+      sidebarOpen.value = false
+    }
   }
 
   return {
@@ -285,6 +307,7 @@ export function useVSCodeLayout(initialPath?: string) {
     cursorLine,
     sidebarWidth,
     panelHeight,
+    isMobile,
     toggleSidebar,
     togglePanel,
     openPanel,

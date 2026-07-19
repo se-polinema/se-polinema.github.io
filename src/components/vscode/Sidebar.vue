@@ -1,10 +1,25 @@
 <template>
-  <!-- Sidebar panel: split panel, in-flow on all screen sizes -->
+  <!-- Backdrop: mobile-only, dims the content behind the sidebar when it's
+       acting as an overlay drawer; tapping it closes the drawer. Sits
+       below the sidebar (z-40) and the Activity Bar (z-30, stays usable)
+       but above the editor content (z-0/20). -->
+  <div
+    v-if="isMobile && sidebarOpen"
+    class="fixed inset-0 z-20 bg-black/50"
+    aria-hidden="true"
+    @click="closeMobileSidebar"
+  />
+
+  <!-- Sidebar panel: in-flow split panel on desktop; an overlay drawer
+       (fixed, floating over the content column) on mobile -->
   <aside
-    class="relative z-20 flex-shrink-0 flex flex-col overflow-hidden"
+    class="flex-shrink-0 flex flex-col overflow-hidden"
     :class="[
       sidebarOpen ? 'w-64' : layoutInitialized ? 'w-0' : 'w-0 lg:w-64',
       isResizing ? '' : 'transition-[width] duration-200',
+      isMobile && layoutInitialized
+        ? 'fixed top-7 bottom-6 left-12 z-40 shadow-2xl max-w-[85vw]'
+        : 'relative z-20',
     ]"
     :style="sidebarOpen && layoutInitialized ? { width: sidebarWidth + 'px' } : {}"
     style="background: var(--color-vscode-sidebar);"
@@ -302,9 +317,11 @@
 
     </Transition>
 
-    <!-- Resize handle: flush with the inner right edge -->
+    <!-- Resize handle: flush with the inner right edge. Desktop only —
+         a fixed-max-width overlay drawer isn't a resizable surface on
+         mobile the way the in-flow split panel is on desktop. -->
     <div
-      v-if="sidebarOpen"
+      v-if="sidebarOpen && !isMobile"
       class="sidebar-resize-handle"
       role="separator"
       aria-orientation="vertical"
@@ -329,7 +346,7 @@ const props = defineProps<{ initialPath?: string }>()
 
 const {
   sidebarOpen, activeSection, currentPage, layoutInitialized,
-  activeSidebarView, activeFilters, sidebarWidth,
+  activeSidebarView, activeFilters, sidebarWidth, isMobile,
   initObserver, scrollTo, restoreRouteState,
   setSidebarWidth, persistSidebarWidth,
 } = useVSCodeLayout(props.initialPath)
@@ -347,6 +364,10 @@ const {
   onChange: setSidebarWidth,
   onCommit: persistSidebarWidth,
 })
+
+function closeMobileSidebar() {
+  sidebarOpen.value = false
+}
 
 interface FileItem {
   id: string
