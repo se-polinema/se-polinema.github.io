@@ -305,11 +305,13 @@ import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 
+const props = defineProps<{ initialPath?: string }>()
+
 const {
   sidebarOpen, activeSection, currentPage, layoutInitialized,
   activeSidebarView, activeFilters,
   initObserver, scrollTo, restoreRouteState,
-} = useVSCodeLayout()
+} = useVSCodeLayout(props.initialPath)
 
 const { t, lang } = useI18n()
 

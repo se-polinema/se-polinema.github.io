@@ -21,19 +21,67 @@ let initialized = false
 let observerInit = false
 let panelStateRestored = false
 
-export function useVSCodeLayout() {
+// Pure path → {page, view} resolver, shared by the server-side initialPath
+// seed (useVSCodeLayout below) and the client-side restoreRouteState().
+// Keeping this pure (no reads of `window`/reactive state) lets it run
+// identically during Astro SSR and in the browser.
+export function resolveRoute(pathname: string): { page: string; view: SidebarView } {
+  if (pathname.startsWith('/events')) return { page: 'events', view: 'events' }
+  if (pathname.startsWith('/blog')) return { page: 'blog', view: 'blog' }
+  if (pathname.startsWith('/publications')) return { page: 'publications', view: 'publications' }
+  if (pathname.startsWith('/researchers')) return { page: 'researchers', view: 'researchers' }
+  if (pathname.startsWith('/projects')) return { page: 'projects', view: 'explorer' }
+  if (pathname.startsWith('/books')) return { page: 'books', view: 'explorer' }
+  if (pathname.startsWith('/decks')) return { page: 'decks', view: 'decks' }
+  if (pathname.startsWith('/achievements')) return { page: 'achievements', view: 'achievements' }
+  if (pathname.startsWith('/impact')) return { page: 'impact', view: 'explorer' }
+  if (pathname.startsWith('/learning-paths')) return { page: 'learning-paths', view: 'explorer' }
+  if (pathname.startsWith('/tools')) return { page: 'tools', view: 'explorer' }
+  if (pathname.startsWith('/alumni')) return { page: 'alumni', view: 'members' }
+  if (pathname.startsWith('/members') || pathname.startsWith('/profile')) return { page: 'members', view: 'members' }
+  if (pathname.startsWith('/research/')) return { page: 'research', view: 'explorer' }
+  if (pathname.startsWith('/contact')) return { page: 'contact', view: 'explorer' }
+  if (pathname.startsWith('/faq')) return { page: 'faq', view: 'explorer' }
+  if (pathname.startsWith('/glossary')) return { page: 'glossary', view: 'explorer' }
+  if (pathname.startsWith('/join')) return { page: 'join', view: 'explorer' }
+  if (pathname.startsWith('/login')) return { page: 'login', view: 'explorer' }
+  if (pathname.startsWith('/newsletter')) return { page: 'newsletter', view: 'explorer' }
+  if (pathname.startsWith('/partners')) return { page: 'partners', view: 'explorer' }
+  if (pathname.startsWith('/privacy')) return { page: 'privacy', view: 'explorer' }
+  if (pathname.startsWith('/register')) return { page: 'register', view: 'explorer' }
+  if (pathname.startsWith('/resources')) return { page: 'resources', view: 'explorer' }
+  if (pathname.startsWith('/admin')) return { page: 'admin', view: 'explorer' }
+  if (pathname.startsWith('/checkin')) return { page: 'checkin', view: 'explorer' }
+  return { page: 'home', view: 'explorer' }
+}
+
+export function useVSCodeLayout(initialPath?: string) {
+  // Seeds currentPage/activeSidebarView from a server-known path (passed as
+  // Astro.url.pathname down through an `initialPath` prop). Runs
+  // unconditionally (including during SSR, where `window` doesn't exist)
+  // so the very first render — server and client alike — already reflects
+  // the real route, instead of the 'home'/'explorer' defaults. Because
+  // every island on a page passes the same initialPath, this stays
+  // consistent across the shared singleton regardless of mount order.
+  if (initialPath) {
+    const resolved = resolveRoute(initialPath)
+    currentPage.value = resolved.page
+    activeSidebarView.value = resolved.view
+  }
+
   if (typeof window !== 'undefined' && !initialized) {
     initialized = true
     sidebarOpen.value = window.innerWidth >= 1024
     layoutInitialized.value = true
 
-    // Panel open/tab state and route→page detection are intentionally NOT
-    // restored here. Doing it during setup() would make the very first
-    // client render disagree with the SSR render (which always shows the
-    // default 'contact' tab / 'home' page), causing a Vue hydration
-    // mismatch that can strand the UI on the SSR default (e.g. the file
-    // tree always highlighting index.html). Call restorePanelState() and
-    // restoreRouteState() from onMounted (post-hydration) instead.
+    // Panel open/tab state is intentionally NOT restored here. Doing it
+    // during setup() would make the very first client render disagree with
+    // the SSR render (which always shows the default 'contact' tab),
+    // causing a Vue hydration mismatch. Call restorePanelState() from
+    // onMounted (post-hydration) instead. Route→page state no longer has
+    // this problem — see the initialPath seed above — but
+    // restoreRouteState() is kept below as a harmless client
+    // re-confirmation for callers that don't pass initialPath.
     panelOpen.value = window.innerWidth >= 1024
   }
 
@@ -71,89 +119,9 @@ export function useVSCodeLayout() {
   function restoreRouteState() {
     if (typeof window === 'undefined') return
 
-    const path = window.location.pathname
-    if (path.startsWith('/events')) {
-      currentPage.value = 'events'
-      activeSidebarView.value = 'events'
-    } else if (path.startsWith('/blog')) {
-      currentPage.value = 'blog'
-      activeSidebarView.value = 'blog'
-    } else if (path.startsWith('/publications')) {
-      currentPage.value = 'publications'
-      activeSidebarView.value = 'publications'
-    } else if (path.startsWith('/researchers')) {
-      currentPage.value = 'researchers'
-      activeSidebarView.value = 'researchers'
-    } else if (path.startsWith('/projects')) {
-      currentPage.value = 'projects'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/books')) {
-      currentPage.value = 'books'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/decks')) {
-      currentPage.value = 'decks'
-      activeSidebarView.value = 'decks'
-    } else if (path.startsWith('/achievements')) {
-      currentPage.value = 'achievements'
-      activeSidebarView.value = 'achievements'
-    } else if (path.startsWith('/impact')) {
-      currentPage.value = 'impact'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/learning-paths')) {
-      currentPage.value = 'learning-paths'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/tools')) {
-      currentPage.value = 'tools'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/alumni')) {
-      currentPage.value = 'alumni'
-      activeSidebarView.value = 'members'
-    } else if (path.startsWith('/members') || path.startsWith('/profile')) {
-      currentPage.value = 'members'
-      activeSidebarView.value = 'members'
-    } else if (path.startsWith('/research/')) {
-      currentPage.value = 'research'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/contact')) {
-      currentPage.value = 'contact'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/faq')) {
-      currentPage.value = 'faq'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/glossary')) {
-      currentPage.value = 'glossary'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/join')) {
-      currentPage.value = 'join'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/login')) {
-      currentPage.value = 'login'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/newsletter')) {
-      currentPage.value = 'newsletter'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/partners')) {
-      currentPage.value = 'partners'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/privacy')) {
-      currentPage.value = 'privacy'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/register')) {
-      currentPage.value = 'register'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/resources')) {
-      currentPage.value = 'resources'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/admin')) {
-      currentPage.value = 'admin'
-      activeSidebarView.value = 'explorer'
-    } else if (path.startsWith('/checkin')) {
-      currentPage.value = 'checkin'
-      activeSidebarView.value = 'explorer'
-    } else {
-      currentPage.value = 'home'
-      activeSidebarView.value = 'explorer'
-    }
+    const resolved = resolveRoute(window.location.pathname)
+    currentPage.value = resolved.page
+    activeSidebarView.value = resolved.view
   }
 
   function toggleSidebar() {

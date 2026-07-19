@@ -68,7 +68,18 @@
         :title="theme === 'dark' ? t.theme.switchToLight : t.theme.switchToDark"
         :aria-label="theme === 'dark' ? t.theme.switchToLight : t.theme.switchToDark"
       >
-        <svg v-if="theme === 'dark'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!--
+          v-show, not v-if/v-else: `theme` is seeded from localStorage at
+          module-init (useTheme.ts), which is client-only info a static
+          build can never bake into SSR HTML. Under client:load hydration,
+          a v-if/v-else element swap here would be a structural mismatch
+          for any visitor whose stored theme differs from the SSR default,
+          which misaligns Vue's hydration walk for this button's later
+          siblings (language/palette toggles) too — v-show keeps both
+          icons always present so only a display style toggles, never the
+          element structure.
+        -->
+        <svg v-show="theme === 'dark'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"/>
           <line x1="12" y1="1" x2="12" y2="3"/>
           <line x1="12" y1="21" x2="12" y2="23"/>
@@ -79,7 +90,7 @@
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
-        <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg v-show="theme !== 'dark'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
         </svg>
       </button>

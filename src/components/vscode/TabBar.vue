@@ -107,11 +107,24 @@
 import { computed, onMounted, ref } from "vue";
 import { useVSCodeLayout } from "../../composables/useVSCodeLayout";
 
-const { activeSection, currentPage, initObserver, scrollTo, restoreRouteState } =
-  useVSCodeLayout();
+const props = defineProps<{ initialPath?: string }>();
 
-const isDetailPage = ref(false);
-const slug = ref("");
+const { activeSection, currentPage, initObserver, scrollTo, restoreRouteState } =
+  useVSCodeLayout(props.initialPath);
+
+// Seeded synchronously from the server-known path (same value SSR and
+// client) so a detail page's SSR/first-paint tab already reads
+// "slug.ext" instead of the base page label — mirrors the split logic the
+// onMounted handler below re-confirms client-side.
+function splitDetailPath(pathname: string): { isDetailPage: boolean; slug: string } {
+  const parts = pathname.split("/").filter(Boolean);
+  if (parts.length <= 1) return { isDetailPage: false, slug: "" };
+  return { isDetailPage: true, slug: parts[parts.length - 1] ?? "" };
+}
+
+const initialDetail = props.initialPath ? splitDetailPath(props.initialPath) : { isDetailPage: false, slug: "" };
+const isDetailPage = ref(initialDetail.isDetailPage);
+const slug = ref(initialDetail.slug);
 
 const tabs = [
   { id: "hero", label: "index.html", ext: "html", pageId: "home", href: "/" },
@@ -302,11 +315,12 @@ onMounted(() => {
   const editor = document.getElementById("editor");
   if (editor) initObserver(editor);
 
-  const parts = window.location.pathname.split("/").filter(Boolean);
-  isDetailPage.value = parts.length > 1;
-  if (isDetailPage.value) {
-    slug.value = parts[parts.length - 1] ?? "";
-  }
+  // Re-confirms the initialPath seed above from window.location — a
+  // no-op when initialPath was provided (same value), and the sole source
+  // of truth when it wasn't.
+  const detail = splitDetailPath(window.location.pathname);
+  isDetailPage.value = detail.isDetailPage;
+  slug.value = detail.slug;
 });
 </script>
 

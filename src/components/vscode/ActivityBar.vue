@@ -178,7 +178,9 @@ import { onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 
-const { activeSidebarView, setView, restoreRouteState } = useVSCodeLayout()
+const props = defineProps<{ initialPath?: string }>()
+
+const { activeSidebarView, setView, restoreRouteState } = useVSCodeLayout(props.initialPath)
 const { lang, toggleLang } = useI18n()
 
 function openSearch() {

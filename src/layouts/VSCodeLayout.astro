@@ -60,11 +60,11 @@ const { title, description, image, type, lang } = Astro.props
     </div>
 
     <div class="flex flex-1 overflow-hidden min-h-0">
-      <ActivityBar client:load />
-      <Sidebar client:load />
+      <ActivityBar client:load initialPath={Astro.url.pathname} />
+      <Sidebar client:load initialPath={Astro.url.pathname} />
 
       <div class="relative z-0 flex flex-col flex-1 overflow-hidden min-w-0">
-        <TabBar client:load />
+        <TabBar client:load initialPath={Astro.url.pathname} />
 
         <!--
           Editor area — rendered like a WYSIWYG markdown buffer (render-markdown.nvim style).
@@ -88,7 +88,7 @@ const { title, description, image, type, lang } = Astro.props
       </div>
     </div>
 
-    <StatusBar client:only="vue" />
+    <StatusBar client:load />
     <SearchOverlay client:load />
     <ConfirmDialog client:load />
   </div>

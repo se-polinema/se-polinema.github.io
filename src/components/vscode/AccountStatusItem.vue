@@ -55,8 +55,9 @@ const { t } = useI18n()
 const signingOut = ref(false)
 
 // Mirrors AuthForm.vue's `?redirect=` convention so signing in from anywhere
-// in the chrome returns the user to the page they were on. StatusBar is
-// mounted client:only, so `window` is always available here.
+// in the chrome returns the user to the page they were on. Guarded because
+// StatusBar (this component's parent) is client:load, so this setup() also
+// runs server-side during SSR, where `window` doesn't exist.
 const signInHref = typeof window !== 'undefined'
   ? `/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`
   : '/login'
