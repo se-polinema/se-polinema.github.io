@@ -86,5 +86,5 @@ const description = `All posts tagged with "${displayTag}" from the Software Eng
 ---
 
 <VSCodeLayout title={title} description={description}>
-  <BlogArchivePage client:load posts={taggedPosts} />
+  <BlogArchivePage client:load posts={taggedPosts} activeTag={slugParam} />
 </VSCodeLayout>
