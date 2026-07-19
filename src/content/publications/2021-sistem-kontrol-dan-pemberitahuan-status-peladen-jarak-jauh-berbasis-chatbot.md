@@ -5,7 +5,8 @@ type: "journal"
 venue: "Jurnal Teknik: Ilmu dan Aplikasi"
 authors:
   - "Dian Hanifudin Subhi"
-url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=pR2Dn7MAAAAJ"
+url: "https://www.academia.edu/download/87128957/51.pdf"
+googleScholarUrl: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 researchers:
   - "dian-hanifudin-subhi"
 featured: true

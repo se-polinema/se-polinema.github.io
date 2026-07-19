@@ -5,7 +5,8 @@ type: "journal"
 venue: "JATI"
 authors:
   - "Elok Nur Hamdana"
-url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=cduv_fAAAAAJ"
+url: "https://www.ejournal.itn.ac.id/jati/article/download/13471/7699"
+googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 researchers:
   - "elok-nur-hamdana"
 featured: true

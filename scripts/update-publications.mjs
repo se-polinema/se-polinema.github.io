@@ -14,6 +14,12 @@ const SCHOLAR_METRICS_FILE = resolve(DATA_DIR, '_scholar-metrics.json')
 
 const PUBLICATION_LIMIT = 100
 const REQUEST_DELAY_MS = 5000
+// scholarly.fill(pub) is a separate Scholar request per publication (the
+// author-level searchAuthorId(..., filled=true, ...) call does NOT cascade
+// down to individual publications — it only fills author-level fields like
+// h-index). This delay is between those per-publication fill() calls,
+// distinct from REQUEST_DELAY_MS which is between researchers.
+const FILL_DELAY_MS = 2000
 
 scholarly.setTimeout(15000)
 scholarly.setRetries(2)
@@ -108,10 +114,34 @@ function loadExistingPublications() {
         key: `${normalizeTitle(data.title)}-${data.year}`,
         title: data.title,
         year: data.year,
+        url: data.url,
       })
     }
   }
   return existing
+}
+
+// Patches just url/googleScholarUrl on an existing publication file via a
+// surgical text replacement — preserving every other frontmatter field
+// (featured, researchers, hand edits, etc.) AND the file's existing
+// formatting/quoting exactly. Deliberately does NOT round-trip through
+// gray-matter's parse+stringify: matter.stringify() re-serializes the
+// whole frontmatter block with its own YAML formatting (dropping the
+// double-quotes generatePublicationMd() always uses), which would leave
+// patched files stylistically inconsistent with freshly-created ones.
+function patchPublicationUrl(file, newUrl, googleScholarUrl) {
+  const filePath = resolve(PUBLICATIONS_DIR, file)
+  const raw = readFileSync(filePath, 'utf-8')
+
+  let updated = raw.replace(/^url:.*$/m, `url: "${newUrl}"`)
+
+  if (googleScholarUrl) {
+    updated = /^googleScholarUrl:.*$/m.test(updated)
+      ? updated.replace(/^googleScholarUrl:.*$/m, `googleScholarUrl: "${googleScholarUrl}"`)
+      : updated.replace(/^(url:.*)$/m, `$1\ngoogleScholarUrl: "${googleScholarUrl}"`)
+  }
+
+  writeFileSync(filePath, updated, 'utf-8')
 }
 
 function generatePublicationMd(pub, researcherSlugs) {
@@ -175,7 +205,23 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
 
     const results = []
     for (const pub of publications) {
-      const bib = pub.bib || {}
+      // fill() is required before bib.author (and pub_url/eprint_url) are
+      // populated at all — the unfilled publication object from
+      // searchAuthorId() only has title/pub_year/citation, no authors.
+      // This is why the author/venue check below used to skip every
+      // single publication: it was reading an object that never had
+      // authors in the first place. One extra Scholar request per
+      // publication; degrade gracefully (skip via the author check below,
+      // same as always) if it fails rather than aborting the whole sync.
+      let filled = pub
+      try {
+        filled = await scholarly.fill(pub)
+      } catch (err) {
+        console.warn(`  Warning: fill() failed for "${(pub.bib?.title || 'untitled').trim()}": ${err.message}`)
+      }
+      await new Promise(resolve => setTimeout(resolve, FILL_DELAY_MS))
+
+      const bib = filled.bib || {}
       const title = (bib.title || '').trim()
       const pubYear = bib.pub_year ? parseInt(bib.pub_year, 10) : null
 
@@ -210,9 +256,22 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
         }
       }
 
-      const gsUrl = pub.citedby_url || `https://scholar.google.com/citations?user=${researcher.userId}&hl=en`
+      // citedby_url comes back as a Scholar-relative path (e.g.
+      // "/scholar?hl=en&cites=...") once the publication has been
+      // filled, unlike the absolute URL on the unfilled object — needs
+      // the domain re-added, or it fell back to the profile URL, which is
+      // already absolute.
+      const rawGsUrl = filled.citedby_url || pub.citedby_url ||
+        `https://scholar.google.com/citations?user=${researcher.userId}&hl=en`
+      const gsUrl = rawGsUrl.startsWith('/') ? `https://scholar.google.com${rawGsUrl}` : rawGsUrl
 
-      const citedByCount = pub.num_citations != null ? pub.num_citations : null
+      // pub_url is the actual journal/publisher link Scholar shows as the
+      // title link; eprint_url is a PDF link. Only available post-fill.
+      // Falls back to the Scholar link only when Scholar itself doesn't
+      // expose either.
+      const publisherUrl = filled.pub_url || filled.eprint_url || null
+
+      const citedByCount = filled.num_citations ?? pub.num_citations ?? null
 
       results.push({
         title,
@@ -220,9 +279,8 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
         type: inferPublicationType(bib),
         venue,
         authors,
-        url: gsUrl,
+        url: publisherUrl || gsUrl,
         googleScholarUrl: gsUrl,
-        doi: bib.volume || null,
         citedByCount,
         researchers: matchedResearchers,
         featured: false,
@@ -267,12 +325,14 @@ async function main() {
 
   console.log('Loading existing publications...')
   const existing = loadExistingPublications()
+  const existingByKey = new Map(existing.map(e => [e.key, e]))
   const existingKeys = new Set(existing.map(e => e.key))
   const originalExistingKeys = new Set(existingKeys)
   console.log(`Found ${existing.length} existing publications.\n`)
 
   const allNew = []
   let totalFetched = 0
+  let totalPatched = 0
   const researcherMetrics = []
   const allPublicationCitations = {}
 
@@ -285,6 +345,21 @@ async function main() {
       if (!existingKeys.has(pub.key)) {
         allNew.push(pub)
         existingKeys.add(pub.key)
+      } else if (originalExistingKeys.has(pub.key)) {
+        // Already on disk from a previous sync — backfill the real
+        // publisher link if this file still only has the old Scholar URL
+        // (from before this fix) and we now have a better one. Only
+        // touches url/googleScholarUrl; every other field on the file is
+        // left exactly as-is.
+        const existingEntry = existingByKey.get(pub.key)
+        const stillOnScholar = typeof existingEntry?.url === 'string' &&
+          existingEntry.url.includes('scholar.google.com')
+        const gotRealUrl = typeof pub.url === 'string' && !pub.url.includes('scholar.google.com')
+        if (existingEntry && stillOnScholar && gotRealUrl) {
+          patchPublicationUrl(existingEntry.file, pub.url, pub.googleScholarUrl)
+          console.log(`  Patched URL for existing: ${existingEntry.file}`)
+          totalPatched++
+        }
       }
 
       if (pub.citedByCount != null) {
@@ -305,7 +380,8 @@ async function main() {
   }
 
   console.log(`\nTotal fetched: ${totalFetched} publications across all researchers`)
-  console.log(`New publications to add: ${allNew.length}\n`)
+  console.log(`New publications to add: ${allNew.length}`)
+  console.log(`Existing publications patched with a real URL: ${totalPatched}\n`)
 
   if (allNew.length === 0) {
     console.log('No new publications to add.')
