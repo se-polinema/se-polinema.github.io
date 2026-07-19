@@ -722,7 +722,8 @@
     "resultsCount": "results",
     "navigate": "Navigate",
     "close": "Close",
-    "allResults": "All results"
+    "allResults": "All results",
+    "commands": "Commands"
   },
   "learningPaths": {
     "label": "Learning Paths",

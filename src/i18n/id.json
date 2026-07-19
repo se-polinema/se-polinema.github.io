@@ -722,7 +722,8 @@
     "resultsCount": "hasil",
     "navigate": "Navigasi",
     "close": "Tutup",
-    "allResults": "Semua hasil"
+    "allResults": "Semua hasil",
+    "commands": "Perintah"
   },
   "learningPaths": {
     "label": "Jalur Pembelajaran",

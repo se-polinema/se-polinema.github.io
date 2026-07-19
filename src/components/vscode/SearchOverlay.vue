@@ -90,6 +90,9 @@
       <span>
         <kbd aria-hidden="true">esc</kbd> {{ t.search.close }}
       </span>
+      <span>
+        <kbd aria-hidden="true">&gt;</kbd> {{ t.search.commands }}
+      </span>
     </div>
   </div>
 </template>

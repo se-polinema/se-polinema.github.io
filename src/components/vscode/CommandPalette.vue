@@ -43,6 +43,7 @@
       <span><kbd aria-hidden="true">↑↓</kbd> Navigate</span>
       <span><kbd aria-hidden="true">↵</kbd> Run</span>
       <span><kbd aria-hidden="true">esc</kbd> Close</span>
+      <span><kbd aria-hidden="true">Ctrl+K</kbd> Search</span>
     </div>
   </div>
 </template>
