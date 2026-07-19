@@ -167,6 +167,14 @@ export function useVSCodeLayout(initialPath?: string) {
       window.location.href = nav.href
       return
     }
+    // Clicking the already-active icon while the sidebar is open toggles
+    // it closed, matching VS Code's own Activity Bar behavior — a second
+    // click on the same icon (or any icon while closed) reopens it via
+    // the fallthrough below.
+    if (activeSidebarView.value === view && sidebarOpen.value) {
+      sidebarOpen.value = false
+      return
+    }
     activeSidebarView.value = view
     sidebarOpen.value = true
   }
