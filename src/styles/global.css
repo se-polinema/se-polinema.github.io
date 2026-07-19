@@ -56,6 +56,17 @@
   --color-editor-blockquote-bg: rgba(167, 139, 250, 0.06);
   --color-editor-section-divider: #F0F2F5;
   --color-editor-hash: #9CA3AF;
+
+  /* Search overlay (Ctrl+K) and Command Palette (Ctrl+Shift+P) surface —
+     both are modal "quick input" widgets that float above the whole
+     window, so unlike the chrome regions above they read their own
+     light/dark surface rather than always matching Compass's dark chrome.
+     Consumed by SearchOverlay.vue, CommandPalette.vue. */
+  --color-vscode-overlay-bg: #FFFFFF;
+  --color-vscode-overlay-fg: #1F2430;
+  --color-vscode-overlay-fg-muted: rgba(31, 36, 48, 0.55);
+  --color-vscode-overlay-border: rgba(31, 36, 48, 0.12);
+  --color-vscode-overlay-hover: rgba(31, 36, 48, 0.06);
 }
 
 .dark {
@@ -63,6 +74,12 @@
   --color-vscode-gutter-border: #333333;
   --color-vscode-gutter-text: #6A6A6A;
   --color-vscode-gutter-text-em: #858585;
+
+  --color-vscode-overlay-bg: #1A1F2E;
+  --color-vscode-overlay-fg: #E0E4EF;
+  --color-vscode-overlay-fg-muted: rgba(255, 255, 255, 0.4);
+  --color-vscode-overlay-border: rgba(255, 255, 255, 0.1);
+  --color-vscode-overlay-hover: rgba(255, 255, 255, 0.07);
   --color-editor-code-bg: #1A1A2E;
   --color-editor-inline-code-bg: rgba(255, 255, 255, 0.08);
   --color-editor-inline-code-text: #9CDCFE;

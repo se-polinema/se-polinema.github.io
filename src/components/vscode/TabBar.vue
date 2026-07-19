@@ -31,18 +31,17 @@
             :class="dotColor(tab.ext)"
           />
           {{ tab.label }}
-          <span class="text-[10px] opacity-40 ml-0.5" aria-hidden="true">×</span>
         </button>
       </div>
 
       <!-- Inner pages: single homepage-style tab -->
-      <div v-else key="inner" class="flex w-full items-end">
+      <div v-else key="inner" class="flex w-full items-end min-w-0">
         <a
           v-if="innerTab"
           :href="isDetailPage ? undefined : innerTab.href"
           role="tab"
           aria-selected="true"
-          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono min-w-0 border-t-2 border-t-accent whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
+          class="flex items-center gap-2 pl-4 pr-1 py-2 text-[12px] font-mono min-w-0 border-t-2 border-t-accent whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
           @click.prevent="isDetailPage ? null : undefined"
         >
           <span
@@ -50,8 +49,24 @@
             :class="dotColor(innerTab.ext)"
           />
           <span class="truncate flex-1 min-w-0">{{ innerTab.label }}</span>
-          <span class="text-[10px] opacity-40 ml-0.5 flex-shrink-0" aria-hidden="true">×</span>
         </a>
+        <!--
+          Sibling button, not a child of the <a> above — an <a> containing
+          a nested interactive close control is invalid HTML (interactive
+          content can't nest). "Closing" this tab navigates up to the
+          parent list page, same as VS Code closing a file back to the
+          explorer. Only rendered when there's somewhere to go back to.
+        -->
+        <button
+          v-if="innerTab"
+          type="button"
+          class="flex items-center justify-center w-6 h-full flex-shrink-0 text-[13px] leading-none text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] hover:bg-[color:var(--color-vscode-chrome-border)] transition-colors bg-white dark:bg-gray-900"
+          :title="`Close ${innerTab.label}`"
+          :aria-label="`Close ${innerTab.label}`"
+          @click="closeTab"
+        >
+          ×
+        </button>
       </div>
     </Transition>
   </div>
@@ -98,7 +113,7 @@
       </div>
     </Transition>
     <div class="flex items-center gap-4 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] flex-shrink-0">
-      <span>Ln 1, Col 1</span>
+      <span>Ln {{ cursorLine }}, Col 1</span>
       <span>{{ currentBreadcrumb.lang }}</span>
     </div>
   </div>
@@ -110,7 +125,7 @@ import { useVSCodeLayout } from "../../composables/useVSCodeLayout";
 
 const props = defineProps<{ initialPath?: string }>();
 
-const { activeSection, currentPage, initObserver, scrollTo, restoreRouteState } =
+const { activeSection, currentPage, cursorLine, initObserver, scrollTo, restoreRouteState } =
   useVSCodeLayout(props.initialPath);
 
 // Seeded synchronously from the server-known path (same value SSR and
@@ -226,6 +241,18 @@ const innerTab = computed(() => {
 const parentHref = computed(() => {
   return pageParentHrefMap[currentPage.value] ?? "";
 });
+
+// "Closing" the current tab navigates up to where it came from: a detail
+// page (e.g. /publications/foo) closes back to its list page; a
+// dedicated list/section page (e.g. /publications) closes back to home —
+// same relationship as closing a file back to the folder that contains it.
+function closeTab() {
+  if (isDetailPage.value && parentHref.value) {
+    window.location.href = parentHref.value;
+  } else {
+    window.location.href = "/";
+  }
+}
 
 const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   hero: { path: ["se-lab", "index.html"], lang: "HTML" },

@@ -6,6 +6,11 @@ const sidebarOpen = ref(false)
 const activeSection = ref('hero')
 const currentPage = ref('home')
 const panelOpen = ref(false)
+// Drives the breadcrumb bar's "Ln N" indicator — mirrors the editor
+// gutter's line numbering (LINE_HEIGHT = 22px, VSCodeLayout.astro) so the
+// displayed line stays aligned with what's actually at the top of the
+// viewport as the user scrolls. Seeded to 1 for SSR/first-paint parity.
+const cursorLine = ref(1)
 const activePanelTab = ref<'contact' | 'output' | 'quickLinks' | 'newsletter'>('contact')
 const activeSidebarView = ref<SidebarView>('explorer')
 const layoutInitialized = ref(false)
@@ -179,14 +184,21 @@ export function useVSCodeLayout(initialPath?: string) {
     sidebarOpen.value = true
   }
 
+  // Matches VSCodeLayout.astro's editor-gutter line generation exactly, so
+  // the breadcrumb bar's "Ln N" tracks whatever line number is actually at
+  // the top of the visible editor viewport.
+  const GUTTER_LINE_HEIGHT = 22
+
   function initObserver(root: HTMLElement) {
     if (observerInit) return
     observerInit = true
 
     function updateActive() {
+      const scrollTop = root.scrollTop
+      cursorLine.value = Math.floor(scrollTop / GUTTER_LINE_HEIGHT) + 1
+
       const sections = Array.from(root.querySelectorAll('section[id]')) as HTMLElement[]
       if (!sections.length) return
-      const scrollTop = root.scrollTop
       let current = sections[0]
       for (const s of sections) {
         if (s.offsetTop - 100 <= scrollTop) current = s
@@ -215,6 +227,7 @@ export function useVSCodeLayout(initialPath?: string) {
     activePanelTab,
     activeSidebarView,
     activeFilters,
+    cursorLine,
     toggleSidebar,
     togglePanel,
     openPanel,

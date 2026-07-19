@@ -322,8 +322,8 @@ defineExpose({ show, close, open })
   max-height: 64vh;
   display: flex;
   flex-direction: column;
-  background: #1A1F2E;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-vscode-overlay-bg);
+  border: 1px solid var(--color-vscode-overlay-border);
   border-radius: 8px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
   overflow: hidden;
@@ -334,11 +334,11 @@ defineExpose({ show, close, open })
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--color-vscode-overlay-border);
 }
 
 .search-icon {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--color-vscode-overlay-fg-muted);
   flex-shrink: 0;
 }
 
@@ -349,12 +349,12 @@ defineExpose({ show, close, open })
   outline: none;
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 13px;
-  color: #E0E4EF;
-  caret-color: #F5A100;
+  color: var(--color-vscode-overlay-fg);
+  caret-color: var(--color-accent);
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--color-vscode-overlay-fg-muted);
 }
 
 .search-results {
@@ -370,7 +370,7 @@ defineExpose({ show, close, open })
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--color-vscode-overlay-fg-muted);
   user-select: none;
 }
 
@@ -389,7 +389,7 @@ defineExpose({ show, close, open })
 
 .search-result-item:hover,
 .result-active {
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--color-vscode-overlay-hover);
 }
 
 .result-icon {
@@ -436,27 +436,27 @@ defineExpose({ show, close, open })
 .result-title {
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 12.5px;
-  color: #E0E4EF;
+  color: var(--color-vscode-overlay-fg);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .result-active .result-title {
-  color: #FFFFFF;
+  color: var(--color-vscode-overlay-fg);
 }
 
 .result-excerpt {
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-vscode-overlay-fg-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .result-active .result-excerpt {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-vscode-overlay-fg);
 }
 
 .search-empty {
@@ -464,7 +464,7 @@ defineExpose({ show, close, open })
   text-align: center;
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--color-vscode-overlay-fg-muted);
 }
 
 .search-hint {
@@ -472,7 +472,7 @@ defineExpose({ show, close, open })
   text-align: center;
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.25);
+  color: var(--color-vscode-overlay-fg-muted);
 }
 
 .search-footer {
@@ -480,10 +480,10 @@ defineExpose({ show, close, open })
   align-items: center;
   gap: 16px;
   padding: 6px 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--color-vscode-overlay-border);
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.25);
+  color: var(--color-vscode-overlay-fg-muted);
 }
 
 .search-footer kbd {
@@ -491,8 +491,8 @@ defineExpose({ show, close, open })
   padding: 1px 5px;
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--color-vscode-overlay-hover);
+  border: 1px solid var(--color-vscode-overlay-border);
   border-radius: 3px;
 }
 
@@ -519,7 +519,7 @@ defineExpose({ show, close, open })
 }
 
 .search-results::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--color-vscode-overlay-border);
   border-radius: 2px;
 }
 </style>
