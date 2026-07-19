@@ -8,15 +8,34 @@
       <div>
         <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100">{{ event.title }}</h2>
         <p class="text-xs font-mono text-neutral-400 dark:text-gray-500 mt-0.5">
-          {{ registeredCount }} {{ t.events.admin.registeredCount }}
+          <template v-if="event.capacity != null">
+            {{ registeredCount }} / {{ event.capacity }} {{ t.events.admin.registeredCount }}
+          </template>
+          <template v-else>
+            {{ registeredCount }} {{ t.events.admin.registeredCount }}
+          </template>
           &nbsp;·&nbsp;
           {{ checkedInCount }} {{ t.events.admin.checkedInCount }}
+          <template v-if="waitlistedCount > 0">
+            &nbsp;·&nbsp;{{ waitlistedCount }} {{ t.events.admin.waitlistedCount }}
+          </template>
           <template v-if="collapsible">
             &nbsp;·&nbsp;{{ expanded ? t.events.admin.hideAction : t.events.admin.showAction }}
           </template>
         </p>
       </div>
       <div class="flex items-center gap-3" @click.stop>
+        <label class="text-right">
+          <div class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-0.5">{{ t.events.admin.capacityLabel }}</div>
+          <input
+            type="number"
+            min="0"
+            :placeholder="t.events.admin.capacityUnlimited"
+            :value="event.capacity ?? ''"
+            @change="onCapacityChange"
+            class="w-20 text-sm font-mono text-right px-1.5 py-0.5 border border-primary/20 dark:border-gray-600 bg-transparent text-primary dark:text-gray-100 focus:outline-none focus:border-accent"
+          />
+        </label>
         <button
           @click="$emit('toggle-registration')"
           class="text-xs font-mono px-2 py-1 border transition-colors"
@@ -66,9 +85,11 @@
                   class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider"
                   :class="p.status === 'checked_in'
                     ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                    : 'bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400'"
+                    : p.status === 'waitlisted'
+                      ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
+                      : 'bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400'"
                 >
-                  {{ p.status === 'checked_in' ? t.events.admin.statusCheckedIn : t.events.admin.statusRegistered }}
+                  {{ p.status === 'checked_in' ? t.events.admin.statusCheckedIn : p.status === 'waitlisted' ? t.events.admin.statusWaitlisted : t.events.admin.statusRegistered }}
                 </span>
               </td>
               <td class="py-2.5 font-mono text-xs text-neutral-400 dark:text-gray-500">
@@ -91,6 +112,7 @@ interface EventRow {
   title: string
   registration_open: boolean
   check_in_code: string
+  capacity: number | null
 }
 
 interface Participant {
@@ -110,9 +132,10 @@ const props = defineProps<{
   copied?: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   'toggle-registration': []
   'copy-code': []
+  'update-capacity': [capacity: number | null]
 }>()
 
 const { t } = useI18n()
@@ -123,12 +146,18 @@ const { t } = useI18n()
 // Set of expanded slugs.
 const expanded = ref(!props.collapsible)
 
-const registeredCount = computed(() => props.participants.length)
+const registeredCount = computed(() => props.participants.filter((p) => p.status !== 'waitlisted').length)
 const checkedInCount = computed(() => props.participants.filter((p) => p.status === 'checked_in').length)
+const waitlistedCount = computed(() => props.participants.filter((p) => p.status === 'waitlisted').length)
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString('en-US', {
     month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
   })
+}
+
+function onCapacityChange(e: Event) {
+  const raw = (e.target as HTMLInputElement).value.trim()
+  emit('update-capacity', raw === '' ? null : Math.max(0, Number(raw)))
 }
 </script>

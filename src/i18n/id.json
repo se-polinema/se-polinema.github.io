@@ -396,6 +396,8 @@
       "signingIn": "Masuk...",
       "successTitle": "Pendaftaran Berhasil!",
       "successMessage": "Anda telah berhasil terdaftar untuk acara ini.",
+      "waitlistedTitle": "Anda Masuk Daftar Tunggu",
+      "waitlistedMessage": "Acara ini sudah penuh. Anda telah dimasukkan ke daftar tunggu — periksa halaman akun Anda untuk pembaruan.",
       "alreadyRegistered": "Anda sudah terdaftar untuk acara ini.",
       "emailExists": "Email ini sudah terdaftar. Silakan masuk.",
       "passwordMismatch": "Kata sandi tidak cocok.",
@@ -440,6 +442,10 @@
       "checkedInAt": "Waktu Check-In",
       "statusRegistered": "Terdaftar",
       "statusCheckedIn": "Sudah Check-In",
+      "statusWaitlisted": "Daftar Tunggu",
+      "waitlistedCount": "daftar tunggu",
+      "capacityLabel": "Kapasitas",
+      "capacityUnlimited": "∞",
       "noParticipants": "Belum ada peserta.",
       "loading": "Memuat...",
       "checkInCode": "Kode Check-In",
@@ -534,6 +540,7 @@
     "signedInAs": "Masuk sebagai",
     "registrationsHeading": "Pendaftaran Acara Saya",
     "noRegistrations": "Anda belum mendaftar acara apa pun.",
+    "statusWaitlisted": "Daftar Tunggu",
     "alumniHeading": "Kiriman Alumni Saya"
   },
   "memberPhotoUpload": {

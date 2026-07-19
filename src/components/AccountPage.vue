@@ -45,9 +45,11 @@
               class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider flex-shrink-0"
               :class="r.status === 'checked_in'
                 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                : 'bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400'"
+                : r.status === 'waitlisted'
+                  ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
+                  : 'bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400'"
             >
-              {{ r.status === 'checked_in' ? t.events.admin.statusCheckedIn : t.events.admin.statusRegistered }}
+              {{ r.status === 'checked_in' ? t.events.admin.statusCheckedIn : r.status === 'waitlisted' ? t.account.statusWaitlisted : t.events.admin.statusRegistered }}
             </span>
           </li>
         </ul>

@@ -163,6 +163,7 @@
           :copied="copiedCode === event.check_in_code"
           @toggle-registration="toggleRegistration(event)"
           @copy-code="copyCode(event.check_in_code)"
+          @update-capacity="updateCapacity(event, $event)"
         />
 
         <div v-if="pastEvents.length > 0">
@@ -179,6 +180,7 @@
               :copied="copiedCode === event.check_in_code"
               @toggle-registration="toggleRegistration(event)"
               @copy-code="copyCode(event.check_in_code)"
+              @update-capacity="updateCapacity(event, $event)"
             />
           </div>
         </div>
@@ -541,6 +543,7 @@ interface EventRow {
   title: string
   registration_open: boolean
   check_in_code: string
+  capacity: number | null
 }
 
 interface Participant {
@@ -1032,6 +1035,13 @@ function toggleRegistration(event: EventRow) {
   supabase.schema('se').from('events').update({ registration_open: nextValue }).eq('slug', event.slug)
     .then(({ error }) => {
       if (!error) event.registration_open = nextValue
+    })
+}
+
+function updateCapacity(event: EventRow, capacity: number | null) {
+  supabase.schema('se').from('events').update({ capacity }).eq('slug', event.slug)
+    .then(({ error }) => {
+      if (!error) event.capacity = capacity
     })
 }
 

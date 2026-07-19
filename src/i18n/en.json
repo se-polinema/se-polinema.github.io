@@ -396,6 +396,8 @@
       "signingIn": "Signing in...",
       "successTitle": "Registration Successful!",
       "successMessage": "You have been registered for this event.",
+      "waitlistedTitle": "You're on the Waitlist",
+      "waitlistedMessage": "This event is at capacity. You've been added to the waitlist — check your account page for updates.",
       "alreadyRegistered": "You are already registered for this event.",
       "emailExists": "This email is already registered. Please sign in instead.",
       "passwordMismatch": "Passwords do not match.",
@@ -440,6 +442,10 @@
       "checkedInAt": "Checked In At",
       "statusRegistered": "Registered",
       "statusCheckedIn": "Checked In",
+      "statusWaitlisted": "Waitlisted",
+      "waitlistedCount": "waitlisted",
+      "capacityLabel": "Capacity",
+      "capacityUnlimited": "∞",
       "noParticipants": "No participants yet.",
       "loading": "Loading...",
       "checkInCode": "Check-In Code",
@@ -534,6 +540,7 @@
     "signedInAs": "Signed in as",
     "registrationsHeading": "My Event Registrations",
     "noRegistrations": "You haven't registered for any events yet.",
+    "statusWaitlisted": "Waitlisted",
     "alumniHeading": "My Alumni Submission"
   },
   "memberPhotoUpload": {

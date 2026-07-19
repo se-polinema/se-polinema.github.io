@@ -15,6 +15,17 @@
       <p class="text-sm text-neutral-600 dark:text-gray-400">{{ t.events.registration.successMessage }}</p>
     </div>
 
+    <!-- Waitlisted -->
+    <div v-else-if="state === 'waitlisted'" class="flex flex-col items-start gap-3 py-4">
+      <div class="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span class="font-mono text-sm font-semibold">{{ t.events.registration.waitlistedTitle }}</span>
+      </div>
+      <p class="text-sm text-neutral-600 dark:text-gray-400">{{ t.events.registration.waitlistedMessage }}</p>
+    </div>
+
     <!-- Registration closed -->
     <div v-else-if="state === 'closed'" class="py-4">
       <p class="text-sm font-mono text-neutral-500 dark:text-gray-400">{{ t.events.registration.closedMessage }}</p>
@@ -167,7 +178,7 @@ const props = defineProps<{
 
 const { t, lang } = useI18n()
 
-type State = 'loading' | 'idle' | 'success' | 'closed' | 'signed-in' | 'already-registered'
+type State = 'loading' | 'idle' | 'success' | 'waitlisted' | 'closed' | 'signed-in' | 'already-registered'
 type Mode = 'register' | 'sign-in'
 
 const state = ref<State>('loading')
@@ -230,15 +241,14 @@ async function registerExistingUser() {
   submitting.value = true
   errorMessage.value = ''
 
-  const { error } = await supabase
+  const { data: result, error } = await supabase
     .schema('se')
-    .from('participants')
-    .insert({ event_slug: props.eventSlug, user_id: currentUserId.value })
+    .rpc('register_participant', { p_event_slug: props.eventSlug })
 
   submitting.value = false
 
-  if (error) {
-    if (error.code === '23505') {
+  if (error || !result?.success) {
+    if (result?.error === 'already_registered') {
       state.value = 'already-registered'
     } else {
       errorMessage.value = t.value.events.registration.genericError
@@ -246,7 +256,7 @@ async function registerExistingUser() {
     return
   }
 
-  state.value = 'success'
+  state.value = result.status === 'waitlisted' ? 'waitlisted' : 'success'
 }
 
 async function handleSubmit() {
@@ -286,20 +296,23 @@ async function handleSubmit() {
       .update({ full_name: form.name.trim() })
       .eq('id', data.user.id)
 
-    const { error: insertError } = await supabase
+    const { data: result, error: rpcError } = await supabase
       .schema('se')
-      .from('participants')
-      .insert({ event_slug: props.eventSlug, user_id: data.user.id })
+      .rpc('register_participant', { p_event_slug: props.eventSlug })
 
     submitting.value = false
 
-    if (insertError) {
-      state.value = insertError.code === '23505' ? 'already-registered' : 'idle'
-      if (insertError.code !== '23505') errorMessage.value = t.value.events.registration.genericError
+    if (rpcError || !result?.success) {
+      if (result?.error === 'already_registered') {
+        state.value = 'already-registered'
+      } else {
+        state.value = 'idle'
+        errorMessage.value = t.value.events.registration.genericError
+      }
       return
     }
 
-    state.value = 'success'
+    state.value = result.status === 'waitlisted' ? 'waitlisted' : 'success'
   } else {
     // Sign-in mode
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -316,34 +329,25 @@ async function handleSubmit() {
     currentUserEmail.value = data.user.email ?? ''
     currentUserId.value = data.user.id
 
-    const { data: existing } = await supabase
+    // register_participant() already checks already-registered atomically,
+    // so no separate pre-check query is needed here anymore.
+    const { data: result, error: rpcError } = await supabase
       .schema('se')
-      .from('participants')
-      .select('id')
-      .eq('event_slug', props.eventSlug)
-      .eq('user_id', data.user.id)
-      .maybeSingle()
-
-    if (existing) {
-      submitting.value = false
-      state.value = 'already-registered'
-      return
-    }
-
-    const { error: insertError } = await supabase
-      .schema('se')
-      .from('participants')
-      .insert({ event_slug: props.eventSlug, user_id: data.user.id })
+      .rpc('register_participant', { p_event_slug: props.eventSlug })
 
     submitting.value = false
 
-    if (insertError) {
-      state.value = insertError.code === '23505' ? 'already-registered' : 'idle'
-      if (insertError.code !== '23505') errorMessage.value = t.value.events.registration.genericError
+    if (rpcError || !result?.success) {
+      if (result?.error === 'already_registered') {
+        state.value = 'already-registered'
+      } else {
+        state.value = 'idle'
+        errorMessage.value = t.value.events.registration.genericError
+      }
       return
     }
 
-    state.value = 'success'
+    state.value = result.status === 'waitlisted' ? 'waitlisted' : 'success'
   }
 }
 </script>
