@@ -529,7 +529,14 @@
   "account": {
     "signIn": "Masuk",
     "signOut": "Keluar",
-    "accountLabel": "Akun"
+    "accountLabel": "Akun",
+    "signInPrompt": "Masuk untuk melihat akun Anda.",
+    "signedInAs": "Masuk sebagai",
+    "registrationsHeading": "Pendaftaran Acara Saya",
+    "noRegistrations": "Anda belum mendaftar acara apa pun.",
+    "alumniHeading": "Kiriman Alumni Saya",
+    "noAlumniSubmission": "Anda belum mengirimkan profil alumni.",
+    "submitAlumniLink": "Kirim profil Anda"
   },
   "memberPhotoUpload": {
     "uploadLabel": "Unggah Foto",

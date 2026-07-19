@@ -16,8 +16,9 @@
     </a>
 
     <div v-else class="flex items-center h-6 flex-shrink-0">
-      <span
-        class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-[color:var(--color-vscode-statusbar-fg)] font-semibold"
+      <a
+        href="/account"
+        class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-[color:var(--color-vscode-statusbar-fg)] font-semibold hover:bg-[color:var(--color-vscode-statusbar-border)] transition-colors"
         :title="t.account.accountLabel"
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -25,7 +26,7 @@
           <path d="M5.5 21a6.5 6.5 0 0113 0"/>
         </svg>
         <span class="hidden sm:inline max-w-[10rem] truncate">{{ displayName }}</span>
-      </span>
+      </a>
       <button
         @click="handleSignOut"
         :disabled="signingOut"

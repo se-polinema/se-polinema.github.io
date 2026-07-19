@@ -529,7 +529,14 @@
   "account": {
     "signIn": "Sign In",
     "signOut": "Sign out",
-    "accountLabel": "Account"
+    "accountLabel": "Account",
+    "signInPrompt": "Sign in to view your account.",
+    "signedInAs": "Signed in as",
+    "registrationsHeading": "My Event Registrations",
+    "noRegistrations": "You haven't registered for any events yet.",
+    "alumniHeading": "My Alumni Submission",
+    "noAlumniSubmission": "You haven't submitted an alumni profile yet.",
+    "submitAlumniLink": "Submit your profile"
   },
   "memberPhotoUpload": {
     "uploadLabel": "Upload Photo",

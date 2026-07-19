@@ -1,0 +1,17 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import AccountPage from '../../components/AccountPage.vue'
+---
+
+<VSCodeLayout
+  title="My Account"
+  description="View your event registrations and alumni submission status."
+>
+  <div class="px-8 py-5">
+    <h1>My Account</h1>
+    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">
+      Your event registrations and alumni submission status.
+    </p>
+    <AccountPage client:load />
+  </div>
+</VSCodeLayout>

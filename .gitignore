@@ -9,3 +9,6 @@ dist
 
 # CI screenshots (published to screenshots branch)
 .github/screenshots/
+
+# graphify analysis artifacts (generated, not source)
+graphify-out/
