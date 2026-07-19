@@ -1,4 +1,4 @@
-const CACHE_NAME = 'se-lab-v2'
+const CACHE_NAME = 'se-lab-v3'
 
 const PRECACHE_URLS = [
   '/',
@@ -8,9 +8,9 @@ const PRECACHE_URLS = [
   '/publications/',
   '/researchers/',
   '/books/',
-  '/icons/icon-192.svg',
-  '/icons/icon-512.svg',
-  '/favicon.svg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/favicon.ico',
 ]
 
 self.addEventListener('install', (event) => {

@@ -21,16 +21,16 @@
           <div
             v-for="book in books"
             :key="book.title"
-            class="flex-shrink-0 w-80 snap-start border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 flex flex-col gap-3 hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
+            class="flex-shrink-0 w-48 snap-start border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-4 flex flex-col gap-3 hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
           >
-            <!-- Cover image -->
-            <div class="w-full aspect-[3/4] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/5 dark:border-gray-600 -mx-5 -mt-5 mb-1" style="width: calc(100% + 2.5rem);">
+            <!-- Cover image (thumbnail) -->
+            <div class="w-full aspect-[2/3] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/5 dark:border-gray-600">
               <BookCover :src="book.coverImage" :title="book.title" fit="cover" />
             </div>
-            <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">
+            <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug line-clamp-2">
               {{ lang === 'id' && book.titleId ? book.titleId : book.title }}
             </div>
-            <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed flex-1">
+            <p v-if="book.description || book.descriptionId" class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed line-clamp-3">
               {{ lang === 'id' && book.descriptionId ? book.descriptionId : book.description }}
             </p>
             <div v-if="book.url" class="mt-1">

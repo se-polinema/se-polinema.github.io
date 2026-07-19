@@ -13,30 +13,31 @@
         <div
           v-for="member in researchers"
           :key="member.id"
-          class="group bg-white dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-primary/15 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300 overflow-hidden"
+          class="group bg-white dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-primary/15 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300 p-6 text-center"
         >
-          <!-- Photo (square, links to profile) -->
-          <a :href="`/researchers/${member.id}`" class="block relative aspect-square bg-neutral-100 dark:bg-gray-700 overflow-hidden">
+          <!-- Photo (small circular avatar, links to profile) -->
+          <a
+            :href="`/researchers/${member.id}`"
+            class="block mx-auto mb-4 w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-1 ring-neutral-200 dark:ring-gray-600 group-hover:ring-primary/30 transition-colors"
+          >
             <img
               :src="member.photo"
               :alt="member.name"
-              class="w-full h-full object-cover grayscale transition duration-500 group-hover:grayscale-0"
+              class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
               :style="{ objectPosition: member.photoPosition }"
               loading="lazy"
             />
-            <!-- Accent sweep line on hover -->
-            <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </a>
 
           <!-- Card content -->
-          <div class="p-5">
+          <div>
             <h3 class="font-serif text-lg font-semibold text-primary dark:text-gray-100">
               {{ member.name }}
             </h3>
             <p class="text-xs font-mono uppercase tracking-wider text-primary/40 dark:text-gray-500 mt-0.5 mb-4">
               {{ lang === 'id' ? member.title.id : member.title.en }}
             </p>
-            <div class="flex flex-wrap gap-1.5 mb-4">
+            <div class="flex flex-wrap justify-center gap-1.5 mb-4">
               <span
                 v-for="item in member.expertise.slice(0, 3)"
                 :key="item"
