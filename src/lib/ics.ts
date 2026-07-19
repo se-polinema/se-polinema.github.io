@@ -42,7 +42,18 @@ function nextDay(date: Date): Date {
   return d
 }
 
-export function generateIcs(event: IcsEventData, baseUrl = 'https://se.polinema.ac.id'): string {
+// Shared VCALENDAR header, used by both the single-event download
+// (generateIcs) and the all-events subscription feed (generateIcsFeed) so
+// the two stay in sync.
+const CALENDAR_HEADER = [
+  'BEGIN:VCALENDAR',
+  'VERSION:2.0',
+  'PRODID:-//SE Lab//Events Calendar//EN',
+  'CALSCALE:GREGORIAN',
+  'METHOD:PUBLISH',
+]
+
+function buildVevent(event: IcsEventData, baseUrl: string): string[] {
   const eventStart = event.eventDate
   const eventEnd = event.eventEndDate ?? eventStart
   const dtStart = toIcsDate(eventStart)
@@ -63,11 +74,6 @@ export function generateIcs(event: IcsEventData, baseUrl = 'https://se.polinema.
   const url = `${baseUrl}/events/${event.slug}`
 
   const lines: string[] = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//SE Lab//Events Calendar//EN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
     'BEGIN:VEVENT',
     `UID:${uid}`,
     `DTSTAMP:${toIcsDateTime(new Date())}`,
@@ -88,8 +94,31 @@ export function generateIcs(event: IcsEventData, baseUrl = 'https://se.polinema.
     `URL:${url}`,
     `ORGANIZER;CN=Software Engineering Laboratory:mailto:imam.fahrur@polinema.ac.id`,
     'END:VEVENT',
-    'END:VCALENDAR',
   )
+
+  return lines
+}
+
+export function generateIcs(event: IcsEventData, baseUrl = 'https://se.polinema.ac.id'): string {
+  const lines: string[] = [
+    ...CALENDAR_HEADER,
+    ...buildVevent(event, baseUrl),
+    'END:VCALENDAR',
+  ]
+
+  return lines.join('\r\n') + '\r\n'
+}
+
+// Combines every event into a single feed document (one VCALENDAR wrapping
+// N VEVENTs) — used by the /events.ics subscription endpoint. Individual
+// VEVENT bodies are byte-identical to what generateIcs() would produce for
+// the same event.
+export function generateIcsFeed(events: IcsEventData[], baseUrl = 'https://se.polinema.ac.id'): string {
+  const lines: string[] = [
+    ...CALENDAR_HEADER,
+    ...events.flatMap((event) => buildVevent(event, baseUrl)),
+    'END:VCALENDAR',
+  ]
 
   return lines.join('\r\n') + '\r\n'
 }

@@ -2,7 +2,7 @@
 
 **Priority:** Low
 **Area:** Events
-**Status:** Proposed
+**Status:** Done
 
 ## Problem
 
@@ -27,3 +27,32 @@ single-event function, reusing `toIcsDate`/`toIcsDateTime`/`escapeText`).
 
 - `src/lib/ics.ts` (new multi-event variant)
 - New: `src/pages/events.ics.ts`
+
+## Resolution
+
+Implemented close to as proposed, with one filter change from the original
+write-up:
+
+- `src/lib/ics.ts`: extracted the per-event `BEGIN:VEVENT`…`END:VEVENT`
+  body into a private `buildVevent()` helper (reusing the existing
+  `escapeText`/`toIcsDate`/`toIcsDateTime`/`nextDay` helpers unchanged),
+  and factored the shared `VCALENDAR` header lines into `CALENDAR_HEADER`.
+  `generateIcs()` (single-event) now just wraps one `buildVevent()` call —
+  verified byte-identical output before/after via a stashed before/after
+  build diff. Added exported `generateIcsFeed(events, baseUrl)` that wraps
+  N `buildVevent()` calls in a single `VCALENDAR`.
+- New `src/pages/events.ics.ts` (mirrors the `rss.xml.ts` pattern:
+  `prerender = true`, `GET: APIRoute`): filters `category === 'event'`
+  (not `managed === true`) — deliberately matching
+  `events/[slug].ics.ts`'s filter rather than `events.json.ts`'s, since the
+  feed is "every event that has a per-event `.ics`, combined" and
+  `managed` is about Supabase registration sync, a separate concern.
+  Events are sorted ascending by `eventDate ?? date`. No date filtering
+  (past events stay in the feed — calendar clients handle that fine, and
+  it avoids build-time "now" nondeterminism in feed membership). Served as
+  `text/calendar` without `Content-Disposition: attachment`, since it's a
+  subscribe-by-URL feed rather than a one-off download.
+- `astro.config.mjs`: added `events.ics` to the sitemap `customPages` list
+  for discoverability.
+- No "Subscribe to calendar" UI link was added — endpoint only, per the
+  original proposal's scope.
