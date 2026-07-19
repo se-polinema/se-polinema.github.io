@@ -663,6 +663,24 @@
     "approveAction": "Setujui",
     "approvedFieldLabel": "Tampil ke publik"
   },
+  "staffAdmin": {
+    "tabLabel": "Staf",
+    "grantHeading": "Berikan Akses Admin",
+    "grantDescription": "Masukkan email akun yang sudah ada untuk memberikan akses admin.",
+    "emailLabel": "Email",
+    "grantAction": "Berikan Admin",
+    "grantingLabel": "Memberikan...",
+    "notFoundError": "Tidak ditemukan akun dengan email tersebut. Mereka perlu masuk setidaknya sekali terlebih dahulu.",
+    "currentAdminsHeading": "Admin Saat Ini",
+    "noAdmins": "Belum ada admin.",
+    "nameCol": "Nama",
+    "emailCol": "Email",
+    "grantedCol": "Diberikan",
+    "autoAssigned": "Otomatis (email staf)",
+    "youLabel": "Anda",
+    "revokeAction": "Cabut",
+    "revokeConfirm": "Hapus akses admin untuk orang ini?"
+  },
   "confirmDialog": {
     "deleteTitle": "Hapus Anggota",
     "deleteMessage": "Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus anggota ini?",

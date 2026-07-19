@@ -128,6 +128,15 @@
         >
           {{ t.membersAdmin.tabLabel }}
         </button>
+        <button
+          @click="adminTab = 'staff'"
+          class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
+          :class="adminTab === 'staff'
+            ? 'border-accent text-primary dark:text-gray-100'
+            : 'border-transparent text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300'"
+        >
+          {{ t.staffAdmin.tabLabel }}
+        </button>
       </div>
 
       <!-- EVENTS TAB -->
@@ -172,7 +181,7 @@
       </template>
 
       <!-- MEMBERS TAB -->
-      <template v-else>
+      <template v-else-if="adminTab === 'members'">
         <div v-if="loadingData" class="py-10 text-center">
           <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
         </div>
@@ -367,6 +376,82 @@
           </div>
         </div>
       </template>
+
+      <!-- STAFF TAB -->
+      <template v-else>
+        <div v-if="loadingData" class="py-10 text-center">
+          <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
+        </div>
+
+        <div v-else>
+          <div v-if="staffActionError" class="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
+            {{ staffActionError }}
+          </div>
+
+          <form @submit.prevent="handleGrantAdmin" class="mb-8 p-5 border border-primary/10 dark:border-gray-700 space-y-3">
+            <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100">{{ t.staffAdmin.grantHeading }}</h2>
+            <p class="text-xs text-neutral-400 dark:text-gray-500">{{ t.staffAdmin.grantDescription }}</p>
+            <div class="flex items-end gap-3">
+              <div class="flex-1">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.staffAdmin.emailLabel }}</label>
+                <input
+                  v-model="grantEmail"
+                  type="email"
+                  required
+                  class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
+                />
+              </div>
+              <button
+                type="submit"
+                :disabled="grantingAdmin"
+                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {{ grantingAdmin ? t.staffAdmin.grantingLabel : t.staffAdmin.grantAction }}
+              </button>
+            </div>
+          </form>
+
+          <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 mb-3">{{ t.staffAdmin.currentAdminsHeading }}</h2>
+
+          <div v-if="admins.length === 0" class="py-6">
+            <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.staffAdmin.noAdmins }}</p>
+          </div>
+
+          <div v-else class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-primary/10 dark:border-gray-700">
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.staffAdmin.nameCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.staffAdmin.emailCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.staffAdmin.grantedCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-primary/5 dark:divide-gray-700">
+                <tr v-for="a in admins" :key="a.id">
+                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100">
+                    {{ a.full_name ?? '—' }}
+                    <span v-if="a.id === user?.id" class="ml-1.5 text-[10px] font-mono text-neutral-400 dark:text-gray-500">({{ t.staffAdmin.youLabel }})</span>
+                  </td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">{{ a.email ?? '—' }}</td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-400 dark:text-gray-500">
+                    {{ a.role_updated_at ? formatDate(a.role_updated_at) : t.staffAdmin.autoAssigned }}
+                  </td>
+                  <td class="py-2.5 text-right">
+                    <button
+                      v-if="a.id !== user?.id"
+                      @click="revokeAdmin(a)"
+                      class="text-xs font-mono text-red-500/70 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                    >
+                      {{ t.staffAdmin.revokeAction }}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -447,7 +532,7 @@ interface MemberRow {
   created_at: string
 }
 
-const adminTab = ref<'events' | 'members'>('events')
+const adminTab = ref<'events' | 'members' | 'staff'>('events')
 const members = ref<MemberRow[]>([])
 const memberFilterOptions = ['all', 'student', 'alumni', 'pending'] as const
 const memberFilter = ref<typeof memberFilterOptions[number]>('all')
@@ -457,6 +542,19 @@ const editingMemberId = ref<string | null>(null)
 const savingMember = ref(false)
 const memberActionError = ref('')
 let memberFormSnapshot = ''
+
+interface AdminProfile {
+  id: string
+  email: string | null
+  full_name: string | null
+  role: string
+  role_updated_at: string | null
+}
+
+const admins = ref<AdminProfile[]>([])
+const grantEmail = ref('')
+const grantingAdmin = ref(false)
+const staffActionError = ref('')
 
 function emptyMemberForm() {
   return {
@@ -719,6 +817,7 @@ async function loadData() {
 
   await loadMembers()
   await loadEventDates()
+  await loadAdmins()
 
   loadingData.value = false
 }
@@ -736,6 +835,67 @@ async function loadEventDates() {
     // unknown slug as not-past, so it stays visible rather than hidden).
     eventDates.value = {}
   }
+}
+
+async function loadAdmins() {
+  const { data } = await supabase
+    .schema('se')
+    .from('profiles')
+    .select('id, email, full_name, role, role_updated_at')
+    .eq('role', 'admin')
+    .order('email')
+
+  admins.value = data ?? []
+}
+
+async function handleGrantAdmin() {
+  grantingAdmin.value = true
+  staffActionError.value = ''
+
+  const email = grantEmail.value.trim().toLowerCase()
+
+  const { data: found, error: lookupError } = await supabase
+    .schema('se')
+    .from('profiles')
+    .select('id')
+    .eq('email', email)
+    .maybeSingle()
+
+  if (lookupError || !found) {
+    grantingAdmin.value = false
+    staffActionError.value = t.value.staffAdmin.notFoundError
+    return
+  }
+
+  const { error } = await supabase.schema('se').from('profiles').update({ role: 'admin' }).eq('id', found.id)
+
+  grantingAdmin.value = false
+
+  if (error) {
+    staffActionError.value = error.message
+    return
+  }
+
+  grantEmail.value = ''
+  await loadAdmins()
+}
+
+async function revokeAdmin(a: AdminProfile) {
+  const ok = await confirm({
+    title: t.value.confirmDialog.deleteTitle,
+    message: t.value.staffAdmin.revokeConfirm,
+    confirmLabel: t.value.staffAdmin.revokeAction,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+    variant: 'danger',
+  })
+  if (!ok) return
+
+  const { error } = await supabase.schema('se').from('profiles').update({ role: 'user' }).eq('id', a.id)
+  if (error) {
+    staffActionError.value = error.message
+    return
+  }
+  await loadAdmins()
 }
 
 async function handleSignIn() {

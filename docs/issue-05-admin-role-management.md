@@ -2,7 +2,29 @@
 
 **Priority:** Medium
 **Area:** Admin / auth
-**Status:** Proposed
+**Status:** Done
+
+## Resolution
+
+Implemented as designed, plus two pre-existing issues discovered and fixed
+along the way (both directly in this feature's critical path — see
+`supabase/migrations/015_admin_role_management.sql`'s header comment for
+detail):
+
+1. **Security fix**: `profiles_update_own` had no `WITH CHECK` clause, so
+   Postgres silently reused its `USING` expression — meaning any
+   authenticated user could self-promote to admin via a direct client call,
+   bypassing the `@polinema.ac.id` gate entirely. Fixed with a
+   `BEFORE UPDATE` trigger that reverts any role change on one's own row
+   (blocking both self-promotion and accidental self-demotion by an
+   existing admin) and blocks non-admins from changing anyone's role.
+2. **Regression fix**: `handle_new_user()` had stopped populating
+   `profiles.email` in an earlier migration, which would have made
+   grant-by-email infeasible. Restored, plus a one-time backfill from
+   `auth.users` for existing profiles left `NULL`.
+
+A lightweight audit trail (`role_updated_at`, `role_updated_by`) was added
+per the "worth deciding deliberately" note in the original proposal.
 
 ## Problem
 

@@ -663,6 +663,24 @@
     "approveAction": "Approve",
     "approvedFieldLabel": "Visible to public"
   },
+  "staffAdmin": {
+    "tabLabel": "Staff",
+    "grantHeading": "Grant Admin Access",
+    "grantDescription": "Enter the email of an existing account to grant them admin access.",
+    "emailLabel": "Email",
+    "grantAction": "Grant Admin",
+    "grantingLabel": "Granting...",
+    "notFoundError": "No account found with that email. They need to sign in at least once first.",
+    "currentAdminsHeading": "Current Admins",
+    "noAdmins": "No admins yet.",
+    "nameCol": "Name",
+    "emailCol": "Email",
+    "grantedCol": "Granted",
+    "autoAssigned": "Auto-assigned (staff email)",
+    "youLabel": "you",
+    "revokeAction": "Revoke",
+    "revokeConfirm": "Remove admin access for this person?"
+  },
   "confirmDialog": {
     "deleteTitle": "Delete Member",
     "deleteMessage": "This action cannot be undone. Are you sure you want to delete this member?",

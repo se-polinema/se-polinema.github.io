@@ -2,7 +2,7 @@
 
 **Priority:** Medium-High
 **Area:** Discovery / search
-**Status:** Proposed
+**Status:** Done
 
 ## Problem
 

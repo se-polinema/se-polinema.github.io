@@ -2,7 +2,7 @@
 
 **Priority:** High
 **Area:** Self-service
-**Status:** In progress (being implemented)
+**Status:** Done
 
 ## Problem
 
