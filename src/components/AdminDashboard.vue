@@ -137,6 +137,15 @@
         >
           {{ t.staffAdmin.tabLabel }}
         </button>
+        <button
+          @click="adminTab = 'subscribers'"
+          class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
+          :class="adminTab === 'subscribers'
+            ? 'border-accent text-primary dark:text-gray-100'
+            : 'border-transparent text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300'"
+        >
+          {{ t.subscribersAdmin.tabLabel }}
+        </button>
       </div>
 
       <!-- EVENTS TAB -->
@@ -378,7 +387,7 @@
       </template>
 
       <!-- STAFF TAB -->
-      <template v-else>
+      <template v-else-if="adminTab === 'staff'">
         <div v-if="loadingData" class="py-10 text-center">
           <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
         </div>
@@ -444,6 +453,53 @@
                       class="text-xs font-mono text-red-500/70 hover:text-red-600 dark:hover:text-red-400 transition-colors"
                     >
                       {{ t.staffAdmin.revokeAction }}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </template>
+
+      <!-- SUBSCRIBERS TAB -->
+      <template v-else>
+        <div v-if="loadingData" class="py-10 text-center">
+          <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
+        </div>
+
+        <div v-else>
+          <div v-if="subscriberActionError" class="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
+            {{ subscriberActionError }}
+          </div>
+
+          <div v-if="subscribers.length === 0" class="py-10 text-center">
+            <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.subscribersAdmin.noEntries }}</p>
+          </div>
+
+          <div v-else class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-primary/10 dark:border-gray-700">
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.subscribersAdmin.emailCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.subscribersAdmin.languageCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.subscribersAdmin.interestsCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.subscribersAdmin.subscribedCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-primary/5 dark:divide-gray-700">
+                <tr v-for="s in subscribers" :key="s.id">
+                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100">{{ s.email }}</td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400 uppercase">{{ s.language }}</td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">{{ s.interests.length > 0 ? s.interests.join(', ') : '—' }}</td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-400 dark:text-gray-500">{{ formatDate(s.created_at) }}</td>
+                  <td class="py-2.5 text-right">
+                    <button
+                      @click="deleteSubscriber(s)"
+                      class="text-xs font-mono text-red-500/70 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                    >
+                      {{ t.subscribersAdmin.deleteAction }}
                     </button>
                   </td>
                 </tr>
@@ -532,7 +588,7 @@ interface MemberRow {
   created_at: string
 }
 
-const adminTab = ref<'events' | 'members' | 'staff'>('events')
+const adminTab = ref<'events' | 'members' | 'staff' | 'subscribers'>('events')
 const members = ref<MemberRow[]>([])
 const memberFilterOptions = ['all', 'student', 'alumni', 'pending'] as const
 const memberFilter = ref<typeof memberFilterOptions[number]>('all')
@@ -555,6 +611,18 @@ const admins = ref<AdminProfile[]>([])
 const grantEmail = ref('')
 const grantingAdmin = ref(false)
 const staffActionError = ref('')
+
+interface Subscriber {
+  id: string
+  email: string
+  language: string
+  interests: string[]
+  created_at: string
+  confirmed_at: string | null
+}
+
+const subscribers = ref<Subscriber[]>([])
+const subscriberActionError = ref('')
 
 function emptyMemberForm() {
   return {
@@ -818,6 +886,7 @@ async function loadData() {
   await loadMembers()
   await loadEventDates()
   await loadAdmins()
+  await loadSubscribers()
 
   loadingData.value = false
 }
@@ -896,6 +965,34 @@ async function revokeAdmin(a: AdminProfile) {
     return
   }
   await loadAdmins()
+}
+
+async function loadSubscribers() {
+  const { data } = await supabase
+    .schema('se')
+    .from('subscribers')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  subscribers.value = data ?? []
+}
+
+async function deleteSubscriber(s: Subscriber) {
+  const ok = await confirm({
+    title: t.value.confirmDialog.deleteTitle,
+    message: t.value.subscribersAdmin.deleteConfirm,
+    confirmLabel: t.value.confirmDialog.deleteConfirmLabel,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+    variant: 'danger',
+  })
+  if (!ok) return
+
+  const { error } = await supabase.schema('se').from('subscribers').delete().eq('id', s.id)
+  if (error) {
+    subscriberActionError.value = error.message
+    return
+  }
+  await loadSubscribers()
 }
 
 async function handleSignIn() {

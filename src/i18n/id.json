@@ -681,6 +681,16 @@
     "revokeAction": "Cabut",
     "revokeConfirm": "Hapus akses admin untuk orang ini?"
   },
+  "subscribersAdmin": {
+    "tabLabel": "Pelanggan",
+    "noEntries": "Belum ada pelanggan.",
+    "emailCol": "Email",
+    "languageCol": "Bahasa",
+    "interestsCol": "Minat",
+    "subscribedCol": "Berlangganan",
+    "deleteAction": "Hapus",
+    "deleteConfirm": "Hapus pelanggan ini?"
+  },
   "confirmDialog": {
     "deleteTitle": "Hapus Anggota",
     "deleteMessage": "Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus anggota ini?",

@@ -11,7 +11,7 @@ content and tutorial-quality improvements are explicitly out of scope.
 | 3 | [My Account page](issue-03-my-account-page.md) | High | Done |
 | 4 | [Search coverage for alumni/members](issue-04-search-coverage-alumni-members.md) | Medium-High | Done |
 | 5 | [Admin role management UI](issue-05-admin-role-management.md) | Medium | Done |
-| 6 | [Newsletter subscribers admin UI](issue-06-newsletter-subscribers-admin-ui.md) | Medium | Proposed |
+| 6 | [Newsletter subscribers admin UI](issue-06-newsletter-subscribers-admin-ui.md) | Medium | Done |
 | 7 | [CSV export in admin](issue-07-csv-export-admin.md) | Medium | Proposed |
 | 8 | [Event capacity/waitlist](issue-08-event-capacity-waitlist.md) | Low-Medium | Proposed |
 | 9 | [All-events calendar feed](issue-09-calendar-feed-all-events.md) | Low | Proposed |

@@ -681,6 +681,16 @@
     "revokeAction": "Revoke",
     "revokeConfirm": "Remove admin access for this person?"
   },
+  "subscribersAdmin": {
+    "tabLabel": "Subscribers",
+    "noEntries": "No subscribers yet.",
+    "emailCol": "Email",
+    "languageCol": "Language",
+    "interestsCol": "Interests",
+    "subscribedCol": "Subscribed",
+    "deleteAction": "Delete",
+    "deleteConfirm": "Remove this subscriber?"
+  },
   "confirmDialog": {
     "deleteTitle": "Delete Member",
     "deleteMessage": "This action cannot be undone. Are you sure you want to delete this member?",

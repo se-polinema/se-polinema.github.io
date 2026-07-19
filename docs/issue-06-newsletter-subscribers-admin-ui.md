@@ -2,7 +2,16 @@
 
 **Priority:** Medium
 **Area:** Admin
-**Status:** Proposed
+**Status:** Done
+
+## Resolution
+
+Implemented exactly as proposed — a new "Subscribers" tab on `AdminDashboard.vue`
+listing email/language/interests/subscribed-at with a per-row delete action.
+Pure frontend addition; the existing `subscribers_select_admin`/
+`subscribers_delete_admin` RLS policies already covered everything needed, no
+migration required. CSV export intentionally left for issue #7, which covers
+it for every admin table at once rather than one-off per table.
 
 ## Problem
 
