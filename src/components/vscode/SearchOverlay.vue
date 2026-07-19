@@ -62,6 +62,9 @@
                   <svg v-if="item.type === 'researcher'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
                   </svg>
+                  <svg v-else-if="item.type === 'member'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/>
+                  </svg>
                   <svg v-else-if="item.type === 'publication'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
                   </svg>
@@ -112,7 +115,7 @@ const { t, lang } = useI18n()
 
 interface SearchItem {
   id: string
-  type: 'researcher' | 'publication' | 'blog' | 'project' | 'event'
+  type: 'researcher' | 'publication' | 'blog' | 'project' | 'event' | 'member'
   title: string
   titleId: string
   excerpt: string
@@ -168,13 +171,14 @@ const groupedResults = computed<ResultGroup[]>(() => {
   const groups: ResultGroup[] = []
   const typeOrder: Record<string, string> = {
     researcher: t.value.search.groupResearchers,
+    member: t.value.search.groupMembers,
     publication: t.value.search.groupPublications,
     project: t.value.search.groupProjects,
     blog: t.value.search.groupBlog,
     event: t.value.search.groupEvents,
   }
 
-  for (const type of ['researcher', 'publication', 'project', 'blog', 'event'] as const) {
+  for (const type of ['researcher', 'member', 'publication', 'project', 'blog', 'event'] as const) {
     const items = matched.filter(m => m.type === type)
     if (items.length > 0) {
       groups.push({ label: typeOrder[type], items })
@@ -233,9 +237,6 @@ function onKeydown(e: KeyboardEvent) {
       const group = groupedResults.value.find(g => g.label === item.group)
       if (group) navigateTo(group.items[item.index].href)
     }
-  } else if (e.key === 'Escape') {
-    e.preventDefault()
-    close()
   }
 }
 
@@ -284,6 +285,9 @@ function onGlobalKeydown(e: KeyboardEvent) {
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
     e.preventDefault()
     show()
+  } else if (e.key === 'Escape' && open.value) {
+    e.preventDefault()
+    close()
   }
 }
 
@@ -400,6 +404,10 @@ defineExpose({ show, close, open })
 }
 
 .icon-researcher {
+  color: #60A5FA;
+}
+
+.icon-member {
   color: #60A5FA;
 }
 

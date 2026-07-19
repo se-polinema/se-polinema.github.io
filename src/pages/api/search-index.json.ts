@@ -1,9 +1,10 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { createClient } from '@supabase/supabase-js'
 
 export interface SearchEntry {
   id: string
-  type: 'researcher' | 'publication' | 'blog' | 'project' | 'event'
+  type: 'researcher' | 'publication' | 'blog' | 'project' | 'event' | 'member'
   title: string
   titleId: string
   excerpt: string
@@ -128,6 +129,59 @@ export const GET: APIRoute = async () => {
       href: isEvent ? `/events/${post.id}` : `/blog/${post.id}`,
       searchText,
     })
+  }
+
+  // se.members (alumni/student directory) is runtime Supabase data, not a
+  // content collection — fetched here at build time so it's searchable
+  // alongside everything else. Only approved rows are needed, which are
+  // already fully public via the members_select_approved RLS policy, so
+  // the anon key (already available in this build step) is sufficient; no
+  // service-role key needed. persistSession: false since there's no
+  // localStorage in a Node build — mirrors scripts/sync-events.mjs /
+  // scripts/migrate-member-photos.mjs's server-side client setup.
+  try {
+    const url = import.meta.env.PUBLIC_SUPABASE_URL
+    const key = import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+    if (url && key) {
+      const supabase = createClient(url, key, {
+        db: { schema: 'se' },
+        auth: { persistSession: false },
+      })
+      const { data: members, error } = await supabase
+        .from('members')
+        .select('id, name, status, role_id, role_en, current_role_id, current_role_en, current_organization_id, current_organization_en')
+        .eq('approved', true)
+
+      if (error) throw error
+
+      for (const m of members ?? []) {
+        const positionEn = [m.current_role_en, m.current_organization_en ? `at ${m.current_organization_en}` : ''].filter(Boolean).join(' ')
+        const positionId = [m.current_role_id, m.current_organization_id ? `di ${m.current_organization_id}` : ''].filter(Boolean).join(' ')
+        const excerpt = positionEn || (m.status === 'alumni' ? 'Alumni' : 'Student')
+        const excerptId = positionId || (m.status === 'alumni' ? 'Alumni' : 'Mahasiswa')
+        const searchText = normalize([
+          m.name,
+          m.role_id,
+          m.role_en,
+          m.current_role_id,
+          m.current_role_en,
+          m.current_organization_id,
+          m.current_organization_en,
+        ].filter(Boolean).join(' '))
+        entries.push({
+          id: m.id,
+          type: 'member',
+          title: m.name,
+          titleId: m.name,
+          excerpt,
+          excerptId,
+          href: `/profile?id=${m.id}`,
+          searchText,
+        })
+      }
+    }
+  } catch (err) {
+    console.warn('search-index: skipping members (Supabase fetch failed):', err instanceof Error ? err.message : err)
   }
 
   return new Response(JSON.stringify(entries), {
