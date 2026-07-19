@@ -17,7 +17,6 @@ const activeFilters = reactive<{
   stream: string | null
 }>({ category: null, year: null, type: null, tag: null, stream: null })
 
-let initialized = false
 let observerInit = false
 let panelStateRestored = false
 
@@ -69,31 +68,35 @@ export function useVSCodeLayout(initialPath?: string) {
     activeSidebarView.value = resolved.view
   }
 
-  if (typeof window !== 'undefined' && !initialized) {
-    initialized = true
-    sidebarOpen.value = window.innerWidth >= 1024
-    layoutInitialized.value = true
+  // sidebarOpen/layoutInitialized/panelOpen's width-based defaults are
+  // deliberately NOT set here in useVSCodeLayout() itself (they used to be,
+  // synchronously, on first call — that desynced the very first client
+  // render, including the hydration pass itself, from SSR's false/false
+  // defaults, producing real "check-only" Vue hydration mismatches on
+  // Sidebar's width class, BottomPanel's height style, and StatusBar's
+  // panel-toggle title/class). Deferred to restorePanelState() below
+  // instead, same post-hydration timing discipline as panelOpen's
+  // localStorage restore already used.
 
-    // Panel open/tab state is intentionally NOT restored here. Doing it
-    // during setup() would make the very first client render disagree with
-    // the SSR render (which always shows the default 'contact' tab),
-    // causing a Vue hydration mismatch. Call restorePanelState() from
-    // onMounted (post-hydration) instead. Route→page state no longer has
-    // this problem — see the initialPath seed above — but
-    // restoreRouteState() is kept below as a harmless client
-    // re-confirmation for callers that don't pass initialPath.
-    panelOpen.value = window.innerWidth >= 1024
-  }
-
-  // Restores persisted panel open/tab state. Must be called post-hydration
+  // Restores persisted panel/sidebar state. Must be called post-hydration
   // (e.g. from a component's onMounted) so the initial client render matches
-  // the server render before we mutate reactive state from localStorage.
+  // the server render before we mutate reactive state from window.innerWidth
+  // or localStorage.
   function restorePanelState() {
     if (typeof window === 'undefined' || panelStateRestored) return
     panelStateRestored = true
 
+    sidebarOpen.value = window.innerWidth >= 1024
+    layoutInitialized.value = true
+
     const savedPanelOpen = localStorage.getItem('se-lab-panel-open')
-    if (savedPanelOpen !== null) panelOpen.value = savedPanelOpen === 'true'
+    if (savedPanelOpen !== null) {
+      panelOpen.value = savedPanelOpen === 'true'
+    } else {
+      // No stored preference yet (first-ever visit) — fall back to the
+      // same width-based default the sync init block used to apply.
+      panelOpen.value = window.innerWidth >= 1024
+    }
 
     const savedPanelTab = localStorage.getItem('se-lab-panel-tab')
     if (savedPanelTab) {
