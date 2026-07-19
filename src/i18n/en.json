@@ -260,6 +260,7 @@
     "filterStream": "Research Stream",
     "allStreams": "All Streams",
     "noResults": "No publications match the selected filters. Try adjusting your filter criteria.",
+    "loading": "Loading publications...",
     "resultSingle": "publication",
     "resultPlural": "publications",
     "archiveHeading": "Publication Archive",
@@ -485,6 +486,7 @@
     "categoryTutorial": "Tutorial",
     "authorBy": "By",
     "noPosts": "No posts found",
+    "loading": "Loading posts...",
     "backToHome": "Back to Home",
     "backToBlog": "Back to Blog",
     "readingTime": "{minutes} min read",
@@ -707,6 +709,11 @@
     "unsavedMessage": "Do you want to save the changes you made? Your changes will be lost if you don't save them.",
     "saveLabel": "Save",
     "dontSaveLabel": "Don't Save"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page"
   },
   "search": {
     "placeholder": "Search researchers, publications, projects, blog, and events...",

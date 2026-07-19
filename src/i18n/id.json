@@ -260,6 +260,7 @@
     "filterStream": "Aliran Riset",
     "allStreams": "Semua Aliran",
     "noResults": "Tidak ada publikasi yang cocok dengan filter yang dipilih. Coba sesuaikan kriteria filter.",
+    "loading": "Memuat publikasi...",
     "resultSingle": "publikasi",
     "resultPlural": "publikasi",
     "archiveHeading": "Arsip Publikasi",
@@ -485,6 +486,7 @@
     "categoryTutorial": "Tutorial",
     "authorBy": "Oleh",
     "noPosts": "Tidak ada postingan ditemukan",
+    "loading": "Memuat postingan...",
     "backToHome": "Kembali ke Beranda",
     "backToBlog": "Kembali ke Blog",
     "readingTime": "{minutes} menit baca",
@@ -707,6 +709,11 @@
     "unsavedMessage": "Apakah Anda ingin menyimpan perubahan yang Anda buat? Perubahan akan hilang jika tidak disimpan.",
     "saveLabel": "Simpan",
     "dontSaveLabel": "Jangan Simpan"
+  },
+  "pagination": {
+    "previous": "Sebelumnya",
+    "next": "Berikutnya",
+    "page": "Halaman"
   },
   "search": {
     "placeholder": "Cari peneliti, publikasi, proyek, blog, dan acara...",

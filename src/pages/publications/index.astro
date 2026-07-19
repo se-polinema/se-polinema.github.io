@@ -7,19 +7,11 @@ import { readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import researchData from '../../data/research.json'
 
-const publications = (await getCollection('publications'))
-  .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
-  .map((publication) => ({
-    id: publication.id,
-    title: publication.data.title,
-    year: publication.data.year,
-    authors: publication.data.authors,
-    venue: publication.data.venue,
-    type: publication.data.type,
-    url: publication.data.url,
-    researchers: publication.data.researchers,
-  }))
-
+// Publication data is intentionally NOT fetched here — PublicationsArchive.vue
+// fetches it client-side from /api/publications-index.json instead, so
+// this page's own HTML stays constant-size as the collection grows (see
+// the pagination plan). researchers/streamNames below stay build-time
+// props — they scale with researcher count, not publication count.
 const researchers = (await getCollection('researchers'))
   .sort((a, b) => a.data.name.localeCompare(b.data.name))
   .map((researcher) => ({
@@ -61,6 +53,6 @@ if (existsSync(syncMetaPath)) {
         Subscribe to publications feed
       </a>
     </div>
-    <PublicationsArchive client:load publications={publications} researchers={researchers} streamNames={streamNames} />
+    <PublicationsArchive client:load researchers={researchers} streamNames={streamNames} />
   </div>
 </VSCodeLayout>

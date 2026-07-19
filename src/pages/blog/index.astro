@@ -1,24 +1,14 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import BlogArchivePage from '../../components/BlogArchivePage.vue'
-import { getCollection } from 'astro:content'
 
-const allPosts = await getCollection('blog')
-const posts = allPosts
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .map((post) => ({
-    id: post.id,
-    title: post.data.title,
-    titleId: post.data.titleId,
-    excerpt: post.data.excerpt,
-    excerptId: post.data.excerptId,
-    category: post.data.category,
-    date: post.data.date,
-    tags: post.data.tags,
-    tagsId: post.data.tagsId,
-  }))
+// Post data is intentionally NOT fetched here — BlogArchivePage.vue
+// fetches it client-side from /api/blog-index.json instead, so this
+// page's own HTML stays constant-size as the blog grows (see the
+// pagination plan). The category/tag archive routes still pass `posts`
+// directly since those are small, pre-filtered, statically generated.
 ---
 
 <VSCodeLayout title="Blog Archive" description="Articles, tutorials, announcements, and event updates from the Software Engineering Laboratory.">
-  <BlogArchivePage client:load posts={posts} />
+  <BlogArchivePage client:load />
 </VSCodeLayout>
