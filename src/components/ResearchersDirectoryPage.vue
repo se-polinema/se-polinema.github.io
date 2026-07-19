@@ -6,8 +6,14 @@
     <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mt-6">
       <article v-for="researcher in researchers" :key="researcher.id" class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors">
         <div class="flex items-start gap-3 md:gap-4 mb-5">
-          <div class="relative h-20 w-16 md:h-24 md:w-[4.5rem] shrink-0 bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden">
-            <img :src="researcher.photo" :alt="researcher.name" class="h-full w-full object-cover object-top" loading="lazy" />
+          <div class="relative h-16 w-16 md:h-20 md:w-20 shrink-0 rounded-full overflow-hidden bg-neutral-100 dark:bg-gray-700 ring-1 ring-neutral-200 dark:ring-gray-600 group-hover:ring-primary/30 transition-colors">
+            <img
+              :src="researcher.photo"
+              :alt="researcher.name"
+              class="h-full w-full object-cover"
+              :style="{ objectPosition: researcher.photoPosition }"
+              loading="lazy"
+            />
           </div>
           <div class="min-w-0">
             <h2 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug">
@@ -50,6 +56,7 @@ defineProps<{
     id: string
     name: string
     photo: string
+    photoPosition: string
     title: { id: string; en: string }
     shortBio: { id: string; en: string }
     expertise: string[]

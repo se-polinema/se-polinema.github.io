@@ -8,11 +8,11 @@
 
           <!-- Left sub-col: photo + affiliation + contact + external profiles -->
           <div class="w-36 shrink-0 space-y-3 text-[13px] text-neutral-600 dark:text-gray-300">
-            <div class="relative aspect-[4/5] w-full bg-neutral-50 dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden">
+            <div class="relative aspect-[4/5] w-full bg-neutral-50 dark:bg-gray-800 ring-1 ring-neutral-200 dark:ring-gray-600 overflow-hidden">
               <img
                 :src="researcher.photo"
                 :alt="researcher.name"
-                class="h-full w-full object-cover grayscale contrast-110 transition duration-300 hover:grayscale-0"
+                class="h-full w-full object-cover"
                 :style="{ objectPosition: researcher.photoPosition }"
                 loading="lazy"
               />
