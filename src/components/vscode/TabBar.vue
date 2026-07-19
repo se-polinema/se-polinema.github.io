@@ -42,15 +42,15 @@
           :href="isDetailPage ? undefined : innerTab.href"
           role="tab"
           aria-selected="true"
-          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono flex-shrink-0 border-t-2 border-t-accent whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
+          class="flex items-center gap-2 px-4 py-2 text-[12px] font-mono min-w-0 border-t-2 border-t-accent whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
           @click.prevent="isDetailPage ? null : undefined"
         >
           <span
             class="w-1.5 h-1.5 rounded-full flex-shrink-0"
             :class="dotColor(innerTab.ext)"
           />
-          {{ innerTab.label }}
-          <span class="text-[10px] opacity-40 ml-0.5" aria-hidden="true">×</span>
+          <span class="truncate flex-1 min-w-0">{{ innerTab.label }}</span>
+          <span class="text-[10px] opacity-40 ml-0.5 flex-shrink-0" aria-hidden="true">×</span>
         </a>
       </div>
     </Transition>
@@ -58,7 +58,7 @@
 
   <!-- Breadcrumb bar -->
   <div
-    class="flex items-center justify-between px-4 flex-shrink-0 select-none"
+    class="flex items-center justify-between px-4 flex-shrink-0 select-none overflow-hidden"
     style="
       height: 26px;
       background: var(--color-vscode-tabbar-breadcrumb);
@@ -68,23 +68,24 @@
     <Transition name="breadcrumb" mode="out-in">
       <div
         :key="currentBreadcrumb.path.join('/')"
-        class="flex items-center gap-0.5 text-[11px] font-mono"
+        class="flex items-center gap-0.5 text-[11px] font-mono min-w-0 whitespace-nowrap"
       >
         <span
           v-for="(part, i) in currentBreadcrumb.path"
           :key="i"
-          class="flex items-center gap-0.5"
+          class="flex items-center gap-0.5 min-w-0"
         >
-          <span v-if="i > 0" class="text-[color:var(--color-vscode-chrome-fg-muted)] mx-1">›</span>
+          <span v-if="i > 0" class="text-[color:var(--color-vscode-chrome-fg-muted)] mx-1 flex-shrink-0">›</span>
           <a
             v-if="isDetailPage && i === currentBreadcrumb.path.length - 2 && parentHref"
             :href="parentHref"
-            class="text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors"
+            class="text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors truncate max-w-[200px] inline-block"
           >
             {{ part }}
           </a>
           <span
             v-else
+            class="truncate max-w-[260px] inline-block align-bottom"
             :class="
               i === currentBreadcrumb.path.length - 1
                 ? 'text-[color:var(--color-vscode-chrome-fg)]'
@@ -96,7 +97,7 @@
         </span>
       </div>
     </Transition>
-    <div class="flex items-center gap-4 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)]">
+    <div class="flex items-center gap-4 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] flex-shrink-0">
       <span>Ln 1, Col 1</span>
       <span>{{ currentBreadcrumb.lang }}</span>
     </div>
