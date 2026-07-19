@@ -105,9 +105,15 @@
         </div>
       </div>
 
+      <TurnstileWidget
+        ref="turnstileRef"
+        @verify="turnstileToken = $event"
+        @expire="turnstileToken = ''"
+      />
+
       <button
         type="submit"
-        :disabled="submitting"
+        :disabled="submitting || !turnstileToken"
         class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {{ submitting ? t.alumniSubmit.submittingLabel : t.alumniSubmit.submitBtn }}
@@ -127,6 +133,7 @@ import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import MemberPhotoUpload from './MemberPhotoUpload.vue'
+import TurnstileWidget from './TurnstileWidget.vue'
 import research from '../data/research.json'
 
 const { t, lang } = useI18n()
@@ -138,6 +145,8 @@ const state = ref<SubmissionState>('loading')
 const existingMemberId = ref<string | null>(null)
 const submitting = ref(false)
 const errorMessage = ref('')
+const turnstileToken = ref('')
+const turnstileRef = ref<InstanceType<typeof TurnstileWidget> | null>(null)
 
 const redirectTo = typeof window !== 'undefined' ? window.location.href : undefined
 
@@ -189,37 +198,46 @@ watch(
 )
 
 async function handleSubmit() {
-  if (!user.value) return
+  if (!user.value || !turnstileToken.value) return
 
   submitting.value = true
   errorMessage.value = ''
 
   const { supabase } = await import('../lib/supabase')
-  const { error } = await supabase.schema('se').from('members').insert({
-    user_id: user.value.id,
-    status: 'alumni',
-    approved: false,
-    name: form.name.trim(),
-    photo: form.photo || null,
-    cohort_year: form.cohort_year,
-    exit_year: form.exit_year,
-    role_id: 'Mahasiswa',
-    role_en: 'Student',
-    current_role_id: form.current_role_id.trim() || null,
-    current_role_en: form.current_role_en.trim() || null,
-    current_organization_id: form.current_organization_id.trim() || null,
-    current_organization_en: form.current_organization_en.trim() || null,
-    linkedin_url: form.linkedin_url.trim() || null,
-    profile_url: form.profile_url.trim() || null,
-    streams: form.streams,
-    research_topics: form.research_topics.trim() || null,
-    career_update: form.career_update.trim() || null,
+  const { error } = await supabase.functions.invoke('submit-alumni', {
+    body: {
+      name: form.name.trim(),
+      photo: form.photo || null,
+      cohort_year: form.cohort_year,
+      exit_year: form.exit_year,
+      current_role_id: form.current_role_id.trim() || null,
+      current_role_en: form.current_role_en.trim() || null,
+      current_organization_id: form.current_organization_id.trim() || null,
+      current_organization_en: form.current_organization_en.trim() || null,
+      linkedin_url: form.linkedin_url.trim() || null,
+      profile_url: form.profile_url.trim() || null,
+      streams: form.streams,
+      research_topics: form.research_topics.trim() || null,
+      career_update: form.career_update.trim() || null,
+      turnstileToken: turnstileToken.value,
+    },
   })
 
   submitting.value = false
 
   if (error) {
-    errorMessage.value = error.message || t.value.alumniSubmit.genericError
+    turnstileRef.value?.reset()
+    turnstileToken.value = ''
+    // functions.invoke() surfaces non-2xx responses as a generic SDK error
+    // without parsing the JSON body — recover the actual server message
+    // (submit-alumni returns { error: <postgres error message> }) from
+    // the raw Response on error.context.
+    let serverMessage: string | null = null
+    try {
+      const body = await (error as { context?: Response }).context?.json()
+      serverMessage = body?.error ?? null
+    } catch {}
+    errorMessage.value = serverMessage || t.value.alumniSubmit.genericError
     return
   }
 

@@ -130,10 +130,16 @@
         />
       </div>
 
+      <TurnstileWidget
+        ref="turnstileRef"
+        @verify="turnstileToken = $event"
+        @expire="turnstileToken = ''"
+      />
+
       <div class="flex items-center justify-between pt-2">
         <button
           type="submit"
-          :disabled="submitting"
+          :disabled="submitting || !turnstileToken"
           class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           <svg v-if="submitting" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -170,6 +176,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { supabase } from '../lib/supabase'
 import GitHubSignInButton from './GitHubSignInButton.vue'
+import TurnstileWidget from './TurnstileWidget.vue'
 
 const props = defineProps<{
   eventSlug: string
@@ -187,6 +194,8 @@ const submitting = ref(false)
 const errorMessage = ref('')
 const currentUserEmail = ref('')
 const currentUserId = ref('')
+const turnstileToken = ref('')
+const turnstileRef = ref<InstanceType<typeof TurnstileWidget> | null>(null)
 
 const form = reactive({
   name: '',
@@ -262,6 +271,8 @@ async function registerExistingUser() {
 async function handleSubmit() {
   errorMessage.value = ''
 
+  if (!turnstileToken.value) return
+
   if (mode.value === 'register' && form.password !== form.confirmPassword) {
     errorMessage.value = t.value.events.registration.passwordMismatch
     return
@@ -273,11 +284,13 @@ async function handleSubmit() {
     const { data, error } = await supabase.auth.signUp({
       email: form.email.trim().toLowerCase(),
       password: form.password,
-      options: { data: { name: form.name.trim() } },
+      options: { data: { name: form.name.trim() }, captchaToken: turnstileToken.value },
     })
 
     if (error) {
       submitting.value = false
+      turnstileRef.value?.reset()
+      turnstileToken.value = ''
       errorMessage.value = error.message ?? t.value.events.registration.genericError
       return
     }
@@ -285,6 +298,8 @@ async function handleSubmit() {
     // With confirmations off, duplicate email returns user with empty identities array.
     if (!data.user || (data.user.identities && data.user.identities.length === 0)) {
       submitting.value = false
+      turnstileRef.value?.reset()
+      turnstileToken.value = ''
       errorMessage.value = t.value.events.registration.emailExists
       return
     }
@@ -303,6 +318,8 @@ async function handleSubmit() {
     submitting.value = false
 
     if (rpcError || !result?.success) {
+      turnstileRef.value?.reset()
+      turnstileToken.value = ''
       if (result?.error === 'already_registered') {
         state.value = 'already-registered'
       } else {
@@ -318,10 +335,13 @@ async function handleSubmit() {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: form.email.trim().toLowerCase(),
       password: form.password,
+      options: { captchaToken: turnstileToken.value },
     })
 
     if (error || !data.user) {
       submitting.value = false
+      turnstileRef.value?.reset()
+      turnstileToken.value = ''
       errorMessage.value = error?.message ?? t.value.events.registration.genericError
       return
     }
@@ -338,6 +358,8 @@ async function handleSubmit() {
     submitting.value = false
 
     if (rpcError || !result?.success) {
+      turnstileRef.value?.reset()
+      turnstileToken.value = ''
       if (result?.error === 'already_registered') {
         state.value = 'already-registered'
       } else {

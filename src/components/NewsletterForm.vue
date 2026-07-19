@@ -67,7 +67,7 @@
           <button
             v-if="minimal"
             type="submit"
-            :disabled="submitting"
+            :disabled="submitting || !turnstileToken"
             class="inline-flex items-center gap-1 font-mono font-semibold bg-accent text-white hover:opacity-90 px-2.5 py-1 text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
           >
             <svg v-if="submitting" class="animate-spin" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -105,11 +105,29 @@
           </fieldset>
         </template>
 
+        <TurnstileWidget
+          v-if="minimal"
+          ref="turnstileRef"
+          size="compact"
+          appearance="interaction-only"
+          @verify="turnstileToken = $event"
+          @expire="turnstileToken = ''"
+        />
+
+        <TurnstileWidget
+          v-if="!minimal"
+          ref="turnstileRef"
+          size="normal"
+          appearance="always"
+          @verify="turnstileToken = $event"
+          @expire="turnstileToken = ''"
+        />
+
         <template v-if="!minimal">
           <div :class="compact ? 'flex items-center gap-2' : 'flex items-center gap-3 pt-1'">
             <button
               type="submit"
-              :disabled="submitting"
+              :disabled="submitting || !turnstileToken"
               :class="[
                 'inline-flex items-center gap-1.5 font-mono font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
                 compact
@@ -148,6 +166,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import TurnstileWidget from './TurnstileWidget.vue'
 
 const props = withDefaults(defineProps<{
   compact?: boolean
@@ -168,6 +187,8 @@ type State = 'idle' | 'success'
 const state = ref<State>('idle')
 const submitting = ref(false)
 const errorMessage = ref('')
+const turnstileToken = ref('')
+const turnstileRef = ref<InstanceType<typeof TurnstileWidget> | null>(null)
 
 const emailId = computed(() => props.compact ? 'newsletter-email-footer' : 'newsletter-email-page')
 
@@ -186,34 +207,49 @@ const interestOptions = computed(() => [
 async function handleSubmit() {
   errorMessage.value = ''
 
-  if (!form.email.trim()) {
+  if (!form.email.trim() || !turnstileToken.value) {
     return
   }
 
   submitting.value = true
 
-  let error: { code?: string } | null = null
+  let hadError = false
+  let errorCode: string | null = null
 
   try {
     const { supabase } = await import('../lib/supabase')
-    const result = await supabase
-      .schema('se')
-      .from('subscribers')
-      .insert({
+    const { error } = await supabase.functions.invoke('subscribe-newsletter', {
+      body: {
         email: form.email.trim().toLowerCase(),
         language: lang.value,
         interests: form.interests.length > 0 ? form.interests : [],
-      })
+        turnstileToken: turnstileToken.value,
+      },
+    })
 
-    error = result.error
+    if (error) {
+      hadError = true
+      // functions.invoke() surfaces non-2xx responses as `error` without
+      // parsing the JSON body — recover our {error: 'duplicate'} shape
+      // from the raw Response on error.context to keep the specific
+      // "already subscribed" message.
+      try {
+        const body = await (error as { context?: Response }).context?.json()
+        errorCode = body?.error ?? null
+      } catch {
+        errorCode = null
+      }
+    }
   } catch {
-    error = {}
+    hadError = true
   } finally {
     submitting.value = false
   }
 
-  if (error) {
-    if (error.code === '23505') {
+  if (hadError) {
+    turnstileRef.value?.reset()
+    turnstileToken.value = ''
+    if (errorCode === 'duplicate') {
       errorMessage.value = t.value.newsletter.errorDuplicate
     } else {
       errorMessage.value = t.value.newsletter.errorGeneric

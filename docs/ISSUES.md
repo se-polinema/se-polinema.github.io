@@ -15,4 +15,4 @@ content and tutorial-quality improvements are explicitly out of scope.
 | 7 | [CSV export in admin](issue-07-csv-export-admin.md) | Medium | Proposed |
 | 8 | [Event capacity/waitlist](issue-08-event-capacity-waitlist.md) | Low-Medium | Done |
 | 9 | [All-events calendar feed](issue-09-calendar-feed-all-events.md) | Low | Done |
-| 10 | [Form abuse protection](issue-10-form-abuse-protection.md) | Low | Proposed |
+| 10 | [Form abuse protection](issue-10-form-abuse-protection.md) | Low | Done (pending deploy) |
