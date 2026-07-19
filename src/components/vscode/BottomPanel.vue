@@ -1,10 +1,26 @@
 <template>
   <div
-    class="flex-shrink-0 overflow-hidden transition-[height] duration-200 flex flex-col"
-    :style="{ height: panelOpen ? '180px' : '0px' }"
+    class="relative flex-shrink-0 overflow-hidden flex flex-col"
+    :class="isResizing ? '' : 'transition-[height] duration-200'"
+    :style="{ height: panelOpen ? panelHeight + 'px' : '0px' }"
     style="background: var(--color-vscode-panel); border-top: 1px solid var(--color-vscode-chrome-border);"
     aria-label="Panel"
   >
+    <!-- Resize handle: flush with the inner top edge -->
+    <div
+      v-if="panelOpen"
+      class="panel-resize-handle"
+      role="separator"
+      aria-orientation="horizontal"
+      aria-label="Resize panel"
+      :aria-valuenow="panelHeight"
+      aria-valuemin="80"
+      :aria-valuemax="panelMaxHeight()"
+      tabindex="0"
+      @pointerdown="onResizePointerDown"
+      @keydown="onResizeKeydown"
+    />
+
     <!-- Panel tab bar -->
     <div
       class="flex items-center flex-shrink-0"
@@ -181,10 +197,28 @@
 import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
+import { useDragResize } from '../../composables/useDragResize'
 import NewsletterForm from '../NewsletterForm.vue'
 
-const { panelOpen, activePanelTab, togglePanel, openPanel, restorePanelState } = useVSCodeLayout()
+const {
+  panelOpen, activePanelTab, panelHeight,
+  togglePanel, openPanel, restorePanelState,
+  setPanelHeight, persistPanelHeight, panelMaxHeight,
+} = useVSCodeLayout()
 const { t } = useI18n()
+
+const {
+  dragging: isResizing,
+  onPointerDown: onResizePointerDown,
+  onKeydown: onResizeKeydown,
+} = useDragResize(() => panelHeight.value, {
+  axis: 'y',
+  min: 80,
+  max: panelMaxHeight,
+  invert: true,
+  onChange: setPanelHeight,
+  onCommit: persistPanelHeight,
+})
 
 interface Stats {
   researchers: number
@@ -245,3 +279,25 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style scoped>
+.panel-resize-handle {
+  /* Flush with the inner edge (not overflowing outside it) — the panel
+     container clips overflow, which would silently eat pointer events on
+     any sliver positioned outside its own bounds. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  cursor: row-resize;
+  z-index: 25;
+  touch-action: none;
+}
+.panel-resize-handle:hover,
+.panel-resize-handle:focus-visible {
+  background: var(--color-accent);
+  opacity: 0.5;
+  outline: none;
+}
+</style>

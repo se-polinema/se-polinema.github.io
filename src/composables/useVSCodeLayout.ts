@@ -14,6 +14,14 @@ const cursorLine = ref(1)
 const activePanelTab = ref<'contact' | 'output' | 'quickLinks' | 'newsletter'>('contact')
 const activeSidebarView = ref<SidebarView>('explorer')
 const layoutInitialized = ref(false)
+const SIDEBAR_MIN_WIDTH = 180
+const SIDEBAR_MAX_WIDTH = 480
+const SIDEBAR_DEFAULT_WIDTH = 256
+const PANEL_MIN_HEIGHT = 80
+const PANEL_MAX_HEIGHT_HARD = 480
+const PANEL_DEFAULT_HEIGHT = 180
+const sidebarWidth = ref(SIDEBAR_DEFAULT_WIDTH)
+const panelHeight = ref(PANEL_DEFAULT_HEIGHT)
 const activeFilters = reactive<{
   category: string | null
   year: number | null
@@ -57,6 +65,22 @@ export function resolveRoute(pathname: string): { page: string; view: SidebarVie
   if (pathname.startsWith('/admin')) return { page: 'admin', view: 'explorer' }
   if (pathname.startsWith('/checkin')) return { page: 'checkin', view: 'explorer' }
   return { page: 'home', view: 'explorer' }
+}
+
+function clampSidebarWidth(px: number): number {
+  return Math.min(Math.max(px, SIDEBAR_MIN_WIDTH), SIDEBAR_MAX_WIDTH)
+}
+
+// Caps the panel at half the viewport height (never more than the hard
+// 480px ceiling) so a drag can't swallow a short screen. Falls back to
+// the hard ceiling during SSR, where `window` doesn't exist.
+function panelMaxHeight(): number {
+  if (typeof window === 'undefined') return PANEL_MAX_HEIGHT_HARD
+  return Math.min(window.innerHeight * 0.5, PANEL_MAX_HEIGHT_HARD)
+}
+
+function clampPanelHeight(px: number): number {
+  return Math.min(Math.max(px, PANEL_MIN_HEIGHT), panelMaxHeight())
 }
 
 export function useVSCodeLayout(initialPath?: string) {
@@ -109,6 +133,16 @@ export function useVSCodeLayout(initialPath?: string) {
       if (validTabs.includes(savedPanelTab)) {
         activePanelTab.value = savedPanelTab as 'contact' | 'output' | 'quickLinks' | 'newsletter'
       }
+    }
+
+    const savedSidebarWidth = Number(localStorage.getItem('se-lab-sidebar-width'))
+    if (!Number.isNaN(savedSidebarWidth) && savedSidebarWidth > 0) {
+      sidebarWidth.value = clampSidebarWidth(savedSidebarWidth)
+    }
+
+    const savedPanelHeight = Number(localStorage.getItem('se-lab-panel-height'))
+    if (!Number.isNaN(savedPanelHeight) && savedPanelHeight > 0) {
+      panelHeight.value = clampPanelHeight(savedPanelHeight)
     }
   }
 
@@ -210,6 +244,27 @@ export function useVSCodeLayout(initialPath?: string) {
     updateActive()
   }
 
+  // Live-updates during a drag (see useDragResize) without touching
+  // localStorage on every pointermove — persistSidebarWidth()/
+  // persistPanelHeight() write the final value once the drag ends.
+  function setSidebarWidth(px: number) {
+    sidebarWidth.value = clampSidebarWidth(px)
+  }
+
+  function persistSidebarWidth() {
+    if (typeof localStorage === 'undefined') return
+    localStorage.setItem('se-lab-sidebar-width', String(sidebarWidth.value))
+  }
+
+  function setPanelHeight(px: number) {
+    panelHeight.value = clampPanelHeight(px)
+  }
+
+  function persistPanelHeight() {
+    if (typeof localStorage === 'undefined') return
+    localStorage.setItem('se-lab-panel-height', String(panelHeight.value))
+  }
+
   function scrollTo(id: string) {
     const editor = document.getElementById('editor')
     const target = document.getElementById(id)
@@ -228,6 +283,8 @@ export function useVSCodeLayout(initialPath?: string) {
     activeSidebarView,
     activeFilters,
     cursorLine,
+    sidebarWidth,
+    panelHeight,
     toggleSidebar,
     togglePanel,
     openPanel,
@@ -236,5 +293,10 @@ export function useVSCodeLayout(initialPath?: string) {
     setView,
     initObserver,
     scrollTo,
+    setSidebarWidth,
+    persistSidebarWidth,
+    setPanelHeight,
+    persistPanelHeight,
+    panelMaxHeight,
   }
 }

@@ -1,8 +1,12 @@
 <template>
   <!-- Sidebar panel: split panel, in-flow on all screen sizes -->
   <aside
-    class="relative z-20 flex-shrink-0 flex flex-col overflow-hidden transition-[width] duration-200"
-    :class="sidebarOpen ? 'w-64' : layoutInitialized ? 'w-0' : 'w-0 lg:w-64'"
+    class="relative z-20 flex-shrink-0 flex flex-col overflow-hidden"
+    :class="[
+      sidebarOpen ? 'w-64' : layoutInitialized ? 'w-0' : 'w-0 lg:w-64',
+      isResizing ? '' : 'transition-[width] duration-200',
+    ]"
+    :style="sidebarOpen && layoutInitialized ? { width: sidebarWidth + 'px' } : {}"
     style="background: var(--color-vscode-sidebar);"
     aria-label="Explorer Sidebar"
   >
@@ -297,6 +301,21 @@
     </nav>
 
     </Transition>
+
+    <!-- Resize handle: flush with the inner right edge -->
+    <div
+      v-if="sidebarOpen"
+      class="sidebar-resize-handle"
+      role="separator"
+      aria-orientation="vertical"
+      aria-label="Resize sidebar"
+      :aria-valuenow="sidebarWidth"
+      aria-valuemin="180"
+      aria-valuemax="480"
+      tabindex="0"
+      @pointerdown="onResizePointerDown"
+      @keydown="onResizeKeydown"
+    />
   </aside>
 </template>
 
@@ -304,16 +323,30 @@
 import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
+import { useDragResize } from '../../composables/useDragResize'
 
 const props = defineProps<{ initialPath?: string }>()
 
 const {
   sidebarOpen, activeSection, currentPage, layoutInitialized,
-  activeSidebarView, activeFilters,
+  activeSidebarView, activeFilters, sidebarWidth,
   initObserver, scrollTo, restoreRouteState,
+  setSidebarWidth, persistSidebarWidth,
 } = useVSCodeLayout(props.initialPath)
 
 const { t, lang } = useI18n()
+
+const {
+  dragging: isResizing,
+  onPointerDown: onResizePointerDown,
+  onKeydown: onResizeKeydown,
+} = useDragResize(() => sidebarWidth.value, {
+  axis: 'x',
+  min: 180,
+  max: () => 480,
+  onChange: setSidebarWidth,
+  onCommit: persistSidebarWidth,
+})
 
 interface FileItem {
   id: string
@@ -431,6 +464,26 @@ onMounted(async () => {
 .panel-enter-from,
 .panel-leave-to {
   opacity: 0;
+}
+
+.sidebar-resize-handle {
+  /* Flush with the inner edge (not overflowing outside it) — the aside
+     clips overflow, which would silently eat pointer events on any
+     sliver positioned outside its own bounds. */
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 25;
+  touch-action: none;
+}
+.sidebar-resize-handle:hover,
+.sidebar-resize-handle:focus-visible {
+  background: var(--color-accent);
+  opacity: 0.5;
+  outline: none;
 }
 
 .filter-header {
