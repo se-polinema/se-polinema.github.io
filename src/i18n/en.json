@@ -534,9 +534,7 @@
     "signedInAs": "Signed in as",
     "registrationsHeading": "My Event Registrations",
     "noRegistrations": "You haven't registered for any events yet.",
-    "alumniHeading": "My Alumni Submission",
-    "noAlumniSubmission": "You haven't submitted an alumni profile yet.",
-    "submitAlumniLink": "Submit your profile"
+    "alumniHeading": "My Alumni Submission"
   },
   "memberPhotoUpload": {
     "uploadLabel": "Upload Photo",

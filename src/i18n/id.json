@@ -534,9 +534,7 @@
     "signedInAs": "Masuk sebagai",
     "registrationsHeading": "Pendaftaran Acara Saya",
     "noRegistrations": "Anda belum mendaftar acara apa pun.",
-    "alumniHeading": "Kiriman Alumni Saya",
-    "noAlumniSubmission": "Anda belum mengirimkan profil alumni.",
-    "submitAlumniLink": "Kirim profil Anda"
+    "alumniHeading": "Kiriman Alumni Saya"
   },
   "memberPhotoUpload": {
     "uploadLabel": "Unggah Foto",

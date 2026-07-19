@@ -53,14 +53,10 @@
         </ul>
       </section>
 
-      <section class="mb-8">
+      <section v-if="alumniStatus !== 'none'" class="mb-8">
         <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 mb-3">{{ t.account.alumniHeading }}</h2>
-        <div v-if="alumniStatus === 'none'" class="text-sm text-neutral-600 dark:text-gray-300">
-          {{ t.account.noAlumniSubmission }}
-          <a href="/alumni/submit" class="text-accent hover:text-accent/80 transition-colors font-mono">{{ t.account.submitAlumniLink }} →</a>
-        </div>
         <div
-          v-else-if="alumniStatus === 'pending'"
+          v-if="alumniStatus === 'pending'"
           class="border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-neutral-700 dark:text-gray-300"
         >
           {{ t.alumniSubmit.pendingMessage }}
