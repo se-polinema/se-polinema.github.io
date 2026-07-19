@@ -1,115 +1,109 @@
 <template>
-  <Teleport to="body">
-    <Transition name="overlay-fade">
-      <div
-        v-if="open"
-        class="search-overlay"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Search"
-        @click.self="close"
+  <div class="search-palette" role="search">
+    <div class="search-input-wrap">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="search-icon"
+        aria-hidden="true"
       >
-        <div class="search-palette" role="search">
-          <div class="search-input-wrap">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="search-icon"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+      <input
+        ref="inputEl"
+        v-model="query"
+        type="text"
+        class="search-input"
+        :placeholder="t.search.placeholder"
+        :aria-label="t.search.placeholder"
+        autocomplete="off"
+        spellcheck="false"
+        @keydown="onKeydown"
+      />
+    </div>
+
+    <div v-if="query.length > 0" class="search-results" role="listbox" :aria-label="t.search.allResults">
+      <template v-if="groupedResults.length === 0">
+        <div class="search-empty" role="status">{{ t.search.noResults }}</div>
+      </template>
+
+      <template v-for="group in groupedResults" :key="group.label">
+        <div class="search-group-label" role="presentation">{{ group.label }}</div>
+        <button
+          v-for="(item, i) in group.items"
+          :key="item.id"
+          :ref="(el) => { if (el) resultRefs[group.label + ':' + i] = el as HTMLElement }"
+          class="search-result-item"
+          :class="{ 'result-active': activeGroup === group.label && activeIndex === i }"
+          role="option"
+          :aria-selected="activeGroup === group.label && activeIndex === i"
+          :tabindex="-1"
+          @click="navigateTo(item.href)"
+          @mouseenter="setActive(group.label, i)"
+        >
+          <span class="result-icon" :class="typeIconClass(item.type)" aria-hidden="true">
+            <svg v-if="item.type === 'researcher'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
             </svg>
-            <input
-              ref="inputEl"
-              v-model="query"
-              type="text"
-              class="search-input"
-              :placeholder="t.search.placeholder"
-              :aria-label="t.search.placeholder"
-              autocomplete="off"
-              spellcheck="false"
-              @keydown="onKeydown"
-            />
+            <svg v-else-if="item.type === 'member'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/>
+            </svg>
+            <svg v-else-if="item.type === 'publication'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+            </svg>
+            <svg v-else-if="item.type === 'project'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+            <svg v-else-if="item.type === 'event'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </span>
+          <div class="result-body">
+            <span class="result-title">{{ displayTitle(item) }}</span>
+            <span class="result-excerpt">{{ displayExcerpt(item) }}</span>
           </div>
+        </button>
+      </template>
+    </div>
 
-          <div v-if="query.length > 0" class="search-results" role="listbox" :aria-label="t.search.allResults">
-            <template v-if="groupedResults.length === 0">
-              <div class="search-empty" role="status">{{ t.search.noResults }}</div>
-            </template>
+    <div v-else class="search-hint">
+      <span>{{ t.search.placeholder }}</span>
+    </div>
 
-            <template v-for="group in groupedResults" :key="group.label">
-              <div class="search-group-label" role="presentation">{{ group.label }}</div>
-              <button
-                v-for="(item, i) in group.items"
-                :key="item.id"
-                :ref="(el) => { if (el) resultRefs[group.label + ':' + i] = el as HTMLElement }"
-                class="search-result-item"
-                :class="{ 'result-active': activeGroup === group.label && activeIndex === i }"
-                role="option"
-                :aria-selected="activeGroup === group.label && activeIndex === i"
-                :tabindex="-1"
-                @click="navigateTo(item.href)"
-                @mouseenter="setActive(group.label, i)"
-              >
-                <span class="result-icon" :class="typeIconClass(item.type)" aria-hidden="true">
-                  <svg v-if="item.type === 'researcher'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
-                  </svg>
-                  <svg v-else-if="item.type === 'member'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/>
-                  </svg>
-                  <svg v-else-if="item.type === 'publication'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-                  </svg>
-                  <svg v-else-if="item.type === 'project'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-                  </svg>
-                  <svg v-else-if="item.type === 'event'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-                  </svg>
-                  <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-                  </svg>
-                </span>
-                <div class="result-body">
-                  <span class="result-title">{{ displayTitle(item) }}</span>
-                  <span class="result-excerpt">{{ displayExcerpt(item) }}</span>
-                </div>
-              </button>
-            </template>
-          </div>
-
-          <div v-else class="search-hint">
-            <span>{{ t.search.placeholder }}</span>
-          </div>
-
-          <div class="search-footer">
-            <span>
-              <kbd aria-hidden="true">↑↓</kbd> {{ t.search.navigate }}
-            </span>
-            <span>
-              <kbd aria-hidden="true">↵</kbd> {{ t.search.openSearch }}
-            </span>
-            <span>
-              <kbd aria-hidden="true">esc</kbd> {{ t.search.close }}
-            </span>
-          </div>
-        </div>
-      </div>
-    </Transition>
-  </Teleport>
+    <div class="search-footer">
+      <span>
+        <kbd aria-hidden="true">↑↓</kbd> {{ t.search.navigate }}
+      </span>
+      <span>
+        <kbd aria-hidden="true">↵</kbd> {{ t.search.openSearch }}
+      </span>
+      <span>
+        <kbd aria-hidden="true">esc</kbd> {{ t.search.close }}
+      </span>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
+// Content-only: the Teleport/Transition/backdrop shell, global keyboard
+// shortcuts, and focus trap all live in QuickInputOverlays.vue, which
+// mounts this component (via v-if) only while its "search" mode is
+// active. Mounting fresh each time means state (query, activeIndex, ...)
+// naturally starts clean without needing an explicit show()/reset step.
+import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useI18n } from '../../composables/useI18n'
+
+const emit = defineEmits<{ close: []; handoff: [query: string] }>()
 
 const { t, lang } = useI18n()
 
@@ -129,7 +123,6 @@ interface ResultGroup {
   items: SearchItem[]
 }
 
-const open = ref(false)
 const query = ref('')
 const debouncedQuery = ref('')
 const searchIndex = ref<SearchItem[]>([])
@@ -241,7 +234,7 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 function navigateTo(href: string) {
-  close()
+  emit('close')
   window.location.href = href
 }
 
@@ -257,22 +250,18 @@ async function loadIndex() {
   }
 }
 
-function show() {
-  open.value = true
-  query.value = ''
-  activeGroup.value = ''
-  activeIndex.value = -1
-  loadIndex()
-  nextTick(() => {
-    inputEl.value?.focus()
-  })
-}
-
-function close() {
-  open.value = false
-}
-
 watch(query, (val) => {
+  // ">" prefix hands off to the Command Palette, mirroring VS Code's own
+  // Quick Open convention (typing ">" in Ctrl+P switches to Ctrl+Shift+P).
+  // Handled by the parent (a plain v-if/v-else-if mode swap within the
+  // one shared Teleport) rather than by tearing down this overlay's own
+  // Teleport and standing up a separate one — see QuickInputOverlays.vue
+  // for why that split caused Vue's Teleport patching to crash.
+  if (val.startsWith('>')) {
+    emit('handoff', val.slice(1))
+    return
+  }
+
   if (debounceTimer) clearTimeout(debounceTimer)
   debounceTimer = setTimeout(() => {
     debouncedQuery.value = val
@@ -281,41 +270,15 @@ watch(query, (val) => {
   }, 150)
 })
 
-function onGlobalKeydown(e: KeyboardEvent) {
-  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-    e.preventDefault()
-    show()
-  } else if (e.key === 'Escape' && open.value) {
-    e.preventDefault()
-    close()
-  }
-}
-
 onMounted(() => {
-  window.addEventListener('keydown', onGlobalKeydown)
-  window.addEventListener('se-lab-open-search', show)
+  loadIndex()
+  nextTick(() => {
+    inputEl.value?.focus()
+  })
 })
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', onGlobalKeydown)
-  window.removeEventListener('se-lab-open-search', show)
-})
-
-defineExpose({ show, close, open })
 </script>
 
 <style scoped>
-.search-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  padding-top: 14vh;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(4px);
-}
-
 .search-palette {
   width: 540px;
   max-width: 92vw;
@@ -494,24 +457,6 @@ defineExpose({ show, close, open })
   background: var(--color-vscode-overlay-hover);
   border: 1px solid var(--color-vscode-overlay-border);
   border-radius: 3px;
-}
-
-.overlay-fade-enter-active {
-  transition: opacity 0.12s ease;
-}
-
-.overlay-fade-leave-active {
-  transition: opacity 0.1s ease;
-}
-
-.overlay-fade-enter-from,
-.overlay-fade-leave-to {
-  opacity: 0;
-}
-
-.overlay-fade-enter-to,
-.overlay-fade-leave-from {
-  opacity: 1;
 }
 
 .search-results::-webkit-scrollbar {

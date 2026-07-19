@@ -5,7 +5,7 @@ import Sidebar from '../components/vscode/Sidebar.vue'
 import TabBar from '../components/vscode/TabBar.vue'
 import BottomPanel from '../components/vscode/BottomPanel.vue'
 import StatusBar from '../components/vscode/StatusBar.vue'
-import SearchOverlay from '../components/vscode/SearchOverlay.vue'
+import QuickInputOverlays from '../components/vscode/QuickInputOverlays.vue'
 import ConfirmDialog from '../components/vscode/ConfirmDialog.vue'
 
 export interface Props {
@@ -89,7 +89,7 @@ const { title, description, image, type, lang } = Astro.props
     </div>
 
     <StatusBar client:load />
-    <SearchOverlay client:load />
+    <QuickInputOverlays client:load />
     <ConfirmDialog client:load />
   </div>
 
