@@ -165,7 +165,10 @@ const redirectTo = typeof window !== 'undefined' ? window.location.href : undefi
 const form = reactive({
   name: '',
   photo: null as string | null,
-  cohort_year: new Date().getFullYear(),
+  // cohort_year is enrollment year (angkatan), not exit year — an alumnus
+  // has always already enrolled by the time they submit, so default to
+  // the 4-year D-IV convention (currentYear - 4) rather than today's year.
+  cohort_year: new Date().getFullYear() - 4,
   exit_year: new Date().getFullYear(),
   // Pre-filled with the site's old hardcoded default (every self-
   // submission used to be forced to this regardless of what the alumnus
