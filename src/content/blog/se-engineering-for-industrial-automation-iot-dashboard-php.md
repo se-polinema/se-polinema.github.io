@@ -182,7 +182,7 @@ Sensor → Modbus/OPC-UA → Gateway Edge → Publikasi MQTT
 ### Alur Data (Jalur Baca)
 
 ```
-Klien Dasbor → GET /api/dashboard/sensors/{sensor_id}/readings?range=1j
+Klien Dasbor → GET /api/dashboard/sensors/{sensor_id}/readings?range=1h
                                   │
                                   ▼
                        DashboardService (pembangun query)
@@ -1691,7 +1691,7 @@ FLUX;
     {
         $fluxQuery = <<<FLUX
 from(bucket: "sensor_data")
-  |> range(start: -1j)
+  |> range(start: -1h)
   |> filter(fn: (r) => r["_measurement"] == "sensor_readings")
   |> filter(fn: (r) => r["sensor_id"] == "{$sensorId}")
   |> filter(fn: (r) => r["_field"] == "value")
@@ -2267,7 +2267,7 @@ final class DashboardController
      *
      * Parameter query:
      *   - metric      (string, opsional) — filter berdasarkan nama metrik
-     *   - range       (string, default 1j) — rentang waktu (1j, 6j, 24j, 7h)
+     *   - range       (string, default 1h) — rentang waktu (1h, 6h, 24h, 7d)
      *   - window      (string, default 1m) — jendela agregasi
      *   - aggregation (string, default mean) — mean, median, max, min, sum
      *
@@ -2275,7 +2275,7 @@ final class DashboardController
      * {
      *   "sensor_id": "temp-001",
      *   "metric": "suhu",
-     *   "range": "1j",
+     *   "range": "1h",
      *   "data": { "labels": [...], "values": [...] },
      *   "count": 60
      * }
@@ -3133,8 +3133,8 @@ $alertService->registerRule(new AlertRule(
 **Perilaku yang diharapkan:**
 ```
 Pembacaan 1: suhu=81.5 → PERINGATAN DIPICU
-Pembacaan 2: suhu=82.0 (10d kemudian) → DILEWATI (cooldown)
-Pembacaan 3: suhu=83.1 (70d kemudian) → PERINGATAN DIPICU
+Pembacaan 2: suhu=82.0 (10 detik kemudian) → DILEWATI (cooldown)
+Pembacaan 3: suhu=83.1 (70 detik kemudian) → PERINGATAN DIPICU
 ```
 
 ### Tugas 2: Tambahkan Endpoint Ekspor Data
