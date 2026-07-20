@@ -44,7 +44,7 @@ In this tutorial, we cover three GoF patterns selected for their immediate, ever
 
 ## Apa Itu Design Patterns dan Mengapa Anda Harus Mempelajarinya?
 
-**Design patterns** adalah solusi yang telah terbukti dan dapat digunakan kembali untuk masalah umum dalam desain perangkat lunak. Mereka bukan kode jadi yang Anda salin dan tempel — mereka adalah template yang Anda adaptasi ke konteks Anda sendiri. Istilah ini dipopulerkan oleh "Gang of Four" (GoF) dalam buku mereka tahun 1994 *Design Patterns: Elements of Reusable Object-Oriented Software*, dan lebih dari tiga dekade kemudian, pola-pola inti tetap menjadi kosakata dasar bagi setiap pengembang profesional.
+**Design patterns** adalah solusi yang telah terbukti dan dapat digunakan kembali untuk masalah umum dalam desain perangkat lunak. Mereka bukan kode jadi yang Anda salin dan tempel, melainkan template yang Anda adaptasi ke konteks Anda sendiri. Istilah ini dipopulerkan oleh "Gang of Four" (GoF) dalam buku mereka tahun 1994 *Design Patterns: Elements of Reusable Object-Oriented Software*, dan lebih dari tiga dekade kemudian, pola-pola inti tetap menjadi kosakata dasar bagi setiap pengembang profesional.
 
 Anggaplah design patterns sebagai **kosakata bersama**. Ketika seorang kolega mengatakan "kita harus menggunakan Strategy di sini", semua orang yang memahami pola langsung tahu: *kita memiliki kumpulan algoritma yang dapat dipertukarkan, dan kita ingin memilih satu saat runtime tanpa hard-coding switch statement*. Satu kata itu menggantikan penjelasan lima menit.
 
@@ -53,7 +53,7 @@ Berikut adalah apa yang diberikan oleh mempelajari design patterns:
 | Manfaat | Artinya dalam Praktik |
 |---|---|
 | **Kosakata bersama** | Komunikasikan maksud desain dengan tim Anda dalam satu kata, bukan satu paragraf. |
-| **Solusi terbukti** | Pola telah disempurnakan oleh ribuan pengembang selama beberapa dekade — Anda tidak sedang menebak. |
+| **Solusi terbukti** | Pola telah disempurnakan oleh ribuan pengembang selama beberapa dekade, jadi Anda tidak sedang menebak. |
 | **Insting desain yang lebih baik** | Mengenali pola mempertajam kemampuan Anda untuk melihat coupling, rigidity, dan peluang abstraksi. |
 | **Literasi framework** | Laravel, Symfony, dan sebagian besar framework PHP dibangun di atas pola. Memahami pola membuat framework dapat diprediksi, bukan magis. |
 | **Kesiapan wawancara** | Pertanyaan berbasis pola ("Desain payment gateway...") muncul di hampir setiap wawancara teknis. |
@@ -83,7 +83,7 @@ graph TB
 
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The three GoF design patterns covered in this tutorial — Strategy, Observer, and Factory Method</span>
-  <span lang="id">Gambar: Tiga pola desain GoF yang dibahas dalam tutorial ini — Strategy, Observer, dan Factory Method</span>
+  <span lang="id">Gambar: Tiga pola desain GoF yang dibahas dalam tutorial ini, yaitu Strategy, Observer, dan Factory Method</span>
 </figcaption>
 </figure>
 
@@ -110,10 +110,10 @@ Skip around if you like, but reading all three patterns in sequence helps you se
 
 Setiap pola mengikuti template yang konsisten sehingga Anda dapat membandingkannya secara langsung:
 
-1. **Motivasi dunia nyata** — skenario konkret di mana pola menyelesaikan masalah yang sesungguhnya (bukan contoh mainan).
-2. **Before: code smell** — kode PHP yang ditulis tanpa pola, dengan anotasi tentang apa yang membuatnya sulit dipelihara.
-3. **After: refactor berbasis pola** — skenario yang sama direstrukturisasi menggunakan pola, dengan detail implementasi yang dijelaskan.
-4. **Kapan menggunakan & kapan tidak** — panduan singkat dan jujur. Pola adalah alat, bukan dogma.
+1. **Motivasi dunia nyata**: skenario konkret di mana pola menyelesaikan masalah yang sesungguhnya (bukan contoh mainan).
+2. **Before: code smell**: kode PHP yang ditulis tanpa pola, dengan anotasi tentang apa yang membuatnya sulit dipelihara.
+3. **After: refactor berbasis pola**: skenario yang sama direstrukturisasi menggunakan pola, dengan detail implementasi yang dijelaskan.
+4. **Kapan menggunakan & kapan tidak**: panduan singkat dan jujur. Pola adalah alat, bukan dogma.
 
 Silakan lompat-lompat jika Anda suka, tetapi membaca ketiga pola secara berurutan membantu Anda melihat bagaimana mereka saling melengkapi tanpa tumpang tindih.
 
@@ -338,7 +338,7 @@ class RegistrationController
 }
 ```
 
-Ini berfungsi, tetapi setiap aturan diskon baru memaksa Anda memodifikasi `RegistrationController` — kelas yang seharusnya peduli tentang HTTP request, bukan matematika diskon. Controller ini melanggar **Open/Closed Principle**: ia terbuka untuk modifikasi setiap kali pemasaran menciptakan promosi.
+Ini berfungsi, tetapi setiap aturan diskon baru memaksa Anda memodifikasi `RegistrationController`, kelas yang seharusnya peduli tentang HTTP request, bukan matematika diskon. Controller ini melanggar **Open/Closed Principle**: ia terbuka untuk modifikasi setiap kali pemasaran menciptakan promosi.
 
 ### Before: Code Smell
 
@@ -381,7 +381,7 @@ echo $service->calculateTotal([['price' => 500000], ['price' => 300000]], 'early
 
 **Masalah:**
 
-- Menambahkan jenis diskon baru memerlukan pengeditan `OrderService` — dan pengujian ulang setiap jalur diskon yang ada.
+- Menambahkan jenis diskon baru memerlukan pengeditan `OrderService`, dan pengujian ulang setiap jalur diskon yang ada.
 - Logika diskon terperangkap di dalam service; Anda tidak dapat menggunakannya kembali di skrip command-line atau modul pelaporan tanpa menduplikasi kode.
 - Setiap cabang `case` menggabungkan dua perhatian: *bagaimana* diskon dihitung dan *kapan* diskon dipilih.
 
@@ -389,7 +389,7 @@ echo $service->calculateTotal([['price' => 500000], ['price' => 300000]], 'early
 
 Pola **Strategy** mendefinisikan kumpulan algoritma, mengenkapsulasi masing-masing di kelasnya sendiri, dan membuatnya dapat dipertukarkan. Konteks (pemanggil) mendelegasikan ke objek strategi tanpa mengetahui strategi konkret mana yang dipegangnya.
 
-Langkah 1 — definisikan antarmuka strategi:
+Langkah 1: definisikan antarmuka strategi:
 
 ```php
 <?php
@@ -400,7 +400,7 @@ interface DiscountStrategy
 }
 ```
 
-Langkah 2 — implementasikan setiap diskon sebagai kelas strategi konkret:
+Langkah 2: implementasikan setiap diskon sebagai kelas strategi konkret:
 
 ```php
 <?php
@@ -438,7 +438,7 @@ class WeekendFlashDiscount implements DiscountStrategy
 }
 ```
 
-Langkah 3 — refactor `OrderService` untuk menerima strategi, bukan string:
+Langkah 3: refactor `OrderService` untuk menerima strategi, bukan string:
 
 ```php
 <?php
@@ -462,7 +462,7 @@ echo $service->calculateTotal(
 // Output: 720000
 ```
 
-Langkah 4 — sekarang Anda dapat menginjeksi strategi apa pun saat runtime:
+Langkah 4: sekarang Anda dapat menginjeksi strategi apa pun saat runtime:
 
 ```php
 <?php
@@ -480,7 +480,7 @@ $total = $orderService->calculateTotal($cart->items, $discount);
 
 **Apa yang berubah:**
 
-- `OrderService` **tertutup untuk modifikasi** — Anda menambahkan diskon baru dengan membuat satu kelas baru, nol perubahan pada kode yang ada.
+- `OrderService` **tertutup untuk modifikasi**: Anda menambahkan diskon baru dengan membuat satu kelas baru, nol perubahan pada kode yang ada.
 - Setiap diskon **dapat diuji secara independen** dalam isolasi. `EarlyBirdDiscountTest` dapat memverifikasi matematika 10% tanpa mem-boot seluruh sistem pemesanan.
 - Statement `match` di batas (controller atau service provider) adalah satu-satunya tempat di mana Anda memetakan input ke strategi. Itu adalah masalah wiring dependensi, bukan logika bisnis.
 
@@ -488,9 +488,9 @@ $total = $orderService->calculateTotal($cart->items, $discount);
 
 | Gunakan Ketika... | Hindari Ketika... |
 |---|---|
-| Anda memiliki beberapa varian algoritma dan semuanya berbagi antarmuka yang sama. | Anda hanya memiliki satu atau dua varian — `if`/`else` sederhana lebih murah. |
+| Anda memiliki beberapa varian algoritma dan semuanya berbagi antarmuka yang sama. | Anda hanya memiliki satu atau dua varian: `if`/`else` sederhana lebih murah. |
 | Algoritma kemungkinan berubah secara independen dari konteks yang menggunakannya. | Algoritma bersifat trivial (satu baris) dan menambahkan hierarki kelas adalah overkill. |
-| Anda ingin menguji setiap varian secara terisolasi. | Varian berbeda dalam parameter yang diperlukan, bukan hanya perilaku — Strategy memerlukan antarmuka yang seragam. |
+| Anda ingin menguji setiap varian secara terisolasi. | Varian berbeda dalam parameter yang diperlukan, bukan hanya perilaku: Strategy memerlukan antarmuka yang seragam. |
 | Anda mendapati diri menambahkan cabang `elseif` ke metode setiap sprint. | Jumlah total strategi tidak akan pernah realistis melebihi tiga. |
 
 </section>
@@ -770,7 +770,7 @@ $enrolment->enrol(42, 7);
 
 ### Motivasi Dunia Nyata
 
-Portal kampus EdTech perlu bereaksi ketika seorang mahasiswa mendaftar mata kuliah: mengirim email konfirmasi, mencatat pendaftaran untuk audit, memperbarui daftar hadir, dan — di masa depan — mengirim push notification ke aplikasi seluler mahasiswa. Setiap efek samping ini adalah concern terpisah yang tidak boleh di-hard-wire ke dalam metode pendaftaran.
+Portal kampus EdTech perlu bereaksi ketika seorang mahasiswa mendaftar mata kuliah: mengirim email konfirmasi, mencatat pendaftaran untuk audit, memperbarui daftar hadir, dan, di masa depan, mengirim push notification ke aplikasi seluler mahasiswa. Setiap efek samping ini adalah concern terpisah yang tidak boleh di-hard-wire ke dalam metode pendaftaran.
 
 Tanpa pola Observer, metode `enrol()` menjadi tempat pembuangan untuk setiap efek samping:
 
@@ -800,7 +800,7 @@ class EnrolmentService
 }
 ```
 
-Setiap efek samping baru memaksa Anda mengedit `EnrolmentService` dan mendeploy ulang seluruh modul — meskipun logika inti pendaftaran tidak pernah berubah.
+Setiap efek samping baru memaksa Anda mengedit `EnrolmentService` dan men-deploy ulang seluruh modul, meskipun logika inti pendaftaran tidak pernah berubah.
 
 ### Before: Code Smell
 
@@ -848,17 +848,17 @@ class CourseEnrolment
 
 **Masalah:**
 
-- `CourseEnrolment` mengetahui tentang email, logging, dan attendance. Ia memiliki empat alasan untuk berubah — itu tiga terlalu banyak (pelanggaran Single Responsibility Principle).
+- `CourseEnrolment` mengetahui tentang email, logging, dan attendance. Ia memiliki empat alasan untuk berubah, tiga di antaranya berlebihan (pelanggaran Single Responsibility Principle).
 - Menambahkan listener baru (push notification, analytics) memerlukan pengeditan kelas ini dan pengujian ulang semuanya.
-- Anda tidak dapat menonaktifkan notifikasi email di lingkungan pengujian tanpa memock mailer atau memodifikasi kelas.
+- Anda tidak dapat menonaktifkan notifikasi email di lingkungan pengujian tanpa me-mock mailer atau memodifikasi kelas.
 
 ### After: Observer Pattern
 
-Pola **Observer** mendefinisikan dependensi satu-ke-banyak: ketika satu objek (subject) berubah status, semua dependennya (observer) diberitahu secara otomatis. Subject hanya tahu bahwa observer mengimplementasikan antarmuka tertentu — ia tidak pernah tahu tipe konkretnya.
+Pola **Observer** mendefinisikan dependensi satu-ke-banyak: ketika satu objek (subject) berubah status, semua dependennya (observer) diberitahu secara otomatis. Subject hanya tahu bahwa observer mengimplementasikan antarmuka tertentu, dan ia tidak pernah tahu tipe konkretnya.
 
 PHP menyediakan `SplSubject` dan `SplObserver` di Standard PHP Library, tetapi implementasi kustom yang ringan seringkali lebih jelas:
 
-Langkah 1 — definisikan antarmuka observer:
+Langkah 1: definisikan antarmuka observer:
 
 ```php
 <?php
@@ -869,7 +869,7 @@ interface EnrolmentObserver
 }
 ```
 
-Langkah 2 — definisikan subject (apa yang diamati):
+Langkah 2: definisikan subject (apa yang diamati):
 
 ```php
 <?php
@@ -901,7 +901,7 @@ class EnrolmentSubject
 }
 ```
 
-Langkah 3 — implementasikan observer konkret:
+Langkah 3: implementasikan observer konkret:
 
 ```php
 <?php
@@ -961,7 +961,7 @@ class AttendanceObserver implements EnrolmentObserver
 }
 ```
 
-Langkah 4 — refactor `CourseEnrolment` untuk memperluas subject:
+Langkah 4: refactor `CourseEnrolment` untuk memperluas subject:
 
 ```php
 <?php
@@ -1000,7 +1000,7 @@ class CourseEnrolment extends EnrolmentSubject
 }
 ```
 
-Langkah 5 — wire observer saat bootstrap aplikasi:
+Langkah 5: wire observer saat bootstrap aplikasi:
 
 ```php
 <?php
@@ -1017,17 +1017,17 @@ $enrolment->enrol(42, 7);
 **Apa yang berubah:**
 
 - `CourseEnrolment` sekarang memiliki **satu alasan untuk berubah**: logika inti pendaftaran. Setiap efek samping adalah kelas independen.
-- Menambahkan push notification adalah satu kelas `PushNotificationObserver` baru dan satu baris di bootstrap — nol perubahan pada `CourseEnrolment`.
+- Menambahkan push notification adalah satu kelas `PushNotificationObserver` baru dan satu baris di bootstrap: nol perubahan pada `CourseEnrolment`.
 - Dalam pengujian, Anda dapat mengonstruksi `CourseEnrolment` dengan array observer kosong dan hanya menguji logika inti. Observer mendapatkan pengujian terisolasi mereka sendiri.
 
 ### Kapan Menggunakan (dan Kapan Tidak) Observer Pattern
 
 | Gunakan Ketika... | Hindari Ketika... |
 |---|---|
-| Satu aksi memicu beberapa efek samping yang independen. | Hanya ada satu konsumen dari event — pemanggilan langsung lebih sederhana. |
+| Satu aksi memicu beberapa efek samping yang independen. | Hanya ada satu konsumen dari event, sehingga pemanggilan langsung lebih sederhana. |
 | Kumpulan efek samping sering berubah atau bervariasi berdasarkan lingkungan. | Kumpulan efek samping bersifat tetap dan kecil (satu atau dua). |
-| Anda ingin menambahkan listener dari modul atau package yang berbeda tanpa menyentuh kode inti. | Urutan notifikasi sangat penting — Observer tidak (dan tidak seharusnya) menjamin urutan eksekusi. |
-| Anda perlu menonaktifkan efek samping tertentu dalam pengujian atau staging tanpa memock semuanya. | Efek samping terkait erat dan harus berjalan dalam konteks transaksional tertentu. |
+| Anda ingin menambahkan listener dari modul atau package yang berbeda tanpa menyentuh kode inti. | Urutan notifikasi sangat penting, padahal Observer tidak (dan tidak seharusnya) menjamin urutan eksekusi. |
+| Anda perlu menonaktifkan efek samping tertentu dalam pengujian atau staging tanpa me-mock semuanya. | Efek samping terkait erat dan harus berjalan dalam konteks transaksional tertentu. |
 
 </section>
 
@@ -1341,15 +1341,15 @@ echo $service->exportStudentGrades($students, 'csv');
 
 **Masalah:**
 
-- `ExportService` tahu cara mengonstruksi tiga kelas exporter yang berbeda — ia bergantung pada setiap exporter konkret.
+- `ExportService` tahu cara mengonstruksi tiga kelas exporter yang berbeda, sehingga ia bergantung pada setiap exporter konkret.
 - Rantai `if`/`elseif` diduplikasi di setiap controller yang membutuhkan ekspor (invoice, attendance, transkrip).
 - Mengonfigurasi konstruktor exporter (ukuran kertas, delimiter, nama sheet) membocorkan detail implementasi ke lapisan service.
 
 ### After: Factory Method Pattern
 
-Pola **Factory Method** mendefinisikan antarmuka untuk membuat objek, tetapi membiarkan subclass memutuskan kelas mana yang akan diinstansiasi. Client hanya bergantung pada antarmuka creator dan product abstrak — tidak pernah pada kelas konkret.
+Pola **Factory Method** mendefinisikan antarmuka untuk membuat objek, tetapi membiarkan subclass memutuskan kelas mana yang akan diinstansiasi. Client hanya bergantung pada antarmuka creator dan product abstrak, tidak pernah pada kelas konkret.
 
-Langkah 1 — definisikan antarmuka product (laporan):
+Langkah 1: definisikan antarmuka product (laporan):
 
 ```php
 <?php
@@ -1360,7 +1360,7 @@ interface ReportExporter
 }
 ```
 
-Langkah 2 — implementasikan product konkret:
+Langkah 2: implementasikan product konkret:
 
 ```php
 <?php
@@ -1421,7 +1421,7 @@ class ExcelExporter implements ReportExporter
 }
 ```
 
-Langkah 3 — definisikan antarmuka creator (factory):
+Langkah 3: definisikan antarmuka creator (factory):
 
 ```php
 <?php
@@ -1432,7 +1432,7 @@ interface ReportExporterFactory
 }
 ```
 
-Langkah 4 — implementasikan factory konkret:
+Langkah 4: implementasikan factory konkret:
 
 ```php
 <?php
@@ -1462,7 +1462,7 @@ class ExcelExporterFactory implements ReportExporterFactory
 }
 ```
 
-Langkah 5 — refactor `ExportService` untuk menggunakan factory:
+Langkah 5: refactor `ExportService` untuk menggunakan factory:
 
 ```php
 <?php
@@ -1488,7 +1488,7 @@ echo $service->exportStudentGrades($students, new CsvExporterFactory());
 **Apa yang berubah:**
 
 - `ExportService` bergantung pada `ReportExporterFactory` (abstraksi) alih-alih `PdfExporter`, `CsvExporter`, dan `ExcelExporter` (konkresi).
-- Menambahkan format baru (misalnya, `JsonExporter`) berarti membuat `JsonExporter` dan `JsonExporterFactory` — nol perubahan pada `ExportService` atau factory yang sudah ada.
+- Menambahkan format baru (misalnya, `JsonExporter`) berarti membuat `JsonExporter` dan `JsonExporterFactory`: nol perubahan pada `ExportService` atau factory yang sudah ada.
 - Setiap factory mengenkapsulasi detail konstruksi produknya. Pemanggil tidak perlu tahu bahwa `PdfExporter` menginginkan `A4` atau bahwa `ExcelExporter` menerima nama sheet.
 - `match` atau `switch` yang memilih factory berada di batas aplikasi (controller atau DI container), bukan di dalam logika bisnis.
 
@@ -1496,7 +1496,7 @@ echo $service->exportStudentGrades($students, new CsvExporterFactory());
 
 Pola **Factory Method** (ditunjukkan di atas) menggunakan inheritance: setiap subclass factory konkret membuat satu jenis produk. Ia menjawab "bagaimana cara membuat anggota keluarga?"
 
-Pola **Abstract Factory** menciptakan *keluarga* produk yang terkait melalui composition. Misalnya, jika Anda juga membutuhkan `ChartRenderer` bersama `ReportExporter`, abstract factory `ExportToolkit` dapat membuat `ReportExporter` dan `ChartRenderer` bersama-sama — memastikan laporan PDF selalu berpasangan dengan chart PDF.
+Pola **Abstract Factory** menciptakan *keluarga* produk yang terkait melalui composition. Misalnya, jika Anda juga membutuhkan `ChartRenderer` bersama `ReportExporter`, abstract factory `ExportToolkit` dapat membuat `ReportExporter` dan `ChartRenderer` bersama-sama, sehingga memastikan laporan PDF selalu berpasangan dengan chart PDF.
 
 ### Kapan Menggunakan (dan Kapan Tidak) Factory Method Pattern
 
@@ -1504,8 +1504,8 @@ Pola **Abstract Factory** menciptakan *keluarga* produk yang terkait melalui com
 |---|---|
 | Pembuatan objek melibatkan logika atau konfigurasi yang tidak boleh diulang di setiap titik pemanggilan. | Objek dapat dibuat dengan statement `new` sederhana dan tanpa konfigurasi. |
 | Anda ingin memusatkan kelas konkret mana yang diinstansiasi sehingga Anda dapat menukarnya di satu tempat. | Hanya ada satu implementasi konkret dan tidak ada yang kedua yang masuk akal di masa mendatang. |
-| Client harus bergantung pada antarmuka, bukan pada kelas konkret (Dependency Inversion). | Kelas konkret adalah value object atau DTO tanpa perilaku — factory menambahkan seremoni tanpa nilai. |
-| Anda sudah menggunakan DI container — wiring factory adalah kecocokan alami di sana. | Factory itu sendiri menjadi tempat pembuangan untuk logika pembuatan yang tidak terkait ("god factory"). |
+| Client harus bergantung pada antarmuka, bukan pada kelas konkret (Dependency Inversion). | Kelas konkret adalah value object atau DTO tanpa perilaku: factory menambahkan seremoni tanpa nilai. |
+| Anda sudah menggunakan DI container, sehingga wiring factory adalah kecocokan alami di sana. | Factory itu sendiri menjadi tempat pembuangan untuk logika pembuatan yang tidak terkait ("god factory"). |
 
 </section>
 
@@ -1538,10 +1538,10 @@ Berikut adalah ringkasan ketiga pola berdampingan sehingga Anda dapat memilih ya
 |---|---|---|---|
 | **Kategori GoF** | Behavioural | Behavioural | Creational |
 | **Masalah yang dipecahkan** | Berganti algoritma saat runtime tanpa kondisional | Memberitahu beberapa objek dependen ketika status berubah | Memisahkan pembuatan objek dari logika bisnis |
-| **Frasa kunci** | "Saya punya beberapa cara untuk melakukan X — biarkan saya pasang yang saya inginkan." | "Ketika X terjadi, beri tahu Y, Z, dan siapa pun yang peduli." | "Saya butuh X, tetapi saya tidak ingin tahu bagaimana ia dibuat." |
+| **Frasa kunci** | "Saya punya beberapa cara untuk melakukan X: biarkan saya pasang yang saya inginkan." | "Ketika X terjadi, beri tahu Y, Z, dan siapa pun yang peduli." | "Saya butuh X, tetapi saya tidak ingin tahu bagaimana ia dibuat." |
 | **Keyword PHP** | `interface` + beberapa `implements` | `attach()` / `notify()` pada subject | `interface` untuk factory + product |
 | **Pengujian menjadi** | Satu kelas uji per strategi | Satu uji per observer + satu uji untuk subject dalam isolasi | Satu uji per factory + satu uji per product |
-| **Risiko penggunaan berlebihan** | "Strategy untuk segalanya" — antarmuka strategi untuk `if` satu baris | "Observer spaghetti" — terlalu banyak observer tanpa kontrak yang jelas | "Factory explosion" — factory untuk setiap statement `new` |
+| **Risiko penggunaan berlebihan** | "Strategy untuk segalanya": antarmuka strategi untuk `if` satu baris | "Observer spaghetti": terlalu banyak observer tanpa kontrak yang jelas | "Factory explosion": factory untuk setiap statement `new` |
 
 </section>
 
@@ -1583,7 +1583,7 @@ Design patterns sangat kuat, tetapi mereka memiliki sisi tajam. Berikut adalah t
 
 ### 1. Pola Sebelum Masalah (Over-Engineering)
 
-Menulis antarmuka Strategy dan tiga strategi konkret untuk diskon yang tidak pernah berubah dan tidak akan pernah berubah bukanlah rekayasa — itu adalah padding résumé. **Pola harus menyelesaikan masalah nyata saat ini.** Jika `if`/`else` Anda memiliki dua cabang dan tidak ada cabang ketiga yang terlihat, biarkan saja.
+Menulis antarmuka Strategy dan tiga strategi konkret untuk diskon yang tidak pernah berubah dan tidak akan pernah berubah bukanlah rekayasa, melainkan padding résumé. **Pola harus menyelesaikan masalah nyata saat ini.** Jika `if`/`else` Anda memiliki dua cabang dan tidak ada cabang ketiga yang terlihat, biarkan saja.
 
 **Red flag:** Anda menghabiskan lebih banyak waktu menulis antarmuka dan factory daripada menulis logika bisnis yang sebenarnya.
 
@@ -1591,15 +1591,15 @@ Menulis antarmuka Strategy dan tiga strategi konkret untuk diskon yang tidak per
 
 ### 2. Penyalahgunaan Pola (Alat yang Salah untuk Pekerjaan)
 
-- **Singleton menyamar sebagai Factory:** `DatabaseFactory` yang selalu mengembalikan instance `Database` yang sama (karena ia menyimpan properti statis) bukanlah factory — ia adalah Singleton dengan langkah tambahan.
-- **Observer digunakan seperti queue:** Jika observer harus berjalan berurutan dan kegagalan observer 2 harus membatalkan pekerjaan observer 1, Anda membutuhkan pipeline transaksional atau message queue — bukan Observer.
-- **Strategy digunakan seperti konfigurasi:** Jika "strategi" Anda hanya berbeda dalam nilai numerik (misalnya, `TaxFixedAmount` vs `TaxPercentage`), Anda tidak membutuhkan Strategy — Anda membutuhkan `TaxCalculator` tunggal dengan parameter konfigurasi.
+- **Singleton menyamar sebagai Factory:** `DatabaseFactory` yang selalu mengembalikan instance `Database` yang sama (karena ia menyimpan properti statis) bukanlah factory, melainkan Singleton dengan langkah tambahan.
+- **Observer digunakan seperti queue:** Jika observer harus berjalan berurutan dan kegagalan observer 2 harus membatalkan pekerjaan observer 1, Anda membutuhkan pipeline transaksional atau message queue, bukan Observer.
+- **Strategy digunakan seperti konfigurasi:** Jika "strategi" Anda hanya berbeda dalam nilai numerik (misalnya, `TaxFixedAmount` vs `TaxPercentage`), Anda tidak membutuhkan Strategy, melainkan `TaxCalculator` tunggal dengan parameter konfigurasi.
 
 ### 3. Abstraksi Prematur
 
 Mengabstraksi terlalu dini mengunci Anda ke dalam bentuk yang belum Anda pahami. Tulis implementasi konkret terlebih dahulu. Ketika duplikasi muncul di tiga tempat atau lebih, *baru* ekstrak antarmuka dan polanya. Biaya abstraksi prematur (abstraksi yang salah, antarmuka yang kaku) jauh lebih tinggi daripada biaya duplikasi sementara.
 
-> "Duplikasi jauh lebih murah daripada abstraksi yang salah." — Sandi Metz
+> "Duplikasi jauh lebih murah daripada abstraksi yang salah." (Sandi Metz)
 
 </section>
 
@@ -1643,7 +1643,7 @@ Patterns are tools, not trophies. The goal is not to maximise the number of patt
 
 ## Kapan Menggunakan Pola (dan Kapan Berhenti)
 
-Pola adalah alat, bukan trofi. Tujuannya bukan memaksimalkan jumlah pola dalam basis kode Anda — melainkan menulis perangkat lunak yang mudah dipahami, dimodifikasi, dan diperluas. Berikut adalah kerangka keputusan:
+Pola adalah alat, bukan trofi. Tujuannya bukan memaksimalkan jumlah pola dalam basis kode Anda, melainkan menulis perangkat lunak yang mudah dipahami, dimodifikasi, dan diperluas. Berikut adalah kerangka keputusan:
 
 ### Mulai dengan Pola Ketika...
 
@@ -1654,9 +1654,9 @@ Pola adalah alat, bukan trofi. Tujuannya bukan memaksimalkan jumlah pola dalam b
 
 ### Berhenti (Kembalikan) Ketika...
 
-- Antarmuka hanya memiliki satu implementasi — **YAGNI** (You Ain't Gonna Need It).
+- Antarmuka hanya memiliki satu implementasi: **YAGNI** (You Ain't Gonna Need It).
 - Debugging memerlukan melangkah melalui enam file untuk operasi sederhana.
-- Pola menambahkan seremoni tanpa mengurangi coupling — misalnya, factory yang tugasnya hanya `return new ConcreteClass()` tanpa konfigurasi.
+- Pola menambahkan seremoni tanpa mengurangi coupling: misalnya, factory yang tugasnya hanya `return new ConcreteClass()` tanpa konfigurasi.
 - Waktu onboarding untuk anggota tim baru meningkat karena kode yang dipenuhi pola.
 
 ### Tabel Keputusan Praktis
@@ -1669,7 +1669,7 @@ Pola adalah alat, bukan trofi. Tujuannya bukan memaksimalkan jumlah pola dalam b
 | Satu event memicu email, SMS, push notification, analytics, dan audit log. | Observer pattern. |
 | Satu format laporan (PDF) digunakan di mana-mana. | Langsung `new PdfExporter()`. |
 | Tiga format laporan dipilih saat runtime, masing-masing dengan konfigurasi konstruktor berbeda. | Factory Method. |
-| Anda membangun framework atau library yang digunakan oleh pengguna yang tidak dikenal. | Pola masuk akal lebih awal — Anda mengontrol kontrak, pengguna menyediakan implementasi. |
+| Anda membangun framework atau library yang digunakan oleh pengguna yang tidak dikenal. | Pola masuk akal lebih awal: Anda mengontrol kontrak, pengguna menyediakan implementasi. |
 
 </section>
 
@@ -1943,7 +1943,7 @@ print_r($result);
 ### Tugas Anda
 
 1. **Definisikan antarmuka `PaymentMethod`** dengan satu metode `process(array $order): array`.
-2. **Buat kelas strategi konkret** — `CreditCardPayment`, `BankTransferPayment`, `EwalletPayment` — masing-masing mengimplementasikan `PaymentMethod`.
+2. **Buat kelas strategi konkret**: `CreditCardPayment`, `BankTransferPayment`, `EwalletPayment`, masing-masing mengimplementasikan `PaymentMethod`.
 3. **Refactor `PaymentGateway`** sehingga `pay()` menerima `PaymentMethod`, bukan string `$method`. `$apiKey` harus tetap tersedia untuk strategi.
 4. **Tulis factory atau `match`** di batas (misalnya, di controller) yang memetakan string ke instance strategi.
 
@@ -2085,18 +2085,18 @@ Bandingkan dengan yang asli: menambahkan metode pembayaran baru (`QRIS`, `PayLat
 2. **Strategy** memungkinkan Anda menukar algoritma saat runtime dengan mengenkapsulasi setiap varian di balik antarmuka bersama. Gunakan ketika Anda memiliki beberapa algoritma yang berubah secara independen dari konteksnya.
 3. **Observer** memisahkan subject dari dependennya dengan mendefinisikan mekanisme notifikasi satu-ke-banyak. Gunakan ketika satu event memicu beberapa efek samping yang dapat dipelihara secara independen.
 4. **Factory Method** mendelegasikan pembuatan objek ke subclass, sehingga kode pemanggil bergantung pada abstraksi, bukan kelas konkret. Gunakan ketika konstruksi objek melibatkan konfigurasi non-trivial atau Anda perlu memusatkan kelas mana yang diinstansiasi.
-5. **Jangan mempola segalanya.** Tulis kode konkret terlebih dahulu. Refactor ke pola ketika masalah nyata muncul — bukan sebelumnya. Abstraksi yang salah lebih mahal daripada duplikasi sementara.
+5. **Jangan mempola segalanya.** Tulis kode konkret terlebih dahulu. Refactor ke pola ketika masalah nyata muncul, bukan sebelumnya. Abstraksi yang salah lebih mahal daripada duplikasi sementara.
 6. **Berlatih dengan sengaja.** Latihan PaymentGateway dalam tutorial ini adalah urutan refactoring nyata. Lakukan secara manual. Memori otot dari mengekstrak antarmuka, membuat strategi konkret, dan menghubungkannya di batas adalah apa yang membuat pola menjadi kebiasaan.
 
-> "Pola bukanlah pengganti untuk berpikir. Mereka adalah titik awal untuk berpikir." — Ralph Johnson (rekan penulis GoF)
+> "Pola bukanlah pengganti untuk berpikir. Mereka adalah titik awal untuk berpikir." (Ralph Johnson, rekan penulis GoF)
 
 ## Bacaan Selanjutnya
 
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Tulis kelas PHP yang mudah dibaca dan dipelihara sebelum menerapkan pola padanya.
-- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)** — Gunakan TDD untuk memverifikasi refactor berbasis pola Anda tanpa merusak perilaku yang ada.
-- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** — Lihat bagaimana design patterns diskalakan dari kelas ke layanan terdistribusi.
-- **[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.oreilly.com/library/view/design-patterns-elements/0201633612/)** oleh Gamma, Helm, Johnson, dan Vlissides — Buku GoF asli.
-- **[Head First Design Patterns (Edisi ke-2)](https://www.oreilly.com/library/view/head-first-design/9781492077992/)** oleh Freeman dan Robson — Pengenalan ramah pemula yang kaya visual.
-- **[PHP: The Right Way — Design Patterns](https://phptherightway.com/pages/Design-Patterns.html)** — Contoh pola spesifik PHP dan praktik terbaik komunitas.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Tulis kelas PHP yang mudah dibaca dan dipelihara sebelum menerapkan pola padanya.
+- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)**: Gunakan TDD untuk memverifikasi refactor berbasis pola Anda tanpa merusak perilaku yang ada.
+- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: Lihat bagaimana design patterns diskalakan dari kelas ke layanan terdistribusi.
+- **[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.oreilly.com/library/view/design-patterns-elements/0201633612/)** oleh Gamma, Helm, Johnson, dan Vlissides: Buku GoF asli.
+- **[Head First Design Patterns (Edisi ke-2)](https://www.oreilly.com/library/view/head-first-design/9781492077992/)** oleh Freeman dan Robson: Pengenalan ramah pemula yang kaya visual.
+- **[PHP: The Right Way — Design Patterns](https://phptherightway.com/pages/Design-Patterns.html)**: Contoh pola spesifik PHP dan praktik terbaik komunitas.
 
 </section>

@@ -17,7 +17,7 @@ tagsId:
   - Rekayasa Kebutuhan
   - PHP
 excerpt: "Learn how to use LLMs and AI-assisted workflows to turn vague stakeholder requests into structured user stories, SRS snippets, and acceptance criteria. Covers prompt engineering for requirements, a complete PHP helper to call LLM APIs, traceability mapping, and the limitations of AI-generated requirements — including hallucinations and bias."
-excerptId: "Pelajari cara menggunakan LLM dan alur kerja berbantuan AI untuk mengubah permintaan pemangku kepentingan yang samar menjadi user story terstruktur, potongan SRS, dan kriteria penerimaan. Mencakup prompt engineering untuk kebutuhan, helper PHP lengkap untuk memanggil LLM API, pemetaan ketertelusuran, dan keterbatasan kebutuhan yang dihasilkan AI — termasuk halusinasi dan bias."
+excerptId: "Pelajari cara menggunakan LLM dan alur kerja berbantuan AI untuk mengubah permintaan pemangku kepentingan yang samar menjadi user story terstruktur, potongan SRS, dan kriteria penerimaan. Mencakup prompt engineering untuk kebutuhan, helper PHP lengkap untuk memanggil LLM API, pemetaan ketertelusuran, dan keterbatasan kebutuhan yang dihasilkan AI, termasuk halusinasi dan bias."
 ---
 
 <section lang="en">
@@ -50,13 +50,13 @@ By the end of this tutorial you will have:
 
 ## Harga dari Kebutuhan yang Tidak Jelas
 
-Rekayasa kebutuhan adalah tempat sebagian besar proyek perangkat lunak menang atau kalah. Laporan CHAOS dari Standish Group secara konsisten menunjukkan bahwa kebutuhan yang tidak lengkap atau ambigu termasuk di antara tiga penyebab utama kegagalan proyek — sejajar dengan keterlibatan pemangku kepentingan yang buruk dan perluasan cakupan. Mahasiswa di Politeknik Negeri Malang mengalami ini setiap semester: ringkasan proyek mengatakan "bangun portal mahasiswa," dan tiga minggu kemudian tim telah membangun hal yang sama sekali berbeda karena tidak ada yang mendefinisikan apa arti "portal."
+Rekayasa kebutuhan adalah tempat sebagian besar proyek perangkat lunak menang atau kalah. Laporan CHAOS dari Standish Group secara konsisten menunjukkan bahwa kebutuhan yang tidak lengkap atau ambigu termasuk di antara tiga penyebab utama kegagalan proyek, sejajar dengan keterlibatan pemangku kepentingan yang buruk dan perluasan cakupan. Mahasiswa di Politeknik Negeri Malang mengalami ini setiap semester: ringkasan proyek mengatakan "bangun portal mahasiswa," dan tiga minggu kemudian tim telah membangun hal yang sama sekali berbeda karena tidak ada yang mendefinisikan apa arti "portal."
 
-Rekayasa kebutuhan tradisional bergantung pada wawancara, lokakarya, dan dokumentasi manual. Ini padat karya, rentan kesalahan, dan sering kali melewatkan langkah penting menulis kriteria penerimaan yang dapat diverifikasi. Kesenjangan antara apa yang dikatakan pemangku kepentingan dan apa yang dibangun pengembang diisi dengan asumsi — dan asumsi adalah akar dari pengerjaan ulang.
+Rekayasa kebutuhan tradisional bergantung pada wawancara, lokakarya, dan dokumentasi manual. Ini padat karya, rentan kesalahan, dan sering kali melewatkan langkah penting menulis kriteria penerimaan yang dapat diverifikasi. Kesenjangan antara apa yang dikatakan pemangku kepentingan dan apa yang dibangun pengembang diisi dengan asumsi. Asumsi adalah akar dari pengerjaan ulang.
 
-**Otomatisasi kebutuhan berbasis AI** menggunakan model bahasa besar (LLM) dan alat pemrosesan bahasa alami (NLP) untuk menjembatani kesenjangan ini. Dengan memberikan bahasa pemangku kepentingan ke LLM — catatan rapat, permintaan fitur, atau wawancara pengguna — kita dapat menghasilkan artefak kebutuhan yang terstruktur dan dapat diverifikasi: user story, potongan spesifikasi kebutuhan perangkat lunak (SRS), dan kriteria penerimaan yang dapat diuji.
+**Otomatisasi kebutuhan berbasis AI** menggunakan model bahasa besar (LLM) dan alat pemrosesan bahasa alami (NLP) untuk menjembatani kesenjangan ini. Dengan memberikan bahasa pemangku kepentingan (catatan rapat, permintaan fitur, atau wawancara pengguna) ke LLM, kita dapat menghasilkan artefak kebutuhan yang terstruktur dan dapat diverifikasi: *user story*, potongan spesifikasi kebutuhan perangkat lunak (SRS), dan kriteria penerimaan yang dapat diuji.
 
-Ini bukan tentang menggantikan business analyst atau product owner. Ini tentang memberi mereka draf pertama yang sudah terstruktur, sudah konsisten, dan sudah diformulasikan dengan cara yang dapat ditindaklanjuti oleh pengembang dan penguji. Manusia tetap dalam lingkaran untuk memvalidasi, menyempurnakan, dan menyetujui.
+Ini bukan tentang menggantikan *business analyst* atau *product owner*. Ini tentang memberi mereka draf pertama yang sudah terstruktur, sudah konsisten, dan sudah diformulasikan dengan cara yang dapat ditindaklanjuti oleh pengembang dan penguji. Manusia tetap dalam lingkaran untuk memvalidasi, menyempurnakan, dan menyetujui.
 
 ### Koneksi dengan Riset SE Lab
 
@@ -66,9 +66,9 @@ Software Engineering Lab di Politeknik Negeri Malang menempatkan **Requirements 
 
 Pada akhir tutorial ini Anda akan memiliki:
 
-- Skrip PHP yang mengirim deskripsi fitur ke LLM API (kompatibel dengan OpenAI) dan menerima user story terstruktur sebagai balasannya.
-- Skrip kedua yang memvalidasi dan memformat story tersebut menjadi matriks ketertelusuran.
-- Pemahaman yang jelas tentang kapan LLM membantu dengan kebutuhan — dan kapan mereka merugikan.
+- Skrip PHP yang mengirim deskripsi fitur ke LLM API (kompatibel dengan OpenAI) dan menerima *user story* terstruktur sebagai balasannya.
+- Skrip kedua yang memvalidasi dan memformat *story* tersebut menjadi matriks ketertelusuran.
+- Pemahaman yang jelas tentang kapan LLM membantu dengan kebutuhan, dan kapan mereka merugikan.
 
 </section>
 
@@ -144,7 +144,7 @@ Sebelum kita mengotomatiskan apa pun, kita perlu memahami output target. Apa seb
 
 ### User Story
 
-User story menangkap fitur dari perspektif pengguna akhir, mengikuti template Connextra:
+*User story* menangkap fitur dari perspektif pengguna akhir, mengikuti template Connextra:
 
 > Sebagai **[peran]**, saya ingin **[tujuan]** sehingga **[manfaat]**.
 
@@ -160,7 +160,7 @@ User story menangkap fitur dari perspektif pengguna akhir, mengikuti template Co
 
 ### Kriteria Penerimaan (Given-When-Then)
 
-Kriteria penerimaan menerjemahkan user story menjadi kondisi konkret yang dapat diuji menggunakan format Gherkin:
+Kriteria penerimaan menerjemahkan *user story* menjadi kondisi konkret yang dapat diuji menggunakan format Gherkin:
 
 > **Given** [prasyarat], **When** [aksi], **Then** [hasil yang diharapkan].
 
@@ -173,14 +173,14 @@ Kriteria penerimaan menerjemahkan user story menjadi kondisi konkret yang dapat 
 
 ### Potongan Spesifikasi Kebutuhan Perangkat Lunak (SRS)
 
-Potongan SRS menyediakan kebutuhan fungsional dengan pengenal, prioritas, dan deskripsi yang dapat diverifikasi — sering mengikuti struktur IEEE 830.
+Potongan SRS menyediakan kebutuhan fungsional dengan pengenal, prioritas, dan deskripsi yang dapat diverifikasi, sering mengikuti struktur IEEE 830.
 
 | ID | Kebutuhan | Prioritas | Verifikasi |
 |---|---|---|---|
 | FR-001 | Sistem harus memungkinkan mahasiswa memfilter mata kuliah berdasarkan semester. | Tinggi | Uji dengan nilai semester 1–8; verifikasi daftar mata kuliah yang benar. |
 | FR-002 | Sistem harus menampilkan kursi tersedia per mata kuliah, diperbarui secara real time. | Sedang | Daftarkan mahasiswa dan verifikasi jumlah kursi berkurang dalam 5 detik. |
 
-Wawasan kuncinya adalah bahwa ketiga format ini **saling melengkapi**. User story memberikan why, kriteria penerimaan memberikan how-to-test, dan potongan SRS memberikan pengenal yang dapat dilacak. Pipeline otomatisasi kebutuhan yang baik menghasilkan ketiganya dari masukan pemangku kepentingan yang sama.
+Wawasan kuncinya adalah bahwa ketiga format ini **saling melengkapi**. *User story* memberikan *why*-nya, kriteria penerimaan memberikan cara mengujinya, dan potongan SRS memberikan pengenal yang dapat dilacak. *Pipeline* otomatisasi kebutuhan yang baik menghasilkan ketiganya dari masukan pemangku kepentingan yang sama.
 
 ### Alur Kerja Manual vs. Berbantuan AI
 
@@ -188,13 +188,13 @@ Wawasan kuncinya adalah bahwa ketiga format ini **saling melengkapi**. User stor
 |---|---|---|
 | Kecepatan | Jam per fitur | Menit per fitur (draf pertama) |
 | Konsistensi | Bervariasi per analis | Format seragam |
-| Kelengkapan | Analis melupakan edge case | LLM menyarankan edge case dari data pelatihan |
+| Kelengkapan | Analis melupakan *edge case* | LLM menyarankan *edge case* dari data pelatihan |
 | Akurasi domain | Tinggi (konteks manusia) | Sedang (perlu verifikasi) |
 | Keterlibatan pemangku kepentingan | Wawancara membangun kepercayaan | Otomatisasi bisa terasa impersonal |
 | Biaya | Gaji analis | Biaya API (sen per permintaan) |
 | Jejak audit | Matriks ketertelusuran manual | Ketertelusuran yang dihasilkan otomatis |
 
-Kolom berbantuan AI tidak sepenuhnya lebih baik — tetapi lebih cepat untuk draf pertama, yang merupakan bagian tersulit dan paling memakan waktu.
+Kolom berbantuan AI tidak sepenuhnya lebih baik, tetapi lebih cepat untuk draf pertama, yang merupakan bagian tersulit dan paling memakan waktu.
 
 </section>
 
@@ -300,7 +300,7 @@ curl http://localhost:11434/v1/chat/completions \
   }'
 ```
 
-Model lokal gratis dan privat tetapi menghasilkan kebutuhan dengan kualitas lebih rendah daripada model cloud. Untuk latihan dalam tutorial ini, gunakan API cloud terlebih dahulu, lalu coba prompt yang sama pada model lokal untuk membandingkan.
+Model lokal gratis dan privat tetapi menghasilkan kebutuhan dengan kualitas lebih rendah daripada model cloud. Untuk latihan dalam tutorial ini, gunakan API cloud terlebih dahulu, lalu coba *prompt* yang sama pada model lokal untuk membandingkan.
 
 ### Tingkat 3: Library NLP Khusus (Programatik)
 
@@ -308,11 +308,11 @@ Untuk tugas spesifik seperti ekstraksi entitas dari dokumen kebutuhan, Anda mung
 
 | Library | Bahasa | Kasus Penggunaan |
 |---|---|---|
-| **PHP-ML** | PHP | Klasifikasi teks, clustering |
-| **Stanford CoreNLP** (via REST) | Java (klien PHP) | Pengenalan entitas bernama, constituency parsing |
-| **spaCy** (via REST atau CLI) | Python | Dependency parsing, NER, rule-based matching |
+| **PHP-ML** | PHP | Klasifikasi teks, *clustering* |
+| **Stanford CoreNLP** (via REST) | Java (klien PHP) | Pengenalan entitas bernama, *constituency parsing* |
+| **spaCy** (via REST atau CLI) | Python | *Dependency parsing*, NER, *rule-based matching* |
 
-Ini berguna untuk pasca-pemrosesan output LLM — misalnya, mengekstrak semua penyebutan `<Actor>` dari user story yang dihasilkan atau mendeteksi terminologi yang tidak konsisten di seluruh kebutuhan.
+Ini berguna untuk pasca-pemrosesan output LLM, misalnya, mengekstrak semua penyebutan `<Actor>` dari *user story* yang dihasilkan atau mendeteksi terminologi yang tidak konsisten di seluruh kebutuhan.
 
 </section>
 
@@ -529,17 +529,17 @@ Each output is a draft. You, the human, decide whether the priorities are correc
 
 ## Prompt Engineering untuk Kebutuhan
 
-Kualitas kebutuhan yang dihasilkan LLM hampir sepenuhnya bergantung pada kualitas prompt Anda. Prompt yang samar menghasilkan output yang samar. Prompt yang terstruktur dengan baik dengan batasan format eksplisit, contoh, dan penetapan peran menghasilkan output yang membutuhkan pengeditan minimal.
+Kualitas kebutuhan yang dihasilkan LLM hampir sepenuhnya bergantung pada kualitas *prompt* Anda. *Prompt* yang samar menghasilkan output yang samar. *Prompt* yang terstruktur dengan baik dengan batasan format eksplisit, contoh, dan penetapan peran menghasilkan output yang membutuhkan pengeditan minimal.
 
 ### Anatomi Prompt Kebutuhan yang Baik
 
-Prompt yang kuat memiliki lima komponen:
+*Prompt* yang kuat memiliki lima komponen:
 
-1. **Penetapan peran** — Beri tahu model siapa dia.
-2. **Konteks** — Berikan latar belakang spesifik domain.
-3. **Deskripsi tugas** — Apa yang harus dihasilkan dan dalam format apa.
-4. **Batasan output** — Struktur, panjang, pengenal.
-5. **Contoh (few-shot)** — Tunjukkan satu output ideal sehingga model menyalin polanya.
+1. **Penetapan peran**: beri tahu model siapa dia.
+2. **Konteks**: berikan latar belakang spesifik domain.
+3. **Deskripsi tugas**: apa yang harus dihasilkan dan dalam format apa.
+4. **Batasan output**: struktur, panjang, pengenal.
+5. **Contoh (few-shot)**: tunjukkan satu output ideal sehingga model menyalin polanya.
 
 ```text
 Anda adalah business analyst senior di sebuah firma rekayasa perangkat lunak.
@@ -573,7 +573,7 @@ Kembalikan JSON dengan kunci: "user_stories", "acceptance_criteria", "functional
 
 ### PHP Helper untuk Memanggil LLM API
 
-Berikut adalah skrip PHP yang dapat digunakan kembali yang mengirim prompt ke API yang kompatibel dengan OpenAI dan mengembalikan respons JSON yang telah diparsing. Simpan sebagai `generate-requirements.php`.
+Berikut adalah skrip PHP yang dapat digunakan kembali yang mengirim *prompt* ke API yang kompatibel dengan OpenAI dan mengembalikan respons JSON yang telah di-parsing. Simpan sebagai `generate-requirements.php`.
 
 ```php
 <?php
@@ -678,10 +678,10 @@ if (php_sapi_name() === 'cli') {
 
 ### Keputusan Desain Kunci
 
-- **`temperature: 0.3`** — Suhu lebih rendah berarti output lebih deterministik, kurang kreatif. Kebutuhan harus presisi, bukan puitis.
-- **`gpt-4o-mini`** — Hemat biaya untuk prompt ~5.000 token. Untuk SRS misi-kritis, ganti ke `gpt-4o`.
-- **Output JSON saja** — Kami secara eksplisit meminta JSON dan menghapus markdown fences, membuat respons dapat diparsing oleh `json_decode()`.
-- **Variabel lingkungan untuk API key** — Jangan pernah hardcode rahasia.
+- **`temperature: 0.3`**: suhu lebih rendah berarti output lebih deterministik, kurang kreatif. Kebutuhan harus presisi, bukan puitis.
+- **`gpt-4o-mini`**: hemat biaya untuk *prompt* ~5.000 token. Untuk SRS misi-kritis, ganti ke `gpt-4o`.
+- **Output JSON saja**: kami secara eksplisit meminta JSON dan menghapus markdown fences, membuat respons dapat di-parsing oleh `json_decode()`.
+- **Variabel lingkungan untuk API key**: jangan pernah *hardcode* rahasia.
 
 ### Menjalankannya
 
@@ -690,7 +690,7 @@ export OPENAI_API_KEY="sk-your-key-here"
 php generate-requirements.php "Mahasiswa harus bisa mencari mata kuliah berdasarkan semester dan memfilter berdasarkan nama dosen. Mereka juga perlu melihat berapa kursi yang tersedia per mata kuliah."
 ```
 
-Setiap output adalah draf. Anda, sebagai manusia, memutuskan apakah prioritasnya benar, apakah edge case tercakup, dan apakah terminologinya cocok dengan glosarium domain Anda.
+Setiap output adalah draf. Anda, sebagai manusia, memutuskan apakah prioritasnya benar, apakah *edge case* tercakup, dan apakah terminologinya cocok dengan glosarium domain Anda.
 
 </section>
 
@@ -866,7 +866,7 @@ Modify `generate-requirements.php` to:
 
 ## Latihan PHP Praktis
 
-Mari kita bangun pipeline kecil: teks pemangku kepentingan masuk, matriks ketertelusuran keluar. Anda memerlukan PHP 8.1+ dengan ekstensi `curl` dan kunci API yang kompatibel dengan OpenAI.
+Mari kita bangun *pipeline* kecil: teks pemangku kepentingan masuk, matriks ketertelusuran keluar. Anda memerlukan PHP 8.1+ dengan ekstensi `curl` dan kunci API yang kompatibel dengan OpenAI.
 
 ### Langkah 1: Hasilkan Kebutuhan
 
@@ -891,7 +891,7 @@ php generate-requirements.php "$(cat feature.txt)" > requirements.json
 
 ### Langkah 2: Validasi dan Bangun Matriks Ketertelusuran
 
-Sekarang kita validasi output dan bangun matriks ketertelusuran yang menghubungkan setiap kebutuhan fungsional ke user story dan kriteria penerimaannya. Buat `validate-and-trace.php`:
+Sekarang kita memvalidasi output dan membangun matriks ketertelusuran yang menghubungkan setiap kebutuhan fungsional ke *user story* dan kriteria penerimaannya. Buat `validate-and-trace.php`:
 
 ```php
 <?php
@@ -1000,9 +1000,9 @@ if (php_sapi_name() === 'cli') {
 ### Latihan untuk Pembaca
 
 Modifikasi `generate-requirements.php` untuk:
-1. Menerima flag `--model` untuk beralih antara `gpt-4o` dan `gpt-4o-mini`.
-2. Menambahkan flag `--local` yang mengarah ke `http://localhost:11434/v1` (endpoint Ollama).
-3. Menyimpan semua kebutuhan yang dihasilkan ke database SQLite dengan timestamp `created_at`.
+1. Menerima *flag* `--model` untuk beralih antara `gpt-4o` dan `gpt-4o-mini`.
+2. Menambahkan *flag* `--local` yang mengarah ke `http://localhost:11434/v1` (*endpoint* Ollama).
+3. Menyimpan semua kebutuhan yang dihasilkan ke *database* SQLite dengan *timestamp* `created_at`.
 
 </section>
 
@@ -1115,18 +1115,18 @@ This closes the loop: requirements → code → tests → verification report.
 
 ## Ketertelusuran dan Verifikasi
 
-Menghasilkan kebutuhan hanyalah setengah dari pertempuran. Nilai sesungguhnya datang dari **ketertelusuran** — kemampuan untuk menghubungkan setiap kebutuhan ke kode yang mengimplementasikannya dan pengujian yang memverifikasinya.
+Menghasilkan kebutuhan hanyalah setengah dari pertempuran. Nilai sesungguhnya datang dari **ketertelusuran**: kemampuan untuk menghubungkan setiap kebutuhan ke kode yang mengimplementasikannya dan pengujian yang memverifikasinya.
 
 ### Mengapa Ketertelusuran Penting
 
 - **Analisis dampak perubahan.** Ketika pemangku kepentingan mengubah kebutuhan, ketertelusuran memberi tahu Anda modul dan pengujian mana yang terpengaruh.
 - **Audit cakupan.** Anda dapat membuktikan bahwa setiap kebutuhan fungsional memiliki setidaknya satu pengujian yang sesuai.
 - **Kepatuhan regulasi.** Standar seperti ISO 26262 (otomotif) dan DO-178C (kedirgantaraan) mewajibkan ketertelusuran kebutuhan-ke-pengujian.
-- **Penilaian proyek mahasiswa.** Penilai dapat menelusuri dari kebutuhan pemangku kepentingan melalui user story ke kode dan pengujian.
+- **Penilaian proyek mahasiswa.** Penilai dapat menelusuri dari kebutuhan pemangku kepentingan melalui *user story* ke kode dan pengujian.
 
 ### Membangun Matriks Ketertelusuran
 
-Dalam latihan sebelumnya, kita membangun matriks dasar yang menghubungkan FR ke user story dan kriteria penerimaan. Dalam proyek Laravel nyata, Anda dapat memperluas ini dengan ketertelusuran berbasis database. Buat migrasi:
+Dalam latihan sebelumnya, kita membangun matriks dasar yang menghubungkan FR ke *user story* dan kriteria penerimaan. Dalam proyek Laravel nyata, Anda dapat memperluas ini dengan ketertelusuran berbasis *database*. Buat migrasi:
 
 ```php
 // database/migrations/xxxx_create_requirements_table.php
@@ -1150,7 +1150,7 @@ Schema::create('requirement_test_links', function (Blueprint $table) {
 });
 ```
 
-Dengan perintah Artisan untuk mengimpor:
+Berikut perintah Artisan Laravel yang mengimpor kebutuhan hasil AI:
 
 ```php
 // app/Console/Commands/ImportRequirements.php
@@ -1250,13 +1250,13 @@ Otomatisasi kebutuhan berbasis AI sangat kuat tetapi jauh dari sempurna. Memaham
 
 LLM terkadang menciptakan kebutuhan yang terdengar masuk akal tetapi tidak memiliki dasar dalam masukan pemangku kepentingan. Model mungkin menambahkan "sistem harus mengirim notifikasi email" ke setiap fitur, bahkan ketika tidak ada yang memintanya.
 
-**Mitigasi:** Selalu bandingkan output yang dihasilkan dengan teks pemangku kepentingan asli. Hapus kebutuhan apa pun yang tidak dapat Anda lacak kembali ke sumbernya. Gunakan skrip validasi dari latihan — ini menangkap FR yang hilang atau cacat tetapi tidak dapat menangkap konten yang dihalusinasi; tinjauan manusia adalah satu-satunya pertahanan.
+**Mitigasi:** Selalu bandingkan output yang dihasilkan dengan teks pemangku kepentingan asli. Hapus kebutuhan apa pun yang tidak dapat Anda lacak kembali ke sumbernya. Gunakan skrip validasi dari latihan: skrip ini menangkap FR yang hilang atau cacat, tetapi tidak dapat menangkap konten hasil halusinasi; tinjauan manusia adalah satu-satunya pertahanan.
 
 ### Bias dalam Data Pelatihan
 
 LLM dilatih pada kode dan dokumentasi yang tersedia secara publik, yang terlalu merepresentasikan domain tertentu (e-commerce, dashboard SaaS, media sosial) dan kurang merepresentasikan yang lain (kesehatan, pendidikan, pemerintahan). Ketika diberikan deskripsi fitur EdTech, model mungkin menerapkan pola e-commerce (pemikiran "tambahkan ke keranjang" diterapkan pada pendaftaran mata kuliah).
 
-**Mitigasi:** Berikan konteks spesifik domain dalam prompt. Jika sistem Anda adalah portal universitas, beri tahu model secara eksplisit: "Ini adalah konteks pendidikan tinggi. Gunakan terminologi seperti pendaftaran, semester, SKS, dan kalender akademik."
+**Mitigasi:** Berikan konteks spesifik domain dalam *prompt*. Jika sistem Anda adalah portal universitas, beri tahu model secara eksplisit: "Ini adalah konteks pendidikan tinggi. Gunakan terminologi seperti pendaftaran, semester, SKS, dan kalender akademik."
 
 ### Kebutuhan Non-Fungsional yang Hilang
 
@@ -1267,24 +1267,24 @@ LLM unggul dalam kebutuhan fungsional (apa yang dilakukan sistem) tetapi kesulit
 - Aksesibilitas: "Halaman pencarian mata kuliah harus memenuhi WCAG 2.1 AA."
 - Ketersediaan: "Sistem pendaftaran harus tersedia 99,9% jam kerja."
 
-**Mitigasi:** Setelah menghasilkan kebutuhan fungsional, jalankan prompt kedua: "Tinjau kebutuhan ini dan tambahkan kebutuhan non-fungsional yang mencakup kinerja, keamanan, aksesibilitas, dan ketersediaan."
+**Mitigasi:** Setelah menghasilkan kebutuhan fungsional, jalankan *prompt* kedua: "Tinjau kebutuhan ini dan tambahkan kebutuhan non-fungsional yang mencakup kinerja, keamanan, aksesibilitas, dan ketersediaan."
 
 ### Penyimpangan Pemangku Kepentingan
 
 Ketika Anda mengotomatiskan pembuatan kebutuhan, ada risiko bahwa pemangku kepentingan melepaskan diri dari proses. Mereka mungkin menganggap AI "menanganinya" dan melewatkan langkah tinjauan. Ini mengarah pada kebutuhan yang terlihat bagus di atas kertas tetapi tidak cocok dengan kebutuhan nyata.
 
-**Mitigasi:** Perlakukan kebutuhan yang dihasilkan AI sebagai pembuka diskusi, bukan sebagai hasil akhir. Jadwalkan sesi tinjauan 30 menit di mana pemangku kepentingan membaca setiap kebutuhan dengan keras dan mengonfirmasi atau mengoreksinya. Tugas AI adalah mengurangi waktu dari halaman kosong ke draf — bukan menghilangkan percakapan manusia.
+**Mitigasi:** Perlakukan kebutuhan yang dihasilkan AI sebagai pembuka diskusi, bukan sebagai hasil akhir. Jadwalkan sesi tinjauan 30 menit di mana pemangku kepentingan membaca setiap kebutuhan dengan keras dan mengonfirmasi atau mengoreksinya. Tugas AI adalah mengurangi waktu dari halaman kosong ke draf, bukan menghilangkan percakapan manusia.
 
 ### Ringkasan Praktik Terbaik
 
 | Praktik | Alasan |
 |---|---|
-| Selalu tinjau output AI sebelum commit | Halusinasi dijamin terjadi pada suatu saat |
+| Selalu tinjau output AI sebelum *commit* | Halusinasi dijamin terjadi pada suatu saat |
 | Gunakan suhu rendah (0.1–0.3) | Mengurangi kreativitas; kebutuhan perlu presisi |
 | Minta output JSON dengan skema eksplisit | Memungkinkan validasi dan perkakas otomatis |
-| Simpan bahasa pemangku kepentingan dalam prompt | Model membutuhkan masukan mentah yang belum diproses |
+| Simpan bahasa pemangku kepentingan dalam *prompt* | Model membutuhkan masukan mentah yang belum diproses |
 | Tambahkan kebutuhan non-fungsional secara manual | LLM kurang merepresentasikan NFR |
-| Version-control kebutuhan yang dihasilkan | Lacak perubahan seperti Anda melacak kode |
+| *Version-control* kebutuhan yang dihasilkan | Lacak perubahan seperti Anda melacak kode |
 | Perlakukan AI sebagai analis junior | AI membuat draf; Anda menyetujui |
 | Jangan kirim data pemangku kepentingan sensitif ke API cloud tanpa izin | Gunakan model lokal atau anonimkan masukan |
 
@@ -1323,25 +1323,25 @@ The pipeline — requirements → tests → documentation — is now within reac
 
 ## Kesimpulan dan Bacaan Lebih Lanjut
 
-Otomatisasi kebutuhan berbasis AI bukanlah pengganti disiplin rekayasa kebutuhan — ini adalah akselerator. Dengan memindahkan pekerjaan mekanis memformat, menstrukturkan, dan menyusun draf ke LLM, Anda membebaskan analis Anda (dan diri Anda sendiri) untuk pekerjaan yang hanya dapat dilakukan manusia: memahami masalah nyata pemangku kepentingan, menegosiasikan prioritas, dan membuat keputusan trade-off.
+Otomatisasi kebutuhan berbasis AI bukanlah pengganti disiplin rekayasa kebutuhan, melainkan akselerator. Dengan memindahkan pekerjaan mekanis memformat, menstrukturkan, dan menyusun draf ke LLM, Anda membebaskan analis Anda (dan diri Anda sendiri) untuk pekerjaan yang hanya dapat dilakukan manusia: memahami masalah nyata pemangku kepentingan, menegosiasikan prioritas, dan membuat keputusan *trade-off*.
 
 ### Apa yang Kami Bahas
 
-- Transformasi dari bahasa pemangku kepentingan tidak terstruktur menjadi user story, kriteria penerimaan, dan potongan SRS.
-- Pandangan bertingkat tentang alat AI — dari API cloud hingga model lokal hingga library NLP — dengan instruksi pengaturan konkret.
-- Prinsip prompt engineering untuk kebutuhan, termasuk penetapan peran, injeksi konteks, dan batasan format output.
-- Pipeline PHP dua skrip yang lengkap: `generate-requirements.php` (panggilan LLM) dan `validate-and-trace.php` (validasi + matriks ketertelusuran).
-- Ketertelusuran berbasis database dengan migrasi Laravel dan perintah Artisan.
-- Mode kegagalan: halusinasi, bias, NFR yang hilang, dan pelepasan pemangku kepentingan — dengan mitigasi untuk masing-masing.
+- Transformasi dari bahasa pemangku kepentingan tidak terstruktur menjadi *user story*, kriteria penerimaan, dan potongan SRS.
+- Pandangan bertingkat tentang alat AI, dari API cloud hingga model lokal hingga *library* NLP, dengan instruksi pengaturan konkret.
+- Prinsip *prompt engineering* untuk kebutuhan, termasuk penetapan peran, injeksi konteks, dan batasan format output.
+- *Pipeline* PHP dua skrip yang lengkap: `generate-requirements.php` (panggilan LLM) dan `validate-and-trace.php` (validasi + matriks ketertelusuran).
+- Ketertelusuran berbasis *database* dengan migrasi Laravel dan perintah Artisan.
+- Mode kegagalan: halusinasi, bias, NFR yang hilang, dan pelepasan pemangku kepentingan, dengan mitigasi untuk masing-masing.
 
 ### Langkah Selanjutnya
 
 Tutorial ini adalah bagian dari pipeline SE berbantuan AI yang lebih luas. Untuk melanjutkan:
 
-1. **Hasilkan pengujian dari kebutuhan Anda** — Masukkan kriteria penerimaan dari tutorial ini ke dalam alur kerja yang dijelaskan di [Pembuatan Unit Test Berbantuan AI dengan PHP](/blog/ai-assisted-unit-test-generation).
-2. **Dokumentasikan arsitektur Anda** — Gunakan output terstruktur dari analisis kebutuhan Anda untuk memulai pipeline dokumentasi di [Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP](/blog/llm-assisted-documentation-automation-php).
-3. **Jelajahi riset** — Kunjungi [alur riset Emerging Technologies in SE](https://se.polinema.ac.id/research/emerging-technologies-se/) untuk melihat bagaimana SE Lab Politeknik Negeri Malang memajukan otomatisasi kebutuhan, NLP untuk SE, dan ketertelusuran berbantuan AI.
+1. **Hasilkan pengujian dari kebutuhan Anda**: masukkan kriteria penerimaan dari tutorial ini ke dalam alur kerja yang dijelaskan di [Pembuatan Unit Test Berbantuan AI dengan PHP](/blog/ai-assisted-unit-test-generation).
+2. **Dokumentasikan arsitektur Anda**: gunakan output terstruktur dari analisis kebutuhan Anda untuk memulai *pipeline* dokumentasi di [Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP](/blog/llm-assisted-documentation-automation-php).
+3. **Jelajahi riset**: kunjungi [alur riset Emerging Technologies in SE](https://se.polinema.ac.id/research/emerging-technologies-se/) untuk melihat bagaimana SE Lab Politeknik Negeri Malang memajukan otomatisasi kebutuhan, NLP untuk SE, dan ketertelusuran berbantuan AI.
 
-Pipeline — kebutuhan → pengujian → dokumentasi — sekarang dalam jangkauan setiap pengembang PHP dengan kunci API dan prompt terstruktur. Mesin dapat membuat draf. Manusia harus memverifikasi. Itulah kesepakatannya.
+*Pipeline* (kebutuhan → pengujian → dokumentasi) sekarang dalam jangkauan setiap pengembang PHP dengan kunci API dan *prompt* terstruktur. Mesin dapat membuat draf. Manusia harus memverifikasi. Itulah kesepakatannya.
 
 </section>

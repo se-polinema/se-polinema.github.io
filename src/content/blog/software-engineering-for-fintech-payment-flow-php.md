@@ -50,21 +50,21 @@ These constraints mean that **generic CRUD patterns are dangerous in fintech.** 
 
 ## Mengapa Perangkat Lunak Fintech Berbeda
 
-**Uang bukanlah sumber daya CRUD.** Ketika Anda memperbarui posting blog dan penulisan database gagal, pengguna menyegarkan dan mencoba lagi. Ketika Anda mentransfer uang dan penulisan database gagal di tengah jalan — seseorang kehilangan dana, dan kesalahannya diukur dalam mata uang nyata, bukan friksi UX.
+**Uang bukanlah sumber daya CRUD.** Ketika Anda memperbarui posting blog dan penulisan database gagal, pengguna menyegarkan dan mencoba lagi. Ketika Anda mentransfer uang dan penulisan database gagal di tengah jalan, seseorang kehilangan dana, dan kesalahannya diukur dalam mata uang nyata, bukan friksi UX.
 
 Perangkat lunak fintech membawa batasan yang tidak pernah ditemui oleh sebagian besar domain lain:
 
 | Batasan | Perangkat Lunak Generik | Perangkat Lunak Fintech |
 |---|---|---|
-| **Irreversibilitas** | Sebagian besar operasi dapat dibatalkan (soft delete, rollback) | Pembayaran bersifat final. Refund adalah transaksi terpisah — tidak pernah "undo." |
-| **Kepatuhan** | GDPR, cookie consent (menghadap eksternal) | PCI-DSS, AML, KYC, pelaporan bank sentral (meluas) |
-| **Konkurensi** | Optimistic locking adalah nice-to-have | Pencegahan double-spend adalah eksistensial |
-| **Auditabilitas** | Pencatatan opsional | Setiap mutasi adalah entri buku besar — immutabilitas diwajibkan secara hukum |
+| **Irreversibilitas** | Sebagian besar operasi dapat dibatalkan (*soft delete*, *rollback*) | Pembayaran bersifat final. *Refund* adalah transaksi terpisah, tidak pernah "undo." |
+| **Kepatuhan** | GDPR, *cookie consent* (bersifat eksternal) | PCI-DSS, AML, KYC, pelaporan bank sentral (meluas) |
+| **Konkurensi** | *Optimistic locking* adalah *nice-to-have* | Pencegahan *double-spend* adalah eksistensial |
+| **Auditabilitas** | Pencatatan opsional | Setiap mutasi adalah entri buku besar, dan immutabilitas diwajibkan secara hukum |
 | **Presisi** | Kesalahan pembulatan `float` bersifat kosmetik | Satu sen meleset merusak rekonsiliasi; gunakan integer sen atau `decimal` |
-| **Kepercayaan** | Pengguna mempercayai aplikasi untuk menampilkan data | Pengguna, merchant, bank, dan regulator harus semuanya mempercayai sistem secara simultan |
-| **Permukaan penipuan** | Form spam, SQL injection | Credential stuffing, pengambilalihan akun, pencucian uang, chargeback fraud |
+| **Kepercayaan** | Pengguna mempercayai aplikasi untuk menampilkan data | Pengguna, *merchant*, bank, dan regulator harus semuanya mempercayai sistem secara simultan |
+| **Permukaan penipuan** | *Form spam*, *SQL injection* | *Credential stuffing*, pengambilalihan akun, pencucian uang, *chargeback fraud* |
 
-Batasan ini berarti bahwa **pola CRUD generik berbahaya di fintech.** Setiap penulisan harus atomik, setiap mutasi harus dicatat, dan setiap operasi harus idempoten — karena permintaan HTTP yang dicoba ulang tidak boleh menghasilkan double charge.
+Batasan ini berarti bahwa **pola CRUD generik berbahaya di fintech.** Setiap penulisan harus atomik, setiap mutasi harus dicatat, dan setiap operasi harus idempoten, karena permintaan HTTP yang dicoba ulang tidak boleh menghasilkan *double charge*.
 
 </section>
 
@@ -111,20 +111,20 @@ Permintaan → Validasi → Periksa Idempotensi → Otorisasi → Catat → Konf
 
 | Tahap | Yang Terjadi | Mode Kegagalan |
 |---|---|---|
-| **Permintaan** | Klien mengirim `POST /payments` dengan amount, currency, payee, idempotency key | Field hilang, JSON malformed |
-| **Validasi** | Periksa rentang amount, dukungan currency, keberadaan payee, signature/HMAC | Input tidak valid, amount mencurigakan |
-| **Periksa Idempotensi** | Cari idempotency key; jika sudah diproses, kembalikan hasil yang di-cache | Mencegah double charge saat retry |
+| **Permintaan** | Klien mengirim `POST /payments` dengan *amount*, *currency*, *payee*, *idempotency key* | *Field* hilang, JSON *malformed* |
+| **Validasi** | Periksa rentang *amount*, dukungan *currency*, keberadaan *payee*, *signature*/HMAC | Input tidak valid, *amount* mencurigakan |
+| **Periksa Idempotensi** | Cari *idempotency key*; jika sudah diproses, kembalikan hasil yang di-cache | Mencegah *double charge* saat *retry* |
 | **Otorisasi** | Periksa saldo, terapkan aturan penipuan, cadangkan dana | Saldo tidak cukup, batas kecepatan terlampaui |
-| **Catat** | Tulis transaksi ke tabel `transactions` + tambahkan ke `ledger` | Harus atomik — tidak pernah debit tanpa kredit |
-| **Konfirmasi** | Kembalikan sukses dengan ID transaksi + payload tanda terima | Timeout jaringan setelah catat — idempotensi menyelamatkan Anda di sini |
+| **Catat** | Tulis transaksi ke tabel `transactions` + tambahkan ke `ledger` | Harus atomik, tidak pernah debit tanpa kredit |
+| **Konfirmasi** | Kembalikan sukses dengan ID transaksi + *payload* tanda terima | *Timeout* jaringan setelah pencatatan, idempotensi menyelamatkan Anda di sini |
 
 Setiap panah dalam pipeline ini dapat gagal, dan setiap kegagalan harus meninggalkan sistem dalam keadaan konsisten. Itulah yang membedakan rekayasa fintech dari pengembangan web umum.
 
 ### Mengapa Pipeline Ini Penting
 
-Tanpa validasi eksplisit, Anda menerima amount negatif. Tanpa idempotensi, retry jaringan mengenakan biaya dua kali. Tanpa buku besar, Anda tidak dapat membuktikan apa yang terjadi selama sengketa. Tanpa penjaga penipuan, sistem Anda menjadi vektor pencucian uang.
+Tanpa validasi eksplisit, Anda menerima *amount* negatif. Tanpa idempotensi, *retry* jaringan mengenakan biaya dua kali. Tanpa buku besar, Anda tidak dapat membuktikan apa yang terjadi selama sengketa. Tanpa penjaga penipuan, sistem Anda menjadi vektor pencucian uang.
 
-Setiap tahap dalam pipeline adalah **prinsip yang diterapkan** — bukan sekadar langkah.
+Setiap tahap dalam pipeline adalah **prinsip yang diterapkan**, bukan sekadar langkah.
 
 </section>
 
@@ -172,7 +172,7 @@ Plain PHP with PDO for database access. No framework required. We assume a MySQL
 
 ## Membangun Layanan Pembayaran Minimal dalam PHP
 
-Sebelum kita menulis kode, mari kita definisikan struktur proyek. Modular monolith — pola yang kami rekomendasikan untuk proyek fintech tahap awal — menjaga bounded context tetap terpisah tanpa overhead sistem terdistribusi.
+Sebelum kita menulis kode, mari kita definisikan struktur proyek. *Modular monolith*, pola yang kami rekomendasikan untuk proyek fintech tahap awal, menjaga *bounded context* tetap terpisah tanpa *overhead* sistem terdistribusi.
 
 ```
 src/
@@ -198,11 +198,11 @@ src/
     └── ValueObject.php             # Value object dasar
 ```
 
-Struktur ini menjaga logika pembayaran tetap terisolasi. Modul `Account` memiliki saldo; modul `Payment` mengeksekusi pembayaran dan mencatat buku besar. Mereka berkomunikasi melalui interface — tidak pernah akses tabel langsung.
+Struktur ini menjaga logika pembayaran tetap terisolasi. Modul `Account` memiliki saldo; modul `Payment` mengeksekusi pembayaran dan mencatat buku besar. Mereka berkomunikasi melalui *interface*, tidak pernah akses tabel langsung.
 
 ### Dependensi
 
-PHP biasa dengan PDO untuk akses database. Tidak diperlukan framework. Kita mengasumsikan database MySQL atau PostgreSQL.
+PHP biasa dengan PDO untuk akses database. Tidak diperlukan *framework*. Kita mengasumsikan database MySQL atau PostgreSQL.
 
 </section>
 
@@ -387,17 +387,17 @@ Dalam fintech, validasi adalah lapisan keamanan pertama dan terpenting Anda. Inp
 
 | Field | Aturan | Alasan |
 |---|---|---|
-| `amount` | Integer positif ketat (dalam unit mata uang terkecil, misalnya, sen) | Tidak ada pembayaran nol. Tidak ada amount negatif (itu adalah refund). Tidak ada floating-point. |
+| `amount` | Integer positif ketat (dalam unit mata uang terkecil, misalnya, sen) | Tidak ada pembayaran nol. Tidak ada *amount* negatif (itu adalah *refund*). Tidak ada *floating-point*. |
 | `currency` | Harus dalam daftar yang diizinkan (misalnya, `IDR`, `USD`); normalisasi ke huruf besar | Mencegah kebingungan mata uang dan percobaan mata uang yang tidak didukung |
-| `payee_account_id` | Harus ada, harus aktif, tidak boleh sama dengan payer | Mencegah self-payment dan pembayaran ke akun yang ditutup |
+| `payee_account_id` | Harus ada, harus aktif, tidak boleh sama dengan *payer* | Mencegah *self-payment* dan pembayaran ke akun yang ditutup |
 | `payer_account_id` | Harus ada, harus aktif, harus terautentikasi | Hanya pemegang akun terautentikasi yang dapat memulai pembayaran |
-| `idempotency_key` | Wajib, tidak kosong, maks 64 karakter, alfanumerik + strip | Setiap pembayaran harus idempoten — kunci ini adalah kontraknya |
+| `idempotency_key` | Wajib, tidak kosong, maks 64 karakter, alfanumerik + strip | Setiap pembayaran harus idempoten, kunci ini adalah kontraknya |
 | `metadata` | Objek JSON opsional, maks 1 KB | Menyimpan nomor referensi, ID invoice, catatan; sanitasi sebelum penyimpanan |
 | `signature` | HMAC-SHA256 dari `amount\|currency\|payee\|idempotency_key\|timestamp` | Deteksi manipulasi antara klien dan server |
 
 ### Value Object Money
 
-Jangan pernah menggunakan `float` untuk uang. Simpan amount sebagai integer dalam unit mata uang terkecil (sen untuk USD, rupiah untuk IDR). Value object menegakkan ini di tingkat tipe:
+Jangan pernah menggunakan `float` untuk uang. Simpan *amount* sebagai integer dalam unit mata uang terkecil (sen untuk USD, rupiah untuk IDR). *Value object* menegakkan ini di tingkat tipe:
 
 ```php
 <?php
@@ -672,14 +672,14 @@ async function pay(amount, payee) {
 
 ## Idempotensi: Mencegah Double Charge
 
-**Idempotensi adalah konsep paling penting dalam sistem pembayaran.** Ini berarti bahwa membuat permintaan yang sama beberapa kali menghasilkan hasil yang sama seperti membuatnya sekali. Tanpanya, setiap kegagalan jaringan antara klien dan server Anda dapat mengakibatkan double charge.
+**Idempotensi adalah konsep paling penting dalam sistem pembayaran.** Ini berarti bahwa membuat permintaan yang sama beberapa kali menghasilkan hasil yang sama seperti membuatnya sekali. Tanpanya, setiap kegagalan jaringan antara klien dan server Anda dapat mengakibatkan *double charge*.
 
 ### Cara Kerjanya
 
 1. Klien menghasilkan `idempotency_key` unik (biasanya UUID v4) sebelum setiap percobaan pembayaran.
 2. Klien mengirim kunci di header HTTP `Idempotency-Key` dengan setiap permintaan pembayaran.
 3. Server menyimpan pemetaan kunci → hasil di tabel khusus.
-4. Jika server menerima kunci yang sudah diproses, ia mengembalikan hasil yang di-cache — tanpa mengeksekusi pembayaran lagi.
+4. Jika server menerima kunci yang sudah diproses, ia mengembalikan hasil yang di-cache, tanpa mengeksekusi pembayaran lagi.
 
 Ini berarti klien dapat dengan aman mencoba ulang permintaan pembayaran setelah timeout jaringan. Jika permintaan pertama berhasil, percobaan ulang mengembalikan hasil yang sama. Jika permintaan pertama gagal, percobaan ulang diproses secara normal.
 
@@ -752,7 +752,7 @@ CREATE TABLE idempotency_keys (
 
 ### Idempotensi dalam Layanan Pembayaran
 
-Nanti, dalam `PaymentService` lengkap, pemeriksaan idempotensi adalah **operasi database pertama** — sebelum pemeriksaan saldo, sebelum aturan penipuan, sebelum penulisan buku besar:
+Nanti, dalam `PaymentService` lengkap, pemeriksaan idempotensi adalah **operasi database pertama**, sebelum pemeriksaan saldo, sebelum aturan penipuan, sebelum penulisan buku besar:
 
 ```php
 $existing = $this->idempotencyRepo->find($request->idempotencyKey);
@@ -761,7 +761,7 @@ if ($existing !== null) {
 }
 ```
 
-Ini adalah pola **read-before-write.** Pencarian kunci harus cepat (primary key pada `idempotency_key`). Jika ditemukan, seluruh pipeline pembayaran dilewati.
+Ini adalah pola **read-before-write.** Pencarian kunci harus cepat (*primary key* pada `idempotency_key`). Jika ditemukan, seluruh pipeline pembayaran dilewati.
 
 ### Tanggung Jawab Klien
 
@@ -907,7 +907,7 @@ This is not over-engineering. Central banks and auditors require this level of t
 
 ## Integritas Transaksi dengan Buku Besar / Log Audit
 
-Sistem pembayaran tanpa log audit adalah tuntutan hukum yang menunggu untuk terjadi. Setiap pergerakan uang harus meninggalkan catatan permanen yang hanya bisa ditambah. Ini disebut **buku besar (ledger)** atau **pembukuan double-entry** — prinsip yang sama yang telah digunakan bank selama berabad-abad.
+Sistem pembayaran tanpa log audit adalah tuntutan hukum yang menunggu untuk terjadi. Setiap pergerakan uang harus meninggalkan catatan permanen yang hanya bisa ditambah. Ini disebut **buku besar (ledger)** atau **pembukuan double-entry**, prinsip yang sama yang telah digunakan bank selama berabad-abad.
 
 ### Mengapa Append-Only
 
@@ -915,8 +915,8 @@ Sistem pembayaran tanpa log audit adalah tuntutan hukum yang menunggu untuk terj
 |---|---|---|
 | INSERT ke ledger | Ya | Setiap transaksi membuat entri buku besar |
 | SELECT dari ledger | Ya | Baca untuk rekonsiliasi dan pelaporan |
-| UPDATE pada ledger | **Tidak** | Setelah ditulis, tidak dapat diubah — koreksi adalah entri baru, bukan edit |
-| DELETE dari ledger | **Tidak** | Tidak ada yang pernah dihapus — transaksi yang dibatalkan mendapat entri pembalik |
+| UPDATE pada ledger | **Tidak** | Setelah ditulis, tidak dapat diubah; koreksi adalah entri baru, bukan edit |
+| DELETE dari ledger | **Tidak** | Tidak ada yang pernah dihapus; transaksi yang dibatalkan mendapat entri pembalik |
 
 Ini berarti bahkan pembayaran yang "dibatalkan" meninggalkan jejak: entri debit asli dan entri kredit yang cocok yang membalikkannya. Keduanya tetap di buku besar selamanya.
 
@@ -1010,9 +1010,9 @@ Setiap pembayaran adalah operasi **double-entry**:
 1. **Debit** akun pembayar: uang keluar dari pembayar.
 2. **Credit** akun penerima: uang masuk ke penerima.
 
-Kedua entri berbagi `transaction_id` yang sama untuk ketertelusuran. Keduanya mencatat `balance_before` dan `balance_after` — sehingga Anda dapat merekonstruksi saldo akun mana pun pada titik waktu mana pun tanpa memindai seluruh tabel.
+Kedua entri berbagi `transaction_id` yang sama untuk ketertelusuran. Keduanya mencatat `balance_before` dan `balance_after`, sehingga Anda dapat merekonstruksi saldo akun mana pun pada titik waktu mana pun tanpa memindai seluruh tabel.
 
-Ini bukan over-engineering. Bank sentral dan auditor memerlukan tingkat ketertelusuran ini untuk penyedia pembayaran berlisensi.
+Ini bukan *over-engineering*. Bank sentral dan auditor memerlukan tingkat ketertelusuran ini untuk penyedia pembayaran berlisensi.
 
 </section>
 
@@ -1319,7 +1319,7 @@ public function checkDailyVolume(string $accountId, int $newAmount, string $curr
 
 ### Penjaga 3: Pemeriksaan Kecepatan (Velocity)
 
-Terlalu banyak pembayaran dalam jendela singkat adalah sinyal penipuan yang kuat — terutama untuk jumlah kecil (pengujian kartu atau credential stuffing).
+Terlalu banyak pembayaran dalam jendela singkat adalah sinyal penipuan yang kuat, terutama untuk jumlah kecil (pengujian kartu atau *credential stuffing*).
 
 ```php
 public function checkVelocity(string $accountId): ?string
@@ -1376,7 +1376,7 @@ public function checkSuspiciousAmount(int $amount, string $currency): ?string
 
 ### Menjalankan Semua Penjaga
 
-`PaymentService` menjalankan semua penjaga sebagai batch — mengumpulkan setiap pelanggaran:
+`PaymentService` menjalankan semua penjaga sebagai *batch*, mengumpulkan setiap pelanggaran:
 
 ```php
 $fraudErrors = [];
@@ -1406,7 +1406,7 @@ if (!empty($fraudErrors)) {
 }
 ```
 
-Setiap penjaga **independen** — satu penjaga gagal tidak mencegah penjaga lain berjalan. Klien menerima semua pelanggaran sekaligus, sehingga mereka dapat menangani setiap masalah dalam satu iterasi.
+Setiap penjaga **independen**, satu penjaga gagal tidak mencegah penjaga lain berjalan. Klien menerima semua pelanggaran sekaligus, sehingga mereka dapat menangani setiap masalah dalam satu iterasi.
 
 </section>
 
@@ -1993,9 +1993,9 @@ CREATE TABLE transactions (
 
 ### Panduan Langkah Demi Langkah
 
-1. **Validasi**: `PaymentRequestValidator` memeriksa setiap field. Permintaan yang salah format tidak pernah mencapai database.
-2. **Idempotensi**: Jika kunci ada, kembalikan hasil yang di-cache segera. Ini adalah pencarian primary-key tunggal — sub-milidetik.
-3. **Pemeriksaan saldo**: Query buku besar (`SELECT SUM(...)`) untuk saldo pembayar saat ini. Tidak ada tabel saldo yang harus dipelihara — buku besar **adalah** sumber kebenaran.
+1. **Validasi**: `PaymentRequestValidator` memeriksa setiap *field*. Permintaan yang salah format tidak pernah mencapai database.
+2. **Idempotensi**: Jika kunci ada, kembalikan hasil yang di-cache segera. Ini adalah pencarian *primary-key* tunggal, sub-milidetik.
+3. **Pemeriksaan saldo**: *Query* buku besar (`SELECT SUM(...)`) untuk saldo pembayar saat ini. Tidak ada tabel saldo yang harus dipelihara, buku besar **adalah** sumber kebenaran.
 4. **Pemeriksaan penipuan**: Jalankan keempat penjaga. Jumlah mencurigakan memicu peringatan (bukan penolakan), memungkinkan peninjauan manusia tanpa memblokir pengguna yang sah.
 5. **Eksekusi**: Semua penulisan terjadi di dalam transaksi database. Jika ada penulisan yang gagal, seluruh transaksi di-rollback. Entri buku besar dan baris transaksi ditulis bersama atau tidak sama sekali.
 6. **Cache**: Simpan hasil terhadap kunci idempotensi sehingga percobaan ulang berikutnya mengembalikan hasil yang sama.
@@ -2098,7 +2098,7 @@ $payment = 33.33;
 $new_balance = $balance - $payment; // 67.17? Atau 67.17000000000001?
 ```
 
-IEEE 754 floating-point tidak dapat merepresentasikan pecahan desimal secara tepat. Hasil klasiknya:
+IEEE 754 *floating-point* tidak dapat merepresentasikan pecahan desimal secara tepat. Hasil klasiknya:
 
 ```php
 var_dump(0.1 + 0.2 === 0.3); // bool(false)
@@ -2107,7 +2107,7 @@ var_dump(0.1 + 0.2);         // float(0.30000000000000004)
 
 Sekarang kalikan ini dengan ribuan transaksi per hari. Rekonsiliasi menjadi mimpi buruk.
 
-**Lakukan ini sebagai gantinya:** Simpan amount sebagai integer dalam unit mata uang terkecil. `100.50 USD` → `10050` sen. Semua aritmatika adalah aritmatika integer — tepat dan dapat diprediksi.
+**Lakukan ini sebagai gantinya:** Simpan *amount* sebagai integer dalam unit mata uang terkecil. `100.50 USD` → `10050` sen. Semua aritmatika adalah aritmatika integer, tepat dan dapat diprediksi.
 
 ### Kesalahan 2: Tidak Ada Idempotensi
 
@@ -2121,7 +2121,7 @@ public function processPayment(PaymentRequest $request): PaymentResult
 }
 ```
 
-Timeout jaringan antara `debitPayer` dan respons HTTP berarti klien tidak tahu apakah pembayaran berhasil. Tanpa idempotensi, percobaan ulang menciptakan debit ganda.
+*Timeout* jaringan antara `debitPayer` dan respons HTTP berarti klien tidak tahu apakah pembayaran berhasil. Tanpa idempotensi, percobaan ulang menciptakan debit ganda.
 
 **Lakukan ini sebagai gantinya:** Selalu cari kunci idempotensi **pertama**, sebelum logika bisnis apa pun. Kembalikan hasil yang di-cache jika ada.
 
@@ -2133,11 +2133,11 @@ $stmt = $pdo->prepare('UPDATE accounts SET balance = balance - :amount WHERE id 
 $stmt->execute(['amount' => $amount, 'id' => $payerId]);
 ```
 
-Jika pembaruan ini berjalan dan kemudian sesuatu crash, Anda tidak memiliki catatan tentang **apa** saldo sebelumnya, **kapan** debit terjadi, atau **mengapa**. Selama sengketa atau audit, Anda tidak dapat merekonstruksi riwayat akun.
+Jika pembaruan ini berjalan dan kemudian sesuatu *crash*, Anda tidak memiliki catatan tentang **apa** saldo sebelumnya, **kapan** debit terjadi, atau **mengapa**. Selama sengketa atau audit, Anda tidak dapat merekonstruksi riwayat akun.
 
 **Lakukan ini sebagai gantinya:** Tulis entri buku besar append-only. Jangan pernah memperbarui kolom saldo secara langsung. Saldo adalah **nilai yang dihitung** yang berasal dari buku besar.
 
-### Kesalahan 4: Panggilan Eksternal Sinkron di Dalam Transaksi
+### Kesalahan 4: Panggilan Eksternal Sinkron di dalam Transaksi
 
 ```php
 // BERBAHAYA: panggilan HTTP di dalam transaksi database
@@ -2278,8 +2278,8 @@ Sekarang giliran Anda. Perluas layanan pembayaran dengan dua fitur baru.
 
 Tambahkan metode `refund` ke `PaymentService`. Persyaratan:
 
-1. Terima `transaction_id` (pembayaran asli) dan `amount` opsional (refund sebagian).
-2. Jika `amount` tidak diberikan, refund jumlah penuh asli.
+1. Terima `transaction_id` (pembayaran asli) dan `amount` opsional (*refund* sebagian).
+2. Jika `amount` tidak diberikan, *refund* jumlah penuh asli.
 3. Validasi bahwa transaksi asli ada, dalam status `completed`, dan belum di-refund.
 4. Buat **entri pembalik** di buku besar: kredit pembayar (uang kembali), debit penerima (uang dihapus).
 5. Perbarui status transaksi asli menjadi `refunded`.
@@ -2291,9 +2291,9 @@ Tambahkan metode `getTransactionHistory`. Persyaratan:
 
 1. Terima `account_id`, `limit` opsional (default 20), dan `offset` opsional (default 0).
 2. Kembalikan semua transaksi di mana akun adalah pembayar atau penerima.
-3. Setiap hasil harus menyertakan ID transaksi, pihak lawan (akun lainnya), amount (positif untuk masuk, negatif untuk keluar), currency, status, dan timestamp.
+3. Setiap hasil harus menyertakan ID transaksi, pihak lawan (akun lainnya), *amount* (positif untuk masuk, negatif untuk keluar), *currency*, status, dan *timestamp*.
 4. Hasil harus diurutkan berdasarkan yang terbaru terlebih dahulu.
-5. Implementasikan pengikatan parameter SQL yang tepat — tidak ada interpolasi string.
+5. Implementasikan pengikatan parameter SQL yang tepat, tidak ada interpolasi string.
 
 ### Kode Awal
 
@@ -2408,24 +2408,24 @@ Hasil:       [
 
 1. **Fintech adalah domain yang berbeda** di mana kesalahan diukur dalam mata uang, bukan friksi UX. Setiap operasi harus atomik, dapat diaudit, dan idempoten.
 2. **Pipeline pembayaran** mengikuti urutan ketat: validasi → periksa idempotensi → otorisasi → catat → konfirmasi. Setiap tahap memiliki mode kegagalan spesifik dan jaring pengaman.
-3. **Validasi input adalah lapisan keamanan pertama Anda.** Validasi amount (hanya integer positif, tidak ada float), mata uang (allowlist), keberadaan akun, dan format kunci idempotensi sebelum logika bisnis apa pun berjalan.
-4. **Kunci idempotensi mencegah double charge.** Simpan pemetaan kunci → hasil. Periksa terlebih dahulu — sebelum query saldo, sebelum pemeriksaan penipuan, sebelum penulisan buku besar. Cache hasil selama 24 jam.
-5. **Buku besar double-entry tidak dapat dinegosiasikan.** Setiap pembayaran membuat entri debit dan entri kredit. Setiap entri mencatat `balance_before` dan `balance_after`. Tidak ada UPDATE, tidak ada DELETE — hanya append-only. Buku besar **adalah** sumber kebenaran untuk saldo akun.
+3. **Validasi input adalah lapisan keamanan pertama Anda.** Validasi *amount* (hanya integer positif, tidak ada *float*), mata uang (*allowlist*), keberadaan akun, dan format kunci idempotensi sebelum logika bisnis apa pun berjalan.
+4. **Kunci idempotensi mencegah double charge.** Simpan pemetaan kunci → hasil. Periksa terlebih dahulu, sebelum *query* saldo, sebelum pemeriksaan penipuan, sebelum penulisan buku besar. Cache hasil selama 24 jam.
+5. **Buku besar double-entry tidak dapat dinegosiasikan.** Setiap pembayaran membuat entri debit dan entri kredit. Setiap entri mencatat `balance_before` dan `balance_after`. Tidak ada UPDATE, tidak ada DELETE, hanya append-only. Buku besar **adalah** sumber kebenaran untuk saldo akun.
 6. **Penjaga penipuan harus berjalan sebelum uang bergerak.** Batas jumlah maksimum, batas volume harian, pemeriksaan kecepatan, dan deteksi pola mencurigakan melindungi pengguna dan platform Anda.
 7. **Gunakan integer sen untuk uang.** `float` tidak dapat merepresentasikan `0.1 + 0.2` secara akurat. Simpan `100.50 USD` sebagai `10050`. Tim rekonsiliasi Anda akan berterima kasih.
 8. **Jaga panggilan eksternal di luar transaksi database.** Respons gateway bank yang lambat tidak boleh menahan baris terkunci. Catat transaksi sebagai `pending`, commit, panggil gateway, lalu perbarui status.
 
-> "Dalam fintech, Anda tidak membangun fitur — Anda membangun kepercayaan. Setiap transaksi adalah janji bahwa sistem Anda tidak akan kehilangan, menghitung ganda, atau salah menempatkan uang. Hormati janji itu di setiap baris kode."
+> "Dalam fintech, Anda tidak membangun fitur, Anda membangun kepercayaan. Setiap transaksi adalah janji bahwa sistem Anda tidak akan kehilangan, menghitung ganda, atau salah menempatkan uang. Hormati janji itu di setiap baris kode."
 
 ## Bacaan Selanjutnya
 
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)** — Pelajari bagaimana bounded context memisahkan domain pembayaran, akun, dan penipuan dengan bersih.
-- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** — Pahami kapan harus mengekstrak microservice Payment seiring bertambahnya volume transaksi.
-- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)** — Kuasai strategi pengujian untuk validasi pembayaran, aturan penipuan, dan jaminan idempotensi.
-- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)** — Bangun layanan pembayaran Anda dengan percaya diri menggunakan siklus Red-Green-Refactor.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Jaga pipeline pembayaran Anda tetap terbaca seiring bertambahnya aturan bisnis dan persyaratan kepatuhan.
-- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)** — Terapkan pola Command (permintaan pembayaran), Strategy (aturan penipuan), dan Memento (snapshot transaksi).
-- **[Referensi Cepat PCI-DSS](https://www.pcisecuritystandards.org/)** — Standar Keamanan Data Industri Kartu Pembayaran. Bacaan wajib bagi siapa pun yang menangani pembayaran kartu.
-- **[Dokumentasi Idempotensi Stripe API](https://docs.stripe.com/api/idempotent_requests)** — Implementasi idempotensi tingkat produksi dari salah satu pemroses pembayaran terbesar di dunia.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)**: Pelajari bagaimana bounded context memisahkan domain pembayaran, akun, dan penipuan dengan bersih.
+- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: Pahami kapan harus mengekstrak microservice Payment seiring bertambahnya volume transaksi.
+- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)**: Kuasai strategi pengujian untuk validasi pembayaran, aturan penipuan, dan jaminan idempotensi.
+- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)**: Bangun layanan pembayaran Anda dengan percaya diri menggunakan siklus Red-Green-Refactor.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Jaga pipeline pembayaran Anda tetap terbaca seiring bertambahnya aturan bisnis dan persyaratan kepatuhan.
+- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)**: Terapkan pola Command (permintaan pembayaran), Strategy (aturan penipuan), dan Memento (snapshot transaksi).
+- **[Referensi Cepat PCI-DSS](https://www.pcisecuritystandards.org/)**: Standar Keamanan Data Industri Kartu Pembayaran. Bacaan wajib bagi siapa pun yang menangani pembayaran kartu.
+- **[Dokumentasi Idempotensi Stripe API](https://docs.stripe.com/api/idempotent_requests)**: Implementasi idempotensi tingkat produksi dari salah satu pemroses pembayaran terbesar di dunia.
 
 </section>

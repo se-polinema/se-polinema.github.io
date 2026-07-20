@@ -74,7 +74,7 @@ By the end of this tutorial you will be able to:
 
 **Continuous Integration (CI)** adalah praktik membangun dan menguji kode Anda secara otomatis setiap kali Anda mendorong perubahan ke repositori bersama. Alih-alih menunggu hingga malam sebelum tenggat waktu untuk mengetahui bahwa cabang Anda bentrok dengan pekerjaan rekan tim, CI memberi Anda jawaban dalam hitungan menit setelah setiap push: apakah perubahan saya merusak sesuatu?
 
-**Continuous Delivery / Deployment (CD)** memperluas CI dengan mengotomatiskan proses rilis. Setelah kode Anda lulus semua pengujian dan pemeriksaan kualitas, CD dapat mengirimkannya ke lingkungan staging (Continuous Delivery) atau langsung ke production (Continuous Deployment) — tanpa manusia menyalin file via FTP pada pukul 2 pagi.
+**Continuous Delivery / Deployment (CD)** memperluas CI dengan mengotomatiskan proses rilis. Setelah kode Anda lulus semua pengujian dan pemeriksaan kualitas, CD dapat mengirimkannya ke lingkungan staging (Continuous Delivery) atau langsung ke production (Continuous Deployment), tanpa manusia menyalin file via FTP pada pukul 2 pagi.
 
 Bersama-sama, CI/CD membentuk tulang punggung pengiriman perangkat lunak modern. Ia menggantikan harapan dengan bukti. Anda tidak *berharap* merge Anda berhasil. Anda push, pipeline berjalan, dan Anda tahu.
 
@@ -91,11 +91,11 @@ Tanpa CI/CD, alur kerja mahasiswa atau tim kecil yang umum terlihat seperti ini:
 7. Temukan sesuatu yang rusak
 8. SSH masuk tengah malam untuk memperbaikinya
 
-Dengan CI/CD, langkah 2 hingga 8 menjadi satu pipeline otomatis. Anda mendorong kode, dan mesin melakukan segalanya — termasuk memberi tahu Anda dengan tepat apa yang salah jika sesuatu gagal.
+Dengan CI/CD, langkah 2 hingga 8 menjadi satu pipeline otomatis. Anda mendorong kode, dan mesin melakukan segalanya, termasuk memberi tahu Anda dengan tepat apa yang salah jika sesuatu gagal.
 
 ### Koneksi ke Riset SE Lab
 
-Software Engineering Lab Politeknik Negeri Malang meneliti **SE Methodologies & Architecture**, yang mencakup otomatisasi build, pipeline deployment, dan alur kerja jaminan kualitas. Tutorial ini menjembatani kesenjangan antara tutorial pengujian (TDD, blackbox/whitebox) dan mengirimkan perangkat lunak nyata — keterampilan penting untuk magang, proyek skripsi, dan kontribusi open-source.
+Software Engineering Lab Politeknik Negeri Malang meneliti **SE Methodologies & Architecture**, yang mencakup otomatisasi build, pipeline deployment, dan alur kerja jaminan kualitas. Tutorial ini menjembatani kesenjangan antara tutorial pengujian (TDD, blackbox/whitebox) dan mengirimkan perangkat lunak nyata, keterampilan penting untuk magang, proyek skripsi, dan kontribusi open-source.
 
 ### Apa yang Akan Anda Pelajari
 
@@ -554,7 +554,7 @@ Tambahkan bagian autoload ke `composer.json`:
 }
 ```
 
-Kemudian regenerasi autoloader:
+Kemudian, buat ulang autoloader:
 
 ```bash
 $ composer dump-autoload
@@ -711,21 +711,21 @@ jobs:
 
 ### Penjelasan: Apa yang Dilakukan Setiap Langkah
 
-**`actions/checkout@v4`** — Mengkloning repositori Anda ke runner. Tanpa ini, runner adalah mesin kosong.
+**`actions/checkout@v4`**: Mengkloning repositori Anda ke runner. Tanpa ini, runner adalah mesin kosong.
 
-**`shivammathur/setup-php@v2`** — Menginstal PHP dengan versi yang ditentukan, Composer, dan ekstensi opsional. Ini adalah action PHP standar komunitas, dikelola oleh Shivam Mathur. Action ini menangani instalasi PHP, setup ekstensi, dan konfigurasi `php.ini`.
+**`shivammathur/setup-php@v2`**: Menginstal PHP dengan versi yang ditentukan, Composer, dan ekstensi opsional. Ini adalah action PHP standar komunitas, dikelola oleh Shivam Mathur. Action ini menangani instalasi PHP, setup ekstensi, dan konfigurasi `php.ini`.
 
-**Langkah cache Composer** — Perintah `composer config cache-files-dir` mengembalikan path tempat Composer menyimpan paket yang diunduh. Kita menyimpan path ini ke `$GITHUB_OUTPUT` agar langkah caching dapat menggunakannya.
+**Langkah cache Composer**: Perintah `composer config cache-files-dir` mengembalikan path tempat Composer menyimpan paket yang diunduh. Kita menyimpan path ini ke `$GITHUB_OUTPUT` agar langkah caching dapat menggunakannya.
 
-**`actions/cache@v4`** — Action caching resmi GitHub. Ini menyimpan direktori cache Composer dan mengembalikannya pada run berikutnya jika hash `composer.lock` tidak berubah. Ini mengubah `composer install` 60 detik menjadi 5 detik.
+**`actions/cache@v4`**: Action caching resmi GitHub. Ini menyimpan direktori cache Composer dan mengembalikannya pada run berikutnya jika hash `composer.lock` tidak berubah. Ini mengubah `composer install` 60 detik menjadi 5 detik.
 
-**`composer install`** — Menginstal dependensi proyek. Flag `--no-progress`, `--no-interaction`, dan `--prefer-dist` membuatnya cocok untuk lingkungan CI non-interaktif.
+**`composer install`**: Menginstal dependensi proyek. Flag `--no-progress`, `--no-interaction`, dan `--prefer-dist` membuatnya cocok untuk lingkungan CI non-interaktif.
 
-**`vendor/bin/phpunit`** — Menjalankan suite pengujian. Jika ada pengujian yang gagal, langkah keluar dengan kode non-nol, dan job ditandai sebagai gagal.
+**`vendor/bin/phpunit`**: Menjalankan suite pengujian. Jika ada pengujian yang gagal, langkah keluar dengan kode non-nol, dan job ditandai sebagai gagal.
 
 ### Mengapa Caching Penting
 
-Pada run pertama, `composer install` mengunduh setiap paket dari awal — biasanya 30–90 detik. Pada run berikutnya dengan cache hit, Composer menemukan paket sudah tersimpan secara lokal dan instalasi turun menjadi 3–10 detik. Selama 100 run workflow, ini menghemat sekitar satu jam waktu komputasi.
+Pada run pertama, `composer install` mengunduh setiap paket dari awal, biasanya 30–90 detik. Pada run berikutnya dengan cache hit, Composer menemukan paket sudah tersimpan secara lokal dan instalasi turun menjadi 3–10 detik. Selama 100 run workflow, ini menghemat sekitar satu jam waktu komputasi.
 
 ### Commit dan Push
 
@@ -738,7 +738,7 @@ $ git remote add origin https://github.com/your-username/php-ci-demo.git
 $ git push -u origin main
 ```
 
-Beralihlah ke tab **Actions** di repositori GitHub Anda. Anda seharusnya melihat workflow berjalan — dan berhasil.
+Beralihlah ke tab **Actions** di repositori GitHub Anda. Anda seharusnya melihat workflow berjalan dan berhasil.
 
 </section>
 
@@ -820,7 +820,7 @@ After pushing this workflow, the Actions tab shows **four parallel checkmarks** 
 
 ## Menjalankan PHPUnit di Berbagai Versi PHP dengan Matrix
 
-Proyek nyata perlu mendukung beberapa versi PHP. Server production Anda mungkin menjalankan PHP 8.2 sementara lingkungan klien masih menggunakan 8.1 — atau library Anda mengklaim mendukung 8.0 hingga 8.3 dan Anda perlu membuktikannya.
+Proyek nyata perlu mendukung beberapa versi PHP. Server production Anda mungkin menjalankan PHP 8.2 sementara lingkungan klien masih menggunakan 8.1, atau library Anda mengklaim mendukung 8.0 hingga 8.3 dan Anda perlu membuktikannya.
 
 GitHub Actions mendukung **matrix strategies**: Anda mendefinisikan daftar nilai, dan runner membuat satu job paralel untuk setiap kombinasi. Untuk PHP, dimensi matrix yang paling umum adalah `php-version`.
 
@@ -876,15 +876,15 @@ jobs:
 
 ### Penambahan Kunci
 
-**`strategy.fail-fast: false`** — Secara default, GitHub membatalkan semua job matrix begitu satu gagal. Mengatur `fail-fast` ke `false` memungkinkan semua versi berjalan hingga selesai, sehingga Anda melihat gambaran penuh. Jika PHP 8.0 gagal tetapi 8.1, 8.2, dan 8.3 berhasil, Anda tahu masalahnya spesifik untuk 8.0.
+**`strategy.fail-fast: false`**: Secara default, GitHub membatalkan semua job matrix begitu satu gagal. Mengatur `fail-fast` ke `false` memungkinkan semua versi berjalan hingga selesai, sehingga Anda melihat gambaran penuh. Jika PHP 8.0 gagal tetapi 8.1, 8.2, dan 8.3 berhasil, Anda tahu masalahnya spesifik untuk 8.0.
 
-**`matrix.php-version: ['8.0', '8.1', '8.2', '8.3']`** — Mendefinisikan empat job paralel. Anda dapat menambah atau menghapus versi dengan bebas.
+**`matrix.php-version: ['8.0', '8.1', '8.2', '8.3']`**: Mendefinisikan empat job paralel. Anda dapat menambah atau menghapus versi dengan bebas.
 
-**`${{ matrix.php-version }}` dalam cache key** — Kritis. Tanpa ini, keempat job berbagi satu cache, dan paket PHP 8.0 menimpa paket PHP 8.3 (atau sebaliknya), menyebabkan ketidakcocokan versi. Menambahkan versi PHP ke cache key memberi setiap versi cache-nya sendiri.
+**`${{ matrix.php-version }}` dalam cache key**: Kritis. Tanpa ini, keempat job berbagi satu cache, dan paket PHP 8.0 menimpa paket PHP 8.3 (atau sebaliknya), menyebabkan ketidakcocokan versi. Menambahkan versi PHP ke cache key memberi setiap versi cache-nya sendiri.
 
 ### Seperti Apa Ini dalam Praktik
 
-Setelah mendorong workflow ini, tab Actions menampilkan **empat tanda centang paralel** — satu untuk setiap versi PHP. Jika keempatnya berhasil, codebase Anda terbukti kompatibel. Jika satu gagal, Anda perluas log job dan lihat dengan tepat pengujian mana yang gagal di versi mana.
+Setelah mendorong workflow ini, tab Actions menampilkan **empat tanda centang paralel**: satu untuk setiap versi PHP. Jika keempatnya berhasil, codebase Anda terbukti kompatibel. Jika satu gagal, Anda perluas log job dan lihat dengan tepat pengujian mana yang gagal di versi mana.
 
 </section>
 
@@ -1239,22 +1239,22 @@ Tambahkan job ini di akhir `.github/workflows/php.yml`:
 
 ### Mengurai Logika Deployment
 
-**`needs: [test, static-analysis, code-style]`** — Job ini dimulai hanya setelah ketiga job prasyarat berhasil. Jika ada yang gagal, deployment dilewati. Ini adalah jaminan keamanan fundamental dari CD: kode yang rusak tidak pernah mencapai production.
+**`needs: [test, static-analysis, code-style]`**: Job ini dimulai hanya setelah ketiga job prasyarat berhasil. Jika ada yang gagal, deployment dilewati. Ini adalah jaminan keamanan fundamental dari CD: kode yang rusak tidak pernah mencapai production.
 
-**`if: github.ref == 'refs/heads/main' && github.event_name == 'push'`** — Dua kondisi:
+**`if: github.ref == 'refs/heads/main' && github.event_name == 'push'`**: Dua kondisi:
 - Hanya deploy dari branch `main` (bukan `develop` atau branch fitur)
 - Hanya deploy pada event `push` (bukan pada pull request, yang seharusnya hanya memverifikasi, bukan deploy)
 
-**`easingthemes/ssh-deploy`** — Action komunitas populer yang:
+**`easingthemes/ssh-deploy`**: Action komunitas populer yang:
 1. Membangun koneksi SSH menggunakan kunci privat
 2. Menggunakan rsync untuk menyalin file ke server remote
 3. Menjalankan perintah pasca-deployment melalui `SCRIPT_AFTER`
 
-**Flag `--exclude`** — Kritis untuk tidak menimpa file spesifik server:
-- `.git/` — Server tidak memerlukan riwayat Git
-- `.github/` — File workflow hanya untuk CI
-- `.env` — Environment variables production tidak boleh ditimpa dari repositori
-- `vendor/` — Dependensi akan diinstal ulang di server
+**Flag `--exclude`**: Kritis untuk tidak menimpa file spesifik server:
+- `.git/`: Server tidak memerlukan riwayat Git
+- `.github/`: File workflow hanya untuk CI
+- `.env`: Environment variables production tidak boleh ditimpa dari repositori
+- `vendor/`: Dependensi akan diinstal ulang di server
 
 ### Target Deployment Alternatif
 
@@ -1334,7 +1334,7 @@ If this manual SSH works but the GitHub Action fails with "Permission denied," d
 
 ## Mengelola Secrets dan Environment Variables
 
-Job deployment mereferensikan `${{ secrets.SSH_PRIVATE_KEY }}`, `${{ secrets.REMOTE_HOST }}`, dan nilai rahasia lainnya. Ini **tidak** disimpan dalam file workflow — mereka disimpan di penyimpanan secrets terenkripsi GitHub dan disuntikkan saat runtime.
+Job deployment mereferensikan `${{ secrets.SSH_PRIVATE_KEY }}`, `${{ secrets.REMOTE_HOST }}`, dan nilai rahasia lainnya. Ini **tidak** disimpan dalam file workflow: mereka disimpan di penyimpanan secrets terenkripsi GitHub dan disuntikkan saat runtime.
 
 ### Tempat Secrets Disimpan
 
@@ -1367,13 +1367,13 @@ Ini adalah teks biasa dan terlihat di log. Gunakan untuk apa pun yang bukan kred
 
 ### Aturan Keamanan
 
-1. **Jangan pernah hardcode secrets di file workflow.** Siapa pun dengan akses baca ke repositori dapat melihat konten file. Secrets dienkripsi saat diam dan hanya didekripsi selama eksekusi workflow.
+1. **Jangan pernah hardcode secrets di file workflow.** Siapa pun dengan akses baca ke repositori dapat melihat konten file. Secrets dienkripsi saat disimpan dan hanya didekripsi selama eksekusi workflow.
 
-2. **Jangan pernah menampilkan secrets ke log.** GitHub secara otomatis menyunting nilai secret dari output log — string `***` menggantikannya. Tetapi jika Anda melakukan base64-encode atau mentransformasi secret sebelum mencetak, penyuntingan mungkin gagal.
+2. **Jangan pernah menampilkan secrets ke log.** GitHub secara otomatis menyunting nilai secret dari output log: string `***` menggantikannya. Tetapi jika Anda melakukan base64-encode atau mentransformasi secret sebelum mencetak, penyuntingan mungkin gagal.
 
-3. **Gunakan prinsip hak istimewa terendah.** Buat pengguna `deploy` khusus di VPS Anda dengan akses kunci SSH saja — tanpa kata sandi, tanpa sudo kecuali diperlukan untuk perintah tertentu.
+3. **Gunakan prinsip hak istimewa terendah.** Buat pengguna `deploy` khusus di VPS Anda dengan akses kunci SSH saja, tanpa kata sandi, tanpa sudo kecuali diperlukan untuk perintah tertentu.
 
-4. **Rotasi kunci SSH secara berkala.** Jika anggota tim meninggalkan proyek, regenerasi kunci deploy dan perbarui secret `SSH_PRIVATE_KEY`.
+4. **Rotasi kunci SSH secara berkala.** Jika anggota tim meninggalkan proyek, buat ulang kunci deploy dan perbarui secret `SSH_PRIVATE_KEY`.
 
 ### Troubleshooting Secrets
 
@@ -1384,7 +1384,7 @@ $ ssh -i ~/.ssh/deploy_key deploy@your-server-ip "echo connected"
 connected
 ```
 
-Jika SSH manual ini berhasil tetapi GitHub Action gagal dengan "Permission denied," periksa kembali format secret.
+Jika SSH manual ini berhasil tetapi GitHub Action gagal dengan "Permission denied", periksa kembali format secret.
 
 </section>
 
@@ -1477,7 +1477,7 @@ Pipeline CI/CD gagal. Bahkan pengembang berpengalaman menghabiskan waktu di tab 
 
 **Penyebab:** Seseorang memperbarui `composer.json` secara lokal tetapi lupa menjalankan `composer update` dan commit `composer.lock` yang baru.
 
-**Perbaikan:** Selalu jalankan `composer install` di CI. Gunakan `composer update` hanya secara lokal ketika Anda sengaja mengubah dependensi — dan commit `composer.lock` yang dihasilkan.
+**Perbaikan:** Selalu jalankan `composer install` di CI. Gunakan `composer update` hanya secara lokal ketika Anda sengaja mengubah dependensi, dan commit `composer.lock` yang dihasilkan.
 
 ### Jebakan 2: Pengujian Berhasil Secara Lokal tetapi Gagal di CI
 
@@ -1509,7 +1509,7 @@ Pipeline CI/CD gagal. Bahkan pengembang berpengalaman menghabiskan waktu di tab 
 
 **Penyebab:** Caching salah dikonfigurasi. Kesalahan umum: cache key salah, `hashFiles` hilang, atau caching direktori yang salah.
 
-**Perbaikan:** Verifikasi bahwa cache key Anda mencakup `hashFiles('**/composer.lock')`. Periksa output langkah cache di log Actions — ia akan mengatakan "Cache not found" pada run pertama dan "Cache restored from key" pada run berikutnya.
+**Perbaikan:** Verifikasi bahwa cache key Anda mencakup `hashFiles('**/composer.lock')`. Periksa output langkah cache di log Actions: ia akan mengatakan "Cache not found" pada run pertama dan "Cache restored from key" pada run berikutnya.
 
 ### Jebakan 4: Deployment Menimpa `.env` Production
 
@@ -1529,7 +1529,7 @@ Pipeline CI/CD gagal. Bahkan pengembang berpengalaman menghabiskan waktu di tab 
 
 ### Cara Membaca Log GitHub Actions
 
-Ketika sebuah job gagal, klik di tab Actions. Setiap langkah dapat diperluas. Langkah yang gagal ditandai dengan tanda silang merah. Perluas dan gulir ke bawah — pesan error biasanya ada di 10 baris terakhir.
+Ketika sebuah job gagal, klik di tab Actions. Setiap langkah dapat diperluas. Langkah yang gagal ditandai dengan tanda silang merah. Perluas dan gulir ke bawah: pesan error biasanya ada di 10 baris terakhir.
 
 Cari:
 - **Kode keluar:** Angka setelah "Process completed with exit code" (non-nol = kegagalan)
@@ -1596,7 +1596,7 @@ CI/CD itu kuat, tetapi tidak gratis. Setiap workflow run mengonsumsi menit GitHu
 | **Proyek dengan pengujian** | Jika Anda memiliki pengujian tetapi tidak ada CI, pengujian hanya sebaik ingatan pengembang. CI membuatnya wajib. |
 | **Kode library atau package** | Library harus mendukung beberapa versi PHP. Matrix strategy membuktikan kompatibilitas secara otomatis. |
 | **Aplikasi yang sering di-deploy** | Jika Anda deploy mingguan atau harian, otomatisasi menghilangkan bagian paling rawan kesalahan dari proses. |
-| **Proyek tim (akademik atau industri)** | CI menegakkan standar yang ditetapkan instruktur atau tech lead — secara konsisten, tanpa pengecekan manual. |
+| **Proyek tim (akademik atau industri)** | CI menegakkan standar yang ditetapkan instruktur atau tech lead, secara konsisten, tanpa pengecekan manual. |
 | **Proyek open-source** | Kontributor eksternal perlu tahu dalam hitungan menit apakah PR mereka lolos. CI memberi mereka umpan balik itu. |
 
 ### Ketika CI/CD Mungkin Berlebihan
@@ -1618,7 +1618,7 @@ Jika Anda baru mengenal CI/CD, berikut adalah urutan untuk mengadopsinya:
 3. **Tambahkan job kualitas kode** (PHPStan, PHPCS). Ini menegakkan standar.
 4. **Tambahkan deployment** sebagai langkah terakhir, dilindungi oleh `needs` dan kondisi branch.
 
-Setiap lapisan dibangun di atas yang sebelumnya. Mulai dengan pengujian — jika Anda tidak memiliki pengujian, CI tidak memberi Anda apa pun untuk diverifikasi. Progresi ini mencerminkan bagaimana tim profesional mengadopsi DevOps: uji dulu, lalu kualitas, lalu deployment.
+Setiap lapisan dibangun di atas yang sebelumnya. Mulai dengan pengujian: jika Anda tidak memiliki pengujian, CI tidak memberi Anda apa pun untuk diverifikasi. Progresi ini mencerminkan bagaimana tim profesional mengadopsi DevOps: uji dulu, lalu kualitas, lalu deployment.
 
 </section>
 
@@ -1650,13 +1650,13 @@ Setiap lapisan dibangun di atas yang sebelumnya. Mulai dengan pengujian — jika
 2. **GitHub Actions** gratis untuk repositori publik dan menggunakan file YAML workflow untuk mendefinisikan jobs, steps, dan trigger.
 3. **Workflow PHP dasar** menginstal PHP, men-cache dependensi Composer, menginstal paket, dan menjalankan PHPUnit.
 4. **Matrix strategies** memungkinkan Anda menguji terhadap beberapa versi PHP secara paralel, dengan `fail-fast: false` untuk melihat semua hasil.
-5. **Gerbang kualitas kode** (PHPStan, PHP_CodeSniffer) berjalan sebagai job paralel terpisah dan mencegah kode berkualitas buruk dari penggabungan.
+5. **Gerbang kualitas kode** (PHPStan, PHP_CodeSniffer) berjalan sebagai job paralel terpisah dan mencegah kode berkualitas buruk digabungkan.
 6. **Job deployment** menggunakan SSH + rsync (`easingthemes/ssh-deploy`) dan dilindungi oleh `needs` sehingga hanya berjalan ketika semua pemeriksaan lulus.
-7. **Secrets** (kunci SSH, nama host, kredensial) disimpan di penyimpanan secrets terenkripsi GitHub, jangan pernah di file workflow.
+7. **Secrets** (kunci SSH, nama host, kredensial) disimpan di penyimpanan secrets terenkripsi GitHub, tidak pernah di file workflow.
 8. **Debugging** melibatkan membaca log, memeriksa kode keluar, dan menggunakan `ACTIONS_STEP_DEBUG` untuk output verbose.
 9. **Bersikap pragmatis:** CI/CD sepadan dengan investasi untuk proyek tim, library, dan aplikasi yang sering di-deploy. Mungkin berlebihan untuk prototipe solo dan kode sekali pakai.
 
-> CI/CD tidak menggantikan disiplin — ia mengkodekannya. Pipeline adalah versi permanen yang dapat dibaca mesin dari "apakah kamu ingat untuk menjalankan pengujian?"
+> CI/CD tidak menggantikan disiplin: ia mengkodekannya. Pipeline adalah versi permanen yang dapat dibaca mesin dari "apakah kamu ingat untuk menjalankan pengujian?"
 
 </section>
 
@@ -1723,8 +1723,8 @@ Sekarang giliran Anda. Pilih salah satu repositori PHP Anda yang sudah ada (atau
 1. **Buat `.github/workflows/php.yml`** dengan job test yang menjalankan PHPUnit.
 2. **Tambahkan matrix strategy** yang menguji terhadap setidaknya dua versi PHP (misalnya, 8.1 dan 8.2).
 3. **Konfigurasikan caching Composer** sehingga run berikutnya lebih cepat.
-4. **Tambahkan setidaknya satu job kualitas kode** — baik PHPStan di level 5 atau PHP_CodeSniffer dengan PSR-12.
-5. **Tambahkan kerangka job deployment** yang mereferensikan `${{ secrets.* }}` untuk kredensial SSH (Anda tidak perlu benar-benar deploy — definisi job saja sudah cukup).
+4. **Tambahkan setidaknya satu job kualitas kode**: baik PHPStan di level 5 atau PHP_CodeSniffer dengan PSR-12.
+5. **Tambahkan kerangka job deployment** yang mereferensikan `${{ secrets.* }}` untuk kredensial SSH (Anda tidak perlu benar-benar deploy, definisi job saja sudah cukup).
 6. **Push workflow** dan verifikasi bahwa semua job berhasil di tab Actions.
 
 ### Daftar Periksa Verifikasi
@@ -1758,6 +1758,6 @@ Jika proyek pribadi Anda menggunakan Laravel, Anda mungkin perlu mengonfigurasi 
 - Bagaimana pengujian yang gagal muncul di log CI versus terminal lokal Anda
 - Perbedaan antara tanda silang merah di satu versi PHP dan hijau di semua yang lain
 
-Siapkan, rusak, perbaiki — lalu centang job "Deploy to VPS" dengan benar-benar mengonfigurasi akses SSH ke server (VPS $5 dari penyedia mana pun bisa). Pertama kali Anda push ke `main` dan menonton kode muncul di URL langsung tanpa menyentuh terminal adalah tonggak yang layak dicapai.
+Siapkan, rusak, perbaiki, lalu centang job "Deploy to VPS" dengan benar-benar mengonfigurasi akses SSH ke server (VPS $5 dari penyedia mana pun bisa). Pertama kali Anda push ke `main` dan menonton kode muncul di URL langsung tanpa menyentuh terminal adalah tonggak yang layak dicapai.
 
 </section>

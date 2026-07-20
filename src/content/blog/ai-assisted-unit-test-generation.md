@@ -8,7 +8,7 @@ author: SE Lab
 lang: en
 featured: false
 excerpt: "Learn how to use AI coding assistants to generate, review, and refine PHPUnit tests. Covers practical workflows with PHP examples, common AI pitfalls (hallucinations, brittle tests, missing edge cases), and when AI-assisted test generation helps — and when it fails."
-excerptId: "Pelajari cara menggunakan asisten coding AI untuk menghasilkan, meninjau, dan menyempurnakan pengujian PHPUnit. Mencakup alur kerja praktis dengan contoh PHP, jebakan umum AI (halusinasi, pengujian rapuh, kasus tepi yang hilang), serta kapan pembuatan pengujian berbantuan AI membantu — dan kapan ia gagal."
+excerptId: "Pelajari cara menggunakan asisten coding AI untuk menghasilkan, meninjau, dan menyempurnakan pengujian PHPUnit. Mencakup alur kerja praktis dengan contoh PHP, jebakan umum AI (halusinasi, pengujian rapuh, kasus tepi yang hilang), serta kapan pembuatan pengujian berbantuan AI membantu, dan kapan ia gagal."
 stream: emerging-technologies-se
 tags:
   - AI
@@ -38,11 +38,11 @@ This is fundamentally different from traditional test generation tools (like pro
 
 ## Apa Itu Pembuatan Unit Test Berbantuan AI?
 
-**Pembuatan unit test berbantuan AI** adalah praktik menggunakan model bahasa besar (LLM) — seperti yang mendukung GitHub Copilot, Codeium, atau JetBrains AI Assistant — untuk menyarankan, menyusun, atau memperluas pengujian unit untuk kode Anda. Alih-alih menatap file pengujian kosong, Anda memberikan kode produksi Anda ke AI, mendeskripsikan perilaku yang ingin Anda uji, dan menerima kerangka pengujian awal dalam hitungan detik.
+**Pembuatan unit test berbantuan AI** adalah praktik menggunakan model bahasa besar (LLM), seperti yang mendukung GitHub Copilot, Codeium, atau JetBrains AI Assistant, untuk menyarankan, menyusun, atau memperluas pengujian unit untuk kode Anda. Alih-alih menatap file pengujian kosong, Anda memberikan kode produksi Anda ke AI, mendeskripsikan perilaku yang ingin Anda uji, dan menerima kerangka pengujian awal dalam hitungan detik.
 
-AI tidak *memahami* kode Anda seperti yang dilakukan manusia. AI memprediksi token apa (kata, simbol, pola) yang mungkin mengikuti berdasarkan data pelatihannya. Saat Anda memberinya fungsi PHP dan meminta pengujian PHPUnit, ia mengambil dari jutaan file pengujian open-source yang telah dilihatnya untuk menghasilkan suite pengujian yang tampak masuk akal.
+AI tidak *memahami* kode Anda seperti yang dilakukan manusia. AI memprediksi token apa (kata, simbol, pola) yang mungkin mengikuti berdasarkan data pelatihannya. Saat Anda memberinya fungsi PHP dan meminta pengujian PHPUnit, ia mengambil dari jutaan file pengujian *open-source* yang telah dilihatnya untuk menghasilkan *suite* pengujian yang tampak masuk akal.
 
-Ini secara fundamental berbeda dari alat pembuatan pengujian tradisional (seperti framework property-based testing atau symbolic execution engine). Alat-alat tersebut bernalar tentang masukan dan jalur secara matematis. Alat AI bernalar secara probabilistik — yang membuatnya sangat fleksibel tetapi terkadang salah dengan cara yang halus dan terdengar meyakinkan.
+Ini secara fundamental berbeda dari alat pembuatan pengujian tradisional (seperti *framework property-based testing* atau *symbolic execution engine*). Alat-alat tersebut bernalar tentang masukan dan jalur secara matematis. Alat AI bernalar secara probabilistik, yang membuatnya sangat fleksibel tetapi terkadang salah dengan cara yang halus dan terdengar meyakinkan.
 
 </section>
 
@@ -124,11 +124,11 @@ When adding a feature to an existing class, you can ask the AI: "Add tests for t
 
 ## Mengapa Menggunakan AI untuk Pembuatan Test PHP?
 
-Developer PHP di Politeknik Negeri Malang dan sekitarnya sudah menulis pengujian dengan PHPUnit. Menambahkan asisten AI ke dalam alur kerja membawa beberapa manfaat praktis — tetapi hanya bila digunakan dengan disiplin.
+Developer PHP di Politeknik Negeri Malang dan sekitarnya sudah menulis pengujian dengan PHPUnit. Menambahkan asisten AI ke dalam alur kerja membawa beberapa manfaat praktis, tetapi hanya bila digunakan dengan disiplin.
 
 ### Draf Awal yang Lebih Cepat
 
-Menulis pengujian pertama untuk kelas baru seringkali menjadi bagian tersulit. Anda perlu memutuskan struktur pengujian, mock dependensi, dan memilih masukan representatif. Asisten AI dapat menghasilkan kerangka pengujian lengkap dari definisi kelas Anda dalam waktu kurang dari satu menit. Anda kemudian meninjau dan menyempurnakannya — yang jauh lebih cepat daripada mengetiknya dari awal.
+Menulis pengujian pertama untuk kelas baru seringkali menjadi bagian tersulit. Anda perlu memutuskan struktur pengujian, dependensi *mock*, dan memilih masukan representatif. Asisten AI dapat menghasilkan kerangka pengujian lengkap dari definisi kelas Anda dalam waktu kurang dari satu menit. Anda kemudian meninjau dan menyempurnakannya, yang jauh lebih cepat daripada mengetiknya dari awal.
 
 ```php
 // Anda menulis kelasnya, lalu minta AI: "Buatkan pengujian PHPUnit untuk ini"
@@ -180,15 +180,15 @@ Tiga pengujian bermakna, terstruktur dengan baik, dalam hitungan detik. Itu adal
 
 ### Struktur Pengujian yang Konsisten
 
-Asisten AI cenderung menghasilkan pengujian yang mengikuti konvensi umum: `setUp()` untuk fixture bersama, nama metode deskriptif, dan pola Arrange-Act-Assert. Konsistensi ini berharga ketika banyak developer berkontribusi pada suite pengujian yang sama.
+Asisten AI cenderung menghasilkan pengujian yang mengikuti konvensi umum: `setUp()` untuk *fixture* bersama, nama metode deskriptif, dan pola Arrange-Act-Assert. Konsistensi ini berharga ketika banyak developer berkontribusi pada *suite* pengujian yang sama.
 
 ### Alat Bantu Belajar untuk Pemula
 
-Bagi mahasiswa yang belajar PHPUnit, membaca pengujian yang dihasilkan AI adalah cara yang sangat baik untuk menyerap pola. Anda melihat cara menyusun metode pengujian, cara menggunakan `$this->assertEquals()` vs `$this->assertTrue()`, dan cara menangani exception dengan `$this->expectException()`. Seiring waktu, Anda menginternalisasi pola-pola ini dan menulisnya sendiri.
+Bagi mahasiswa yang belajar PHPUnit, membaca pengujian yang dihasilkan AI adalah cara yang sangat baik untuk menyerap pola. Anda melihat cara menyusun metode pengujian, cara menggunakan `$this->assertEquals()` vs `$this->assertTrue()`, dan cara menangani *exception* dengan `$this->expectException()`. Seiring waktu, Anda menginternalisasi pola-pola ini dan menulisnya sendiri.
 
 ### Keamanan Regresi dengan Cepat
 
-Saat menambahkan fitur ke kelas yang sudah ada, Anda dapat meminta AI: "Tambahkan pengujian untuk metode `applyBulkDiscount()` yang baru." AI membaca tanda tangan metode, menghasilkan test case yang relevan, dan Anda meng-commit-nya bersama perubahan Anda. Ini menjaga cakupan terus bertumbuh tanpa mengganggu alur Anda.
+Saat menambahkan fitur ke kelas yang sudah ada, Anda dapat meminta AI: "Tambahkan pengujian untuk metode `applyBulkDiscount()` yang baru." AI membaca tanda tangan metode, menghasilkan *test case* yang relevan, dan Anda meng-commit-nya bersama perubahan Anda. Ini menjaga cakupan terus bertumbuh tanpa mengganggu alur Anda.
 
 </section>
 
@@ -239,19 +239,19 @@ The workflow: write your class, select it in the editor, and ask Continue: "Gene
 
 ## Alat yang Dapat Anda Coba
 
-Tidak semua alat coding AI setara. Berikut adalah yang paling relevan untuk developer PHP, mulai dari cloud-hosted hingga sepenuhnya lokal.
+Tidak semua alat *coding* AI setara. Berikut adalah yang paling relevan untuk developer PHP, mulai dari *cloud-hosted* hingga sepenuhnya lokal.
 
 | Alat | Tipe | Dukungan PHP | Biaya |
 |---|---|---|---|
-| **GitHub Copilot** | Ekstensi IDE cloud | Sangat baik | \$10/bulan (gratis untuk mahasiswa) |
-| **Codeium** | Ekstensi IDE cloud | Baik | Tersedia tier gratis |
+| **GitHub Copilot** | Ekstensi IDE *cloud* | Sangat baik | \$10/bulan (gratis untuk mahasiswa) |
+| **Codeium** | Ekstensi IDE *cloud* | Baik | Tersedia *tier* gratis |
 | **JetBrains AI Assistant** | IDE-native (PhpStorm) | Sangat baik | Berlangganan |
-| **Tabnine** | Cloud + lokal | Baik | Tersedia tier gratis |
-| **Continue + Ollama** | Sepenuhnya lokal / open-source | Baik | Gratis |
+| **Tabnine** | *Cloud* + lokal | Baik | Tersedia *tier* gratis |
+| **Continue + Ollama** | Sepenuhnya lokal / *open-source* | Baik | Gratis |
 
 ### GitHub Copilot
 
-Copilot terintegrasi langsung ke dalam VS Code dan JetBrains IDE. Untuk PHP, ia memahami asersi PHPUnit, pola mock dengan Mockery/Prophecy, dan konvensi PSR. Fitur terkuatnya untuk pengujian adalah **Copilot Chat**: Anda memilih kelas, mengetik `/tests`, dan ia menghasilkan file pengujian lengkap dalam konteks.
+Copilot terintegrasi langsung ke dalam VS Code dan JetBrains IDE. Untuk PHP, ia memahami asersi PHPUnit, pola *mock* dengan Mockery/Prophecy, dan konvensi PSR. Fitur terkuatnya untuk pengujian adalah **Copilot Chat**: Anda memilih kelas, mengetik `/tests`, dan ia menghasilkan file pengujian lengkap dalam konteks.
 
 **Contoh prompt di Copilot Chat:**
 ```
@@ -265,7 +265,7 @@ Jika Anda menggunakan PhpStorm, asisten AI milik JetBrains terintegrasi secara m
 
 ### Continue + Ollama (Lokal)
 
-Untuk mahasiswa yang khawatir tentang privasi atau akses internet, Continue adalah ekstensi VS Code yang terhubung ke LLM lokal melalui Ollama. Instal Ollama, tarik model seperti `codellama` atau `deepseek-coder`, dan Continue memungkinkan Anda menghasilkan pengujian sepenuhnya offline. Kualitas keluarannya lebih rendah dari Copilot tetapi sangat dapat digunakan untuk belajar.
+Untuk mahasiswa yang khawatir tentang privasi atau akses internet, Continue adalah ekstensi VS Code yang terhubung ke LLM lokal melalui Ollama. Instal Ollama, tarik model seperti `codellama` atau `deepseek-coder`, dan Continue memungkinkan Anda menghasilkan pengujian sepenuhnya offline. Kualitas keluarannya lebih rendah daripada Copilot, tetapi sangat dapat digunakan untuk belajar.
 
 ```bash
 # Instal Ollama, lalu tarik model coding
@@ -529,7 +529,7 @@ class GradeConverter
 
 Di asisten AI Anda, berikan kelas di atas dan minta:
 
-> "Buatkan kelas pengujian PHPUnit untuk GradeConverter. Cakup setiap batas nilai, kasus exception untuk input tidak valid, dan beberapa nilai dalam setiap rentang nilai."
+> "Buatkan kelas pengujian PHPUnit untuk GradeConverter. Cakup setiap batas nilai, kasus *exception* untuk input tidak valid, dan beberapa nilai dalam setiap rentang nilai."
 
 **Apa yang mungkin dihasilkan AI** (`tests/GradeConverterTest.php`):
 
@@ -595,15 +595,15 @@ class GradeConverterTest extends TestCase
 
 Sebelum menjalankan pengujian, periksa output AI. Berikut adalah **daftar periksa peninjauan**:
 
-1. **Apakah semua perilaku yang diharapkan tercakup?** Lihat kelasnya — apakah AI menguji setiap cabang? Ia mencakup A sampai E, ditambah dua jalur exception. Bagus.
+1. **Apakah semua perilaku yang diharapkan tercakup?** Lihat kelasnya: apakah AI menguji setiap cabang? Ia mencakup A sampai E, ditambah dua jalur *exception*. Bagus.
 
-2. **Apakah nilai batas diuji?** AI menguji 90 (batas antara A dan B), 80, 0, 100, -1, dan 101. Ini benar. Namun, ia melewatkan beberapa batas: 89 (atas B), 79 (atas C), 69 (atas D), 59 (atas E). Kita harus menambahkannya.
+2. **Apakah nilai batas diuji?** AI menguji 90 (batas antara A dan B), 80, 0, 100, -1, dan 101. Ini benar. Namun, ia melewatkan beberapa batas: 89 (batas atas B), 79 (batas atas C), 69 (batas atas D), 59 (batas atas E). Kita harus menambahkannya.
 
-3. **Apakah setiap metode pengujian menguji satu perilaku?** `testGradeA` menguji tiga nilai dalam satu metode. Ini dapat diterima — semuanya termasuk dalam kelas ekuivalensi yang sama — tetapi memisahkannya bisa membuat kegagalan lebih spesifik.
+3. **Apakah setiap metode pengujian menguji satu perilaku?** `testGradeA` menguji tiga nilai dalam satu metode. Ini dapat diterima, semuanya termasuk dalam kelas ekuivalensi yang sama, tetapi memisahkannya bisa membuat kegagalan lebih spesifik.
 
 4. **Apakah ada metode halusinasi?** AI dengan benar menggunakan `expectException()` dari PHPUnit. Tidak ada helper yang dihalusinasi.
 
-5. **Apakah file pengujian mandiri?** Ya — ia mengimpor `TestCase`, menginstansiasi kelas, dan memanggil `convert()`.
+5. **Apakah file pengujian mandiri?** Ya, ia mengimpor `TestCase`, menginstansiasi kelas, dan memanggil `convert()`.
 
 ### Langkah 4: Jalankan Pengujian
 
@@ -619,7 +619,7 @@ Time: 00:00.008, Memory: 6.00 MB
 OK (7 pengujian, 10 asersi)
 ```
 
-Semua hijau. Tapi kita belum selesai — AI melewatkan kasus batas.
+Semua hijau. Namun, kita belum selesai: AI melewatkan kasus batas.
 
 ### Langkah 5: Perluas dengan Kasus Tepi Manusia
 
@@ -672,7 +672,7 @@ $ vendor/bin/phpunit tests/GradeConverterTest.php
 OK (14 pengujian, 17 asersi)
 ```
 
-Inilah alur kerja berbantuan AI dalam praktik: AI menangani 80% boilerplate, dan Anda — sang developer — menambahkan 20% yang membutuhkan pemahaman nyata tentang domain.
+Inilah alur kerja berbantuan AI dalam praktik: AI menangani 80% *boilerplate*, dan Anda, sang developer, menambahkan 20% yang membutuhkan pemahaman nyata tentang domain.
 
 </section>
 
@@ -802,7 +802,7 @@ If tests fail only in certain orders, you have an isolation problem.
 
 ## Jebakan Umum dari Pengujian yang Dihasilkan AI
 
-AI adalah akselerator yang kuat tetapi bukan orakel. Berikut adalah cara paling umum pengujian yang dihasilkan AI menjadi salah — dan cara menangkapnya.
+AI adalah akselerator yang kuat tetapi bukan orakel. Berikut adalah cara paling umum pengujian yang dihasilkan AI menjadi salah, dan cara menangkapnya.
 
 ### 1. Pengujian yang Berhasil Tetapi Tidak Mengasersi Apa Pun
 
@@ -832,7 +832,7 @@ public function testSomething(): void
 }
 ```
 
-**Cara menangkapnya:** PHPUnit akan langsung gagal dengan "Call to undefined method." Selalu jalankan suite pengujian setelah menghasilkan. Jika AI menciptakan impor (misalnya, `use App\Helpers\NonExistentHelper;`), pengujian bahkan tidak akan ter-parse.
+**Cara menangkapnya:** PHPUnit akan langsung gagal dengan "Call to undefined method." Selalu jalankan *suite* pengujian setelah menghasilkan. Jika AI menciptakan impor (misalnya, `use App\Helpers\NonExistentHelper;`), pengujian bahkan tidak akan ter-parse.
 
 ### 3. Overfitting pada Implementasi Saat Ini
 
@@ -869,19 +869,19 @@ Untuk `DiscountCalculator`, AI akan menguji:
 - Member reguler, harga normal
 
 AI kemungkinan akan **melewatkan**:
-- Harga nol: `calculate(0.0, 'gold')` — harus mengembalikan 0.0, bukan melempar division-by-zero
-- Harga negatif: `calculate(-50.0, 'silver')` — haruskah ini melempar? Mengembalikan 0? Spesifikasi harus memutuskan.
-- Tingkat member tidak dikenal: `calculate(100.0, 'platinum')` — haruskah ini jatuh ke default atau melempar?
-- Harga sangat besar: `calculate(1_000_000_000.0, 'gold')` — ada masalah overflow?
+- Harga nol: `calculate(0.0, 'gold')`, harus mengembalikan 0.0, bukan melempar *division-by-zero*
+- Harga negatif: `calculate(-50.0, 'silver')`, haruskah ini melempar? Mengembalikan 0? Spesifikasi harus memutuskan.
+- Tingkat member tidak dikenal: `calculate(100.0, 'platinum')`, haruskah ini jatuh ke default atau melempar?
+- Harga sangat besar: `calculate(1_000_000_000.0, 'gold')`, ada masalah *overflow*?
 - Tingkat member string kosong: `calculate(100.0, '')`
 
 **Cara menangkapnya:** Setelah AI menghasilkan pengujian, tanyakan pada diri sendiri: "Input apa yang bisa merusak ini?" Gunakan Boundary Value Analysis (dari pengujian Blackbox) dan tambahkan setidaknya dua pengujian untuk nilai yang dilewatkan AI.
 
 ### 5. Pengujian Rapuh dengan Nilai Hardcoded
 
-AI mungkin menghasilkan pengujian yang terlalu erat terikat pada detail implementasi. Jika Anda mengubah persentase diskon untuk member gold dari 20% menjadi 25%, setiap pengujian dengan `assertEquals(80.0, ...)` rusak — meskipun perilakunya masih benar.
+AI mungkin menghasilkan pengujian yang terlalu erat terikat pada detail implementasi. Jika Anda mengubah persentase diskon untuk member gold dari 20% menjadi 25%, setiap pengujian dengan `assertEquals(80.0, ...)` rusak, meskipun perilakunya masih benar.
 
-**Cara menangkapnya:** Gunakan data provider atau uji invarian alih-alih nilai tepat:
+**Cara menangkapnya:** Gunakan *data provider* atau uji invarian alih-alih nilai tepat:
 
 ```php
 /**
@@ -902,13 +902,13 @@ public static function discountProvider(): array
 }
 ```
 
-Data provider menjaga logika pengujian terpisah dari nilai pengujian, membuat pembaruan lebih mudah.
+*Data provider* menjaga logika pengujian terpisah dari nilai pengujian, membuat pembaruan lebih mudah.
 
 ### 6. Mengabaikan Isolasi Pengujian
 
-AI mungkin menghasilkan pengujian yang bergantung pada state bersama (database, file, variabel statis) tanpa mocking atau meresetnya. Pengujian ini berhasil ketika dijalankan sendiri tetapi gagal ketika dijalankan dalam urutan berbeda.
+AI mungkin menghasilkan pengujian yang bergantung pada *state* bersama (database, file, variabel statis) tanpa *mocking* atau meresetnya. Pengujian ini berhasil ketika dijalankan sendiri tetapi gagal ketika dijalankan dalam urutan berbeda.
 
-**Cara menangkapnya:** Jalankan suite pengujian beberapa kali dalam urutan acak:
+**Cara menangkapnya:** Jalankan *suite* pengujian beberapa kali dalam urutan acak:
 
 ```bash
 vendor/bin/phpunit --order-by=random
@@ -971,7 +971,7 @@ The highest-impact use of AI test generation is adding tests to legacy code that
 
 ### 1. Perlakukan Output AI sebagai Draf Pertama
 
-Jangan pernah meng-commit pengujian yang dihasilkan AI tanpa meninjaunya. AI adalah developer junior yang mengetik sangat cepat — bukan insinyur senior yang memahami domain Anda. Tinjau setiap asersi, setiap nilai yang diharapkan, dan setiap kasus tepi.
+Jangan pernah meng-commit pengujian yang dihasilkan AI tanpa meninjaunya. AI adalah developer junior yang mengetik sangat cepat, bukan insinyur senior yang memahami domain Anda. Tinjau setiap asersi, setiap nilai yang diharapkan, dan setiap kasus tepi.
 
 ### 2. Selalu Jalankan Pengujian dan Periksa Cakupan
 
@@ -993,7 +993,7 @@ Ini adalah kekuatan super Anda sebagai manusia. AI akan menguji `grade(85)` teta
 
 ### 5. Verifikasi Logika Bisnis Secara Independen
 
-Pilih dua test case dan verifikasi nilai yang diharapkan secara manual — atau lebih baik lagi, tanyakan pada ahli domain. Jangan pernah percaya bahwa AI menghitung persentase diskon dengan benar.
+Pilih dua *test case* dan verifikasi nilai yang diharapkan secara manual, atau lebih baik lagi, tanyakan pada ahli domain. Jangan pernah percaya bahwa AI menghitung persentase diskon dengan benar.
 
 ### 6. Tinjau Pengujian Selama Code Review
 
@@ -1006,7 +1006,7 @@ Saat meninjau PR rekan tim yang berisi pengujian yang dihasilkan AI, tanyakan:
 
 ### 7. Gunakan AI untuk Menghasilkan Pengujian untuk Kode yang Belum Diuji
 
-Penggunaan AI dengan dampak tertinggi adalah menambahkan pengujian ke kode legacy yang tidak memiliki pengujian. Berikan kelas ke AI, minta pengujian, tinjau, dan segera tambahkan cakupan ke area yang belum diuji selama berbulan-bulan.
+Penggunaan AI dengan dampak tertinggi adalah menambahkan pengujian ke kode *legacy* yang tidak memiliki pengujian. Berikan kelas ke AI, minta pengujian, tinjau, dan segera tambahkan cakupan ke area yang belum diuji selama berbulan-bulan.
 
 </section>
 
@@ -1051,11 +1051,11 @@ Use AI test generation where the risk of getting it wrong is low and the cost of
 
 | Situasi | Mengapa AI Membantu |
 |---|---|
-| **Kelas utilitas sederhana** | Kalkulator, formatter, validator — kontrak input/output jelas, dan AI unggul dalam mengenumerasi kasus. |
+| **Kelas utilitas sederhana** | Kalkulator, formatter, validator: kontrak input/output jelas, dan AI unggul dalam mengenumerasi kasus. |
 | **Kelas layanan CRUD** | Operasi create, read, update, delete mengikuti pola yang dapat diprediksi dan dikenali AI dengan baik. |
-| **Menambahkan pengujian ke kode legacy** | Kelas yang belum diuji dan telah stabil selama berbulan-bulan adalah kandidat sempurna. AI menghasilkan jaring pengaman dengan cepat. |
-| **Pipeline transformasi data** | Fungsi yang memetakan satu struktur data ke struktur lain — AI menghasilkan pengujian input valid dan tidak valid. |
-| **Pengujian dengan banyak boilerplate** | Pengujian yang memerlukan `setUp()` ekstensif, konfigurasi mock, atau data provider. Biarkan AI menulis seremoni. |
+| **Menambahkan pengujian ke kode _legacy_** | Kelas yang belum diuji dan telah stabil selama berbulan-bulan adalah kandidat sempurna. AI menghasilkan jaring pengaman dengan cepat. |
+| **_Pipeline_ transformasi data** | Fungsi yang memetakan satu struktur data ke struktur lain: AI menghasilkan pengujian input valid dan tidak valid. |
+| **Pengujian dengan banyak _boilerplate_** | Pengujian yang memerlukan `setUp()` ekstensif, konfigurasi *mock*, atau *data provider*. Biarkan AI menulis seremoni. |
 
 ### Ketika AI Kesulitan
 
@@ -1063,14 +1063,14 @@ Use AI test generation where the risk of getting it wrong is low and the cost of
 |---|---|
 | **Aturan bisnis yang kompleks** | Logika domain dengan banyak kondisi yang berinteraksi sering memerlukan penilaian yang tidak dimiliki AI. Tulis pengujian ini sendiri. |
 | **Pengujian yang memerlukan pengetahuan domain mendalam** | Jika nilai yang diharapkan memerlukan pemahaman hukum pajak, regulasi medis, atau kebijakan institusional, AI kemungkinan akan salah. |
-| **Integration test dengan layanan eksternal** | Pengujian yang melibatkan database, message queue, atau API HTTP memiliki setup yang jarang benar oleh AI tanpa prompting ekstensif. |
-| **Pengujian performa atau konkurensi** | AI tidak memahami race condition, deadlock, atau anggaran waktu respons. |
+| **_Integration test_ dengan layanan eksternal** | Pengujian yang melibatkan database, *message queue*, atau API HTTP memiliki *setup* yang jarang benar oleh AI tanpa *prompting* ekstensif. |
+| **Pengujian performa atau konkurensi** | AI tidak memahami *race condition*, *deadlock*, atau anggaran waktu respons. |
 | **Pengujian untuk algoritma baru** | Jika kode Anda mengimplementasikan algoritma unik yang tidak terwakili dengan baik dalam data pelatihan, saran AI akan generik paling banter. |
 | **Kode yang sensitif terhadap keamanan** | Pengujian yang dihasilkan AI tidak mungkin memeriksa SQL injection, XSS, atau authentication bypass. Pengujian keamanan memerlukan kreativitas manusia. |
 
 ### Pendekatan Pragmatis
 
-Gunakan AI test generation di mana risiko salah rendah dan biaya menulis pengujian secara manual tinggi. Untuk logika yang kritis terhadap misi, tulis pengujian sendiri — tetapi gunakan AI untuk menyarankan kasus tepi yang mungkin Anda lewatkan. Tujuannya bukan untuk menggantikan penilaian Anda tetapi untuk menghilangkan bagian yang membosankan dari penulisan pengujian sehingga Anda dapat fokus pada bagian yang memerlukan kecerdasan.
+Gunakan AI test generation di mana risiko salah rendah dan biaya menulis pengujian secara manual tinggi. Untuk logika yang kritis terhadap misi, tulis pengujian sendiri, tetapi gunakan AI untuk menyarankan kasus tepi yang mungkin Anda lewatkan. Tujuannya bukan untuk menggantikan penilaian Anda tetapi untuk menghilangkan bagian yang membosankan dari penulisan pengujian sehingga Anda dapat fokus pada bagian yang memerlukan kecerdasan.
 
 </section>
 
@@ -1220,7 +1220,7 @@ class DiscountCalculator
 
 3. **Jalankan:** Eksekusi pengujian dengan PHPUnit dan pastikan semua berhasil.
 
-4. **Perluas:** Tambahkan setidaknya tiga test case yang dilewatkan AI. Saran:
+4. **Perluas:** Tambahkan setidaknya tiga *test case* yang dilewatkan AI. Saran:
    - Harga sangat besar (mis. 999999.99)
    - Harga dengan banyak tempat desimal (mis. 19.999)
    - Tingkat member dengan kapitalisasi tak terduga (mis. 'GOLD', 'Gold')
@@ -1240,7 +1240,7 @@ calculate(-10.0, 'gold')     → melempar InvalidArgumentException
 calculate(50.0, '')           → melempar InvalidArgumentException
 ```
 
-Bagikan pengalaman Anda dengan teman sekelas. Bandingkan apa yang dihasilkan AI Anda versus AI mereka. Asisten AI yang berbeda (Copilot vs Codeium vs Continue+Ollama) akan menghasilkan suite pengujian yang berbeda — mana yang menangkap kasus tepi paling banyak?
+Bagikan pengalaman Anda dengan teman sekelas. Bandingkan apa yang dihasilkan AI Anda versus AI mereka. Asisten AI yang berbeda (Copilot vs Codeium vs Continue+Ollama) akan menghasilkan *suite* pengujian yang berbeda: mana yang menangkap kasus tepi paling banyak?
 
 </section>
 
@@ -1273,15 +1273,15 @@ Bagikan pengalaman Anda dengan teman sekelas. Bandingkan apa yang dihasilkan AI 
 1. **Pembuatan unit test berbantuan AI** menggunakan model bahasa besar untuk menyusun pengujian PHPUnit dari kode produksi Anda. Ini menghemat waktu tetapi bukan pengganti untuk berpikir.
 2. **Alur kerjanya sederhana:** tulis kode → minta AI untuk pengujian → tinjau secara kritis → jalankan dengan PHPUnit → tambahkan kasus tepi yang dilewatkan AI.
 3. **Jebakan umum AI** meliputi pengujian tanpa asersi, metode yang dihalusinasi, overfitting pada implementasi yang bermasalah, dan kasus tepi yang hilang. Semuanya tertangkap dengan menjalankan pengujian dan meninjau output dengan hati-hati.
-4. **Praktik terbaik:** perlakukan output AI sebagai draf pertama, verifikasi nilai yang diharapkan secara manual, gunakan data provider untuk pengujian yang mudah dipelihara, dan selalu jalankan `--order-by=random` untuk menangkap masalah isolasi.
-5. **Bersikap pragmatis:** gunakan AI untuk kelas utilitas sederhana, layanan CRUD, dan cakupan kode legacy. Tulis pengujian kritis misi sendiri, tetapi minta AI untuk menyarankan kasus tepi.
-6. **AI adalah pair programmer junior** — cepat, tak kenal lelah, sering membantu, tetapi tidak pernah sepenuhnya dapat dipercaya tanpa tinjauan manusia.
+4. **Praktik terbaik:** perlakukan output AI sebagai draf pertama, verifikasi nilai yang diharapkan secara manual, gunakan *data provider* untuk pengujian yang mudah dipelihara, dan selalu jalankan `--order-by=random` untuk menangkap masalah isolasi.
+5. **Bersikap pragmatis:** gunakan AI untuk kelas utilitas sederhana, layanan CRUD, dan cakupan kode _legacy_. Tulis pengujian kritis misi sendiri, tetapi minta AI untuk menyarankan kasus tepi.
+6. **AI adalah _pair programmer_ junior**: cepat, tak kenal lelah, sering membantu, tetapi tidak pernah sepenuhnya dapat dipercaya tanpa tinjauan manusia.
 
 > AI dapat menulis pengujian, tetapi hanya Anda yang dapat memutuskan apa perilaku yang benar.
 
 ### Tutorial Terkait
 
-- [Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development) — Pelajari siklus Red → Green → Refactor yang berpasangan secara alami dengan pembuatan pengujian AI.
-- [Cara Sederhana Melakukan Pengujian Blackbox dan Whitebox](/blog/blackbox-and-whitebox-test) — Kuasai boundary value analysis dan equivalence partitioning untuk menemukan kasus tepi yang dilewatkan AI.
+- [Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development): Pelajari siklus Red → Green → Refactor yang berpasangan secara alami dengan pembuatan pengujian AI.
+- [Cara Sederhana Melakukan Pengujian Blackbox dan Whitebox](/blog/blackbox-and-whitebox-test): Kuasai boundary value analysis dan equivalence partitioning untuk menemukan kasus tepi yang dilewatkan AI.
 
 </section>

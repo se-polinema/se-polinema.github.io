@@ -42,15 +42,15 @@ The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality An
 
 ## Pendahuluan
 
-**Coding berbantuan LLM** adalah praktik menggunakan model bahasa besar (LLM) — seperti Claude dari Anthropic, Gemini dari Google, atau model yang dihosting secara lokal melalui Ollama — untuk membantu Anda menulis, memahami, merefaktor, dan memperluas kode sumber selama fase implementasi dari siklus hidup pengembangan perangkat lunak (SDLC). Berbeda dengan *pengujian* atau *dokumentasi* berbantuan AI, yang beroperasi pada output pengembangan, coding berbantuan LLM tertanam langsung dalam aktivitas menulis perangkat lunak.
+**Coding berbantuan LLM** adalah praktik menggunakan model bahasa besar (LLM), seperti Claude dari Anthropic, Gemini dari Google, atau model yang dihosting secara lokal melalui Ollama, untuk membantu Anda menulis, memahami, merefaktor, dan memperluas kode sumber selama fase implementasi dari siklus hidup pengembangan perangkat lunak (SDLC). Berbeda dengan *pengujian* atau *dokumentasi* berbantuan AI, yang beroperasi pada output pengembangan, coding berbantuan LLM tertanam langsung dalam aktivitas menulis perangkat lunak.
 
-Tutorial ini menjembatani kesenjangan dalam seri Emerging Technologies in SE kami. Kami sudah membahas [Pembuatan Unit Test Berbantuan AI](/blog/ai-assisted-unit-test-generation), [Otomatisasi Kebutuhan Berbasis AI](/blog/ai-powered-requirements-automation-php), dan [Otomatisasi Dokumentasi Berbantuan LLM](/blog/llm-assisted-documentation-automation-php). Bagian yang hilang — yang paling sering ditanyakan oleh mahasiswa Politeknik Negeri Malang — adalah cara menggunakan AI selama fase coding itu sendiri.
+Tutorial ini menjembatani kesenjangan dalam seri Emerging Technologies in SE kami. Kami sudah membahas [Pembuatan Unit Test Berbantuan AI](/blog/ai-assisted-unit-test-generation), [Otomatisasi Kebutuhan Berbasis AI](/blog/ai-powered-requirements-automation-php), dan [Otomatisasi Dokumentasi Berbantuan LLM](/blog/llm-assisted-documentation-automation-php). Bagian yang hilang, yang paling sering ditanyakan oleh mahasiswa Politeknik Negeri Malang, adalah cara menggunakan AI selama fase coding itu sendiri.
 
-LLM tidak *memahami* kode Anda. Mereka memprediksi token berikutnya berdasarkan pola yang dipelajari dari miliaran baris kode open-source. Ketika Anda meminta mereka menulis layanan PHP, mereka menghasilkan jawaban yang masuk akal secara statistik — bukan jawaban yang terverifikasi dan benar. Perbedaan ini adalah fondasi dari coding berbantuan AI yang bertanggung jawab: **gunakan LLM sebagai akselerator, bukan sebagai otoritas.**
+LLM tidak *memahami* kode Anda. Mereka memprediksi token berikutnya berdasarkan pola yang dipelajari dari miliaran baris kode *open-source*. Ketika Anda meminta mereka menulis layanan PHP, mereka menghasilkan jawaban yang masuk akal secara statistik, bukan jawaban yang terverifikasi dan benar. Perbedaan ini adalah fondasi dari coding berbantuan AI yang bertanggung jawab: **gunakan LLM sebagai akselerator, bukan sebagai otoritas.**
 
 ### Koneksi dengan Riset SE Lab
 
-Software Engineering Lab di Politeknik Negeri Malang menempatkan **Code Quality Analysis** dan **Requirements Automation** sebagai topik inti dalam alur riset [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/). Coding berbantuan LLM berada di persimpangan area ini — ia mengotomatiskan produksi kode dari kebutuhan berbahasa alami sambil menuntut analisis kualitas yang ketat dari output yang dihasilkan.
+Software Engineering Lab di Politeknik Negeri Malang menempatkan **Code Quality Analysis** dan **Requirements Automation** sebagai topik inti dalam alur riset [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/). Coding berbantuan LLM berada di persimpangan area ini: ia mengotomatiskan produksi kode dari kebutuhan berbahasa alami sambil menuntut analisis kualitas yang ketat dari output yang dihasilkan.
 
 </section>
 
@@ -155,11 +155,11 @@ Ekosistem coding LLM telah matang dengan cepat. Berikut adalah perangkat yang pa
 
 | Perangkat | Penyedia | Dukungan PHP | Biaya |
 |-----------|----------|-------------|------|
-| **Claude Code / Claude for Code** | Anthropic | Sangat baik — penalaran kuat untuk refactor PHP kompleks dan generasi kode type-safe | Claude Pro (\$20/bulan) atau API bayar per penggunaan |
-| **Gemini Code Assist** | Google | Sangat baik — integrasi GCP mendalam, kuat pada fitur PHP 8.x | Tersedia tier gratis; Paket Enterprise |
-| **GitHub Copilot** | Microsoft/GitHub | Sangat baik — integrasi native VS Code dan JetBrains | \$10/bulan (gratis untuk mahasiswa) |
-| **Codeium** | Exafunction | Baik — autocomplete cepat, fitur chat | Freemium |
-| **JetBrains AI Assistant** | JetBrains | Sangat baik untuk pengguna PhpStorm — sadar konteks struktur proyek, Composer, dan PHPUnit | \$10/bulan atau bundled dengan All Products Pack |
+| **Claude Code / Claude for Code** | Anthropic | Sangat baik: penalaran kuat untuk refactor PHP kompleks dan generasi kode *type-safe* | Claude Pro (\$20/bulan) atau API bayar per penggunaan |
+| **Gemini Code Assist** | Google | Sangat baik: integrasi GCP mendalam, kuat pada fitur PHP 8.x | Tersedia tier gratis; Paket Enterprise |
+| **GitHub Copilot** | Microsoft/GitHub | Sangat baik: integrasi *native* VS Code dan JetBrains | \$10/bulan (gratis untuk mahasiswa) |
+| **Codeium** | Exafunction | Baik: *autocomplete* cepat, fitur chat | Freemium |
+| **JetBrains AI Assistant** | JetBrains | Sangat baik untuk pengguna PhpStorm: sadar konteks struktur proyek, Composer, dan PHPUnit | \$10/bulan atau bundled dengan All Products Pack |
 
 **Rekomendasi untuk mahasiswa:** Mulailah dengan **Claude Code** (penalaran terkuat untuk belajar) atau **Gemini Code Assist** (tier gratis yang murah hati). Keduanya menghasilkan PHP terstruktur dengan baik dengan `declare(strict_types=1)`, properti bertipe, dan format PSR-12 secara default ketika diprompt dengan benar.
 
@@ -169,7 +169,7 @@ Jika Anda mengerjakan proyek pribadi, memiliki akses internet terbatas, atau ing
 
 | Perangkat | Model | Setup | Kualitas |
 |-----------|-------|-------|----------|
-| **Continue + Ollama** | `codellama`, `deepseek-coder-v2`, `qwen2.5-coder` | Instal Ollama, tarik model, instal ekstensi Continue VS Code | Baik untuk boilerplate; lebih lemah pada logika kompleks |
+| **Continue + Ollama** | `codellama`, `deepseek-coder-v2`, `qwen2.5-coder` | Instal Ollama, tarik model, instal ekstensi Continue VS Code | Baik untuk *boilerplate*; lebih lemah pada logika kompleks |
 | **LlamaCoder** | `codellama` (via Ollama) | UI web mandiri | Prototyping |
 | **Tabby** | Asisten coding self-hosted | Docker Compose | Kompleksi bersama tim |
 
@@ -180,7 +180,7 @@ ollama pull qwen2.5-coder:7b
 # Instal ekstensi Continue di VS Code, lalu konfigurasi ~/.continue/config.json
 ```
 
-Untuk tutorial ini, kita mengasumsikan asisten cloud (Claude atau Gemini), tetapi setiap prompt dan alur kerja juga berfungsi dengan model lokal — hanya harapkan ketepatan yang sedikit lebih rendah pada kasus tepi.
+Untuk tutorial ini, kita mengasumsikan asisten cloud (Claude atau Gemini), tetapi setiap prompt dan alur kerja juga berfungsi dengan model lokal, hanya saja harapkan ketepatan yang sedikit lebih rendah pada kasus tepi.
 
 </section>
 
@@ -250,7 +250,7 @@ Kualitas kode yang dihasilkan AI sangat bergantung pada kualitas prompt Anda. Pr
 **Prompt samar:**
 > "Tulis layanan diskon PHP."
 
-LLM akan menghasilkan *sesuatu* — sebuah kelas, mungkin dengan satu atau dua metode — tetapi ia akan menebak kebutuhan Anda, melewatkan penanganan error, dan kemungkinan menghasilkan tipe yang tidak konsisten.
+LLM akan menghasilkan *sesuatu* (sebuah kelas, mungkin dengan satu atau dua metode), tetapi ia akan menebak kebutuhan Anda, melewatkan penanganan error, dan kemungkinan menghasilkan tipe yang tidak konsisten.
 
 **Prompt spesifik:**
 > "Tulis kelas PHP 8.3 `OrderDiscountService` dengan `declare(strict_types=1)`. Sertakan properti bertipe dan return type. Kelas harus memiliki metode `calculateFinalPrice(float $subtotal, string $memberLevel, ?string $couponCode): array` yang mengembalikan `['original' => float, 'discount' => float, 'final' => float, 'breakdown' => array]`. Ikuti PSR-12."
@@ -636,13 +636,13 @@ class OrderDiscountService
 
 Sebelum menjalankan kode apa pun, lakukan **cold review** dari apa yang dihasilkan LLM:
 
-1. **Apakah tipe sudah benar?** Semua parameter memiliki deklarasi tipe. Return type `array` sudah benar (meskipun array shape di PHPDoc akan lebih baik — LLM juga menambahkannya).
+1. **Apakah tipe sudah benar?** Semua parameter memiliki deklarasi tipe. Return type `array` sudah benar (meskipun array shape di PHPDoc akan lebih baik, LLM juga menambahkannya).
 
 2. **Apakah penanganan error ada?** Kelas memvalidasi subtotal negatif, subtotal nol, dan tingkat keanggotaan yang tidak dikenal. Bagus.
 
-3. **Apakah kasus tepi tercakup?** Periksa: kode kupon tidak case-sensitive (`strtoupper`), spasi di-trim, dan hanya diterapkan jika ada di map. Kode kupon yang tidak dikenal diabaikan secara diam — apakah itu perilaku yang benar? Kita akan membahas ini di bagian Percaya tapi Verifikasi.
+3. **Apakah kasus tepi tercakup?** Periksa: kode kupon tidak *case-sensitive* (`strtoupper`), spasi di-*trim*, dan hanya diterapkan jika ada di map. Kode kupon yang tidak dikenal diabaikan secara diam-diam. Apakah itu perilaku yang benar? Kita akan membahas ini di bagian Percaya tapi Verifikasi.
 
-4. **Apakah ada bug?** LLM menerapkan diskon secara berurutan pada jumlah *tersisa* setelah setiap diskon. Ini sesuai dengan spesifikasi. Tetapi perhatikan: diskon kupon dibatasi maksimum Rp 100.000 terlepas dari tingkat kupon — ini juga sesuai dengan spesifikasi kita.
+4. **Apakah ada bug?** LLM menerapkan diskon secara berurutan pada jumlah *tersisa* setelah setiap diskon. Ini sesuai dengan spesifikasi. Tetapi perhatikan: diskon kupon dibatasi maksimum Rp 100.000 terlepas dari tingkat kupon. Ini juga sesuai dengan spesifikasi kita.
 
 5. **Apakah kode sesuai PSR-12?** Indentasi empat spasi, kurung kurawal pembuka di baris yang sama dengan kelas/metode, tanpa spasi trailing. Ya.
 
@@ -690,7 +690,7 @@ Output:
 }
 ```
 
-Angka-angkanya cocok. Kelas yang dihasilkan LLM benar dan siap produksi — karena kita memberinya prompt yang tepat dengan contoh.
+Angka-angkanya cocok. Kelas yang dihasilkan LLM benar dan siap produksi karena kita memberinya prompt yang tepat dengan contoh.
 
 </section>
 
@@ -711,7 +711,7 @@ graph TB
 
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The LLM-assisted coding workflow — AI drafts from spec, human reviews critically, tests validate the result</span>
-  <span lang="id">Gambar: Alur kerja coding berbantuan LLM — AI membuat draf dari spesifikasi, manusia meninjau secara kritis, pengujian memvalidasi hasilnya</span>
+  <span lang="id">Gambar: Alur kerja coding berbantuan LLM, AI membuat draf dari spesifikasi, manusia meninjau secara kritis, pengujian memvalidasi hasilnya</span>
 </figcaption>
 </figure>
 
@@ -831,7 +831,7 @@ Human domain knowledge remains irreplaceable.
 
 ## Alur Kerja 2: Menjelaskan dan Merefaktor Kode yang Ada
 
-Alur kerja coding LLM esensial kedua adalah **memahami dan meningkatkan kode yang sudah ada** — entah itu milik Anda sendiri dari semester lalu, kontribusi teman satu tim, atau kode legacy dari proyek open-source.
+Alur kerja coding LLM esensial kedua adalah **memahami dan meningkatkan kode yang sudah ada**, entah itu milik Anda sendiri dari semester lalu, kontribusi teman satu tim, atau kode *legacy* dari proyek *open-source*.
 
 ### Skenario
 
@@ -892,19 +892,19 @@ LLM merespons dengan sesuatu seperti:
 >
 > **Potensi bug:**
 > - Tidak ada validasi input: `$p` negatif diterima tanpa peringatan.
-> - Tingkat keanggotaan yang tidak dikenal (misalnya 'platinum') menghasilkan `$disc = 0` tanpa peringatan — sama seperti 'none'. Pemanggil tidak dapat membedakan "tidak ada diskon" dari "level tidak valid."
+> - Tingkat keanggotaan yang tidak dikenal (misalnya 'platinum') menghasilkan `$disc = 0` tanpa peringatan, sama seperti 'none'. Pemanggil tidak dapat membedakan "tidak ada diskon" dari "level tidak valid."
 > - Kode kupon yang tidak dikenal menghasilkan `$disc3 = 0` tanpa peringatan.
-> - Perbandingan `$c == 'WELCOME10'` case-sensitive — 'welcome10' mendapat diskon nol.
+> - Perbandingan `$c == 'WELCOME10'` bersifat *case-sensitive*: 'welcome10' mendapat diskon nol.
 > - Tidak ada penanganan untuk pesanan harga nol.
 > - Akumulasi floating-point tanpa `round()` bisa menghasilkan nilai seperti 416800.0000000001.
 >
 > **Pelanggaran PSR-12:**
 > - Kurung kurawal pembuka kelas harus di baris sendiri (PSR-12 §4.1).
 > - Nama metode `calc` seharusnya `camelCase` dengan nama deskriptif.
-> - Kata kunci visibility hilang pada `function calc` — seharusnya `public function`.
+> - Kata kunci visibility hilang pada `function calc`; seharusnya `public function`.
 > - Tidak ada `declare(strict_types=1)`.
 > - Properti `$disc`, `$p2` seharusnya menggunakan nama yang bermakna.
-> - `elseif` seharusnya `else if` menurut PSR-12.
+> - `else if` seharusnya `elseif` menurut PSR-12.
 
 ### Langkah 2: Minta LLM Merefaktor
 
@@ -924,7 +924,7 @@ Refaktor kelas kalkulator diskon ini agar siap produksi:
 - Gunakan konstanta kelas untuk magic numbers
 ```
 
-LLM menghasilkan kelas `OrderDiscountService` yang pada dasarnya sama seperti yang kita lihat di Alur Kerja 1 — bersih, bertipe, dan siap produksi.
+LLM menghasilkan kelas `OrderDiscountService` yang pada dasarnya sama seperti yang kita lihat di Alur Kerja 1: bersih, bertipe, dan siap produksi.
 
 ### Langkah 3: Apa yang Tidak Bisa Dilakukan LLM
 
@@ -1405,7 +1405,7 @@ PHPUnit 11.0.0 oleh Sebastian Bergmann dan kontributor.
 OK (14 tes, 24 asersi)
 ```
 
-Semua hijau. AI menghasilkan kode fitur dan pengujian dalam waktu kurang dari dua menit — tetapi Anda memverifikasi setiap baris.
+Semua hijau. AI menghasilkan kode fitur dan pengujian dalam waktu kurang dari dua menit, tetapi Anda memverifikasi setiap baris.
 
 </section>
 
@@ -1514,13 +1514,13 @@ LLM menciptakan metode API, fitur framework, dan bahkan seluruh library yang tid
 **Tanda bahaya yang perlu diperhatikan:**
 - Metode yang dipanggil tidak ada di library standar PHP atau composer.json Anda
 - Paket Composer yang dirujuk tidak dapat ditemukan di Packagist
-- Nilai konfigurasi atau konstanta yang terlihat masuk akal tetapi dibuat-buat (misalnya `PHPUnit\Framework\Assert::assertBetween()` — ini tidak ada di PHPUnit)
+- Nilai konfigurasi atau konstanta yang terlihat masuk akal tetapi dibuat-buat (misalnya `PHPUnit\Framework\Assert::assertBetween()`, yang tidak ada di PHPUnit)
 - Tanda tangan fungsi PHP dengan jumlah atau tipe parameter yang salah
 
 **Cara mendeteksinya:**
 - Jalankan `php -l` (lint) pada setiap file yang dihasilkan
-- Jalankan suite pengujian Anda — metode yang dihalusinasi melempar `Error: Call to undefined method`
-- Gunakan IDE dengan analisis statis (PhpStorm, PHPStan, Psalm) — mereka mendeteksi simbol yang tidak terdefinisi
+- Jalankan suite pengujian Anda: metode yang dihalusinasi melempar `Error: Call to undefined method`
+- Gunakan IDE dengan analisis statis (PhpStorm, PHPStan, Psalm), yang mendeteksi simbol yang tidak terdefinisi
 
 ### 2. Tinjauan Keamanan
 
@@ -1560,16 +1560,16 @@ vendor/bin/phpunit
 vendor/bin/phpstan analyse src/
 ```
 
-Anti-pola umum: AI menghasilkan kelas `A` dan pengujian `ATest`, tetapi `ATest` hanya menguji happy path dan menegaskan nilai yang *diprediksi* AI, bukan nilai yang Anda verifikasi secara manual. Selalu bandingkan ekspektasi pengujian dengan spesifikasi Anda — jangan berasumsi bahwa nilai pengujian benar hanya karena ada.
+Anti-pola umum: AI menghasilkan kelas `A` dan pengujian `ATest`, tetapi `ATest` hanya menguji *happy path* dan menegaskan nilai yang *diprediksi* AI, bukan nilai yang Anda verifikasi secara manual. Selalu bandingkan ekspektasi pengujian dengan spesifikasi Anda; jangan berasumsi bahwa nilai pengujian benar hanya karena ada.
 
 ### 4. Kompatibilitas Lisensi
 
-LLM dilatih pada kode open-source, yang sebagian besar berada di bawah lisensi seperti GPL, MIT, Apache 2.0, atau BSD. Ketika LLM mereproduksi blok kode verbatim dari data pelatihannya, lisensi kode sumber tersebut mungkin berlaku.
+LLM dilatih pada kode *open-source*, yang sebagian besar berada di bawah lisensi seperti GPL, MIT, Apache 2.0, atau BSD. Ketika LLM mereproduksi blok kode verbatim dari data pelatihannya, lisensi kode sumber tersebut mungkin berlaku.
 
 **Langkah praktis:**
 - Jangan tempel kode proprietary ke layanan LLM publik kecuali organisasi Anda memiliki perjanjian pemrosesan data (DPA) dengan penyedia.
 - Untuk tugas akademik: periksa kebijakan integritas akademik universitas Anda. Sebagian besar mata kuliah Polinema mengharuskan Anda mengungkapkan bantuan AI dan mendemonstrasikan pemahaman tentang kode yang dihasilkan AI yang Anda kirimkan.
-- Untuk kontribusi open-source: jika LLM menghasilkan kode yang sangat mirip dengan library yang ada, Anda mungkin membuat karya turunan. Gunakan pemeriksa plagiarisme atau cari cuplikan kunci di GitHub.
+- Untuk kontribusi *open-source*: jika LLM menghasilkan kode yang sangat mirip dengan library yang ada, Anda mungkin membuat karya turunan. Gunakan pemeriksa plagiarisme atau cari cuplikan kunci di GitHub.
 - Untuk proyek komersial: konsultasikan dengan tim hukum Anda. Beberapa perusahaan melarang kode yang dihasilkan LLM di produksi sampai status hukum data pelatihan AI diklarifikasi.
 
 ### 5. Daftar Periksa Validasi Output
@@ -1791,7 +1791,7 @@ Tambahkan fitur baru ke layanan: **diskon promosi berbasis waktu**.
    - Pesanan dilakukan tepat pukul 17:00 (batas)
    - Tanggal pesanan null (tidak ada promo yang diterapkan)
 
-4. **Jalankan:** `vendor/bin/phpunit` — semua pengujian harus berhasil.
+4. **Jalankan:** `vendor/bin/phpunit`. Semua pengujian harus berhasil.
 
 5. **Refleksikan:** Tulis satu hal yang dilakukan LLM dengan benar dan satu hal yang harus Anda perbaiki atau tambahkan sendiri.
 
@@ -1917,7 +1917,7 @@ calculateFinalPriceWithPromo(100000, 'gold', 'WELCOME10', DateTimeImmutable('202
 // gold(20%)=80000 → promo(5%)=4000 → kupon(10% dari 76000)=7600 → final=68400
 ```
 
-Bagikan solusi Anda dan bandingkan dengan teman sekelas. LLM yang berbeda (Claude vs Gemini vs model lokal) akan menghasilkan implementasi yang berbeda — mana yang menangani zona waktu dengan benar? Mana yang menambahkan pemeriksaan null `DateTimeImmutable` yang tepat?
+Bagikan solusi Anda dan bandingkan dengan teman sekelas. LLM yang berbeda (Claude vs Gemini vs model lokal) akan menghasilkan implementasi yang berbeda. Mana yang menangani zona waktu dengan benar? Mana yang menambahkan pemeriksaan null `DateTimeImmutable` yang tepat?
 
 </section>
 
@@ -1962,11 +1962,11 @@ Bagikan solusi Anda dan bandingkan dengan teman sekelas. LLM yang berbeda (Claud
 
 ## Ringkasan
 
-1. **Coding berbantuan LLM** menyematkan AI ke dalam fase implementasi SDLC — menghasilkan, menjelaskan, merefaktor, dan memperluas kode PHP. Ini adalah potongan yang hilang antara pengujian dan dokumentasi berbantuan AI.
+1. **Coding berbantuan LLM** menyematkan AI ke dalam fase implementasi SDLC: menghasilkan, menjelaskan, merefaktor, dan memperluas kode PHP. Ini adalah potongan yang hilang antara pengujian dan dokumentasi berbantuan AI.
 
 2. **Kualitas prompt menentukan kualitas kode.** Gunakan kerangka CICE (Context, Intent, Constraints, Examples). Prompt yang samar menghasilkan kode yang rapuh dan tanpa tipe. Prompt terstruktur dengan versi PHP, aturan pengetikan, dan contoh menghasilkan output siap produksi.
 
-3. **Tiga alur kerja esensial** mencakup sebagian besar penggunaan dunia nyata: (1) menghasilkan layanan dari spesifikasi, (2) menjelaskan dan merefaktor kode legacy, dan (3) memperluas fitur yang ada dengan pengujian. Ketiganya didemonstrasikan dengan satu proyek mini `OrderDiscountService` yang dapat dijalankan.
+3. **Tiga alur kerja esensial** mencakup sebagian besar penggunaan dunia nyata: (1) menghasilkan layanan dari spesifikasi, (2) menjelaskan dan merefaktor kode *legacy*, dan (3) memperluas fitur yang ada dengan pengujian. Ketiganya didemonstrasikan dengan satu proyek mini `OrderDiscountService` yang dapat dijalankan.
 
 4. **Percaya tapi verifikasi.** Setiap baris yang dihasilkan AI harus melewati gerbang yang sama seperti kode yang ditulis manusia: `php -l` linting, pengujian PHPUnit, tinjauan keamanan (`eval`, SQL injection, command injection), dan kesadaran lisensi.
 
@@ -1979,16 +1979,16 @@ Bagikan solusi Anda dan bandingkan dengan teman sekelas. LLM yang berbeda (Claud
 | Skenario | Rekomendasi |
 |----------|-------------|
 | Anda sedang mempelajari konsep baru (mis. rekursi, design patterns) | Tulis kode sendiri terlebih dahulu, lalu minta AI menjelaskan atau menyarankan perbaikan |
-| Spesifikasi ambigu atau tidak lengkap | Klarifikasi kebutuhan dengan pemangku kepentingan sebelum prompting — AI memperkuat ambiguitas |
-| Domain melibatkan keamanan, keuangan, atau kepatuhan hukum | AI dapat membuat draf boilerplate, tetapi semua logika harus diverifikasi oleh ahli domain |
-| Anda sedang dalam ujian yang diawasi | Ikuti kebijakan integritas akademik institusi Anda — sebagian besar ujian melarang alat AI |
+| Spesifikasi ambigu atau tidak lengkap | Klarifikasi kebutuhan dengan pemangku kepentingan sebelum prompting: AI memperkuat ambiguitas |
+| Domain melibatkan keamanan, keuangan, atau kepatuhan hukum | AI dapat membuat draf *boilerplate*, tetapi semua logika harus diverifikasi oleh ahli domain |
+| Anda sedang dalam ujian yang diawasi | Ikuti kebijakan integritas akademik institusi Anda: sebagian besar ujian melarang alat AI |
 | Kode menangani informasi identitas pribadi (PII) | Jangan tempel PII asli ke layanan AI cloud. Gunakan model lokal atau data sintetis |
 | Anda tidak memahami kode yang dihasilkan AI | Berhenti. Baca kode baris demi baris sampai Anda memahaminya. Jangan pernah commit kode yang tidak bisa Anda jelaskan |
 
 ### Tutorial Terkait
 
-- [Pembuatan Unit Test Berbantuan AI dengan PHP](/blog/ai-assisted-unit-test-generation) — Hasilkan, tinjau, dan sempurnakan pengujian PHPUnit dengan bantuan AI.
-- [Otomatisasi Kebutuhan Berbasis AI dengan PHP](/blog/ai-powered-requirements-automation-php) — Ubah kebutuhan bahasa alami menjadi spesifikasi terstruktur, wireframe, dan user stories.
-- [Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP](/blog/llm-assisted-documentation-automation-php) — Hasilkan dan pelihara dokumentasi API, file README, dan changelog dengan LLM.
+- [Pembuatan Unit Test Berbantuan AI dengan PHP](/blog/ai-assisted-unit-test-generation): Hasilkan, tinjau, dan sempurnakan pengujian PHPUnit dengan bantuan AI.
+- [Otomatisasi Kebutuhan Berbasis AI dengan PHP](/blog/ai-powered-requirements-automation-php): Ubah kebutuhan bahasa alami menjadi spesifikasi terstruktur, wireframe, dan user stories.
+- [Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP](/blog/llm-assisted-documentation-automation-php): Hasilkan dan pelihara dokumentasi API, file README, dan changelog dengan LLM.
 
 </section>

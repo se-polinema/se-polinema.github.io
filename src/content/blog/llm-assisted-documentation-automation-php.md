@@ -17,7 +17,7 @@ tagsId:
   - Dokumentasi Perangkat Lunak
   - PHP
 excerpt: "Learn how to use LLMs to generate, maintain, and validate API documentation, README files, inline comments, and changelogs for PHP/Laravel projects. Covers Scribe, PHPDoc, MkDocs, and custom LLM pipelines with a human-in-the-loop review workflow — and shows where LLMs fail and hallucinate."
-excerptId: "Pelajari cara menggunakan LLM untuk menghasilkan, memelihara, dan memvalidasi dokumentasi API, file README, komentar inline, dan changelog untuk proyek PHP/Laravel. Mencakup Scribe, PHPDoc, MkDocs, dan pipeline LLM kustom dengan alur kerja tinjauan human-in-the-loop — serta menunjukkan di mana LLM gagal dan berhalusinasi."
+excerptId: "Pelajari cara menggunakan LLM untuk menghasilkan, memelihara, dan memvalidasi dokumentasi API, file README, komentar inline, dan changelog untuk proyek PHP/Laravel. Mencakup Scribe, PHPDoc, MkDocs, dan pipeline LLM kustom dengan alur kerja tinjauan human-in-the-loop, serta menunjukkan di mana LLM gagal dan berhalusinasi."
 ---
 
 <section lang="en">
@@ -61,32 +61,32 @@ The Software Engineering Lab at Politeknik Negeri Malang lists **Documentation A
 
 Dokumentasi secara konsisten merupakan salah satu aktivitas yang paling terabaikan dalam pengembangan perangkat lunak. Mahasiswa menulis ratusan baris kode tetapi melewatkan README. Peneliti membangun prototipe fungsional tetapi tidak menyertakan dokumentasi API. Tim produksi men-deploy endpoint yang tidak dapat ditemukan atau dikonsumsi oleh siapa pun di luar tim. Hasilnya adalah utang pengetahuan yang bertambah setiap sprint.
 
-**Otomatisasi dokumentasi berbantuan LLM** menggunakan model bahasa besar — seperti yang mendukung GitHub Copilot, ChatGPT, atau model lokal melalui Ollama — untuk menyusun, memperbarui, dan memvalidasi dokumentasi bersamaan dengan kode itu sendiri. Ketika dilakukan secara bertanggung jawab, ini mengubah dokumentasi dari tugas terpisah yang ditakuti menjadi sesuatu yang hidup berdampingan dengan kode, selalu dapat dijangkau dan selalu setidaknya berupa draf pertama.
+**Otomatisasi dokumentasi berbantuan LLM** menggunakan model bahasa besar (seperti yang mendukung GitHub Copilot, ChatGPT, atau model lokal melalui Ollama) untuk menyusun, memperbarui, dan memvalidasi dokumentasi bersamaan dengan kode itu sendiri. Ketika dilakukan secara bertanggung jawab, ini mengubah dokumentasi dari tugas terpisah yang ditakuti menjadi sesuatu yang hidup berdampingan dengan kode, selalu dapat dijangkau dan selalu setidaknya berupa draf pertama.
 
 ### Di Mana LLM Membantu
 
 | Kasus Penggunaan | Kekuatan LLM |
 |---|---|
-| Menghasilkan deskripsi endpoint dari definisi rute | Tinggi — pola struktural mudah disimpulkan |
-| Menyusun blok PHPDoc dari tanda tangan metode | Tinggi — tanda tangan membawa informasi tipe |
-| Mem-bootstrap file README dari struktur proyek | Tinggi — composer.json, rute, dan folder menceritakan sebuah kisah |
-| Menulis entri changelog dari pesan commit | Sedang — konteks commit dangkal |
-| Menjelaskan logika bisnis yang kompleks dalam komentar | Sedang — nuansa domain sering hilang |
-| Memvalidasi bahwa dokumen cocok dengan kode saat ini | Rendah — memerlukan eksekusi, bukan prediksi |
-| Memastikan kepatuhan regulasi | Sangat Rendah — LLM tidak dapat memverifikasi fakta |
+| Menghasilkan deskripsi endpoint dari definisi rute | Tinggi: pola struktural mudah disimpulkan |
+| Menyusun blok PHPDoc dari tanda tangan metode | Tinggi: tanda tangan membawa informasi tipe |
+| Mem-bootstrap file README dari struktur proyek | Tinggi: composer.json, rute, dan folder menceritakan sebuah kisah |
+| Menulis entri changelog dari pesan commit | Sedang: konteks commit dangkal |
+| Menjelaskan logika bisnis yang kompleks dalam komentar | Sedang: nuansa domain sering hilang |
+| Memvalidasi bahwa dokumen cocok dengan kode saat ini | Rendah: memerlukan eksekusi, bukan prediksi |
+| Memastikan kepatuhan regulasi | Sangat Rendah: LLM tidak dapat memverifikasi fakta |
 
 ### Di Mana LLM Gagal
 
 - **Endpoint API yang dihalusinasi.** LLM mungkin mendeskripsikan endpoint yang tidak ada karena mencocokkan pola dari data pelatihan.
 - **Deskripsi usang.** Jika Anda menghasilkan dokumentasi sekali dan tidak pernah memperbaruinya, LLM tidak memiliki mekanisme untuk mendeteksi penyimpangan.
 - **Omong kosong yang meyakinkan.** LLM menulis penjelasan yang terdengar masuk akal tetapi salah tentang aturan bisnis ketika mereka kekurangan konteks domain.
-- **Terminologi tidak konsisten.** Tanpa glosarium atau batasan eksplisit, LLM mungkin menyebut entitas yang sama sebagai "User," "Account," dan "Customer" di bagian yang berbeda.
+- **Terminologi tidak konsisten.** Tanpa glosarium atau batasan eksplisit, LLM mungkin menyebut entitas yang sama sebagai "User", "Account", dan "Customer" di bagian yang berbeda.
 
 Penangkal keempat kegagalan itu sama: **alur kerja tinjauan human-in-the-loop.** LLM membuat draf. Anda memverifikasi, mengoreksi, dan meng-commit. Otomatisasi dokumentasi bukanlah pengabaian dokumentasi.
 
 ### Koneksi dengan Riset SE Lab
 
-Software Engineering Lab di Politeknik Negeri Malang menempatkan **Documentation Automation** sebagai salah satu dari lima topik inti dalam alur riset [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/). Area riset terkait mencakup ketertelusuran kebutuhan, konsistensi doc-to-code, dan peringkasan commit otomatis — yang semuanya dihubungkan oleh tutorial ini ke perangkat praktis.
+Software Engineering Lab di Politeknik Negeri Malang menempatkan **Documentation Automation** sebagai salah satu dari lima topik inti dalam alur riset [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/). Area riset terkait mencakup ketertelusuran kebutuhan, konsistensi *doc-to-code*, dan peringkasan commit otomatis, yang semuanya dihubungkan oleh tutorial ini ke perangkat praktis.
 
 </section>
 
@@ -169,18 +169,18 @@ Alat-alat ini mengekstrak dokumentasi dari **anotasi kode dan petunjuk tipe.** M
 |---|---|---|---|
 | **Scribe** | Laravel | Menghasilkan dokumentasi OpenAPI dari anotasi controller dan Form Request. Sangat baik untuk referensi API. | Hanya mendeskripsikan apa yang ada dalam anotasi. Tidak dapat menjelaskan *mengapa* sebuah endpoint ada. |
 | **PHPDoc / phpDocumentor** | PHP apa pun | Standar untuk dokumentasi kelas/fungsi. IDE menggunakannya untuk autocompletion. | Upaya manual untuk menulis. Tidak ada otomatisasi. |
-| **Generator Schema.org / JSON-LD** | Framework-agnostic | Data terstruktur untuk SEO. | Niche — hanya berguna untuk konten yang menghadap web. |
+| **Generator Schema.org / JSON-LD** | Framework-agnostic | Data terstruktur untuk SEO. | *Niche*: hanya berguna untuk konten yang menghadap web. |
 | **Generator OpenAPI/Swagger** | REST API | Spesifikasi yang dapat dibaca mesin. Banyak alat mengonsumsinya. | Anotasi bersifat verbose. |
 
 ### Generator Berbasis LLM (Tidak Terstruktur)
 
-Alat-alat ini menghasilkan **dokumentasi bahasa alami** dengan bernalar tentang struktur kode. Mereka dapat menjelaskan tujuan, menulis prosa, dan menyesuaikan nada — tetapi mereka juga dapat berhalusinasi.
+Alat-alat ini menghasilkan **dokumentasi bahasa alami** dengan bernalar tentang struktur kode. Mereka dapat menjelaskan tujuan, menulis prosa, dan menyesuaikan nada, tetapi mereka juga dapat berhalusinasi.
 
 | Alat | Pendekatan | Dukungan PHP | Biaya |
 |---|---|---|---|
-| **GitHub Copilot Chat** | Di-IDE: perintah `/docs` dan `/explain` | Sangat baik | \$10/bulan (gratis untuk mahasiswa) |
+| **GitHub Copilot Chat** | Di IDE: perintah `/docs` dan `/explain` | Sangat baik | \$10/bulan (gratis untuk mahasiswa) |
 | **Mintlify** | Ekstensi IDE: pilih kode, hasilkan dokumen | Baik | Freemium |
-| **ReadMe AI** | Cloud-hosted: unggah spesifikasi OpenAPI, dapatkan dokumen prosa | Platform-agnostic | Berbayar |
+| **ReadMe AI** | *Cloud-hosted*: unggah spesifikasi OpenAPI, dapatkan dokumen prosa | Platform-agnostic | Berbayar |
 | **Cursor / Windsurf** | Editor AI konteks penuh dengan generasi dokumen | Sangat baik | Freemium |
 | **Continue + Ollama** | Sepenuhnya lokal, tanpa internet | Baik | Gratis |
 | **Skrip Python/PHP kustom** | Mengirim kode melalui API OpenAI/Anthropic | Kontrol penuh | Biaya API |
@@ -536,7 +536,7 @@ Now every push to `main` regenerates the API reference and deploys it to GitHub 
 
 ## Menghasilkan Dokumentasi API dari Kode Laravel
 
-Di sinilah otomatisasi dokumentasi memberikan pengembalian tertinggi atas waktu yang diinvestasikan. Controller Laravel mendeklarasikan rute, validasi request, dan respons — semua data terstruktur yang dapat dikonsumsi LLM. Alur kerja ini menggabungkan **Scribe** (deterministik, berbasis anotasi) dengan **LLM** (untuk deskripsi bahasa alami).
+Di sinilah otomatisasi dokumentasi memberikan pengembalian tertinggi atas waktu yang diinvestasikan. Controller Laravel mendeklarasikan rute, validasi request, dan respons, semua data terstruktur yang dapat dikonsumsi LLM. Alur kerja ini menggabungkan **Scribe** (deterministik, berbasis anotasi) dengan **LLM** (untuk deskripsi bahasa alami).
 
 ### Langkah 1: Instal Scribe
 
@@ -733,7 +733,7 @@ class CourseController extends Controller
 php artisan scribe:generate
 ```
 
-Scribe menghasilkan `index.html` di `public/docs/` dengan setiap endpoint, parameternya, contoh respons, dan konsol "Try It." Ini adalah **kerangka deterministik Anda, selalu akurat.**
+Scribe menghasilkan `index.html` di `public/docs/` dengan setiap endpoint, parameternya, contoh respons, dan konsol "Try It". Ini adalah **kerangka deterministik Anda, selalu akurat.**
 
 Tetapi perhatikan apa yang hilang: *mengapa* di balik setiap endpoint, aturan bisnis ("mata kuliah dengan pendaftaran aktif tidak dapat dihapus"), hubungan antar endpoint, dan prosa orientasi yang membantu developer baru memahami API dalam lima menit, bukan lima puluh.
 
@@ -806,7 +806,7 @@ Perhatikan apa yang ditambahkan LLM:
 Sebelum Anda menempelkan teks LLM ke controller Anda, terapkan daftar periksa ini:
 
 1. **Apakah setiap parameter benar-benar ada dalam kode?** Jika LLM menambahkan `@bodyParam prerequisites` tetapi `StoreCourseRequest` Anda tidak memiliki field seperti itu, hapus.
-2. **Apakah nilai batasan benar?** Aturan validasi Anda mengatakan `max_credits:6` — apakah LLM mengatakan 1–6 atau ia menebak 1–12?
+2. **Apakah nilai batasan benar?** Aturan validasi Anda mengatakan `max_credits:6`. Apakah LLM mengatakan 1–6 atau ia menebak 1–12?
 3. **Apakah nilai contoh realistis?** "John Doe" baik-baik saja untuk nama. Tetapi contoh kode mata kuliah harus cocok dengan skema penamaan aktual institusi Anda.
 4. **Apakah struktur respons cocok dengan kenyataan?** Jalankan endpoint dan bandingkan output JSON dengan apa yang ditulis LLM.
 5. **Apakah logika bisnis dijelaskan dengan benar?** Jika kode Anda memeriksa `semester.is_active` tetapi deskripsi LLM tidak menyebutkan batasan semester-aktif, Anda harus menambahkannya.
@@ -1072,11 +1072,11 @@ npm install && npm run build
 {{LICENSE_SECTION}}
 ```
 
-LLM mengisi nilai `{{PLACEHOLDER}}`. Template menjamin tidak ada README yang kehilangan bagian yang diperlukan; LLM menjamin konten di setiap bagian spesifik untuk proyek.
+LLM mengisi nilai `{{PLACEHOLDER}}`. Template menjamin tidak ada README yang kehilangan bagian yang diperlukan; LLM menjamin bahwa konten di setiap bagian bersifat spesifik untuk proyek tersebut.
 
-### Menjaga Contoh Tetap Dapat Dijalankan dan Ter-Versi
+### Menjaga Contoh Tetap Dapat Dijalankan dan Terversi
 
-Kegagalan README paling umum adalah perintah instalasi yang tidak lagi berfungsi. `composer install && npm install && php artisan migrate` Anda berfungsi hari ini — tetapi bagaimana setelah Anda menambahkan dependensi Redis? LLM tidak akan mengetahuinya kecuali Anda memberikan konteks yang diperbarui.
+Kegagalan README paling umum adalah perintah instalasi yang tidak lagi berfungsi. `composer install && npm install && php artisan migrate` Anda berfungsi hari ini, tetapi bagaimana setelah Anda menambahkan dependensi Redis? LLM tidak akan mengetahuinya kecuali Anda memberikan konteks yang diperbarui.
 
 **Strategi mitigasi:**
 
@@ -1094,7 +1094,7 @@ README yang dihasilkan LLM cukup ketika:
 README yang dihasilkan LLM membutuhkan pengeditan manusia yang substansial ketika:
 - Proyek memiliki dependensi sistem yang tidak biasa (ekstensi PHP spesifik, versi database legacy, paket proprietary).
 - Proyek sensitif terhadap keamanan dan perintah README dapat menyesatkan pengguna ke konfigurasi yang tidak aman.
-- Proyek adalah output riset di mana deskripsi metodologi yang tepat penting untuk reproduktibilitas.
+- Proyek adalah output riset di mana deskripsi metodologi yang tepat penting untuk reproduksibilitas.
 
 </section>
 
@@ -1275,7 +1275,7 @@ public function enrol(int $studentId, int $courseId, ?string $enrolmentCode = nu
 }
 ```
 
-Blok PHPDoc tidak menambahkan perilaku runtime apa pun — tetapi ia menyelamatkan pengembang berikutnya (yang mungkin adalah Anda dalam enam bulan) dari membaca implementasi untuk memahami apa yang dilakukan metode dan apa yang bisa salah.
+Blok PHPDoc tidak menambahkan perilaku runtime apa pun, tetapi ia menyelamatkan pengembang berikutnya (yang mungkin adalah Anda dalam enam bulan) dari membaca implementasi untuk memahami apa yang dilakukan metode dan apa yang bisa salah.
 
 ### Peringkasan Pesan Commit
 
@@ -1357,7 +1357,7 @@ echo "$PROMPT" | curl -s https://api.openai.com/v1/chat/completions \
 
 ### Peringatan: Jangan Otomatisasi Pesan Commit Secara Buta
 
-**Jangan pernah mengaitkan generasi pesan commit ke dalam pre-commit atau post-commit hook.** Pesan commit adalah bagian permanen dari riwayat proyek Anda. Pesan yang dihasilkan LLM yang salah merepresentasikan perubahan lebih buruk daripada pesan samar yang ditulis manusia. Selalu hasilkan, tinjau, dan edit secara manual sebelum commit.
+**Jangan pernah mengaitkan generasi pesan commit ke dalam pre-commit atau post-commit hook.** Pesan commit adalah bagian permanen dari riwayat proyek Anda. Pesan yang dihasilkan LLM dan salah merepresentasikan perubahan lebih buruk daripada pesan samar yang ditulis manusia. Selalu hasilkan, tinjau, dan edit secara manual sebelum commit.
 
 ### Konvensi Docstring untuk Kode Ramah-LLM
 
@@ -1490,7 +1490,7 @@ Untuk setiap artefak dokumentasi yang dihasilkan LLM, terapkan daftar periksa in
 
 Halusinasi LLM dalam dokumentasi sulit dikenali karena teksnya *terlihat* otoritatif. Gunakan teknik ini untuk menangkapnya:
 
-1. **Diff terhadap kenyataan.** Jalankan perintah yang ditulis LLM. Jika `php artisan some:command` mengembalikan "Command not found," LLM berhalusinasi.
+1. **Diff terhadap kenyataan.** Jalankan perintah yang ditulis LLM. Jika `php artisan some:command` mengembalikan "Command not found", LLM berhalusinasi.
 2. **Referensi silang dengan kode.** Untuk setiap endpoint yang dijelaskan, cari rute yang sesuai. Untuk setiap parameter yang dijelaskan, temukan aturan validasi yang cocok.
 3. **Minta LLM mengutip sumbernya.** Prompt: "Untuk setiap klaim dalam dokumentasi ini, tunjukkan file dan nomor baris mana yang mendukungnya." LLM akan mengutip kode nyata (baik) atau membuat jalur file palsu (tertangkap).
 4. **Tinjau dengan rekan tim.** Sepasang mata segar menangkap halusinasi yang Anda, setelah bekerja dengan kode sepanjang hari, lewatkan begitu saja.
@@ -1556,7 +1556,7 @@ Tanggung jawab Anda:   Memverifikasi setiap klaim, mengoreksi setiap kesalahan, 
                         setiap kata sebelum mencapai manusia lain.
 ```
 
-Jika Anda melewatkan bagian kedua, Anda tidak mengotomatisasi dokumentasi — Anda mengotomatisasi misinformasi.
+Jika Anda melewatkan bagian kedua, Anda tidak mengotomatisasi dokumentasi, melainkan mengotomatisasi misinformasi.
 
 </section>
 
@@ -1872,7 +1872,7 @@ Salin kode `RegistrationController` ke alat LLM Anda (Copilot Chat, ChatGPT, Oll
 > 4. Semua kode `@response` yang mungkin (200, 201, 401, 409, 422) dengan contoh body.
 > 5. Tag `@authenticated` untuk blok kelas.
 >
-> Berikan perhatian khusus pada endpoint register — ia menangani empat mode kegagalan berbeda yang harus didokumentasikan."
+> Berikan perhatian khusus pada endpoint register: ia menangani empat mode kegagalan berbeda yang harus didokumentasikan."
 
 **Langkah 3: Terapkan Daftar Periksa Tinjauan**
 
@@ -1953,25 +1953,25 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 
 ### Sumber Daya SE Lab
 
-- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)** — Alur riset tempat tutorial ini bernaung. Jelajahi empat topik lainnya: Analisis Kualitas Kode, Prediksi Bug, Generasi Test AI, dan Otomatisasi Kebutuhan.
-- **[Pembuatan Unit Test Berbantuan AI dengan PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)** — Tutorial pendamping tentang penggunaan LLM untuk menghasilkan pengujian PHPUnit. Banyak prinsip tinjauan dan validasi berlaku untuk generasi pengujian dan dokumentasi.
-- **[Dasar-Dasar Arsitektur Microservices](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)** — Tutorial yang mendemonstrasikan bagaimana dokumentasi menjadi perhatian kritis dalam sistem terdistribusi di mana setiap layanan memiliki API-nya sendiri.
+- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)**: Alur riset tempat tutorial ini bernaung. Jelajahi empat topik lainnya: Analisis Kualitas Kode, Prediksi Bug, Generasi Test AI, dan Otomatisasi Kebutuhan.
+- **[Pembuatan Unit Test Berbantuan AI dengan PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)**: Tutorial pendamping tentang penggunaan LLM untuk menghasilkan pengujian PHPUnit. Banyak prinsip tinjauan dan validasi berlaku untuk generasi pengujian dan dokumentasi.
+- **[Dasar-Dasar Arsitektur Microservices](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)**: Tutorial yang mendemonstrasikan bagaimana dokumentasi menjadi perhatian kritis dalam sistem terdistribusi di mana setiap layanan memiliki API-nya sendiri.
 
 ### Dokumentasi & Alat Resmi
 
-- **[Dokumentasi Scribe](https://scribe.knuckles.wtf/)** — Panduan resmi untuk generator dokumentasi API Laravel yang digunakan dalam tutorial ini.
-- **[Referensi PHPDoc](https://docs.phpdoc.org/)** — Referensi lengkap untuk tag dan konvensi PHPDoc.
-- **[MkDocs Material](https://squidfunk.github.io/mkdocs-material/)** — Tema situs dokumentasi dengan pencarian, navigasi, dan mode gelap.
-- **[Conventional Commits](https://www.conventionalcommits.org/)** — Spesifikasi untuk pesan commit terstruktur yang dapat di-parse oleh mesin (dan LLM).
+- **[Dokumentasi Scribe](https://scribe.knuckles.wtf/)**: Panduan resmi untuk generator dokumentasi API Laravel yang digunakan dalam tutorial ini.
+- **[Referensi PHPDoc](https://docs.phpdoc.org/)**: Referensi lengkap untuk tag dan konvensi PHPDoc.
+- **[MkDocs Material](https://squidfunk.github.io/mkdocs-material/)**: Tema situs dokumentasi dengan pencarian, navigasi, dan mode gelap.
+- **[Conventional Commits](https://www.conventionalcommits.org/)**: Spesifikasi untuk pesan commit terstruktur yang dapat di-parse oleh mesin (dan LLM).
 
 ### Makalah & Artikel Riset
 
-- **Ketertelusuran Kebutuhan dan Konsistensi Doc-to-Code** — Area riset aktif dalam alur Emerging Technologies SE Lab. Tautan ketertelusuran otomatis antara dokumen kebutuhan, kode, dan pengujian mengurangi risiko dokumentasi usang.
-- **Peringkasan Commit dengan LLM** — Beberapa makalah terbaru (2023–2025) mengevaluasi LLM untuk menghasilkan deskripsi pull request, pesan commit, dan catatan rilis. SE Lab memelihara koleksi publikasi yang relevan di [halaman riset](https://se.polinema.ac.id/research/).
+- **Ketertelusuran Kebutuhan dan Konsistensi Doc-to-Code**: Area riset aktif dalam alur Emerging Technologies SE Lab. Tautan ketertelusuran otomatis antara dokumen kebutuhan, kode, dan pengujian mengurangi risiko dokumentasi usang.
+- **Peringkasan Commit dengan LLM**: Beberapa makalah terbaru (2023–2025) mengevaluasi LLM untuk menghasilkan deskripsi pull request, pesan commit, dan catatan rilis. SE Lab memelihara koleksi publikasi yang relevan di [halaman riset](https://se.polinema.ac.id/research/).
 
 ### Tutorial Terkait
 
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](https://se.polinema.ac.id/blog/domain-driven-design-fundamentals-php/)** — Tutorial yang terhubung ke otomatisasi dokumentasi melalui konsep Ubiquitous Language: ketika kode mencerminkan bahasa domain, dokumentasi menjadi perpanjangan dari model, bukan artefak terpisah.
-- **[Prinsip Clean Code](https://se.polinema.ac.id/blog/clean-code-principles/)** — Clean code adalah bentuk dokumentasi tersendiri. Metode dan kelas yang dinamai dengan baik mengurangi beban pada dokumentasi eksternal — dan membuat dokumentasi yang dihasilkan LLM lebih akurat dengan menyediakan konteks yang lebih kaya.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](https://se.polinema.ac.id/blog/domain-driven-design-fundamentals-php/)**: Tutorial yang terhubung ke otomatisasi dokumentasi melalui konsep Ubiquitous Language: ketika kode mencerminkan bahasa domain, dokumentasi menjadi perpanjangan dari model, bukan artefak terpisah.
+- **[Prinsip Clean Code](https://se.polinema.ac.id/blog/clean-code-principles/)**: Clean code adalah bentuk dokumentasi tersendiri. Metode dan kelas yang dinamai dengan baik mengurangi beban pada dokumentasi eksternal, dan membuat dokumentasi yang dihasilkan LLM lebih akurat dengan menyediakan konteks yang lebih kaya.
 
 </section>

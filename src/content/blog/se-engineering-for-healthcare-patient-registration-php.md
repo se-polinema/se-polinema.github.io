@@ -48,7 +48,7 @@ These constraints mean that **generic software engineering advice must be adapte
 
 <section lang="id">
 
-## Mengapa Perangkat Lunak Kesehatan Membutuhkan Rekayasa Disiplin
+## Mengapa Perangkat Lunak Kesehatan Membutuhkan Rekayasa yang Disiplin
 
 **Perangkat lunak kesehatan bukan sekadar aplikasi CRUD dengan tema medis.** Ini adalah domain di mana bug dapat menyebabkan bahaya fisik, kebocoran data dapat menghancurkan kehidupan, dan ketidakpatuhan regulasi dapat menutup seluruh sistem.
 
@@ -56,15 +56,15 @@ Pertimbangkan perbedaan antara formulir manajemen kontak generik dan sistem pend
 
 | Aspek | CRUD Generik | Pendaftaran Pasien |
 |---|---|---|
-| **Sensitivitas data** | Nama, email — risiko rendah jika bocor | Nomor rekam medis, diagnosis, ID asuransi — dilindungi oleh hukum |
+| **Sensitivitas data** | Nama, email: risiko rendah jika bocor | Nomor rekam medis, diagnosis, ID asuransi: dilindungi oleh hukum |
 | **Pencegahan duplikat** | Keunikan email itu bagus | Mendaftarkan orang yang sama dua kali menciptakan riwayat medis terfragmentasi dengan konsekuensi berbahaya |
 | **Validasi input** | Trim spasi, validasi format email | Validasi nomor rekam medis terhadap format institusi, validasi flag persetujuan, validasi kontak darurat |
-| **Auditabilitas** | Opsional | Siapa yang mendaftarkan pasien, kapan, dan data apa yang dimasukkan — diwajibkan secara hukum |
-| **Manajemen persetujuan** | Tidak berlaku | Pasien harus menyetujui pengumpulan, penyimpanan, dan berbagi data — dapat dicabut kapan saja |
-| **Minimalisasi data** | Kumpulkan apa pun yang membantu pemasaran | Kumpulkan hanya yang diperlukan secara klinis — "minimalisasi data" adalah prinsip hukum |
+| **Auditabilitas** | Opsional | Diwajibkan secara hukum: siapa yang mendaftarkan pasien, kapan, dan data apa yang dimasukkan |
+| **Manajemen persetujuan** | Tidak berlaku | Pasien harus menyetujui pengumpulan, penyimpanan, dan berbagi data: persetujuan dapat dicabut kapan saja |
+| **Minimalisasi data** | Kumpulkan apa pun yang membantu pemasaran | Kumpulkan hanya yang diperlukan secara klinis: "minimalisasi data" adalah prinsip hukum |
 | **Interoperabilitas** | Tidak berlaku | Data harus dapat dibagikan dengan lab, apotek, rumah sakit rujukan (HL7/FHIR, SATUSEHAT) |
 
-Batasan ini berarti bahwa **saran rekayasa perangkat lunak generik harus diadaptasi**. Pola yang Anda pelajari — DDD, Clean Code, TDD, arsitektur modular — semuanya masih berlaku, tetapi diterapkan pada masalah yang dibentuk oleh domain kesehatan. Tutorial ini menunjukkan caranya.
+Batasan ini berarti bahwa **saran rekayasa perangkat lunak generik harus diadaptasi**. Pola yang Anda pelajari (DDD, Clean Code, TDD, arsitektur modular) semuanya masih berlaku, tetapi diterapkan pada masalah yang dibentuk oleh domain kesehatan. Tutorial ini menunjukkan caranya.
 
 </section>
 
@@ -123,11 +123,11 @@ Datang / Telepon → Periksa Pasien Lama → Pendaftaran Baru → Tetapkan Nomor
 
 | Langkah | Yang Terjadi | Aturan Domain |
 |---|---|---|
-| **Periksa Pasien Lama** | Cari berdasarkan nama, tanggal lahir, NIK, atau nomor telepon | Cegah pendaftaran ganda — satu orang, satu rekam medis |
+| **Periksa Pasien Lama** | Cari berdasarkan nama, tanggal lahir, NIK, atau nomor telepon | Cegah pendaftaran ganda: satu orang, satu rekam medis |
 | **Pendaftaran Baru** | Kumpulkan demografi: nama, TTL, jenis kelamin, alamat, telepon, email, kontak darurat | Semua field wajib harus ada dan valid |
 | **Tetapkan Nomor RM** | Hasilkan identifier unik dan immutable sesuai format institusi (misal: `RM-20260706-0001`) | Nomor rekam medis tidak pernah dialokasikan ulang atau dihapus |
 | **Catat Persetujuan** | Tangkap persetujuan pasien untuk pengumpulan, penyimpanan, dan berbagi data | Persetujuan harus eksplisit, dicatat dengan timestamp, dan dapat dicabut |
-| **Verifikasi Asuransi** | Periksa kelayakan asuransi jika pasien memiliki cakupan (BPJS, swasta) | Verifikasi asuransi mungkin asinkron — pendaftaran tidak boleh terblokir |
+| **Verifikasi Asuransi** | Periksa kelayakan asuransi jika pasien memiliki cakupan (BPJS, swasta) | Verifikasi asuransi mungkin berjalan asinkron sehingga pendaftaran tidak boleh terblokir olehnya |
 | **Konfirmasi** | Kembalikan nomor rekam medis dan tanda terima konfirmasi | Output yang dilihat pasien tidak boleh mengekspos identifier internal sensitif |
 
 ### Entitas Kunci dalam Sistem Klinik
@@ -140,7 +140,7 @@ Datang / Telepon → Periksa Pasien Lama → Pendaftaran Baru → Tetapkan Nomor
 | **ConsentRecord** | Persetujuan pasien untuk penanganan data | tipe persetujuan (pengumpulan, penyimpanan, berbagi), diberikan pada, dicabut pada (nullable), versi |
 | **RegistrationAudit** | Log immutable dari kejadian pendaftaran | id pasien, tipe kejadian (dibuat, diperbarui, persetujuan_diberikan, persetujuan_dicabut), timestamp, pelaksana |
 
-Memahami entitas ini sangat penting — mereka bukan sekadar baris database. Masing-masing membawa invarian bisnis yang harus ditegakkan pada level domain.
+Memahami entitas ini sangat penting: entitas-entitas ini bukan sekadar baris database. Masing-masing membawa invarian bisnis yang harus ditegakkan pada level domain.
 
 </section>
 
@@ -498,11 +498,11 @@ These value objects and entities form the domain layer. They have **zero framewo
 
 ## Memodelkan Domain: Value Object dan Entity
 
-Data kesehatan bukanlah sekumpulan string. Setiap informasi memiliki aturan. Nomor rekam medis mengikuti format spesifik. Nomor telepon memiliki pola yang valid. Alamat email harus benar secara struktural. Memodelkan ini sebagai **value object** — tipe yang immutable dan memvalidasi diri sendiri — menangkap kesalahan pada waktu konstruksi, bukan di dalam method service.
+Data kesehatan bukanlah sekumpulan string. Setiap informasi memiliki aturan. Nomor rekam medis mengikuti format spesifik. Nomor telepon memiliki pola yang valid. Alamat email harus benar secara struktural. Memodelkan ini sebagai **value object**, tipe yang immutable dan memvalidasi diri sendiri, menangkap kesalahan pada waktu konstruksi, bukan di dalam method service.
 
 ### Value Object `MedicalRecordNumber`
 
-Nomor rekam medis adalah identifier utama untuk pasien. Mereka tidak pernah dialokasikan ulang, tidak pernah dihapus, dan harus mengikuti format institusi. Sebuah value object menegakkan aturan-aturan ini:
+Nomor rekam medis adalah identifier utama untuk pasien. Nomor ini tidak pernah dialokasikan ulang, tidak pernah dihapus, dan harus mengikuti format institusi. Sebuah value object menegakkan aturan-aturan ini:
 
 ```php
 <?php
@@ -566,7 +566,7 @@ class MedicalRecordNumber
 }
 ```
 
-Dengan memodelkan nomor rekam medis sebagai value object, Anda menjamin bahwa setiap `MedicalRecordNumber` di sistem Anda valid. Anda tidak perlu memvalidasinya lagi — sistem tipe menegakkannya.
+Dengan memodelkan nomor rekam medis sebagai value object, Anda menjamin bahwa setiap `MedicalRecordNumber` di sistem Anda valid. Anda tidak perlu memvalidasinya lagi karena sistem tipe menegakkannya.
 
 ### Value Object `Phone`
 
@@ -838,7 +838,7 @@ class ConsentRecord
 }
 ```
 
-Value object dan entity ini membentuk lapisan domain. Mereka memiliki **nol dependensi framework** — tidak ada PDO, tidak ada HTTP, tidak ada anotasi. Mereka adalah objek PHP murni yang menegakkan aturan bisnis melalui konstruktor dan factory method bernama.
+Value object dan entity ini membentuk lapisan domain. Mereka memiliki **nol dependensi framework**: tidak ada PDO, tidak ada HTTP, tidak ada anotasi. Mereka adalah objek PHP murni yang menegakkan aturan bisnis melalui konstruktor dan factory method bernama.
 
 </section>
 
@@ -953,7 +953,7 @@ This script works for a small clinic today, but it will collapse under the weigh
 
 ## Sebelum: Handler Pendaftaran Gaya Transaction-Script
 
-Sebelum menerapkan prinsip SE, handler pendaftaran pasien tipikal sering terlihat seperti ini — skrip prosedural yang mencampur validasi, logika bisnis, dan pemanggilan database dalam satu fungsi:
+Sebelum menerapkan prinsip SE, handler pendaftaran pasien tipikal sering terlihat seperti skrip prosedural berikut yang mencampur validasi, logika bisnis, dan pemanggilan database dalam satu fungsi:
 
 ```php
 <?php
@@ -1044,7 +1044,7 @@ class RegistrationController
 **Apa yang salah dengan pendekatan ini?**
 
 1. **Tanggung jawab tercampur**: Validasi, pemeriksaan duplikat, pembuatan MRN, dan persistensi tercampur menjadi satu. Anda tidak dapat menguji bagian mana pun secara independen.
-2. **Data bertipe string**: Nomor rekam medis adalah string mentah — tidak ada jaminan valid di hilir. Telepon dan email juga string mentah.
+2. **Data bertipe string**: Nomor rekam medis adalah string mentah: tidak ada jaminan valid di hilir. Telepon dan email juga string mentah.
 3. **Tidak ada lapisan domain**: Aturan bisnis (persyaratan persetujuan, validasi NIK, pencegahan duplikat) bercampur dengan masalah HTTP dan database.
 4. **Tidak dapat diuji tanpa database**: Setiap pengujian harus menggunakan koneksi PDO nyata. Anda tidak dapat menguji logika validasi secara terisolasi.
 5. **Risiko SQL injection**: Method `getNextSequence` menggabungkan string tanggal ke dalam SQL.
@@ -1320,7 +1320,7 @@ The domain service is **framework-agnostic**. It depends only on PHP interfaces.
 
 ## Setelah: Layanan Pendaftaran yang Lebih Bersih dan Dapat Diuji
 
-Sekarang mari kita refactor ini menjadi domain service yang tepat. `PatientRegistrationService` bergantung pada interface — bukan database — dan mendelegasikan validasi ke value object yang sudah kita bangun.
+Sekarang mari kita *refactor* ini menjadi domain service yang tepat. `PatientRegistrationService` bergantung pada interface, bukan database, dan mendelegasikan validasi ke value object yang sudah kita bangun.
 
 ### DTO RegistrationResult
 
@@ -1560,10 +1560,10 @@ class PatientRegistrationService
 
 | Sebelum (Transaction Script) | Setelah (Domain Service) |
 |---|---|
-| Telepon divalidasi inline dengan regex | Telepon divalidasi sekali oleh value object `Phone` — tidak pernah lagi |
+| Telepon divalidasi inline dengan regex | Telepon divalidasi sekali oleh value object `Phone`, tidak pernah lagi |
 | Email divalidasi inline dengan `filter_var` | Email divalidasi sekali oleh value object `Email` |
 | MRN dibuat sebagai penggabungan string mentah | MRN dibuat oleh `MedicalRecordNumber::generate()` dengan penegakan format |
-| Pemeriksaan duplikat query database langsung | Pemeriksaan duplikat memanggil interface repository — dapat ditukar untuk pengujian |
+| Pemeriksaan duplikat query database langsung | Pemeriksaan duplikat memanggil interface repository, dapat ditukar untuk pengujian |
 | Tidak ada jejak audit | Setiap pendaftaran dicatat melalui `AuditLogInterface` |
 | Persetujuan disimpan sebagai integer `1` | Persetujuan dimodelkan sebagai value object `ConsentRecord` dengan dukungan pencabutan |
 | Tidak dapat diuji tanpa database | Semua logika bisnis dapat diuji dengan repository in-memory |
@@ -1618,7 +1618,7 @@ This layered approach means each class has a single responsibility. Your value o
 
 ## Menjaga Invarian: Memvalidasi Data Pasien dan Pemeriksaan Duplikat
 
-Sistem kesehatan memiliki persyaratan validasi yang lebih ketat daripada kebanyakan domain. Catatan pasien duplikat bukan hanya masalah kualitas data — ini dapat menyebabkan riwayat medis terfragmentasi, alergi yang terlewat, dan perawatan yang salah. Mari kita lihat invarian spesifik yang dijaga oleh layanan kita.
+Sistem kesehatan memiliki persyaratan validasi yang lebih ketat daripada kebanyakan domain. Catatan pasien duplikat bukan hanya masalah kualitas data: ini dapat menyebabkan riwayat medis terfragmentasi, alergi yang terlewat, dan perawatan yang salah. Mari kita lihat invarian spesifik yang dijaga oleh layanan kita.
 
 ### Strategi Deteksi Duplikat
 
@@ -1630,7 +1630,7 @@ Layanan kita memeriksa tiga lapisan duplikasi:
 | **NIK** | Pencocokan tepat pada string 16 digit | NIK adalah identifier unik nasional. Dua pasien tidak dapat berbagi NIK. |
 | **Nama + Tanggal Lahir** | Pencocokan tepat pada kedua field | Nama sama + TTL sama adalah sinyal kuat duplikat. Kami mengeluarkan **peringatan**, bukan error, karena kebetulan asli terjadi (kembar, nama umum). |
 
-Peringatan bukanlah pemblokir — staf dapat mengabaikannya. Tetapi sistem tidak boleh diam-diam membuat duplikat.
+Peringatan bukanlah pemblokir: staf dapat mengabaikannya. Tetapi sistem tidak boleh diam-diam membuat duplikat.
 
 ### Lapisan Validasi
 
@@ -1723,7 +1723,7 @@ $analytics->track('patient_registered', [
 
 ## Dasar-Dasar Privasi & Persetujuan untuk Data Kesehatan
 
-Privasi bukanlah pemikiran belakangan dalam perangkat lunak kesehatan — ini adalah kewajiban hukum dan etika. Meskipun tutorial ini bukan nasihat hukum, memahami prinsip-prinsipnya membantu Anda membangun sistem yang melindungi pasien sejak hari pertama.
+Privasi bukanlah pemikiran belakangan dalam perangkat lunak kesehatan: ini adalah kewajiban hukum dan etika. Meskipun tutorial ini bukan nasihat hukum, memahami prinsip-prinsipnya membantu Anda membangun sistem yang melindungi pasien sejak hari pertama.
 
 ### Prinsip Privasi Inti
 
@@ -1740,12 +1740,12 @@ Privasi bukanlah pemikiran belakangan dalam perangkat lunak kesehatan — ini ad
 ### Lanskap Regulasi Indonesia
 
 Di Indonesia, perlindungan data kesehatan diatur oleh:
-- **UU No. 17 Tahun 2023 tentang Kesehatan** — menetapkan persyaratan kerahasiaan data pasien
-- **UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (PDP)** — undang-undang perlindungan data umum Indonesia
-- **Permenkes No. 24 Tahun 2022** — regulasi rekam medis elektronik di bawah SATUSEHAT
+- **UU No. 17 Tahun 2023 tentang Kesehatan**: menetapkan persyaratan kerahasiaan data pasien
+- **UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (PDP)**: undang-undang perlindungan data umum Indonesia
+- **Permenkes No. 24 Tahun 2022**: regulasi rekam medis elektronik di bawah SATUSEHAT
 
 Poin penting untuk pengembang:
-1. Data kesehatan diklasifikasikan sebagai "data pribadi spesifik" di bawah UU PDP — membutuhkan standar perlindungan lebih tinggi
+1. Data kesehatan diklasifikasikan sebagai "data pribadi spesifik" di bawah UU PDP, yang membutuhkan standar perlindungan lebih tinggi
 2. Pengendali data harus menunjuk Pejabat Pelindungan Data (DPO)
 3. Pelanggaran data harus dilaporkan dalam 3×24 jam
 4. Persetujuan harus eksplisit, terinformasi, dan dicatat (`ConsentRecord` kami memodelkan ini)
@@ -1775,7 +1775,7 @@ $analytics->track('patient_registered', [
 
 - [ ] Semua field yang dapat diidentifikasi pasien disimpan dalam kolom atau tablespace database terenkripsi
 - [ ] Akses ke data pasien dicatat dengan `siapa`, `kapan`, `apa`, dan `mengapa`
-- [ ] Persetujuan dicatat sebelum data apa pun dipersistensi
+- [ ] Persetujuan dicatat sebelum data apa pun disimpan
 - [ ] Permintaan ekspor dan penghapusan data memiliki prosedur terdokumentasi
 - [ ] Pesan error dan log tidak pernah mengandung identifier pasien
 - [ ] Integrasi pihak ketiga (lab, apotek) menggunakan data yang di-de-identifikasi atau memiliki persetujuan pasien eksplisit
@@ -1886,7 +1886,7 @@ If you switch to Laravel, the controller changes — `$request->input('full_name
 
 ## Menyatukan Semua: Contoh Controller Ala Slim/Laravel
 
-Sekarang mari kita lihat bagaimana domain service terintegrasi ke dalam aplikasi web. Controller ini tipis — ia hanya menerjemahkan HTTP ke lapisan domain dan kembali. Tidak ada logika bisnis yang tinggal di sini.
+Sekarang mari kita lihat bagaimana domain service terintegrasi ke dalam aplikasi web. Controller ini tipis: ia hanya menerjemahkan HTTP ke lapisan domain dan kembali. Tidak ada logika bisnis yang tinggal di sini.
 
 ```php
 <?php
@@ -1976,7 +1976,7 @@ class PatientRegistrationController
 - Tidak ada pembuatan MRN (didelegasikan ke `MedicalRecordNumber::generate()`)
 - Tidak ada query database (didelegasikan ke implementasi repository)
 
-Jika Anda beralih ke Laravel, controller berubah — `$request->input('full_name')` alih-alih `$body['full_name']`. Tetapi `PatientRegistrationService` dan semua kode domain tetap identik.
+Jika Anda beralih ke Laravel, controller berubah: `$request->input('full_name')` alih-alih `$body['full_name']`. Tetapi `PatientRegistrationService` dan semua kode domain tetap identik.
 
 </section>
 
@@ -3010,7 +3010,7 @@ PHPUnit 11.x.x oleh Sebastian Bergmann dan kontributor.
 OK (14 pengujian, 30 asersi)
 ```
 
-Seluruh rangkaian pengujian berjalan dalam milidetik — tidak ada setup database, tidak ada fixture, tidak ada rollback transaksi. Setiap aturan bisnis diverifikasi melalui asersi yang bersih dan mudah dibaca.
+Seluruh rangkaian pengujian berjalan dalam milidetik: tidak ada setup database, tidak ada fixture, tidak ada rollback transaksi. Setiap aturan bisnis diverifikasi melalui asersi yang bersih dan mudah dibaca.
 
 </section>
 
@@ -3152,21 +3152,21 @@ class PatientRegistrationServiceExtended extends PatientRegistrationService
 
 ## Apa yang Telah Dipelajari
 
-1. **Kesehatan adalah domain perangkat lunak yang berbeda** dengan batasannya sendiri — integritas rekam medis, pencegahan duplikat, manajemen persetujuan, kepatuhan regulasi, dan privasi data. Pola CRUD generik tidak cukup.
+1. **Kesehatan adalah domain perangkat lunak yang berbeda** dengan batasannya sendiri: integritas rekam medis, pencegahan duplikat, manajemen persetujuan, kepatuhan regulasi, dan privasi data. Pola CRUD generik tidak cukup.
 
 2. **Value object menangkap kesalahan pada waktu konstruksi.** `MedicalRecordNumber`, `Phone`, `Email`, dan `ConsentRecord` memvalidasi diri sendiri. Setelah dibangun, mereka dijamin valid. Tidak perlu pemeriksaan defensif di hilir.
 
-3. **Entity menegakkan invarian domain.** `Patient::register()` memvalidasi bahwa nama tidak kosong, tanggal lahir bukan di masa depan, NIK 16 digit, dan persetujuan diberikan — semuanya sebelum objek ada.
+3. **Entity menegakkan invarian domain.** `Patient::register()` memvalidasi bahwa nama tidak kosong, tanggal lahir bukan di masa depan, NIK 16 digit, dan persetujuan diberikan, semuanya sebelum objek ada.
 
 4. **Pisahkan validasi ke dalam lapisan.** Validasi sintaktik (field hilang) di controller. Validasi semantik (format telepon, format email) di value object. Validasi invarian domain (persetujuan, TTL) di entity. Validasi kontekstual (pemeriksaan duplikat) di service.
 
 5. **Deteksi duplikat membutuhkan nuansa.** Duplikat telepon dan NIK adalah error keras. Duplikat Nama + TTL adalah peringatan (tidak semua pasangan nama-sama-TTL-adalah duplikat). Sistem harus menandai tetapi membiarkan staf memutuskan.
 
-6. **Persetujuan adalah konsep domain kelas satu.** Modelkan sebagai value object dengan tipe (pengumpulan, penyimpanan, berbagi), timestamp, versi, dan dukungan pencabutan. Persetujuan bukan flag boolean — ia memiliki siklus hidup.
+6. **Persetujuan adalah konsep domain kelas satu.** Modelkan sebagai value object dengan tipe (pengumpulan, penyimpanan, berbagi), timestamp, versi, dan dukungan pencabutan. Persetujuan bukan flag boolean, ia memiliki siklus hidup.
 
 7. **Domain service bekerja dengan interface, bukan database.** `PatientRegistrationService` bergantung pada `PatientRepositoryInterface` dan `AuditLogInterface`. Dalam pengujian, tukar implementasi in-memory. Di produksi, tukar PDO atau Eloquent. Logika bisnis tidak pernah berubah.
 
-8. **Privasi dibangun dari awal, bukan ditambahkan belakangan.** Jangan pernah mencatat identifier pasien. Jangan pernah menaruhnya di URL. Enkripsi saat disimpan. Audit setiap akses. Minimalisasi pengumpulan data sesuai kebutuhan klinis. Ini bukan "baik untuk dimiliki" — ini adalah kewajiban hukum di Indonesia di bawah UU PDP dan UU Kesehatan.
+8. **Privasi dibangun dari awal, bukan ditambahkan belakangan.** Jangan pernah mencatat identifier pasien. Jangan pernah menaruhnya di URL. Enkripsi saat disimpan. Audit setiap akses. Minimalisasi pengumpulan data sesuai kebutuhan klinis. Ini bukan "baik untuk dimiliki": ini adalah kewajiban hukum di Indonesia di bawah UU PDP dan UU Kesehatan.
 
 > "Perangkat lunak kesehatan bukan tentang layar dan database. Ini tentang melindungi orang pada saat mereka paling rentan. Setiap baris kode adalah janji bahwa data mereka tidak akan hilang, bocor, atau disalahgunakan."
 
@@ -3269,13 +3269,13 @@ class PatientRegistrationServiceExtended extends PatientRegistrationService
 
 ## Bacaan Selanjutnya
 
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)** — Terapkan pola DDD seperti entity, value object, aggregate, dan repository ke model domain kesehatan Anda.
-- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** — Pelajari kapan harus mengekstrak modul Patient, Appointment, dan Billing menjadi layanan terpisah.
-- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)** — Kuasai strategi pengujian untuk logika validasi kompleks dan aturan deteksi duplikat.
-- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)** — Bangun layanan pendaftaran pasien Anda dengan percaya diri menggunakan siklus Red-Green-Refactor.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Jaga layanan pendaftaran Anda tetap terbaca seiring berkembangnya regulasi privasi dan persyaratan klinis.
-- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)** — Terapkan pola Strategy (tipe persetujuan), Observer (kejadian pendaftaran), dan Repository ke sistem kesehatan Anda.
-- **[Rekayasa Perangkat Lunak untuk Fintech: Alur Pembayaran Aman dengan PHP](/blog/software-engineering-for-fintech-payment-flow-php)** — Lihat bagaimana prinsip SE yang sama diterapkan ke domain teregulasi lainnya (fintech).
-- **[Panduan Integrasi SATUSEHAT](https://satusehat.kemkes.go.id/)** — Platform pertukaran data kesehatan nasional Indonesia. Pelajari standar FHIR dan HL7 untuk interoperabilitas kesehatan.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)**: Terapkan pola DDD seperti entity, value object, aggregate, dan repository ke model domain kesehatan Anda.
+- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: Pelajari kapan harus mengekstrak modul Patient, Appointment, dan Billing menjadi layanan terpisah.
+- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)**: Kuasai strategi pengujian untuk logika validasi kompleks dan aturan deteksi duplikat.
+- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)**: Bangun layanan pendaftaran pasien Anda dengan percaya diri menggunakan siklus Red-Green-Refactor.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Jaga layanan pendaftaran Anda tetap terbaca seiring berkembangnya regulasi privasi dan persyaratan klinis.
+- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)**: Terapkan pola Strategy (tipe persetujuan), Observer (kejadian pendaftaran), dan Repository ke sistem kesehatan Anda.
+- **[Rekayasa Perangkat Lunak untuk Fintech: Alur Pembayaran Aman dengan PHP](/blog/software-engineering-for-fintech-payment-flow-php)**: Lihat bagaimana prinsip SE yang sama diterapkan ke domain teregulasi lainnya (fintech).
+- **[Panduan Integrasi SATUSEHAT](https://satusehat.kemkes.go.id/)**: Platform pertukaran data kesehatan nasional Indonesia. Pelajari standar FHIR dan HL7 untuk interoperabilitas kesehatan.
 
 </section>

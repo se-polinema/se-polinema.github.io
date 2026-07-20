@@ -8,7 +8,7 @@ author: SE Lab
 lang: en
 featured: false
 excerpt: "A beginner-friendly guide to writing readable, maintainable PHP code. Learn meaningful naming, small functions, single responsibility, self-documenting code, and how to avoid magic numbers — with concrete before-and-after examples."
-excerptId: "Panduan ramah pemula untuk menulis kode PHP yang mudah dibaca dan dipelihara. Pelajari penamaan yang bermakna, fungsi kecil, tanggung jawab tunggal, kode yang mendokumentasikan diri sendiri, dan cara menghindari magic number — dengan contoh before-and-after yang konkret."
+excerptId: "Panduan ramah pemula untuk menulis kode PHP yang mudah dibaca dan dipelihara. Pelajari penamaan yang bermakna, fungsi kecil, tanggung jawab tunggal, kode yang mendokumentasikan diri sendiri, dan cara menghindari magic number, dengan contoh before-and-after yang konkret."
 stream: se-methodologies-architecture
 tags:
   - Clean Code
@@ -46,11 +46,11 @@ In this tutorial, we will cover five foundational Clean Code principles with PHP
 
 ## Apa Itu Clean Code dan Mengapa Anda Harus Peduli?
 
-**Clean Code** adalah kode yang mudah dibaca, dipahami, dan dimodifikasi. Ini bukan tentang menulis one-liner yang cerdik atau membuat rekan Anda terkesan — ini tentang menulis kode yang dapat diambil dan dikerjakan oleh pengembang yang lelah (termasuk diri Anda di masa depan) enam bulan dari sekarang tanpa ingin menyerah.
+**Clean Code** adalah kode yang mudah dibaca, dipahami, dan dimodifikasi. Ini bukan tentang menulis *one-liner* yang cerdik atau membuat rekan Anda terkesan, melainkan tentang menulis kode yang dapat diambil dan dikerjakan oleh pengembang yang lelah (termasuk diri Anda di masa depan) enam bulan dari sekarang tanpa ingin menyerah.
 
-Pikirkan tentang waktu yang Anda habiskan untuk tugas coding pada umumnya. Studi dan survei industri secara konsisten menunjukkan bahwa pengembang menghabiskan **jauh lebih banyak waktu membaca kode daripada menulisnya** — seringkali 70% atau lebih. Setiap nama variabel yang tidak jelas, setiap fungsi seratus baris, setiap magic number yang harus Anda tebak artinya mencuri menit dari hari Anda. Menit-menit itu bertambah menjadi jam dan minggu.
+Pikirkan tentang waktu yang Anda habiskan untuk tugas coding pada umumnya. Studi dan survei industri secara konsisten menunjukkan bahwa pengembang menghabiskan **jauh lebih banyak waktu membaca kode daripada menulisnya**, seringkali 70% atau lebih. Setiap nama variabel yang tidak jelas, setiap fungsi seratus baris, setiap *magic number* yang harus Anda tebak artinya mencuri menit dari hari Anda. Menit-menit itu bertambah menjadi jam dan minggu.
 
-**Utang teknis (technical debt)** adalah istilah untuk jalan pintas yang Anda ambil hari ini yang memakan waktu ekstra besok. Praktik Clean Code mengurangi utang teknis sejak awal.
+**Utang teknis** (*technical debt*) adalah istilah untuk jalan pintas yang Anda ambil hari ini yang memakan waktu ekstra besok. Praktik Clean Code mengurangi utang teknis sejak awal.
 
 Berikut adalah apa yang diberikan Clean Code kepada Anda:
 
@@ -199,7 +199,7 @@ class Stu
 }
 ```
 
-Apa artinya `Stu`? Student? Studio? Stub? Apa yang dilakukan `calc`? Apa itu `$d`? `$r`? `$i->s`? `fmt`? `$a`? Pembaca harus mereverse-engineer seluruh kelas hanya untuk memahami apa yang seharusnya dilakukannya.
+Apa artinya `Stu`? Student? Studio? Stub? Apa yang dilakukan `calc`? Apa itu `$d`? `$r`? `$i->s`? `fmt`? `$a`? Pembaca harus me-*reverse-engineer* seluruh kelas hanya untuk memahami apa yang seharusnya dilakukannya.
 
 ### After: Nama yang Mengungkapkan Maksud
 
@@ -344,7 +344,7 @@ Now each function does exactly one thing. You can read `processOrder` and see th
 
 ## Prinsip 2: Fungsi Kecil yang Melakukan Satu Hal
 
-Sebuah fungsi harus melakukan **satu hal, dan melakukannya dengan baik**. Jika sebuah fungsi bernama `processOrder`, ia harus memproses pesanan — bukan memvalidasi pembayaran, mengirim email, memperbarui inventaris, dan menghasilkan faktur PDF semuanya dalam satu tubuh 200 baris.
+Sebuah fungsi harus melakukan **satu hal, dan melakukannya dengan baik**. Jika sebuah fungsi bernama `processOrder`, ia harus memproses pesanan, bukan memvalidasi pembayaran, mengirim email, memperbarui inventaris, dan menghasilkan faktur PDF sekaligus dalam satu blok kode yang sama sepanjang 200 baris.
 
 ### Mengapa Fungsi Kecil Penting
 
@@ -352,7 +352,7 @@ Sebuah fungsi harus melakukan **satu hal, dan melakukannya dengan baik**. Jika s
 |---|---|
 | **Fungsi panjang** | Sulit dipahami, sulit diuji, sulit digunakan kembali. |
 | **Banyak tanggung jawab** | Perubahan pada satu perilaku berisiko merusak yang lain. |
-| **Nesting dalam** | `if` di dalam `for` di dalam `if` di dalam `while` — beban kognitif berlebihan. |
+| **Nesting dalam** | `if` di dalam `for` di dalam `if` di dalam `while`: beban kognitif berlebihan. |
 | **Tingkat abstraksi campuran** | Kode detail bersebelahan dengan kode tingkat tinggi membingungkan pembaca. |
 
 ### Aturan untuk Fungsi yang Baik
@@ -360,7 +360,7 @@ Sebuah fungsi harus melakukan **satu hal, dan melakukannya dengan baik**. Jika s
 - **Jaga agar tetap pendek.** Sebuah fungsi jarang melebihi 20 baris. Sepuluh baris bahkan lebih baik.
 - **Lakukan satu hal.** Jika nama fungsi mengandung "dan" atau "atau", ia mungkin melakukan lebih dari satu hal.
 - **Satu tingkat abstraksi per fungsi.** Jangan mencampur kueri SQL dengan logika bisnis dengan format string.
-- **Pilih argumen yang lebih sedikit.** Nol, satu, atau dua argumen ideal. Tiga adalah tanda peringatan. Empat atau lebih perlu refactor.
+- **Pilih argumen yang lebih sedikit.** Nol, satu, atau dua argumen ideal. Tiga adalah tanda peringatan. Empat atau lebih perlu *refactor*.
 
 ### Before: Fungsi yang Melakukan Terlalu Banyak
 
@@ -395,7 +395,7 @@ function processOrder($orderData)
 }
 ```
 
-Fungsi ini menghitung total, menerapkan diskon dan kupon, menyimpan ke database, dan mengirim email — semuanya di satu tempat. Jika satu perilaku berubah, Anda harus menyentuh fungsi ini. Mengujinya memerlukan database, server email, dan logika kupon sekaligus.
+Fungsi ini menghitung total, menerapkan diskon dan kupon, menyimpan ke *database*, dan mengirim email, semuanya di satu tempat. Jika satu perilaku berubah, Anda harus menyentuh fungsi ini. Mengujinya memerlukan *database*, *server* email, dan logika kupon sekaligus.
 
 ### After: Didekomposisi Menjadi Fungsi Kecil Bertanggung Jawab Tunggal
 
@@ -592,9 +592,9 @@ Now each class has exactly one reason to change. You can swap the CSV format for
 
 ## Prinsip 3: Single Responsibility Principle
 
-**Single Responsibility Principle (SRP)** menyatakan bahwa sebuah kelas seharusnya hanya memiliki satu alasan untuk berubah. Jika sebuah kelas menangani otentikasi pengguna, format email, dan pencatatan database, ia memiliki tiga alasan untuk berubah — dan perubahan pada salah satunya berisiko merusak yang lain.
+**Single Responsibility Principle (SRP)** menyatakan bahwa sebuah kelas seharusnya hanya memiliki satu alasan untuk berubah. Jika sebuah kelas menangani otentikasi pengguna, format email, dan pencatatan *database*, ia memiliki tiga alasan untuk berubah, dan perubahan pada salah satunya berisiko merusak yang lain.
 
-SRP bukan hanya tentang kelas. Ini berlaku untuk fungsi, modul, dan bahkan seluruh paket. Prinsip ini menjaga kode Anda tetap terdecouple: ketika satu bagian berubah, sisanya tetap utuh.
+SRP bukan hanya tentang kelas. Ini berlaku untuk fungsi, modul, dan bahkan seluruh paket. Prinsip ini menjaga kode Anda tetap ter-*decouple*: ketika satu bagian berubah, sisanya tetap utuh.
 
 ### Before: Kelas dengan Terlalu Banyak Pekerjaan
 
@@ -633,7 +633,7 @@ class ReportGenerator
 }
 ```
 
-Kelas ini memformat data CSV, menulis file, mencatat ke database, mengompres file, dan mengirim email. Jika template email berubah, format laporan berubah, atau Anda mengganti mesin database, Anda harus memodifikasi kelas ini.
+Kelas ini memformat data CSV, menulis file, mencatat ke *database*, mengompres file, dan mengirim email. Jika *template* email berubah, format laporan berubah, atau Anda mengganti mesin *database*, Anda harus memodifikasi kelas ini.
 
 ### After: Satu Tanggung Jawab Per Kelas
 
@@ -722,7 +722,7 @@ class ReportGenerator
 }
 ```
 
-Sekarang setiap kelas memiliki tepat satu alasan untuk berubah. Anda dapat mengganti format CSV menjadi JSON, mengubah penyedia email, atau mengompres dengan alat yang berbeda — dan hanya satu kelas yang berubah. `ReportGenerator` mengoordinasikan alur kerja tanpa mengetahui detail implementasi.
+Sekarang setiap kelas memiliki tepat satu alasan untuk berubah. Anda dapat mengganti format CSV menjadi JSON, mengubah penyedia email, atau mengompres dengan alat yang berbeda, dan hanya satu kelas yang berubah. `ReportGenerator` mengoordinasikan alur kerja tanpa mengetahui detail implementasi.
 
 </section>
 
@@ -837,16 +837,16 @@ Notice the comments explain why the unusual conversions exist — not what the c
 
 Kesalahpahaman umum adalah bahwa lebih banyak komentar sama dengan kode yang lebih baik. Kebenarannya lebih halus: **komentar terbaik adalah yang tidak perlu Anda tulis** karena kode sudah mengatakannya.
 
-Komentar memiliki biaya pemeliharaan. Ketika kode berubah, komentar sering tidak — meninggalkan kebohongan yang menyesatkan pengembang berikutnya. Komentar yang menyesatkan lebih buruk daripada tidak ada komentar sama sekali.
+Komentar memiliki biaya pemeliharaan. Ketika kode berubah, komentar sering tidak ikut berubah, sehingga meninggalkan kebohongan yang menyesatkan pengembang berikutnya. Komentar yang menyesatkan lebih buruk daripada tidak ada komentar sama sekali.
 
 ### Kapan Komentar Berguna
 
 | Komentar Baik | Komentar Buruk |
 |---|---|
 | Menjelaskan *mengapa* kode melakukan sesuatu yang tidak biasa | Mengulangi *apa* yang sudah jelas dilakukan kode |
-| Mendokumentasikan workaround untuk bug library yang diketahui | Mendeskripsikan detail implementasi yang sepele |
-| Memberikan konteks: penjelasan regex, referensi rumus | Menjadi placeholder untuk variabel yang dinamai buruk |
-| Menandai TODO dengan nomor tiket | Sudah kadaluarsa dan bertentangan dengan kode |
+| Mendokumentasikan *workaround* untuk bug *library* yang diketahui | Mendeskripsikan detail implementasi yang sepele |
+| Memberikan konteks: penjelasan regex, referensi rumus | Menjadi *placeholder* untuk variabel yang dinamai buruk |
+| Menandai TODO dengan nomor tiket | Sudah kedaluwarsa dan bertentangan dengan kode |
 
 ### Before: Komentar yang Seharusnya Menjadi Nama
 
@@ -880,7 +880,7 @@ function p($usd)
 }
 ```
 
-Komentar menjelaskan apa yang dilakukan kode — tetapi hanya karena kode tidak dapat dibaca. Setiap komentar itu tidak akan diperlukan dengan nama yang baik.
+Komentar menjelaskan apa yang dilakukan kode, tetapi hanya karena kode tidak dapat dibaca. Setiap komentar itu tidak akan diperlukan dengan nama yang baik.
 
 ### After: Biarkan Kode Berbicara
 
@@ -930,7 +930,7 @@ function calculateShippingCost(float $weight, string $destination): float
 }
 ```
 
-Perhatikan komentar menjelaskan mengapa konversi yang tidak biasa itu ada — bukan apa yang dilakukan kode.
+Perhatikan komentar menjelaskan mengapa konversi yang tidak biasa itu ada, bukan apa yang dilakukan kode.
 
 </section>
 
@@ -1051,9 +1051,9 @@ function validateStudentScore(int $score): bool
 
 ## Prinsip 5: Hindari Magic Number dan String
 
-**Magic number** adalah nilai literal yang muncul dalam kode tanpa makna yang jelas. `if ($status === 3)` — apa itu 3? Approved? Pending? Cancelled? Magic number memaksa pembaca menebak atau mencari artinya.
+**Magic number** adalah nilai literal yang muncul dalam kode tanpa makna yang jelas. `if ($status === 3)`: apa itu 3? Approved? Pending? Cancelled? *Magic number* memaksa pembaca menebak atau mencari artinya.
 
-Magic string adalah masalah yang sama: `$response['type'] === 'A'` bersifat kriptik. Gunakan konstanta deskriptif sebagai gantinya.
+*Magic string* adalah masalah yang sama: `$response['type'] === 'A'` bersifat kriptik. Gunakan konstanta deskriptif sebagai gantinya.
 
 ### Before: Penuh dengan Nilai Magic
 
@@ -1319,11 +1319,11 @@ Notice the blank lines inside `createInvoice`: they separate variable setup, obj
 
 ## Penanganan Error dan Formatting
 
-Clean Code juga berarti menulis penanganan error yang tidak mengaburkan logika utama, dan formatting yang membuat struktur terlihat sekilas.
+Clean Code juga berarti menulis penanganan error yang tidak mengaburkan logika utama, dan *formatting* yang membuat struktur terlihat sekilas.
 
 ### Gunakan Early Return Alih-Alih Nesting Dalam
 
-Blok `if/else` yang bertingkat dalam sulit diikuti. **Early return** (atau guard clause) menangani error atau kasus tepi segera dan membiarkan logika utama mengalir tanpa indentasi.
+Blok `if/else` yang bertingkat dalam sulit diikuti. **Early return** (atau *guard clause*) menangani error atau kasus tepi segera dan membiarkan logika utama mengalir tanpa indentasi.
 
 **Before: Kondisi bertingkat**
 
@@ -1368,11 +1368,11 @@ function transferFunds(array $from, array $to, float $amount): bool
 }
 ```
 
-Versi after lebih panjang dalam baris, tetapi logikanya datar dan mudah dibaca. Setiap kondisi adalah satu aturan yang jelas.
+Versi *after* lebih panjang dalam baris, tetapi logikanya datar dan mudah dibaca. Setiap kondisi adalah satu aturan yang jelas.
 
 ### Lempar Exception yang Bermakna
 
-Jangan biarkan kode Anda gagal secara diam-diam. Gunakan exception dengan pesan deskriptif.
+Jangan biarkan kode Anda gagal secara diam-diam. Gunakan *exception* dengan pesan deskriptif.
 
 **Before: Kegagalan diam**
 
@@ -1392,7 +1392,7 @@ function findUserById(int $id): ?array
 }
 ```
 
-Jika `findUserById` mengembalikan `null`, kode pemanggil tidak tahu apakah pengguna tidak ditemukan atau koneksi database gagal.
+Jika `findUserById` mengembalikan `null`, kode pemanggil tidak tahu apakah pengguna tidak ditemukan atau koneksi *database* gagal.
 
 **After: Exception yang jelas**
 
@@ -1424,12 +1424,12 @@ Sekarang pemanggil tahu persis apa yang salah dan dapat memutuskan bagaimana men
 
 ### Formatting yang Konsisten
 
-Formatting yang konsisten membuat kode mudah dipindai. Ikuti aturan ini:
+*Formatting* yang konsisten membuat kode mudah dipindai. Ikuti aturan ini:
 
 - **Indentasi secara konsisten.** Gunakan 4 spasi (atau standar yang disepakati tim Anda). Jangan pernah mencampur tab dan spasi.
 - **Satu pernyataan per baris.** Jangan merangkai beberapa operasi dengan `;` di baris yang sama.
 - **Baris kosong memisahkan blok logis.** Kelompokkan baris terkait dan pisahkan dari kelompok lain dengan satu baris kosong.
-- **Kurung kurawal pembuka di baris yang sama atau baris berikutnya — pilih satu.** PSR-12 (standar PHP) menempatkannya di baris yang sama untuk fungsi dan baris berikutnya untuk kelas.
+- **Kurung kurawal pembuka di baris yang sama atau baris berikutnya, pilih satu.** PSR-12 (standar PHP) menempatkannya di baris yang sama untuk fungsi dan baris berikutnya untuk kelas.
 
 ```php
 <?php
@@ -1466,7 +1466,7 @@ class InvoiceService
 }
 ```
 
-Perhatikan baris kosong di dalam `createInvoice`: mereka memisahkan pengaturan variabel, pembuatan objek, dan pernyataan return — masing-masing adalah kelompok logis.
+Perhatikan baris kosong di dalam `createInvoice`: mereka memisahkan pengaturan variabel, pembuatan objek, dan pernyataan *return*, masing-masing adalah kelompok logis.
 
 </section>
 
@@ -1664,7 +1664,7 @@ The refactored class tells a clear story. You can read the public methods and un
 
 ## Before and After: Merefaktor Kelas PHP yang Berantakan
 
-Mari terapkan semua yang telah kita pelajari. Berikut adalah kelas `LibraryService` yang mungkin Anda temukan di proyek mahasiswa — berfungsi, tetapi berantakan. Kita akan merefaktornya langkah demi langkah.
+Mari terapkan semua yang telah kita pelajari. Berikut adalah kelas `LibraryService` yang mungkin Anda temukan di proyek mahasiswa: berfungsi, tetapi berantakan. Kita akan merefaktornya langkah demi langkah.
 
 ### Before: Kode Berantakan Asli
 
@@ -1736,7 +1736,7 @@ class LibraryService
 }
 ```
 
-Kelas ini memiliki setiap masalah yang kita bahas: nama kriptik (`$a`, `$b`, `$x`, `$y`), magic number (`1`, `2`, `7`, `500`, `1000`, `2000`, `5`, `14`, `86400`), magic string (`'bk'`), tanggung jawab campuran, dan logika yang sulit diikuti.
+Kelas ini memiliki setiap masalah yang kita bahas: nama kriptik (`$a`, `$b`, `$x`, `$y`), *magic number* (`1`, `2`, `7`, `500`, `1000`, `2000`, `5`, `14`, `86400`), *magic string* (`'bk'`), tanggung jawab campuran, dan logika yang sulit diikuti.
 
 ### After: Bersih, Terbaca, Mudah Dipelihara
 
@@ -1835,13 +1835,13 @@ Berikut adalah apa yang berubah dan mengapa:
 
 | Perubahan | Alasan |
 |---|---|
-| Semua nilai magic diekstrak ke `const` | Sumber kebenaran tunggal; mudah menyesuaikan batas dan biaya |
+| Semua nilai *magic* diekstrak ke `const` | Sumber kebenaran tunggal; mudah menyesuaikan batas dan biaya |
 | `$a`, `$b`, `$x`, `$y` diganti dengan nama deskriptif | Kode memberi tahu Anda apa yang dilakukannya tanpa terjemahan mental |
 | `$s == 1` diganti oleh `MembershipStatus::ACTIVE` | Nama konstanta yang bermakna alih-alih integer mentah |
-| `"bk"` diganti oleh `self::BOOK_TYPE` | Tidak ada lagi magic string mengambang dalam logika |
+| `"bk"` diganti oleh `self::BOOK_TYPE` | Tidak ada lagi *magic string* mengambang dalam logika |
 | `time() - strtotime($d)` diekstrak ke `calculateDaysLate()` | Satu tanggung jawab per fungsi; dapat diuji secara terisolasi |
 | `check()` diganti menjadi `validateCheckout()` | Pola kata kerja-kata benda memberi tahu persis apa yang dikembalikan metode |
-| Early return di `validateCheckout()` | Logika datar: baca dari atas ke bawah, tanpa nesting |
+| *Early return* di `validateCheckout()` | Logika datar: baca dari atas ke bawah, tanpa *nesting* |
 | Metode `hasOverdueItems()` terpisah | Pemeriksaan boolean diekstrak; dapat digunakan kembali dan mendokumentasikan diri sendiri |
 
 Kelas yang direfaktor menceritakan kisah yang jelas. Anda dapat membaca metode publik dan memahami alur kerja perpustakaan tanpa menelusuri kondisi bertingkat atau menguraikan singkatan.
@@ -2061,9 +2061,9 @@ class StudentEnrollment
 ### Tugas Anda
 
 1. **Ganti nama** `$a`, `$n`, `$em`, `$sub`, `$c`, `$e`, dan nama metode serta variabel kelas untuk mengungkapkan maksud.
-2. **Ganti magic number** (`17`, `60`, `1`, `2`, `3`, `300000`, `400000`, `500000`, `4`, `0.95`) dengan konstanta bernama.
-3. **Ekstrak metode pembantu** — validasi, perhitungan biaya, pembuatan ID mahasiswa — sehingga masing-masing melakukan satu hal.
-4. **Gunakan early return** untuk meratakan logika validasi.
+2. **Ganti *magic number*** (`17`, `60`, `1`, `2`, `3`, `300000`, `400000`, `500000`, `4`, `0.95`) dengan konstanta bernama.
+3. **Ekstrak metode pembantu**: validasi, perhitungan biaya, pembuatan ID mahasiswa, sehingga masing-masing melakukan satu hal.
+4. **Gunakan *early return*** untuk meratakan logika validasi.
 
 ### Perilaku yang Diharapkan Setelah Refaktor
 
@@ -2191,11 +2191,11 @@ Clean Code is not about perfection on the first draft. Write code that works, th
 2. **Fungsi kecil melakukan satu hal.** Jika nama fungsi mengandung "dan", pisahkan. Targetkan di bawah 20 baris.
 3. **Single Responsibility Principle** berarti setiap kelas dan fungsi memiliki tepat satu alasan untuk berubah.
 4. **Kode yang mendokumentasikan diri sendiri** lebih baik dari komentar. Tulis komentar untuk menjelaskan *mengapa*, bukan *apa*.
-5. **Ganti magic number dan string** dengan konstanta bernama. Diri Anda di masa depan akan berterima kasih.
-6. **Gunakan early return** untuk menjaga logika tetap datar dan mudah dibaca. Nesting dalam adalah code smell.
-7. **Lempar exception yang bermakna.** Mengembalikan `null` atau `false` secara diam-diam kehilangan informasi.
+5. **Ganti *magic number* dan *string*** dengan konstanta bernama. Diri Anda di masa depan akan berterima kasih.
+6. **Gunakan *early return*** untuk menjaga logika tetap datar dan mudah dibaca. *Nesting dalam* adalah *code smell*.
+7. **Lempar *exception* yang bermakna.** Mengembalikan `null` atau `false` secara diam-diam kehilangan informasi.
 
-Clean Code bukan tentang kesempurnaan pada draf pertama. Tulis kode yang berfungsi, lalu *refaktor menjadi sesuatu yang Anda nikmati untuk dibaca enam bulan dari sekarang*. Setiap langkah refactoring membuat basis kode sedikit lebih baik — dan membuat Anda sedikit lebih cepat pada fitur berikutnya.
+Clean Code bukan tentang kesempurnaan pada draf pertama. Tulis kode yang berfungsi, lalu *refaktor menjadi sesuatu yang Anda nikmati untuk dibaca enam bulan dari sekarang*. Setiap langkah *refactoring* membuat basis kode sedikit lebih baik, dan membuat Anda sedikit lebih cepat pada fitur berikutnya.
 
 > "Siapa pun bisa menulis kode yang dimengerti komputer. Programmer yang baik menulis kode yang dimengerti manusia." — Martin Fowler
 

@@ -44,7 +44,7 @@ Think of testing like checking your homework before submitting it. You do not ju
 
 Sebelum kita membahas pengujian Blackbox dan Whitebox, mari pahami **mengapa** kita menguji perangkat lunak.
 
-Setiap aplikasi yang Anda bangun pada akhirnya akan memiliki pengguna. Pengguna tersebut mengharapkan perangkat lunak bekerja dengan benar, menangani kesalahan dengan baik, dan tidak pernah kehilangan data mereka. Pengujian adalah cara Anda membuktikan kepada diri sendiri — dan kepada pengguna — bahwa perangkat lunak berperilaku sebagaimana mestinya.
+Setiap aplikasi yang Anda bangun pada akhirnya akan memiliki pengguna. Pengguna tersebut mengharapkan perangkat lunak bekerja dengan benar, menangani kesalahan dengan baik, dan tidak pernah kehilangan data mereka. Pengujian adalah cara Anda membuktikan, baik kepada diri sendiri maupun kepada pengguna, bahwa perangkat lunak berperilaku sebagaimana mestinya.
 
 Bayangkan pengujian seperti memeriksa pekerjaan rumah Anda sebelum mengumpulkannya. Anda tidak hanya menulis jawaban dan berharap jawaban itu benar. Anda meninjau setiap soal, memverifikasi perhitungan, dan memeriksa ulang penalaran Anda. Pengujian perangkat lunak bekerja dengan cara yang sama, tetapi dengan pendekatan yang terstruktur.
 
@@ -118,7 +118,7 @@ Pemula sering mencampuradukkan kedua istilah ini. Mari kita perjelas:
 
 - Test Case 1: Login dengan kredensial valid
 - Test Case 2: Login dengan kata sandi salah
-- Test Case 3: Login dengan field kosong
+- Test Case 3: Login dengan *field* kosong
 - Test Case 4: Login dengan akun yang tidak ada
 
 Saat merancang pengujian, selalu mulai dengan skenario (apa yang akan Anda uji?) lalu buat test case (bagaimana Anda akan mengujinya?).
@@ -197,7 +197,7 @@ Each test case is independent, repeatable, and has a clear expected result — t
 
 ### Apa Itu Blackbox Testing?
 
-Bayangkan mesin penjual otomatis. Anda menekan tombol, memasukkan koin, dan minuman keluar. Anda **tidak** tahu apa yang terjadi di dalamnya — motor, kumparan, papan sirkuit. Yang Anda tahu hanyalah: dengan masukan ini, saya mengharapkan keluaran ini.
+Bayangkan mesin penjual otomatis. Anda menekan tombol, memasukkan koin, dan minuman keluar. Anda **tidak** tahu apa yang terjadi di dalamnya: motor, kumparan, papan sirkuit. Yang Anda tahu hanyalah: dengan masukan ini, saya mengharapkan keluaran ini.
 
 **Blackbox testing bekerja dengan cara yang sama.** Anda menguji perangkat lunak tanpa mengetahui struktur kode internalnya. Anda memberikan masukan dan memeriksa apakah keluarannya sesuai dengan harapan Anda.
 
@@ -212,9 +212,9 @@ Bayangkan mesin penjual otomatis. Anda menekan tombol, memasukkan koin, dan minu
 
 **1. Equivalence Partitioning (EP)**
 
-Bagi data masukan ke dalam kelompok (partisi) di mana sistem seharusnya berperilaku serupa. Alih-alih menguji setiap nilai yang mungkin, Anda menguji satu nilai representatif dari setiap partisi.
+Bagi data masukan ke dalam kelompok (partisi) yang di dalamnya sistem seharusnya berperilaku serupa. Alih-alih menguji setiap nilai yang mungkin, Anda menguji satu nilai representatif dari setiap partisi.
 
-*Contoh:* Sebuah field menerima usia 17–65. Alih-alih menguji 49 nilai, Anda menguji:
+*Contoh:* Sebuah *field* menerima usia 17–65. Alih-alih menguji 49 nilai, Anda menguji:
 - Partisi valid: usia 30 (harus berhasil)
 - Di bawah minimum: usia 16 (harus gagal)
 - Di atas maksimum: usia 66 (harus gagal)
@@ -229,7 +229,7 @@ Kesalahan sering terjadi di tepi rentang yang valid. BVA menguji nilai di dan se
 
 Ketika keluaran bergantung pada beberapa kondisi, gunakan tabel untuk memetakan setiap kombinasi.
 
-*Contoh:* Sistem diskon di mana status keanggotaan DAN jumlah pembelian menentukan diskon.
+*Contoh:* Sistem diskon yang diskonnya ditentukan oleh status keanggotaan DAN jumlah pembelian.
 
 ### Contoh Blackbox: Menguji Form Login
 
@@ -237,7 +237,7 @@ Mari kita rancang test case untuk form login sederhana dengan aturan berikut:
 
 - Email harus dalam format email yang valid
 - Kata sandi minimal 8 karakter
-- Kedua field wajib diisi
+- Kedua *field* wajib diisi
 
 #### Skenario Pengujian: Fungsionalitas Login Pengguna
 
@@ -247,11 +247,11 @@ Mari kita rancang test case untuk form login sederhana dengan aturan berikut:
 | TC-02 | Kata sandi salah | user@test.com, wrong123 | Error: "Kredensial tidak valid" |
 | TC-03 | Format email tidak valid | usernotemail, Pass1234 | Error: "Format email tidak valid" |
 | TC-04 | Kata sandi terlalu pendek | user@test.com, abc | Error: "Kata sandi minimal 8 karakter" |
-| TC-05 | Kedua field kosong | (kosong), (kosong) | Error: "Email wajib diisi" |
+| TC-05 | Kedua *field* kosong | (kosong), (kosong) | Error: "Email wajib diisi" |
 | TC-06 | Email kosong | (kosong), Pass1234 | Error: "Email wajib diisi" |
 | TC-07 | Kata sandi kosong | user@test.com, (kosong) | Error: "Kata sandi wajib diisi" |
 
-Setiap test case bersifat independen, dapat diulang, dan memiliki hasil yang diharapkan dengan jelas — itulah inti dari Blackbox testing yang baik.
+Setiap test case bersifat independen, dapat diulang, dan memiliki hasil yang diharapkan dengan jelas. Itulah inti dari Blackbox testing yang baik.
 
 </section>
 
@@ -463,13 +463,13 @@ All 11 tests pass with 100% coverage of every branch in the `Calculator` class.
 
 Jika Blackbox testing seperti menggunakan mesin penjual otomatis, Whitebox testing seperti membuka mesin tersebut dan memeriksa setiap kabel, motor, dan roda gigi.
 
-**Whitebox testing** berarti menguji dengan pengetahuan penuh tentang kode sumber. Anda memeriksa logika internal, aliran data, dan aliran kontrol dari aplikasi. Anda menulis pengujian yang melatih jalur spesifik melalui kode.
+**Whitebox testing** berarti menguji dengan pengetahuan penuh tentang kode sumber. Anda memeriksa logika internal, aliran data, dan aliran kontrol dari aplikasi. Anda menulis pengujian yang menjalankan jalur spesifik melalui kode.
 
 ### Kapan Menggunakan Whitebox Testing
 
 - Anda adalah pengembang yang menulis kode
 - Anda perlu memastikan semua jalur kode dieksekusi dengan benar
-- Anda ingin mengukur cakupan kode (code coverage)
+- Anda ingin mengukur cakupan kode (*code coverage*)
 - Anda sedang mengoptimalkan atau merefaktor logika internal
 
 ### Teknik Umum Whitebox
@@ -480,7 +480,7 @@ Pastikan setiap baris kode dieksekusi setidaknya sekali selama pengujian. Ini ad
 
 **2. Branch Coverage**
 
-Uji setiap kondisi `if/else`, `switch/case`, dan perulangan di kedua arah (true dan false). Lebih kuat dari statement coverage.
+Uji setiap kondisi `if/else`, `switch/case`, dan perulangan di kedua arah (true dan false). Lebih kuat dari *statement coverage*.
 
 **3. Path Coverage**
 
@@ -540,7 +540,7 @@ class Calculator
 }
 ```
 
-Kelas ini sengaja dibuat sederhana agar kita dapat melihat setiap cabang dengan jelas. Metode `grade` memiliki beberapa cabang — sempurna untuk mendemonstrasikan cakupan Whitebox.
+Kelas ini sengaja dibuat sederhana agar kita dapat melihat setiap cabang dengan jelas. Metode `grade` memiliki beberapa cabang, yang sempurna untuk mendemonstrasikan cakupan Whitebox.
 
 **Langkah 2: Pengujian PHPUnit** (`tests/CalculatorTest.php`)
 
@@ -633,7 +633,7 @@ class CalculatorTest extends TestCase
 }
 ```
 
-**Apa yang membuat ini Whitebox testing?** Kita melihat logika internal dari metode `grade` dan menulis pengujian secara spesifik untuk setiap cabang: setiap jalur `if/elseif/else`, jalur exception untuk input tidak valid, dan kedua batas (0 dan 100). Seorang penguji Blackbox mungkin hanya menguji `grade(85)` dan `grade(55)` — tetapi penguji Whitebox memastikan **setiap jalur melalui kode dijalankan**.
+**Apa yang membuat ini Whitebox testing?** Kita melihat logika internal dari metode `grade` dan menulis pengujian secara spesifik untuk setiap cabang: setiap jalur `if/elseif/else`, jalur *exception* untuk input tidak valid, dan kedua batas (0 dan 100). Seorang penguji Blackbox mungkin hanya menguji `grade(85)` dan `grade(55)`, tetapi penguji Whitebox memastikan **setiap jalur melalui kode dijalankan**.
 
 **Langkah 3: Jalankan pengujian**
 
@@ -696,8 +696,8 @@ Berikut adalah alat yang paling umum digunakan, dikategorikan berdasarkan bahasa
 
 **Untuk pemula yang memulai dengan PHP**, kami merekomendasikan:
 
-- **PHPUnit** — framework pengujian standar untuk PHP. Didokumentasikan dengan baik dan terintegrasi dengan sebagian besar IDE.
-- **Pest** — alternatif yang lebih baru dan lebih sederhana untuk PHPUnit dengan sintaks yang lebih mudah dibaca. Cocok jika Anda merasa PHPUnit terlalu verbose.
+- **PHPUnit**: *framework* pengujian standar untuk PHP. Didokumentasikan dengan baik dan terintegrasi dengan sebagian besar IDE.
+- **Pest**: alternatif yang lebih baru dan lebih sederhana untuk PHPUnit dengan sintaks yang lebih mudah dibaca. Cocok jika Anda merasa PHPUnit terlalu *verbose*.
 
 Jalankan `composer require --dev phpunit/phpunit` di proyek Anda untuk memulai.
 
@@ -733,7 +733,7 @@ Jalankan `composer require --dev phpunit/phpunit` di proyek Anda untuk memulai.
 | **Kapan digunakan** | Awal pengembangan, UAT | Selama dan setelah coding |
 | **Otomatisasi** | GUI tools, Postman, Selenium | Framework unit test (PHPUnit, JUnit) |
 
-**Anda tidak harus memilih salah satu.** Tim perangkat lunak profesional menggunakan **keduanya**. Blackbox memastikan produk berfungsi untuk pengguna. Whitebox memastikan kode kokoh dan mudah dipelihara. Bersama-sama, keduanya memberi Anda keyakinan bahwa perangkat lunak Anda benar — dari luar dan dari dalam.
+**Anda tidak harus memilih salah satu.** Tim perangkat lunak profesional menggunakan **keduanya**. Blackbox memastikan produk berfungsi untuk pengguna. Whitebox memastikan kode kokoh dan mudah dipelihara. Bersama-sama, keduanya memberi Anda keyakinan bahwa perangkat lunak Anda benar, baik dari luar maupun dari dalam.
 
 </section>
 
@@ -758,10 +758,10 @@ The best way to learn testing is to **start small**. Pick one function in your c
 
 ## Apa yang Telah Kita Pelajari
 
-1. **Pengujian adalah tentang keyakinan** — membuktikan kepada diri sendiri dan pengguna bahwa perangkat lunak berperilaku dengan benar.
+1. **Pengujian adalah tentang keyakinan**: membuktikan kepada diri sendiri dan pengguna bahwa perangkat lunak berperilaku dengan benar.
 2. **Skenario pengujian** mendefinisikan apa yang akan diuji; **test case** mendefinisikan bagaimana mengujinya.
-3. **Blackbox testing** memvalidasi fungsionalitas tanpa melihat kode — cocok untuk fitur yang berhadapan dengan pengguna.
-4. **Whitebox testing** memvalidasi struktur kode dengan pengetahuan penuh tentang internal — cocok untuk kualitas tingkat pengembang.
+3. **Blackbox testing** memvalidasi fungsionalitas tanpa melihat kode, cocok untuk fitur yang berhadapan dengan pengguna.
+4. **Whitebox testing** memvalidasi struktur kode dengan pengetahuan penuh tentang internal, cocok untuk kualitas tingkat pengembang.
 5. **Pengujian yang efektif mengikuti tiga aturan:** tulis pengujian sebelum memperbaiki bug, uji satu hal dalam satu waktu, dan perlakukan pengujian sebagai dokumentasi.
 6. **Gunakan kedua pendekatan bersama-sama** untuk validasi perangkat lunak yang paling menyeluruh.
 

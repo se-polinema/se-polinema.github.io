@@ -17,7 +17,7 @@ tagsId:
   - MVVM
   - PHP
 excerpt: "A hands-on introduction to Model-View-Controller (MVC) and Model-View-ViewModel (MVVM) separation patterns for PHP developers. Learn how each pattern works using a student-course enrolment domain, compare Laravel MVC with a Vue.js-backed MVVM client, understand trade-offs, avoid fat controllers and leaky ViewModels, and refactor spaghetti PHP into clean architecture — with runnable code samples throughout."
-excerptId: "Pengenalan praktis pola pemisahan Model-View-Controller (MVC) dan Model-View-ViewModel (MVVM) untuk pengembang PHP. Pelajari cara kerja setiap pola menggunakan domain pendaftaran mata kuliah, bandingkan Laravel MVC dengan klien MVVM berbasis Vue.js, pahami trade-off, hindari fat controller dan ViewModel yang bocor, dan refactor spaghetti PHP menjadi arsitektur yang bersih — dengan contoh kode yang dapat dijalankan di seluruh tutorial."
+excerptId: "Pengenalan praktis pola pemisahan Model-View-Controller (MVC) dan Model-View-ViewModel (MVVM) untuk pengembang PHP. Pelajari cara kerja setiap pola menggunakan domain pendaftaran mata kuliah, bandingkan Laravel MVC dengan klien MVVM berbasis Vue.js, pahami trade-off, hindari fat controller dan ViewModel yang bocor, dan refactor spaghetti PHP menjadi arsitektur yang bersih, dengan contoh kode yang dapat dijalankan di seluruh tutorial."
 ---
 
 <section lang="en">
@@ -43,9 +43,9 @@ This tutorial walks through both patterns using the same concrete domain — a s
 
 ## Mengapa Separation of Concerns Itu Penting
 
-Setiap aplikasi web dimulai dengan cara yang sama: satu file PHP yang membaca dari `$_GET`, menjalankan query database, melakukan loop pada baris, dan menampilkan HTML. Ini berfungsi selama satu minggu. Kemudian dosen meminta filter baru pada daftar pendaftaran, dan tiba-tiba Anda menggulir 800 baris SQL, HTML, dan logika bisnis yang saling terkait sambil berusaha tidak merusak apa pun.
+Setiap aplikasi web dimulai dengan cara yang sama: satu file PHP yang membaca dari `$_GET`, menjalankan *query* database, melakukan *loop* pada baris, dan menampilkan HTML. Ini berfungsi selama satu minggu. Kemudian dosen meminta filter baru pada daftar pendaftaran, dan tiba-tiba Anda menggulir 800 baris SQL, HTML, dan logika bisnis yang saling terkait sambil berusaha tidak merusak apa pun.
 
-**Separation of concerns** adalah praktik membagi kode menjadi lapisan-lapisan berbeda, masing-masing dengan satu tanggung jawab. Ketika lapisan presentasi berubah (misalnya, framework CSS baru), aturan bisnis tetap tidak tersentuh. Ketika aturan bisnis berubah (misalnya, "kapasitas maksimum pendaftaran sekarang 40, bukan 30"), template HTML tidak perlu disentuh.
+**Separation of concerns** adalah praktik membagi kode menjadi lapisan-lapisan berbeda, masing-masing dengan satu tanggung jawab. Ketika lapisan presentasi berubah (misalnya, *framework* CSS baru), aturan bisnis tetap tidak tersentuh. Ketika aturan bisnis berubah (misalnya, "kapasitas maksimum pendaftaran sekarang 40, bukan 30"), template HTML tidak perlu disentuh.
 
 Dua pola pemisahan mendominasi pengembangan web saat ini:
 
@@ -54,7 +54,7 @@ Dua pola pemisahan mendominasi pengembangan web saat ini:
 | **MVC** (Model-View-Controller) | Tiga lapisan: data, presentasi, penanganan request | Framework server-rendered (Laravel, Rails, Django, Spring) |
 | **MVVM** (Model-View-ViewModel) | Dua lapisan aktif + jembatan data-binding | Framework sisi klien (Vue, Angular, React dengan hooks) dan platform XAML |
 
-Tutorial ini membahas kedua pola menggunakan domain konkret yang sama — modul pendaftaran mata kuliah — sehingga Anda dapat membandingkannya secara berdampingan dan memutuskan mana yang cocok untuk proyek Anda berikutnya.
+Tutorial ini membahas kedua pola menggunakan domain konkret yang sama, yaitu modul pendaftaran mata kuliah, sehingga Anda dapat membandingkannya secara berdampingan dan memutuskan mana yang cocok untuk proyek Anda berikutnya.
 
 </section>
 
@@ -597,13 +597,13 @@ Route::post('/enrolments', [EnrolmentController::class, 'create'])->name('enrolm
 
 ## Apa Itu MVC? Model, View, Controller
 
-MVC membagi aplikasi menjadi tiga komponen yang saling terhubung. **Model** memiliki data dan aturan bisnis. **View** merender output — HTML, JSON, atau PDF. **Controller** menerima HTTP request, meminta data dari Model, dan memilih View mana yang akan dirender.
+MVC membagi aplikasi menjadi tiga komponen yang saling terhubung. **Model** memiliki data dan aturan bisnis. **View** merender output: HTML, JSON, atau PDF. **Controller** menerima HTTP request, meminta data dari Model, dan memilih View mana yang akan dirender.
 
 Aturan emas: **Model tidak pernah tahu tentang View atau Controller.** Ia adalah objek PHP murni yang dapat dijalankan dari command line, queue worker, atau test suite tanpa pengetahuan tentang HTTP.
 
 ### Halaman Pendaftaran Spaghetti (Sebelum MVC)
 
-Bayangkan `enrol.php` — satu file yang melakukan segalanya:
+Bayangkan `enrol.php`, satu file yang melakukan segalanya:
 
 ```php
 <?php
@@ -662,13 +662,13 @@ echo '<p>' . htmlspecialchars($student['name']) . ' telah terdaftar di '
 echo '<a href="/courses.php">Kembali ke daftar mata kuliah</a>';
 ```
 
-File ini mencampur SQL, aturan bisnis, HTML, dan routing. Menambahkan endpoint REST API berarti menyalin logika bisnis ke file lain. Menambahkan notifikasi email berarti menyuntikkan panggilan `mail()` di antara INSERT dan echo. Mengganti database dari MySQL ke PostgreSQL berarti menyentuh setiap query.
+File ini mencampur SQL, aturan bisnis, HTML, dan routing. Menambahkan *endpoint* REST API berarti menyalin logika bisnis ke file lain. Menambahkan notifikasi email berarti menyuntikkan panggilan `mail()` di antara INSERT dan echo. Mengganti database dari MySQL ke PostgreSQL berarti menyentuh setiap *query*.
 
 ### Refactoring Menjadi MVC
 
-Mari kita ekstrak tiga lapisan dari spaghetti.
+Mari kita ekstrak tiga lapisan dari *spaghetti*.
 
-#### Model — Logika Bisnis Murni
+#### Model: Logika Bisnis Murni
 
 Model adalah jantungnya. Ia mengetahui aturan: mahasiswa tidak dapat mendaftar dua kali di mata kuliah yang sama, dan mata kuliah tidak dapat melebihi kapasitasnya.
 
@@ -761,9 +761,9 @@ class EnrolmentResult
 }
 ```
 
-Perhatikan: tidak ada HTML, tidak ada `$_GET`, tidak ada `echo`. Model adalah kelas PHP murni. Anda dapat melakukan unit-test `EnrolmentService::enrol()` tanpa browser — injeksi PDO SQLite in-memory dan asertikan bahwa percobaan pendaftaran kedua mengembalikan `false`.
+Perhatikan: tidak ada HTML, tidak ada `$_GET`, tidak ada `echo`. Model adalah kelas PHP murni. Anda dapat melakukan *unit test* pada `EnrolmentService::enrol()` tanpa browser: suntikkan PDO SQLite in-memory, lalu pastikan percobaan pendaftaran kedua mengembalikan `false`.
 
-#### Controller — Polisi Lalu Lintas
+#### Controller: Polisi Lalu Lintas
 
 Controller menerjemahkan urusan HTTP menjadi panggilan domain dan memutuskan View apa yang akan dikembalikan.
 
@@ -851,7 +851,7 @@ class EnrolmentController
 
 Tanggung jawab Controller sempit: validasi input, panggil Model, teruskan data ke View. Jika tim memutuskan untuk menambahkan REST API, Anda menulis `ApiEnrolmentController` baru yang menggunakan kembali `EnrolmentService` yang sama tetapi mengembalikan JSON alih-alih merender template PHP.
 
-#### View — Presentasi Murni
+#### View: Presentasi Murni
 
 ```php
 <!-- views/enrolment-confirmed.php -->
@@ -990,7 +990,7 @@ class EnrolmentService
 }
 ```
 
-**Controller (tipis — mendelegasikan ke Service):**
+**Controller (tipis, mendelegasikan ke Service):**
 
 ```php
 <?php
@@ -1094,8 +1094,8 @@ Route::post('/enrolments', [EnrolmentController::class, 'create'])->name('enrolm
 
 **Apa yang diberikan MVC kepada Anda:**
 - Desainer mengedit `enrolments/list.blade.php` tanpa takut merusak aturan pendaftaran.
-- Back-end developer menambahkan metode `cancel()` ke `EnrolmentService` dan aksi Controller baru — View tetap tidak berubah.
-- Anda menulis unit test untuk `EnrolmentService` yang berjalan dalam milidetik, tanpa memerlukan server HTTP.
+- *Back-end developer* menambahkan metode `cancel()` ke `EnrolmentService` dan aksi Controller baru, sementara View tetap tidak berubah.
+- Anda menulis *unit test* untuk `EnrolmentService` yang berjalan dalam milidetik, tanpa memerlukan server HTTP.
 
 </section>
 
@@ -1519,19 +1519,19 @@ Livewire tracks `wire:model` bindings and `wire:click` handlers, re-rendering th
 
 ## Apa Itu MVVM? Model, View, ViewModel
 
-MVVM diperkenalkan oleh Microsoft untuk WPF/Silverlight dan kemudian diadopsi oleh framework JavaScript sisi klien. Perbedaan utama dari MVC adalah **ViewModel** — lapisan yang berada di antara Model dan View, mengekspos data dan perintah dengan cara yang dapat diikat langsung oleh View.
+MVVM diperkenalkan oleh Microsoft untuk WPF/Silverlight dan kemudian diadopsi oleh *framework* JavaScript sisi klien. Perbedaan utama dari MVC adalah **ViewModel**: lapisan yang berada di antara Model dan View, mengekspos data dan perintah dengan cara yang dapat diikat langsung oleh View.
 
 | Peran | MVC | MVVM |
 |---|---|---|
 | **Model** | Data + aturan bisnis (sama di keduanya) | Data + aturan bisnis (sama di keduanya) |
-| **View** | Template pasif; dirender oleh Controller | UI aktif; mengikat ke ViewModel, me-render ulang saat state berubah |
-| **Controller / ViewModel** | Controller menerima HTTP request, memanggil Model, memilih View | ViewModel mengekspos state reaktif + metode; tidak sadar HTTP |
+| **View** | Template pasif; dirender oleh Controller | UI aktif; mengikat ke ViewModel, me-render ulang saat *state* berubah |
+| **Controller / ViewModel** | Controller menerima HTTP request, memanggil Model, memilih View | ViewModel mengekspos *state* reaktif + metode; tidak sadar HTTP |
 
-ViewModel **tidak** tahu tentang DOM. Ia mengekspos objek dan metode JavaScript/PHP biasa. Sistem data-binding framework menjaga View tetap sinkron secara otomatis.
+ViewModel **tidak** tahu tentang DOM. Ia mengekspos objek dan metode JavaScript/PHP biasa. Sistem *data-binding* pada *framework* menjaga View tetap sinkron secara otomatis.
 
 ### MVVM dengan Backend PHP dan Frontend Vue.js
 
-Backend PHP/Laravel menyajikan REST API (atau menggunakan Inertia.js untuk SPA berbasis server). Frontend Vue.js mengonsumsi API dan mengelola state UI melalui ViewModel.
+Backend PHP/Laravel menyajikan REST API (atau menggunakan Inertia.js untuk SPA berbasis server). Frontend Vue.js mengonsumsi API dan mengelola *state* UI melalui ViewModel.
 
 #### Backend: Laravel API (Model tetap sama)
 
@@ -1629,7 +1629,7 @@ Backend menggunakan **`EnrolmentService` yang persis sama** dari versi MVC. Satu
 
 #### Frontend: Vue 3 ViewModel (Composition API)
 
-Komponen Vue bertindak sebagai ViewModel. Ia menyimpan state reaktif (`ref`, `reactive`), mengekspos computed property, dan mendefinisikan metode yang diikat oleh template.
+Komponen Vue bertindak sebagai ViewModel. Ia menyimpan *state* reaktif (`ref`, `reactive`), mengekspos *computed property*, dan mendefinisikan metode yang diikat oleh template.
 
 ```vue
 <template>
@@ -1785,10 +1785,10 @@ onMounted(() => {
 
 ### Bagaimana MVVM Binding Bekerja Di Sini
 
-1. `enrolments` adalah `ref([])` — Vue melacak setiap perubahan pada array ini.
+1. `enrolments` adalah `ref([])`: Vue melacak setiap perubahan pada array ini.
 2. Template menggunakan `v-for="e in enrolments"`. Ketika `enrolments.value.push(...)` berjalan di dalam `enrol()`, Vue mendeteksi mutasi dan me-render ulang baris tabel **secara otomatis**.
 3. `selectedCourseId` diikat ke `<select>` melalui `v-model`. Ketika pengguna memilih mata kuliah, Vue memperbarui variabel dan mengevaluasi ulang binding `:disabled`.
-4. `submitting` menonaktifkan tombol saat panggilan API sedang berlangsung — diatur ke `true`, Vue menambahkan atribut `disabled`; diatur ke `false`, Vue menghapusnya.
+4. `submitting` menonaktifkan tombol saat panggilan API sedang berlangsung: diatur ke `true`, Vue menambahkan atribut `disabled`; diatur ke `false`, Vue menghapusnya.
 
 ViewModel tidak pernah menyentuh `document.querySelector()` atau `innerHTML`. Semua manipulasi DOM bersifat deklaratif.
 
@@ -1925,7 +1925,7 @@ class EnrolmentManager extends Component
 </div>
 ```
 
-Livewire melacak binding `wire:model` dan handler `wire:click`, me-render ulang komponen di server setelah setiap interaksi dan hanya mengirimkan HTML yang berubah ke browser. Model mentalnya adalah MVVM — tetapi ViewModel berada di server, bukan di browser.
+Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulang komponen di server setelah setiap interaksi dan hanya mengirimkan HTML yang berubah ke browser. Model mentalnya tetap MVVM, tetapi ViewModel berada di server, bukan di browser.
 
 </section>
 
@@ -1994,27 +1994,27 @@ Livewire melacak binding `wire:model` dan handler `wire:click`, me-render ulang 
 | Dimensi | MVC (Laravel) | MVVM (Vue + Laravel API) | MVVM (Livewire) |
 |---|---|---|---|
 | **Di mana rendering terjadi** | Server (Blade → HTML) | Browser (Vue → DOM) | Server (Livewire → HTML diffs) |
-| **Siapa yang memiliki state UI** | Server; setiap request dimulai dari awal | Browser; state bertahan antar interaksi | Server; dipertahankan antar round-trip Livewire |
+| **Siapa yang memiliki *state* UI** | Server; setiap request dimulai dari awal | Browser; *state* bertahan antar interaksi | Server; dipertahankan antar *round-trip* Livewire |
 | **Navigasi halaman** | Reload halaman penuh (atau Turbo/Hotwire untuk parsial) | Client-side routing, tanpa reload halaman penuh | Berbasis server tetapi terasa seperti SPA |
-| **Batas interaktivitas** | Sedang — baik untuk form dan CRUD | Tinggi — drag-and-drop, grafik real-time, UI kompleks | Sedang — baik untuk form, modal, tabel data |
+| **Batas interaktivitas** | Sedang: baik untuk form dan CRUD | Tinggi: drag-and-drop, grafik real-time, UI kompleks | Sedang: baik untuk form, modal, tabel data |
 | **Data binding** | Manual: atur variabel di Controller, baca di Blade | Otomatis, dua arah (`v-model`) | Otomatis, server-round-trip (`wire:model`) |
-| **Keramahan SEO** | Sangat baik — HTML yang sepenuhnya dirender dari server | Memerlukan SSR (Nuxt) atau pre-rendering untuk SEO | Sangat baik — HTML dirender server secara default |
-| **Waktu muat awal** | Cepat — hanya HTML yang dibutuhkan | Lebih lambat — JS bundle harus diunduh, di-parse, lalu fetch data API | Sedang — HTML awal dirender di server |
-| **Pengujian** | HTTP feature test + unit test untuk kelas Service | Component test (Vitest) + E2E (Cypress/Playwright) | Livewire component test + unit test |
-| **Kurva pembelajaran** | Rendah untuk pengembang PHP — bahasa yang sama di mana-mana | Lebih tinggi — perlu JavaScript, Vue, manajemen state | Rendah-Sedang — hanya PHP, tetapi pelajari lifecycle Livewire |
+| **Keramahan SEO** | Sangat baik: HTML yang sepenuhnya dirender dari server | Memerlukan SSR (Nuxt) atau pre-rendering untuk SEO | Sangat baik: HTML dirender server secara default |
+| **Waktu muat awal** | Cepat: hanya HTML yang dibutuhkan | Lebih lambat: JS bundle harus diunduh, di-parse, lalu fetch data API | Sedang: HTML awal dirender di server |
+| **Pengujian** | HTTP *feature test* + *unit test* untuk kelas Service | *component test* (Vitest) + E2E (Cypress/Playwright) | Livewire *component test* + *unit test* |
+| **Kurva pembelajaran** | Rendah untuk pengembang PHP: bahasa yang sama di mana-mana | Lebih tinggi: perlu JavaScript, Vue, manajemen *state* | Rendah-Sedang: hanya PHP, tetapi pelajari lifecycle Livewire |
 | **Dukungan offline** | Tidak ada tanpa Service Workers | Dapat bekerja offline (PWA) | Tidak ada tanpa Service Workers |
-| **Terbaik untuk** | Situs dengan banyak konten, panel admin, halaman yang kritis SEO | Dashboard sangat interaktif, aplikasi real-time, PWA | CRUD interaktif tanpa framework JS; prototyping cepat |
+| **Terbaik untuk** | Situs dengan banyak konten, panel admin, halaman yang kritis SEO | Dashboard sangat interaktif, aplikasi real-time, PWA | CRUD interaktif tanpa *framework* JS; *prototyping* cepat |
 
 ### Trade-off
 
 **Kapan MVC bersinar:**
-- Tim Anda sebagian besar adalah pengembang PHP. Menambahkan framework JavaScript melipatgandakan permukaan teknologi.
+- Tim Anda sebagian besar adalah pengembang PHP. Menambahkan *framework* JavaScript melipatgandakan permukaan teknologi.
 - SEO penting. Template Blade yang dirender server sepenuhnya dapat diindeks tanpa alat tambahan.
-- Halaman sebagian besar bersifat read-heavy dengan form sederhana. Batas interaktivitas MVC yang dirender server lebih tinggi dari yang dipikirkan kebanyakan orang — terutama dengan alat seperti Turbo Laravel atau Unpoly.
+- Halaman sebagian besar bersifat *read-heavy* dengan form sederhana. Batas interaktivitas MVC yang dirender server lebih tinggi dari yang dipikirkan kebanyakan orang, terutama dengan alat seperti Turbo Laravel atau Unpoly.
 - Kecepatan pengembangan. Blade + Livewire atau Blade + Alpine.js memberi Anda 80% interaktivitas SPA dengan 20% kompleksitas.
 
 **Kapan MVVM (Vue SPA) bersinar:**
-- UI memiliki state sisi klien yang kompleks — wizard multi-langkah, penjadwalan drag-and-drop, dashboard real-time.
+- UI memiliki *state* sisi klien yang kompleks: wizard multi-langkah, penjadwalan drag-and-drop, dashboard real-time.
 - Anda akan membangun aplikasi mobile nantinya dan ingin menggunakan kembali API yang sama.
 - Tim memiliki keterampilan JavaScript yang kuat dan selera untuk memelihara basis kode frontend terpisah.
 - Persyaratan offline-first atau PWA ada.
@@ -2022,7 +2022,7 @@ Livewire melacak binding `wire:model` dan handler `wire:click`, me-render ulang 
 **Kapan Livewire MVVM bersinar:**
 - Anda menginginkan reaktivitas seperti Vue tanpa meninggalkan PHP.
 - Aplikasi berbasis form dengan interaktivitas sedang (modal, dropdown dependen, validasi inline).
-- Kecepatan prototyping sangat penting — Livewire menghilangkan lapisan API antara frontend dan backend.
+- Kecepatan *prototyping* sangat penting: Livewire menghilangkan lapisan API antara frontend dan backend.
 - Tim nyaman dengan Blade dan menginginkan adopsi inkremental (tambahkan Livewire ke satu komponen pada satu waktu).
 
 ### Kerangka Keputusan Praktis
@@ -2210,11 +2210,11 @@ You can then provide an Eloquent-based implementation of `EnrolmentRepository` f
 
 ### 1. Fat Controller (MVC)
 
-Anti-pola MVC yang paling umum. Controller tumbuh hingga berisi logika bisnis, aturan validasi, pembangunan query, pengiriman email, dan pemrosesan file — semuanya kecuali View.
+Anti-pola MVC yang paling umum. Controller tumbuh hingga berisi logika bisnis, aturan validasi, pembangunan *query*, pengiriman email, dan pemrosesan file, semuanya kecuali View.
 
 **Gejala:** Metode `EnrolmentController::create()` Anda sepanjang 200 baris.
 
-**Perbaikan — Pindahkan logika ke bawah tumpukan:**
+**Perbaikan (pindahkan logika ke bawah tumpukan):**
 
 ```php
 // ❌ Fat controller: aturan bisnis ada di dalam aksi controller
@@ -2248,7 +2248,7 @@ class EnrolmentController extends Controller
 
 ### 2. Anemic Model (MVC dan MVVM)
 
-Kebalikan dari Fat Controller. Model menjadi properti kosong tanpa perilaku. Semua logika ada di kelas Service, dan Model merosot menjadi data transfer object yang bodoh.
+Kebalikan dari Fat Controller. Model menjadi properti kosong tanpa perilaku. Semua logika ada di kelas Service, dan Model merosot menjadi *data transfer object* yang bodoh.
 
 ```php
 // ❌ Anemic model: data bag tanpa perilaku
@@ -2304,13 +2304,13 @@ const enrol = async () => {
 }
 ```
 
-**Heuristik:** Jika file ViewModel Anda mengimpor apa pun yang terkait DOM (`document`, `window.location`, `$refs` untuk manipulasi mentah), Anda membocorkan concern. Directive template Vue (`v-if`, `v-for`, `v-model`, `v-show`, `:class`) mencakup 99% kebutuhan DOM secara deklaratif.
+**Heuristik:** Jika file ViewModel Anda mengimpor apa pun yang terkait DOM (`document`, `window.location`, `$refs` untuk manipulasi mentah), Anda membocorkan *concern*. *Directive* template Vue (`v-if`, `v-for`, `v-model`, `v-show`, `:class`) mencakup 99% kebutuhan DOM secara deklaratif.
 
 ### 4. God ViewModel (MVVM)
 
-Satu komponen Vue / komponen Livewire yang mengelola terlalu banyak concern — pendaftaran, penjelajahan katalog mata kuliah, notifikasi, integrasi pembayaran, semuanya dalam satu file.
+Satu komponen Vue / komponen Livewire yang mengelola terlalu banyak *concern*: pendaftaran, penjelajahan katalog mata kuliah, notifikasi, integrasi pembayaran, semuanya dalam satu file.
 
-**Perbaikan:** Komposisikan ViewModel yang lebih kecil. Komponen `EnrolmentManager` seharusnya hanya mengelola pendaftaran. Pindahkan penjelajahan mata kuliah ke `<CourseCatalog>`, notifikasi ke `<NotificationBell>`, dan biarkan mereka berkomunikasi melalui props, event, atau shared store (Pinia untuk Vue):
+**Perbaikan:** Komposisikan ViewModel yang lebih kecil. Komponen `EnrolmentManager` seharusnya hanya mengelola pendaftaran. Pindahkan penjelajahan mata kuliah ke `<CourseCatalog>`, notifikasi ke `<NotificationBell>`, dan biarkan mereka berkomunikasi melalui *props*, *event*, atau *shared store* (Pinia untuk Vue):
 
 ```vue
 <!-- ✅ Dikomposisi: setiap komponen memiliki satu concern -->
@@ -2325,7 +2325,7 @@ Satu komponen Vue / komponen Livewire yang mengelola terlalu banyak concern — 
 
 ### 5. Mengabaikan Aturan "Tidak Ada Framework di Model" (MVC)
 
-Eloquent Laravel sangat kuat, tetapi jika `EnrolmentService` Anda hanya dapat berjalan di dalam aplikasi Laravel, Anda telah menggabungkan domain Anda ke framework. Ini membuat pengujian lebih sulit dan mencegah penggunaan kembali di skrip CLI atau queue worker tanpa mem-boot framework penuh.
+Eloquent Laravel sangat kuat, tetapi jika `EnrolmentService` Anda hanya dapat berjalan di dalam aplikasi Laravel, Anda telah menggabungkan domain Anda ke *framework*. Ini membuat pengujian lebih sulit dan mencegah penggunaan kembali di skrip CLI atau *queue worker* tanpa mem-boot *framework* penuh.
 
 ```php
 // ❌ Logika domain yang bergantung pada framework
@@ -2625,8 +2625,8 @@ Untuk setiap potongan kode, identifikasi lapisan mana yang dimilikinya: **Model*
 |---|---|
 | `SELECT COUNT(*) FROM enrolments WHERE course_id = ?` | **Model** (logika akses data; seharusnya ada di dalam Repository) |
 | `<h1>{{ $student->name }}</h1>` | **View** (template Blade) |
-| `return redirect()->route('enrolments.index')` | **Controller** (HTTP redirect adalah concern controller) |
-| `const isFull = computed(...)` | **ViewModel** (computed property reaktif Vue) |
+| `return redirect()->route('enrolments.index')` | **Controller** (HTTP redirect adalah *concern* controller) |
+| `const isFull = computed(...)` | **ViewModel** (*computed property* reaktif Vue) |
 | `if ($course->isFull()) { throw ... }` | **Model** (aturan bisnis) |
 | `$request->validate([...])` | **Controller** (validasi input HTTP) |
 
@@ -2634,7 +2634,7 @@ Untuk setiap potongan kode, identifikasi lapisan mana yang dimilikinya: **Model*
 
 ### Latihan 2: Refactor Spaghetti Menjadi MVC (15 menit)
 
-Di bawah ini adalah script PHP file tunggal untuk menampilkan daftar pendaftaran. Refactor menjadi tiga file terpisah: kelas Model, kelas Controller, dan template View. Tulis jawaban Anda di editor kode, lalu bandingkan dengan solusi contoh.
+Di bawah ini adalah *script* PHP file tunggal untuk menampilkan daftar pendaftaran. *Refactor* menjadi tiga file terpisah: kelas Model, kelas Controller, dan template View. Tulis jawaban Anda di editor kode, lalu bandingkan dengan solusi contoh.
 
 **Kode awal:**
 
@@ -2801,7 +2801,7 @@ Pikirkan: di mana logika daftar tunggu berada? Invarian apa yang harus dipertaha
 
 - **Invarian MVC:** `if (!$course->isFull())` → daftar langsung, jangan izinkan daftar tunggu. `if ($course->isFull())` → izinkan daftar tunggu.
 - **Logika reaktif MVVM:** Buat `computed` property `showWaitlistButton(courseId)` yang mengembalikan `true` ketika `isCourseFull(course) && !isAlreadyWaitlisted(courseId) && !isAlreadyEnrolled(courseId)`.
-- Model (`EnrolmentService` / `WaitlistService`) harus menjadi kelas yang sama terlepas dari apakah Controller mengembalikan HTML atau JSON. MVVM tidak mengubah aturan bisnis — hanya mekanisme pengirimannya.
+- Model (`EnrolmentService` / `WaitlistService`) harus menjadi kelas yang sama terlepas dari apakah Controller mengembalikan HTML atau JSON. MVVM tidak mengubah aturan bisnis, hanya mekanisme pengirimannya.
 </details>
 
 ### Latihan 4: Identifikasi Anti-Pola (10 menit)
@@ -2813,17 +2813,17 @@ Baca setiap skenario dan sebutkan anti-pola dari tutorial ini.
 | Metode `store()` controller memvalidasi input, memeriksa kapasitas, mengirim tiga email, memperbarui log audit, menghasilkan sertifikat PDF, dan akhirnya memanggil `Enrolment::create()`. | ? |
 | Kelas `Course` hanya memiliki `$fillable` dan tidak ada metode. `CourseService` memiliki 25 metode yang semuanya beroperasi pada data `Course`. | ? |
 | Komponen Vue mengimpor `document.getElementById()` dan langsung mengganti kelas CSS di fungsi `setup()`-nya. | ? |
-| Satu komponen `Dashboard.vue` mengelola daftar mahasiswa, katalog mata kuliah, wizard pendaftaran, notifikasi, riwayat pembayaran, dan tampilan jadwal — semuanya dalam 800 baris. | ? |
+| Satu komponen `Dashboard.vue` mengelola daftar mahasiswa, katalog mata kuliah, wizard pendaftaran, notifikasi, riwayat pembayaran, dan tampilan jadwal, semuanya dalam 800 baris. | ? |
 
 <details>
 <summary>Jawaban (klik untuk mengungkapkan)</summary>
 
 | Skenario | Anti-Pola |
 |---|---|
-| Controller melakukan segalanya | **Fat Controller** — pindahkan logika bisnis ke Service, efek samping ke Job (email/PDF antrian) |
-| Kelas Course tanpa perilaku | **Anemic Model** — pindahkan logika spesifik `Course` (pemeriksaan kapasitas, pencarian prasyarat) ke dalam Model |
-| Manipulasi DOM langsung di Vue | **Leaky ViewModel** — gunakan direktif Vue (`:class`, `v-if`) dan state reaktif sebagai gantinya |
-| Satu komponen mengelola segalanya | **God ViewModel** — pisahkan menjadi komponen yang lebih kecil dan dapat dikomposisi yang berkomunikasi melalui props/event |
+| Controller melakukan segalanya | **Fat Controller**: pindahkan logika bisnis ke Service, efek samping ke Job (email/PDF antrian) |
+| Kelas Course tanpa perilaku | **Anemic Model**: pindahkan logika spesifik `Course` (pemeriksaan kapasitas, pencarian prasyarat) ke dalam Model |
+| Manipulasi DOM langsung di Vue | **Leaky ViewModel**: gunakan direktif Vue (`:class`, `v-if`) dan *state* reaktif sebagai gantinya |
+| Satu komponen mengelola segalanya | **God ViewModel**: pisahkan menjadi komponen yang lebih kecil dan dapat dikomposisi yang berkomunikasi melalui *props*/*event* |
 
 </details>
 
@@ -2870,7 +2870,7 @@ The SE Methodologies & Architecture stream covers several topics that build on t
 
 Anda sekarang memahami dua pola pemisahan dominan dalam pengembangan web modern:
 
-- **MVC** memisahkan concern sisi server menjadi Model (data + aturan), View (presentasi), dan Controller (orkestrasi request). Ia unggul dalam aplikasi dengan banyak konten dan kritis SEO serta menjaga tim PHP tetap produktif tanpa mempelajari bahasa kedua.
+- **MVC** memisahkan *concern* sisi server menjadi Model (data + aturan), View (presentasi), dan Controller (orkestrasi request). Ia unggul dalam aplikasi dengan banyak konten dan kritis SEO serta menjaga tim PHP tetap produktif tanpa mempelajari bahasa kedua.
 
 - **MVVM** menambahkan lapisan ViewModel yang menjembatani Model dan View melalui data binding. Ia bersinar di UI yang sangat interaktif dan dapat diimplementasikan di klien (Vue.js + Laravel API) atau di server (Laravel Livewire).
 
@@ -2884,15 +2884,15 @@ Stream Metodologi & Arsitektur SE mencakup beberapa topik yang dibangun di atas 
 |---|---|---|
 | [Prinsip Clean Code dengan PHP](/blog/clean-code-principles) | Penamaan bermakna, fungsi kecil, SOLID | Terapkan prinsip-prinsip ini di dalam Model dan Service Anda untuk menjaganya tetap dapat dipelihara. |
 | [Design Patterns dengan PHP](/blog/design-patterns-with-php) | Strategy, Observer, Factory Method | MVC sendiri adalah gabungan dari beberapa design pattern (Observer untuk binding, Strategy untuk resolusi View). |
-| [Test-Driven Development dengan PHP](/blog/test-driven-development) | Red-green-refactor, PHPUnit | Uji `EnrolmentService` Anda tanpa browser — lapisan Model adalah yang paling mudah untuk TDD. |
+| [Test-Driven Development dengan PHP](/blog/test-driven-development) | Red-green-refactor, PHPUnit | Uji `EnrolmentService` Anda tanpa browser: lapisan Model adalah yang paling mudah untuk TDD. |
 | [Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals) | Dekomposisi layanan, API gateway | Setiap microservice secara internal menggunakan MVC atau MVVM. Memahami pola pemisahan adalah prasyarat untuk desain layanan. |
 | [Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php) | Ubiquitous Language, Bounded Contexts, Aggregates | Pola taktis DDD (Entity, Repository, Domain Service) cocok secara alami ke dalam lapisan Model MVC/MVVM. |
 
 ### Poin-Poin Penting
 
-1. **Model adalah pusat yang tidak dapat dinegosiasikan.** Lindungi dari dependensi framework, concern HTTP, dan manipulasi DOM.
+1. **Model adalah pusat yang tidak dapat dinegosiasikan.** Lindungi dari dependensi *framework*, *concern* HTTP, dan manipulasi DOM.
 2. **Pilih pola yang sesuai dengan tingkat interaktivitas, bukan yang sedang tren.** Halaman Blade yang dirender server dengan Alpine.js sering memberikan lebih banyak nilai per jam daripada SPA Vue penuh.
 3. **Controller dan ViewModel harus tipis.** Jika Anda tidak dapat mendeskripsikan apa yang dilakukan aksi controller dalam satu kalimat, ia melakukan terlalu banyak.
-4. **Kedua pola dapat hidup berdampingan.** Aplikasi Laravel terbaik menggunakan Blade untuk halaman publik, Livewire untuk panel admin, dan komponen Vue yang disematkan untuk widget interaktivitas tinggi — semuanya berbagi lapisan Model yang sama.
+4. **Kedua pola dapat hidup berdampingan.** Aplikasi Laravel terbaik menggunakan Blade untuk halaman publik, Livewire untuk panel admin, dan komponen Vue yang disematkan untuk widget interaktivitas tinggi, semuanya berbagi lapisan Model yang sama.
 
 </section>

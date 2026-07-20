@@ -53,14 +53,14 @@ Pertimbangkan perbedaan antara checkout e-commerce dan pendaftaran mata kuliah:
 | Aspek | E-Commerce | Pendaftaran Mata Kuliah LMS |
 |---|---|---|
 | **Sensitivitas waktu** | Keranjang kedaluwarsa dalam menit atau jam | Jendela pendaftaran berlangsung berminggu-minggu (tanggal mulai/berakhir spesifik) |
-| **Kapasitas** | Jumlah inventaris — restock adalah keputusan bisnis | Ukuran kelas — dibatasi oleh kursi fisik atau regulasi |
+| **Kapasitas** | Jumlah inventaris: restock adalah keputusan bisnis | Ukuran kelas: dibatasi oleh kursi fisik atau regulasi |
 | **Prasyarat** | "Pelanggan yang membeli X juga membeli Y" (rekomendasi) | "Anda harus lulus Kalkulus I sebelum mendaftar Kalkulus II" (aturan keras) |
-| **Peran pengguna** | Pelanggan, penjual, admin | Mahasiswa, dosen, pembimbing akademik, ketua jurusan, registrasi, admin sistem |
-| **Integritas nilai** | Tidak berlaku | Nilai akhir adalah catatan hukum — manipulasi dapat memiliki konsekuensi akademik dan hukum |
-| **Aksesibilitas** | "Bagus untuk dimiliki" untuk konversi | Diwajibkan secara hukum (WCAG, Section 508, regulasi lokal) |
-| **Kalender akademik** | Tidak berlaku | Semester, masa tambah/kurang, minggu ujian — semuanya terikat tanggal |
+| **Peran pengguna** | Pelanggan, penjual, admin | Mahasiswa, dosen, pembimbing akademik, ketua jurusan, petugas registrasi, admin sistem |
+| **Integritas nilai** | Tidak berlaku | Nilai akhir adalah catatan hukum: manipulasi dapat memiliki konsekuensi akademik dan hukum |
+| **Aksesibilitas** | Sekadar "nilai tambah" untuk konversi | Diwajibkan secara hukum (WCAG, Section 508, regulasi lokal) |
+| **Kalender akademik** | Tidak berlaku | Semester, masa tambah/kurang, minggu ujian: semuanya terikat tanggal |
 
-Batasan ini berarti bahwa **saran rekayasa perangkat lunak generik harus diadaptasi**. Pola yang Anda pelajari — Clean Code, TDD, DDD, microservices — semuanya masih berlaku, tetapi diterapkan pada masalah yang dibentuk oleh domain pendidikan. Tutorial ini menunjukkan caranya.
+Batasan ini berarti bahwa **saran rekayasa perangkat lunak generik harus diadaptasi**. Pola yang Anda pelajari, yaitu Clean Code, TDD, DDD, microservices, semuanya masih berlaku, tetapi diterapkan pada masalah yang dibentuk oleh domain pendidikan. Tutorial ini menunjukkan caranya.
 
 </section>
 
@@ -132,7 +132,7 @@ Setiap transisi status memiliki aturan bisnis:
 - **Confirmed → Dropped**: dalam periode tambah/kurang
 - **Active → Completed**: setelah masa akademik berakhir dan nilai akhir diberikan
 
-Memahami siklus hidup ini sangat penting — ini bukan sekadar kolom status di database. State machine pendaftaran adalah tulang punggung dari setiap proses bisnis LMS.
+Memahami siklus hidup ini sangat penting: ini bukan sekadar kolom status di database. State machine pendaftaran adalah tulang punggung dari setiap proses bisnis LMS.
 
 </section>
 
@@ -189,12 +189,12 @@ Mari kita definisikan sistem dari luar ke dalam, dimulai dengan **siapa** yang m
 
 ### Aktor
 
-1. **Mahasiswa** — melihat katalog mata kuliah, mendaftar kelas, mengumpulkan tugas, melihat nilai, berkomunikasi dengan dosen.
-2. **Dosen** — mengelola konten kelas, membuat penilaian, menilai pengumpulan, melihat daftar kelas, berkomunikasi dengan mahasiswa.
-3. **Dosen Wali / PA** — menyetujui rencana studi mahasiswa (KRS), memantau kemajuan akademik, memberikan bimbingan.
-4. **Ketua Jurusan** — menyetujui penawaran kelas, mengelola kurikulum, menangani banding nilai.
-5. **BAAK** — mengelola periode pendaftaran, memproses permintaan tambah/kurang, memelihara catatan akademik, menerbitkan transkrip.
-6. **Administrator Sistem** — mengelola akun pengguna, mengonfigurasi masa/semester, menangani pengaturan sistem.
+1. **Mahasiswa**: melihat katalog mata kuliah, mendaftar kelas, mengumpulkan tugas, melihat nilai, berkomunikasi dengan dosen.
+2. **Dosen**: mengelola konten kelas, membuat penilaian, menilai pengumpulan, melihat daftar kelas, berkomunikasi dengan mahasiswa.
+3. **Dosen Wali / PA**: menyetujui rencana studi mahasiswa (KRS), memantau kemajuan akademik, memberikan bimbingan.
+4. **Ketua Jurusan**: menyetujui penawaran kelas, mengelola kurikulum, menangani banding nilai.
+5. **BAAK**: mengelola periode pendaftaran, memproses permintaan tambah/kurang, memelihara catatan akademik, menerbitkan transkrip.
+6. **Administrator Sistem**: mengelola akun pengguna, mengonfigurasi masa/semester, menangani pengaturan sistem.
 
 ### Kebutuhan Fungsional (Kutipan)
 
@@ -216,11 +216,11 @@ Mari kita definisikan sistem dari luar ke dalam, dimulai dengan **siapa** yang m
 |---|---|---|
 | NFR-01 | Konfirmasi pendaftaran harus selesai dalam 2 detik pada beban normal. | Performa |
 | NFR-02 | Selama pendaftaran puncak (awal semester), sistem harus menangani 500 permintaan pendaftaran bersamaan. | Skalabilitas |
-| NFR-03 | Data nilai harus dienkripsi saat disimpan dan dapat diaudit — tidak ada perubahan nilai yang terjadi tanpa timestamp, penulis, dan alasan. | Keamanan |
+| NFR-03 | Data nilai harus dienkripsi saat disimpan dan dapat diaudit: tidak ada perubahan nilai yang terjadi tanpa timestamp, penulis, dan alasan. | Keamanan |
 | NFR-04 | Antarmuka mahasiswa harus memenuhi standar aksesibilitas WCAG 2.1 Level AA. | Aksesibilitas |
 | NFR-05 | Sistem harus mendukung antarmuka bahasa Inggris dan Indonesia. | Pelokalan |
 
-Latihan kebutuhan ini tidak bersifat akademis — ini membentuk setiap keputusan arsitektur yang mengikuti.
+Latihan kebutuhan ini tidak bersifat akademis: ini membentuk setiap keputusan arsitektur yang mengikuti.
 
 </section>
 
@@ -275,7 +275,7 @@ Each module has its own domain model but lives in the same codebase. This is the
 
 ## Pilihan Arsitektur: Monolit Dulu, Pisah Kemudian
 
-Salah satu keputusan paling konsekuensial untuk proyek EdTech adalah **kapan memisahkan layanan**. Banyak tim melompat ke microservices terlalu cepat, menciptakan kompleksitas terdistribusi untuk sistem yang belum menemukan product-market fit.
+Salah satu keputusan paling konsekuensial untuk proyek EdTech adalah **kapan memisahkan layanan**. Banyak tim melompat ke microservices terlalu cepat, menciptakan kompleksitas terdistribusi untuk sistem yang belum menemukan *product-market fit*.
 
 ### Mulai dengan Modular Monolith
 
@@ -283,11 +283,11 @@ Untuk sebagian besar proyek LMS kampus, **modular monolith** adalah titik awal y
 
 | Faktor | Mengapa Monolit Menang di Awal |
 |---|---|
-| **Ukuran tim** | Sebagian besar tim dev kampus berjumlah 3—8 orang. Tim microservices membutuhkan 8+ dan DevOps yang kuat. |
+| **Ukuran tim** | Sebagian besar tim dev kampus berjumlah 3-8 orang. Tim microservices membutuhkan 8+ dan DevOps yang kuat. |
 | **Kesederhanaan deployment** | Satu aplikasi, satu database, satu pipeline CI/CD. BAAK tidak perlu mengoordinasikan deployment dengan Jurusan. |
-| **Integritas transaksional** | Pendaftaran melibatkan mahasiswa, mata kuliah, prasyarat, dan kapasitas — semuanya dalam satu transaksi database. Transaksi terdistribusi (sagas) tidak diperlukan sampai Anda memisahkan database. |
+| **Integritas transaksional** | Pendaftaran melibatkan mahasiswa, mata kuliah, prasyarat, dan kapasitas: semuanya dalam satu transaksi database. Transaksi terdistribusi (sagas) tidak diperlukan sampai Anda memisahkan database. |
 | **Observability** | Log aplikasi tunggal lebih mudah dilacak daripada trace terdistribusi di 5 layanan. |
-| **Permukaan refactoring** | Anda dapat mengekstrak modul menjadi layanan nanti. Kebalikannya — menggabungkan layanan — jauh lebih sulit. |
+| **Permukaan refactoring** | Anda dapat mengekstrak modul menjadi layanan nanti. Kebalikannya, menggabungkan layanan, jauh lebih sulit. |
 
 ### Kapan Mengekstrak Microservice
 
@@ -312,7 +312,7 @@ src/
 └── Shared/            # Shared kernel: value object, interface
 ```
 
-Setiap modul memiliki domain model sendiri tetapi tinggal di codebase yang sama. Ini adalah sweet spot: **bounded context tanpa sistem terdistribusi.**
+Setiap modul memiliki domain model sendiri tetapi tinggal di codebase yang sama. Ini adalah *sweet spot*: **bounded context tanpa sistem terdistribusi.**
 
 </section>
 
@@ -404,7 +404,7 @@ erDiagram
 
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
-  <span lang="id">Gambar: Model data inti LMS — mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
+  <span lang="id">Gambar: Model data inti LMS: mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
 </figcaption>
 </figure>
 
@@ -579,17 +579,17 @@ erDiagram
 
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
-  <span lang="id">Gambar: Model data inti LMS — mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
+  <span lang="id">Gambar: Model data inti LMS: mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
 </figcaption>
 </figure>
 
 ### Keputusan Desain Kunci
 
-**Mengapa tabel `classes` terpisah?** Mata kuliah adalah entri katalog (misalnya, "Kalkulus I"). Kelas adalah instance dari mata kuliah tersebut yang ditawarkan pada semester tertentu dengan dosen tertentu (misalnya, "Kalkulus I — Kelas A — Semester Ganjil 2025/2026 — Dr. Andi"). Pemisahan ini memungkinkan Anda menggunakan kembali definisi mata kuliah yang sama di seluruh semester sambil melacak instance kelas yang berbeda.
+**Mengapa tabel `classes` terpisah?** Mata kuliah adalah entri katalog (misalnya, "Kalkulus I"). Kelas adalah instance dari mata kuliah tersebut yang ditawarkan pada semester tertentu dengan dosen tertentu (misalnya, "Kalkulus I, Kelas A, Semester Ganjil 2025/2026, Dr. Andi"). Pemisahan ini memungkinkan Anda menggunakan kembali definisi mata kuliah yang sama di seluruh semester sambil melacak instance kelas yang berbeda.
 
-**Mengapa `enrollment.status` dan bukan soft-delete?** Pendaftaran bukan hanya aktif atau dihapus. Ia memiliki siklus hidup: pending, confirmed, active, completed, dropped, withdrawn. Kolom status menangkap state machine ini. Ketika mahasiswa drop kelas, Anda tidak menghapus baris — Anda mentransisikan status dan mencatat timestamp. Ini mempertahankan jejak audit.
+**Mengapa `enrollment.status` dan bukan soft-delete?** Pendaftaran bukan hanya aktif atau dihapus. Ia memiliki siklus hidup: pending, confirmed, active, completed, dropped, withdrawn. Kolom status menangkap state machine ini. Ketika mahasiswa *drop* kelas, Anda tidak menghapus baris, melainkan mentransisikan status dan mencatat timestamp. Ini mempertahankan jejak audit.
 
-**Mengapa tabel `grades` terpisah?** Seorang mahasiswa mungkin memiliki nilai untuk beberapa penilaian (tugas, UTS, UAS) dalam satu pendaftaran. Tabel `grades` menangkap masing-masing. `final_grade` pada tabel `enrollments` adalah ringkasan yang dihitung — dikalkulasi ulang ketika nilai komponen apa pun berubah.
+**Mengapa tabel `grades` terpisah?** Seorang mahasiswa mungkin memiliki nilai untuk beberapa penilaian (tugas, UTS, UAS) dalam satu pendaftaran. Tabel `grades` menangkap masing-masing. `final_grade` pada tabel `enrollments` adalah ringkasan yang dihitung: dikalkulasi ulang ketika nilai komponen apa pun berubah.
 
 ### Skema SQL (Tabel Inti)
 
@@ -664,7 +664,7 @@ CREATE TABLE enrollments (
 );
 ```
 
-Skema ini sengaja sederhana — fokus pada alur pendaftaran inti. LMS produksi akan menambahkan indeks, tabel audit, log perubahan nilai, dan pencarian teks lengkap untuk katalog mata kuliah.
+Skema ini sengaja sederhana: fokus pada alur pendaftaran inti. LMS produksi akan menambahkan indeks, tabel audit, log perubahan nilai, dan pencarian teks lengkap untuk katalog mata kuliah.
 
 </section>
 
@@ -1463,7 +1463,7 @@ interface EnrollmentServiceInterface
 }
 ```
 
-Setiap hasil pendaftaran adalah sukses (dengan ID pendaftaran) atau gagal (dengan daftar aturan yang dilanggar). Tidak ada exception untuk pelanggaran aturan bisnis — pemanggil membutuhkan alasan terstruktur.
+Setiap hasil pendaftaran adalah sukses (dengan ID pendaftaran) atau gagal (dengan daftar aturan yang dilanggar). Tidak ada exception untuk pelanggaran aturan bisnis: pemanggil membutuhkan alasan terstruktur.
 
 ### Langkah 2: Value Object dan DTO
 
@@ -1690,7 +1690,7 @@ class CourseEnrollmentService implements \App\Enrollment\Application\EnrollmentS
 
 ### Langkah 4: Pengujian PHPUnit
 
-Layanan dengan aturan bisnis sebanyak ini membutuhkan pengujian menyeluruh. Berikut adalah suite pengujian PHPUnit yang mencakup happy path dan semua mode kegagalan.
+Layanan dengan aturan bisnis sebanyak ini membutuhkan pengujian menyeluruh. Berikut adalah suite pengujian PHPUnit yang mencakup *happy path* dan semua mode kegagalan.
 
 ```php
 <?php
@@ -1915,7 +1915,7 @@ class CourseEnrollmentServiceTest extends TestCase
 
 ### Langkah 5: Repository In-Memory untuk Pengujian
 
-Untuk menjaga pengujian tetap cepat dan deterministik, gunakan repository in-memory alih-alih database nyata.
+Untuk menjaga pengujian tetap cepat dan deterministik, gunakan repository *in-memory* alih-alih database nyata.
 
 ```php
 <?php
@@ -2166,7 +2166,7 @@ class ClassEntity
 }
 ```
 
-Layanan pendaftaran ini **agnostik terhadap framework**. Ia hanya bergantung pada interface (`EnrollmentRepositoryInterface`, dll.), bukan pada PDO, Eloquent, atau Doctrine. Anda dapat mengganti lapisan infrastruktur — dari MySQL ke PostgreSQL ke API client — tanpa menyentuh logika bisnis. Ini adalah esensi dari domain-driven design yang diterapkan pada EdTech.
+Layanan pendaftaran ini **agnostik terhadap framework**. Ia hanya bergantung pada interface (`EnrollmentRepositoryInterface`, dll.), bukan pada PDO, Eloquent, atau Doctrine. Anda dapat mengganti lapisan infrastruktur, dari MySQL ke PostgreSQL ke API client, tanpa menyentuh logika bisnis. Ini adalah esensi dari domain-driven design yang diterapkan pada EdTech.
 
 Untuk menjalankan pengujian:
 
@@ -2311,7 +2311,7 @@ Di sebagian besar pendidikan tinggi Indonesia (dan banyak sistem internasional),
 | Ujian Akhir Semester (UAS) | 40% | Ujian komprehensif di minggu ke-16 |
 | Partisipasi / Kuis | 10% | Kehadiran, kuis dalam kelas |
 
-Bobot harus berjumlah 100%. Sistem harus **menegakkan ini di tingkat kelas** — dosen tidak dapat mempublikasikan nilai jika bobot penilaian tidak berjumlah 100%.
+Bobot harus berjumlah 100%. Sistem harus **menegakkan ini di tingkat kelas**: dosen tidak dapat mempublikasikan nilai jika bobot penilaian tidak berjumlah 100%.
 
 ### Konversi Nilai
 
@@ -2319,15 +2319,15 @@ Universitas Indonesia umumnya menggunakan skala nilai huruf dengan rentang numer
 
 | Rentang Numerik | Nilai Huruf | Bobot Nilai | Deskripsi |
 |---|---|---|---|
-| 85—100 | A | 4.0 | Istimewa |
-| 80—84 | A- | 3.7 | Sangat Baik |
-| 75—79 | B+ | 3.3 | Baik |
-| 70—74 | B | 3.0 | Memuaskan |
-| 65—69 | B- | 2.7 | Cukup |
-| 60—64 | C+ | 2.3 | Sedang |
-| 55—59 | C | 2.0 | Cukup |
-| 40—54 | D | 1.0 | Kurang |
-| 0—39 | E | 0.0 | Gagal |
+| 85-100 | A | 4.0 | Istimewa |
+| 80-84 | A- | 3.7 | Sangat Baik |
+| 75-79 | B+ | 3.3 | Baik |
+| 70-74 | B | 3.0 | Memuaskan |
+| 65-69 | B- | 2.7 | Cukup |
+| 60-64 | C+ | 2.3 | Sedang |
+| 55-59 | C | 2.0 | Cukup |
+| 40-54 | D | 1.0 | Kurang |
+| 0-39 | E | 0.0 | Gagal |
 
 Fungsi konversi harus tepat dan dapat diuji. Implementasi PHP:
 
@@ -2379,7 +2379,7 @@ Setiap perubahan nilai harus dicatat dengan:
 - **Apa** nilai baru
 - **Mengapa** diubah (alasan: entri awal, koreksi, banding)
 
-Ini tidak opsional — ini adalah persyaratan kepatuhan. Tabel `grade_audit_log` sederhana:
+Ini tidak opsional: ini adalah persyaratan kepatuhan. Tabel `grade_audit_log` sederhana:
 
 ```sql
 CREATE TABLE grade_audit_log (
@@ -2396,7 +2396,7 @@ CREATE TABLE grade_audit_log (
 );
 ```
 
-Tidak ada DELETE pada nilai. Tidak ada UPDATE tanpa baris audit. Jika nilai diubah 5 kali, ada 5 baris audit — dan tabel `grades` selalu menyimpan nilai terbaru.
+Tidak ada DELETE pada nilai. Tidak ada UPDATE tanpa baris audit. Jika nilai diubah 5 kali, ada 5 baris audit, dan tabel `grades` selalu menyimpan nilai terbaru.
 
 </section>
 
@@ -2443,11 +2443,11 @@ Accessibility is not something you bolt on after development. It is part of the 
 
 ## Aksesibilitas & Desain Inklusif
 
-Perangkat lunak EdTech melayani pembelajar di seluruh spektrum kemampuan, perangkat, dan kondisi jaringan. Aksesibilitas bukan fitur — ini adalah persyaratan inti, sering kali diwajibkan secara hukum.
+Perangkat lunak EdTech melayani pembelajar di seluruh spektrum kemampuan, perangkat, dan kondisi jaringan. Aksesibilitas bukan fitur: ini adalah persyaratan inti, sering kali diwajibkan secara hukum.
 
 ### Mengapa Aksesibilitas Penting untuk LMS
 
-1. **Kepatuhan hukum**: Banyak negara mewajibkan WCAG 2.1 Level AA untuk institusi pendidikan yang menerima dana publik. UU No. 8 Tahun 2016 tentang Penyandang Disabilitas di Indonesia sendiri mewajibkan layanan publik yang aksesibel, termasuk pendidikan.
+1. **Kepatuhan hukum**: Banyak negara mewajibkan WCAG 2.1 Level AA untuk institusi pendidikan yang menerima dana publik. Regulasi Indonesia sendiri (UU No. 8 Tahun 2016 tentang Penyandang Disabilitas) mewajibkan layanan publik yang aksesibel, termasuk pendidikan.
 2. **Pembelajar beragam**: Mahasiswa mungkin memiliki disabilitas penglihatan, pendengaran, motorik, atau kognitif. LMS yang tidak aksesibel secara efektif menghalangi mereka dari pendidikan.
 3. **Keberagaman perangkat**: Mahasiswa mengakses LMS dari ponsel, tablet, desktop bersama, dan koneksi bandwidth rendah. Teknik aksesibilitas (HTML semantik, navigasi keyboard, alternatif teks) meningkatkan pengalaman untuk semua orang.
 
@@ -2457,11 +2457,11 @@ Perangkat lunak EdTech melayani pembelajar di seluruh spektrum kemampuan, perang
 |---|---|---|
 | **HTML semantik** | Gunakan `<nav>`, `<main>`, `<header>`, `<article>`, `<button>` alih-alih `<div>` di mana-mana. | Screen reader menggunakan landmark untuk navigasi. `<div>` menyampaikan nol makna. |
 | **Navigasi keyboard** | Setiap elemen interaktif harus dapat dijangkau dan dioperasikan hanya dengan keyboard (Tab, Enter, Escape). | Beberapa mahasiswa tidak dapat menggunakan mouse. Fokus keyboard harus terlihat dan logis. |
-| **Kontras warna** | Rasio teks-ke-latar ≥ 4.5:1 untuk teks normal, ≥ 3:1 untuk teks besar (WCAG AA). | Kontras rendah membuat teks tidak terbaca bagi mahasiswa dengan low vision. |
+| **Kontras warna** | Rasio teks-ke-latar ≥ 4.5:1 untuk teks normal, ≥ 3:1 untuk teks besar (WCAG AA). | Kontras rendah membuat teks tidak terbaca bagi mahasiswa dengan *low vision*. |
 | **Alt text untuk gambar** | Setiap `<img>` harus memiliki teks `alt` yang bermakna. Gambar dekoratif menggunakan `alt=""`. | Screen reader mengumumkan teks alt. Tanpanya, gambar tidak terlihat oleh pengguna tunanetra. |
 | **Label formulir** | Setiap `<input>` harus memiliki `<label>` terkait. Pesan error harus terhubung secara programatik dengan `aria-describedby`. | Field formulir tanpa label tidak dapat digunakan melalui screen reader. |
 | **Caption video** | Semua rekaman kuliah harus memiliki caption. Transkrip harus tersedia. | Mahasiswa tuli dan sulit mendengar bergantung pada caption. Transkrip juga membantu non-penutur asli. |
-| **Layout responsif** | LMS harus berfungsi pada layar dari 320 px (ponsel kecil) hingga 2560 px (monitor besar). | Mahasiswa mungkin hanya memiliki ponsel. Layout fixed-width mengecualikan mereka. |
+| **Layout responsif** | LMS harus berfungsi pada layar dari 320 px (ponsel kecil) hingga 2560 px (monitor besar). | Mahasiswa mungkin hanya memiliki ponsel. Layout *fixed-width* mengecualikan mereka. |
 | **Perpanjangan waktu** | Ujian berjangka waktu harus mengizinkan akomodasi waktu tambahan per mahasiswa. | Beberapa mahasiswa memiliki kebutuhan terdokumentasi untuk waktu tambahan pada ujian. |
 
 ### Membangun Aksesibilitas ke dalam Layanan Pendaftaran
@@ -2472,7 +2472,7 @@ Bahkan layanan pendaftaran dapat berkontribusi pada aksesibilitas:
 - **Saluran umpan balik ganda**: Kembalikan error terstruktur (seperti yang kita lakukan di `EnrollmentResult`) sehingga front-end dapat menampilkannya secara visual dan mengumumkannya melalui ARIA live region.
 - **Peringatan, bukan hanya error**: "Hanya tersisa 2 kursi" membantu mahasiswa dengan kecemasan atau beban kognitif membuat keputusan yang tepat sebelum kelas penuh.
 
-Aksesibilitas bukan sesuatu yang Anda tambahkan setelah pengembangan. Ini adalah bagian dari persyaratan, desain, dan code review — sama seperti performa dan keamanan.
+Aksesibilitas bukan sesuatu yang Anda tambahkan setelah pengembangan. Ini adalah bagian dari persyaratan, desain, dan code review, sama seperti performa dan keamanan.
 
 </section>
 
@@ -2509,25 +2509,25 @@ Aksesibilitas bukan sesuatu yang Anda tambahkan setelah pengembangan. Ini adalah
 
 ## Ringkasan
 
-1. **EdTech adalah domain yang berbeda** dengan batasannya sendiri — kalender akademik, integritas nilai, banyak peran pengguna, dan mandat aksesibilitas hukum. Pola CRUD generik tidak cukup.
+1. **EdTech adalah domain yang berbeda** dengan batasannya sendiri: kalender akademik, integritas nilai, banyak peran pengguna, dan mandat aksesibilitas hukum. Pola CRUD generik tidak cukup.
 2. **Mulai dengan modular monolith.** Pisahkan kode Anda ke dalam modul Enrollment, Course, Assessment, dan User. Ekstrak microservices hanya ketika modul membutuhkan ritme deployment atau penskalaan independen.
 3. **State machine pendaftaran** (pending → confirmed → active → completed / dropped / withdrawn) adalah tulang punggung LMS Anda. Modelkan sebagai konsep kelas satu, bukan string status.
-4. **Aturan bisnis berada di domain service**, bukan controller. `CourseEnrollmentService` memvalidasi kapasitas, prasyarat, konflik waktu, jendela pendaftaran, dan status mahasiswa — semuanya di satu tempat, semuanya dapat diuji.
-5. **Uji dengan repository in-memory.** Pengujian cepat dan deterministik memungkinkan Anda memverifikasi setiap aturan bisnis tanpa database. Interface yang sama bekerja dengan MySQL atau PostgreSQL di produksi.
+4. **Aturan bisnis berada di domain service**, bukan controller. `CourseEnrollmentService` memvalidasi kapasitas, prasyarat, konflik waktu, jendela pendaftaran, dan status mahasiswa: semuanya di satu tempat, semuanya dapat diuji.
+5. **Uji dengan repository *in-memory*.** Pengujian cepat dan deterministik memungkinkan Anda memverifikasi setiap aturan bisnis tanpa database. Interface yang sama bekerja dengan MySQL atau PostgreSQL di produksi.
 6. **Nilai adalah catatan hukum.** Setiap perubahan nilai harus diaudit dengan siapa, kapan, nilai lama, nilai baru, dan alasan. Tidak ada pembaruan diam-diam. Tidak ada penghapusan.
 7. **Aksesibilitas tidak opsional.** Kepatuhan WCAG, HTML semantik, navigasi keyboard, dan pesan error yang jelas diwajibkan oleh hukum dan penting untuk pembelajar yang beragam.
-8. **Kode domain yang agnostik framework** menjaga logika bisnis Anda portabel. Layanan pendaftaran yang kita tulis akan bekerja di Laravel, Symfony, atau aplikasi PHP biasa — karena hanya bergantung pada interface.
+8. **Kode domain yang agnostik framework** menjaga logika bisnis Anda portabel. Layanan pendaftaran yang kita tulis akan bekerja di Laravel, Symfony, atau aplikasi PHP biasa, karena hanya bergantung pada interface.
 
-> "Perangkat lunak bukan hanya tentang komputer. Ini tentang orang — dan masalah yang perlu mereka selesaikan." Dalam EdTech, orang-orangnya adalah mahasiswa, dosen, dan administrator. Setiap keputusan desain harus melayani mereka.
+> "Perangkat lunak bukan hanya tentang komputer. Ini tentang orang, dan masalah yang perlu mereka selesaikan." Dalam EdTech, orang-orangnya adalah mahasiswa, dosen, dan administrator. Setiap keputusan desain harus melayani mereka.
 
 ## Bacaan Selanjutnya
 
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)** — Terapkan pola DDD seperti entity, value object, aggregate, dan repository ke model domain EdTech Anda.
-- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** — Pelajari kapan dan bagaimana memisahkan monolit LMS Anda menjadi layanan yang dapat dideploy secara independen.
-- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)** — Kuasai strategi pengujian untuk logika bisnis kompleks seperti validasi pendaftaran dan perhitungan nilai.
-- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)** — Gunakan siklus Red-Green-Refactor untuk membangun fitur LMS Anda dengan percaya diri.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Jaga layanan pendaftaran Anda tetap terbaca dan mudah dipelihara seiring bertambahnya aturan bisnis.
-- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)** — Terapkan pola Strategy (skema penilaian), Observer (notifikasi pendaftaran), dan State (siklus hidup pendaftaran) ke LMS Anda.
-- **[Ikhtisar WCAG 2.1](https://www.w3.org/WAI/standards-guidelines/wcag/)** — Standar aksesibilitas definitif untuk aplikasi web, termasuk platform LMS.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)**: Terapkan pola DDD seperti entity, value object, aggregate, dan repository ke model domain EdTech Anda.
+- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: Pelajari kapan dan bagaimana memisahkan monolit LMS Anda menjadi layanan yang dapat di-deploy secara independen.
+- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)**: Kuasai strategi pengujian untuk logika bisnis kompleks seperti validasi pendaftaran dan perhitungan nilai.
+- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)**: Gunakan siklus Red-Green-Refactor untuk membangun fitur LMS Anda dengan percaya diri.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Jaga layanan pendaftaran Anda tetap terbaca dan mudah dipelihara seiring bertambahnya aturan bisnis.
+- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)**: Terapkan pola Strategy (skema penilaian), Observer (notifikasi pendaftaran), dan State (siklus hidup pendaftaran) ke LMS Anda.
+- **[Ikhtisar WCAG 2.1](https://www.w3.org/WAI/standards-guidelines/wcag/)**: Standar aksesibilitas definitif untuk aplikasi web, termasuk platform LMS.
 
 </section>

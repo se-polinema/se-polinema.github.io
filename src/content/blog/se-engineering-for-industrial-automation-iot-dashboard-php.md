@@ -51,22 +51,22 @@ These constraints mean that **generic web development patterns fail under indust
 
 ## Mengapa Otomasi Industri Membutuhkan Insinyur Perangkat Lunak
 
-**Otomasi industri bukan hanya pemrograman PLC dan layar SCADA.** Di balik setiap sensor lantai pabrik, monitor getaran, dan probe suhu terdapat pipeline data yang harus andal, dapat di-query, dan aman. Insinyur perangkat lunak membangun pipeline itu.
+**Otomasi industri bukan hanya pemrograman PLC dan layar SCADA.** Di balik setiap sensor lantai pabrik, monitor getaran, dan probe suhu terdapat *pipeline* data yang harus andal, dapat di-query, dan aman. Insinyur perangkat lunak membangun *pipeline* itu.
 
 Pertimbangkan perbedaan antara dasbor web generik dan sistem pemantauan IoT industri:
 
 | Aspek | Dasbor Web Generik | Dasbor IoT Industri |
 |---|---|---|
 | **Volume data** | Ratusan baris per hari | Ribuan pembacaan per menit dari puluhan sensor |
-| **Model penyimpanan** | Relasional (OLTP) — baris dengan foreign key | Time-series (TSDB) — pengukuran terindeks timestamp |
-| **Integritas data** | Transaksi, rollback | Pengiriman at-least-once, toleransi duplikat, deteksi celah |
+| **Model penyimpanan** | Relasional (OLTP): baris dengan *foreign key* | *Time-series* (TSDB): pengukuran terindeks *timestamp* |
+| **Integritas data** | Transaksi, *rollback* | Pengiriman *at-least-once*, toleransi duplikat, deteksi celah |
 | **Toleransi latensi** | Detik hingga menit | Sub-detik untuk peringatan keselamatan kritis |
 | **Ingesti** | HTTP POST dari form web | MQTT publish dari perangkat edge terbatas |
-| **Retensi** | Tanpa batas (pengguna mengharapkan riwayat) | Agregasi downsampled: mentah 7 hari, agregat 1-menit 90 hari, per jam 1 tahun |
-| **Peringatan** | Notifikasi email opsional | Peringatan berbasis ambang dengan kebijakan eskalasi — peringatan terlewat dapat berarti kerusakan peralatan atau cedera |
-| **Konektivitas** | Mengasumsikan broadband stabil | Perangkat edge mungkin di 2G, LoRaWAN, atau Wi-Fi intermiten — degradasi anggun adalah wajib |
+| **Retensi** | Tanpa batas (pengguna mengharapkan riwayat) | Agregasi *downsampled*: mentah 7 hari, agregat 1-menit 90 hari, per jam 1 tahun |
+| **Peringatan** | Notifikasi email opsional | Peringatan berbasis ambang dengan kebijakan eskalasi: peringatan yang terlewat dapat berarti kerusakan peralatan atau cedera |
+| **Konektivitas** | Mengasumsikan *broadband* stabil | Perangkat edge mungkin di 2G, LoRaWAN, atau Wi-Fi intermiten: degradasi anggun bersifat wajib |
 
-Batasan ini berarti bahwa **pola pengembangan web generik gagal di bawah beban kerja industri.** Anda tidak dapat `SELECT * FROM sensor_readings` ketika tabel memiliki 500 juta baris. Anda tidak dapat polling peringatan setiap 60 detik ketika kejadian suhu berlebih motor membutuhkan reaksi sub-detik. Dan Anda tidak dapat menyimpan data sensor di MySQL dan mengharapkan performa query yang wajar setelah beberapa juta baris pertama.
+Batasan ini berarti bahwa **pola pengembangan web generik gagal di bawah beban kerja industri.** Anda tidak dapat `SELECT * FROM sensor_readings` ketika tabel memiliki 500 juta baris. Anda tidak dapat melakukan *polling* peringatan setiap 60 detik ketika kejadian suhu berlebih motor membutuhkan reaksi sub-detik. Dan Anda tidak dapat menyimpan data sensor di MySQL dan mengharapkan performa *query* yang wajar setelah beberapa juta baris pertama.
 
 </section>
 
@@ -159,7 +159,7 @@ graph TB
 
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Industrial IoT monitoring system architecture — from sensor to dashboard.</span>
-  <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri — dari sensor ke dasbor.</span>
+  <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri, dari sensor ke dasbor.</span>
 </figcaption>
 </figure>
 
@@ -194,7 +194,7 @@ Klien Dasbor → GET /api/dashboard/sensors/{sensor_id}/readings?range=1j
                        Respons JSON → Grafik (Chart.js / ECharts)
 ```
 
-Setiap panah dalam diagram ini mewakili titik integrasi yang dapat gagal. Layanan ingesti PHP harus menangani pemutusan broker, payload yang salah format, dan timeout penulisan InfluxDB tanpa kehilangan data atau crash.
+Setiap panah dalam diagram ini mewakili titik integrasi yang dapat gagal. Layanan ingesti PHP harus menangani pemutusan broker, *payload* yang salah format, dan *timeout* penulisan InfluxDB tanpa kehilangan data atau *crash*.
 
 </section>
 
@@ -286,8 +286,8 @@ docker run -d --name influxdb \
 composer require php-mqtt/client guzzlehttp/guzzle
 ```
 
-- `php-mqtt/client` — Subscriber MQTT untuk ingesti data sensor
-- `guzzlehttp/guzzle` — Klien HTTP untuk REST API InfluxDB
+- `php-mqtt/client`: Subscriber MQTT untuk ingesti data sensor
+- `guzzlehttp/guzzle`: Klien HTTP untuk REST API InfluxDB
 
 ### 4. Buat Bucket InfluxDB via API
 
@@ -298,7 +298,7 @@ curl -X POST "http://localhost:8086/api/v2/buckets" \
   -d '{"orgID": "<id-org-anda>", "name": "sensor_data", "retentionRules": [{"type": "expire", "everySeconds": 7776000}]}'
 ```
 
-Ini membuat bucket dengan kebijakan retensi 90 hari — data sensor mentah yang lebih tua dari 90 hari secara otomatis dihapus. Agregat yang di-downsample harus tinggal di bucket terpisah dengan retensi lebih panjang.
+Ini membuat bucket dengan kebijakan retensi 90 hari: data sensor mentah yang lebih tua dari 90 hari secara otomatis dihapus. Agregat yang di-downsample harus disimpan di bucket terpisah dengan retensi lebih panjang.
 
 </section>
 
@@ -338,7 +338,7 @@ This structure follows the **ports and adapters** pattern. The domain layer know
 
 ## Struktur Proyek
 
-Monolit modular menjaga bounded context tetap terpisah — ingesti MQTT, penyimpanan time-series, dan API dasbor adalah tiga modul berbeda yang tidak berbagi apa pun kecuali konfigurasi koneksi InfluxDB.
+Monolit modular menjaga *bounded context* tetap terpisah: ingesti MQTT, penyimpanan *time-series*, dan API dasbor adalah tiga modul berbeda yang tidak berbagi apa pun kecuali konfigurasi koneksi InfluxDB.
 
 ```
 src/
@@ -360,7 +360,7 @@ src/
     └── influxdb.php                 # Konfigurasi koneksi InfluxDB (org, bucket, token, url)
 ```
 
-Struktur ini mengikuti pola **ports and adapters**. Lapisan domain tidak tahu apa pun tentang MQTT atau HTTP — ia hanya mengekspresikan konsep IoT industri. Lapisan infrastruktur menangani detail rumit dari I/O jaringan.
+Struktur ini mengikuti pola **ports and adapters**. Lapisan domain tidak tahu apa pun tentang MQTT atau HTTP: ia hanya mengekspresikan konsep IoT industri. Lapisan infrastruktur menangani detail rumit dari I/O jaringan.
 
 </section>
 
@@ -567,9 +567,9 @@ final readonly class DashboardQuery
 
 ## Lapisan Domain: Value Object dan DTO
 
-### SensorReading — Objek Domain Inti
+### SensorReading: Objek Domain Inti
 
-Pembacaan sensor adalah pengukuran immutable yang ditangkap pada suatu titik waktu. Ini adalah unit atomik dari data industri.
+Pembacaan sensor adalah pengukuran *immutable* yang ditangkap pada suatu titik waktu. Ini adalah unit atomik dari data industri.
 
 ```php
 <?php
@@ -625,11 +625,11 @@ final readonly class SensorReading
 ```
 
 **Keputusan desain:**
-- `fromMQTTPayload` adalah satu-satunya factory method — semua validasi terjadi di sini, bukan di constructor.
-- `toInfluxDBLineProtocol` menghasilkan format line protocol InfluxDB secara langsung. Ini menghindari serialisasi perantara dan memungkinkan lapisan infrastruktur menulis batch secara efisien.
-- `escapeTag` mencegah injeksi pada nilai tag InfluxDB — spasi, koma, dan tanda sama dengan harus di-escape sesuai spesifikasi line protocol.
+- `fromMQTTPayload` adalah satu-satunya *factory method*: semua validasi terjadi di sini, bukan di *constructor*.
+- `toInfluxDBLineProtocol` menghasilkan format *line protocol* InfluxDB secara langsung. Ini menghindari serialisasi perantara dan memungkinkan lapisan infrastruktur menulis batch secara efisien.
+- `escapeTag` mencegah injeksi pada nilai tag InfluxDB: spasi, koma, dan tanda sama dengan harus di-*escape* sesuai spesifikasi *line protocol*.
 
-### AlertRule — Mendefinisikan Ambang Pemantauan
+### AlertRule: Mendefinisikan Ambang Pemantauan
 
 ```php
 <?php
@@ -698,7 +698,7 @@ final readonly class AlertRule
 }
 ```
 
-### AlertEvent — Hasil dari Aturan yang Terpicu
+### AlertEvent: Hasil dari Aturan yang Terpicu
 
 ```php
 <?php
@@ -724,7 +724,7 @@ final readonly class AlertEvent
 }
 ```
 
-### DashboardQuery — Parameter Object untuk Query API
+### DashboardQuery: Parameter Object untuk Query API
 
 ```php
 <?php
@@ -1009,7 +1009,7 @@ final class MQTTSubscriber
 
 ### Klien HTTP InfluxDB
 
-InfluxDB v2 mengekspos REST API untuk pembacaan (query Flux) dan penulisan (line protocol). Klien ini membungkus Guzzle dengan default yang masuk akal untuk beban kerja time-series.
+InfluxDB v2 mengekspos REST API untuk pembacaan (*query* Flux) dan penulisan (*line protocol*). Klien ini membungkus Guzzle dengan *default* yang masuk akal untuk beban kerja *time-series*.
 
 ```php
 <?php
@@ -1238,7 +1238,7 @@ final class MQTTSubscriber
 }
 ```
 
-> **Catatan:** Paket `php-mqtt/client` menyediakan abstraksi bersih di atas protokol MQTT. Dalam produksi, Anda mungkin ingin menjalankan subscriber sebagai proses PHP long-lived menggunakan Swoole, RoadRunner, atau service systemd dengan supervisor untuk restart otomatis.
+> **Catatan:** Paket `php-mqtt/client` menyediakan abstraksi bersih di atas protokol MQTT. Dalam produksi, Anda mungkin ingin menjalankan *subscriber* sebagai proses PHP *long-lived* menggunakan Swoole, RoadRunner, atau layanan systemd dengan *supervisor* untuk *restart* otomatis.
 
 </section>
 
@@ -1621,7 +1621,7 @@ final class DashboardService
 
 ## Lapisan Aplikasi: Menyatukan Semuanya
 
-### InfluxDBRepository — Menjembatani Domain dan Infrastruktur
+### InfluxDBRepository: Menjembatani Domain dan Infrastruktur
 
 ```php
 <?php
@@ -1704,7 +1704,7 @@ FLUX;
 }
 ```
 
-### MQTTIngestionService — Orkestrator Ingesti
+### MQTTIngestionService: Orkestrator Ingesti
 
 ```php
 <?php
@@ -1814,11 +1814,11 @@ final class MQTTIngestionService
 ```
 
 **Keputusan desain kunci dalam layanan ingesti:**
-- **Batching** — Penulisan HTTP individual ke InfluxDB mahal. Akumulasi pembacaan di memori dan kirim setiap N record (default 100). Ini mengurangi round-trip HTTP hingga 100x.
-- **Evaluasi peringatan dilakukan inline** — Setelah setiap pembacaan, layanan peringatan memeriksa aturan terdaftar. Ini menjaga latensi tetap rendah dan menghindari loop polling terpisah.
-- **Buffer hilang saat crash** — Jika proses PHP mati sebelum `flush()`, pembacaan yang di-buffer hilang. Ini dapat diterima untuk sebagian besar kasus pemantauan, tetapi untuk data regulasi, tulis ke antrean persisten (Redis Streams, Kafka) sebelum ingesti.
+- **Batching**: Penulisan HTTP individual ke InfluxDB mahal. Akumulasi pembacaan di memori dan kirim setiap N *record* (default 100). Ini mengurangi *round-trip* HTTP hingga 100x.
+- **Evaluasi peringatan dilakukan inline**: Setelah setiap pembacaan, layanan peringatan memeriksa aturan terdaftar. Ini menjaga latensi tetap rendah dan menghindari *loop polling* terpisah.
+- **Buffer hilang saat crash**: Jika proses PHP mati sebelum `flush()`, pembacaan yang di-buffer hilang. Ini dapat diterima untuk sebagian besar kasus pemantauan, tetapi untuk data regulasi, tulis ke antrean persisten (Redis Streams, Kafka) sebelum ingesti.
 
-### AlertService — Mengevaluasi Aturan dan Mengirim Peringatan
+### AlertService: Mengevaluasi Aturan dan Mengirim Peringatan
 
 ```php
 <?php
@@ -1907,7 +1907,7 @@ final class AlertService
 }
 ```
 
-### DashboardService — Membangun Respons API Dasbor
+### DashboardService: Membangun Respons API Dasbor
 
 ```php
 <?php
@@ -2443,7 +2443,7 @@ if ($mode === 'server') {
 }
 ```
 
-### Mensimulasikan Data Sensor untuk Pengujian
+### Menyimulasikan Data Sensor untuk Pengujian
 
 Gunakan `mosquitto_pub` untuk mengirim data uji ke broker:
 
@@ -2609,11 +2609,11 @@ eventSource.addEventListener('error', () => {
 
 ## Pembaruan Dasbor Real-Time
 
-Untuk pembaruan dasbor real-time, Anda memiliki dua jalur. Keduanya lebih ringan daripada WebSockets dan cocok untuk tampilan data time-series.
+Untuk pembaruan dasbor real-time, Anda memiliki dua jalur. Keduanya lebih ringan daripada WebSockets dan cocok untuk tampilan data *time-series*.
 
 ### Opsi 1: Short Polling (Lebih Sederhana)
 
-Frontend dasbor melakukan polling endpoint `/api/dashboard/sensors/{id}/status` setiap beberapa detik.
+Frontend dasbor melakukan polling ke endpoint `/api/dashboard/sensors/{id}/status` setiap beberapa detik.
 
 ```javascript
 // dashboard.js — Klien polling minimal
@@ -2659,7 +2659,7 @@ client.start('temp-001', (data) => {
 
 ### Opsi 2: Server-Sent Events (Efisien)
 
-SSE adalah aliran satu arah dari server ke klien — ideal untuk mendorong data time-series. Server menjaga koneksi HTTP persisten dan menulis kejadian sebagai baris.
+SSE adalah aliran satu arah dari server ke klien, ideal untuk mendorong data *time-series*. Server menjaga koneksi HTTP persisten dan menulis kejadian sebagai baris.
 
 ```php
 <?php
@@ -2819,11 +2819,11 @@ Export these to a separate monitoring bucket and visualise them in a system-heal
 
 ## Pertimbangan Produksi
 
-Kode di atas adalah alat bantu pengajaran — sistem IoT produksi memerlukan pengerasan tambahan.
+Kode di atas adalah alat bantu pengajaran, sedangkan sistem IoT produksi memerlukan pengerasan tambahan.
 
 ### 1. Buffering dan Durabilitas Penulisan
 
-Buffer dalam memori cepat tetapi volatil. Untuk produksi, gunakan write-ahead log persisten:
+Buffer dalam memori cepat tetapi volatil. Untuk produksi, gunakan *write-ahead log* persisten:
 
 ```
 Pesan MQTT → Redis Stream (XADD) → Konsumen PHP (XREADGROUP) → InfluxDB
@@ -2833,7 +2833,7 @@ Ini memastikan bahwa bahkan jika konsumen PHP crash di tengah batch, pesan masih
 
 ### 2. Retry dengan Exponential Backoff
 
-Kegagalan jaringan ke InfluxDB tidak dapat dihindari. Bungkus penulisan dengan logika retry:
+Kegagalan jaringan ke InfluxDB tidak dapat dihindari. Bungkus penulisan dengan logika *retry*:
 
 ```php
 private function writeWithRetry(string $lineProtocol, int $maxRetries = 3): void
@@ -2860,8 +2860,8 @@ private function writeWithRetry(string $lineProtocol, int $maxRetries = 3): void
 ### 3. Autentikasi dan Keamanan
 
 - **MQTT:** Aktifkan TLS dan autentikasi username/password. Jangan pernah mengekspos broker di IP publik tanpa autentikasi.
-- **InfluxDB:** Gunakan token API dengan hak istimewa minimal — klien ingesti hanya memerlukan akses tulis ke bucket `sensor_data`; klien dasbor hanya memerlukan akses baca.
-- **API Dasbor:** Tambahkan autentikasi berbasis JWT. Data industri dapat mengungkapkan tingkat produksi, kesehatan peralatan, dan tata letak lantai pabrik — semua informasi sensitif.
+- **InfluxDB:** Gunakan token API dengan hak istimewa minimal: klien ingesti hanya memerlukan akses tulis ke bucket `sensor_data`; klien dasbor hanya memerlukan akses baca.
+- **API Dasbor:** Tambahkan autentikasi berbasis JWT. Data industri dapat mengungkapkan tingkat produksi, kesehatan peralatan, dan tata letak lantai pabrik, yang semuanya merupakan informasi sensitif.
 
 ### 4. Retensi Data dan Downsampling
 
@@ -2873,11 +2873,11 @@ Kebijakan retensi InfluxDB mengotomatiskan manajemen siklus hidup data:
 | `sensor_data_1m` | 90 hari | Agregat 1-menit | Analisis tren, laporan mingguan |
 | `sensor_data_1h` | 1 tahun | Agregat 1-jam | Laporan bulanan, perencanaan kapasitas |
 
-Gunakan **tasks** InfluxDB (query Flux terjadwal) untuk men-downsample dari bucket mentah ke bucket agregat secara otomatis. Ini memastikan performa query tetap cepat meskipun volume data tumbuh menjadi ratusan juta titik data.
+Gunakan **tasks** InfluxDB (*query* Flux terjadwal) untuk men-downsample dari bucket mentah ke bucket agregat secara otomatis. Ini memastikan performa *query* tetap cepat meskipun volume data tumbuh menjadi ratusan juta titik data.
 
 ### 5. Memantau Pemantau
 
-Pipeline ingesti Anda sendiri memerlukan pemantauan. Lacak metrik ini:
+*Pipeline* ingesti Anda sendiri memerlukan pemantauan. Lacak metrik ini:
 
 - Pesan MQTT diterima per detik
 - Latensi penulisan InfluxDB (p50, p95, p99)
@@ -2885,7 +2885,7 @@ Pipeline ingesti Anda sendiri memerlukan pemantauan. Lacak metrik ini:
 - Tingkat evaluasi peringatan
 - Lag grup konsumen (jika menggunakan Redis Streams)
 
-Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan sistem. Kegagalan ingesti yang diam lebih buruk daripada yang berisik — jika sistem peringatan Anda sendiri rusak, Anda perlu mengetahuinya segera.
+Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan sistem. Kegagalan ingesti yang diam lebih buruk daripada yang berisik: jika sistem peringatan Anda sendiri rusak, Anda perlu mengetahuinya segera.
 
 </section>
 
@@ -2914,14 +2914,14 @@ Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan 
 
 | Skenario | Yang Tidak Boleh Dilakukan | Yang Harus Dilakukan Sebagai Gantinya |
 |---|---|---|
-| **Menyimpan data sensor di MySQL** | `INSERT INTO sensor_readings` untuk setiap pesan MQTT | Gunakan database time-series (InfluxDB, TimescaleDB) yang dirancang untuk penulisan sekuensial dan query rentang waktu |
-| **Polling MQTT** | Cron job yang menjalankan `mosquitto_sub` setiap menit | Jalankan proses subscriber persisten — MQTT berbasis push |
+| **Menyimpan data sensor di MySQL** | `INSERT INTO sensor_readings` untuk setiap pesan MQTT | Gunakan database *time-series* (InfluxDB, TimescaleDB) yang dirancang untuk penulisan sekuensial dan *query* rentang waktu |
+| **Polling MQTT** | Cron job yang menjalankan `mosquitto_sub` setiap menit | Jalankan proses subscriber yang persisten, karena MQTT berbasis *push* |
 | **Penulisan HTTP individual** | Satu panggilan API InfluxDB per pembacaan sensor | Batch hingga 100–500 pembacaan per panggilan tulis |
-| **Pengiriman peringatan sinkron** | Memblokir pipeline ingesti saat mengirim email/SMS | Fire-and-forget: dorong kejadian peringatan ke antrean (Redis, SQS) dan tangani pengiriman secara asinkron |
-| **Tidak ada validasi timestamp** | Mempercayai jam sensor | Validasi timestamp berada dalam skew yang wajar (misal: ±5 menit dari waktu server). Tolak timestamp masa depan. |
-| **Menyimpan data mentah selamanya** | Data resolusi 10 detik disimpan selama 5 tahun | Terapkan kebijakan retensi dan tugas downsample |
+| **Pengiriman peringatan sinkron** | Memblokir *pipeline* ingesti saat mengirim email/SMS | Fire-and-forget: dorong kejadian peringatan ke antrean (Redis, SQS) dan tangani pengiriman secara asinkron |
+| **Tidak ada validasi timestamp** | Mempercayai jam sensor | Validasi *timestamp* berada dalam skew yang wajar (misal: ±5 menit dari waktu server). Tolak *timestamp* masa depan. |
+| **Menyimpan data mentah selamanya** | Data resolusi 10 detik disimpan selama 5 tahun | Terapkan kebijakan retensi dan tugas *downsample* |
 | **Tidak ada dead-letter queue** | Secara diam-diam menjatuhkan pesan MQTT yang salah format | Catat payload tidak valid ke bucket atau file `dlq` untuk inspeksi nanti |
-| **Ambang hardcoded** | `if ($suhu > 80)` di dalam loop ingesti | Gunakan value object `AlertRule` dan daftarkan aturan secara dinamis — ambang berubah seiring musim dan usia peralatan |
+| **Ambang hardcoded** | `if ($suhu > 80)` di dalam loop ingesti | Gunakan value object `AlertRule` dan daftarkan aturan secara dinamis, karena ambang berubah seiring musim dan usia peralatan |
 
 </section>
 
@@ -2959,27 +2959,27 @@ Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan 
 
 ## Ringkasan
 
-1. **IoT industri adalah domain intensif data** di mana throughput penulisan dan performa query rentang waktu adalah perhatian utama — jauh lebih penting daripada CRUD atau integritas relasional.
-2. **Arsitektur mengikuti pipeline yang jelas:** sensor → gateway edge → broker MQTT → ingesti PHP → database time-series → API dasbor. Setiap lapisan memecahkan masalah spesifik dan gagal dengan cara spesifik.
+1. **IoT industri adalah domain intensif data** di mana throughput penulisan dan performa *query* rentang waktu adalah perhatian utama, jauh lebih penting daripada CRUD atau integritas relasional.
+2. **Arsitektur mengikuti *pipeline* yang jelas:** sensor → gateway edge → broker MQTT → ingesti PHP → database *time-series* → API dasbor. Setiap lapisan memecahkan masalah spesifik dan gagal dengan cara spesifik.
 3. **MQTT adalah lingua franca IoT.** Ini berbasis push, ringan, dan dirancang untuk perangkat terbatas. Backend PHP Anda harus menjadi subscriber persisten, bukan cron job polling.
-4. **Database time-series tidak dapat dinegosiasikan** untuk data sensor. Line protocol InfluxDB sederhana, dapat di-batch, dan terhubung langsung ke kode ingesti. Gunakan kebijakan retensi dan tugas downsample untuk mengelola pertumbuhan penyimpanan.
-5. **Batch write ke InfluxDB** — panggilan HTTP individual 100x lebih lambat daripada line protocol yang di-batch. Buffer pembacaan di memori dan kirim setiap 100–500 record.
-6. **Evaluasi peringatan harus inline dan cepat.** Periksa ambang terhadap setiap pembacaan masuk sebelum penulisan — bukan di loop polling terpisah. Gunakan model domain `AlertRule`/`AlertOperator`/`AlertSeverity` untuk menjaga aturan tetap dapat dikonfigurasi.
-7. **SSE mengalahkan WebSockets untuk pembaruan dasbor.** Aliran satu arah server-ke-klien, API EventSource native browser, koneksi ulang otomatis. Mulai dengan polling, naik ke SSE.
-8. **Pengerasan produksi memerlukan:** buffer write-ahead persisten (Redis Streams), retry dengan exponential backoff, token API hak istimewa minimal, TLS pada semua koneksi, dan dasbor pemantauan untuk pipeline ingesti itu sendiri.
+4. **Database *time-series* tidak dapat dinegosiasikan** untuk data sensor. *Line protocol* InfluxDB sederhana, dapat di-batch, dan terhubung langsung ke kode ingesti. Gunakan kebijakan retensi dan tugas *downsample* untuk mengelola pertumbuhan penyimpanan.
+5. **Batch write ke InfluxDB**: panggilan HTTP individual 100x lebih lambat daripada *line protocol* yang di-batch. Buffer pembacaan di memori dan kirim setiap 100–500 record.
+6. **Evaluasi peringatan harus inline dan cepat.** Periksa ambang terhadap setiap pembacaan masuk sebelum penulisan, bukan di loop polling terpisah. Gunakan model domain `AlertRule`/`AlertOperator`/`AlertSeverity` untuk menjaga aturan tetap dapat dikonfigurasi.
+7. **SSE mengalahkan WebSockets untuk pembaruan dasbor.** Aliran satu arah server-ke-klien, API EventSource bawaan browser, koneksi ulang otomatis. Mulai dengan polling, naik ke SSE.
+8. **Pengerasan produksi memerlukan:** buffer *write-ahead* persisten (Redis Streams), *retry* dengan exponential backoff, token API hak istimewa minimal, TLS pada semua koneksi, dan dasbor pemantauan untuk *pipeline* ingesti itu sendiri.
 
-> "Dalam otomasi industri, kode yang Anda tulis tidak hanya memindahkan data — ia melindungi peralatan bernilai jutaan dan orang yang mengoperasikannya. Setiap pembacaan yang terlewat, setiap peringatan yang terlewat, dan setiap detik lag dasbor memiliki biaya dunia nyata. Rekayasalah sesuai dengan itu."
+> "Dalam otomasi industri, kode yang Anda tulis tidak hanya memindahkan data: ia melindungi peralatan bernilai jutaan dan orang yang mengoperasikannya. Setiap pembacaan yang terlewat, setiap peringatan yang terlewat, dan setiap detik lag dasbor memiliki biaya dunia nyata. Rekayasalah sesuai dengan itu."
 
 ## Bacaan Selanjutnya
 
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)** — Pelajari bagaimana bounded context memisahkan ingesti MQTT, query dasbor, dan manajemen peringatan dengan bersih.
-- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)** — Bangun pipeline ingesti dan aturan peringatan Anda dengan percaya diri menggunakan siklus Red-Green-Refactor.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Jaga pipeline data sensor Anda tetap terbaca seiring bertambahnya jumlah metrik, sensor, dan aturan peringatan.
-- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)** — Terapkan pola Observer (handler peringatan), Strategy (fungsi agregasi), dan Pipeline (tahap pemrosesan data).
-- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** — Pahami kapan harus mengekstrak ingesti MQTT, API dasbor, dan pengiriman peringatan ke layanan terpisah.
-- **[CI/CD dengan GitHub Actions untuk PHP](/blog/ci-cd-github-actions-php)** — Otomatiskan deployment layanan ingesti dan API dasbor Anda dengan CI/CD berbasis kontainer.
-- **[Dokumentasi InfluxDB v2](https://docs.influxdata.com/influxdb/v2/)** — Dokumentasi resmi untuk line protocol, bahasa query Flux, tasks, dan kebijakan retensi.
-- **[Spesifikasi MQTT (v5.0)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)** — Standar OASIS. Bacaan penting untuk memahami level QoS, retained messages, dan persistensi sesi.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)**: Pelajari bagaimana *bounded context* memisahkan ingesti MQTT, *query* dasbor, dan manajemen peringatan dengan bersih.
+- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)**: Bangun *pipeline* ingesti dan aturan peringatan Anda dengan percaya diri menggunakan siklus Red-Green-Refactor.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Jaga *pipeline* data sensor Anda tetap terbaca seiring bertambahnya jumlah metrik, sensor, dan aturan peringatan.
+- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)**: Terapkan pola Observer (handler peringatan), Strategy (fungsi agregasi), dan Pipeline (tahap pemrosesan data).
+- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: Pahami kapan harus mengekstrak ingesti MQTT, API dasbor, dan pengiriman peringatan ke layanan terpisah.
+- **[CI/CD dengan GitHub Actions untuk PHP](/blog/ci-cd-github-actions-php)**: Otomatiskan deployment layanan ingesti dan API dasbor Anda dengan CI/CD berbasis kontainer.
+- **[Dokumentasi InfluxDB v2](https://docs.influxdata.com/influxdb/v2/)**: Dokumentasi resmi untuk *line protocol*, bahasa *query* Flux, tasks, dan kebijakan retensi.
+- **[Spesifikasi MQTT (v5.0)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)**: Standar OASIS. Bacaan penting untuk memahami level QoS, retained messages, dan persistensi sesi.
 
 </section>
 
@@ -3109,12 +3109,12 @@ Sekarang giliran Anda. Perluas sistem dengan fitur-fitur berikut:
 
 ### Tugas 1: Tambahkan Periode Cooldown ke Peringatan
 
-`AlertService` saat ini memicu peringatan pada **setiap** pembacaan yang melebihi ambang. Di pabrik nyata, lonjakan suhu menghasilkan puluhan pembacaan per detik — Anda tidak ingin mengirim peringatan untuk setiap satu.
+`AlertService` saat ini memicu peringatan pada **setiap** pembacaan yang melebihi ambang. Di pabrik nyata, lonjakan suhu menghasilkan puluhan pembacaan per detik, dan Anda tentu tidak ingin mengirim peringatan untuk setiap pembacaan tersebut.
 
 **Persyaratan:**
 - Tambahkan properti `cooldownSeconds` ke `AlertRule`
-- Modifikasi `AlertService::evaluate()` untuk melewati peringatan jika aturan yang sama terpicu dalam jendela cooldown
-- Simpan timestamp pemicu terakhir per aturan di memori (gunakan peta `private array $lastTriggered`)
+- Modifikasi `AlertService::evaluate()` untuk melewati peringatan jika aturan yang sama terpicu dalam jendela *cooldown*
+- Simpan *timestamp* pemicu terakhir per aturan di memori (gunakan peta `private array $lastTriggered`)
 
 ```php
 // Kode awal
@@ -3146,11 +3146,11 @@ GET /api/dashboard/sensors/{sensorId}/export?from=2026-07-01T00:00:00Z&to=2026-0
 ```
 
 **Persyaratan:**
-- Terima timestamp ISO 8601 `from` dan `to`
-- Terima parameter `format` — `csv` atau `json`
+- Terima *timestamp* ISO 8601 `from` dan `to`
+- Terima parameter `format`: `csv` atau `json`
 - Untuk CSV: kembalikan unduhan CSV dengan kolom: `timestamp, sensor_id, metric, value, unit`
 - Untuk JSON: kembalikan array objek pembacaan
-- Stream respons untuk dataset besar alih-alih membangun seluruh payload di memori
+- Alirkan respons untuk dataset besar, alih-alih membangun seluruh payload di memori
 
 ```php
 // Kontrak awal
@@ -3164,7 +3164,7 @@ public function export(string $sensorId, DateTimeImmutable $from, DateTimeImmuta
 
 ### Tugas 3: Ringkasan Dasbor Multi-Sensor
 
-Dasbor saat ini menampilkan data untuk satu sensor pada satu waktu. Bangun endpoint ringkasan yang mengagregasi di semua sensor:
+Dasbor saat ini menampilkan data untuk satu sensor pada satu waktu. Bangun endpoint ringkasan yang mengagregasi data dari semua sensor:
 
 ```
 GET /api/dashboard/summary
@@ -3193,11 +3193,11 @@ GET /api/dashboard/summary
 ```
 
 **Persyaratan:**
-- Query semua ID sensor unik dari InfluxDB (gunakan `schema.measurements()` atau tabel registri terpisah)
+- *Query* semua ID sensor unik dari InfluxDB (gunakan `schema.measurements()` atau tabel registri terpisah)
 - Untuk setiap sensor, ambil pembacaan terbaru dan periksa apakah ada aturan peringatan yang saat ini dilanggar
 - Kembalikan status terkonsolidasi: `normal`, `warning`, atau `critical`
 
-**Tip:** Gunakan query Flux seperti ini untuk mendapatkan ID sensor yang berbeda:
+**Tip:** Gunakan *query* Flux seperti ini untuk mendapatkan ID sensor yang berbeda:
 
 ```
 import "influxdata/influxdb/schema"
@@ -3210,9 +3210,9 @@ schema.measurementTagValues(
 
 ### Yang Harus Anda Pelajari dari Latihan Ini
 
-- **Rate limiting untuk peringatan** mencegah kelelahan operator — terlalu banyak peringatan melatih orang untuk mengabaikannya.
-- **Ekspor data** adalah persyaratan kepatuhan di banyak industri — auditor membutuhkan data mentah, bukan hanya grafik.
+- **Rate limiting untuk peringatan** mencegah kelelahan operator, karena terlalu banyak peringatan melatih orang untuk mengabaikannya.
+- **Ekspor data** adalah persyaratan kepatuhan di banyak industri: auditor membutuhkan data mentah, bukan hanya grafik.
 - **Agregasi multi-sensor** adalah yang membedakan dasbor dari tampilan debug sensor tunggal. Lantai pabrik nyata memiliki ratusan sensor.
-- Objek domain (`AlertRule`, `SensorReading`, `DashboardQuery`) membuat perluasan ini langsung — Anda menambahkan perilaku ke model yang terdefinisi dengan baik, bukan meretas string SQL bersama-sama.
+- Objek domain (`AlertRule`, `SensorReading`, `DashboardQuery`) membuat perluasan ini langsung: Anda menambahkan perilaku ke model yang terdefinisi dengan baik, bukan meretas string SQL bersama-sama.
 
 </section>

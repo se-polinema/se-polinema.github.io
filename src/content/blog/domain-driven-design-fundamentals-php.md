@@ -15,7 +15,7 @@ tagsId:
   - Domain-Driven Design
   - PHP
 excerpt: "A hands-on guide to Domain-Driven Design (DDD) for PHP developers. Learn ubiquitous language, bounded contexts, entities, value objects, aggregates, repositories, and layered architecture — then refactor an anemic CRUD course registration model into a rich DDD-style domain model with runnable before-and-after code."
-excerptId: "Panduan praktis Domain-Driven Design (DDD) untuk pengembang PHP. Pelajari ubiquitous language, bounded context, entity, value object, aggregate, repository, dan arsitektur berlapis — lalu refactor model registrasi mata kuliah CRUD yang anemic menjadi domain model gaya DDD dengan kode before-and-after yang dapat dijalankan."
+excerptId: "Panduan praktis Domain-Driven Design (DDD) untuk pengembang PHP. Pelajari ubiquitous language, bounded context, entity, value object, aggregate, repository, dan arsitektur berlapis, lalu refactor model registrasi mata kuliah CRUD yang anemic menjadi domain model gaya DDD dengan kode before-and-after yang dapat dijalankan."
 ---
 
 <section lang="en">
@@ -43,9 +43,9 @@ In this tutorial, you will learn the four pillars of DDD — Ubiquitous Language
 
 ## Apa Itu Domain-Driven Design?
 
-**Domain-Driven Design (DDD)** adalah pendekatan desain perangkat lunak yang menempatkan domain bisnis di pusat setiap keputusan. Alih-alih memulai dengan skema database atau framework, Anda mulai dengan memahami secara mendalam ruang masalah — *domain* — dan memodelkan kode Anda untuk mencerminkannya.
+**Domain-Driven Design (DDD)** adalah pendekatan desain perangkat lunak yang menempatkan domain bisnis di pusat setiap keputusan. Alih-alih memulai dengan skema database atau framework, Anda mulai dengan memahami secara mendalam ruang masalah, yaitu *domain*, lalu memodelkan kode Anda untuk mencerminkannya.
 
-Eric Evans memperkenalkan DDD dalam bukunya tahun 2003 dan wawasan intinya sederhana namun menipu: **kode harus berbicara dalam bahasa yang sama dengan para ahli bisnis.** Ketika seorang dosen mengatakan "mahasiswa mendaftar mata kuliah hanya jika mereka telah menyelesaikan prasyaratnya," kelas `Enrolment` Anda harus menegakkan aturan itu — bukan statement `if` yatim piatu di controller yang berjarak seribu baris.
+Eric Evans memperkenalkan DDD dalam bukunya tahun 2003 dan wawasan intinya sederhana namun menipu: **kode harus berbicara dalam bahasa yang sama dengan para ahli bisnis.** Ketika seorang dosen mengatakan "mahasiswa mendaftar mata kuliah hanya jika mereka telah menyelesaikan prasyaratnya," kelas `Enrolment` Anda harus menegakkan aturan itu, bukan statement `if` yatim piatu di controller yang berjarak seribu baris.
 
 ### Kesalahpahaman Umum
 
@@ -56,7 +56,7 @@ Eric Evans memperkenalkan DDD dalam bukunya tahun 2003 dan wawasan intinya seder
 | "DDD hanya untuk proyek enterprise Java." | DDD bekerja dalam bahasa apa pun. PHP, dengan strong typing (PHP 8+), interface, dan readonly class, mendukung DDD dengan baik. |
 | "DDD berarti tanpa framework." | DDD berarti lapisan domain memiliki **nol dependensi framework**. Lapisan infrastruktur (HTTP, database) tetap dapat menggunakan Symfony atau Laravel. |
 
-Dalam tutorial ini, Anda akan mempelajari empat pilar DDD — Ubiquitous Language, Bounded Contexts, Building Blocks, dan Layered Architecture — dan menerapkannya dengan me-refactor contoh PHP nyata.
+Dalam tutorial ini, Anda akan mempelajari empat pilar DDD: Ubiquitous Language, Bounded Contexts, Building Blocks, dan Layered Architecture, lalu menerapkannya dengan me-refactor contoh PHP nyata.
 
 </section>
 
@@ -197,7 +197,7 @@ No translation needed. The code reads like the domain expert's sentence.
 
 Dalam sistem kampus yang umum, konsep yang sama memiliki nama berbeda di tempat berbeda. Pakar bisnis mengatakan "registrasi mata kuliah," skema database memiliki tabel bernama `enrolments`, variabel controller adalah `$reg`, dan API mengembalikan `{ "enrollment_status": "confirmed" }`. Ketika laporan bug tiba, tidak ada yang yakin istilah mana merujuk ke apa.
 
-Lapisan translasi ini — dari bahasa bisnis ke bahasa kode dan kembali — adalah sumber dari kesalahpahaman dan bug yang tak terhitung jumlahnya.
+Lapisan translasi ini, dari bahasa bisnis ke bahasa kode dan kembali, adalah sumber dari kesalahpahaman dan bug yang tak terhitung jumlahnya.
 
 ### Solusinya
 
@@ -205,11 +205,11 @@ Lapisan translasi ini — dari bahasa bisnis ke bahasa kode dan kembali — adal
 
 ### Membangun Ubiquitous Language
 
-Langkah 1 — Duduklah dengan pakar domain (dosen, petugas registrasi) dan tangkap pernyataan mentah:
+Langkah 1: Duduklah dengan pakar domain (dosen, petugas registrasi) dan tangkap pernyataan mentah:
 
 > "Ketika seorang mahasiswa ingin bergabung dengan mata kuliah, mereka mengajukan permintaan registrasi. Sistem memeriksa apakah mahasiswa telah menyelesaikan semua mata kuliah prasyarat yang diperlukan. Jika sudah, registrasi dikonfirmasi dan mahasiswa ditambahkan ke daftar hadir mata kuliah."
 
-Langkah 2 — Ekstrak kata benda dan kata kerja. Ini menjadi kandidat untuk kelas dan metode:
+Langkah 2: Ekstrak kata benda dan kata kerja. Ini menjadi kandidat untuk kelas dan metode:
 
 | Istilah Mentah | Istilah yang Disempurnakan | Menjadi |
 |---|---|---|
@@ -220,11 +220,11 @@ Langkah 2 — Ekstrak kata benda dan kata kerja. Ini menjadi kandidat untuk kela
 | "menyelesaikan prasyarat" | `hasCompletedPrerequisite(Course)` | Metode pada `Student` |
 | "daftar hadir mata kuliah" | `CourseRoster` | Value Object atau Read Model |
 
-Langkah 3 — **Tegakkan bahasa dalam kode.** Jangan pernah biarkan variabel controller `$reg` lolos ketika domain mengatakan `$enrolment`. Setiap ketidakcocokan mengikis kepercayaan pada model.
+Langkah 3: **Tegakkan bahasa dalam kode.** Jangan pernah biarkan variabel controller `$reg` lolos ketika domain mengatakan `$enrolment`. Setiap ketidakcocokan mengikis kepercayaan pada model.
 
 ### Contoh PHP: Before dan After
 
-**Before — bahasa yang tidak konsisten:**
+**Before (bahasa yang tidak konsisten):**
 
 ```php
 <?php
@@ -255,7 +255,7 @@ class RegistrationCtrl
 }
 ```
 
-**After — ubiquitous language dalam nama kelas dan metode:**
+**After (ubiquitous language dalam nama kelas dan metode):**
 
 ```php
 <?php
@@ -289,7 +289,7 @@ Tidak perlu translasi. Kode terbaca seperti kalimat pakar domain.
 | Lakukan | Jangan Lakukan |
 |---|---|
 | Gunakan kata-kata persis pakar domain untuk nama kelas dan metode. | Ciptakan singkatan Anda sendiri (`$reg`, `$sid`, `chkPrereq`). |
-| Dokumentasikan glosarium di wiki atau README bersama — jaga agar tetap hidup. | Asumsikan semua orang "sudah tahu" istilahnya. |
+| Dokumentasikan glosarium di wiki atau README bersama, dan jaga agar tetap hidup. | Asumsikan semua orang "sudah tahu" istilahnya. |
 | Refactor nama kelas ketika bisnis mengubah terminologinya. | Pertahankan nama lama karena "rename terlalu sulit." |
 | Gunakan istilah yang sama di respons API, pesan error, dan log. | Sebut "enrolment" di API dan "registration" di template email. |
 
@@ -333,11 +333,11 @@ Bounded contexts communicate through well-defined interfaces. The diagram below 
 
 ### Masalahnya
 
-Domain besar — seperti universitas — berisi banyak sub-domain: katalog mata kuliah, pendaftaran mahasiswa, penagihan, manajemen perpustakaan, pelacakan kehadiran. Jika Anda mencoba membangun *satu model terpadu* yang memuaskan setiap sub-domain, Anda akan berakhir dengan kelas `Student` yang memiliki 200 properti (IPK, buku yang terlambat, invoice yang belum dibayar, nomor kamar asrama, preferensi diet untuk kafetaria) dan setiap perubahan pada satu sub-domain merusak yang lain.
+Domain besar, seperti universitas, berisi banyak sub-domain: katalog mata kuliah, pendaftaran mahasiswa, penagihan, manajemen perpustakaan, pelacakan kehadiran. Jika Anda mencoba membangun *satu model terpadu* yang memuaskan setiap sub-domain, Anda akan berakhir dengan kelas `Student` yang memiliki 200 properti (IPK, buku yang terlambat, invoice yang belum dibayar, nomor kamar asrama, preferensi diet untuk kafetaria) dan setiap perubahan pada satu sub-domain merusak yang lain.
 
 ### Solusinya
 
-**Bounded Context** adalah batas logis di mana model domain tertentu berlaku. Di dalam setiap context, istilah memiliki makna yang tepat dan tidak ambigu. Hal dunia nyata yang sama (misalnya, "Student") mungkin memiliki model yang berbeda di context yang berbeda, dan itu tidak hanya dapat diterima — itu *benar*.
+**Bounded Context** adalah batas logis di mana model domain tertentu berlaku. Di dalam setiap context, istilah memiliki makna yang tepat dan tidak ambigu. Hal dunia nyata yang sama (misalnya, "Student") mungkin memiliki model yang berbeda di context yang berbeda, dan itu bukan hanya dapat diterima, melainkan *benar*.
 
 ### Context Map untuk Sistem Kampus
 
@@ -441,9 +441,9 @@ An ACL is extra code, but it is a one-time investment. Without it, a change in t
 
 Dua context yang perlu berbagi data memiliki beberapa opsi:
 
-**Shared Kernel** — dua context menyetujui subset kecil model yang dibagikan. Misalnya, context Identity dan Enrolment sama-sama menggunakan value object `StudentId` yang sama. Jaga shared kernel sekecil mungkin.
+**Shared Kernel**: dua context menyetujui subset kecil model yang dibagikan. Misalnya, context Identity dan Enrolment sama-sama menggunakan value object `StudentId` yang sama. Jaga shared kernel sekecil mungkin.
 
-**Anti-Corruption Layer (ACL)** — ketika satu context harus mengonsumsi data dari context lain, bangun lapisan translasi yang mengonversi model eksternal ke dalam model internal Anda. Ini mencegah desain context lain "bocor" ke dalam desain Anda.
+**Anti-Corruption Layer (ACL)**: ketika satu context harus mengonsumsi data dari context lain, bangun lapisan translasi yang mengonversi model eksternal ke dalam model internal Anda. Ini mencegah desain context lain "bocor" ke dalam desain Anda.
 
 ```php
 <?php
@@ -858,11 +858,11 @@ class PrerequisiteChecker
 
 ## Pilar 3: Building Block DDD dalam PHP
 
-DDD menyediakan serangkaian **pola taktis** — building block konkret yang Anda gunakan untuk membangun model domain. Setiap block memiliki peran spesifik dan seperangkat aturan spesifik.
+DDD menyediakan serangkaian **pola taktis**, yaitu building block konkret yang Anda gunakan untuk membangun model domain. Setiap block memiliki peran spesifik dan seperangkat aturan spesifik.
 
 ### Entity
 
-**Entity** adalah objek yang didefinisikan oleh **identitasnya**, bukan atributnya. Dua objek `Student` dengan NIM yang sama adalah mahasiswa yang sama, meskipun satu memiliki nama usang dan yang lain memiliki nama yang diperbarui. Entity bersifat mutable — atributnya berubah seiring waktu sementara identitasnya tetap konstan.
+**Entity** adalah objek yang didefinisikan oleh **identitasnya**, bukan atributnya. Dua objek `Student` dengan NIM yang sama adalah mahasiswa yang sama, meskipun satu memiliki nama usang dan yang lain memiliki nama yang diperbarui. Entity bersifat mutable: atributnya berubah seiring waktu sementara identitasnya tetap konstan.
 
 ```php
 <?php
@@ -919,7 +919,7 @@ Aturan kunci:
 
 ### Value Object
 
-**Value Object** tidak memiliki identitas. Ia didefinisikan sepenuhnya oleh atributnya. Dua objek `Money` dengan jumlah dan mata uang yang sama dapat dipertukarkan. Value Object bersifat **immutable** — metode mengembalikan instance baru alih-alih memodifikasi state.
+**Value Object** tidak memiliki identitas. Ia didefinisikan sepenuhnya oleh atributnya. Dua objek `Money` dengan jumlah dan mata uang yang sama dapat dipertukarkan. Value Object bersifat **immutable**: metode mengembalikan instance baru, bukan memodifikasi state.
 
 ```php
 <?php
@@ -1020,11 +1020,11 @@ class Email
 }
 ```
 
-### Entity vs Value Object — Tabel Keputusan Cepat
+### Entity vs Value Object: Tabel Keputusan Cepat
 
 | Kriteria | Entity | Value Object |
 |---|---|---|
-| Memiliki identitas? | Ya — dua objek dengan ID yang sama adalah hal yang sama. | Tidak — dua objek dengan atribut yang sama dapat dipertukarkan. |
+| Memiliki identitas? | Ya: dua objek dengan ID yang sama adalah hal yang sama. | Tidak: dua objek dengan atribut yang sama dapat dipertukarkan. |
 | Mutable atau immutable? | Mutable (atribut berubah, identitas tetap). | Immutable (metode mengembalikan instance baru). |
 | Pemeriksaan kesamaan | Berdasarkan ID (`$a->id()->equals($b->id())`). | Berdasarkan nilai (setiap atribut harus cocok). |
 | Siklus hidup | Dibuat, diperbarui, (soft) dihapus. | Dibuat dan dibuang. |
@@ -1032,7 +1032,7 @@ class Email
 
 ### Aggregate dan Aggregate Root
 
-**Aggregate** adalah kluster entity dan value object yang diperlakukan sebagai satu unit untuk perubahan data. **Aggregate Root** adalah titik masuk tunggal — semua referensi eksternal ke aggregate melalui root.
+**Aggregate** adalah kluster entity dan value object yang diperlakukan sebagai satu unit untuk perubahan data. **Aggregate Root** adalah titik masuk tunggal: semua referensi eksternal ke aggregate melalui root.
 
 **Mengapa?** Tanpa aggregate, bagian kode mana pun dapat memodifikasi entity mana pun, dan invarian bisnis tersebar di seluruh basis kode. Dengan aggregate, root menjamin konsistensi.
 
@@ -1115,7 +1115,7 @@ Aturan kunci:
 - Hanya aggregate root (`Enrolment`) yang memiliki identitas global. Entity internal memiliki identitas lokal.
 - Kode eksternal tidak pernah menyimpan referensi ke `EnrolmentHistory`. Ia hanya berbicara ke `Enrolment`.
 - Semua invarian diperiksa di dalam aggregate sebelum perubahan state.
-- Aggregate harus kecil. Aggregate `University` yang berisi setiap `Student` dan `Course` adalah granularitas yang salah — lebih suka banyak aggregate kecil.
+- Aggregate harus kecil. Aggregate `University` yang berisi setiap `Student` dan `Course` adalah granularitas yang salah, sebaiknya gunakan banyak aggregate kecil.
 
 ### Repository
 
@@ -1187,7 +1187,7 @@ class PdoEnrolmentRepository implements EnrolmentRepository
 }
 ```
 
-`PdoEnrolmentRepository` tinggal di lapisan infrastruktur. Interface `EnrolmentRepository` tinggal di lapisan domain. Kode aplikasi bergantung pada interface — ia tidak pernah tahu tentang PDO.
+`PdoEnrolmentRepository` tinggal di lapisan infrastruktur. Interface `EnrolmentRepository` tinggal di lapisan domain. Kode aplikasi bergantung pada interface: ia tidak pernah tahu tentang PDO.
 
 ### Domain Service
 
@@ -1319,14 +1319,14 @@ This means you can swap `PdoEnrolmentRepository` for a `RedisEnrolmentRepository
 
 ## Pilar 4: Arsitektur Berlapis
 
-DDD menganjurkan **arsitektur berlapis** di mana setiap lapisan memiliki tanggung jawab yang berbeda dan dependensi mengarah ke dalam. Lapisan domain adalah jantungnya — ia memiliki nol dependensi pada framework, database, atau library HTTP.
+DDD menganjurkan **arsitektur berlapis** di mana setiap lapisan memiliki tanggung jawab yang berbeda dan dependensi mengarah ke dalam. Lapisan domain adalah jantungnya: ia memiliki nol dependensi pada framework, database, atau library HTTP.
 
 ### Empat Lapisan
 
 | Lapisan | Tanggung Jawab | Bergantung Pada | Contoh Kelas |
 |---|---|---|---|
 | **User Interface** | HTTP controller, perintah CLI, queue consumer. | Lapisan Application. | `EnrolmentController`, `ImportStudentsCommand` |
-| **Application** | Orkestrasi use case. Tipis — mendelegasikan ke domain. | Lapisan Domain. | `EnrolStudentUseCase`, `CancelEnrolmentUseCase` |
+| **Application** | Orkestrasi use case. Tipis, mendelegasikan ke domain. | Lapisan Domain. | `EnrolStudentUseCase`, `CancelEnrolmentUseCase` |
 | **Domain** | Aturan bisnis, entity, value object, domain service. | Tidak ada (PHP murni). | `Student`, `Enrolment`, `PrerequisiteChecker` |
 | **Infrastructure** | Database, HTTP client, email, sistem file. | Mengimplementasikan interface domain. | `PdoEnrolmentRepository`, `SmtpMailer` |
 
@@ -2030,9 +2030,9 @@ class EnrolmentController
 
 ## Hands-On: Dari Anemic CRUD ke Domain Model DDD
 
-Mari kita terapkan semuanya dengan me-refactor contoh nyata. Kita mulai dengan **anemic domain model** — anti-pola umum di mana kelas "domain" adalah data bag dengan getter dan setter, dan semua logika bisnis tinggal di service atau controller.
+Mari kita terapkan semuanya dengan me-refactor contoh nyata. Kita mulai dengan **anemic domain model**: anti-pola umum di mana kelas "domain" adalah data bag dengan getter dan setter, dan semua logika bisnis tinggal di service atau controller.
 
-### Before: Anemic CRUD — Pendaftaran Mata Kuliah
+### Before: Anemic CRUD untuk Pendaftaran Mata Kuliah
 
 ```php
 <?php
@@ -2172,17 +2172,17 @@ print_r($result);
 **Masalah dengan kode ini:**
 
 1. **Anemic domain model.** `Student`, `Course`, dan `Enrolment` tidak memiliki perilaku. Mereka adalah array bergengsi dengan properti publik.
-2. **Aturan bisnis tersebar.** Pengecekan prasyarat, penegakan kapasitas, dan deteksi duplikat tinggal di dalam `RegistrationService` — kelas yang seharusnya mengorkestrasi, bukan berisi logika domain.
+2. **Aturan bisnis tersebar.** Pengecekan prasyarat, penegakan kapasitas, dan deteksi duplikat tinggal di dalam `RegistrationService`, kelas yang seharusnya mengorkestrasi, bukan berisi logika domain.
 3. **Status berbasis string.** `'pending'`, `'confirmed'`, `'cancelled'` adalah magic string yang rentan kesalahan. Salah ketik (`'cnfirmed'`) tidak terdeteksi sampai runtime.
 4. **Akses data bergantung framework.** `RegistrationService` bergantung pada `\PDO` secara langsung. Menukar database berarti menulis ulang setiap service.
-5. **Efek samping tertanam dalam logika bisnis.** Mengirim email di-hard-code di dalam `registerStudentForCourse`. Anda tidak dapat menonaktifkannya dalam pengujian tanpa memock mailer.
+5. **Efek samping tertanam dalam logika bisnis.** Mengirim email di-hard-code di dalam `registerStudentForCourse`. Anda tidak dapat menonaktifkannya dalam pengujian tanpa me-mock mailer.
 6. **Invarian tidak dapat ditegakkan.** Tidak ada yang mencegah kode di tempat lain menetapkan `$enrolment->status = 'confirmed'` tanpa memeriksa kapasitas.
 
 ### After: Domain Model Gaya DDD
 
 Sekarang kita refactor fungsionalitas yang sama mengikuti prinsip DDD.
 
-**Langkah 1 — Value Objects (lapisan Domain, nol dependensi):**
+**Langkah 1: Value Objects (lapisan Domain, nol dependensi):**
 
 ```php
 <?php
@@ -2233,7 +2233,7 @@ enum EnrolmentStatus: string
 }
 ```
 
-**Langkah 2 — Entity dengan perilaku (lapisan Domain):**
+**Langkah 2: Entity dengan perilaku (lapisan Domain):**
 
 ```php
 <?php
@@ -2350,7 +2350,7 @@ class Prerequisite
 }
 ```
 
-**Langkah 3 — Aggregate Enrolment (lapisan Domain):**
+**Langkah 3: Aggregate Enrolment (lapisan Domain):**
 
 ```php
 <?php
@@ -2427,7 +2427,7 @@ class Enrolment
 }
 ```
 
-**Langkah 4 — Interface Repository (lapisan Domain):**
+**Langkah 4: Interface Repository (lapisan Domain):**
 
 ```php
 <?php
@@ -2440,7 +2440,7 @@ interface EnrolmentRepository
 }
 ```
 
-**Langkah 5 — Use Case Aplikasi (lapisan Application):**
+**Langkah 5: Use Case Aplikasi (lapisan Application):**
 
 ```php
 <?php
@@ -2537,7 +2537,7 @@ class EnrolmentResult
 }
 ```
 
-**Langkah 6 — Implementasi Infrastruktur (lapisan Infrastructure):**
+**Langkah 6: Implementasi Infrastruktur (lapisan Infrastructure):**
 
 ```php
 <?php
@@ -2598,7 +2598,7 @@ class PdoEnrolmentRepository implements EnrolmentRepository
 }
 ```
 
-**Langkah 7 — Controller (lapisan User Interface):**
+**Langkah 7: Controller (lapisan User Interface):**
 
 ```php
 <?php
@@ -2640,11 +2640,11 @@ class EnrolmentController
 |---|---|---|
 | **Di mana aturan bisnis?** | Tersebar di `RegistrationService` dan query SQL mentah. | Di dalam entity `Student`, `Course`, dan `Enrolment`. |
 | **Manajemen status** | Magic string (`'confirmed'`, `'pending'`). | Enum bertipe `EnrolmentStatus`. |
-| **Penegakan invarian** | Pengecekan `if` ad-hoc di lapisan service. | Di dalam metode aggregate (`confirm()`, `cancel()`) — tidak mungkin dilewati. |
+| **Penegakan invarian** | Pengecekan `if` ad-hoc di lapisan service. | Di dalam metode aggregate (`confirm()`, `cancel()`), sehingga tidak mungkin dilewati. |
 | **Coupling database** | `\PDO` langsung di kelas service. | Interface Repository di Domain; implementasi PDO di Infrastructure. |
-| **Testability** | Harus memock `\PDO` dan `Mailer` untuk menguji aturan bisnis. | Unit-test entity tanpa mock. Integration-test repository secara terisolasi. |
+| **Testability** | Harus me-mock `\PDO` dan `Mailer` untuk menguji aturan bisnis. | Unit-test entity tanpa mock. Integration-test repository secara terisolasi. |
 | **Efek samping** | `$this->mailer->send()` di dalam logika bisnis. | Dihapus dari use case; dipancarkan sebagai domain event yang ditangani oleh infrastruktur. |
-| **Keterbacaan pakar domain** | `registerStudentForCourse($sid, $cid)` — generik. | `$student->hasCompletedPrerequisitesFor($course)` — terbaca seperti percakapan. |
+| **Keterbacaan pakar domain** | `registerStudentForCourse($sid, $cid)`, generik. | `$student->hasCompletedPrerequisitesFor($course)`, terbaca seperti percakapan. |
 
 </section>
 
@@ -2713,7 +2713,7 @@ DDD dan microservices adalah pasangan alami. **Bounded context** dalam DDD memet
 | Konsep DDD | Ekuivalen Microservices |
 |---|---|
 | Bounded Context | Sebuah microservice (misalnya, `EnrolmentService`) |
-| Ubiquitous Language | Kontrak API — nama field JSON, jalur endpoint, kode error |
+| Ubiquitous Language | Kontrak API: nama field JSON, jalur endpoint, kode error |
 | Aggregate | Batas transaksional di dalam sebuah layanan |
 | Domain Event | Event yang dipublikasikan ke message broker (misalnya, `StudentEnrolled`) |
 | Anti-Corruption Layer | API gateway atau layanan integrasi khusus |
@@ -2748,7 +2748,7 @@ class EnrolmentConfirmedEventHandler
 }
 ```
 
-Billing Service berlangganan ke `enrolment.confirmed` dan menghasilkan invoice — tanpa pernah mengetahui skema internal Enrolment Service.
+Billing Service berlangganan ke `enrolment.confirmed` dan menghasilkan invoice, tanpa pernah mengetahui skema internal Enrolment Service.
 
 Untuk pendalaman lebih lanjut tentang bagaimana bounded context mendorong dekomposisi layanan, lihat tutorial **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** kami, yang mencakup pola komunikasi, database-per-service, contract testing, dan dasar-dasar deployment.
 
@@ -2798,7 +2798,7 @@ If you answer **no** to most, start simple. DDD is a refactoring destination, no
 
 <section lang="id">
 
-## Kapan Menggunakan — dan Kapan Melewatkan — DDD
+## Kapan Menggunakan dan Kapan Melewatkan DDD
 
 DDD bukanlah pendekatan satu ukuran untuk semua. Biaya DDD (lebih banyak file, disiplin pemodelan yang lebih ketat, pemeliharaan ubiquitous language) harus dibenarkan oleh kompleksitas domain.
 
@@ -2816,13 +2816,13 @@ DDD bukanlah pendekatan satu ukuran untuk semua. Biaya DDD (lebih banyak file, d
 
 | Kondisi | Mengapa DDD Berlebihan |
 |---|---|
-| Aplikasi sebagian besar adalah **CRUD** — create, read, update, delete sederhana tanpa aturan kompleks. | DDD menambahkan puluhan file untuk menyelesaikan masalah yang tidak Anda miliki. Controller tipis + repository sudah cukup. |
+| Aplikasi sebagian besar adalah **CRUD**: create, read, update, delete sederhana tanpa aturan kompleks. | DDD menambahkan puluhan file untuk menyelesaikan masalah yang tidak Anda miliki. Controller tipis + repository sudah cukup. |
 | Domain **intensif data, bukan intensif perilaku**. | Jika tantangannya adalah query cepat dan pembuatan laporan, investasikan dalam desain database dan caching, bukan rich domain model. |
 | Tim **kecil (1–3 pengembang)** dan proyek berumur pendek. | Waktu yang dihabiskan untuk pemodelan jarang terbayar kembali pada proyek pendek. |
 | **Tidak ada pakar domain yang tersedia**. | DDD tanpa pakar domain hanyalah arsitektur untuk kepentingannya sendiri. Modelnya akan salah. |
 | Anda membangun **prototipe atau MVP** dengan domain yang tidak pasti. | Mulai dengan pendekatan CRUD sederhana. Perkenalkan DDD ketika aturan domain stabil dan kompleksitas muncul. |
 
-### Ambang Kompleksitas — Sebuah Heuristik Praktis
+### Ambang Kompleksitas: Heuristik Praktis
 
 Gunakan DDD jika Anda menjawab **ya** untuk setidaknya tiga dari ini:
 
@@ -2869,25 +2869,25 @@ Jika Anda menjawab **tidak** untuk sebagian besar, mulailah dengan sederhana. DD
 
 ## Ringkasan
 
-1. **Domain-Driven Design menyelaraskan kode dengan domain bisnis.** Tujuannya bukan lebih banyak kelas — melainkan perangkat lunak yang dapat dibaca dan diverifikasi oleh pakar domain.
+1. **Domain-Driven Design menyelaraskan kode dengan domain bisnis.** Tujuannya bukan lebih banyak kelas, melainkan perangkat lunak yang dapat dibaca dan diverifikasi oleh pakar domain.
 2. **Ubiquitous Language** menghilangkan pajak translasi antara bisnis dan engineering. Setiap istilah dalam kode adalah istilah yang digunakan pemangku kepentingan.
-3. **Bounded Contexts** mendefinisikan batasan yang jelas di mana model tertentu berlaku. Context yang berbeda dapat memiliki model yang berbeda dari konsep dunia nyata yang sama — dan seharusnya begitu.
+3. **Bounded Contexts** mendefinisikan batasan yang jelas di mana model tertentu berlaku. Context yang berbeda dapat memiliki model yang berbeda dari konsep dunia nyata yang sama, dan seharusnya begitu.
 4. **Entity** memiliki identitas dan siklus hidup. **Value Object** bersifat immutable dan didefinisikan oleh atributnya. **Aggregate** menegakkan invarian untuk kluster objek yang terkait.
-5. **Repository** mengabstraksi akses data di balik antarmuka seperti koleksi di lapisan domain. Infrastruktur mengimplementasikannya — domain tidak pernah menyentuh PDO atau ORM.
+5. **Repository** mengabstraksi akses data di balik antarmuka seperti koleksi di lapisan domain. Infrastruktur mengimplementasikannya: domain tidak pernah menyentuh PDO atau ORM.
 6. **Arsitektur berlapis** menjaga kode domain tetap murni. Dependensi mengarah ke dalam: Infrastructure → Application → Domain. Domain tidak bergantung pada apa pun.
 7. **DDD dan microservices** saling melengkapi. Bounded context secara alami memetakan ke layanan yang dapat dideploy secara independen.
 8. **DDD tidak selalu jawabannya.** Aplikasi CRUD, tim kecil, proyek berumur pendek, dan domain tanpa pakar lebih baik dilayani dengan pendekatan yang lebih sederhana. Mulai dengan model CRUD yang terstruktur dengan baik dan perkenalkan DDD ketika kompleksitas menuntutnya.
 
-> "Jantung dari perangkat lunak adalah kemampuannya untuk menyelesaikan masalah terkait domain bagi penggunanya. Semua fitur lain, betapapun pentingnya, mendukung tujuan dasar ini." — Eric Evans
+> "Jantung dari perangkat lunak adalah kemampuannya untuk menyelesaikan masalah terkait domain bagi penggunanya. Semua fitur lain, betapapun pentingnya, mendukung tujuan dasar ini." (Eric Evans)
 
 ## Bacaan Selanjutnya
 
-- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)** — Terapkan pola Strategy, Observer, dan Factory Method ke domain model DDD Anda.
-- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** — Lihat bagaimana bounded context memetakan ke layanan yang dapat dideploy secara independen.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Tulis kode domain yang mudah dibaca dan dipelihara sebelum menambahkan kompleksitas DDD.
-- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)** — TDD dan DDD bekerja bergandengan tangan: pengujian memverifikasi aturan domain, refactoring menjaga model tetap bersih.
-- **[Domain-Driven Design: Tackling Complexity in the Heart of Software](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)** oleh Eric Evans — "Buku Biru" asli yang memulai DDD.
-- **[Implementing Domain-Driven Design](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)** oleh Vaughn Vernon — Implementasi DDD praktis dengan contoh kode (Java/C#, dapat diterapkan ke PHP).
-- **[Domain-Driven Design in PHP](https://leanpub.com/ddd-in-php)** oleh Carlos Buenosvinos, Christian Soronellas, dan Keyvan Akbary — Buku DDD yang ditulis khusus untuk pengembang PHP.
+- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)**: Terapkan pola Strategy, Observer, dan Factory Method ke domain model DDD Anda.
+- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: Lihat bagaimana bounded context memetakan ke layanan yang dapat dideploy secara independen.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Tulis kode domain yang mudah dibaca dan dipelihara sebelum menambahkan kompleksitas DDD.
+- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)**: TDD dan DDD bekerja bergandengan tangan: pengujian memverifikasi aturan domain, refactoring menjaga model tetap bersih.
+- **[Domain-Driven Design: Tackling Complexity in the Heart of Software](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)** oleh Eric Evans: "Buku Biru" asli yang memulai DDD.
+- **[Implementing Domain-Driven Design](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)** oleh Vaughn Vernon: Implementasi DDD praktis dengan contoh kode (Java/C#, dapat diterapkan ke PHP).
+- **[Domain-Driven Design in PHP](https://leanpub.com/ddd-in-php)** oleh Carlos Buenosvinos, Christian Soronellas, dan Keyvan Akbary: Buku DDD yang ditulis khusus untuk pengembang PHP.
 
 </section>

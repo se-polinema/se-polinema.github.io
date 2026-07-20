@@ -8,7 +8,7 @@ author: SE Lab
 lang: en
 featured: false
 excerpt: "Learn how to build a bug prediction classifier using PHP—from extracting code metrics (LOC, cyclomatic complexity, change churn) to training and evaluating a Naive Bayes model that identifies high-risk modules before they break."
-excerptId: "Pelajari cara membangun classifier prediksi bug menggunakan PHP—mulai dari mengekstrak metrik kode (LOC, cyclomatic complexity, change churn) hingga melatih dan mengevaluasi model Naive Bayes yang mengidentifikasi modul berisiko tinggi sebelum rusak."
+excerptId: "Pelajari cara membangun classifier prediksi bug menggunakan PHP, mulai dari mengekstrak metrik kode (LOC, cyclomatic complexity, change churn) hingga melatih dan mengevaluasi model Naive Bayes yang mengidentifikasi modul berisiko tinggi sebelum rusak."
 stream: emerging-technologies-se
 tags:
   - Bug Prediction
@@ -68,7 +68,7 @@ Bug prediction (or *defect prediction*) is the practice of using historical data
 
 ## 1. Apa Itu Prediksi Bug dan Mengapa Penting
 
-Prediksi bug (atau *defect prediction*) adalah praktik menggunakan data historis dan metrik perangkat lunak untuk memperkirakan bagian mana dari basis kode yang paling mungkin mengandung bug. Ini bukan tentang menemukan bug—ini tentang **memprioritaskan upaya peninjauan**.
+Prediksi bug (atau *defect prediction*) adalah praktik menggunakan data historis dan metrik perangkat lunak untuk memperkirakan bagian mana dari basis kode yang paling mungkin mengandung bug. Ini bukan tentang menemukan bug, melainkan tentang **memprioritaskan upaya peninjauan**.
 
 **Mengapa ini penting:**
 - **QA reaktif** menunggu bug muncul. Prediksi bug memungkinkan Anda melakukan intervensi **sebelum** rilis.
@@ -84,7 +84,7 @@ Prediksi bug (atau *defect prediction*) adalah praktik menggunakan data historis
 <img src="/blog/bug-prediction-pipeline.svg" alt="Pipeline Prediksi Bug: Sumber Data → Feature Engineering → Dataset → Classifier → Evaluasi → Skor Risiko" class="mx-auto max-w-full" />
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure 1: End-to-end bug prediction pipeline—from raw data sources to a risk-prioritized module list.</span>
-  <span lang="id">Gambar 1: Pipeline prediksi bug end-to-end—dari sumber data mentah hingga daftar modul yang diprioritaskan berdasarkan risiko.</span>
+  <span lang="id">Gambar 1: Pipeline prediksi bug end-to-end, dari sumber data mentah hingga daftar modul yang diprioritaskan berdasarkan risiko.</span>
 </figcaption>
 </figure>
 
@@ -164,12 +164,12 @@ Laporan bug menghubungkan cacat ke file sumber. Dengan menambang issue tracker, 
 
 Alat analisis statis menghasilkan ratusan metrik tanpa mengeksekusi kode:
 
-- **Lines of Code (LOC)** — ukuran mentah.
-- **Cyclomatic Complexity** — jumlah jalur eksekusi independen.
+- **Lines of Code (LOC)**: ukuran mentah.
+- **Cyclomatic Complexity**: jumlah jalur eksekusi independen.
 - **Jumlah Method**, **Jumlah Public Method**, **Coupling Between Objects (CBO)**.
 - **Code Smells**: method panjang, kelas besar, kode duplikat.
 
-Alat-alat ini menghasilkan laporan terstruktur (JSON, XML) yang dapat diparsing dan digabungkan ke dalam dataset.
+Alat-alat ini menghasilkan laporan terstruktur (JSON, XML) yang dapat di-parsing dan digabungkan ke dalam dataset.
 
 ### 2.4 Menggabungkan Sumber
 
@@ -677,7 +677,7 @@ class BugPredictor
 
 Kita akan mengimplementasikan classifier **Gaussian Naive Bayes** dalam PHP murni. Naive Bayes dipilih karena:
 
-- **Dapat diinterpretasi**—Anda dapat memeriksa probabilitas yang dipelajari secara langsung.
+- **Dapat diinterpretasi**: Anda dapat memeriksa probabilitas yang dipelajari secara langsung.
 - Bekerja baik dengan dataset kecil dan fitur kontinu.
 - Cukup sederhana untuk diimplementasikan dalam ~80 baris kode.
 - Merupakan fondasi dari banyak model yang lebih canggih.
@@ -1007,7 +1007,7 @@ F1 Score:  92.31%
 
 ## 6. Mengevaluasi Model: Precision, Recall, F1, dan Confusion Matrix
 
-Akurasi saja menyesatkan untuk dataset yang tidak seimbang. Jika 90% modul bebas bug, classifier yang selalu memprediksi "clean" mencapai akurasi 90%—tetapi tidak berguna untuk menemukan bug.
+Akurasi saja menyesatkan untuk dataset yang tidak seimbang. Jika 90% modul bebas bug, classifier yang selalu memprediksi "clean" mencapai akurasi 90%, tetapi tidak berguna untuk menemukan bug.
 
 Kita mengevaluasi dengan empat metrik:
 
@@ -1044,7 +1044,7 @@ graph TB
 | **Precision** | TP / (TP + FP) | Dari modul yang kita tandai sebagai buggy, berapa banyak yang benar-benar buggy? |
 | **Recall** | TP / (TP + FN) | Dari semua modul yang benar-benar buggy, berapa banyak yang kita temukan? |
 | **F1 Score** | 2 × (P × R) / (P + R) | Rata-rata harmonik precision dan recall. Menyeimbangkan keduanya. |
-| **Accuracy** | (TP + TN) / Total | Kebenaran keseluruhan—bisa menipu pada data yang tidak seimbang. |
+| **Accuracy** | (TP + TN) / Total | Kebenaran keseluruhan: bisa menipu pada data yang tidak seimbang. |
 
 ### 6.3 Script Evaluasi
 
@@ -1246,7 +1246,7 @@ Classifier kita menggunakan threshold keputusan keras 0.5. Jika false positive m
 
 - **Data leakage**: Jika Anda menyertakan data masa depan saat menghitung churn historis, evaluasi Anda akan optimis secara artifisial.
 - **Concept drift**: Model yang dilatih pada commit tahun lalu mungkin tidak mencerminkan basis kode saat ini. Latih ulang secara berkala.
-- **Korelasi bukan kausalitas**: LOC tinggi berkorelasi dengan bug, tetapi memecah file tidak menghilangkan cacat—hanya mendistribusikannya kembali.
+- **Korelasi bukan kausalitas**: LOC tinggi berkorelasi dengan bug, tetapi memecah file tidak menghilangkan cacat, hanya mendistribusikannya kembali.
 - **Overfitting ke satu proyek**: Classifier yang dilatih pada aplikasi e-commerce Laravel mungkin tidak menggeneralisasi ke API Symfony. Prediksi cacat lintas proyek adalah masalah riset terbuka.
 
 ### 7.4 Visualisasi Threshold Risiko
@@ -1257,8 +1257,8 @@ Classifier kita menggunakan threshold keputusan keras 0.5. Jika false positive m
 graph TB
     subgraph RD["Distribusi Skor Risiko di Seluruh Modul"]
         direction LR
-        H["ZONA RISIKO TINGGI (P ≥ 0.7)<br/>Prioritas peninjauan yang jelas"] -->|"ambang 0.7"| A["ZONA AMBIGU (0.3 < P < 0.7)<br/>Investigasi lebih lanjut"]
-        A -->|"ambang 0.3"| L["ZONA RISIKO RENDAH (P ≤ 0.3)<br/>Kemungkinan bersih"]
+        H["ZONA RISIKO TINGGI (P ≥ 0.7)<br/>Prioritas peninjauan yang jelas"] -->|"threshold 0.7"| A["ZONA AMBIGU (0.3 < P < 0.7)<br/>Investigasi lebih lanjut"]
+        A -->|"threshold 0.3"| L["ZONA RISIKO RENDAH (P ≤ 0.3)<br/>Kemungkinan clean"]
     end
     RD ~~~ N["Modul diurutkan dari skor risiko tertinggi ke terendah"]
 ```
@@ -1340,16 +1340,16 @@ Students interested in pursuing these topics for a thesis or lab project are enc
 
 Prototipe dataset sintetis bersifat edukatif, tetapi pipeline produksi membutuhkan data nyata. Berikut adalah peta jalannya:
 
-**Fase 1 — Pengumpulan Data Otomatis**
+**Fase 1: Pengumpulan Data Otomatis**
 - Jalankan PHPStan atau PHPMD dengan reporter JSON pada setiap commit.
 - Parsing `git log --numstat` untuk menghitung churn per file dan jumlah revisi.
 - Labeli file menggunakan heuristik pesan commit (misalnya, prefix `fix:` atau `bug:`, atau integrasi issue tracker).
 
-**Fase 2 — Feature Store**
+**Fase 2: Feature Store**
 - Simpan fitur per commit dalam format terstruktur (CSV, SQLite, atau feature store khusus).
-- Versi dataset bersama kode sehingga model tetap dapat direproduksi.
+- Versikan dataset bersama kode sehingga model tetap dapat direproduksi.
 
-**Fase 3 — Model Serving**
+**Fase 3: Model Serving**
 - Ekspor model yang dilatih (bobot sebagai JSON) dan ekspos endpoint PHP sederhana.
 - Integrasikan dengan GitHub Actions atau GitLab CI untuk menganotasi pull request dengan skor risiko untuk file yang diubah.
 
@@ -1381,11 +1381,11 @@ Ini dapat dimasukkan ke dalam matriks fitur bersama churn dan LOC.
 
 Prediksi bug adalah salah satu dari enam topik di bawah stream **Emerging Technologies in Software Engineering** di SE Lab. Arah riset aktif dan yang diusulkan meliputi:
 
-- **Prediksi cacat lintas proyek** — dapatkah model yang dilatih pada proyek Java open-source memprediksi bug di basis kode PHP pribadi?
-- **Prediksi cacat just-in-time (JIT)** — memprediksi apakah satu *commit* (bukan file) memperkenalkan cacat, menggunakan fitur tingkat perubahan.
-- **Prediksi bug yang dapat dijelaskan** — menghasilkan penjelasan bahasa alami mengapa sebuah modul ditandai (misalnya, "File ini memiliki kompleksitas siklomatik tinggi dan dimodifikasi oleh 4 pengembang berbeda dalam 30 hari terakhir").
-- **Deep learning untuk kode** — menggunakan graph neural network pada AST atau embedding CodeBERT sebagai fitur.
-- **Integrasi dengan requirement-traceability** — menggabungkan tutorial otomatisasi persyaratan berbantuan AI dengan prediksi bug untuk menutup loop dari persyaratan ke risiko cacat.
+- **Prediksi cacat lintas proyek**: dapatkah model yang dilatih pada proyek Java open-source memprediksi bug di basis kode PHP pribadi?
+- **Prediksi cacat just-in-time (JIT)**: memprediksi apakah satu *commit* (bukan file) memperkenalkan cacat, menggunakan fitur tingkat perubahan.
+- **Prediksi bug yang dapat dijelaskan**: menghasilkan penjelasan bahasa alami mengapa sebuah modul ditandai (misalnya, "File ini memiliki kompleksitas siklomatik tinggi dan dimodifikasi oleh 4 pengembang berbeda dalam 30 hari terakhir").
+- **Deep learning untuk kode**: menggunakan graph neural network pada AST atau embedding CodeBERT sebagai fitur.
+- **Integrasi dengan requirement-traceability**: menggabungkan tutorial otomatisasi persyaratan berbantuan AI dengan prediksi bug untuk menutup loop dari persyaratan ke risiko cacat.
 
 Mahasiswa yang tertarik mengejar topik ini untuk skripsi atau proyek lab didorong untuk menghubungi anggota SE Lab.
 
@@ -1425,14 +1425,14 @@ Take the `BugPredictor` class and extend it with one additional feature of your 
 2. Tiga **kategori fitur** mendorong prediksi: kompleksitas kode (LOC, cyclomatic complexity, nesting depth), metrik riwayat perubahan (revisi, churn), dan metrik proses (jumlah pengembang).
 3. **Dataset sintetis dalam PHP** memberi Anda titik awal yang dapat direproduksi; generator menggunakan fungsi skor berbobot untuk menetapkan label bug.
 4. **Gaussian Naive Bayes** adalah classifier yang dapat diinterpretasi dan ramah data kecil yang mengestimasi mean dan varians per kelas untuk setiap fitur.
-5. Evaluasi model harus melampaui akurasi—**precision, recall, dan F1 score** mengungkapkan apakah classifier Anda berguna atau hanya kebetulan.
+5. Evaluasi model harus melampaui akurasi: **precision, recall, dan F1 score** mengungkapkan apakah classifier Anda berguna atau hanya kebetulan.
 6. Deployment produksi membutuhkan **data nyata dari log Git, analisis statis, dan issue tracker**, diintegrasikan ke dalam pipeline CI/CD yang menganotasi pull request dengan skor risiko.
 
 > Waktu terbaik untuk menemukan bug adalah saat ia ditulis. Waktu terbaik kedua adalah sebelum pengguna Anda menemukannya.
 
 ### Latihan Praktik
 
-Ambil kelas `BugPredictor` dan perluas dengan satu fitur tambahan pilihan Anda—misalnya, **rasio komentar** (baris komentar / total baris) atau **panjang method rata-rata**. Kemudian:
+Ambil kelas `BugPredictor` dan perluas dengan satu fitur tambahan pilihan Anda, misalnya **rasio komentar** (baris komentar / total baris) atau **panjang method rata-rata**. Kemudian:
 
 1. Modifikasi `generateDataset()` untuk menyertakan fitur baru.
 2. Tambahkan nama fitur ke `$features` di `BugPredictor`.
@@ -1457,8 +1457,8 @@ Ambil kelas `BugPredictor` dan perluas dengan satu fitur tambahan pilihan Anda�
 
 ### Tutorial Terkait
 
-- [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation) — Gunakan asisten coding AI untuk menghasilkan, meninjau, dan menyempurnakan pengujian PHPUnit yang menjaga terhadap regresi di modul berisiko tinggi.
-- [Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development) — Pelajari siklus Red → Green → Refactor yang mengurangi kepadatan cacat sebelum kode mencapai prediktor bug.
-- [Clean Code Principles: Panduan Praktis dengan PHP](/blog/clean-code-principles) — Tulis PHP yang mudah dipelihara dengan skor metrik kompleksitas rendah dan mengurangi area permukaan untuk bug.
+- [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation): Gunakan asisten coding AI untuk menghasilkan, meninjau, dan menyempurnakan pengujian PHPUnit yang menjaga terhadap regresi di modul berisiko tinggi.
+- [Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development): Pelajari siklus Red → Green → Refactor yang mengurangi kepadatan cacat sebelum kode mencapai prediktor bug.
+- [Clean Code Principles: Panduan Praktis dengan PHP](/blog/clean-code-principles): Tulis PHP yang mudah dipelihara dengan skor metrik kompleksitas rendah dan mengurangi area permukaan untuk bug.
 
 </section>

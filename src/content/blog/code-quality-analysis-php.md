@@ -56,14 +56,14 @@ By the end of this tutorial you will be able to:
 
 ## Apa Itu Analisis Kualitas Kode?
 
-Analisis kualitas kode adalah pemeriksaan sistematis terhadap kode sumber untuk menemukan cacat, menegakkan standar, dan mengukur maintainability — sebelum pengulas manusia menyentuh kode tersebut. Jika code review adalah percakapan antar manusia, analisis kualitas kode adalah daftar periksa otomatis yang berjalan tanpa suara di latar belakang dan menangkap masalah mekanis sehingga manusia dapat fokus pada logika, arsitektur, dan maksud.
+Analisis kualitas kode adalah pemeriksaan sistematis terhadap kode sumber untuk menemukan cacat, menegakkan standar, dan mengukur *maintainability*, sebelum pengulas manusia sempat menyentuh kode tersebut. Jika *code review* adalah percakapan antar manusia, analisis kualitas kode adalah daftar periksa otomatis yang berjalan tanpa suara di latar belakang dan menangkap masalah mekanis sehingga manusia dapat fokus pada logika, arsitektur, dan maksud.
 
-Perbedaan ini penting karena pengulas manusia mahal, tidak konsisten, dan rentan terhadap kelelahan. Alat seperti PHPStan akan melaporkan pelanggaran yang sama pada pull request kesepuluh hari itu dengan presisi yang sama seperti pada yang pertama. Alat ini tidak lelah. Alat ini tidak melewatkan pemeriksaan karena penulisnya adalah teman. Alat ini tidak melewatkan variabel yang bisa `null` karena sedang terburu-buru.
+Perbedaan ini penting karena pengulas manusia mahal, tidak konsisten, dan rentan terhadap kelelahan. Alat seperti PHPStan akan melaporkan pelanggaran yang sama pada *pull request* kesepuluh hari itu dengan presisi yang sama seperti pada yang pertama. Alat ini tidak lelah. Alat ini tidak melewatkan pemeriksaan karena penulisnya adalah teman. Alat ini tidak melewatkan variabel yang bisa `null` karena sedang terburu-buru.
 
-Analisis kualitas otomatis melengkapi code review manual dalam tiga cara:
+Analisis kualitas otomatis melengkapi *code review* manual dalam tiga cara:
 
-- **Kecepatan.** Static analysis berjalan dalam hitungan detik. Review manusia yang menyeluruh terhadap perubahan 500 baris mungkin memakan waktu 20–30 menit. Alat menemukan ketidakcocokan tipe dan kode mati sementara pengulas masih membaca abstrak.
-- **Konsistensi.** Setiap pull request menghadapi aturan yang sama. Tidak ada varians antar pengulas atau antara hari Senin dan Jumat.
+- **Kecepatan.** *Static analysis* berjalan dalam hitungan detik. *Review* manusia yang menyeluruh terhadap perubahan 500 baris mungkin memakan waktu 20–30 menit. Alat menemukan ketidakcocokan tipe dan kode mati sementara pengulas masih membaca abstrak.
+- **Konsistensi.** Setiap *pull request* menghadapi aturan yang sama. Tidak ada varians antar pengulas atau antara hari Senin dan Jumat.
 - **Pelestarian pengetahuan.** Aturan yang dikodekan dalam file `phpstan.neon` atau `phpcs.xml` menangkap pengetahuan institusional yang seharusnya hanya ada di kepala pengembang senior.
 
 ### Koneksi ke Riset SE Lab
@@ -74,10 +74,10 @@ Software Engineering Lab Politeknik Negeri Malang mencantumkan **Code Quality An
 
 Di akhir tutorial ini Anda akan mampu:
 
-- Menginstal dan mengkonfigurasi **PHPStan** untuk static analysis berbasis tipe pada tingkat ketat yang meningkat
+- Menginstal dan mengkonfigurasi **PHPStan** untuk *static analysis* berbasis tipe pada tingkat ketat yang meningkat
 - Menegakkan **standar koding PSR-12** dengan PHP_CodeSniffer dan memperbaiki pelanggaran secara otomatis
-- Mengukur dan menginterpretasikan **metrik kode** — cyclomatic complexity, panjang metode, dan coupling — menggunakan PHPMD
-- Menghubungkan ketiga alat ke dalam **workflow GitHub Actions** yang memblokir pull request ketika pemeriksaan kualitas gagal
+- Mengukur dan menginterpretasikan **metrik kode** (*cyclomatic complexity*, panjang metode, dan *coupling*) menggunakan PHPMD
+- Menghubungkan ketiga alat ke dalam **workflow GitHub Actions** yang memblokir *pull request* ketika pemeriksaan kualitas gagal
 - Mengetahui kapan harus memperbaiki peringatan, kapan menekannya, dan kapan metrik itu sendiri menyesatkan
 
 </section>
@@ -136,22 +136,22 @@ The three lenses complement each other. Static analysis prevents runtime errors.
 
 Kualitas kode bukanlah satu angka tunggal. Ini adalah pandangan gabungan yang dibentuk dengan melihat kode Anda melalui setidaknya tiga lensa independen. Setiap lensa menangkap kelas masalah yang berbeda, dan ketiganya bersama-sama memberikan cakupan yang tidak dapat ditandingi oleh alat tunggal mana pun.
 
-### Lensa 1: Static Analysis — Menemukan Bug Sebelum Dijalankan
+### Lensa 1: Static Analysis untuk Menemukan Bug Sebelum Dijalankan
 
-Static analysis memeriksa kode sumber tanpa menjalankannya. Ia menggunakan inferensi tipe, analisis aliran data, dan analisis aliran kontrol untuk menjawab pertanyaan seperti:
+*Static analysis* memeriksa kode sumber tanpa menjalankannya. Ia menggunakan inferensi tipe, analisis aliran data, dan analisis aliran kontrol untuk menjawab pertanyaan seperti:
 
 - Apakah variabel ini bisa `null` pada titik ini?
 - Apakah metode ini benar-benar ada pada tipe ini?
 - Apakah cabang `if` ini pernah tercapai?
 - Apakah kita mengirimkan tipe yang benar ke `array_filter`?
 
-Alat static analysis memodelkan sistem tipe dan jalur eksekusi program Anda. PHPStan menerapkan **level aturan** dari 0 (longgar) hingga 9 (paling ketat), dan setiap level menambahkan kelas pemeriksaan baru. Pada level 0, ia memeriksa kelas dan fungsi yang tidak dikenal. Pada level 5, ia memvalidasi bahwa semua panggilan metode cocok dengan parameter dan tipe pengembalian yang dideklarasikan. Pada level 9, ia memeriksa batasan tipe yang tidak mungkin dan cabang `match` yang lengkap.
+Alat *static analysis* memodelkan sistem tipe dan jalur eksekusi program Anda. PHPStan menerapkan **level aturan** dari 0 (longgar) hingga 9 (paling ketat), dan setiap level menambahkan kelas pemeriksaan baru. Pada level 0, ia memeriksa kelas dan fungsi yang tidak dikenal. Pada level 5, ia memvalidasi bahwa semua panggilan metode cocok dengan parameter dan tipe pengembalian yang dideklarasikan. Pada level 9, ia memeriksa batasan tipe yang tidak mungkin dan cabang `match` yang lengkap.
 
-### Lensa 2: Style Linting — Membuat Kode Konsisten
+### Lensa 2: Style Linting untuk Membuat Kode Konsisten
 
-Style linting menegakkan konvensi sintaksis: indentasi, spasi, penamaan, penempatan kurung kurawal, dan urutan impor. Masalah ini jarang menyebabkan bug, tetapi menyebabkan sesuatu yang sama merusaknya: **gesekan kognitif**. Ketika setiap file dalam proyek menggunakan konvensi yang sama, otak Anda berhenti mem-parsing sintaks dan mulai mem-parsing makna.
+*Style linting* menegakkan konvensi sintaksis: indentasi, spasi, penamaan, penempatan kurung kurawal, dan urutan impor. Masalah ini jarang menyebabkan bug, tetapi menyebabkan sesuatu yang sama merusaknya: **gesekan kognitif**. Ketika setiap file dalam proyek menggunakan konvensi yang sama, otak Anda berhenti mem-parsing sintaks dan mulai mem-parsing makna.
 
-PHP_CodeSniffer (phpcs) memeriksa file PHP terhadap standar koding. Standar **PSR-12** adalah baseline komunitas de facto untuk proyek PHP modern. Standar ini mewajibkan:
+PHP_CodeSniffer (phpcs) memeriksa file PHP terhadap standar koding. Standar **PSR-12** adalah *baseline* komunitas *de facto* untuk proyek PHP modern. Standar ini mewajibkan:
 
 - Indentasi empat spasi (tanpa tab)
 - Kurung kurawal pembuka pada baris yang sama dengan deklarasi kelas/metode
@@ -159,9 +159,9 @@ PHP_CodeSniffer (phpcs) memeriksa file PHP terhadap standar koding. Standar **PS
 - Statement `use` diurutkan secara alfabetis
 - `declare(strict_types=1)` pada baris baru
 
-Alat pendamping **phpcbf** (PHP Code Beautifier and Fixer) dapat secara otomatis memperbaiki banyak pelanggaran ini — Anda tidak perlu memperbaiki setiap kesalahan indentasi secara manual.
+Alat pendamping **phpcbf** (PHP Code Beautifier and Fixer) dapat secara otomatis memperbaiki banyak pelanggaran ini, sehingga Anda tidak perlu memperbaiki setiap kesalahan indentasi secara manual.
 
-### Lensa 3: Code Metrics — Mengukur Kompleksitas
+### Lensa 3: Code Metrics untuk Mengukur Kompleksitas
 
 Metrik kode mengkuantifikasi properti struktural kode Anda. Mereka menjawab pertanyaan seperti:
 
@@ -170,9 +170,9 @@ Metrik kode mengkuantifikasi properti struktural kode Anda. Mereka menjawab pert
 - **Apakah kelas ini melakukan terlalu banyak?** (Jumlah metode publik)
 - **Apakah kelas-kelas ini terlalu erat tergandeng?** (Coupling Between Objects)
 
-PHPMD (PHP Mess Detector) memeriksa kode Anda terhadap ambang batas yang dapat dikonfigurasi untuk setiap metrik ini. Metode dengan cyclomatic complexity 15 lebih sulit diuji dan dimodifikasi daripada yang memiliki kompleksitas 3. Kelas dengan 30 metode publik mungkin memiliki terlalu banyak tanggung jawab.
+PHPMD (PHP Mess Detector) memeriksa kode Anda terhadap ambang batas yang dapat dikonfigurasi untuk setiap metrik ini. Metode dengan *cyclomatic complexity* 15 lebih sulit diuji dan dimodifikasi daripada yang memiliki kompleksitas 3. Kelas dengan 30 metode publik mungkin memiliki terlalu banyak tanggung jawab.
 
-Ketiga lensa saling melengkapi. Static analysis mencegah kesalahan runtime. Style linting mencegah kesalahan kognitif. Metrik mencegah pelapukan struktural. Bersama-sama, mereka membentuk gerbang kualitas yang menangkap masalah di setiap lapisan codebase.
+Ketiga lensa saling melengkapi. *Static analysis* mencegah kesalahan *runtime*. *Style linting* mencegah kesalahan kognitif. Metrik mencegah pelapukan struktural. Bersama-sama, mereka membentuk gerbang kualitas yang menangkap masalah di setiap lapisan *codebase*.
 
 </section>
 
@@ -244,7 +244,7 @@ Setiap alat membaca konfigurasinya dari file khusus:
 
 | Alat | File Konfigurasi | Tujuan |
 |------|------------------|--------|
-| PHPStan | `phpstan.neon` | Level aturan, path yang dipindai, error yang diabaikan |
+| PHPStan | `phpstan.neon` | Level aturan, *path* yang dipindai, error yang diabaikan |
 | PHP_CodeSniffer | `phpcs.xml` | Standar koding, ekstensi file, pengecualian |
 | PHPMD | `phpmd.xml` | Ambang metrik, set aturan, pengecualian |
 
@@ -437,7 +437,7 @@ The step-by-step increase is not a gimmick. It keeps the barrier to adoption low
 
 ### Contoh Kita: Layanan Registrasi Pengguna
 
-Mari kita tulis kelas PHP kecil — sengaja tidak sempurna — yang menerima permintaan registrasi pengguna (nama, email, password), memvalidasi input, dan membuat record pengguna. Kita akan menjalankan PHPStan terhadapnya di setiap level dan melihat alat menangkap lebih banyak masalah secara progresif.
+Mari kita tulis kelas PHP kecil yang sengaja dibuat tidak sempurna, yang menerima permintaan registrasi pengguna (nama, email, password), memvalidasi input, dan membuat *record* pengguna. Kita akan menjalankan PHPStan terhadapnya di setiap level dan melihat alat menangkap lebih banyak masalah secara progresif.
 
 Buat `src/UserRegistrationService.php`:
 
@@ -539,7 +539,7 @@ $ vendor/bin/phpstan analyse --level=2
   ------ -------------------------------------------------------------------
 ```
 
-Pada level 1, PHPStan menyadari bahwa kita mengirimkan hasil `prepare()` ke `query()`. Kita salah memanggil `$this->db->query(...)` alih-alih `$this->db->lastInsertId()`. Pada level 2, ia juga memperingatkan bahwa `fetch()` tidak dapat dipanggil pada `false` — karena `query()` bisa mengembalikan `false` saat gagal. Keduanya adalah bug nyata, meskipun kode tampak benar secara sintaksis.
+Pada level 1, PHPStan menyadari bahwa kita mengirimkan hasil `prepare()` ke `query()`. Kita salah memanggil `$this->db->query(...)` alih-alih `$this->db->lastInsertId()`. Pada level 2, ia juga memperingatkan bahwa `fetch()` tidak dapat dipanggil pada `false`, karena `query()` bisa mengembalikan `false` saat gagal. Keduanya adalah bug nyata, meskipun kode tampak benar secara sintaksis.
 
 **Perbaiki:** Ganti baris 38–42 dengan:
 
@@ -582,7 +582,7 @@ Pada level 5, PHPStan memerlukan deklarasi tipe pada parameter dan tipe pengemba
 - `findById` memerlukan tipe parameter `int|string` dan tipe pengembalian `array|false`
 - Field `password` mungkin tidak ada di `$data`
 
-**Perbaiki signature dan tambahkan fallback:**
+**Perbaiki *signature* dan tambahkan *fallback*:**
 
 ```php
 public function register(array $data): int
@@ -600,11 +600,11 @@ public function findById(int|string $id): array|false
 }
 ```
 
-Pada level 6 ke atas, PHPStan memeriksa petunjuk tipe yang hilang pada array generik (`array` vs `array<string, mixed>`), `mixed` yang hilang pada closure, dan item ketat serupa. Untuk proyek mahasiswa dan dunia nyata, **level 5 adalah target pragmatis** — ia menangkap bug yang berarti tanpa noise yang diperkenalkan oleh level yang lebih tinggi.
+Pada level 6 ke atas, PHPStan memeriksa petunjuk tipe yang hilang pada array generik (`array` vs `array<string, mixed>`), `mixed` yang hilang pada closure, dan item ketat serupa. Untuk proyek mahasiswa dan dunia nyata, **level 5 adalah target pragmatis**: ia menangkap bug yang berarti tanpa *noise* yang diperkenalkan oleh level yang lebih tinggi.
 
 ### Nilai dari Progresi Level
 
-Peningkatan bertahap bukanlah gimmick. Ini menjaga hambatan adopsi tetap rendah. Mulai proyek legacy di level 0 dan perbaiki error baseline. Deploy. Naikkan ke level 2 dan perbaiki masalah tipe-vs-false. Deploy. Lanjutkan hingga Anda mencapai level target yang disepakati tim. Setiap kenaikan cukup kecil sehingga muat dalam satu sprint, dan masing-masing membuat kode lebih aman secara terukur.
+Peningkatan bertahap bukanlah *gimmick*. Ini menjaga hambatan adopsi tetap rendah. Mulai proyek *legacy* di level 0 dan perbaiki error *baseline*. Deploy. Naikkan ke level 2 dan perbaiki masalah tipe-vs-false. Deploy. Lanjutkan hingga Anda mencapai level target yang disepakati tim. Setiap kenaikan cukup kecil sehingga muat dalam satu sprint, dan masing-masing membuat kode lebih aman secara terukur.
 
 </section>
 
@@ -788,7 +788,7 @@ Buat `phpcs.xml` di root proyek:
 </ruleset>
 ```
 
-Ruleset ini dibangun di atas PSR-12 dan menambahkan dua aturan spesifik proyek: larang sintaks `array()` panjang demi `[]` pendek, dan larang fungsi debugging yang tertinggal (`var_dump`, `dd`, `die`). Direktif `<file>` memberi tahu phpcs direktori mana yang akan dipindai.
+*Ruleset* ini dibangun di atas PSR-12 dan menambahkan dua aturan spesifik proyek: larang sintaks `array()` panjang demi `[]` pendek, dan larang fungsi debugging yang tertinggal (`var_dump`, `dd`, `die`). Direktif `<file>` memberi tahu phpcs direktori mana yang akan dipindai.
 
 ### Menjalankan Pemeriksaan
 
@@ -881,7 +881,7 @@ $ vendor/bin/phpcs
 
 ### Menambahkan Script ke composer.json
 
-Tambahkan script kenyamanan agar Anda tidak perlu mengingat path vendor penuh:
+Tambahkan *script* kenyamanan agar Anda tidak perlu mengingat *path* vendor penuh:
 
 ```json
 {
@@ -1126,7 +1126,7 @@ PHPMD menyediakan beberapa set aturan. Yang paling berguna untuk kualitas kode a
 </ruleset>
 ```
 
-Konfigurasi ini mengecualikan aturan yang terlalu bising untuk kebanyakan proyek (StaticAccess, TooManyPublicMethods, CouplingBetweenObjects, ShortVariable) sambil mempertahankan aturan yang menangkap masalah struktural nyata. Ambang Cyclomatic Complexity dinaikkan dari default 10 menjadi 5 — metode yang melebihi ini ditandai untuk ditinjau.
+Konfigurasi ini mengecualikan aturan yang terlalu bising untuk kebanyakan proyek (StaticAccess, TooManyPublicMethods, CouplingBetweenObjects, ShortVariable) sambil mempertahankan aturan yang menangkap masalah struktural nyata. Ambang Cyclomatic Complexity dinaikkan dari default 10 menjadi 5, sehingga metode yang melebihi ini ditandai untuk ditinjau.
 
 ### Menjalankan PHPMD terhadap Kode Nyata
 
@@ -1234,9 +1234,9 @@ src/ReportGenerator.php:7  The method generate() has 7 parameters.
 Consider reducing the number of parameters to fewer than 5.
 ```
 
-PHPMD mengidentifikasi ketiga masalah struktural: cyclomatic complexity berlebihan (20 vs ambang batas 5), metode yang terlalu panjang (81 baris vs 60), dan terlalu banyak parameter (7 vs 5). Ini tepatnya adalah metrik yang berkorelasi dengan tingkat cacat yang lebih tinggi.
+PHPMD mengidentifikasi ketiga masalah struktural: *cyclomatic complexity* berlebihan (20 vs ambang batas 5), metode yang terlalu panjang (81 baris vs 60), dan terlalu banyak parameter (7 vs 5). Ini tepatnya adalah metrik yang berkorelasi dengan tingkat cacat yang lebih tinggi.
 
-**Akar masalahnya adalah `generate()` menangani terlalu banyak urusan.** Solusinya adalah membaginya menjadi metode yang lebih kecil — satu untuk setiap format output — dan mengganti flag boolean dengan value object atau strategy pattern.
+**Akar masalahnya adalah `generate()` menangani terlalu banyak urusan.** Solusinya adalah membaginya menjadi metode yang lebih kecil (satu untuk setiap format output) dan mengganti *flag* boolean dengan *value object* atau *strategy pattern*.
 
 </section>
 
@@ -1372,7 +1372,7 @@ Run `composer qa` before pushing your branch and you will never be surprised by 
 
 ## Gerbang Kualitas di CI/CD
 
-Alat yang telah kita konfigurasi berjalan secara lokal, tetapi kekuatan sebenarnya datang dari menjalankannya di CI/CD. Gerbang kualitas di pipeline Anda berarti tidak ada pull request yang dapat digabungkan hingga ketiga alat lulus — mesin menegakkan standar, dan manusia dibebaskan dari menjadi "orang yang menolak".
+Alat yang telah kita konfigurasi berjalan secara lokal, tetapi kekuatan sebenarnya datang dari menjalankannya di CI/CD. Gerbang kualitas di *pipeline* Anda berarti tidak ada *pull request* yang dapat digabungkan hingga ketiga alat lulus: mesin menegakkan standar, dan manusia dibebaskan dari menjadi "orang yang menolak".
 
 ### Workflow GitHub Actions
 
@@ -1462,7 +1462,7 @@ jobs:
 ### Apa yang Dilakukan Workflow Ini
 
 - **Dipicu pada pull request** yang menargetkan `main` atau `develop` yang memodifikasi file PHP atau konfigurasi Composer.
-- **Menjalankan tiga job paralel** — static analysis, style linting, dan code metrics — sehingga pemeriksaan gaya yang gagal tidak memblokir hasil PHPStan agar tidak muncul.
+- **Menjalankan tiga *job* paralel** (*static analysis*, *style linting*, dan *code metrics*) sehingga pemeriksaan gaya yang gagal tidak memblokir hasil PHPStan agar tidak muncul.
 - **Menggunakan `--error-format=github`** untuk PHPStan sehingga error dianotasi langsung pada tampilan diff PR.
 - **Menggunakan `cs2pr`** (alat kecil yang mengkonversi output checkstyle ke anotasi GitHub) sehingga hasil PHP_CodeSniffer muncul inline.
 - **Menggunakan format output `github`** untuk PHPMD untuk mencapai perilaku anotasi inline yang sama.
@@ -1470,7 +1470,7 @@ jobs:
 
 ### Menambahkan Composer Script untuk Gerbang Lokal
 
-Tambahkan satu perintah yang menjalankan ketiga pemeriksaan secara lokal — identik dengan apa yang akan dijalankan CI:
+Tambahkan satu perintah yang menjalankan ketiga pemeriksaan secara lokal, identik dengan apa yang akan dijalankan CI:
 
 ```json
 {
@@ -1488,7 +1488,7 @@ Tambahkan satu perintah yang menjalankan ketiga pemeriksaan secara lokal — ide
 }
 ```
 
-Sekarang `composer qa` menjalankan ketiga gerbang kualitas secara berurutan. Jika salah satu gagal, seluruh perintah keluar dengan status non-zero — perilaku yang sama dengan pipeline CI.
+Sekarang `composer qa` menjalankan ketiga gerbang kualitas secara berurutan. Jika salah satu gagal, seluruh perintah keluar dengan status non-zero, perilaku yang sama dengan *pipeline* CI.
 
 Jalankan `composer qa` sebelum mendorong branch Anda dan Anda tidak akan pernah terkejut oleh build CI merah di GitHub.
 
@@ -1548,17 +1548,17 @@ Alat yang melaporkan 400 peringatan tidak lebih berguna daripada alat yang melap
 | Situasi | Tindakan |
 |---------|----------|
 | Error level 0–2 pada metode yang Anda kelola | **Perbaiki.** Ini hampir pasti bug. |
-| Error level 3–5 di file legacy yang bukan milik Anda | **Baseline.** Jalankan `phpstan analyse --generate-baseline` untuk menghasilkan daftar error yang diketahui dan mengecualikannya dari proses mendatang. Ini memungkinkan Anda menegakkan standar pada kode baru tanpa memperbaiki kode lama. |
+| Error level 3–5 di file *legacy* yang bukan milik Anda | **Baseline.** Jalankan `phpstan analyse --generate-baseline` untuk menghasilkan daftar error yang diketahui dan mengecualikannya dari proses mendatang. Ini memungkinkan Anda menegakkan standar pada kode baru tanpa memperbaiki kode lama. |
 | Error level 6+ tentang tipe pengembalian `mixed` di helper generik | **Suppress dengan komentar.** Tambahkan `// @phpstan-ignore-next-line` dengan justifikasi. Helper generik yang ada untuk menangani "apa saja" adalah penggunaan `mixed` yang sah. |
-| Error tentang properti dinamis pada kelas yang Anda warisi dari library pihak ketiga | **Stub.** PHPStan stub memungkinkan Anda mendeklarasikan bentuk kode yang tidak Anda kendalikan. |
+| Error tentang properti dinamis pada kelas yang Anda warisi dari library pihak ketiga | **Stub.** PHPStan *stub* memungkinkan Anda mendeklarasikan bentuk kode yang tidak Anda kendalikan. |
 
-Baseline adalah fitur paling kuat untuk proyek legacy. Ini mengatakan: "Ini adalah 1.200 error yang kami ketahui. Jangan perkenalkan yang baru." Setiap pull request baru diperiksa terhadap baseline yang bergerak — error menyusut seiring waktu, tidak pernah bertambah.
+Baseline adalah fitur paling kuat untuk proyek *legacy*. Ini mengatakan: "Ini adalah 1.200 error yang kami ketahui. Jangan perkenalkan yang baru." Setiap *pull request* baru diperiksa terhadap *baseline* yang bergerak, sehingga error menyusut seiring waktu dan tidak pernah bertambah.
 
 ### PHP_CodeSniffer: Perbaiki atau Kecualikan
 
-Pelanggaran gaya hampir selalu layak diperbaiki. Penanda `[x]` dari phpcbf membuatnya cepat. Satu-satunya waktu untuk mengecualikan aturan adalah ketika framework Anda benar-benar memerlukan konvensi yang berbeda (misalnya, Laravel kadang-kadang mendorong nama metode `snake_case` untuk route model binding — jika tim Anda setuju dengan itu, tambahkan pengecualian di `phpcs.xml`).
+Pelanggaran gaya hampir selalu layak diperbaiki. Penanda `[x]` dari phpcbf membuatnya cepat. Satu-satunya waktu untuk mengecualikan aturan adalah ketika framework Anda benar-benar memerlukan konvensi yang berbeda (misalnya, Laravel kadang-kadang mendorong nama metode `snake_case` untuk *route model binding*, jika tim Anda setuju dengan itu, tambahkan pengecualian di `phpcs.xml`).
 
-**Jangan pernah mengabaikan pelanggaran PSR-12.** PSR-12 adalah baseline komunitas. Pengembang yang bergabung dengan proyek Anda mengharapkan PSR-12. Melanggarnya menambah friksi onboarding yang tidak perlu.
+**Jangan pernah mengabaikan pelanggaran PSR-12.** PSR-12 adalah *baseline* komunitas. Pengembang yang bergabung dengan proyek Anda mengharapkan PSR-12. Melanggarnya menambah friksi *onboarding* yang tidak perlu.
 
 ### PHPMD: Penyetelan Ambang Batas, Bukan Menonaktifkan Aturan
 
@@ -1570,11 +1570,11 @@ Ambang batas PHPMD harus mencerminkan kematangan proyek Anda, bukan ideal abstra
 | **Mid-life (pengembangan aktif, 6+ bulan)** | 10 | 60 baris |
 | **Legacy (stabil, mode pemeliharaan)** | 15 | 100 baris |
 
-Mulai ketat dan longgarkan hanya ketika Anda memiliki alasan spesifik dan terdokumentasi. Jika `ReportGenerator::generate()` melaporkan kompleksitas 20, jawabannya bukanlah menaikkan ambang batas ke 20 — melainkan membagi metode. Tetapi jika ORM Anda menghasilkan metode 15 baris dengan kompleksitas 12 karena pembangunan query dinamis, dan tidak ada yang dapat Anda lakukan tentang itu, kecualikan file tersebut dan lanjutkan.
+Mulai ketat dan longgarkan hanya ketika Anda memiliki alasan spesifik dan terdokumentasi. Jika `ReportGenerator::generate()` melaporkan kompleksitas 20, jawabannya bukanlah menaikkan ambang batas ke 20, melainkan membagi metode. Tetapi jika ORM Anda menghasilkan metode 15 baris dengan kompleksitas 12 karena pembangunan query dinamis, dan tidak ada yang dapat Anda lakukan tentang itu, kecualikan file tersebut dan lanjutkan.
 
 ### Koneksi ke Prediksi Bug
 
-Metrik yang diukur PHPMD — cyclomatic complexity, panjang metode, coupling — adalah fitur yang sama yang digunakan oleh classifier di tutorial [Prediksi Bug dengan PHP](/blog/bug-prediction-php) kami. Cyclomatic complexity tinggi berkorelasi dengan kepadatan cacat yang lebih tinggi karena metode kompleks memiliki lebih banyak jalur eksekusi, dan setiap jalur adalah peluang untuk bug. Ketika PHPMD menandai sebuah metode, ia menandai kode yang sama yang akan diberi skor risiko tinggi oleh classifier Naive Bayes. Alat-alat ini adalah dua pandangan dari masalah yang sama: PHPMD menggunakan ambang batas statis, dan prediksi bug menggunakan model statistik. Keduanya menunjuk ke arah yang sama.
+Metrik yang diukur PHPMD, yaitu *cyclomatic complexity*, panjang metode, dan *coupling*, adalah fitur yang sama yang digunakan oleh *classifier* di tutorial [Prediksi Bug dengan PHP](/blog/bug-prediction-php) kami. *Cyclomatic complexity* tinggi berkorelasi dengan kepadatan cacat yang lebih tinggi karena metode kompleks memiliki lebih banyak jalur eksekusi, dan setiap jalur adalah peluang untuk bug. Ketika PHPMD menandai sebuah metode, ia menandai kode yang sama yang akan diberi skor risiko tinggi oleh *classifier* Naive Bayes. Alat-alat ini adalah dua pandangan dari masalah yang sama: PHPMD menggunakan ambang batas statis, dan prediksi bug menggunakan model statistik. Keduanya menunjuk ke arah yang sama.
 
 </section>
 
@@ -1676,7 +1676,7 @@ Once your solution passes `composer qa`, compare it with a classmate's. Did you 
 
 ### Kode Awal
 
-Berikut adalah kelas PHP dengan beberapa masalah kualitas — pelanggaran gaya, bug nyata yang akan ditangkap oleh static analysis, dan kompleksitas struktural yang akan ditandai oleh metrik. Tugas Anda adalah membersihkannya hingga `composer qa` lulus dengan bersih.
+Berikut adalah kelas PHP dengan beberapa masalah kualitas: pelanggaran gaya, bug nyata yang akan ditangkap oleh *static analysis*, dan kompleksitas struktural yang akan ditandai oleh metrik. Tugas Anda adalah membersihkannya hingga `composer qa` lulus dengan bersih.
 
 Salin ini ke `src/LibraryService.php`:
 
@@ -1742,7 +1742,7 @@ public function getOverdueBooks():array{
 
 2. **Jalankan PHP_CodeSniffer** dan perbaiki semua pelanggaran PSR-12. Gunakan `composer cs-fix` untuk menangani yang dapat diperbaiki secara otomatis, lalu perbaiki indentasi, penempatan kurung kurawal, dan spasi secara manual.
 
-3. **Jalankan PHPMD** dan tangani peringatan metrik. Metode `CheckOut` kemungkinan memicu peringatan cyclomatic complexity — refactor menjadi metode privat yang lebih kecil (misalnya, `fetchBook`, `decrementStock`, `createLoanRecord`).
+3. **Jalankan PHPMD** dan tangani peringatan metrik. Metode `CheckOut` kemungkinan memicu peringatan *cyclomatic complexity*. Refactor metode ini menjadi metode privat yang lebih kecil (misalnya, `fetchBook`, `decrementStock`, `createLoanRecord`).
 
 4. **Verifikasi** bahwa `composer qa` menghasilkan nol error.
 
@@ -1751,12 +1751,12 @@ public function getOverdueBooks():array{
 File yang dibersihkan seharusnya:
 
 - Mendeklarasikan tipe pada semua properti, parameter, dan tipe pengembalian
-- Menggunakan prepared statement dengan parameterized query di seluruh kode — tidak ada penggabungan string dalam SQL
+- Menggunakan *prepared statement* dengan *parameterized query* di seluruh kode: tidak ada penggabungan string dalam SQL
 - Mengikuti konvensi PSR-12 untuk spasi, kurung kurawal, dan indentasi
-- Memiliki metode dengan cyclomatic complexity di bawah 5, masing-masing bertanggung jawab atas satu operasi
+- Memiliki metode dengan *cyclomatic complexity* di bawah 5, masing-masing bertanggung jawab atas satu operasi
 - Tidak mengandung variabel yang tidak digunakan atau kode yang tidak tercapai
 
-Setelah solusi Anda lulus `composer qa`, bandingkan dengan teman sekelas. Apakah Anda berdua membagi metode dengan cara yang sama? Apakah Anda memilih nama yang sama? Alat kualitas kode menegakkan konsistensi, tetapi menyisakan ruang untuk penilaian desain — di situlah keterampilan rekayasa berkembang.
+Setelah solusi Anda lulus `composer qa`, bandingkan dengan teman sekelas. Apakah Anda berdua membagi metode dengan cara yang sama? Apakah Anda memilih nama yang sama? Alat kualitas kode menegakkan konsistensi, tetapi menyisakan ruang untuk penilaian desain: di situlah keterampilan rekayasa berkembang.
 
 </section>
 
@@ -1786,19 +1786,19 @@ Code quality analysis moves quality assurance left in the development lifecycle 
 
 ## Ringkasan
 
-Analisis kualitas kode menggeser jaminan kualitas ke kiri dalam siklus hidup pengembangan — dari review manual di akhir sprint ke penegakan otomatis pada saat kode ditulis. Berikut adalah poin-poin utamanya:
+Analisis kualitas kode menggeser jaminan kualitas ke kiri dalam siklus hidup pengembangan: dari *review* manual di akhir sprint ke penegakan otomatis pada saat kode ditulis. Berikut adalah poin-poin utamanya:
 
-1. **Tiga lensa yang saling melengkapi.** Static analysis menangkap error tipe dan bug aliran data sebelum dieksekusi. Style linting menghilangkan friksi kognitif dengan menegakkan sintaks yang konsisten. Metrik kode mengkuantifikasi kompleksitas struktural dan mengungkap risiko pemeliharaan sebelum menjadi insiden produksi.
+1. **Tiga lensa yang saling melengkapi.** *Static analysis* menangkap error tipe dan bug aliran data sebelum dieksekusi. *Style linting* menghilangkan friksi kognitif dengan menegakkan sintaks yang konsisten. Metrik kode mengkuantifikasi kompleksitas struktural dan mengungkap risiko pemeliharaan sebelum menjadi insiden produksi.
 
-2. **Progresi level PHPStan adalah strategi adopsi praktis.** Mulai dari level 0 dan naikkan level satu per sprint. Setiap kenaikan menangkap kelas bug baru tanpa membanjiri tim dengan noise. Targetkan level 5 untuk proyek aktif — ia menangkap bug yang penting tanpa ketelitian levels 6–9.
+2. **Progresi level PHPStan adalah strategi adopsi praktis.** Mulai dari level 0 dan naikkan level satu per sprint. Setiap kenaikan menangkap kelas bug baru tanpa membanjiri tim dengan *noise*. Targetkan level 5 untuk proyek aktif: ia menangkap bug yang penting tanpa ketelitian level 6–9.
 
-3. **PSR-12 tidak bisa ditawar.** Ini adalah baseline komunitas untuk PHP modern. Konfigurasikan phpcs sekali, auto-fix dengan phpcbf, dan jangan pernah memikirkan spasi atau penempatan kurung kurawal lagi. Fokuskan energi code review pada logika, bukan format.
+3. **PSR-12 tidak bisa ditawar.** Ini adalah *baseline* komunitas untuk PHP modern. Konfigurasikan phpcs sekali, *auto-fix* dengan phpcbf, dan jangan pernah memikirkan spasi atau penempatan kurung kurawal lagi. Fokuskan energi *code review* pada logika, bukan format.
 
-4. **Ambang batas PHPMD harus sesuai dengan kematangan proyek.** Mulai ketat (kompleksitas ≤ 5, panjang metode ≤ 40) pada proyek greenfield dan longgarkan seiring stabilnya codebase. Jangan pernah menaikkan ambang batas untuk membungkam peringatan pada satu file — baseline atau kecualikan file itu saja.
+4. **Ambang batas PHPMD harus sesuai dengan kematangan proyek.** Mulai ketat (kompleksitas ≤ 5, panjang metode ≤ 40) pada proyek *greenfield* dan longgarkan seiring stabilnya *codebase*. Jangan pernah menaikkan ambang batas hanya untuk membungkam peringatan pada satu file, lakukan *baseline* atau kecualikan file itu saja.
 
-5. **Gerbang kualitas harus ada di CI/CD.** Hubungkan PHPStan, PHP_CodeSniffer, dan PHPMD ke dalam workflow GitHub Actions yang berjalan pada setiap pull request. Mesin menegakkan standar. Manusia meninjau desain.
+5. **Gerbang kualitas harus ada di CI/CD.** Hubungkan PHPStan, PHP_CodeSniffer, dan PHPMD ke dalam *workflow* GitHub Actions yang berjalan pada setiap *pull request*. Mesin menegakkan standar. Manusia meninjau desain.
 
-6. **Metrik memberi makan prediksi bug.** Fitur yang sama yang diukur PHPMD — kompleksitas, panjang, coupling — digunakan oleh model prediksi bug statistik. Menjalankan alat kualitas kode adalah langkah pertama menuju penilaian risiko codebase berbasis data.
+6. **Metrik memberi makan prediksi bug.** Fitur yang sama yang diukur PHPMD, yaitu kompleksitas, panjang, dan *coupling*, digunakan oleh model prediksi bug statistik. Menjalankan alat kualitas kode adalah langkah pertama menuju penilaian risiko *codebase* berbasis data.
 
 </section>
 
@@ -1820,10 +1820,10 @@ Analisis kualitas kode menggeser jaminan kualitas ke kiri dalam siklus hidup pen
 
 ## Tutorial Terkait
 
-- [Prediksi Bug dengan PHP: Dari Metrik ke Model](/blog/bug-prediction-php) — bagaimana metrik yang Anda ukur di tutorial ini menjadi fitur dalam classifier Naive Bayes
-- [Test-Driven Development dengan PHP](/blog/test-driven-development) — menulis tes terlebih dahulu mengurangi kompleksitas yang kemudian ditandai oleh alat kualitas kode
-- [Prinsip Clean Code dalam PHP](/blog/clean-code-principles) — fondasi yang dapat dibaca manusia yang dibantu ditegakkan oleh alat otomatis
-- [Pembuatan Unit Test Berbantuan AI](/blog/ai-assisted-unit-test-generation) — menggabungkan AI dengan static analysis untuk menghasilkan cakupan untuk masalah yang ditemukan PHPStan
-- [Fundamental Arsitektur Microservices](/blog/microservices-architecture-fundamentals) — gerbang kualitas menjadi lebih penting saat Anda membagi menjadi layanan independen
+- [Prediksi Bug dengan PHP: Dari Metrik ke Model](/blog/bug-prediction-php): bagaimana metrik yang Anda ukur di tutorial ini menjadi fitur dalam *classifier* Naive Bayes
+- [Test-Driven Development dengan PHP](/blog/test-driven-development): menulis tes terlebih dahulu mengurangi kompleksitas yang kemudian ditandai oleh alat kualitas kode
+- [Prinsip Clean Code dalam PHP](/blog/clean-code-principles): fondasi yang dapat dibaca manusia yang dibantu ditegakkan oleh alat otomatis
+- [Pembuatan Unit Test Berbantuan AI](/blog/ai-assisted-unit-test-generation): menggabungkan AI dengan *static analysis* untuk menghasilkan cakupan untuk masalah yang ditemukan PHPStan
+- [Fundamental Arsitektur Microservices](/blog/microservices-architecture-fundamentals): gerbang kualitas menjadi lebih penting saat Anda membagi menjadi layanan independen
 
 </section>

@@ -7,7 +7,7 @@ author: SE Lab
 lang: en
 featured: true
 excerpt: "Learn how the SE Laboratory uses IssueOps — a workflow where GitHub issues trigger AI-assisted planning and automated building — to manage this website without leaving GitHub."
-excerptId: "Pelajari bagaimana SE Laboratory menggunakan IssueOps — alur kerja di mana GitHub issue memicu perencanaan berbantuan AI dan pembangunan otomatis — untuk mengelola situs web ini tanpa meninggalkan GitHub."
+excerptId: "Pelajari bagaimana SE Laboratory menggunakan IssueOps, yaitu alur kerja di mana GitHub issue memicu perencanaan berbantuan AI dan pembangunan otomatis, untuk mengelola situs web ini tanpa meninggalkan GitHub."
 tags:
   - IssueOps
   - GitHub Actions
@@ -32,7 +32,7 @@ Imagine you walk into a restaurant. Instead of shouting your order to the chef, 
 
 Bayangkan Anda masuk ke sebuah restoran. Alih-alih meneriakkan pesanan ke koki, Anda menuliskannya di secarik kertas. Koki membaca catatan itu, merencanakan hidangan, menyiapkannya, dan menyajikannya. Setelah siap, koki meminta Anda meninjau hidangan sebelum diantar ke meja.
 
-**IssueOps bekerja dengan cara yang sama.** Alih-alih dapur, kami menggunakan GitHub Issues. Alih-alih koki, kami menggunakan agen AI bernama OpenCode. Alih-alih makanan, kami menghasilkan perubahan situs web — halaman baru, perbaikan bug, atau pembaruan konten. "Dapur"-nya adalah workflow GitHub Actions yang berjalan otomatis setiap kali perintah yang tepat muncul di komentar issue.
+**IssueOps bekerja dengan cara yang sama.** Alih-alih dapur, kami menggunakan GitHub Issues. Alih-alih koki, kami menggunakan agen AI bernama OpenCode. Alih-alih makanan, kami menghasilkan perubahan situs web: halaman baru, perbaikan bug, atau pembaruan konten. "Dapur"-nya adalah workflow GitHub Actions yang berjalan otomatis setiap kali perintah yang tepat muncul di komentar issue.
 
 </section>
 
@@ -68,11 +68,11 @@ The entire process happens **inside GitHub**. There is no need to clone the repo
 
 Inilah yang terjadi setiap kali seseorang ingin mengubah sesuatu di situs web ini:
 
-1.  **Buka issue.** Seorang kontributor membuka GitHub Issue yang menjelaskan apa yang diinginkan — postingan blog baru, perbaikan tata letak, atau ide fitur.
+1.  **Buka issue.** Seorang kontributor membuka GitHub Issue yang menjelaskan apa yang diinginkan: postingan blog baru, perbaikan tata letak, atau ide fitur.
 
-2.  **Rencanakan dengan `/plan`.** Setiap anggota yang berwenang dapat mengomentari `/plan` di issue tersebut. Anda juga dapat menambahkan konteks tambahan setelah perintah, seperti `/plan fokus pada tata letak saja`. Ini memicu job GitHub Actions yang memverifikasi otorisasi — pertama dengan memeriksa keanggotaan organisasi melalui API GitHub terautentikasi, dan fallback ke daftar izin tingkat repositori — lalu menjalankan OpenCode dalam **mode perencanaan**. OpenCode membaca issue, menganalisis codebase, dan membalas dengan rencana implementasi yang konkret — termasuk file mana yang akan diubah, cara memvalidasi, dan pertanyaan terbuka.
+2.  **Rencanakan dengan `/plan`.** Setiap anggota yang berwenang dapat mengomentari `/plan` di issue tersebut. Anda juga dapat menambahkan konteks tambahan setelah perintah, seperti `/plan fokus pada tata letak saja`. Ini memicu job GitHub Actions yang memverifikasi otorisasi (pertama dengan memeriksa keanggotaan organisasi melalui API GitHub terautentikasi, dengan fallback ke daftar izin tingkat repositori), lalu menjalankan OpenCode dalam **mode perencanaan**. OpenCode membaca issue, menganalisis codebase, dan membalas dengan rencana implementasi yang konkret, termasuk file mana yang akan diubah, cara memvalidasi, dan pertanyaan terbuka.
 
-3.  **Setujui dengan `/build`.** Jika rencana terlihat baik, anggota yang berwenang mengomentari `/build` (opsional dengan konteks tambahan seperti `/build gunakan Astro Islands untuk interaktivitas`). Workflow memvalidasi otorisasi, lalu mengalihkan OpenCode ke mode implementasi. Ia membuat branch baru, menulis kode aktual, menjalankan `npm run build` untuk memverifikasi semuanya terkompilasi, menangkap tangkapan layar fitur yang diperbarui (disimpan sebagai artefak workflow, tidak pernah dikomit ke repositori), dan membuka pull request yang terhubung ke issue. Jika build gagal, issue error baru akan otomatis dibuat untuk melacak kegagalan tersebut.
+3.  **Setujui dengan `/build`.** Jika rencana terlihat baik, anggota yang berwenang mengomentari `/build` (secara opsional disertai konteks tambahan seperti `/build gunakan Astro Islands untuk interaktivitas`). Workflow memvalidasi otorisasi, lalu mengalihkan OpenCode ke mode implementasi. Ia membuat branch baru, menulis kode aktual, menjalankan `npm run build` untuk memverifikasi semuanya terkompilasi, menangkap tangkapan layar fitur yang diperbarui (disimpan sebagai artefak workflow, tidak pernah dikomit ke repositori), dan membuka pull request yang terhubung ke issue. Jika build gagal, issue error baru akan otomatis dibuat untuk melacak kegagalan tersebut.
 
 4.  **Tinjau dan gabung.** Pull request muncul dengan ringkasan build. Maintainer meninjau perubahan, dan jika semuanya terlihat benar, menggabungkan PR. Perubahan akan tayang pada deployment berikutnya. Branch OpenCode yang telah digabung akan otomatis dibersihkan setelah satu minggu.
 
@@ -100,15 +100,15 @@ If you are new to software engineering or open source, IssueOps lowers the barri
 
 ## Mengapa Ini Penting untuk Pemula
 
-Jika Anda baru dalam rekayasa perangkat lunak atau open source, IssueOps menurunkan hambatan masuk dalam beberapa cara:
+Jika Anda baru mengenal rekayasa perangkat lunak atau open source, IssueOps menurunkan hambatan masuk dalam beberapa cara:
 
 **Tidak perlu setup lokal.** Anda tidak memerlukan Node.js, editor kode, atau terminal. Anda hanya perlu akun GitHub dan browser web.
 
 **Perencanaan yang transparan.** Sebelum kode ditulis, AI menjelaskan secara persis apa yang akan dilakukan. Anda dapat membaca rencana, menyarankan perubahan, dan belajar dari penalarannya sebelum apa pun dibangun.
 
-**Pemeriksaan kualitas bawaan.** Workflow menjalankan `npm run build` pada setiap perubahan. Ini bertindak sebagai jaring pengaman — jika AI membuat kesalahan, build gagal dan PR menampilkan error sebelum ada yang meninjaunya.
+**Pemeriksaan kualitas bawaan.** Workflow menjalankan `npm run build` pada setiap perubahan. Ini bertindak sebagai jaring pengaman: jika AI membuat kesalahan, build gagal dan PR menampilkan error sebelum ada yang meninjaunya.
 
-**Belajar dengan membaca.** Setiap pull request adalah studi kasus yang terekam. Anda dapat menjelajahi PR sebelumnya untuk melihat bagaimana fitur direncanakan, diimplementasikan, dan diverifikasi — semuanya di satu tempat.
+**Belajar dengan membaca.** Setiap pull request adalah studi kasus yang terekam. Anda dapat menjelajahi PR sebelumnya untuk melihat bagaimana fitur direncanakan, diimplementasikan, dan diverifikasi, semuanya di satu tempat.
 
 </section>
 
@@ -138,7 +138,7 @@ The same pattern works for documentation sites, personal blogs, open source libr
 
 Anda tidak perlu menjadi ahli AI untuk menyiapkan IssueOps. Workflow yang digunakan di repositori ini didefinisikan dalam satu file: `.github/workflows/opencode.yml`. Berikut cara mengadaptasinya:
 
-1.  **Salin file workflow.** File `opencode.yml` berisi tiga job — `check-auth`, `plan`, dan `build`. Salin ke repositori Anda sendiri di bawah `.github/workflows/`. Salin juga `cleanup-merged-branches.yml` untuk pembersihan branch otomatis.
+1.  **Salin file workflow.** File `opencode.yml` berisi tiga job: `check-auth`, `plan`, dan `build`. Salin ke repositori Anda sendiri di bawah `.github/workflows/`. Salin juga `cleanup-merged-branches.yml` untuk pembersihan branch otomatis.
 
 2.  **Konfigurasi otorisasi.** Perbarui job `check-auth` untuk menggunakan organisasi atau tim GitHub Anda sendiri. Secara default, ini memeriksa keanggotaan di organisasi `se-polinema` melalui API terautentikasi (memerlukan token dengan scope `read:org`), dengan fallback ke file daftar izin tingkat repositori (`.github/opencode-allowlist.txt`). Tambahkan pengguna berwenang ke daftar izin sebagai alternatif yang lebih sederhana.
 
@@ -176,7 +176,7 @@ We believe that tools like IssueOps make software development more accessible, c
 
 ## Bergabung dengan Software Engineering Laboratory
 
-SE Laboratory di Politeknik Negeri Malang adalah tempat di mana mahasiswa, peneliti, dan mitra industri bekerja sama dalam proyek rekayasa perangkat lunak nyata. IssueOps hanyalah salah satu contoh bagaimana kami bereksperimen dengan praktik pengembangan modern.
+SE Laboratory di Politeknik Negeri Malang adalah tempat mahasiswa, peneliti, dan mitra industri bekerja sama dalam proyek rekayasa perangkat lunak nyata. IssueOps hanyalah salah satu contoh bagaimana kami bereksperimen dengan praktik pengembangan modern.
 
 **Untuk mahasiswa:** Bergabunglah dengan kami untuk mendapatkan pengalaman langsung dengan alat dan alur kerja tingkat produksi. Anda akan mengerjakan proyek nyata, berkontribusi pada open source, dan membangun portofolio yang menonjol.
 

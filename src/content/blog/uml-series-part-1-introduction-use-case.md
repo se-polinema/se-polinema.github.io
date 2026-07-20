@@ -43,7 +43,7 @@ In this series we focus on the five most commonly used diagrams in real-world so
 
 ## 1. Apa Itu UML?
 
-**UML (Unified Modeling Language)** adalah bahasa pemodelan standar dan serbaguna yang digunakan untuk memvisualisasikan, menspesifikasikan, membangun, dan mendokumentasikan artefak sistem perangkat lunak. Anggaplah UML sebagai **bahasa cetak biru rekayasa perangkat lunak**: seperti halnya seorang arsitek menggambar denah sebelum konstruksi dimulai, seorang software engineer menggambar diagram UML sebelum menulis kode.
+**UML (Unified Modeling Language)** adalah bahasa pemodelan standar dan serbaguna yang digunakan untuk memvisualisasikan, menspesifikasikan, membangun, dan mendokumentasikan artefak sistem perangkat lunak. Anggaplah UML sebagai **bahasa cetak biru rekayasa perangkat lunak**: seperti halnya seorang arsitek menggambar denah sebelum konstruksi dimulai, seorang *software engineer* menggambar diagram UML sebelum menulis kode.
 
 UML diciptakan pada pertengahan 1990-an oleh Grady Booch, Ivar Jacobson, dan James Rumbaugh (yang secara kolektif dikenal sebagai "Three Amigos") dan diadopsi sebagai standar ISO pada tahun 2005. Saat ini, UML 2.x menyediakan 14 tipe diagram yang diorganisasikan ke dalam dua kategori utama:
 
@@ -91,26 +91,26 @@ A UML diagram is created by identifying the system boundary, actors, and their i
 ## 2. Mengapa Menggunakan UML?
 
 ### Apa itu?
-UML adalah bahasa visual yang mengubah persyaratan dan desain sistem yang abstrak menjadi diagram konkret yang dapat dibagikan. UML menjembatani kesenjangan antara "apa yang diinginkan stakeholder" dan "apa yang dibangun developer."
+UML adalah bahasa visual yang mengubah persyaratan dan desain sistem yang abstrak menjadi diagram konkret yang dapat dibagikan. UML menjembatani kesenjangan antara "apa yang diinginkan *stakeholder*" dan "apa yang dibangun *developer*."
 
 ### Mengapa penting?
-- **Komunikasi.** Diagram melampaui batasan bahasa. Use Case Diagram yang digambar di Indonesia langsung dipahami oleh developer di Jerman.
-- **Dokumentasi.** Diagram UML berfungsi sebagai dokumentasi hidup yang bertahan lama setelah developer aslinya tidak lagi terlibat.
+- **Komunikasi.** Diagram melampaui batasan bahasa. Use Case Diagram yang digambar di Indonesia langsung dipahami oleh *developer* di Jerman.
+- **Dokumentasi.** Diagram UML berfungsi sebagai dokumentasi hidup yang bertahan lama setelah *developer* aslinya tidak lagi terlibat.
 - **Analisis.** Menggambar UML memaksa Anda memikirkan *edge case*, aktor yang hilang, dan hubungan yang tidak jelas sebelum menulis satu baris kode pun.
 - **Desain.** Class diagram dan sequence diagram memungkinkan Anda mengevaluasi keputusan arsitektur di atas kertas: perubahan di sana hanya memakan waktu menit, bukan bulan.
 
 ### Kapan digunakan?
-Gunakan UML pada **tahap awal** proyek: selama pengumpulan persyaratan, analisis, dan desain. UML paling berharga sebelum kode ditulis, bukan setelahnya. Meskipun demikian, reverse-engineering UML dari kode yang ada (untuk dokumentasi) juga umum dilakukan.
+Gunakan UML pada **tahap awal** proyek: selama pengumpulan persyaratan, analisis, dan desain. UML paling berharga sebelum kode ditulis, bukan setelahnya. Meskipun demikian, *reverse-engineering* UML dari kode yang ada (untuk dokumentasi) juga umum dilakukan.
 
 ### Di mana tempatnya?
 UML berperan dalam **software development lifecycle (SDLC)** pada fase-fase spesifik:
 - **Fase persyaratan:** Use Case Diagram, Use Case Scenario
 - **Fase analisis:** Activity Diagram
 - **Fase desain:** Sequence Diagram, Class Diagram
-- **Fase implementasi:** Class Diagram (sebagai referensi untuk code generation)
+- **Fase implementasi:** Class Diagram (sebagai referensi untuk *code generation*)
 
 ### Bagaimana membuatnya?
-Diagram UML dibuat dengan mengidentifikasi batas sistem, aktor, dan interaksi mereka, kemudian memetakannya ke salah satu dari 14 tipe diagram. Tools modern (termasuk PlantUML, yang kita gunakan dalam seri ini) memungkinkan Anda menulis diagram sebagai teks dan merendernya secara otomatis.
+Diagram UML dibuat dengan mengidentifikasi batas sistem, aktor, dan interaksi mereka, kemudian memetakannya ke salah satu dari 14 tipe diagram. *Tools* modern (termasuk PlantUML, yang kita gunakan dalam seri ini) memungkinkan Anda menulis diagram sebagai teks dan merendernya secara otomatis.
 
 </section>
 
@@ -155,7 +155,7 @@ Sepanjang seri lima bagian ini, kita akan memodelkan satu sistem dari awal hingg
 
 ### Deskripsi Sistem
 
-Sistem ini memungkinkan mahasiswa di kampus politeknik untuk menelusuri mata kuliah yang tersedia, mendaftar mata kuliah setiap semester, dan melihat jadwal kelas mereka. Administrator mengelola katalog mata kuliah, menangani data mahasiswa, dan mengawasi proses pendaftaran. Dosen dapat melihat mahasiswa yang terdaftar dan mengelola daftar kelas. Integrasi payment gateway menangani biaya kuliah dan pendaftaran.
+Sistem ini memungkinkan mahasiswa di kampus politeknik untuk menelusuri mata kuliah yang tersedia, mendaftar mata kuliah setiap semester, dan melihat jadwal kelas mereka. Administrator mengelola katalog mata kuliah, menangani data mahasiswa, dan mengawasi proses pendaftaran. Dosen dapat melihat mahasiswa yang terdaftar dan mengelola daftar kelas. Integrasi *payment gateway* menangani biaya kuliah dan pendaftaran.
 
 ### Aktor Utama
 
@@ -168,7 +168,7 @@ Sistem ini memungkinkan mahasiswa di kampus politeknik untuk menelusuri mata kul
 
 ### Fungsionalitas Inti
 
-1. **Registrasi & Login Pengguna**: Mahasiswa dan dosen membuat akun dan melakukan otentikasi.
+1. **Registrasi & Login Pengguna**: Mahasiswa dan dosen membuat akun dan melakukan autentikasi.
 2. **Telusuri Mata Kuliah**: Mahasiswa melihat katalog mata kuliah yang tersedia dengan filter.
 3. **Daftar Mata Kuliah**: Mahasiswa memilih mata kuliah dan mengonfirmasi pendaftaran (setelah verifikasi pembayaran).
 4. **Lihat Jadwal**: Mahasiswa melihat jadwal kelas mingguan mereka.
@@ -231,12 +231,12 @@ A reliable technique for writing good use case names is to start from a full **S
 **Use Case Diagram** adalah diagram perilaku yang menunjukkan interaksi antara **aktor** (pengguna atau sistem eksternal) dan **sistem** untuk mencapai tujuan tertentu (use case). Diagram ini menjawab pertanyaan: *"Siapa yang dapat melakukan apa dengan sistem?"*
 
 Sebuah use case diagram terdiri dari:
-- **Aktor:** Figur stick yang mewakili pengguna atau sistem eksternal.
+- **Aktor:** Figur tongkat (*stick figure*) yang mewakili pengguna atau sistem eksternal.
 - **Use Case:** Oval yang mewakili unit fungsionalitas: tujuan yang ingin dicapai aktor.
 - **System Boundary:** Persegi panjang yang mendefinisikan ruang lingkup sistem.
-- **Relationships:** Garis yang menghubungkan aktor ke use case, ditambah relasi `<extend>` dan `<include>` antar use case.
+- **Relationships:** Garis yang menghubungkan aktor ke use case, ditambah relasi `<<extend>>` dan `<<include>>` antar use case.
 
-Use case diagram memberikan pandangan **tingkat tinggi** kepada stakeholder tentang fungsionalitas sistem tanpa memerlukan pengetahuan teknis apa pun. Diagram ini berada di dokumen **Software Requirements Specification (SRS)** dan dibuat pertama kali: selama fase elisitasi persyaratan, sebelum desain atau coding dimulai.
+Use case diagram memberikan pandangan **tingkat tinggi** kepada *stakeholder* tentang fungsionalitas sistem tanpa memerlukan pengetahuan teknis apa pun. Diagram ini berada di dokumen **Software Requirements Specification (SRS)** dan dibuat pertama kali: selama fase elisitasi persyaratan, sebelum desain atau *coding* dimulai.
 
 ### Bagaimana membuatnya?
 1. Identifikasi semua aktor (pengguna manusia + sistem eksternal).
@@ -407,7 +407,7 @@ UC9 ..> UC7 : <<extend>>
 
 **Hubungan kunci dijelaskan:**
 
-- **`include` (panah putus-putus dengan `<<include>>`):** Mendaftar mata kuliah *selalu* mengharuskan agar pembayaran dilakukan: ini adalah sub-langkah wajib yang selalu berjalan. Perhatikan bahwa otentikasi *tidak* dimodelkan sebagai use case yang di-include di sini; otentikasi ditangkap sebagai **prasyarat** dalam use case scenario (Bagian 2), yang merupakan tempat yang tepat untuk langkah subfunction yang hanya menjaga akses.
+- **`include` (panah putus-putus dengan `<<include>>`):** Mendaftar mata kuliah *selalu* mengharuskan pembayaran dilakukan: ini adalah sub-langkah wajib yang selalu berjalan. Perhatikan bahwa autentikasi *tidak* dimodelkan sebagai use case yang di-include di sini; autentikasi ditangkap sebagai **prasyarat** dalam use case scenario (Bagian 2), yang merupakan tempat yang tepat untuk langkah subfunction yang hanya menjaga akses.
 - **`extend` (panah putus-putus dengan `<<extend>>`):** Mengelola periode pendaftaran adalah ekstensi *opsional* dari mengelola mata kuliah: Anda dapat mengelola mata kuliah tanpa menyentuh periode pendaftaran, tetapi manajemen periode bergantung padanya.
 
 </section>
@@ -441,17 +441,17 @@ This single diagram tells the development team: *When building the enrolment fea
 
 ## 6. Membaca Use Case Diagram
 
-Mari kita telusuri dua jalur lengkap untuk memahami bagaimana stakeholder membaca diagram ini:
+Mari kita telusuri dua jalur lengkap untuk memahami bagaimana *stakeholder* membaca diagram ini:
 
 ### Jalur 1: Mahasiswa Mendaftar Mata Kuliah
 
 1. Seorang **Mahasiswa** ingin mendaftar mata kuliah.
 2. Use Case Diagram menunjukkan bahwa `Daftar Mata Kuliah` memiliki satu dependensi wajib (`<<include>>`): mahasiswa harus **melakukan pembayaran**.
-3. Sebelum mendaftar, mahasiswa harus sudah **login**: otentikasi adalah *prasyarat* yang dicatat dalam use case scenario (Bagian 2), bukan langkah yang berjalan di dalam use case ini.
+3. Sebelum mendaftar, mahasiswa harus sudah **login**: autentikasi adalah *prasyarat* yang dicatat dalam use case scenario (Bagian 2), bukan langkah yang berjalan di dalam use case ini.
 4. Sebelum pendaftaran, mahasiswa kemungkinan **menelusuri mata kuliah** dan **mendaftar** untuk akun.
 5. Aktor eksternal Payment Gateway memproses pembayaran aktual: sistem tidak menangani transaksi keuangan secara internal.
 
-Diagram tunggal ini memberi tahu tim pengembangan: *Saat membangun fitur pendaftaran, otentikasi adalah prasyarat (tangani di level sesi/middleware) dan pembayaran adalah sub-langkah wajib: Anda perlu menghubungkan modul pembayaran.*
+Diagram tunggal ini memberi tahu tim pengembangan: *Saat membangun fitur pendaftaran, autentikasi adalah prasyarat (tangani di level sesi/middleware) dan pembayaran adalah sub-langkah wajib: Anda perlu menghubungkan modul pembayaran.*
 
 ### Jalur 2: Admin Mengelola Sistem
 
@@ -483,9 +483,9 @@ Diagram tunggal ini memberi tahu tim pengembangan: *Saat membangun fitur pendaft
 
 | Kesalahan | Mengapa Salah | Pendekatan yang Benar |
 |---|---|---|
-| **Memodelkan Login / otentikasi sebagai use case (di-include di mana-mana)** | Login adalah *subfunction*: tidak memberikan tujuan mandiri kepada pengguna. Mengarahkan `<<include>>` ke use case Login dari setiap use case lain mengotori diagram dan mengaburkan apa yang sebenarnya dilakukan sistem. | Tangkap "pengguna telah terautentikasi" sebagai **prasyarat** dalam use case scenario (seperti yang dilakukan Bagian 2). Modelkan otentikasi sebagai use case hanya jika manajemen akun (membuat, mereset, atau mencabut sesi) *itu sendiri* merupakan tujuan sistem yang dinyatakan. |
+| **Memodelkan Login / autentikasi sebagai use case (di-include di mana-mana)** | Login adalah *subfunction*: tidak memberikan tujuan mandiri kepada pengguna. Mengarahkan `<<include>>` ke use case Login dari setiap use case lain mengotori diagram dan mengaburkan apa yang sebenarnya dilakukan sistem. | Tangkap "pengguna telah terautentikasi" sebagai **prasyarat** dalam use case scenario (seperti yang dilakukan Bagian 2). Modelkan autentikasi sebagai use case hanya jika manajemen akun (membuat, mereset, atau mencabut sesi) *itu sendiri* merupakan tujuan sistem yang dinyatakan. |
 | **Memodelkan CRUD sebagai use case terpisah** | "Buat Mata Kuliah", "Edit Mata Kuliah", "Hapus Mata Kuliah" adalah tiga oval terpisah: ini mengotori diagram. | Gunakan satu use case: `Kelola Mata Kuliah`. Detailkan operasi CRUD dalam use case scenario (Bagian 2). |
-| **Memasukkan database sebagai aktor** | Database adalah infrastruktur internal, bukan aktor yang berinteraksi dengan sistem. | Database adalah bagian dari sistem; ia tidak muncul di use case diagram. |
+| **Memasukkan *database* sebagai aktor** | *Database* adalah infrastruktur internal, bukan aktor yang berinteraksi dengan sistem. | *Database* adalah bagian dari sistem; ia tidak muncul di use case diagram. |
 | **Terlalu banyak relasi `<extend>`** | Penggunaan extend yang berlebihan membuat diagram tidak terbaca. Extend hanya untuk perilaku *opsional*. | Jika perilaku umum, gunakan `<include>`. Jika benar-benar opsional (misalnya, "Terapkan Kode Diskon" saat pembayaran), gunakan `<extend>`. |
 | **Tidak ada batas sistem** | Tanpa kotak batas, tidak jelas apa yang di dalam vs. di luar sistem. | Selalu gambar kotak batas sistem dan beri label. |
 | **Aktor di dalam batas** | Aktor berada di luar sistem: mereka memicu use case, bukan bagian dari sistem. | Tempatkan semua aktor di luar kotak batas. |
@@ -506,6 +506,6 @@ Now that we have a clear, validated use case diagram, the next logical step is t
 
 ## 8. Apa yang Akan Datang Selanjutnya?
 
-Sekarang kita memiliki use case diagram yang jelas dan tervalidasi, langkah logis berikutnya adalah **menelusuri lebih dalam satu use case** dan mendeskripsikannya secara detail. Di Bagian 2, kita akan menulis **Use Case Scenario** lengkap untuk use case "Daftar Mata Kuliah": termasuk skenario sukses utama, alur alternatif, prasyarat, dan pascasyarat. Skenario ini menjadi kontrak yang disepakati oleh developer, tester, dan stakeholder sebelum satu baris kode ditulis.
+Sekarang kita memiliki use case diagram yang jelas dan tervalidasi, langkah logis berikutnya adalah **menelusuri lebih dalam satu use case** dan mendeskripsikannya secara detail. Di Bagian 2, kita akan menulis **Use Case Scenario** lengkap untuk use case "Daftar Mata Kuliah": termasuk skenario sukses utama, alur alternatif, prasyarat, dan pascasyarat. Skenario ini menjadi kontrak yang disepakati oleh *developer*, *tester*, dan *stakeholder* sebelum satu baris kode ditulis.
 
 </section>

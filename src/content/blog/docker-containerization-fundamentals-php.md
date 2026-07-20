@@ -48,21 +48,21 @@ By the end of this tutorial, you will have a running PHP + Nginx + MySQL applica
 
 ## Mengapa Kontainer?
 
-Setiap pengembang PHP pernah mendengar (atau mengatakan) frasa "di komputer saya berfungsi." Rekan Anda menjalankan `composer install` dan aplikasi error karena mereka menggunakan PHP 8.1 tetapi server produksi berjalan di 7.4. Atau pengembang junior menghabiskan dua hari mengonfigurasi Apache hanya untuk menjalankan skrip PHP sepuluh baris.
+Setiap pengembang PHP pernah mendengar (atau mengatakan) frasa "di komputer saya berfungsi." Rekan Anda menjalankan `composer install` dan aplikasi *error* karena mereka menggunakan PHP 8.1 tetapi server produksi berjalan di 7.4. Atau pengembang junior menghabiskan dua hari mengonfigurasi Apache hanya untuk menjalankan skrip PHP sepuluh baris.
 
-**Kontainer menyelesaikan masalah "di komputer saya berfungsi."** Sebuah kontainer mengemas kode aplikasi Anda, runtime PHP, ekstensi, web server, dan semua dependensi ke dalam satu unit yang ringan dan portabel. Unit tersebut berjalan secara identik di laptop Anda, komputer Windows rekan Anda, server CI, dan cloud produksi — tanpa kejutan.
+**Kontainer menyelesaikan masalah "di komputer saya berfungsi."** Sebuah kontainer mengemas kode aplikasi Anda, *runtime* PHP, ekstensi, *web server*, dan semua dependensi ke dalam satu unit yang ringan dan portabel. Unit tersebut berjalan secara identik di laptop Anda, komputer Windows rekan Anda, server CI, dan *cloud* produksi, tanpa kejutan.
 
-**Mengapa Docker untuk PHP?** Aplikasi PHP jarang yang berdiri sendiri. Sebuah proyek tipikal membutuhkan:
+**Mengapa Docker untuk PHP?** Aplikasi PHP jarang berdiri sendiri. Sebuah proyek tipikal membutuhkan:
 
-- Runtime PHP dengan ekstensi spesifik (`pdo_mysql`, `gd`, `redis`)
-- Web server (Nginx atau Apache) yang dikonfigurasi untuk meneruskan permintaan ke PHP-FPM
+- *Runtime* PHP dengan ekstensi spesifik (`pdo_mysql`, `gd`, `redis`)
+- *Web server* (Nginx atau Apache) yang dikonfigurasi untuk meneruskan permintaan ke PHP-FPM
 - Database MySQL atau PostgreSQL
-- Redis untuk caching / session
+- Redis untuk *caching* / *session*
 - Composer untuk manajemen dependensi
 
-Menginstal dan mengonfigurasi semua ini secara lokal itu membosankan dan rawan kesalahan. Docker memungkinkan Anda mendefinisikan seluruh stack sebagai kode — sebuah `Dockerfile` untuk aplikasi dan `docker-compose.yml` untuk orkestrasi — dan menjalankannya dengan dua perintah.
+Menginstal dan mengonfigurasi semua ini secara lokal itu membosankan dan rawan kesalahan. Docker memungkinkan Anda mendefinisikan seluruh *stack* sebagai kode: sebuah `Dockerfile` untuk aplikasi dan `docker-compose.yml` untuk orkestrasi, lalu menjalankannya dengan dua perintah.
 
-Di akhir tutorial ini, Anda akan memiliki aplikasi PHP + Nginx + MySQL yang berjalan, sepenuhnya terkontainerisasi, dengan live-reload untuk pengembangan. Anda juga akan memahami bagaimana dan mengapa tutorial [Microservices Architecture Fundamentals](/blog/microservices-architecture-fundamentals) yang sudah ada menggunakan kontainer untuk mendekomposisi monolith menjadi layanan yang dapat di-deploy secara independen.
+Di akhir tutorial ini, Anda akan memiliki aplikasi PHP + Nginx + MySQL yang berjalan, sepenuhnya terkontainerisasi, dengan *live-reload* untuk pengembangan. Anda juga akan memahami bagaimana dan mengapa tutorial [Microservices Architecture Fundamentals](/blog/microservices-architecture-fundamentals) yang sudah ada menggunakan kontainer untuk mendekomposisi *monolith* menjadi layanan yang dapat di-deploy secara independen.
 
 </section>
 
@@ -142,10 +142,10 @@ newgrp docker
 
 ### Docker Desktop (Windows / macOS)
 
-[Docker Desktop](https://www.docker.com/products/docker-desktop/) adalah instalasi yang direkomendasikan untuk Windows dan macOS. Ini mencakup Docker Engine, Docker CLI (`docker`), Docker Compose (`docker compose`), dan kluster Kubernetes ringan — semuanya dikelola melalui GUI.
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) adalah instalasi yang direkomendasikan untuk Windows dan macOS. Ini mencakup Docker Engine, Docker CLI (`docker`), Docker Compose (`docker compose`), dan kluster Kubernetes ringan, semuanya dikelola melalui GUI.
 
-1. Unduh installer dari [docker.com](https://www.docker.com/products/docker-desktop/).
-2. Jalankan installer. Di Windows, Anda mungkin perlu mengaktifkan WSL 2.
+1. Unduh *installer* dari [docker.com](https://www.docker.com/products/docker-desktop/).
+2. Jalankan *installer*. Di Windows, Anda mungkin perlu mengaktifkan WSL 2.
 3. Setelah instalasi, buka terminal dan verifikasi:
 
 ```bash
@@ -162,11 +162,11 @@ docker compose version
 docker run hello-world
 ```
 
-Jika Anda melihat "Hello from Docker!" Anda sudah siap.
+Jika Anda melihat "Hello from Docker!", Anda sudah siap.
 
 ### Docker Engine (Linux)
 
-Di Linux, instal Docker Engine langsung melalui package manager. Perintah berikut berfungsi untuk Ubuntu/Debian:
+Di Linux, instal Docker Engine langsung melalui *package manager*. Perintah berikut berfungsi untuk Ubuntu/Debian:
 
 ```bash
 # Tambahkan GPG key resmi Docker
@@ -305,7 +305,7 @@ Sebelum menulis kode apa pun, mari pahami enam konsep dasar Docker. Konsep ini m
 
 ### Image
 
-**Image** adalah template read-only dengan instruksi untuk membuat kontainer. Anggap sebagai snapshot dari filesystem — berisi lapisan OS, runtime PHP, kode aplikasi Anda, dan semua dependensi. Image dibangun dari instruksi dalam `Dockerfile`.
+**Image** adalah template *read-only* dengan instruksi untuk membuat kontainer. Anggap sebagai *snapshot* dari *filesystem*: berisi lapisan OS, *runtime* PHP, kode aplikasi Anda, dan semua dependensi. Image dibangun dari instruksi dalam `Dockerfile`.
 
 ```bash
 docker images          # daftar semua image lokal
@@ -313,11 +313,11 @@ docker pull php:8.2-fpm  # unduh image dari registry
 docker rmi php:8.2-fpm   # hapus image
 ```
 
-Image bersifat **berlapis (layered)**: setiap instruksi dalam `Dockerfile` (`FROM`, `RUN`, `COPY`) membuat lapisan baru. Docker meng-cache lapisan untuk mempercepat rebuild — jika sebuah baris tidak berubah, Docker menggunakan kembali lapisan yang di-cache.
+Image bersifat **berlapis (layered)**: setiap instruksi dalam `Dockerfile` (`FROM`, `RUN`, `COPY`) membuat lapisan baru. Docker meng-cache lapisan untuk mempercepat *rebuild*: jika sebuah baris tidak berubah, Docker menggunakan kembali lapisan yang di-cache.
 
 ### Container
 
-**Container** adalah instance berjalan dari sebuah image. Jika image adalah kelas, container adalah objek. Anda dapat menjalankan beberapa container dari image yang sama, masing-masing dengan filesystem, jaringan, dan ruang proses yang terisolasi.
+**Container** adalah *instance* berjalan dari sebuah image. Jika image adalah kelas, container adalah objek. Anda dapat menjalankan beberapa container dari image yang sama, masing-masing dengan *filesystem*, jaringan, dan ruang proses yang terisolasi.
 
 ```bash
 docker run php:8.2-fpm     # jalankan container dari image
@@ -329,13 +329,13 @@ docker rm <container-id>    # hapus container yang berhenti
 
 ### Layer
 
-Setiap instruksi dalam `Dockerfile` menghasilkan sebuah **layer**. Layer ditumpuk untuk membentuk image final. Docker meng-cache layer secara independen — artinya jika Anda hanya mengubah kode aplikasi, hanya layer `COPY` yang dibangun ulang; layer instalasi PHP tetap di-cache.
+Setiap instruksi dalam `Dockerfile` menghasilkan sebuah **layer**. Layer ditumpuk untuk membentuk image final. Docker meng-cache layer secara independen: artinya jika Anda hanya mengubah kode aplikasi, hanya layer `COPY` yang dibangun ulang; layer instalasi PHP tetap di-cache.
 
 Inilah mengapa urutan `Dockerfile` penting: letakkan perintah yang paling jarang berubah (pembaruan OS, instalasi PHP) di bagian atas, dan perintah yang paling sering berubah (kode sumber Anda) di bagian bawah.
 
 ### Registry
 
-**Registry** menyimpan dan mendistribusikan image. [Docker Hub](https://hub.docker.com) adalah registry publik default. Ketika Anda menjalankan `docker pull php:8.2-fpm`, Docker mengunduh image dari Docker Hub (atau mirror).
+**Registry** menyimpan dan mendistribusikan image. [Docker Hub](https://hub.docker.com) adalah registry publik default. Ketika Anda menjalankan `docker pull php:8.2-fpm`, Docker mengunduh image dari Docker Hub (atau *mirror*).
 
 ```bash
 docker pull nginx:alpine       # tarik dari Docker Hub
@@ -516,7 +516,7 @@ Mari baca baris demi baris:
 
 | Instruksi | Arti |
 |-----------|------|
-| `FROM php:8.2-cli` | Mulai dari image PHP 8.2 CLI resmi (mencakup binary PHP, tanpa web server) |
+| `FROM php:8.2-cli` | Mulai dari image PHP 8.2 CLI resmi (mencakup *binary* PHP, tanpa *web server*) |
 | `WORKDIR /app` | Buat dan masuk ke `/app` di dalam container |
 | `COPY index.php .` | Salin `index.php` dari host ke `/app/` di dalam image |
 | `CMD ["php", "index.php"]` | Saat container dimulai, jalankan `php index.php` |
@@ -528,7 +528,7 @@ docker build -t php-hello .
 ```
 
 - `-t php-hello` memberi nama (tag) image `php-hello`
-- `.` memberi tahu Docker untuk menggunakan direktori saat ini sebagai konteks build
+- `.` memberi tahu Docker untuk menggunakan direktori saat ini sebagai konteks *build*
 
 Docker akan menarik image dasar `php:8.2-cli` (hanya pertama kali) dan mengeksekusi setiap instruksi. Anda akan melihat output seperti:
 
@@ -553,7 +553,7 @@ Halo, Docker! PHP 8.2.x sedang berjalan.
 Ekstensi yang dimuat: Core, date, libxml, openssl, ...
 ```
 
-Selamat — Anda baru saja membangun dan menjalankan container Docker PHP pertama Anda.
+Selamat! Anda baru saja membangun dan menjalankan container Docker PHP pertama Anda.
 
 ### Langkah 6: Mode interaktif
 
@@ -861,7 +861,7 @@ docker compose restart app     # restart the 'app' service
 
 ## Stack PHP Multi-Container
 
-Aplikasi PHP nyata jarang hanya menggunakan image CLI. Aplikasi produksi membutuhkan web server, PHP-FPM untuk memproses PHP, dan database. Mari bangun stack **PHP + Nginx + MySQL** menggunakan `docker-compose`.
+Aplikasi PHP nyata jarang hanya menggunakan image CLI. Aplikasi produksi membutuhkan *web server*, PHP-FPM untuk memproses PHP, dan database. Mari bangun *stack* **PHP + Nginx + MySQL** menggunakan `docker-compose`.
 
 Arsitektur kita terlihat seperti ini:
 
@@ -888,7 +888,7 @@ docker-php-stack/
 
 ### Langkah 1: Aplikasi PHP
 
-Buat `public/index.php` — titik masuk yang akan dilayani Nginx:
+Buat `public/index.php`, titik masuk yang akan dilayani Nginx:
 
 ```php
 <?php
@@ -910,7 +910,7 @@ try {
 }
 ```
 
-Buat `src/Database.php` — wrapper PDO sederhana:
+Buat `src/Database.php`, *wrapper* PDO sederhana:
 
 ```php
 <?php
@@ -941,7 +941,7 @@ class Database
 }
 ```
 
-> Perhatikan bahwa `$host = getenv('DB_HOST') ?: 'db'` menggunakan **nama layanan** `db` dari `docker-compose.yml` sebagai hostname. DNS internal Docker menerjemahkan nama layanan ke IP container secara otomatis.
+> Perhatikan bahwa `$host = getenv('DB_HOST') ?: 'db'` menggunakan **nama layanan** `db` dari `docker-compose.yml` sebagai *hostname*. DNS internal Docker menerjemahkan nama layanan ke IP container secara otomatis.
 
 ### Langkah 2: Dockerfile untuk PHP-FPM
 
@@ -967,10 +967,10 @@ Mari uraikan:
 
 | Instruksi | Tujuan |
 |-----------|--------|
-| `FROM php:8.2-fpm` | Image PHP-FPM resmi — PHP berjalan sebagai proses FastCGI, bukan server HTTP |
+| `FROM php:8.2-fpm` | Image PHP-FPM resmi: PHP berjalan sebagai proses FastCGI, bukan server HTTP |
 | `apt-get update && apt-get install -y libpq-dev` | Instal paket sistem yang diperlukan untuk ekstensi PHP |
 | `docker-php-ext-install pdo pdo_mysql` | Instal ekstensi PHP (skrip bantuan yang disertakan dalam image resmi) |
-| `COPY --from=composer:2 ...` | Salin binary Composer dari image Composer resmi (salinan multi-stage) |
+| `COPY --from=composer:2 ...` | Salin *binary* Composer dari image Composer resmi (salinan *multi-stage*) |
 | `COPY . .` | Salin kode aplikasi kita ke dalam image |
 | `RUN chown ...` | Pastikan pengguna web server (`www-data`) memiliki file |
 
@@ -997,7 +997,7 @@ server {
 }
 ```
 
-Baris kunci: `fastcgi_pass app:9000` — Nginx meneruskan permintaan PHP ke layanan `app` (container PHP-FPM kita) di port 9000.
+Baris kunci: `fastcgi_pass app:9000`, Nginx meneruskan permintaan PHP ke layanan `app` (container PHP-FPM kita) di port 9000.
 
 ### Langkah 4: docker-compose.yml
 
@@ -1071,18 +1071,18 @@ Mari kita bahas setiap layanan:
 - **build**: membangun image dari `Dockerfile` kita
 - **environment**: mengirimkan kredensial database sebagai variabel lingkungan (dibaca oleh `getenv()` di `Database.php`)
 - **depends_on**: menunggu MySQL sehat sebelum memulai
-- **volumes**: memasang `./public` dan `./src` dari host ke dalam container — perubahan yang Anda buat secara lokal tercermin langsung (tidak perlu rebuild)
+- **volumes**: memasang `./public` dan `./src` dari host ke dalam container, perubahan yang Anda buat secara lokal tercermin langsung (tidak perlu *rebuild*)
 
 #### `web` (Nginx)
 
 - **image**: menggunakan image Nginx Alpine resmi (5 MB, sangat kecil)
-- **ports**: memetakan port host 8080 ke port container 80 — kunjungi `http://localhost:8080`
+- **ports**: memetakan port host 8080 ke port container 80, lalu kunjungi `http://localhost:8080`
 - **volumes**: memasang konfigurasi Nginx kita dan direktori `public/`
 
 #### `db` (MySQL)
 
 - **environment**: mengatur password root, membuat database dan pengguna
-- **volumes**: `db_data` mempertahankan file database di antara restart container
+- **volumes**: `db_data` mempertahankan file database di antara *restart* container
 - **healthcheck**: memberi tahu Docker cara memeriksa apakah MySQL sudah siap; `app` menunggu ini
 
 ### Langkah 5: Bangun dan jalankan
@@ -1091,7 +1091,7 @@ Mari kita bahas setiap layanan:
 docker compose up -d
 ```
 
-- `-d` menjalankan container dalam mode detached (latar belakang)
+- `-d` menjalankan container dalam mode *detached* (latar belakang)
 
 Docker akan:
 1. Menarik image `nginx:alpine` dan `mysql:8.0`
@@ -1269,7 +1269,7 @@ volumes:
   - ./src:/var/www/html/src
 ```
 
-Ini berarti setiap perubahan yang Anda buat pada file PHP di host langsung terlihat di dalam container. Tidak perlu membangun ulang image untuk setiap perubahan kode — cukup simpan file dan segarkan browser.
+Ini berarti setiap perubahan yang Anda buat pada file PHP di host langsung terlihat di dalam container. Tidak perlu membangun ulang image untuk setiap perubahan kode: cukup simpan file dan segarkan browser.
 
 > **Catatan**: Jika Anda mengubah `Dockerfile` (misalnya, menambahkan ekstensi PHP) atau `composer.json`, Anda *perlu* membangun ulang: `docker compose up -d --build`.
 
@@ -1307,7 +1307,7 @@ ports:
 Lalu sambungkan dengan `mysql -h 127.0.0.1 -P 3307`.
 
 **Error "Cannot connect to MySQL":**
-Ini biasanya berarti container `db` belum siap saat `app` dimulai. `healthcheck` di file compose kita menyelesaikan ini — jika Anda menghapusnya, tambahkan `restart: on-failure` atau loop percobaan ulang di kode PHP Anda.
+Ini biasanya berarti container `db` belum siap saat `app` dimulai. `healthcheck` di file compose kita menyelesaikan ini: jika Anda menghapusnya, tambahkan `restart: on-failure` atau *loop* percobaan ulang di kode PHP Anda.
 
 **Memeriksa status container:**
 
@@ -1344,7 +1344,7 @@ docker volume prune           # hapus volume tidak terpakai
    RUN rm -rf /var/lib/apt/lists/*
    ```
 
-3. **Gunakan `.dockerignore`.** Cegah pengiriman file yang tidak perlu (`node_modules`, `.git`, `vendor`) ke konteks build. Buat `.dockerignore`:
+3. **Gunakan `.dockerignore`.** Cegah pengiriman file yang tidak perlu (`node_modules`, `.git`, `vendor`) ke konteks *build*. Buat `.dockerignore`:
 
    ```
    .git
@@ -1354,7 +1354,7 @@ docker volume prune           # hapus volume tidak terpakai
    *.md
    ```
 
-4. **Jalankan sebagai non-root.** Secara default, container berjalan sebagai `root`. Untuk produksi, beralih ke pengguna non-privileged:
+4. **Jalankan sebagai non-root.** Secara default, container berjalan sebagai `root`. Untuk produksi, beralih ke pengguna *non-privileged*:
 
    ```dockerfile
    USER www-data
@@ -1395,24 +1395,24 @@ If you want to go even deeper, explore:
 
 ## Dari Kontainer ke Microservices
 
-Sekarang setelah Anda memahami dasar-dasar Docker, Anda siap untuk menjelajahi **arsitektur microservices** — pendekatan desain di mana aplikasi dibangun sebagai kumpulan layanan kecil dan independen, masing-masing berjalan di kontainernya sendiri dan berkomunikasi melalui jaringan.
+Sekarang setelah Anda memahami dasar-dasar Docker, Anda siap untuk menjelajahi **arsitektur microservices**: pendekatan desain di mana aplikasi dibangun sebagai kumpulan layanan kecil dan independen, masing-masing berjalan di kontainernya sendiri dan berkomunikasi melalui jaringan.
 
 Konsep Docker yang Anda pelajari di sini adalah blok bangunan dari tutorial tersebut:
 
-- **Dockerfiles** mendefinisikan lingkungan runtime setiap microservice
+- **Dockerfiles** mendefinisikan lingkungan *runtime* setiap microservice
 - **docker-compose** mengorkestrasi semua microservice bersama untuk pengembangan lokal
-- **Nama layanan sebagai hostname** (`db`, `web`, `app`) persis bagaimana microservice saling menemukan
-- **Volumes** dan **networks** mengisolasi state dan komunikasi antar layanan
+- **Nama layanan sebagai hostname** (`db`, `web`, `app`) adalah persis cara microservice saling menemukan satu sama lain
+- **Volumes** dan **networks** mengisolasi *state* dan komunikasi antar layanan
 
-Tutorial [Microservices Architecture Fundamentals dengan PHP](/blog/microservices-architecture-fundamentals) memandu Anda mendekomposisi aplikasi PHP monolitik menjadi layanan terpisah (User Service, Product Service, Order Service) dengan API Gateway, message queue, dan service discovery — semuanya berjalan di kontainer Docker.
+Tutorial [Microservices Architecture Fundamentals dengan PHP](/blog/microservices-architecture-fundamentals) memandu Anda mendekomposisi aplikasi PHP monolitik menjadi layanan terpisah (User Service, Product Service, Order Service) dengan API Gateway, *message queue*, dan *service discovery*, semuanya berjalan di kontainer Docker.
 
 > Jika Anda belum melakukannya, sekarang adalah waktu yang tepat untuk mengerjakan tutorial tersebut. Anda sudah memahami konsep kontainer yang diasumsikannya.
 
 Jika Anda ingin lebih mendalam, jelajahi:
 
-- **Docker Swarm** atau **Kubernetes** — untuk mengorkestrasi kontainer di banyak mesin di produksi
-- **GitHub Container Registry (GHCR)** — untuk menyimpan dan mendistribusikan image Docker Anda bersama kode Anda
-- **[CI/CD dengan GitHub Actions untuk PHP](/blog/ci-cd-github-actions-php)** — di mana kontainer dibangun dan diuji secara otomatis pada setiap push
+- **Docker Swarm** atau **Kubernetes**: untuk mengorkestrasi kontainer di banyak mesin di produksi
+- **GitHub Container Registry (GHCR)**: untuk menyimpan dan mendistribusikan image Docker Anda bersama kode Anda
+- **[CI/CD dengan GitHub Actions untuk PHP](/blog/ci-cd-github-actions-php)**: di mana kontainer dibangun dan diuji secara otomatis pada setiap *push*
 
 </section>
 
@@ -1438,15 +1438,15 @@ Docker and containerization are no longer optional skills for PHP developers —
 
 ## Ringkasan
 
-Docker dan kontainerisasi bukan lagi keterampilan opsional untuk pengembang PHP — mereka adalah foundational. Dalam tutorial ini Anda mempelajari:
+Docker dan kontainerisasi bukan lagi keterampilan opsional bagi pengembang PHP, melainkan sudah menjadi keterampilan fundamental. Dalam tutorial ini Anda mempelajari:
 
-1. **Mengapa kontainer menyelesaikan reproduksibilitas.** Tidak ada lagi "di komputer saya berfungsi" — image yang sama berjalan identik di mana saja.
+1. **Mengapa kontainer menyelesaikan reproduksibilitas.** Tidak ada lagi "di komputer saya berfungsi": image yang sama berjalan identik di mana saja.
 2. **Cara menginstal Docker** di Windows, macOS, dan Linux.
-3. **Enam konsep inti** — image, container, layer, registry, Dockerfile, dan docker-compose — dan bagaimana mereka saling berhubungan.
+3. **Enam konsep inti** (image, container, layer, registry, Dockerfile, dan docker-compose) dan bagaimana mereka saling berhubungan.
 4. **Cara mengontainerisasi skrip PHP** dengan `Dockerfile` sederhana.
 5. **Cara membangun stack multi-layanan** dengan PHP-FPM, Nginx, dan MySQL menggunakan `docker-compose.yml`.
-6. **Pola alur kerja pengembangan** — bind mount untuk live reload, `docker compose exec` untuk debugging, dan perintah pembersihan.
-7. **Bagaimana Docker menjembatani ke microservices** — setiap kontainer adalah langkah menuju arsitektur terdistribusi.
+6. **Pola alur kerja pengembangan**: *bind mount* untuk *live reload*, `docker compose exec` untuk *debugging*, dan perintah pembersihan.
+7. **Bagaimana Docker menjembatani ke microservices**: setiap kontainer adalah langkah menuju arsitektur terdistribusi.
 
 </section>
 

@@ -8,7 +8,7 @@ author: SE Lab
 lang: en
 featured: false
 excerpt: "A foundational guide to microservices architecture for PHP developers. Learn why and when to decompose a monolith, how to design service boundaries using domain-driven design, synchronous vs asynchronous communication patterns, database-per-service, and runnable PHP examples with Lumen/Slim — complete with contract tests."
-excerptId: "Panduan dasar arsitektur microservices untuk pengembang PHP. Pelajari mengapa dan kapan mendekomposisi monolit, cara merancang batas layanan menggunakan domain-driven design, pola komunikasi sinkron vs asinkron, database-per-service, dan contoh PHP yang dapat dijalankan dengan Lumen/Slim — lengkap dengan contract test."
+excerptId: "Panduan dasar arsitektur microservices untuk pengembang PHP. Pelajari mengapa dan kapan mendekomposisi monolit, cara merancang batas layanan menggunakan domain-driven design, pola komunikasi sinkron vs asinkron, database-per-service, dan contoh PHP yang dapat dijalankan dengan Lumen/Slim, lengkap dengan contract test."
 stream: se-methodologies-architecture
 tags:
   - Microservices
@@ -46,23 +46,23 @@ The three problems microservices address directly:
 
 ## Mengapa Microservices?
 
-Sebagian besar aplikasi web dimulai sebagai **monolit** — satu basis kode yang menangani HTTP request, logika bisnis, akses database, dan lainnya. Untuk tim kecil dan domain sederhana, ini adalah pilihan yang tepat. Tetapi seiring pertumbuhan aplikasi, titik-titik masalah (pain points) yang familiar mulai muncul:
+Sebagian besar aplikasi web dimulai sebagai **monolit**, yaitu satu basis kode yang menangani *HTTP request*, logika bisnis, akses *database*, dan lainnya. Untuk tim kecil dan domain sederhana, ini adalah pilihan yang tepat. Namun, seiring pertumbuhan aplikasi, titik-titik masalah (*pain point*) yang familiar mulai muncul:
 
 | Pain Point Monolit | Rasanya Seperti Apa |
 |---|---|
 | **Tight coupling** | Mengubah modul billing secara tidak sengaja merusak registrasi pengguna. |
-| **Deployment lambat** | Perbaikan CSS satu baris harus menunggu seluruh test suite dan pipeline deployment. |
-| **Scaling friction** | Satu endpoint yang boros CPU memaksa Anda menskalakan seluruh aplikasi — termasuk database. |
-| **Overhead koordinasi tim** | Lima tim bekerja pada basis kode yang sama; merge conflict dan koordinasi memperlambat semua orang. |
-| **Technology lock-in** | Seluruh sistem menggunakan satu bahasa, satu framework, satu database. Bereksperimen tidak mungkin tanpa rewrite. |
+| **Deployment lambat** | Perbaikan CSS satu baris harus menunggu seluruh *test suite* dan *pipeline deployment*. |
+| **Scaling friction** | Satu *endpoint* yang boros CPU memaksa Anda menskalakan seluruh aplikasi, termasuk *database*. |
+| **Overhead koordinasi tim** | Lima tim bekerja pada basis kode yang sama; *merge conflict* dan koordinasi memperlambat semua orang. |
+| **Technology lock-in** | Seluruh sistem menggunakan satu bahasa, satu *framework*, satu *database*. Bereksperimen tidak mungkin tanpa *rewrite*. |
 
-**Microservices** adalah gaya arsitektur di mana aplikasi terdiri dari layanan-layanan kecil yang dapat dideploy secara independen. Setiap layanan memiliki kapabilitas bisnis tertentu, mengekspos API yang terdefinisi dengan baik, dan dapat dikembangkan, dideploy, serta diskalakan secara independen.
+**Microservices** adalah gaya arsitektur di mana aplikasi terdiri dari layanan-layanan kecil yang dapat di-deploy secara independen. Setiap layanan memiliki kapabilitas bisnis tertentu, mengekspos API yang terdefinisi dengan baik, dan dapat dikembangkan, di-deploy, serta diskalakan secara independen.
 
 Tiga masalah yang langsung dihadapi oleh microservices:
 
-1. **Penskalaan organisasi.** Ketika Anda memiliki banyak tim, deployability independen berarti setiap tim dapat mengirim perubahan tanpa menunggu "minggu integrasi."
-2. **Penskalaan teknis.** Layanan yang menangani traffic tinggi atau komputasi berat dapat diskalakan secara horizontal tanpa menskalakan seluruh sistem.
-3. **Kecepatan perubahan.** Basis kode yang kecil dan fokus lebih mudah dipahami, dimodifikasi, dan ditulis ulang — yang membuat tim lebih cepat dari waktu ke waktu.
+1. **Penskalaan organisasi.** Ketika Anda memiliki banyak tim, *deployability* independen berarti setiap tim dapat mengirim perubahan tanpa menunggu "minggu integrasi."
+2. **Penskalaan teknis.** Layanan yang menangani *traffic* tinggi atau komputasi berat dapat diskalakan secara horizontal tanpa menskalakan seluruh sistem.
+3. **Kecepatan perubahan.** Basis kode yang kecil dan fokus lebih mudah dipahami, dimodifikasi, dan ditulis ulang, sehingga membuat tim lebih cepat dari waktu ke waktu.
 
 </section>
 
@@ -119,29 +119,29 @@ Microservices are not split by technical layer (controllers, models, views). The
 
 ## Karakteristik Inti Microservices
 
-Arsitektur microservices didefinisikan oleh beberapa karakteristik yang tidak bisa ditawar. Jika Anda melanggar ini, Anda tidak memiliki microservices — Anda memiliki distributed monolith, yang menggabungkan yang terburuk dari kedua dunia.
+Arsitektur microservices didefinisikan oleh beberapa karakteristik yang tidak bisa ditawar. Jika Anda melanggar ini, Anda tidak memiliki microservices, melainkan *distributed monolith* yang menggabungkan yang terburuk dari kedua dunia.
 
-### 1. Dapat Dideploy Secara Independen
+### 1. Dapat Di-deploy Secara Independen
 
-Setiap layanan dapat dideploy ke production tanpa berkoordinasi dengan layanan lain. Perubahan pada Payment Service seharusnya tidak mengharuskan tim Courses Service untuk menjadwalkan deployment bersama. Independensi inilah yang memungkinkan banyak tim untuk meluncurkan perubahan dengan kecepatan masing-masing.
+Setiap layanan dapat di-deploy ke *production* tanpa berkoordinasi dengan layanan lain. Perubahan pada Payment Service seharusnya tidak mengharuskan tim Courses Service untuk menjadwalkan *deployment* bersama. Independensi inilah yang memungkinkan banyak tim untuk meluncurkan perubahan dengan kecepatan masing-masing.
 
 ### 2. Kepemilikan Data Terdesentralisasi
 
-Setiap layanan memiliki database-nya sendiri (atau schema / set tabel). Layanan **tidak** berbagi database. Jika Users Service membutuhkan status pembayaran, ia tidak menulis SQL JOIN terhadap database Payments — ia memanggil API Payments Service.
+Setiap layanan memiliki *database*-nya sendiri (atau *schema* / set tabel). Layanan **tidak** berbagi *database*. Jika Users Service membutuhkan status pembayaran, ia tidak menulis SQL JOIN terhadap *database* Payments, melainkan memanggil API Payments Service.
 
-**Mengapa ini penting:** Shared database menciptakan coupling tersembunyi yang lebih buruk daripada coupling level kode. Tim Payments tidak dapat mengubah schema mereka tanpa berkoordinasi dengan setiap tim yang melakukan query ke tabel mereka. Ini menggagalkan seluruh tujuan deployability independen.
+**Mengapa ini penting:** *Database* bersama menciptakan *coupling* tersembunyi yang lebih buruk daripada *coupling* level kode. Tim Payments tidak dapat mengubah *schema* mereka tanpa berkoordinasi dengan setiap tim yang melakukan *query* ke tabel mereka. Ini menggagalkan seluruh tujuan *deployability* independen.
 
 ### 3. Komunikasi Antar Layanan
 
-Layanan berkomunikasi melalui API yang terdefinisi dengan baik — paling umum HTTP REST, gRPC, atau asynchronous messaging (message queue, event stream). Detail implementasi internal disembunyikan di balik kontrak API.
+Layanan berkomunikasi melalui API yang terdefinisi dengan baik, paling umum HTTP REST, gRPC, atau *asynchronous messaging* (*message queue*, *event stream*). Detail implementasi internal disembunyikan di balik kontrak API.
 
 ### 4. Isolasi Kegagalan
 
-Kegagalan di Recommendations Service seharusnya tidak menjatuhkan seluruh platform. Circuit breaker, timeout, retry, dan graceful degradation adalah perhatian utama. Sistem harus dirancang untuk **resilient**, bukan hanya reliable.
+Kegagalan di Recommendations Service seharusnya tidak menjatuhkan seluruh platform. *Circuit breaker*, *timeout*, *retry*, dan *graceful degradation* adalah perhatian utama. Sistem harus dirancang untuk **resilient**, bukan hanya *reliable*.
 
 ### 5. Diorganisasikan Berdasarkan Kapabilitas Bisnis
 
-Microservices tidak dipisahkan berdasarkan layer teknis (controller, model, view). Mereka dipisahkan berdasarkan **kapabilitas bisnis**. Tim cross-functional memiliki seluruh layanan — dari UI hingga database — untuk satu bounded context.
+Microservices tidak dipisahkan berdasarkan *layer* teknis (*controller*, *model*, *view*). Mereka dipisahkan berdasarkan **kapabilitas bisnis**. Tim *cross-functional* memiliki seluruh layanan, mulai dari UI hingga *database*, untuk satu *bounded context*.
 
 </section>
 
@@ -211,40 +211,40 @@ You know it is time to consider extracting microservices when:
 
 ## Kapan TIDAK Menggunakan Microservices
 
-Microservices bukanlah silver bullet. Mereka memperkenalkan kompleksitas operasional yang signifikan. Sebelum mengadopsinya, pertimbangkan kontra-indikator berikut:
+Microservices bukanlah *silver bullet*. Mereka memperkenalkan kompleksitas operasional yang signifikan. Sebelum mengadopsinya, pertimbangkan kontra-indikator berikut:
 
 ### Distributed Big Ball of Mud
 
-Hasil arsitektur terburuk bukanlah monolit — melainkan **distributed big ball of mud**: puluhan layanan yang berbagi database, tidak memiliki kontrak API yang jelas, dan dideploy bersama sebagai satu "release train." Ini menggabungkan kompleksitas sistem terdistribusi dengan ketidakfleksibelan monolit. Hindari ini dengan segala cara.
+Hasil arsitektur terburuk bukanlah monolit, melainkan **distributed big ball of mud**: puluhan layanan yang berbagi *database*, tidak memiliki kontrak API yang jelas, dan di-deploy bersama sebagai satu "release train." Ini menggabungkan kompleksitas sistem terdistribusi dengan ketidakfleksibelan monolit. Hindari ini dengan segala cara.
 
 ### Ukuran Tim dan Kematangan Organisasi
 
-> "Jika Anda tidak bisa membangun monolit yang terstruktur dengan baik, apa yang membuat Anda berpikir bisa membangun microservices yang terstruktur dengan baik?" — Simon Brown
+> "Jika Anda tidak bisa membangun monolit yang terstruktur dengan baik, apa yang membuat Anda berpikir bisa membangun microservices yang terstruktur dengan baik?" – Simon Brown
 
 Aturan praktisnya: **mulai dengan monolit, pisahkan ketika harus.** Satu tim beranggotakan 3-5 developer hampir pasti harus membangun monolit terlebih dahulu. Microservices masuk akal ketika:
 
 - Anda memiliki tiga atau lebih tim otonom yang perlu mengirim perubahan secara independen.
-- Waktu build dan test monolit secara terukur memperlambat delivery (bayangkan CI pipeline 30+ menit).
-- Bagian sistem yang berbeda memiliki kebutuhan scaling atau teknologi yang berbeda secara fundamental.
+- Waktu *build* dan *test* monolit secara terukur memperlambat *delivery* (bayangkan *CI pipeline* 30+ menit).
+- Bagian sistem yang berbeda memiliki kebutuhan *scaling* atau teknologi yang berbeda secara fundamental.
 
 ### Ketika Monolit Bekerja Lebih Baik
 
 | Skenario | Rekomendasi |
 |---|---|
 | Produk tahap awal dengan model domain yang terus berkembang | Monolit. Anda belum tahu di mana batas-batasnya. |
-| Tim kurang dari 10 developer | Monolit. Overhead koordinasi microservices lebih besar daripada manfaatnya. |
+| Tim kurang dari 10 developer | Monolit. *Overhead* koordinasi microservices lebih besar daripada manfaatnya. |
 | Aplikasi CRUD sederhana tanpa logika domain yang kompleks | Monolit. Microservices menambah kompleksitas tanpa hasil. |
 | Persyaratan konsistensi kuat antar entitas | Monolit atau pola Saga yang hati-hati. Transaksi terdistribusi itu sulit. |
-| Kematangan operasional terbatas (tanpa container orchestration, tanpa CI/CD) | Monolit. Anda butuh fondasi DevOps yang solid sebelum microservices. |
+| Kematangan operasional terbatas (tanpa *container orchestration*, tanpa CI/CD) | Monolit. Anda butuh fondasi DevOps yang solid sebelum microservices. |
 
 ### Pemicu Transisi
 
 Anda tahu saatnya mempertimbangkan untuk mengekstrak microservices ketika:
 
-1. Modul yang berbeda membutuhkan irama deployment yang berbeda (misalnya, perubahan payments bulanan, courses mingguan).
+1. Modul yang berbeda membutuhkan irama *deployment* yang berbeda (misalnya, perubahan payments bulanan, courses mingguan).
 2. Modul spesifik perlu diskalakan secara independen (misalnya, modul pelaporan dengan beban baca berat).
-3. Tim saling menginjak perubahan satu sama lain dalam basis kode yang sama.
-4. Anda perlu mengadopsi stack teknologi yang berbeda untuk kapabilitas bisnis tertentu.
+3. Perubahan yang dilakukan tim yang berbeda saling bertabrakan dalam basis kode yang sama.
+4. Anda perlu mengadopsi *stack* teknologi yang berbeda untuk kapabilitas bisnis tertentu.
 
 </section>
 
@@ -280,13 +280,13 @@ Each bounded context has its own ubiquitous language. In the Enrollment context,
 
 ## Merancang Batas Layanan dengan Domain-Driven Design
 
-Pertanyaan tersulit dalam microservices adalah: **Di mana saya menarik garisnya?** Memisahkan monolit secara acak berdasarkan layer teknis menghasilkan layanan yang tightly coupled pada level data — anti-pattern distributed monolith.
+Pertanyaan tersulit dalam microservices adalah: **Di mana saya menarik garisnya?** Memisahkan monolit secara acak berdasarkan *layer* teknis menghasilkan layanan yang *tightly coupled* pada level data, yaitu *anti-pattern distributed monolith*.
 
 **Domain-Driven Design (DDD)** menyediakan cara terstruktur untuk mengidentifikasi batasan melalui **Bounded Contexts**. Bounded context adalah batas logis di mana model domain tertentu berlaku. Setiap bounded context menjadi kandidat microservice.
 
 ### Contoh: Sistem Kampus EdTech
 
-Bayangkan platform EdTech untuk Politeknik Negeri Malang. Pendekatan naif akan memisahkan berdasarkan entitas: `UserService`, `CourseService`, `EnrollmentService`, `PaymentService`. Tetapi entitas-entitas ini saling terhubung secara mendalam — enrollment bergantung pada users dan courses, payments bergantung pada enrollment — jadi memisahkan berdasarkan entitas menciptakan service mesh yang terlalu banyak obrolan tanpa independensi yang nyata.
+Bayangkan platform EdTech untuk Politeknik Negeri Malang. Pendekatan naif akan memisahkan berdasarkan entitas: `UserService`, `CourseService`, `EnrollmentService`, `PaymentService`. Namun, entitas-entitas ini saling terhubung secara mendalam: enrollment bergantung pada users dan courses, payments bergantung pada enrollment, sehingga memisahkan berdasarkan entitas menciptakan *service mesh* yang terlalu banyak obrolan tanpa independensi yang nyata.
 
 Dekomposisi yang diinformasikan DDD mengelompokkan perilaku terkait ke dalam bounded contexts:
 
@@ -296,9 +296,9 @@ Dekomposisi yang diinformasikan DDD mengelompokkan perilaku terkait ke dalam bou
 | **Course Catalog** | Pembuatan course, manajemen kurikulum, prasyarat | `CatalogService` |
 | **Enrollment** | Pendaftaran mahasiswa ke course, waitlist, aturan enrollment | `EnrollmentService` |
 | **Billing & Payment** | Pembuatan invoice, pemrosesan pembayaran, pelaporan keuangan | `BillingService` |
-| **Notification** | Notifikasi email, push, dan in-app yang dipicu oleh event dari context lain | `NotificationService` |
+| **Notification** | Notifikasi email, push, dan *in-app* yang dipicu oleh *event* dari context lain | `NotificationService` |
 
-Setiap bounded context memiliki ubiquitous language-nya sendiri. Dalam context Enrollment, "Student" berarti pendaftar dengan riwayat akademik. Dalam context Billing, "Student" berarti pembayar dengan riwayat invoice. Ini adalah model yang berbeda dari entitas dunia nyata yang sama, dan mereka *seharusnya* berbeda — itulah intinya.
+Setiap bounded context memiliki ubiquitous language-nya sendiri. Dalam context Enrollment, "Student" berarti pendaftar dengan riwayat akademik. Dalam context Billing, "Student" berarti pembayar dengan riwayat invoice. Ini adalah model yang berbeda dari entitas dunia nyata yang sama, dan mereka *seharusnya* berbeda: itulah intinya.
 
 </section>
 
@@ -333,7 +333,7 @@ graph TB
 
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: Bounded contexts connected through an event bus — asynchronous, loosely coupled</span>
-  <span lang="id">Gambar: Bounded contexts terhubung melalui event bus — asinkron, loosely coupled</span>
+  <span lang="id">Gambar: Bounded contexts terhubung melalui *event bus*, asinkron dan *loosely coupled*</span>
 </figcaption>
 </figure>
 
@@ -468,13 +468,13 @@ Setelah Anda mengidentifikasi layanan-layanan Anda, pertanyaan berikutnya adalah
 
 ### Sinkron (Request-Response)
 
-Service A mengirim request HTTP ke Service B dan menunggu respons. Ini adalah pola paling sederhana dan yang paling dikenal oleh developer PHP.
+Service A mengirim *request* HTTP ke Service B dan menunggu respons. Ini adalah pola paling sederhana dan yang paling dikenal oleh developer PHP.
 
 **Protokol:** REST (JSON melalui HTTP), gRPC (Protocol Buffers melalui HTTP/2)
 
-**Kapan digunakan:** Ketika Anda membutuhkan jawaban segera untuk melanjutkan pemrosesan — misalnya, Enrollment Service harus memverifikasi bahwa course ada sebelum mendaftarkan mahasiswa.
+**Kapan digunakan:** Ketika Anda membutuhkan jawaban segera untuk melanjutkan pemrosesan, misalnya Enrollment Service harus memverifikasi bahwa course ada sebelum mendaftarkan mahasiswa.
 
-**Risiko:** Temporal coupling. Jika Catalog Service down, Enrollment Service juga gagal. Di sinilah **circuit breaker** dan **timeout** menjadi penting.
+**Risiko:** Temporal coupling. Jika Catalog Service *down*, Enrollment Service juga gagal. Di sinilah **circuit breaker** dan **timeout** menjadi penting.
 
 ```php
 <?php
@@ -513,13 +513,13 @@ class CatalogServiceClient
 
 ### Asinkron (Event-Driven)
 
-Service A mempublikasikan event ke message broker. Service B (dan C, D, ...) mengonsumsi event dan bereaksi terhadapnya. Tidak ada yang tahu tentang yang lain.
+Service A mempublikasikan *event* ke *message broker*. Service B (dan C, D, ...) mengonsumsi *event* dan bereaksi terhadapnya. Tidak ada yang tahu tentang yang lain.
 
-**Protokol:** Message queue (RabbitMQ, Amazon SQS), event stream (Apache Kafka, Redis Streams)
+**Protokol:** *Message queue* (RabbitMQ, Amazon SQS), *event stream* (Apache Kafka, Redis Streams)
 
-**Kapan digunakan:** Ketika pengirim tidak membutuhkan respons segera, atau ketika beberapa layanan perlu bereaksi terhadap event yang sama. Contoh: Event `StudentEnrolled` memicu Billing Service untuk membuat invoice dan Notification Service untuk mengirim email selamat datang.
+**Kapan digunakan:** Ketika pengirim tidak membutuhkan respons segera, atau ketika beberapa layanan perlu bereaksi terhadap *event* yang sama. Contoh: *Event* `StudentEnrolled` memicu Billing Service untuk membuat *invoice* dan Notification Service untuk mengirim email selamat datang.
 
-**Manfaat:** Temporal decoupling. Jika Billing Service down, event mengantre dan diproses saat pulih. Tidak ada cascading failure.
+**Manfaat:** Temporal decoupling. Jika Billing Service *down*, *event* mengantre dan diproses saat pulih. Tidak ada *cascading failure*.
 
 ```php
 <?php
@@ -572,12 +572,12 @@ class EnrollmentService
 | Kriteria | Sinkron (REST/gRPC) | Asinkron (Event) |
 |---|---|---|
 | Respons dibutuhkan segera | Ya | Tidak |
-| Temporal coupling | Tinggi (caller memblokir) | Rendah (terpisah dalam waktu) |
-| Kompleksitas | Lebih rendah (HTTP sederhana) | Lebih tinggi (broker, DLQ, ordering) |
-| Multiple consumers | Tidak (1:1) | Ya (1:N — fan-out) |
+| Temporal coupling | Tinggi (*caller* memblokir) | Rendah (terpisah dalam waktu) |
+| Kompleksitas | Lebih rendah (HTTP sederhana) | Lebih tinggi (*broker*, DLQ, *ordering*) |
+| Multiple consumers | Tidak (1:1) | Ya (1:N, *fan-out*) |
 | Library PHP yang umum | Guzzle, Symfony HttpClient | php-amqplib, Enqueue, Laravel Queues |
 
-Sebagian besar sistem dunia nyata menggunakan **hybrid**: sinkron untuk query yang membutuhkan jawaban segera, asinkron untuk side effect dan reaksi lintas layanan.
+Sebagian besar sistem dunia nyata menggunakan **hybrid**: sinkron untuk *query* yang membutuhkan jawaban segera, asinkron untuk *side effect* dan reaksi lintas layanan.
 
 </section>
 
@@ -808,7 +808,7 @@ Contract tests are lightweight — they only verify the shape of the API, not in
 
 ## Contoh PHP Minimal: Memisahkan Monolit
 
-Mari kita telusuri contoh konkret. Kita mulai dengan monolit kecil yang menangani profil mahasiswa dan enrollment course dalam satu basis kode, lalu mengekstraknya menjadi dua layanan ringan menggunakan **Slim Framework** — micro-framework PHP populer yang cocok untuk membangun microservices yang fokus.
+Mari kita telusuri contoh konkret. Kita mulai dengan monolit kecil yang menangani profil mahasiswa dan enrollment course dalam satu basis kode, lalu mengekstraknya menjadi dua layanan ringan menggunakan **Slim Framework**, sebuah *micro-framework* PHP populer yang cocok untuk membangun microservices yang fokus.
 
 ### Langkah 1: Monolit (Sebelum)
 
@@ -856,7 +856,7 @@ $app->post('/api/enrollments', function ($request, $response) use ($pdo) {
 $app->run();
 ```
 
-Masalah: satu database, satu unit deployment, perubahan pada logika enrollment berisiko merusak profil mahasiswa.
+Masalah: satu *database*, satu unit *deployment*, perubahan pada logika enrollment berisiko merusak profil mahasiswa.
 
 ### Langkah 2: Ekstrak Layanan
 
@@ -956,11 +956,11 @@ $app->post('/api/enrollments', function ($request, $response) use ($pdo, $studen
 $app->run();
 ```
 
-Setiap layanan sekarang memiliki database sendiri, unit deployment sendiri, dan berkomunikasi melalui API yang terdefinisi.
+Setiap layanan sekarang memiliki *database* sendiri, unit *deployment* sendiri, dan berkomunikasi melalui API yang terdefinisi.
 
 ### Langkah 3: Contract Test
 
-Contract test memverifikasi bahwa kontrak API antar layanan terjaga. Ketika Student Service mengubah format responsnya, tim Enrollment Service seharusnya tahu *sebelum* deployment.
+*Contract test* memverifikasi bahwa kontrak API antar layanan terjaga. Ketika Student Service mengubah format responsnya, tim Enrollment Service seharusnya tahu *sebelum deployment*.
 
 ```php
 <?php
@@ -1021,7 +1021,7 @@ class StudentServiceContractTest extends TestCase
 }
 ```
 
-Contract test bersifat ringan — mereka hanya memverifikasi bentuk API, bukan logika bisnis internal. Mereka dapat berjalan di CI tanpa mengharuskan seluruh graf microservice dideploy.
+*Contract test* bersifat ringan: mereka hanya memverifikasi bentuk API, bukan logika bisnis internal. Mereka dapat berjalan di CI tanpa mengharuskan seluruh graf microservice di-deploy.
 
 </section>
 
@@ -1118,7 +1118,7 @@ class EnrollmentController
 
 ### Mengapa Shared Database Adalah Musuh
 
-Shared database adalah alasan tunggal paling umum kegagalan adopsi microservices. Inilah mengapa:
+*Shared database* adalah alasan tunggal paling umum kegagalan adopsi microservices. Inilah mengapa:
 
 ```sql
 -- JANGAN PERNAH melakukan ini: JOIN lintas layanan dari Enrollment Service
@@ -1127,7 +1127,7 @@ FROM enrollments e
 JOIN students.student_db.students s ON e.student_id = s.id;
 ```
 
-Query ini menciptakan dependensi tak terlihat dan tanpa versi antara Enrollment Service dan *schema internal* Student Service. Jika tim Student Service mengganti nama tabel `students` atau mengubah tipe kolom, Enrollment Service rusak secara diam-diam — dan tim Student Service tidak memiliki cara untuk mengetahuinya.
+Query ini menciptakan dependensi tak terlihat dan tanpa versi antara Enrollment Service dan *schema internal* Student Service. Jika tim Student Service mengganti nama tabel `students` atau mengubah tipe kolom, Enrollment Service rusak secara diam-diam, dan tim Student Service tidak memiliki cara untuk mengetahuinya.
 
 ### Cara Menangani Query Lintas Layanan
 
@@ -1136,8 +1136,8 @@ Ada tiga pendekatan yang benar untuk mendapatkan data yang dimiliki oleh layanan
 | Pendekatan | Deskripsi | Contoh |
 |---|---|---|
 | **API Composition** | Panggil API layanan pemilik dan komposisikan hasilnya secara lokal | Enrollment Service memanggil `GET /api/students/batch` dengan array ID |
-| **Materialised View** | Subscribe ke event dari layanan pemilik dan simpan salinan read-only lokal dari data yang Anda butuhkan | Billing Service mendengarkan event `StudentUpdated` dan menyimpan `student_name` secara lokal untuk tampilan invoice |
-| **CQRS** | Pisahkan read model dari write model. Write model memiliki data; read model diisi dari event | `StudentSearchView` service subscribe ke event dari Identity dan Enrollment untuk mendukung halaman pencarian gabungan |
+| **Materialised View** | *Subscribe* ke *event* dari layanan pemilik dan simpan salinan *read-only* lokal dari data yang Anda butuhkan | Billing Service mendengarkan *event* `StudentUpdated` dan menyimpan `student_name` secara lokal untuk tampilan *invoice* |
+| **CQRS** | Pisahkan *read model* dari *write model*. *Write model* memiliki data; *read model* diisi dari *event* | `StudentSearchView` service *subscribe* ke *event* dari Identity dan Enrollment untuk mendukung halaman pencarian gabungan |
 
 ```php
 <?php
@@ -1193,7 +1193,7 @@ class EnrollmentController
 
 ### Prinsip
 
-> **Setiap layanan adalah pemilik tunggal datanya.** Layanan lain yang membutuhkan data tersebut harus meminta — melalui API, bukan melalui database.
+> **Setiap layanan adalah pemilik tunggal datanya.** Layanan lain yang membutuhkan data tersebut harus memintanya melalui API, bukan melalui *database*.
 
 </section>
 
@@ -1382,11 +1382,11 @@ Prometheus scrapes `/metrics` from each service and Grafana renders dashboards. 
 
 ## Dasar-Dasar Deployment & Observability
 
-Microservices melipatgandakan jumlah komponen yang bergerak. Yang tadinya satu aplikasi menjadi N aplikasi, masing-masing dengan deployment, konfigurasi, logging, dan monitoring sendiri. Tanpa disiplin operasional, ini menjadi tidak terkelola.
+Microservices melipatgandakan jumlah komponen yang bergerak. Yang tadinya satu aplikasi menjadi N aplikasi, masing-masing dengan *deployment*, konfigurasi, *logging*, dan *monitoring* sendiri. Tanpa disiplin operasional, ini menjadi tidak terkelola.
 
 ### Containerisation
 
-Setiap layanan seharusnya berjalan di container-nya sendiri. `Dockerfile` minimal untuk layanan PHP berbasis Slim:
+Setiap layanan seharusnya berjalan di *container*-nya sendiri. `Dockerfile` minimal untuk layanan PHP berbasis Slim:
 
 ```dockerfile
 FROM php:8.3-cli-alpine
@@ -1445,7 +1445,7 @@ services:
 
 ### Health Check
 
-Setiap layanan harus mengekspos endpoint `/health` yang melaporkan statusnya sendiri dan status dependensi kritisnya:
+Setiap layanan harus mengekspos *endpoint* `/health` yang melaporkan statusnya sendiri dan status dependensi kritisnya:
 
 ```php
 <?php
@@ -1474,11 +1474,11 @@ $app->get('/health', function ($request, $response) use ($pdo, $studentClient) {
 });
 ```
 
-Orkestrator (Docker Compose, Kubernetes) menggunakan health check untuk memutuskan apakah akan merestart container atau mengarahkan traffic ke sana.
+Orkestrator (Docker Compose, Kubernetes) menggunakan *health check* untuk memutuskan apakah akan merestart *container* atau mengarahkan *traffic* ke sana.
 
 ### Logging Terpusat
 
-Ketika sebuah request melintasi tiga layanan, Anda tidak bisa debug dengan SSH ke setiap container dan menjalankan `tail -f`. Log harus diagregasi. Di PHP, strukturlah log Anda sebagai JSON agar log aggregator dapat memparsingnya:
+Ketika sebuah *request* melintasi tiga layanan, Anda tidak bisa debug dengan SSH ke setiap *container* dan menjalankan `tail -f`. Log harus diagregasi. Di PHP, strukturlah log Anda sebagai JSON agar *log aggregator* dapat memparsingnya:
 
 ```php
 <?php
@@ -1524,7 +1524,7 @@ $logger->info('Enrollment dibuat', [
 // Output: {"timestamp":"2026-06-28T10:00:00+07:00","level":"INFO","service":"enrollment-service","message":"Enrollment dibuat","correlationId":"req-abc-123","context":{"student_id":"S123","course_id":"C456","correlation_id":"req-abc-123"}}
 ```
 
-Tools seperti **ELK Stack** (Elasticsearch, Logstash, Kibana) atau **Grafana Loki** mengonsumsi log JSON dan memungkinkan Anda mencari di semua layanan berdasarkan `correlation_id`.
+*Tools* seperti **ELK Stack** (Elasticsearch, Logstash, Kibana) atau **Grafana Loki** mengonsumsi log JSON dan memungkinkan Anda mencari di semua layanan berdasarkan `correlation_id`.
 
 ### Metrics
 
@@ -1553,7 +1553,7 @@ $app->get('/metrics', function ($request, $response) use ($registry) {
 });
 ```
 
-Prometheus mengambil data `/metrics` dari setiap layanan dan Grafana merender dashboard. Anda dapat melihat secara real time: layanan mana yang error, endpoint mana yang lambat, dan apakah sistem secara keseluruhan sehat.
+Prometheus mengambil data `/metrics` dari setiap layanan dan Grafana merender *dashboard*. Anda dapat melihat secara *real time*: layanan mana yang *error*, *endpoint* mana yang lambat, dan apakah sistem secara keseluruhan sehat.
 
 </section>
 
@@ -1589,24 +1589,24 @@ Prometheus mengambil data `/metrics` dari setiap layanan dan Grafana merender da
 
 ## Ringkasan
 
-1. **Microservices mendekomposisi monolit** menjadi layanan-layanan yang dapat dideploy secara independen dan diorganisasikan berdasarkan kapabilitas bisnis.
-2. **Jangan memulai dengan microservices.** Bangun monolit yang terstruktur dengan baik terlebih dahulu dan ekstrak layanan ketika ukuran tim, kebutuhan scaling, atau friksi deployment menuntutnya.
+1. **Microservices mendekomposisi monolit** menjadi layanan-layanan yang dapat di-deploy secara independen dan diorganisasikan berdasarkan kapabilitas bisnis.
+2. **Jangan memulai dengan microservices.** Bangun monolit yang terstruktur dengan baik terlebih dahulu dan ekstrak layanan ketika ukuran tim, kebutuhan *scaling*, atau friksi *deployment* menuntutnya.
 3. **Domain-Driven Design** menyediakan cara terstruktur untuk mengidentifikasi batas layanan. Pisahkan berdasarkan bounded context, bukan berdasarkan entitas.
-4. **Komunikasi** bisa sinkron (REST/gRPC) untuk query yang membutuhkan jawaban segera, atau asinkron (event/messaging) untuk side effect dan reaksi lintas layanan.
-5. **Setiap layanan memiliki database-nya sendiri.** Tidak ada shared database. Akses data lintas layanan terjadi melalui API composition, materialised view, atau CQRS — tidak pernah melalui JOIN antar database.
-6. **Contract test** memverifikasi bahwa kontrak API terjaga antar layanan tanpa mengharuskan seluruh sistem dideploy.
-7. **Kematangan operasional adalah prasyarat.** Container, health check, logging terpusat, dan metrics bukanlah opsional di lingkungan microservice.
+4. **Komunikasi** bisa sinkron (REST/gRPC) untuk *query* yang membutuhkan jawaban segera, atau asinkron (*event*/*messaging*) untuk *side effect* dan reaksi lintas layanan.
+5. **Setiap layanan memiliki _database_-nya sendiri.** Tidak ada *shared database*. Akses data lintas layanan terjadi melalui *API composition*, *materialised view*, atau CQRS, dan tidak pernah melalui JOIN antar *database*.
+6. **Contract test** memverifikasi bahwa kontrak API terjaga antar layanan tanpa mengharuskan seluruh sistem di-deploy.
+7. **Kematangan operasional adalah prasyarat.** *Container*, *health check*, *logging* terpusat, dan *metrics* bukanlah opsional di lingkungan microservice.
 
-> "Microservices bukanlah pilihan teknologi. Mereka adalah pilihan organisasi. Jika organisasi Anda tidak dapat menangani tim independen yang mengirim secara independen, microservices tidak akan membantu Anda." — Sam Newman
+> "Microservices bukanlah pilihan teknologi. Mereka adalah pilihan organisasi. Jika organisasi Anda tidak dapat menangani tim independen yang mengirim secara independen, microservices tidak akan membantu Anda." – Sam Newman
 
 ## Bacaan Selanjutnya
 
-- **[Building Microservices (Edisi ke-2)](https://samnewman.io/books/building_microservices_2nd_edition/)** oleh Sam Newman — Buku kanonik tentang arsitektur microservice.
-- **[Domain-Driven Design](https://www.domainlanguage.com/ddd/)** oleh Eric Evans — Teks dasar tentang DDD dan bounded context.
-- **[Monolith to Microservices](https://samnewman.io/books/monolith-to-microservices/)** oleh Sam Newman — Pola praktis untuk mengekstrak layanan dari monolit yang sudah ada.
-- **[Microservices Patterns](https://microservices.io/patterns/)** oleh Chris Richardson — Katalog pola komprehensif dengan contoh kode.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Tulis kode PHP yang mudah dipelihara sebelum mengkhawatirkan arsitektur.
-- **[Test-Driven Development dengan PHP](/blog/test-driven-development)** — Pastikan microservices Anda tetap dapat diuji sejak hari pertama.
-- **[PHP: The Right Way](https://phptherightway.com/)** — Praktik terbaik PHP, termasuk dependency injection dan HTTP client.
+- **[Building Microservices (Edisi ke-2)](https://samnewman.io/books/building_microservices_2nd_edition/)** oleh Sam Newman: buku kanonik tentang arsitektur microservice.
+- **[Domain-Driven Design](https://www.domainlanguage.com/ddd/)** oleh Eric Evans: teks dasar tentang DDD dan bounded context.
+- **[Monolith to Microservices](https://samnewman.io/books/monolith-to-microservices/)** oleh Sam Newman: pola praktis untuk mengekstrak layanan dari monolit yang sudah ada.
+- **[Microservices Patterns](https://microservices.io/patterns/)** oleh Chris Richardson: katalog pola komprehensif dengan contoh kode.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: tulis kode PHP yang mudah dipelihara sebelum mengkhawatirkan arsitektur.
+- **[Test-Driven Development dengan PHP](/blog/test-driven-development)**: pastikan microservices Anda tetap dapat diuji sejak hari pertama.
+- **[PHP: The Right Way](https://phptherightway.com/)**: praktik terbaik PHP, termasuk *dependency injection* dan HTTP *client*.
 
 </section>

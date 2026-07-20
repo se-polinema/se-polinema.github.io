@@ -62,7 +62,7 @@ Dalam TDD, urutannya adalah:
 Tulis pengujian yang gagal → Tulis kode minimal → Jalankan pengujian (semua hijau) → Refactor
 ```
 
-Perubahan kecil dalam urutan ini memiliki efek mendalam pada cara Anda mendesain perangkat lunak. Alih-alih bertanya "Kode apa yang harus saya tulis?", Anda bertanya "Perilaku apa yang saya inginkan?" — lalu Anda menulis kode yang cukup persis untuk memenuhi perilaku tersebut.
+Perubahan kecil dalam urutan ini memiliki efek mendalam pada cara Anda mendesain perangkat lunak. Alih-alih bertanya "Kode apa yang harus saya tulis?", Anda bertanya "Perilaku apa yang saya inginkan?", lalu menulis kode secukupnya untuk memenuhi perilaku tersebut.
 
 **TDD bukanlah teknik pengujian.** TDD adalah teknik desain yang kebetulan menghasilkan pengujian sebagai efek samping.
 
@@ -80,7 +80,7 @@ graph TB
 
 <figcaption class="mt-3 text-sm text-neutral-500">
   <span lang="en">Figure: The TDD cycle — Red, Green, Refactor, repeat</span>
-  <span lang="id">Gambar: Siklus TDD — Red, Green, Refactor, ulangi</span>
+  <span lang="id">Gambar: Siklus TDD, Red, Green, Refactor, ulangi</span>
 </figcaption>
 </figure>
 
@@ -133,31 +133,31 @@ After refactoring, pick the next behaviour and start the cycle again.
 
 Setiap iterasi TDD mengikuti tiga fase yang ketat. Anda mengulangi siklus ini untuk setiap bagian kecil perilaku yang Anda tambahkan.
 
-### Fase 1: RED — Tulis Pengujian yang Gagal
+### Fase 1: RED, Tulis Pengujian yang Gagal
 
 Mulailah dengan menulis **tepat satu pengujian** yang mendeskripsikan perilaku yang Anda inginkan. Jalankan. Ia harus gagal. Jika langsung berhasil, Anda sedang menguji perilaku yang sudah ada atau pengujian itu sendiri salah.
 
 Pengujian yang gagal membuktikan dua hal:
 1. Pengujian benar-benar memeriksa sesuatu yang berarti.
-2. Fitur belum ada — jadi Anda perlu membangunnya.
+2. Fitur belum ada, jadi Anda perlu membangunnya.
 
 **Aturan untuk fase RED:**
 - Tulis hanya satu pengujian dalam satu waktu.
 - Pengujian harus spesifik dan tidak ambigu.
 - Jalankan pengujian dan lihat ia gagal.
 
-### Fase 2: GREEN — Tulis Kode Minimal agar Berhasil
+### Fase 2: GREEN, Tulis Kode Minimal agar Berhasil
 
 Sekarang tulis **kode paling sederhana yang mungkin** yang membuat pengujian berhasil. Jangan memikirkan optimasi, kasus tepi, atau desain yang elegan. Satu-satunya tujuan Anda adalah mengubah pengujian dari merah menjadi hijau secepat mungkin.
 
-Batasan ini memaksa Anda untuk hanya menulis kode yang benar-benar Anda butuhkan — tidak lebih. Ini mencegah over-engineering dan menjaga basis kode Anda tetap ramping.
+Batasan ini memaksa Anda untuk hanya menulis kode yang benar-benar Anda butuhkan, tidak lebih. Ini mencegah *over-engineering* dan menjaga basis kode Anda tetap ramping.
 
 **Aturan untuk fase GREEN:**
 - Tulis kode minimum untuk membuat pengujian berhasil.
 - Jangan menambahkan fitur tambahan atau menangani kasus tepi yang tidak dicakup pengujian.
 - Jalankan *semua* pengujian untuk memastikan tidak ada yang rusak.
 
-### Fase 3: REFACTOR — Perbaiki Desain Tanpa Mengubah Perilaku
+### Fase 3: REFACTOR, Perbaiki Desain Tanpa Mengubah Perilaku
 
 Dengan semua pengujian hijau, Anda memiliki jaring pengaman. Sekarang Anda dapat memperbaiki kode: menghilangkan duplikasi, mengganti nama variabel, mengekstrak metode, menyederhanakan logika. Pengujian menjamin Anda tidak secara tidak sengaja mengubah perilaku.
 
@@ -166,7 +166,7 @@ Dengan semua pengujian hijau, Anda memiliki jaring pengaman. Sekarang Anda dapat
 - Jalankan pengujian setelah setiap perubahan kecil.
 - Jaga pengujian tetap hijau setiap saat.
 
-Setelah refactoring, pilih perilaku berikutnya dan mulai siklus lagi.
+Setelah *refactoring*, pilih perilaku berikutnya dan mulai siklus lagi.
 
 </section>
 
@@ -208,7 +208,7 @@ Anda mungkin bertanya: apakah membalik urutan benar-benar sepadan dengan usahany
 
 ### 1. Keyakinan untuk Mengubah Kode
 
-Ketika Anda memiliki sekumpulan pengujian yang cepat dan andal, Anda dapat melakukan refactor secara agresif. Ganti nama kelas, ekstrak interface, restrukturisasi modul — jika pengujian masih berhasil, perilaku tetap terjaga. Ini adalah peningkatan produktivitas terbesar yang ditawarkan TDD.
+Ketika Anda memiliki sekumpulan pengujian yang cepat dan andal, Anda dapat melakukan *refactor* secara agresif. Ganti nama kelas, ekstrak *interface*, restrukturisasi modul: jika pengujian masih berhasil, perilaku tetap terjaga. Ini adalah peningkatan produktivitas terbesar yang ditawarkan TDD.
 
 ### 2. Umpan Balik Desain Langsung
 
@@ -220,11 +220,11 @@ Setiap pengujian yang Anda tulis menjadi penjaga permanen terhadap bug yang kemb
 
 ### 4. Dokumentasi Hidup
 
-Pengujian mendeskripsikan dengan tepat bagaimana sistem seharusnya berperilaku, dalam kode yang dapat dieksekusi yang tidak bisa lepas sinkron dengan implementasi. Anggota tim baru dapat membaca suite pengujian untuk memahami apa yang dilakukan setiap komponen.
+Pengujian mendeskripsikan dengan tepat bagaimana sistem seharusnya berperilaku, dalam kode yang dapat dieksekusi dan tidak mungkin kehilangan sinkronisasi dengan implementasi. Anggota tim baru dapat membaca *suite* pengujian untuk memahami apa yang dilakukan setiap komponen.
 
 ### 5. Unit yang Lebih Kecil dan Lebih Fokus
 
-Karena TDD memaksa Anda menguji satu perilaku dalam satu waktu, secara alami TDD mendorong Anda menuju kelas dan fungsi kecil dengan tanggung jawab tunggal. Kode yang besar dan kusut sulit diuji — jadi TDD menjauhkan Anda darinya.
+Karena TDD memaksa Anda menguji satu perilaku dalam satu waktu, secara alami TDD mendorong Anda menuju kelas dan fungsi kecil dengan tanggung jawab tunggal. Kode yang besar dan kusut sulit diuji, sehingga TDD menjauhkan Anda darinya.
 
 </section>
 
@@ -559,7 +559,7 @@ project/
 
 ### Iterasi 1: Tolak kata sandi kosong
 
-**RED — Tulis pengujian yang gagal** (`tests/PasswordValidatorTest.php`)
+**RED, Tulis pengujian yang gagal** (`tests/PasswordValidatorTest.php`)
 
 ```php
 <?php
@@ -586,7 +586,7 @@ Error: Class "PasswordValidator" not found
 
 Pengujian gagal karena kelas belum ada. Itu termasuk RED.
 
-**GREEN — Tulis kode minimal** (`src/PasswordValidator.php`)
+**GREEN, Tulis kode minimal** (`src/PasswordValidator.php`)
 
 ```php
 <?php
@@ -611,9 +611,9 @@ $ vendor/bin/phpunit tests/PasswordValidatorTest.php
 OK (1 test, 1 assertion)
 ```
 
-**REFACTOR — Bersihkan**
+**REFACTOR, Bersihkan**
 
-Kode sudah sederhana. Belum ada yang perlu direfactor. Lanjutkan.
+Kode sudah sederhana. Belum ada yang perlu di-*refactor*. Lanjutkan.
 
 ### Iterasi 2: Tolak kata sandi kurang dari 8 karakter
 
@@ -627,7 +627,7 @@ public function testRejectShortPassword(): void
 }
 ```
 
-Jalankan: pengujian gagal — `Ab1` lolos karena kode kita hanya menolak string kosong.
+Jalankan: pengujian gagal, `Ab1` lolos karena kode kita hanya menolak string kosong.
 
 **GREEN**
 
@@ -657,7 +657,7 @@ public function isValid(string $password): bool
 }
 ```
 
-Jalankan pengujian: tetap hijau. Pemeriksaan string kosong secara alami tercakup oleh pemeriksaan panjang. Lebih bersih dan lebih ekspresif. Inilah kekuatan langkah refactor — kita menyederhanakan kode dan pengujian mengonfirmasi kita tidak merusak apa pun.
+Jalankan pengujian: tetap hijau. Pemeriksaan string kosong secara alami tercakup oleh pemeriksaan panjang. Lebih bersih dan lebih ekspresif. Inilah kekuatan langkah *refactor*: kita menyederhanakan kode dan pengujian mengonfirmasi kita tidak merusak apa pun.
 
 ### Iterasi 3: Wajibkan setidaknya satu huruf kapital
 
@@ -671,7 +671,7 @@ public function testRejectPasswordWithoutUppercase(): void
 }
 ```
 
-Jalankan: gagal — `abcdefgh` panjangnya 8 karakter, jadi lolos.
+Jalankan: gagal, `abcdefgh` panjangnya 8 karakter, jadi lolos.
 
 **GREEN**
 
@@ -714,7 +714,7 @@ public function testRejectPasswordWithoutDigit(): void
 }
 ```
 
-Jalankan: gagal — `Abcdefgh` memiliki huruf kapital dan cukup panjang.
+Jalankan: gagal, `Abcdefgh` memiliki huruf kapital dan cukup panjang.
 
 **GREEN**
 
@@ -729,7 +729,7 @@ public function isValid(string $password): bool
 
 Jalankan: keempat pengujian berhasil.
 
-**REFACTOR** — Tidak ada yang perlu diperbaiki. Metode sudah jelas dan ringkas.
+**REFACTOR**: Tidak ada yang perlu diperbaiki. Metode sudah jelas dan ringkas.
 
 ### Iterasi 5: Terima kata sandi yang valid
 
@@ -745,7 +745,7 @@ public function testAcceptValidPassword(): void
 }
 ```
 
-Jalankan: langsung berhasil. Ini bukan fase RED — perilaku sudah ada dari pekerjaan kita sebelumnya. Lanjutkan atau perlakukan ini sebagai pengujian dokumentasi.
+Jalankan: langsung berhasil. Ini bukan fase RED, perilaku sudah ada dari pekerjaan kita sebelumnya. Lanjutkan atau perlakukan ini sebagai pengujian dokumentasi.
 
 ### Kode Akhir
 
@@ -806,7 +806,7 @@ class PasswordValidatorTest extends TestCase
 }
 ```
 
-Jalankan seluruh suite:
+Jalankan seluruh *suite*:
 
 ```bash
 $ vendor/bin/phpunit tests/PasswordValidatorTest.php
@@ -868,19 +868,19 @@ After making a change in the GREEN phase, run *all* your tests, not just the one
 
 ### 1. Menulis Terlalu Banyak Pengujian Sekaligus
 
-Pemula sering kali bersemangat dan menulis sepuluh pengujian sebelum menjalankan satu pun. Ketika lima gagal, mereka tidak tahu baris kode produksi mana yang harus ditulis terlebih dahulu. TDD bekerja karena umpan baliknya kecil — satu pengujian, satu kegagalan, satu perubahan kode, satu bar hijau.
+Pemula sering kali bersemangat dan menulis sepuluh pengujian sebelum menjalankan satu pun. Ketika lima gagal, mereka tidak tahu baris kode produksi mana yang harus ditulis terlebih dahulu. TDD bekerja karena umpan baliknya kecil: satu pengujian, satu kegagalan, satu perubahan kode, satu *bar* hijau.
 
 **Perbaikan:** Tulis tepat satu pengujian. Jalankan. Lihat ia gagal. Lalu tulis kode.
 
 ### 2. Melewatkan Langkah Refactor
 
-Setelah tiga atau empat siklus hijau, kode Anda menumpuk duplikasi dan struktur yang canggung. Jika Anda tidak pernah melakukan refactor, desain akan menurun. Langkah refactor tidak opsional — di sinilah bagian "desain" dari Test-Driven *Development* terjadi.
+Setelah tiga atau empat siklus hijau, kode Anda menumpuk duplikasi dan struktur yang canggung. Jika Anda tidak pernah melakukan *refactor*, desain akan menurun. Langkah *refactor* tidak opsional, di sinilah bagian "desain" dari Test-Driven *Development* terjadi.
 
-**Perbaikan:** Setelah setiap hijau, tanyakan: "Bisakah saya membuat kode ini lebih sederhana tanpa mengubah perilaku?" Jika ya, lakukan refactor.
+**Perbaikan:** Setelah setiap hijau, tanyakan: "Bisakah saya membuat kode ini lebih sederhana tanpa mengubah perilaku?" Jika ya, lakukan *refactor*.
 
 ### 3. Menguji Detail Implementasi
 
-Menguji bahwa metode privat dipanggil atau bahwa array internal memiliki bentuk tertentu menciptakan pengujian yang rapuh. Ketika Anda merefactor implementasi, pengujian ini rusak meskipun perilakunya benar.
+Menguji bahwa metode privat dipanggil atau bahwa array internal memiliki bentuk tertentu menciptakan pengujian yang rapuh. Ketika Anda me-*refactor* implementasi, pengujian ini rusak meskipun perilakunya benar.
 
 **Perbaikan:** Uji *apa* yang dilakukan kode, bukan *bagaimana* ia melakukannya. Jika Anda mengubah implementasi tanpa mengubah perilaku eksternal, pengujian seharusnya tetap berhasil.
 
@@ -894,7 +894,7 @@ Jika Anda menulis pengujian dan ia berhasil tanpa menulis kode produksi apa pun,
 
 Setelah membuat perubahan di fase GREEN, jalankan *semua* pengujian Anda, bukan hanya yang sedang Anda kerjakan. Kode baru mungkin merusak sesuatu yang Anda tulis dua siklus yang lalu.
 
-**Perbaikan:** Jalankan `vendor/bin/phpunit` (tanpa menentukan file pengujian tunggal) sesering mungkin. Setiap fase green harus diakhiri dengan seluruh suite berwarna hijau.
+**Perbaikan:** Jalankan `vendor/bin/phpunit` (tanpa menentukan file pengujian tunggal) sesering mungkin. Setiap fase GREEN harus diakhiri dengan seluruh *suite* berwarna hijau.
 
 </section>
 
@@ -938,25 +938,25 @@ You do not need to apply TDD to every line of code. The best practitioners use T
 
 | Situasi | Mengapa TDD cocok |
 |---|---|
-| **Logika bisnis** | Aturan, validasi, kalkulasi — ini memiliki masukan dan keluaran yang jelas. |
+| **Logika bisnis** | Aturan, validasi, kalkulasi, ini memiliki masukan dan keluaran yang jelas. |
 | **Endpoint API** | Kontrak request/response yang terdefinisi dengan baik membuat pengujian mudah ditulis. |
-| **Transformasi data** | Mapping, filtering, formatting — fungsi murni dengan hasil yang dapat diprediksi. |
+| **Transformasi data** | *Mapping*, *filtering*, *formatting*, fungsi murni dengan hasil yang dapat diprediksi. |
 | **Perbaikan bug** | Tulis pengujian yang mereproduksi bug, lalu perbaiki. Pengujian tetap sebagai penjaga regresi. |
-| **Kode library atau package** | Antarmuka publik mendapat manfaat dari pengujian menyeluruh berbasis perilaku. |
+| **Kode *library* atau *package*** | Antarmuka publik mendapat manfaat dari pengujian menyeluruh berbasis perilaku. |
 
 ### Ketika TDD Mungkin Bukan Pilihan Terbaik
 
 | Situasi | Mengapa TDD kesulitan |
 |---|---|
-| **Tata letak dan gaya UI** | Output visual lebih baik diverifikasi oleh snapshot test atau tinjauan manual. |
-| **Kode spike atau eksplorasi** | Saat Anda belajar bagaimana sesuatu bekerja, menulis pengujian terlebih dahulu memperlambat penemuan. Tulis pengujian setelah spike. |
+| **Tata letak dan gaya UI** | Output visual lebih baik diverifikasi oleh *snapshot test* atau tinjauan manual. |
+| **Kode *spike* atau eksplorasi** | Saat Anda belajar bagaimana sesuatu bekerja, menulis pengujian terlebih dahulu memperlambat penemuan. Tulis pengujian setelah *spike*. |
 | **Prototipe sekali pakai** | Jika kode akan dibuang, investasi pengujian terbuang. |
-| **Integrasi yang sangat stateful** | Pengujian yang memerlukan pengaturan database atau jaringan yang kompleks bisa lambat dan rapuh. Pertimbangkan integration test. |
-| **Kode penghubung pihak ketiga** | Kode yang hanya memanggil library eksternal mungkin tidak mendapat manfaat dari TDD tingkat unit. |
+| **Integrasi yang sangat *stateful*** | Pengujian yang memerlukan pengaturan database atau jaringan yang kompleks bisa lambat dan rapuh. Pertimbangkan *integration test*. |
+| **Kode penghubung pihak ketiga** | Kode yang hanya memanggil *library* eksternal mungkin tidak mendapat manfaat dari TDD tingkat unit. |
 
 ### Pendekatan Pragmatis
 
-Anda tidak perlu menerapkan TDD pada setiap baris kode. Praktisi terbaik menggunakan TDD untuk bagian sistem di mana kebenaran paling penting — aturan bisnis, algoritma inti, dan API publik — dan menggunakan teknik lain untuk sisanya. Tujuannya adalah keyakinan, bukan kemurnian.
+Anda tidak perlu menerapkan TDD pada setiap baris kode. Praktisi terbaik menggunakan TDD untuk bagian sistem di mana kebenaran paling penting, yaitu aturan bisnis, algoritma inti, dan API publik, dan menggunakan teknik lain untuk sisanya. Tujuannya adalah keyakinan, bukan kemurnian.
 
 </section>
 
@@ -981,14 +981,14 @@ Anda tidak perlu menerapkan TDD pada setiap baris kode. Praktisi terbaik menggun
 
 ## Ringkasan
 
-1. **TDD adalah praktik desain** — Anda menulis pengujian yang gagal, membuatnya berhasil dengan kode minimal, lalu melakukan refactor.
+1. **TDD adalah praktik desain:** Anda menulis pengujian yang gagal, membuatnya berhasil dengan kode minimal, lalu melakukan *refactor*.
 2. **Siklusnya ketat:** RED (tulis pengujian yang gagal) → GREEN (tulis kode minimal) → REFACTOR (perbaiki desain).
 3. **TDD membawa keyakinan, umpan balik desain, keamanan regresi, dan dokumentasi hidup.**
 4. **Mulai dari yang kecil:** satu pengujian, satu perilaku, satu perubahan kode dalam satu waktu.
-5. **Hindari jebakan umum:** menulis terlalu banyak pengujian sekaligus, melewatkan refactor, menguji detail implementasi.
+5. **Hindari jebakan umum:** menulis terlalu banyak pengujian sekaligus, melewatkan *refactor*, menguji detail implementasi.
 6. **Bersikap pragmatis:** gunakan TDD di mana kebenaran paling penting. Jangan paksakan pada kode eksplorasi atau sekali pakai.
 
-> Nilai sejati TDD bukanlah pengujian yang Anda tulis — melainkan cara berpikir yang ia paksakan sebelum Anda menulis kode.
+> Nilai sejati TDD bukanlah pengujian yang Anda tulis, melainkan cara berpikir yang dipaksakannya sebelum Anda menulis kode.
 
 </section>
 
@@ -1061,7 +1061,7 @@ Sekarang giliran Anda. Terapkan siklus TDD untuk membangun kelas `GradeCalculato
 | Di bawah 60 | E |
 
 **Persyaratan:**
-- Lempar exception untuk skor di bawah 0 atau di atas 100.
+- Lempar *exception* untuk skor di bawah 0 atau di atas 100.
 - Tulis pengujian satu per satu menggunakan siklus RED → GREEN → REFACTOR.
 - Cakup batas: uji tepat di 90, 80, 70, 60, 0, dan 100.
 
@@ -1094,6 +1094,6 @@ grade(-1)  → melempar InvalidArgumentException
 grade(101) → melempar InvalidArgumentException
 ```
 
-Coba sendiri! Mulai dengan pengujian pertama, lihat ia gagal, tulis kode minimal, refactor, dan ulangi. Tujuannya bukan hanya pengujian yang berhasil — tetapi merasakan bagaimana desain muncul dari ritme TDD.
+Coba sendiri! Mulai dengan pengujian pertama, lihat ia gagal, tulis kode minimal, *refactor*, dan ulangi. Tujuannya bukan hanya pengujian yang berhasil, tetapi merasakan bagaimana desain muncul dari ritme TDD.
 
 </section>

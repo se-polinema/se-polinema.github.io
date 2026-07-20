@@ -53,7 +53,7 @@ While the Activity Diagram (Part 3) shows the business process flow, the Sequenc
 
 ## 1. Apa Itu Sequence Diagram?
 
-**Sequence Diagram** adalah diagram perilaku yang memodelkan interaksi antar objek sepanjang waktu. Diagram ini menunjukkan **siapa memanggil siapa, dalam urutan apa, dan dengan data apa**: semuanya disusun pada timeline yang dibaca dari atas ke bawah.
+**Sequence Diagram** adalah diagram perilaku yang memodelkan interaksi antar objek sepanjang waktu. Diagram ini menunjukkan **siapa memanggil siapa, dalam urutan apa, dan dengan data apa**: semuanya disusun pada *timeline* yang dibaca dari atas ke bawah.
 
 Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence Diagram menunjukkan **interaksi teknis pada level objek** yang mengimplementasikan alur tersebut. Bersama-sama, keduanya menjawab dua pertanyaan berbeda:
 
@@ -68,7 +68,7 @@ Sementara Activity Diagram (Bagian 3) menunjukkan alur proses bisnis, Sequence D
 |---|---|---|
 | **Lifeline** | Garis putus-putus vertikal dari kotak objek | Merepresentasikan masa hidup objek selama interaksi |
 | **Object** | Persegi panjang di atas lifeline | Partisipan dalam interaksi (aktor, controller, model, service, database) |
-| **Synchronous Message** | Panah solid dengan ujung terisi | Panggilan yang menunggu respons (misalnya, pemanggilan method) |
+| **Synchronous Message** | Panah *solid* dengan ujung terisi | Panggilan yang menunggu respons (misalnya, pemanggilan method) |
 | **Return Message** | Panah putus-putus dengan ujung terbuka | Respons terhadap panggilan sinkron |
 | **Activation Box** | Persegi panjang tipis pada lifeline | Menunjukkan periode ketika objek sedang melakukan operasi |
 | **Alt Fragment** | Kotak berlabel "alt" dengan pembagi putus-putus | Logika kondisional: "if/else" (hanya satu operan yang dieksekusi) |
@@ -115,10 +115,10 @@ Sequence diagrams live in technical design documents and API specifications. The
 Sequence diagram menangkap interaksi dinamis antar objek dalam skenario tertentu. Diagram ini berfokus pada **pesan terurut waktu**: pemanggilan method, HTTP request, query database, dan responsnya.
 
 ### Mengapa penting?
-- **Presisi desain.** Sequence diagram memaksa Anda menamai setiap method, parameter, dan respons penting sebelum coding. Anda tidak bisa melewatkan begitu saja "lalu sistem memproses pembayaran": Anda harus menspesifikasikan `PaymentGateway::charge($amount, $studentId, $courseId)` dan data respons yang dikembalikan.
+- **Presisi desain.** Sequence diagram memaksa Anda menamai setiap method, parameter, dan respons penting sebelum *coding*. Anda tidak bisa melewatkan begitu saja "lalu sistem memproses pembayaran": Anda harus menspesifikasikan `PaymentGateway::charge($amount, $studentId, $courseId)` dan data respons yang dikembalikan.
 - **Temukan dependensi tersembunyi.** Menggambar lifelines mengungkapkan ketika sebuah objek bergantung pada objek lain yang seharusnya tidak diketahuinya (melanggar Law of Demeter atau arsitektur berlapis).
-- **Visualisasi konkurensi.** Activation box menunjukkan operasi mana yang terjadi secara paralel dan mana yang memblokir, memudahkan untuk menemukan risiko deadlock.
-- **Code generation.** Banyak IDE dapat menghasilkan kode kerangka dari sequence diagram. Bahkan tanpa tooling, sequence diagram adalah spesifikasi tepat untuk method apa yang harus diimplementasikan.
+- **Visualisasi konkurensi.** Activation box menunjukkan operasi mana yang terjadi secara paralel dan mana yang memblokir, memudahkan untuk menemukan risiko *deadlock*.
+- **Code generation.** Banyak IDE dapat menghasilkan kode kerangka dari sequence diagram. Bahkan tanpa *tooling*, sequence diagram adalah spesifikasi tepat untuk method apa yang harus diimplementasikan.
 
 ### Kapan digunakan?
 Buat sequence diagram selama **fase desain**, setelah activity diagram dan use case scenario selesai. Ini adalah diagram perilaku terakhir sebelum implementasi.
@@ -132,7 +132,7 @@ Sequence diagram berada di dokumen desain teknis dan spesifikasi API. Diagram in
 3. Telusuri alur utama dari use case scenario, lalu konversikan setiap langkah menjadi pesan antar objek.
 4. Tambahkan activation box untuk menunjukkan kapan setiap objek sibuk.
 5. Tambahkan fragmen `alt` untuk cabang kondisional dan fragmen `loop` untuk interaksi berulang.
-6. Beri anotasi return message di mana data respons penting.
+6. Beri anotasi return message ketika data respons penting.
 
 </section>
 
@@ -178,7 +178,7 @@ Berikut adalah partisipan (lifelines) dalam skenario kita:
 
 | Partisipan | Tipe | Peran dalam Skenario Ini |
 |---|---|---|
-| **Student (Mahasiswa)** | Aktor | Memulai pendaftaran melalui browser web |
+| **Student (Mahasiswa)** | Aktor | Memulai pendaftaran melalui *browser* web |
 | **EnrolmentController** | Controller | Mengorkestrasi alur kerja pendaftaran: memvalidasi input, mengoordinasikan service, mengembalikan respons |
 | **CourseService** | Service | Logika bisnis untuk operasi terkait mata kuliah: memeriksa kuota, mengambil jadwal, menghitung biaya |
 | **EnrolmentService** | Service | Logika bisnis untuk pendaftaran: memeriksa konflik, membuat catatan pendaftaran, memperbarui jumlah |
@@ -192,7 +192,7 @@ Dalam aplikasi Laravel (Bagian 5), ini dipetakan langsung ke:
 - **CourseService** → `App\Services\CourseService`
 - **EnrolmentService** → `App\Services\EnrolmentService`
 - **PaymentGateway** → `App\Services\PaymentGateway` (atau SDK pihak ketiga seperti Midtrans)
-- **Database** → Model Eloquent yang didukung oleh MySQL/PostgreSQL
+- **Database** → model Eloquent yang didukung oleh MySQL/PostgreSQL
 
 Pemisahan `CourseService` dan `EnrolmentService` mengikuti Single Responsibility Principle: logika mata kuliah (kuota, jadwal) dan logika pendaftaran (konflik, registrasi) berubah karena alasan yang berbeda.
 
@@ -368,7 +368,7 @@ EC -> CS : getCourseDetails(course_id)
 activate CS
 CS -> DB : findCourse(course_id)
 DB --> CS : data mata kuliah
-CS --> EC : ringkasan course {nama, sks, jadwal, biaya, kuota}
+CS --> EC : ringkasan mata kuliah {nama, sks, jadwal, biaya, kuota}
 deactivate CS
 
 EC -> CS : checkQuota(course_id)
@@ -562,6 +562,6 @@ In Part 5, we will take the domain objects from this sequence diagram (`Student`
 
 Sequence diagram telah mengungkapkan method yang harus diimplementasikan oleh setiap objek, parameter yang mereka terima, dan data yang mereka kembalikan. Ini adalah bagian terakhir dari spesifikasi perilaku sebelum kita beralih ke **desain struktural**.
 
-Di Bagian 5, kita akan mengambil objek domain dari sequence diagram ini (`Student`, `Course`, `Enrolment`, `Payment`, bersama dengan entitas pendukung `Lecturer`, `Admin`, `Schedule`) lalu menambahkan class realisasi Laravel yang mengeksekusi message: controller, form request, service, gateway, dan API resource. Kemudian kita akan mengimplementasikannya sebagai kode Laravel yang familiar.
+Di Bagian 5, kita akan mengambil objek domain dari sequence diagram ini (`Student`, `Course`, `Enrolment`, `Payment`, bersama dengan entitas pendukung `Lecturer`, `Admin`, `Schedule`) lalu menambahkan class realisasi Laravel yang mengeksekusi message: controller, form request, service, gateway, dan API resource. Kemudian kita akan mengimplementasikannya sebagai kode Laravel yang familier.
 
 </section>

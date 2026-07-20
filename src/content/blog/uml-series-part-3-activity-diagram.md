@@ -49,9 +49,9 @@ Think of an activity diagram as a **flowchart on steroids**. It shares the famil
 
 ## 1. Apa Itu Activity Diagram?
 
-**Activity Diagram** adalah diagram perilaku yang memodelkan aliran kontrol dari satu aktivitas ke aktivitas lainnya. Diagram ini menangkap aspek dinamis dari sebuah sistem dengan menunjukkan urutan aksi, keputusan, dan thread paralel yang membentuk proses bisnis atau alur kerja sistem.
+**Activity Diagram** adalah diagram perilaku yang memodelkan aliran kontrol dari satu aktivitas ke aktivitas lainnya. Diagram ini menangkap aspek dinamis dari sebuah sistem dengan menunjukkan urutan aksi, keputusan, dan *thread* paralel yang membentuk proses bisnis atau alur kerja sistem.
 
-Anggaplah activity diagram sebagai **flowchart dengan kekuatan tambahan**. Diagram ini berbagi bentuk diamond (keputusan) dan persegi panjang (aksi) yang sudah dikenal dari flowchart, tetapi menambahkan konsep spesifik UML seperti **swimlanes** (untuk menunjukkan siapa yang melakukan setiap aksi), node **fork/join** (untuk menunjukkan eksekusi paralel), dan **object flow** (untuk menunjukkan data yang bergerak antar aksi).
+Anggaplah activity diagram sebagai **flowchart dengan kekuatan tambahan**. Diagram ini berbagi bentuk *diamond* (keputusan) dan persegi panjang (aksi) yang sudah dikenal dari *flowchart*, tetapi menambahkan konsep spesifik UML seperti **swimlanes** (untuk menunjukkan siapa yang melakukan setiap aksi), node **fork/join** (untuk menunjukkan eksekusi paralel), dan **object flow** (untuk menunjukkan data yang bergerak antar aksi).
 
 ### Elemen Kunci Activity Diagram
 
@@ -103,19 +103,19 @@ Activity diagrams appear in technical design documents, sprint tickets, and arch
 ## 2. Mengapa Menggunakan Activity Diagram?
 
 ### Apa itu?
-Activity diagram secara visual merepresentasikan alur kerja langkah-demi-langkah dari proses bisnis atau operasi sistem. Diagram ini menjawab pertanyaan: *"Apa yang terjadi, dalam urutan apa, dan siapa yang melakukannya?"*
+Activity diagram secara visual merepresentasikan alur kerja langkah demi langkah dari proses bisnis atau operasi sistem. Diagram ini menjawab pertanyaan: *"Apa yang terjadi, dalam urutan apa, dan siapa yang melakukannya?"*
 
 ### Mengapa penting?
-- **Kejelasan proses bisnis.** Stakeholder non-teknis dapat membaca activity diagram. Mereka memvalidasi bahwa alur kerja yang diusulkan sesuai dengan proses dunia nyata.
+- **Kejelasan proses bisnis.** *Stakeholder* nonteknis dapat membaca activity diagram. Mereka memvalidasi bahwa alur kerja yang diusulkan sesuai dengan proses dunia nyata.
 - **Mengungkap logika yang hilang.** Menggambar activity diagram memaksa Anda bertanya: *"Apa yang terjadi jika pembayaran gagal?"* atau *"Bagaimana jika mata kuliah penuh?"*: pertanyaan yang mudah terlewat dalam teks.
-- **Serah terima ke developer.** Activity diagram adalah spesifikasi yang tepat yang dapat diterjemahkan oleh developer langsung ke logika controller, middleware, dan pengecekan kondisional.
-- **Visualisasi paralelisme.** Node fork dan join mengungkapkan peluang untuk pemrosesan konkuren (misalnya, mengirim email dan memperbarui dashboard secara paralel setelah pendaftaran).
+- **Serah terima ke developer.** Activity diagram adalah spesifikasi yang tepat yang dapat diterjemahkan oleh *developer* langsung ke logika *controller*, *middleware*, dan pengecekan kondisional.
+- **Visualisasi paralelisme.** Node fork dan join mengungkapkan peluang untuk pemrosesan konkuren (misalnya, mengirim email dan memperbarui *dashboard* secara paralel setelah pendaftaran).
 
 ### Kapan digunakan?
 Buat activity diagram selama **fase analisis**, tepat setelah use case scenario ditulis. Skenario menyediakan langkah-langkah; activity diagram menyediakan aliran visual.
 
 ### Di mana tempatnya?
-Activity diagram muncul di dokumen desain teknis, tiket sprint, dan catatan keputusan arsitektur. Diagram ini sangat berguna ketika alur kerja melibatkan beberapa aktor atau komponen sistem.
+Activity diagram muncul di dokumen desain teknis, tiket *sprint*, dan catatan keputusan arsitektur. Diagram ini sangat berguna ketika alur kerja melibatkan beberapa aktor atau komponen sistem.
 
 ### Bagaimana membuatnya?
 1. Identifikasi titik awal (initial node) dan titik akhir (final node).
@@ -290,7 +290,7 @@ Follow the arrows from the Start circle. At each diamond, trace one branch based
 
 ## 4. Activity Diagram: Daftar Mata Kuliah
 
-Diagram di bawah memodelkan alur kerja pendaftaran lengkap menggunakan dua swimlane (**Mahasiswa**, lane kiri, dan **Sistem**, lane kanan) sehingga tanggung jawab setiap aksi terlihat jelas secara visual. Keputusan direpresentasikan oleh diamond, dan setiap cabang diberi label dengan guard condition dalam tanda kurung siku.
+Diagram di bawah memodelkan alur kerja pendaftaran lengkap menggunakan dua swimlane (**Mahasiswa**, *lane* kiri, dan **Sistem**, *lane* kanan) sehingga tanggung jawab setiap aksi terlihat jelas secara visual. Keputusan direpresentasikan oleh *diamond*, dan setiap cabang diberi label dengan guard condition dalam tanda kurung siku.
 
 ```plantuml
 @startuml
@@ -359,7 +359,7 @@ while (Pembayaran berhasil?) is (Tidak)
   |Mahasiswa|
   if (Coba lagi?) then (Batal)
     stop
-  else (Coba Lagi)
+  else (Coba lagi)
   endif
   |Sistem|
   :Coba lagi pembayaran via Gateway;
@@ -375,12 +375,12 @@ stop
 
 ### Membaca Diagram
 
-Ikuti panah dari lingkaran Mulai. Di setiap diamond, telusuri satu cabang berdasarkan guard condition. Diagram menunjukkan bahwa:
+Ikuti panah dari lingkaran Mulai. Di setiap *diamond*, telusuri satu cabang berdasarkan guard condition. Diagram menunjukkan bahwa:
 
 - **Tiga gerbang validasi** (otentikasi, periode pendaftaran, kuota) harus dilewati sebelum mahasiswa melihat ringkasan.
-- **Konflik jadwal** memiliki jalur pemulihan: mahasiswa dapat drop mata kuliah yang bentrok daripada meninggalkan pendaftaran sepenuhnya.
-- **Kegagalan pembayaran** menciptakan mekanisme coba-lagi (retry loop): mahasiswa dapat mencoba pembayaran beberapa kali tanpa memasukkan ulang semua data.
-- **Hanya setelah pembayaran berhasil,** sistem melakukan commit pendaftaran ke database, mengurangi kuota, dan mengirim konfirmasi. Ini adalah **batas transaksional**: tidak ada yang ditulis sampai pembayaran berhasil.
+- **Konflik jadwal** memiliki jalur pemulihan: mahasiswa dapat *drop* mata kuliah yang bentrok daripada meninggalkan pendaftaran sepenuhnya.
+- **Kegagalan pembayaran** menciptakan mekanisme coba lagi (*retry loop*): mahasiswa dapat mencoba pembayaran beberapa kali tanpa memasukkan ulang semua data.
+- **Hanya setelah pembayaran berhasil,** sistem melakukan *commit* pendaftaran ke *database*, mengurangi kuota, dan mengirim konfirmasi. Ini adalah **batas transaksional**: tidak ada yang ditulis sampai pembayaran berhasil.
 
 </section>
 
@@ -410,19 +410,19 @@ The activity diagram thus serves as a **visual checklist** for the developer: ev
 
 ## 5. Menghubungkan Titik-Titik: Activity Diagram → Kode
 
-Activity diagram secara langsung menginformasikan struktur controller dalam implementasi Laravel kita nanti (Bagian 5). Setiap decision node menjadi `if` atau pengecekan validasi; setiap action node menjadi pemanggilan method atau service invocation.
+Activity diagram secara langsung menginformasikan struktur *controller* dalam implementasi Laravel kita nanti (Bagian 5). Setiap decision node menjadi `if` atau pengecekan validasi; setiap action node menjadi pemanggilan *method* atau *service invocation*.
 
 Berikut adalah cara decision node diterjemahkan ke logika kode:
 
 | Elemen Diagram | Implementasi Laravel |
 |---|---|
-| **Apakah mahasiswa terotentikasi?** | `auth()->check()` atau middleware Laravel `auth` |
-| **Apakah periode pendaftaran terbuka?** | `$course->registration_open` dicek dalam custom validation rule atau form request |
+| **Apakah mahasiswa terotentikasi?** | `auth()->check()` atau *middleware* Laravel `auth` |
+| **Apakah periode pendaftaran terbuka?** | `$course->registration_open` dicek dalam *custom validation rule* atau *form request* |
 | **Apakah kuota tersedia?** | `$course->available_seats > 0`: dicek sebelum transaksi pendaftaran |
-| **Ada konflik jadwal?** | Query tabel `enrolments` untuk slot waktu yang tumpang tindih: `where('student_id', $studentId)->whereHas('course', fn($q) => $q->where('day', $newCourseDay)->where('time_slot', $newCourseTimeSlot))` |
-| **Pembayaran berhasil?** | Periksa respons dari integrasi payment gateway (misalnya, Midtrans, Xendit) sebelum commit transaksi DB |
+| **Ada konflik jadwal?** | *Query* tabel `enrolments` untuk slot waktu yang tumpang tindih: `where('student_id', $studentId)->whereHas('course', fn($q) => $q->where('day', $newCourseDay)->where('time_slot', $newCourseTimeSlot))` |
+| **Pembayaran berhasil?** | Periksa respons dari integrasi *payment gateway* (misalnya, Midtrans, Xendit) sebelum *commit* transaksi DB |
 
-Dengan demikian, activity diagram berfungsi sebagai **checklist visual** untuk developer: setiap diamond harus memiliki pengecekan kondisional yang sesuai dalam kode, dan setiap jalur harus memiliki test case.
+Dengan demikian, activity diagram berfungsi sebagai **checklist visual** untuk *developer*: setiap *diamond* harus memiliki pengecekan kondisional yang sesuai dalam kode, dan setiap jalur harus memiliki *test case*.
 
 </section>
 
@@ -454,7 +454,7 @@ For data-intensive workflows, you can add **object nodes** (rectangles) to show 
 ## 6. Praktik Terbaik Activity Diagram
 
 ### Jaga Swimlanes Tetap Bermakna
-Gunakan swimlanes untuk memisahkan aktor dan komponen sistem yang memiliki tanggung jawab berbeda. Hindari membuat swimlane untuk setiap subsistem kecil: dua atau tiga lane biasanya optimal. Untuk "Daftar Mata Kuliah," dua lane (Mahasiswa dan Sistem) sudah cukup.
+Gunakan swimlanes untuk memisahkan aktor dan komponen sistem yang memiliki tanggung jawab berbeda. Hindari membuat swimlane untuk setiap subsistem kecil: dua atau tiga *lane* biasanya optimal. Untuk "Daftar Mata Kuliah", dua *lane* (Mahasiswa dan Sistem) sudah cukup.
 
 ### Beri Label Guard Condition dengan Jelas
 Setiap cabang keputusan harus memiliki guard condition dalam tanda kurung siku: `[Ya]`, `[Tidak]`, `[Kuota tersedia]`, `[Pembayaran ditolak]`. Tanpa label, pembaca harus menebak arti setiap cabang.
@@ -498,10 +498,10 @@ Activity diagram menunjukkan *apa* yang terjadi dan *dalam urutan apa*. Tetapi d
 Di Bagian 4, kita akan memperbesar bagian pembayaran dan pendaftaran dari activity diagram (langkah 8–12 dari alur utama) dan menunjukkan pesan-pesan tepat yang dipertukarkan antara:
 - Mahasiswa (melalui browser)
 - `EnrolmentController`
-- Service `PaymentGateway`
-- Model `Enrolment` dan `Course`
-- Database
+- *Service* `PaymentGateway`
+- *Model* `Enrolment` dan `Course`
+- *Database*
 
-Sequence diagram mengungkapkan pemanggilan method yang tepat, nilai balik, dan durasi lifeline yang diabstraksikan oleh activity diagram.
+Sequence diagram mengungkapkan pemanggilan *method* yang tepat, nilai balik, dan durasi lifeline yang diabstraksikan oleh activity diagram.
 
 </section>

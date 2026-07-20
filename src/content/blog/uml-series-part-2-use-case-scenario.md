@@ -83,7 +83,7 @@ A complete use case scenario contains at minimum:
 ## 2. Mengapa Menulis Use Case Scenario?
 
 ### Apa itu?
-Use case scenario adalah dokumen terstruktur yang menangkap dialog antara aktor dan sistem. Ini mencakup prasyarat (apa yang harus benar sebelum use case dimulai), skenario sukses utama ("happy path"), alur alternatif (kondisi percabangan), dan pascasyarat (apa yang benar setelah use case selesai).
+Use case scenario adalah dokumen terstruktur yang menangkap dialog antara aktor dan sistem. Ini mencakup prasyarat (kondisi yang harus terpenuhi sebelum use case dimulai), skenario sukses utama ("happy path"), alur alternatif (kondisi percabangan), dan pascasyarat (kondisi yang berlaku setelah use case selesai).
 
 ### Mengapa penting?
 - **Pemahaman bersama.** Developer, tester, product owner, dan stakeholder memiliki pemahaman yang sama tentang apa yang harus dilakukan sistem sebelum siapa pun menulis kode.
@@ -101,8 +101,8 @@ Use case scenario berada di Software Requirements Specification (SRS) atau dokum
 Use case scenario yang lengkap minimal berisi:
 1. **Nama Use Case**: frasa kata kerja-benda yang cocok dengan oval di diagram
 2. **Aktor Utama**: siapa yang memulai use case
-3. **Prasyarat**: apa yang harus benar sebelum use case dimulai
-4. **Pascasyarat**: apa yang benar setelah use case selesai dengan sukses
+3. **Prasyarat**: kondisi yang harus terpenuhi sebelum use case dimulai
+4. **Pascasyarat**: kondisi yang berlaku setelah use case selesai dengan sukses
 5. **Skenario Sukses Utama**: langkah bernomor interaksi aktor-sistem
 6. **Alur Alternatif**: apa yang terjadi ketika sesuatu menyimpang dari jalur utama
 
@@ -189,12 +189,12 @@ Ini adalah jalur ideal di mana semuanya berjalan dengan benar. Setiap langkah ad
 | 3 | | Sistem memverifikasi bahwa periode pendaftaran untuk mata kuliah ini terbuka. |
 | 4 | | Sistem memeriksa bahwa mata kuliah masih memiliki kursi tersedia (kuota > 0). |
 | 5 | | Sistem memeriksa konflik jadwal: mahasiswa tidak boleh sudah terdaftar di mata kuliah lain pada slot waktu yang sama. |
-| 6 | | Sistem menghitung biaya kuliah untuk mata kuliah dan menampilkan layar ringkasan pendaftaran: nama mata kuliah, SKS, jadwal, dan jumlah biaya. |
+| 6 | | Sistem menghitung biaya untuk mata kuliah tersebut dan menampilkan layar ringkasan pendaftaran: nama mata kuliah, SKS, jadwal, dan jumlah biaya. |
 | 7 | Mahasiswa meninjau ringkasan dan mengklik **"Konfirmasi Pendaftaran."** | |
 | 8 | | Sistem memulai permintaan pembayaran ke Payment Gateway dengan jumlah biaya, ID mahasiswa, dan ID mata kuliah. |
 | 9 | | Payment Gateway memproses transaksi dan mengembalikan konfirmasi pembayaran dengan ID transaksi. |
 | 10 | | Sistem membuat catatan pendaftaran di database yang menghubungkan mahasiswa ke mata kuliah, dengan status "terdaftar" dan ID transaksi pembayaran. |
-| 11 | | Sistem mengurangi kuota mata kuliah yang tersedia sebanyak 1. |
+| 11 | | Sistem mengurangi kuota mata kuliah yang tersedia sebanyak satu. |
 | 12 | | Sistem mengirim notifikasi konfirmasi pendaftaran (email dan/atau notifikasi dalam aplikasi). |
 | 13 | | Sistem mengarahkan mahasiswa ke halaman **"Jadwal Saya,"** di mana mata kuliah yang baru didaftarkan sekarang muncul. |
 
@@ -351,7 +351,7 @@ Hindari menyebutkan elemen UI spesifik seperti "mengklik tombol biru" atau "memi
 Skenario tidak boleh menyebutkan Laravel, MySQL, atau teknologi spesifik apa pun. Keputusan tersebut diambil pada tahap desain dan implementasi (Bagian 4 dan 5 dari seri ini).
 
 ### Dapat Diuji
-Setiap respons sistem harus menjadi sesuatu yang dapat diverifikasi oleh tester. "Sistem cepat" bukanlah langkah yang dapat diuji. "Sistem merespons dalam waktu 3 detik" adalah.
+Setiap respons sistem harus menjadi sesuatu yang dapat diverifikasi oleh tester. "Sistem cepat" bukanlah langkah yang dapat diuji, sedangkan "Sistem merespons dalam waktu 3 detik" adalah langkah yang dapat diuji.
 
 ### Alur Alternatif Lengkap
 Untuk setiap kondisi `if` dalam alur utama, harus ada alur alternatif yang sesuai. Dua kategori umum:

@@ -64,7 +64,7 @@ This tutorial serves all three SE Lab research streams:
 
 ## Mengapa Secure Coding Penting untuk Proyek Mahasiswa
 
-Setiap semester, mahasiswa SE Lab membangun sistem dunia nyata—alur pembayaran fintech, portal pasien kesehatan, platform LMS EdTech, dan dashboard IoT. Sistem ini memproses **data sensitif nyata**: transaksi keuangan, catatan medis, identitas pribadi, dan kredensial akademik. Satu kerentanan di proyek-proyek ini bukanlah latihan hipotetis. Ini adalah pelanggaran yang menunggu untuk terjadi.
+Setiap semester, mahasiswa SE Lab membangun sistem dunia nyata: alur pembayaran fintech, portal pasien kesehatan, platform LMS EdTech, dan dashboard IoT. Sistem ini memproses **data sensitif nyata**: transaksi keuangan, catatan medis, identitas pribadi, dan kredensial akademik. Satu kerentanan di proyek-proyek ini bukanlah latihan hipotetis. Ini adalah pelanggaran yang menunggu untuk terjadi.
 
 Pertimbangkan konsekuensi nyata dari kerentanan umum di proyek mahasiswa:
 
@@ -73,18 +73,18 @@ Pertimbangkan konsekuensi nyata dari kerentanan umum di proyek mahasiswa:
 | SQL Injection | Seluruh database dieksfiltrasi dalam hitungan menit | Form login yang menggabungkan input pengguna ke SQL memberi penyerang semua data pengguna |
 | Broken Access Control | Satu mahasiswa melihat nilai, catatan kesehatan, atau data keuangan mahasiswa lain | `GET /records/123` mengembalikan `record/124` ketika ID diubah di URL |
 | Kegagalan Kriptografi | Password diretas dalam hitungan detik, token sesi dipalsukan | Menyimpan `MD5(password)` di tahun 2026 dapat dibalikkan dengan mudah |
-| Cross-Site Scripting (XSS) | Pembajakan sesi, pencurian kredensial | Kolom komentar yang merender HTML tidak disanitasi mencuri cookie sesi setiap penonton |
+| Cross-Site Scripting (XSS) | Pembajakan sesi, pencurian kredensial | Kolom komentar yang me-render HTML tidak disanitasi mencuri cookie sesi setiap penonton |
 | Miskonfigurasi Keamanan | Directory listing mengekspos file `.env`, halaman debug membocorkan stack trace | Membiarkan `APP_DEBUG=true` di production mengungkapkan kredensial database di halaman error |
 
-Keamanan bukanlah fitur yang Anda pasang di akhir. Ini adalah fondasi di bawah setiap lapisan aplikasi Anda. Tutorial ini memberi Anda keterampilan praktis untuk membangun fondasi itu dalam PHP dan Laravel—stack yang digunakan di seluruh mata kuliah dan proyek tesis SE Lab.
+Keamanan bukanlah fitur yang Anda pasang di akhir. Ini adalah fondasi di bawah setiap lapisan aplikasi Anda. Tutorial ini memberi Anda keterampilan praktis untuk membangun fondasi itu dalam PHP dan Laravel, stack yang digunakan di seluruh mata kuliah dan proyek tesis SE Lab.
 
 ### Koneksi dengan Riset SE Lab
 
 Tutorial ini melayani ketiga aliran riset SE Lab:
 
-- **Metodologi & Arsitektur SE** — Praktik Secure SDLC, threat modelling, keamanan-sebagai-prinsip-desain
-- **Aplikasi SE Spesifik Domain** — Ancaman spesifik domain dalam fintech (PCI-DSS), kesehatan (HIPAA), dan EdTech (kontrol terinspirasi FERPA)
-- **Teknologi Baru dalam SE** — Risiko keamanan dalam kode yang dihasilkan AI, injeksi prompt LLM, mengamankan alur kerja pengembangan berbantuan AI
+- **Metodologi & Arsitektur SE**: Praktik Secure SDLC, threat modelling, keamanan-sebagai-prinsip-desain
+- **Aplikasi SE Spesifik Domain**: Ancaman spesifik domain dalam fintech (PCI-DSS), kesehatan (HIPAA), dan EdTech (kontrol terinspirasi FERPA)
+- **Teknologi Baru dalam SE**: Risiko keamanan dalam kode yang dihasilkan AI, injeksi prompt LLM, mengamankan alur kerja pengembangan berbantuan AI
 
 ### Yang Akan Anda Pelajari
 
@@ -142,9 +142,9 @@ A vulnerability found during requirements costs one hour to fix. The same vulner
 
 ## Secure Software Development Lifecycle (SSDLC) Secara Singkat
 
-SDLC tradisional memperlakukan keamanan sebagai tahap akhir—pengujian penetrasi sebelum deploy. Ini mahal, lambat, dan tidak efektif. Kerentanan yang ditemukan pada tahap pengujian penetrasi biayanya **30× lebih mahal** untuk diperbaiki daripada yang ditemukan selama requirements atau desain.
+SDLC tradisional memperlakukan keamanan sebagai tahap akhir: pengujian penetrasi sebelum deploy. Ini mahal, lambat, dan tidak efektif. Kerentanan yang ditemukan pada tahap pengujian penetrasi biayanya **30× lebih mahal** untuk diperbaiki daripada yang ditemukan selama requirements atau desain.
 
-Secure SDLC (SSDLC) menggeser keamanan ke kiri—ke dalam setiap fase pengembangan:
+Secure SDLC (SSDLC) menggeser keamanan ke kiri, ke dalam setiap fase pengembangan:
 
 | Fase SDLC | Aktivitas Keamanan | Siapa |
 |---|---|---|
@@ -172,9 +172,9 @@ Ini bukan latihan akademis. Setiap item dalam tabel STRIDE memetakan ke risiko O
 
 ### Mengapa Shift-Left Penting
 
-Kerentanan yang ditemukan selama requirements membutuhkan satu jam untuk diperbaiki. Kerentanan yang sama ditemukan di production membutuhkan **berhari-hari** respons insiden, analisis forensik, notifikasi pelanggan, dan patching—ditambah kerusakan reputasi yang tidak dapat diukur dalam jam.
+Kerentanan yang ditemukan selama requirements membutuhkan satu jam untuk diperbaiki. Kerentanan yang sama ditemukan di production membutuhkan **berhari-hari** respons insiden, analisis forensik, notifikasi pelanggan, dan patching, ditambah kerusakan reputasi yang tidak dapat diukur dalam jam.
 
-> "Keamanan bukanlah produk. Ini adalah proses." — Bruce Schneier
+> "Keamanan bukanlah produk. Ini adalah proses." (Bruce Schneier)
 
 </section>
 
@@ -209,7 +209,7 @@ The next section provides a deep dive into each risk with vulnerable PHP code an
 
 ## Ikhtisar OWASP Top 10 (Edisi 2021)
 
-Open Web Application Security Project (OWASP) menerbitkan **Top 10 Risiko Keamanan Aplikasi Web**—referensi definitif tentang apa yang harus dilindungi. Edisi 2021 mengurutkan ulang dan mengganti nama beberapa kategori untuk mencerminkan pergeseran dalam lanskap ancaman.
+Open Web Application Security Project (OWASP) menerbitkan **Top 10 Risiko Keamanan Aplikasi Web**, referensi definitif tentang apa yang harus dilindungi. Edisi 2021 mengurutkan ulang dan mengganti nama beberapa kategori untuk mencerminkan pergeseran dalam lanskap ancaman.
 
 Berikut adalah daftar lengkap 2021, dengan setiap risiko dipetakan ke kerentanan PHP yang konkret:
 
@@ -220,7 +220,7 @@ Berikut adalah daftar lengkap 2021, dengan setiap risiko dipetakan ke kerentanan
 | **A03** | Injeksi | SQL injection, command injection, LDAP injection, XSS melalui output tidak disanitasi | Kerahasiaan, Integritas |
 | **A04** | Desain Tidak Aman | Tidak ada rate limiting, tidak ada log audit, deserialisasi tidak aman, trust-by-default | Integritas, Ketersediaan |
 | **A05** | Miskonfigurasi Keamanan | Mode debug di production, kredensial default, pesan error verbose, `.env` terekspos | Kerahasiaan |
-| **A06** | Komponen Rentan dan Usang | Laravel tidak dipatch, paket Composer ditinggalkan, versi PHP end-of-life | Semua |
+| **A06** | Komponen Rentan dan Usang | Laravel tidak di-patch, paket Composer ditinggalkan, versi PHP end-of-life | Semua |
 | **A07** | Kegagalan Identifikasi dan Autentikasi | Kebijakan password lemah, tidak ada MFA, session fixation, token reset password dapat diprediksi | Kerahasiaan |
 | **A08** | Kegagalan Integritas Perangkat Lunak dan Data | Kerancuan dependensi Composer, update tidak ditandatangani, deserialisasi data tidak terpercaya, perusakan pipeline CI/CD | Integritas |
 | **A09** | Kegagalan Pencatatan dan Pemantauan Keamanan | Tidak ada jejak audit, kegagalan autentikasi tidak tercatat, log injection, tidak ada alerting | Visibilitas |
@@ -435,7 +435,7 @@ public function viewStudentRecord(int $recordId, string $authenticatedUserId): a
 }
 ```
 
-Versi aman melakukan JOIN terhadap tabel izin. Bahkan jika catatan ada, query tidak mengembalikan apa pun kecuali pengguna terautentikasi memiliki izin eksplisit. Pesan error sengaja ambigu—jangan pernah mengonfirmasi apakah catatan ada saat menolak akses.
+Versi aman melakukan JOIN terhadap tabel izin. Bahkan jika catatan ada, query tidak mengembalikan apa pun kecuali pengguna terautentikasi memiliki izin eksplisit. Pesan error sengaja ambigu: jangan pernah mengonfirmasi apakah catatan ada saat menolak akses.
 
 ### Laravel: Policies dan Gates
 
@@ -489,7 +489,7 @@ class StudentRecordController extends Controller
 }
 ```
 
-Panggilan `$this->authorize('view', $record)` melempar `403 Forbidden` jika policy menolak akses—sebelum data apa pun dirender.
+Panggilan `$this->authorize('view', $record)` melempar `403 Forbidden` jika policy menolak akses, sebelum data apa pun di-render.
 
 ### Miskonfigurasi CORS
 
@@ -765,7 +765,7 @@ $stripeSecret = config('services.stripe.secret');
 
 **Aturan untuk secrets:**
 - Jangan pernah commit `.env` ke Git (tambahkan ke `.gitignore`)
-- Rotasi secrets jika tidak sengaja di-commit—menghapus dari history saja tidak cukup
+- Rotasi secrets jika tidak sengaja di-commit: menghapus dari history saja tidak cukup
 - Gunakan `php artisan config:cache` Laravel di production untuk mencegah pembacaan `.env` saat runtime
 
 ### Enkripsi Laravel
@@ -1077,7 +1077,7 @@ public function readReport(string $filename): string
 
 **Aturan untuk mencegah command injection:**
 - Jangan pernah meneruskan input pengguna ke `shell_exec()`, `exec()`, `system()`, atau operator backtick
-- Jika eksekusi shell tidak dapat dihindari, gunakan `escapeshellarg()` dan `escapeshellcmd()`—tapi validasi dulu
+- Jika eksekusi shell tidak dapat dihindari, gunakan `escapeshellarg()` dan `escapeshellcmd()`, tapi validasi dulu
 - Lebih suka fungsi PHP native (`file_get_contents()`, `PDO`, `curl`) daripada perintah shell
 
 ### Cross-Site Scripting (XSS)
@@ -1116,7 +1116,7 @@ Template engine Blade Laravel secara otomatis men-escape output dengan `{{ }}`:
 <div class="comment">{!! $comment !!}</div>
 ```
 
-Jika Anda harus merender HTML dari sumber tepercaya (misalnya, rich-text editor), gunakan HTML purifier:
+Jika Anda harus me-render HTML dari sumber tepercaya (misalnya, rich-text editor), gunakan HTML purifier:
 
 ```php
 use Stevebauman\Purify\Facades\Purify;
@@ -1562,12 +1562,12 @@ https://student-portal.example.com/.env
 **Pencegahan:**
 - Konfigurasikan document root server web ke `public/`, jangan pernah root proyek
 - Tambahkan `.env` ke `.gitignore`
-- Gunakan `php artisan config:cache` di production — ini membuat config yang di-cache yang tidak membaca `.env`
+- Gunakan `php artisan config:cache` di production: ini membuat config yang di-cache yang tidak membaca `.env`
 - Atur izin file restriktif: `chmod 600 .env`
 
 ### Kredensial Default
 
-**Jangan pernah** deploy dengan kredensial default. `UserFactory` dan seeder default Laravel sering membuat `admin@example.com / password`. Hapus atau ubah ini sebelum mendeploy.
+**Jangan pernah** deploy dengan kredensial default. `UserFactory` dan seeder default Laravel sering membuat `admin@example.com / password`. Hapus atau ubah ini sebelum men-deploy.
 
 ```php
 <?php
@@ -1718,7 +1718,7 @@ Review [Laravel's release notes](https://laravel.com/docs/releases) for security
 
 ## A06: Komponen Rentan dan Usang
 
-Menggunakan komponen dengan kerentanan yang diketahui adalah jalur tercepat menuju kompromi. Pelanggaran Equifax (2017)—mengekspos 147 juta catatan—disebabkan oleh kerentanan Apache Struts yang tidak dipatch dengan perbaikan tersedia selama berbulan-bulan.
+Menggunakan komponen dengan kerentanan yang diketahui adalah jalur tercepat menuju kompromi. Pelanggaran Equifax (2017), yang mengekspos 147 juta catatan, disebabkan oleh kerentanan Apache Struts yang tidak di-patch dengan perbaikan tersedia selama berbulan-bulan.
 
 ### Manajemen Versi PHP
 
@@ -2234,7 +2234,7 @@ Kerancuan dependensi terjadi ketika penyerang mempublikasikan paket dengan nama 
 
 - Selalu gunakan `https` untuk repositori Composer
 - Atur `secure-http: true` untuk memblokir unduhan tidak terenkripsi
-- Daftarkan plugin yang diizinkan secara eksplisit — tolak yang lainnya
+- Daftarkan plugin yang diizinkan secara eksplisit, tolak yang lainnya
 - Menggunakan Packagist privat (misalnya, Private Packagist, Satis) untuk paket internal mencegah tabrakan nama dengan paket publik
 
 ### Integritas File Lock Composer
@@ -2440,7 +2440,7 @@ class SecurityMonitor
 
 ## A09: Kegagalan Pencatatan dan Pemantauan Keamanan
 
-Tanpa pencatatan dan pemantauan yang memadai, pelanggaran tidak terdeteksi selama berbulan-bulan. Waktu rata-rata untuk mendeteksi pelanggaran adalah **194 hari** (IBM, 2025). Pencatatan keamanan bukan hanya tentang kepatuhan—ini adalah sistem deteksi pelanggaran Anda.
+Tanpa pencatatan dan pemantauan yang memadai, pelanggaran tidak terdeteksi selama berbulan-bulan. Waktu rata-rata untuk mendeteksi pelanggaran adalah **194 hari** (IBM, 2025). Pencatatan keamanan bukan hanya tentang kepatuhan: ini adalah sistem deteksi pelanggaran Anda.
 
 ### Yang Harus Dicatat
 
@@ -2729,7 +2729,7 @@ class SecureApiClient
 
 ## A10: Server-Side Request Forgery (SSRF)
 
-SSRF terjadi ketika penyerang menipu server untuk membuat permintaan ke lokasi yang tidak dimaksudkan—jaringan internal, layanan metadata cloud, atau sistem pihak ketiga. SSRF sangat berbahaya di lingkungan cloud di mana layanan metadata (misalnya, `http://169.254.169.254/latest/meta-data/` di AWS) mengekspos kredensial.
+SSRF terjadi ketika penyerang menipu server untuk membuat permintaan ke lokasi yang tidak dimaksudkan: jaringan internal, layanan metadata cloud, atau sistem pihak ketiga. SSRF sangat berbahaya di lingkungan cloud di mana layanan metadata (misalnya, `http://169.254.169.254/latest/meta-data/` di AWS) mengekspos kredensial.
 
 ### Pengambilan URL Rentan
 
@@ -2859,7 +2859,7 @@ class SecureApiClient
 - [ ] Jangan pernah menerima URL lengkap dari pengguna; gunakan allowlist untuk domain, skema, dan port
 - [ ] Blokir rentang IP internal (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.0/8`, `169.254.0.0/16`)
 - [ ] Hanya izinkan HTTPS; blokir HTTP, FTP, file, gopher, dan skema lainnya
-- [ ] Jangan ikuti redirect secara otomatis—validasi target redirect sebelum mengikuti
+- [ ] Jangan ikuti redirect secara otomatis: validasi target redirect sebelum mengikuti
 - [ ] Gunakan proxy atau firewall egress tingkat jaringan sebagai lapisan pertahanan kedua
 
 </section>
@@ -2978,10 +2978,10 @@ echo "<!-- Debug: " . print_r($student, true) . " -->";
 
 ### Tugas Latihan
 
-1. **Identifikasi kerentanan** — Temukan setidaknya 10 masalah keamanan yang berbeda. Klasifikasikan masing-masing berdasarkan kategori OWASP.
+1. **Identifikasi kerentanan**: Temukan setidaknya 10 masalah keamanan yang berbeda. Klasifikasikan masing-masing berdasarkan kategori OWASP.
 2. **Tulis ulang kode** menggunakan praktik PHP aman: prepared statements, output escaping, validasi input, hashing yang tepat, kontrol akses, dan tidak ada eksposur data debug.
-3. **Tambahkan lapisan keamanan** — Tambahkan perlindungan CSRF, rate limiter, dan entri log audit untuk setiap perubahan nilai.
-4. **Migrasi Laravel** — Jika ini adalah aplikasi Laravel, tulis ulang kode rentan menggunakan Eloquent, Blade, policy Gate, dan fasad `Hash`.
+3. **Tambahkan lapisan keamanan**: Tambahkan perlindungan CSRF, rate limiter, dan entri log audit untuk setiap perubahan nilai.
+4. **Migrasi Laravel**: Jika ini adalah aplikasi Laravel, tulis ulang kode rentan menggunakan Eloquent, Blade, policy Gate, dan fasad `Hash`.
 
 ### Yang Harus Dikumpulkan
 
@@ -2999,8 +2999,8 @@ Untuk setiap tugas, berikan:
 | 2 | SQL injection via `$_POST['grade']` | A03 | Baris 12 |
 | 3 | XSS via `$comment` tidak disanitasi di echo | A03 | Baris 15 |
 | 4 | XSS via `$student['name']` tidak disanitasi di echo | A03 | Baris 20 |
-| 5 | Broken Access Control — tidak ada pemeriksaan kepemilikan | A01 | Keseluruhan file |
-| 6 | Hashing lemah — MD5 pada SSN | A02 | Baris 18 |
+| 5 | Broken Access Control: tidak ada pemeriksaan kepemilikan | A01 | Keseluruhan file |
+| 6 | Hashing lemah: MD5 pada SSN | A02 | Baris 18 |
 | 7 | `config.php` terekspos dengan kredensial | A05 | Baris 3 |
 | 8 | Data debug di komentar HTML | A05 | Baris 23 |
 | 9 | Tidak ada perlindungan CSRF pada POST | A04/A01 | Baris 9 |
@@ -3089,8 +3089,8 @@ Gunakan checklist ini sebelum mengirimkan proyek SE Lab, tesis, atau tugas mata 
 
 ### Input & Output
 
-- [ ] Semua query database menggunakan prepared statements dengan parameter binding — tidak pernah interpolasi string
-- [ ] Semua data yang disediakan pengguna yang dirender dalam HTML di-escape dengan `htmlspecialchars()` atau Blade `{{ }}`
+- [ ] Semua query database menggunakan prepared statements dengan parameter binding: tidak pernah interpolasi string
+- [ ] Semua data yang disediakan pengguna yang di-render dalam HTML di-escape dengan `htmlspecialchars()` atau Blade `{{ }}`
 - [ ] Upload file memvalidasi tipe MIME, ekstensi file (allowlist), dan ukuran file sebelum penyimpanan
 - [ ] Upload file disimpan di luar webroot atau di direktori non-executable
 - [ ] Semua data yang disediakan pengguna dalam perintah shell divalidasi terhadap allowlist atau di-escape dengan `escapeshellarg()`
@@ -3107,7 +3107,7 @@ Gunakan checklist ini sebelum mengirimkan proyek SE Lab, tesis, atau tugas mata 
 ### Otorisasi
 
 - [ ] Setiap endpoint akses data memverifikasi bahwa pengguna terautentikasi memiliki atau diizinkan mengakses resource
-- [ ] Pemeriksaan peran dan izin terjadi di server — jangan pernah percaya UI sisi klien untuk menegakkan kontrol akses
+- [ ] Pemeriksaan peran dan izin terjadi di server: jangan pernah percaya UI sisi klien untuk menegakkan kontrol akses
 - [ ] Endpoint administratif berada di belakang middleware pemeriksaan peran
 - [ ] Di Laravel, gunakan policies dan gates untuk otorisasi; panggil `$this->authorize()` di setiap aksi controller
 
@@ -3116,21 +3116,21 @@ Gunakan checklist ini sebelum mengirimkan proyek SE Lab, tesis, atau tugas mata 
 - [ ] Data sensitif saat disimpan dienkripsi menggunakan AES-256 (fasad `Crypt` Laravel atau setara)
 - [ ] Informasi identitas pribadi (PII) dalam log di-hash atau dipseudonimkan
 - [ ] Backup database dienkripsi dan dibatasi aksesnya
-- [ ] Kunci API, password database, dan secrets lainnya disimpan dalam variabel environment — tidak pernah dalam kode sumber
+- [ ] Kunci API, password database, dan secrets lainnya disimpan dalam variabel environment: tidak pernah dalam kode sumber
 
 ### Konfigurasi
 
 - [ ] `APP_DEBUG` adalah `false` dan `APP_ENV` adalah `production` di production
 - [ ] `display_errors` adalah `Off`; error dicatat, tidak ditampilkan
 - [ ] Header keamanan disetel: `X-Content-Type-Options`, `X-Frame-Options`, `Strict-Transport-Security`, `Referrer-Policy`
-- [ ] Konfigurasi CORS membatasi `allowed_origins` ke domain eksplisit — tidak ada `*` dengan credentials
+- [ ] Konfigurasi CORS membatasi `allowed_origins` ke domain eksplisit: tidak ada `*` dengan credentials
 - [ ] `.env` dikecualikan dari version control dan tidak dapat diakses melalui server web
 
 ### Dependensi
 
 - [ ] Versi PHP didukung secara aktif (8.2+ per 2026)
 - [ ] `composer audit` mengembalikan nol kerentanan yang diketahui
-- [ ] Semua paket Composer dan npm dipin ke versi tepat di file lock
+- [ ] Semua paket Composer dan npm di-pin ke versi tepat di file lock
 - [ ] Dependabot atau setara dikonfigurasi untuk peringatan kerentanan otomatis
 
 ### Pencatatan & Pemantauan
@@ -3144,7 +3144,7 @@ Gunakan checklist ini sebelum mengirimkan proyek SE Lab, tesis, atau tugas mata 
 ### CI/CD & Deployment
 
 - [ ] GitHub Actions atau workflow CI/CD lainnya mem-pin actions ke SHA commit lengkap
-- [ ] Secrets diinjeksi melalui environment atau secrets manager — tidak pernah di file workflow
+- [ ] Secrets diinjeksi melalui environment atau secrets manager: tidak pernah di file workflow
 - [ ] Deployment production menggunakan `composer install --no-dev --optimize-autoloader`
 - [ ] Tes otomatis menyertakan security regression tests untuk alur kritis (auth, otorisasi, akses data)
 
@@ -3190,32 +3190,32 @@ Gunakan checklist ini sebelum mengirimkan proyek SE Lab, tesis, atau tugas mata 
 
 ## Ringkasan
 
-1. **Keamanan tidak opsional.** Setiap proyek mahasiswa yang memproses data pengguna—pembayaran fintech, catatan kesehatan, kredensial akademik—adalah target pelanggaran potensial. OWASP Top 10 adalah baseline keamanan minimum yang layak.
+1. **Keamanan tidak opsional.** Setiap proyek mahasiswa yang memproses data pengguna, seperti pembayaran fintech, catatan kesehatan, atau kredensial akademik, adalah target pelanggaran potensial. OWASP Top 10 adalah baseline keamanan minimum yang layak.
 2. **Geser ke kiri.** Perbaiki kerentanan selama requirements dan desain, bukan selama pengujian penetrasi. Perbaikan tingkat desain biayanya 30× lebih murah daripada hotfix production. Terapkan threat modelling STRIDE sebelum menulis satu baris kode pun.
-3. **A01—Broken Access Control** adalah kerentanan paling umum. Selalu verifikasi bahwa pengguna terautentikasi memiliki atau diizinkan mengakses resource yang diminta. Jangan pernah mengandalkan UI sisi klien untuk menegakkan otorisasi.
-4. **A02—Kegagalan Kriptografi** dapat dihindari dengan mudah. Gunakan `password_hash()` dengan bcrypt (cost >= 12). Jangan pernah menggunakan MD5 atau SHA1. Jangan pernah hardcode secrets—gunakan variabel environment.
-5. **A03—Injeksi** dihentikan oleh prepared statements (SQL), output escaping (XSS), dan allowlist input (command). Jika Anda hanya memperbaiki satu kategori di codebase Anda hari ini, jadikan yang ini.
-6. **A04—Desain Tidak Aman** berarti kontrol yang hilang: tidak ada rate limiting, tidak ada log audit, asumsi trust-by-default. Desain untuk zero-trust—validasi, autentikasi, dan otorisasi setiap permintaan.
-7. **A05—Miskonfigurasi Keamanan** adalah "kematian oleh seribu luka kertas." Matikan mode debug, batasi origin CORS, atur header keamanan, dan lindungi file `.env` Anda.
-8. **A06—Komponen Rentan dan Usang** adalah risiko termudah untuk diperbaiki: jalankan `composer audit` secara teratur, aktifkan Dependabot, dan tetap di versi PHP dan Laravel yang didukung.
-9. **A07—Kegagalan Autentikasi** dicegah dengan kebijakan password kuat, regenerasi sesi setelah login, cookie `HttpOnly`/`Secure`/`SameSite`, dan MFA untuk akun sensitif.
-10. **A08—Kegagalan Integritas Perangkat Lunak** berarti memverifikasi bahwa kode, dependensi, dan artifact deployment Anda tidak telah dirusak. Pin actions, verifikasi hash, tandatangani artifact.
-11. **A09—Pencatatan dan Pemantauan** adalah sistem deteksi pelanggaran Anda. Catat peristiwa autentikasi, kegagalan otorisasi, dan pola mencurigakan. Jangan pernah mencatat password mentah atau PII. Atur peringatan otomatis.
-12. **A10—SSRF** dicegah dengan allowlist URL, blok IP internal, pembatasan skema (hanya `HTTPS`), dan validasi redirect. Jangan pernah menerima URL arbitrer dari pengguna.
+3. **A01: Broken Access Control** adalah kerentanan paling umum. Selalu verifikasi bahwa pengguna terautentikasi memiliki atau diizinkan mengakses resource yang diminta. Jangan pernah mengandalkan UI sisi klien untuk menegakkan otorisasi.
+4. **A02: Kegagalan Kriptografi** dapat dihindari dengan mudah. Gunakan `password_hash()` dengan bcrypt (cost >= 12). Jangan pernah menggunakan MD5 atau SHA1. Jangan pernah hardcode secrets, gunakan variabel environment.
+5. **A03: Injeksi** dihentikan oleh prepared statements (SQL), output escaping (XSS), dan allowlist input (command). Jika Anda hanya memperbaiki satu kategori di codebase Anda hari ini, jadikan yang ini.
+6. **A04: Desain Tidak Aman** berarti kontrol yang hilang: tidak ada rate limiting, tidak ada log audit, asumsi trust-by-default. Desain untuk zero-trust: validasi, autentikasi, dan otorisasi setiap permintaan.
+7. **A05: Miskonfigurasi Keamanan** adalah "kematian oleh seribu luka kertas." Matikan mode debug, batasi origin CORS, atur header keamanan, dan lindungi file `.env` Anda.
+8. **A06: Komponen Rentan dan Usang** adalah risiko termudah untuk diperbaiki: jalankan `composer audit` secara teratur, aktifkan Dependabot, dan tetap di versi PHP dan Laravel yang didukung.
+9. **A07: Kegagalan Autentikasi** dicegah dengan kebijakan password kuat, regenerasi sesi setelah login, cookie `HttpOnly`/`Secure`/`SameSite`, dan MFA untuk akun sensitif.
+10. **A08: Kegagalan Integritas Perangkat Lunak** berarti memverifikasi bahwa kode, dependensi, dan artifact deployment Anda tidak telah dirusak. Pin actions, verifikasi hash, tandatangani artifact.
+11. **A09: Pencatatan dan Pemantauan** adalah sistem deteksi pelanggaran Anda. Catat peristiwa autentikasi, kegagalan otorisasi, dan pola mencurigakan. Jangan pernah mencatat password mentah atau PII. Atur peringatan otomatis.
+12. **A10: SSRF** dicegah dengan allowlist URL, blok IP internal, pembatasan skema (hanya `HTTPS`), dan validasi redirect. Jangan pernah menerima URL arbitrer dari pengguna.
 
-> "Dengan cukup banyak mata, semua bug dangkal—tetapi hanya jika mata-mata itu terlatih untuk mengenalinya. Setiap pengembang adalah security engineer. Kenakan tanggung jawab itu di setiap pull request."
+> "Dengan cukup banyak mata, semua bug dangkal, tetapi hanya jika mata-mata itu terlatih untuk mengenalinya. Setiap pengembang adalah security engineer. Kenakan tanggung jawab itu di setiap pull request."
 
 ## Bacaan Selanjutnya
 
-- **[Rekayasa Perangkat Lunak untuk Fintech: Alur Pembayaran Aman dengan PHP](/blog/software-engineering-for-fintech-payment-flow-php)** — Terapkan secure coding ke sistem pembayaran: kunci idempotensi, buku besar double-entry, pertimbangan PCI-DSS, dan penjaga deteksi penipuan.
-- **[Rekayasa Perangkat Lunak untuk Kesehatan: Pendaftaran Pasien dengan PHP](/blog/se-engineering-for-healthcare-patient-registration-php)** — Keamanan spesifik domain untuk sistem kesehatan: perlindungan data terinspirasi HIPAA, jejak audit, dan manajemen persetujuan.
-- **[Analisis Kualitas Kode dengan PHP](/blog/code-quality-analysis-php)** — Otomatiskan pemeriksaan keamanan dengan PHPStan, aturan keamanan PHP_CodeSniffer, dan PHPMD. Tangkap masalah injeksi dan konfigurasi sebelum code review.
-- **[Coding Berbantuan LLM dengan PHP: Dari Prompt ke Produksi](/blog/llm-assisted-coding-php)** — Pelajari risiko keamanan kode yang dihasilkan AI: prompt injection, API halusinasi, dan cara menggunakan LLM dengan aman dalam alur kerja pengembangan Anda.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Tulis kode yang aman dan mudah dipelihara. Clean code membuat kerentanan keamanan lebih mudah dikenali selama review.
-- **[Test-Driven Development dengan PHP](/blog/test-driven-development)** — Tulis security regression tests terlebih dahulu. Pastikan bahwa bug SQL injection, XSS, dan kontrol akses tidak pernah kembali.
-- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)** — Bangun strategi pengujian keamanan yang menggabungkan pengujian penetrasi (blackbox) dengan analisis statis (whitebox).
-- **[OWASP Top 10 (2021) — Dokumentasi Resmi](https://owasp.org/www-project-top-ten/)** — Referensi definitif. Tandai ini dan tinjau sebelum setiap rilis besar.
-- **[OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)** — Panduan keamanan praktis spesifik bahasa. Cheat sheet PHP dan Laravel sangat berguna.
-- **[Praktik Terbaik Keamanan Laravel](https://laravel.com/docs/security)** — Dokumentasi resmi Laravel tentang autentikasi, otorisasi, enkripsi, dan perlindungan CSRF.
+- **[Rekayasa Perangkat Lunak untuk Fintech: Alur Pembayaran Aman dengan PHP](/blog/software-engineering-for-fintech-payment-flow-php)**: Terapkan secure coding ke sistem pembayaran: kunci idempotensi, buku besar double-entry, pertimbangan PCI-DSS, dan penjaga deteksi penipuan.
+- **[Rekayasa Perangkat Lunak untuk Kesehatan: Pendaftaran Pasien dengan PHP](/blog/se-engineering-for-healthcare-patient-registration-php)**: Keamanan spesifik domain untuk sistem kesehatan: perlindungan data terinspirasi HIPAA, jejak audit, dan manajemen persetujuan.
+- **[Analisis Kualitas Kode dengan PHP](/blog/code-quality-analysis-php)**: Otomatiskan pemeriksaan keamanan dengan PHPStan, aturan keamanan PHP_CodeSniffer, dan PHPMD. Tangkap masalah injeksi dan konfigurasi sebelum code review.
+- **[Coding Berbantuan LLM dengan PHP: Dari Prompt ke Produksi](/blog/llm-assisted-coding-php)**: Pelajari risiko keamanan kode yang dihasilkan AI: prompt injection, API halusinasi, dan cara menggunakan LLM dengan aman dalam alur kerja pengembangan Anda.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Tulis kode yang aman dan mudah dipelihara. Clean code membuat kerentanan keamanan lebih mudah dikenali selama review.
+- **[Test-Driven Development dengan PHP](/blog/test-driven-development)**: Tulis security regression tests terlebih dahulu. Pastikan bahwa bug SQL injection, XSS, dan kontrol akses tidak pernah kembali.
+- **[Blackbox dan Whitebox Test](/blog/blackbox-and-whitebox-test)**: Bangun strategi pengujian keamanan yang menggabungkan pengujian penetrasi (blackbox) dengan analisis statis (whitebox).
+- **[OWASP Top 10 (2021): Dokumentasi Resmi](https://owasp.org/www-project-top-ten/)**: Referensi definitif. Tandai ini dan tinjau sebelum setiap rilis besar.
+- **[OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)**: Panduan keamanan praktis spesifik bahasa. Cheat sheet PHP dan Laravel sangat berguna.
+- **[Praktik Terbaik Keamanan Laravel](https://laravel.com/docs/security)**: Dokumentasi resmi Laravel tentang autentikasi, otorisasi, enkripsi, dan perlindungan CSRF.
 
 </section>
