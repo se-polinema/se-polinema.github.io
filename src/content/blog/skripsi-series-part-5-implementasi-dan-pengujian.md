@@ -99,7 +99,7 @@ BAB V's code is the direct object measured in BAB VI: every number reported ther
 Bab ini adalah bukti bahwa desain Anda (BAB IV) benar-benar berfungsi: setiap keputusan desain harus muncul sebagai kode yang berjalan dan teruji.
 
 ### Mengapa penting?
-- **Di sinilah evaluasi Anda menjadi data nyata.** Cyclomatic complexity, coupling, LOC, dan coverage tidak dapat diukur terhadap diagram; membutuhkan kode yang ter-compile dan dapat dijalankan, dan tool yang mengukurnya harus benar-benar dijalankan, bukan hanya disebutkan di BAB III.
+- **Di sinilah evaluasi Anda menjadi data nyata.** *Cyclomatic complexity*, *coupling*, LOC, dan *coverage* tidak dapat diukur terhadap diagram; membutuhkan kode yang ter-compile dan dapat dijalankan, dan tool yang mengukurnya harus benar-benar dijalankan, bukan hanya disebutkan di BAB III.
 - **Pengujian berkelanjutan mencegah krisis minggu ke-16.** Menjalankan test suite Anda setelah setiap fitur, bukan sekali di akhir, menangkap regresi selagi murah untuk diperbaiki.
 - **Version control adalah pelindung utama Anda, sekaligus bukti Prototyping Anda.** Karena BAB III memilih Prototyping, metodologi yang dibangun di sekitar penyempurnaan iteratif, riwayat commit Anda membuktikan bahwa loop "bangun, evaluasi, sempurnakan" benar-benar terjadi, bukan hanya bahwa versi akhir ada.
 - **Prasyarat tanpa test adalah klaim sepihak.** BAB IV menyatakan "User terautentikasi" dan membatasi `Todo` dengan `user_id`; klaim itu baru menjadi bukti nyata setelah sebuah test benar-benar mencoba melanggarnya dan mengonfirmasi bahwa itu diblokir.
@@ -111,7 +111,7 @@ Bangun secara bertahap, fitur demi fitur, segera setelah desain BAB IV selesai, 
 Kode BAB V adalah objek langsung yang diukur di BAB VI: setiap angka yang dilaporkan di sana harus tertelusur ke file, kelas, hasil eksekusi tool, atau hasil eksekusi test spesifik di sini.
 
 ### Bagaimana membuatnya?
-1. Dokumentasikan environment Anda secara presisi (agar siapa pun dapat mereproduksi pengukuran Anda).
+1. Dokumentasikan *environment* Anda secara presisi (agar siapa pun dapat mereproduksi pengukuran Anda).
 2. Implementasikan skema database, termasuk kolom apa pun yang dibutuhkan prasyarat yang dinyatakan.
 3. Bangun view.
 4. Implementasikan logika Action Pattern fitur demi fitur, commit masing-masing secara terpisah, dan simpan log singkat berisi iterasi yang bermakna, bukan setiap commit.
@@ -476,7 +476,7 @@ class TodoController extends Controller
 }
 ```
 
-Validasi, konstruksi model, dan persistensi semuanya akan berada langsung di dalam method controller ini, yang membuatnya sulit diuji secara terisolasi (unit test) tanpa menjalankan seluruh siklus HTTP request.
+Validasi, konstruksi model, dan persistensi semuanya akan berada langsung di dalam method controller ini, yang membuatnya sulit diuji secara terisolasi (*unit test*) tanpa menjalankan seluruh siklus HTTP request.
 
 ### Sekilas Perbedaan (sebelum pengukuran formal)
 
@@ -573,11 +573,11 @@ Notice these tests need no `Request`, no route, no controller: a direct conseque
 
 ### Metode
 
-Implementasi divalidasi dengan skenario Black Box (BAB IV bagian 4.4), ditambah unit test yang menargetkan kelas Action terisolasi secara langsung, termasuk test yang mengonfirmasi prasyarat autentikasi benar-benar ditegakkan, bukan hanya dinyatakan. Pengukuran metrik menggunakan tool yang disebutkan di BAB III bagian 3.5, dijalankan langsung terhadap codebase.
+Implementasi divalidasi dengan skenario Black Box (BAB IV bagian 4.4), ditambah *unit test* yang menargetkan kelas Action terisolasi secara langsung, termasuk test yang mengonfirmasi prasyarat autentikasi benar-benar ditegakkan, bukan hanya dinyatakan. Pengukuran metrik menggunakan tool yang disebutkan di BAB III bagian 3.5, dijalankan langsung terhadap codebase.
 
 ### Menjalankan Tool Pengukuran Metrik
 
-BAB III menjanjikan tool spesifik untuk metrik maintainability; di sini tool tersebut benar-benar dijalankan, bukan hanya disebutkan. Jalankan ini dari root proyek:
+BAB III menjanjikan tool spesifik untuk metrik *maintainability*; di sini tool tersebut benar-benar dijalankan, bukan hanya disebutkan. Jalankan ini dari root proyek:
 
 ```bash
 # Cyclomatic complexity dan coupling (BAB III, bagian 3.5)
@@ -603,7 +603,7 @@ Catat output mentah dari kedua perintah; angka yang dilaporkan BAB VI harus tert
 | BB-08 | Filter berdasarkan "Selesai" | Hanya todo selesai ditampilkan | Lulus |
 | BB-09 | Mencoba mengakses todo milik user lain secara langsung | Akses ditolak (403) | Lulus |
 
-### Contoh Unit Test (Action, terisolasi)
+### Contoh *Unit Test* (Action, terisolasi)
 
 ```php
 public function test_create_todo_action_creates_a_todo(): void
@@ -626,7 +626,7 @@ public function test_create_todo_action_scopes_the_todo_to_the_given_user(): voi
 }
 ```
 
-Perhatikan bahwa test ini tidak membutuhkan `Request`, rute, atau controller: konsekuensi langsung dari isolasi Action Pattern, yang persis merupakan klaim testability dari Rumusan Masalah penelitian ini. Test kedua adalah yang benar-benar memverifikasi prasyarat BAB IV; tanpanya, "User terautentikasi" dan "todo dibatasi ke pemiliknya" hanya akan menjadi klaim desain tanpa bukti pendukung, masalah klaim sepihak yang sama yang diperingatkan BAB IV bagian 2 untuk NFR.
+Perhatikan bahwa test ini tidak membutuhkan `Request`, rute, atau controller: konsekuensi langsung dari isolasi Action Pattern, yang persis merupakan klaim *testability* dari Rumusan Masalah penelitian ini. Test kedua adalah yang benar-benar memverifikasi prasyarat BAB IV; tanpanya, "User terautentikasi" dan "todo dibatasi ke pemiliknya" hanya akan menjadi klaim desain tanpa bukti pendukung, masalah klaim sepihak yang sama yang diperingatkan BAB IV bagian 2 untuk NFR.
 
 </section>
 
@@ -656,13 +656,13 @@ Perhatikan bahwa test ini tidak membutuhkan `Request`, rute, atau controller: ko
 | Kesalahan | Mengapa Salah | Pendekatan yang Benar |
 |---|---|---|
 | **Membangun ilustrasi Fat Controller sebagai aplikasi terpisah yang lengkap dan berfungsi** | Menggandakan upaya implementasi tanpa bukti tambahan; Batasan Masalah (BAB I) secara eksplisit mengecualikan ini. | Jaga ilustrasi tetap berupa cuplikan singkat yang diberi label jelas, seperti di Bagian 6. |
-| **Tidak memberi label kode mana yang diukur dan mana yang ilustratif** | Penguji yang membaca BAB V tidak dapat mengenali apa artefak penelitian yang sebenarnya. | Beri label eksplisit pada setiap blok kode, seperti dilakukan di sepanjang bab ini. |
-| **Mengimplementasikan lebih sedikit kelas atau method daripada yang dijanjikan Class Diagram** | Meninggalkan gap tak terjelaskan antara desain dan implementasi yang akan langsung diperhatikan penguji. | Cocokkan setiap kelas/method, atau nyatakan secara eksplisit mengapa satu dihilangkan (mis. `UpdateTodoAction` mengikuti bentuk `CreateTodoAction`), seperti di Bagian 6. |
+| **Tidak memberi label kode mana yang diukur dan mana yang ilustratif** | Penguji yang membaca BAB V tidak dapat mengenali artefak penelitian yang sebenarnya. | Beri label eksplisit pada setiap blok kode, seperti dilakukan di sepanjang bab ini. |
+| **Mengimplementasikan lebih sedikit kelas atau method daripada yang dijanjikan Class Diagram** | Meninggalkan kesenjangan yang tidak terjelaskan antara desain dan implementasi yang akan langsung diperhatikan penguji. | Cocokkan setiap kelas/method, atau nyatakan secara eksplisit mengapa satu dihilangkan (mis. `UpdateTodoAction` mengikuti bentuk `CreateTodoAction`), seperti di Bagian 6. |
 | **Menyebutkan tool metrik di BAB III namun tidak pernah benar-benar menjalankannya di BAB V** | Angka yang dilaporkan BAB VI menjadi klaim yang tidak dapat diverifikasi, bukan pengukuran. | Tampilkan perintah yang sesungguhnya dan catat output mentahnya, seperti di Bagian 7. |
 | **Memilih Prototyping di BAB III namun hanya mendokumentasikan versi akhir di BAB V** | Merusak metodologi yang Anda klaim ikuti; tidak ada bukti "bangun, evaluasi, sempurnakan." | Simpan Log Iterasi ringkas yang dikaitkan dengan pemicu nyata dan referensi git, seperti di Bagian 6, bukan narasi lengkap per versi. |
 | **Menyatakan prasyarat di BAB IV namun tidak pernah menulis test yang bisa membuatnya gagal** | Prasyarat tanpa test yang bisa melanggarnya adalah klaim, bukan properti sistem yang terverifikasi. | Tulis setidaknya satu skenario yang sengaja mencoba melanggar prasyarat (mis. BB-09) dan mengonfirmasi itu diblokir. |
 | **Menulis test hanya setelah semua fitur "selesai"** | Bug yang ditemukan terlambat lebih mahal diperbaiki, dan tekanan pengujian terlambat sering berarti skenario terlewat. | Uji secara berkelanjutan, sesuai rancangan BAB IV bagian 4.4, fitur demi fitur. |
-| **Melewatkan dokumentasi environment** | Tanpa versi yang persis, tidak ada yang bisa (termasuk diri Anda di masa depan) mereproduksi pengukuran Anda. | Catat versi tool yang persis di bagian 5.1; ini penting untuk kredibilitas BAB VI. |
+| **Melewatkan dokumentasi *environment*** | Tanpa versi yang persis, tidak ada yang bisa (termasuk diri Anda di masa depan) mereproduksi pengukuran Anda. | Catat versi tool yang persis di bagian 5.1; ini penting untuk kredibilitas BAB VI. |
 
 </section>
 

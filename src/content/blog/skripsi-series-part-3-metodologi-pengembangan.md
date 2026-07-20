@@ -55,7 +55,7 @@ Get this chapter wrong and everything downstream suffers: an undefined metric in
 | **3.2 Lokasi dan Waktu Penelitian** | Di mana dan kapan pekerjaan dilakukan |
 | **3.3 Metode Pengumpulan Data** | Bagaimana Anda mengumpulkan kebutuhan, materi referensi, dan data pengukuran |
 | **3.4 Metode Pengembangan Sistem** | Model SDLC mana yang Anda ikuti untuk membangun sistem |
-| **3.x Analisis** (metrik/instrumen) | Persis apa yang akan Anda ukur dan dengan tool apa |
+| **3.x Analisis** (metrik/instrumen) | Persis apa yang akan Anda ukur dan dengan *tool* apa |
 | **3.7 Pengujian** | Bagaimana kebenaran dan perbandingan akan divalidasi |
 
 Jika penulisan bab ini keliru, semua yang mengikutinya akan terdampak: metrik yang tidak terdefinisi di BAB III tidak dapat dilaporkan secara kredibel di BAB VI.
@@ -97,25 +97,25 @@ Metodologi's outputs are consumed everywhere downstream: 3.4 (development method
 ## 2. Mengapa Menulis Metodologi dengan Benar Itu Penting?
 
 ### Apa itu?
-Metodologi adalah kontrak operasional untuk proyek Anda: proses yang terdefinisi, linimasa yang terdefinisi, dan instrumen yang terdefinisi, disiplin yang sama yang diterapkan tim software sebelum sprint dimulai.
+Metodologi adalah kontrak operasional untuk proyek Anda: proses yang terdefinisi, linimasa yang terdefinisi, dan instrumen yang terdefinisi, yaitu disiplin yang sama yang diterapkan tim *software* sebelum *sprint* dimulai.
 
 ### Mengapa penting?
 - **Ini adalah faktor terpenting untuk selesai tepat waktu.** Metodologi yang diberi nama, lengkap dengan fase dan linimasa, mengubah "bangun aplikasi Todo" menjadi daftar periksa yang benar-benar bisa Anda lacak minggu demi minggu.
 - **Membuat perbandingan Anda dapat dipertahankan.** Tanpa metrik yang terdefinisi secara presisi ("cyclomatic complexity, diukur dengan PHPMD, dirata-ratakan per method"), peninjau tidak dapat menilai apakah angka BAB VI Anda berarti sesuatu.
-- **Digunakan kembali sebagai instrumen Anda, bukan hanya dideskripsikan.** Apa pun yang Anda definisikan di sini (tool, formula) harus benar-benar Anda jalankan di BAB V dan laporkan di BAB VI. Definisi yang kabur di sini menjadi pengukuran yang mustahil nanti.
+- **Digunakan kembali sebagai instrumen Anda, bukan hanya dideskripsikan.** Apa pun yang Anda definisikan di sini (*tool*, formula) harus benar-benar Anda jalankan di BAB V dan laporkan di BAB VI. Definisi yang kabur di sini menjadi pengukuran yang mustahil nanti.
 
 ### Kapan digunakan?
-Susun segera setelah teori BAB II stabil, karena metrik Anda (3.x) harus dijustifikasi secara teoretis (cyclomatic complexity valid *karena* teori di BAB II bagian 2.2.5). Tinjau ulang linimasa mingguan sepanjang semester sebagai alat pelacakan yang sesungguhnya bagi proyek Anda, bukan dokumen sekali jadi.
+Susun segera setelah teori BAB II stabil, karena metrik Anda (3.x) harus dijustifikasi secara teoretis (cyclomatic complexity valid *karena* teori di BAB II Bagian 2.2.5). Tinjau ulang linimasa mingguan sepanjang semester sebagai alat pelacakan yang sesungguhnya bagi proyek Anda, bukan dokumen sekali jadi.
 
 ### Di mana tempatnya?
-Keluaran Metodologi digunakan di berbagai bagian selanjutnya: 3.4 (metode pengembangan) membentuk bagaimana BAB IV/V diorganisasikan; 3.x (metrik) mendefinisikan persis apa yang harus dilaporkan BAB VI; 3.7 (pendekatan pengujian) mendefinisikan skenario Blackbox/UAT yang dirinci di BAB IV bagian 4.4 dan dijalankan di BAB V bagian 5.5.
+Keluaran Metodologi digunakan di berbagai bagian selanjutnya: 3.4 (metode pengembangan) membentuk bagaimana BAB IV/V diorganisasikan; 3.x (metrik) mendefinisikan persis apa yang harus dilaporkan BAB VI; 3.7 (pendekatan pengujian) mendefinisikan skenario Blackbox/UAT yang dirinci di BAB IV Bagian 4.4 dan dijalankan di BAB V Bagian 5.5.
 
 ### Bagaimana membuatnya?
 1. Gambar Alur Penelitian sebagai satu diagram yang mencakup setiap fase.
 2. Nyatakan lokasi/waktu (seringnya cukup "Laboratorium SE, Polinema, semester genap 2026").
-3. Sebutkan metode pengumpulan data Anda (studi literatur, dokumentasi tool, pengukuran langsung).
+3. Sebutkan metode pengumpulan data Anda (studi literatur, dokumentasi *tool*, pengukuran langsung).
 4. Pilih dan justifikasi metode pengembangan.
-5. Definisikan setiap metrik dengan formula/tool yang persis: tidak ada metrik tanpa prosedur pengukuran.
+5. Definisikan setiap metrik dengan formula/*tool* yang persis: tidak ada metrik tanpa prosedur pengukuran.
 6. Deskripsikan pendekatan pengujian Anda pada level metodologis (detail masuk ke BAB IV).
 
 </section>
@@ -285,11 +285,11 @@ State, at a methodological level: the implementation will be validated with **Bl
 
 ### 3.3 Metode Pengumpulan Data (Data Collection Method)
 
-Sebutkan sumber Anda yang sebenarnya: studi literatur (sumber BAB II), dokumentasi resmi framework (dokumentasi Laravel), dan (spesifik untuk proyek berbasis pengukuran) **instrumentasi langsung**: menjalankan tool static-analysis terhadap kode Anda sendiri.
+Sebutkan sumber Anda yang sebenarnya: studi literatur (sumber BAB II), dokumentasi resmi *framework* (dokumentasi Laravel), dan (spesifik untuk proyek berbasis pengukuran) **instrumentasi langsung**: menjalankan *tool static-analysis* terhadap kode Anda sendiri.
 
 ### 3.4 Metode Pengembangan Sistem (System Development Method)
 
-Penelitian ini menggunakan **Prototyping**, cocok secara alami untuk mini-skripsi solo yang time-boxed, dibangun di sekitar satu putaran analisis-desain-bangun-evaluasi. Fase Prototyping, disesuaikan untuk mahasiswa solo:
+Penelitian ini menggunakan **Prototyping**, cocok secara alami untuk mini-skripsi solo yang *time-boxed*, dibangun di sekitar satu putaran analisis-desain-pembangunan-evaluasi. Fase Prototyping, disesuaikan untuk mahasiswa solo:
 
 1. **Requirements Gathering & Analysis**: output BAB I/II langsung masuk ke sini, bersama Analisis Kebutuhan BAB IV.
 2. **Quick Design**: BAB IV: diagram UML, skema DB, wireframe UI, cukup untuk mulai membangun, disempurnakan secara iteratif dengan pembimbing Anda berperan sebagai pemangku kepentingan "pengguna".
@@ -297,24 +297,24 @@ Penelitian ini menggunakan **Prototyping**, cocok secara alami untuk mini-skrips
 4. **Evaluation**: BAB VI: pengujian Blackbox/UAT ditambah pengukuran metrik terhadap ambang batas literatur. Jika evaluasi mengungkap masalah, Prototyping memungkinkan penyempurnaan desain dan pembangunan ulang, sangat cocok untuk mini-skripsi berskala kecil, tidak seperti waterfall yang kaku.
 5. **Finalise & Document**: integrasi akhir, kesimpulan BAB VI, dan BAB VII.
 
-Karena Prototyping bersifat iteratif, Anda perlu bersiap membangun lebih dari satu versi prototipe seiring evaluasi mengungkap kesenjangan. Dokumentasikan ini dengan Log Iterasi ringkas di BAB V (bagian 5.4), bukan narasi diagram-dan-kode lengkap per versi; Bagian 5 menunjukkan persis seperti apa bentuknya.
+Karena Prototyping bersifat iteratif, Anda perlu bersiap membangun lebih dari satu versi prototipe seiring evaluasi mengungkap kesenjangan. Dokumentasikan ini dengan Log Iterasi ringkas di BAB V (Bagian 5.4), bukan narasi diagram-dan-kode lengkap per versi; Bagian 5 menunjukkan persis seperti apa bentuknya.
 
 Justifikasi pilihan Anda sendiri. Waterfall, Scrum/Agile, dan RAD sama validnya jika Anda berargumen mengapa metode itu lebih cocok dengan kendala proyek Anda (ukuran tim, linimasa, volatilitas kebutuhan).
 
 ### 3.5 Mendefinisikan Metrik (Instrumen Penelitian)
 
-Ini adalah bagian yang paling sering kurang spesifik di kebanyakan proyek. Setiap metrik membutuhkan **nama, formula/tool, dan satuan**: bukan hal kabur seperti "kami akan mengukur kualitas kode."
+Ini adalah bagian yang paling sering kurang spesifik di kebanyakan proyek. Setiap metrik membutuhkan **nama, formula/_tool_, dan satuan**: bukan hal kabur seperti "kami akan mengukur kualitas kode".
 
 | Metrik | Definisi | Tool | Satuan | Ambang Batas (literatur) |
 |---|---|---|---|---|
-| **Cyclomatic Complexity** | Jumlah jalur linear independen melalui sebuah method (McCabe) | PHPMD (ruleset `codesize`) | integer per method, dilaporkan sebagai rata-rata | ≤ 10 per method (McCabe, 1976) |
-| **Coupling** | Jumlah kelas eksternal berbeda yang secara langsung bergantung pada sebuah kelas (gaya CBO) | PHPMD (ruleset `design`) / tinjauan manual | integer per kelas, dilaporkan sebagai rata-rata | angka tunggal (single digit) sebagai rule of thumb (tidak ada sumber kanonik tunggal); temukan dan kutip sumber Anda sendiri yang dapat dipertanggungjawabkan |
-| **Lines of Code per Method** | Baris eksekutabel dalam badan sebuah method | PHPMD / hitung manual | LOC, dilaporkan sebagai rata-rata | ≈ 20 baris atau kurang (Martin, *Clean Code*, 2008) |
-| **Test Coverage** | Persentase baris eksekutabel yang dijalankan oleh test suite unit | PHPUnit dengan coverage driver Xdebug/PCOV | persentase | ≥ 80% (target umum industri) |
+| **Cyclomatic Complexity** | Jumlah jalur linear independen melalui sebuah *method* (McCabe) | PHPMD (ruleset `codesize`) | integer per *method*, dilaporkan sebagai rata-rata | ≤ 10 per *method* (McCabe, 1976) |
+| **Coupling** | Jumlah kelas eksternal berbeda yang menjadi dependensi langsung suatu kelas (gaya CBO) | PHPMD (ruleset `design`) / tinjauan manual | integer per kelas, dilaporkan sebagai rata-rata | angka tunggal (*single digit*) sebagai *rule of thumb* (tidak ada sumber kanonik tunggal); temukan dan kutip sumber Anda sendiri yang dapat dipertanggungjawabkan |
+| **Lines of Code per Method** | Baris eksekutabel dalam badan sebuah *method* | PHPMD / hitung manual | LOC, dilaporkan sebagai rata-rata | ≈ 20 baris atau kurang (Martin, *Clean Code*, 2008) |
+| **Test Coverage** | Persentase baris eksekutabel yang dijalankan oleh *unit test suite* | PHPUnit dengan *coverage driver* Xdebug/PCOV | persentase | ≥ 80% (target umum industri) |
 
 ### 3.7 Pengujian
 
-Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Box Testing** (kebenaran fungsional) dan **User Acceptance Testing** (apakah hasil akhir memenuhi ekspektasi pengguna). Tabel skenario detail masuk ke BAB IV bagian 4.4: bagian ini hanya menyatakan pendekatan dan kriteria penerimaan (mis., "seluruh skenario Blackbox harus lulus; indeks penerimaan UAT ≥ 80%").
+Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Box Testing** (kebenaran fungsional) dan **User Acceptance Testing** (apakah hasil akhir memenuhi ekspektasi pengguna). Tabel skenario detail masuk ke BAB IV Bagian 4.4: bagian ini hanya menyatakan pendekatan dan kriteria penerimaan (mis., "seluruh skenario Blackbox harus lulus; indeks penerimaan UAT ≥ 80%").
 
 </section>
 
@@ -337,7 +337,7 @@ Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Bo
 ## 5. Periksa Sendiri: Apakah Metodologi Anda Siap?
 
 1. Apakah diagram Alur Penelitian mencakup setiap fase yang benar-benar akan Anda lalui, tanpa langkah tersembunyi?
-2. Apakah setiap metrik punya nama, formula atau tool, dan satuan? Jika Anda tidak bisa menyebut "diukur bagaimana," berarti belum terdefinisi.
+2. Apakah setiap metrik punya nama, formula atau *tool*, dan satuan? Jika Anda tidak bisa menyebut "diukur bagaimana", berarti belum terdefinisi.
 3. Apakah model SDLC yang Anda pilih dijustifikasi (bukan hanya disebutkan) untuk kendala proyek *Anda*?
 4. Apakah linimasa Anda memperhitungkan siklus tinjauan/revisi dengan pembimbing, bukan hanya waktu "membangun"?
 5. Bisakah teman sekelas mereproduksi prosedur pengukuran Anda persis hanya dari bab ini?
@@ -366,11 +366,11 @@ Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Bo
 
 | Kesalahan | Mengapa Salah | Pendekatan yang Benar |
 |---|---|---|
-| **Alur Penelitian disalin dari template generik** | Diagram dengan langkah yang tidak benar-benar Anda ikuti tidak jujur dan membingungkan perencanaan Anda sendiri. | Gambar fase Anda yang sebenarnya, spesifik untuk struktur bangun-lalu-evaluasi proyek Anda. |
-| **"Kami akan mengukur kualitas kode" tanpa metrik yang disebutkan** | Tidak terukur: peninjau tidak dapat memeriksa angka BAB VI Anda terhadap apa pun. | Sebutkan setiap metrik secara eksplisit dengan formula/tool, seperti di Bagian 4. |
-| **Memilih metodologi tanpa justifikasi** | "Kami menggunakan Agile" tanpa alasan hanyalah name-drop, bukan pilihan metodologis. | Nyatakan mengapa metode yang dipilih cocok dengan ukuran tim, linimasa, dan stabilitas kebutuhan Anda. |
-| **Tidak ada linimasa, atau linimasa tanpa buffer** | Tanpa milestone mingguan, scope creep tidak terlihat sampai terlambat untuk dikoreksi. | Buat tabel mingguan dengan checkpoint tinjauan, dan tinjau ulang: ini adalah dokumen hidup. |
-| **Pendekatan pengujian hanya dideskripsikan di BAB V, tidak pernah direncanakan di BAB III** | Skenario pengujian yang dikarang setelah kode ditulis cenderung menguji apa yang kode *lakukan*, bukan apa yang *seharusnya* dilakukan. | Definisikan kriteria penerimaan di BAB III bagian 3.7 sebelum menulis kode implementasi. |
+| **Alur Penelitian disalin dari _template_ generik** | Diagram dengan langkah yang tidak benar-benar Anda ikuti tidak jujur dan membingungkan perencanaan Anda sendiri. | Gambar fase Anda yang sebenarnya, spesifik untuk struktur bangun-lalu-evaluasi proyek Anda. |
+| **"Kami akan mengukur kualitas kode" tanpa metrik yang disebutkan** | Tidak terukur: peninjau tidak dapat memeriksa angka BAB VI Anda terhadap apa pun. | Sebutkan setiap metrik secara eksplisit dengan formula/*tool*, seperti di Bagian 4. |
+| **Memilih metodologi tanpa justifikasi** | "Kami menggunakan Agile" tanpa alasan hanyalah *name-drop*, bukan pilihan metodologis. | Nyatakan mengapa metode yang dipilih cocok dengan ukuran tim, linimasa, dan stabilitas kebutuhan Anda. |
+| **Tidak ada linimasa, atau linimasa tanpa buffer** | Tanpa *milestone* mingguan, *scope creep* tidak terlihat sampai terlambat untuk dikoreksi. | Buat tabel mingguan dengan *checkpoint* tinjauan, dan tinjau ulang: ini adalah dokumen hidup. |
+| **Pendekatan pengujian hanya dideskripsikan di BAB V, tidak pernah direncanakan di BAB III** | Skenario pengujian yang dikarang setelah kode ditulis cenderung menguji apa yang kode *lakukan*, bukan apa yang *seharusnya* dilakukan. | Definisikan kriteria penerimaan di BAB III Bagian 3.7 sebelum menulis kode implementasi. |
 
 </section>
 

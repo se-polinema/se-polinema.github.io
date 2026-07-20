@@ -93,12 +93,12 @@ Landasan Teori adalah jembatan antara "apa yang sudah mapan" (literatur, teori) 
 
 ### Mengapa penting?
 - **Melindungi Anda dari menemukan ulang temuan yang sudah ada.** Jika perbandingan serupa sudah ada, penguji Anda akan bertanya mengapa penelitian Anda berbeda: Studi Literatur adalah tempat Anda menjawabnya *sebelum* ditanyakan.
-- **Menyediakan kosakata Anda.** Setiap istilah teknis yang Anda gunakan di BAB III–VI (cyclomatic complexity, coupling, Action Pattern) harus didefinisikan di sini terlebih dahulu, dengan sitasi: menggunakan istilah tanpa definisi berisiko mudah mengurangi nilai Anda di bagian selanjutnya.
-- **Di sinilah risiko plagiarisme tertinggi.** Definisi hasil copy-paste tanpa parafrase atau sitasi adalah penyebab paling umum kegagalan pemeriksaan Turnitin/plagiarisme dalam skripsi.
-- **Menjadi dasar bagi metrik Anda.** Dalam penelitian ini, *alasan* cyclomatic complexity dan coupling menjadi proksi maintainability yang valid adalah klaim teoretis (dapat ditelusuri ke metrik kompleksitas McCabe 1976 dan metrik coupling Chidamber & Kemerer), bukan sesuatu yang bisa Anda asumsikan begitu saja di BAB III.
+- **Menyediakan kosakata Anda.** Setiap istilah teknis yang Anda gunakan di BAB III–VI (*cyclomatic complexity*, *coupling*, Action Pattern) harus didefinisikan di sini terlebih dahulu, dengan sitasi: menggunakan istilah tanpa definisi adalah cara mudah kehilangan nilai di bagian selanjutnya.
+- **Di sinilah risiko plagiarisme tertinggi.** Definisi hasil *copy-paste* tanpa parafrase atau sitasi adalah penyebab paling umum kegagalan pemeriksaan Turnitin/plagiarisme dalam skripsi.
+- **Menjadi dasar bagi metrik Anda.** Dalam penelitian ini, *alasan* *cyclomatic complexity* dan *coupling* menjadi proksi *maintainability* yang valid adalah klaim teoretis (dapat ditelusuri ke metrik kompleksitas McCabe (1976) dan metrik *coupling* Chidamber & Kemerer), bukan sesuatu yang bisa Anda asumsikan begitu saja di BAB III.
 
 ### Kapan digunakan?
-Mulai pencarian Studi Literatur **sejak awal** (paralel dengan menyusun BAB I) karena apa yang Anda temukan dapat membentuk ulang Rumusan Masalah Anda. Finalisasi Dasar Teori setelah Rumusan Masalah dan Batasan Masalah Anda stabil, karena bab ini harus mencakup persis (dan hanya) konsep yang dibutuhkan ruang lingkup final Anda.
+Mulai pencarian Studi Literatur **sejak awal** (paralel dengan menyusun BAB I) karena apa yang Anda temukan dapat membentuk ulang Rumusan Masalah Anda. Finalisasikan Dasar Teori setelah Rumusan Masalah dan Batasan Masalah Anda stabil, karena bab ini harus mencakup persis (dan hanya) konsep yang dibutuhkan ruang lingkup final Anda.
 
 ### Di mana tempatnya?
 Konsep di Dasar Teori **digunakan**, bukan diulang, di setiap bab berikutnya: BAB III mengutip teori untuk menjustifikasi pilihan metrik, BAB IV mengutip teori arsitektur/desain (MVC, SOLID) untuk menjustifikasi keputusan desain, BAB VI mengutip teori yang sama untuk menginterpretasikan hasil.
@@ -107,8 +107,8 @@ Konsep di Dasar Teori **digunakan**, bukan diulang, di setiap bab berikutnya: BA
 1. Cari database akademik (Google Scholar, Garuda, Sinta, ACM/IEEE Digital Library) menggunakan kata kunci dari Rumusan Masalah Anda.
 2. Baca abstrak terlebih dahulu; simpan hanya makalah yang relevan dengan kesenjangan spesifik Anda.
 3. Isi tabel perbandingan Studi Literatur (Bagian 4 di bawah).
-4. Tulis subbab Dasar Teori: satu per konsep yang benar-benar disebut Rumusan Masalah/Batasan Masalah Anda.
-5. Kutip setiap klaim; parafrasekan, jangan pernah menyalin verbatim tanpa tanda kutip.
+4. Tulis subbab Dasar Teori: satu per konsep yang benar-benar disebutkan dalam Rumusan Masalah/Batasan Masalah Anda.
+5. Kutip setiap klaim; parafrasekan, jangan pernah menyalin *verbatim* tanpa tanda kutip.
 
 </section>
 
@@ -197,7 +197,7 @@ Susun tabel perbandingan, bukan daftar ringkasan. Setiap baris adalah satu penel
 
 Targetkan 4–6 baris: cukup untuk menunjukkan Anda mencari secara luas, cukup sedikit agar setiap baris dibahas secara bermakna (bukan hanya ditempel).
 
-**Tentang menghindari plagiarisme:** jangan pernah menyalin kalimat dari abstrak ke tabel atau prosa Anda. Baca temuannya, sisihkan sumbernya, dan tulis dengan kata-kata Anda sendiri dari ingatan, lalu verifikasi akurasinya terhadap sumber. Gunakan reference manager (Zotero atau Mendeley) sejak hari pertama agar setiap sitasi terlacak dan diformat secara konsisten; menambahkan sitasi belakangan di akhir semester adalah penyebab umum tenggat yang terlewat.
+**Tentang menghindari plagiarisme:** jangan pernah menyalin kalimat dari abstrak ke tabel atau prosa Anda. Baca temuannya, sisihkan sumbernya, dan tulis dengan kata-kata Anda sendiri dari ingatan, lalu verifikasi akurasinya terhadap sumber. Gunakan *reference manager* (Zotero atau Mendeley) sejak hari pertama agar setiap sitasi terlacak dan diformat secara konsisten; menambahkan sitasi belakangan di akhir semester adalah penyebab umum tenggat yang terlewat.
 
 ### 2.2 Dasar Teori
 
@@ -246,9 +246,9 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 
 | Peneliti & Tahun | Judul | Metode/Fokus | Hasil | Perbedaan dengan Penelitian Ini |
 |---|---|---|---|---|
-| *[cari studi 1]* | Studi tentang penerapan design pattern pada maintainability aplikasi web | Studi kasus, pengukuran cyclomatic complexity | Pattern X menurunkan kompleksitas rata-rata Y% | Penelitian ini fokus pada Action Pattern spesifik Laravel, bukan pattern umum |
-| *[cari studi 2]* | Perbandingan arsitektur MVC dan layered architecture pada testability | Eksperimen terkontrol | Layered architecture meningkatkan test coverage | Penelitian ini mengevaluasi satu implementasi Action Pattern terhadap ambang batas literatur, bukan perbandingan A/B antar gaya arsitektur |
-| *[cari studi 3]* | Evaluasi coupling pada aplikasi PHP skala kecil | Studi literatur + tooling statis | Coupling tinggi berkorelasi dengan bug density | Penelitian ini mengukur coupling sebagai proksi maintainability, bukan bug density |
+| *[cari studi 1]* | Studi tentang penerapan design pattern pada *maintainability* aplikasi web | Studi kasus, pengukuran *cyclomatic complexity* | Pattern X menurunkan kompleksitas rata-rata Y% | Penelitian ini fokus pada Action Pattern spesifik Laravel, bukan pattern umum |
+| *[cari studi 2]* | Perbandingan arsitektur MVC dan layered architecture pada *testability* | Eksperimen terkontrol | Layered architecture meningkatkan *test coverage* | Penelitian ini mengevaluasi satu implementasi Action Pattern terhadap ambang batas literatur, bukan perbandingan A/B antar gaya arsitektur |
+| *[cari studi 3]* | Evaluasi *coupling* pada aplikasi PHP skala kecil | Studi literatur + tooling statis | *Coupling* tinggi berkorelasi dengan *bug density* | Penelitian ini mengukur *coupling* sebagai proksi *maintainability*, bukan *bug density* |
 
 > Tabel ini adalah **template struktural**. Isi setiap baris `[cari studi N]` dengan makalah nyata yang Anda temukan melalui Google Scholar, Garuda, atau Sinta: jangan pernah menyerahkan baris placeholder seperti ini dalam skripsi sesungguhnya.
 
@@ -256,13 +256,13 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 
 - **2.2.1 Framework Laravel & MVC**: struktur Model-View-Controller Laravel dan di mana business logic konvensional berada.
 - **2.2.2 Single Responsibility Principle**: salah satu prinsip SOLID; sebuah kelas seharusnya punya satu alasan untuk berubah (lihat tutorial [Design Patterns with PHP](/blog/design-patterns-with-php) dan [Clean Code Principles](/blog/clean-code-principles) ini untuk pembahasan lebih dalam).
-- **2.2.3 Action Pattern**: konvensi desain yang mengekstraksi satu operasi bisnis per kelas invokable, selaras dengan SRP.
-- **2.2.4 Kualitas Perangkat Lunak (ISO/IEC 25010)**: subkarakteristik maintainability pada standar ini: Modularity, Reusability, Analysability, Modifiability, Testability.
-- **2.2.5 Cyclomatic Complexity**: metrik McCabe untuk menghitung jalur independen melalui sebuah method, sebagai proksi maintainability.
-- **2.2.6 Coupling**: derajat interdependensi antar kelas; coupling rendah secara teoretis memudahkan perubahan dan pengujian terisolasi.
+- **2.2.3 Action Pattern**: konvensi desain yang mengekstraksi satu operasi bisnis per kelas *invokable*, selaras dengan SRP.
+- **2.2.4 Kualitas Perangkat Lunak (ISO/IEC 25010)**: subkarakteristik *maintainability* pada standar ini: Modularity, Reusability, Analysability, Modifiability, Testability.
+- **2.2.5 Cyclomatic Complexity**: metrik McCabe untuk menghitung jalur independen melalui sebuah method, sebagai proksi *maintainability*.
+- **2.2.6 Coupling**: derajat interdependensi antar kelas; *coupling* rendah secara teoretis memudahkan perubahan dan pengujian terisolasi.
 - **2.2.7 Unit Testing & Testability**: apa yang membuat kode mudah atau sulit diuji secara unit secara terisolasi.
 - **2.2.8 Black Box Testing dan UAT**: teori pengujian fungsional, digunakan nanti di BAB IV/V untuk memvalidasi implementasi berperilaku benar bagi pengguna akhir.
-- **2.2.9 Ambang Batas Metrik Kode**: nilai acuan mapan yang digunakan untuk menilai apakah metrik terukur dapat diterima: panduan cyclomatic complexity McCabe (1976) (≤10 per method), panduan *Clean Code* Robert C. Martin (2008) tentang method yang singkat (~20 baris), dan target test coverage industri yang umum dikutip (~80%). Coupling tidak memiliki satu ambang batas kanonik tunggal dalam literatur; skripsi sesungguhnya harus menemukan dan mengutip sumbernya sendiri yang dapat dipertanggungjawabkan untuk metrik ini.
+- **2.2.9 Ambang Batas Metrik Kode**: nilai acuan mapan yang digunakan untuk menilai apakah metrik terukur dapat diterima: panduan *cyclomatic complexity* McCabe (1976) (≤10 per method), panduan *Clean Code* Robert C. Martin (2008) tentang method yang singkat (~20 baris), dan target *test coverage* industri yang umum dikutip (~80%). *Coupling* tidak memiliki satu ambang batas kanonik tunggal dalam literatur; skripsi sesungguhnya harus menemukan dan mengutip sumbernya sendiri yang dapat dipertanggungjawabkan untuk metrik ini.
 
 </section>
 
@@ -314,11 +314,11 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 
 | Kesalahan | Mengapa Salah | Pendekatan yang Benar |
 |---|---|---|
-| **Dasar Teori terasa seperti tumpukan Wikipedia** | Menyalin definisi secara verbatim (bahkan dengan sitasi) menunjukkan Anda menemukan sumbernya, bukan memahaminya. | Parafrasekan setiap definisi dengan kata-kata Anda sendiri; kutip hanya ketika kata-kata persis itu penting. |
+| **Dasar Teori terasa seperti tumpukan Wikipedia** | Menyalin definisi secara *verbatim* (bahkan dengan sitasi) menunjukkan Anda menemukan sumbernya, bukan memahaminya. | Parafrasekan setiap definisi dengan kata-kata Anda sendiri; kutip hanya ketika kata-kata persis itu penting. |
 | **Studi Literatur berupa daftar, bukan tabel** | Daftar memungkinkan Anda melewatkan pernyataan kesenjangan untuk setiap studi: kolom terakhir pada tabel memaksanya. | Selalu gunakan format tabel perbandingan dengan kolom "Perbedaan" yang eksplisit. |
 | **Mengutip blog dan website tidak terverifikasi sebagai sumber utama** | Sumber yang lemah merusak kredibilitas seluruh argumen Anda. | Utamakan paper peer-review, buku teks, dan dokumentasi resmi; gunakan blog hanya untuk detail implementasi, jangan pernah untuk klaim teoretis. |
-| **Bagian teori tanpa sitasi sama sekali** | Klaim tanpa sitasi, secara definisi, tidak dapat diverifikasi, dan terlihat seperti dikarang untuk skripsi. | Setiap definisi dan setiap klaim fakta membutuhkan sitasi. |
-| **Menulis Dasar Teori untuk konsep yang tidak digunakan proyek Anda** | Penambahan yang tidak perlu membuang waktu pembaca dan menandakan Anda tidak tahu ruang lingkup Anda sendiri. | Gunakan pemeriksaan traceability di Bagian 3: hapus apa pun yang tidak terpetakan ke kata kunci Rumusan Masalah. |
+| **Bagian teori tanpa sitasi sama sekali** | Klaim tanpa sitasi, menurut definisinya, tidak dapat diverifikasi dan terlihat seperti dikarang untuk skripsi. | Setiap definisi dan setiap klaim fakta membutuhkan sitasi. |
+| **Menulis Dasar Teori untuk konsep yang tidak digunakan oleh proyek Anda** | Penambahan yang tidak perlu membuang waktu pembaca dan menandakan Anda tidak tahu ruang lingkup Anda sendiri. | Gunakan pemeriksaan *traceability* di Bagian 3: hapus apa pun yang tidak terpetakan ke kata kunci Rumusan Masalah. |
 
 </section>
 
@@ -336,6 +336,6 @@ With BAB I giving us a scoped question and BAB II grounding it in theory, we are
 
 ## 8. Apa yang Akan Datang Selanjutnya?
 
-Dengan BAB I memberikan pertanyaan yang terlingkup dan BAB II mendasarinya pada teori, langkah berikutnya adalah merancang *bagaimana* pertanyaan itu akan benar-benar dijawab. Bagian 3 membahas **BAB III (Metodologi Pengembangan)**: memilih metode pengembangan (penelitian ini menggunakan Prototyping), menggambar Alur Penelitian, dan mendefinisikan secara presisi metrik dan instrumen yang digunakan untuk mengukur maintainability dan testability.
+Dengan BAB I memberikan pertanyaan yang terlingkup dan BAB II mendasarinya pada teori, langkah berikutnya adalah merancang *bagaimana* pertanyaan itu akan benar-benar dijawab. Bagian 3 membahas **BAB III (Metodologi Pengembangan)**: memilih metode pengembangan (penelitian ini menggunakan Prototyping), menggambar Alur Penelitian, dan mendefinisikan secara presisi metrik dan instrumen yang digunakan untuk mengukur *maintainability* dan *testability*.
 
 </section>

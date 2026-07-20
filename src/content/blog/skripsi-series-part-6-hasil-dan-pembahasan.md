@@ -96,7 +96,7 @@ Bab ini menuntaskan apa yang dibuka di BAB I: setiap pertanyaan Rumusan Masalah 
 
 ### Mengapa penting?
 - **Dinilai terhadap BAB I, bukan secara terisolasi.** Penguji membaca Rumusan Masalah, lalu langsung membuka BAB VI untuk memeriksa apakah setiap pertanyaan benar-benar terjawab. Tabel "Hasil" tanpa paragraf "Pembahasan" yang cocok otomatis menjadi kekurangan.
-- **Angka mentah saja bukan kontribusi.** "Cyclomatic complexity terukur 2,4" adalah fakta; menjelaskan *mengapa* Action Pattern menghasilkan nilai rendah itu (kelas bertujuan tunggal, bukan satu kelas menangani lima concern) adalah analisis sesungguhnya.
+- **Angka mentah saja bukan kontribusi.** "Cyclomatic complexity terukur 2,4" adalah fakta; menjelaskan *mengapa* Action Pattern menghasilkan nilai rendah itu (kelas bertujuan tunggal, bukan satu kelas menangani lima *concern*) adalah analisis sesungguhnya.
 - **Di sinilah Anda menunjukkan kejujuran ilmiah.** Melaporkan hanya angka yang menguntungkan, atau menyembunyikan bagian yang menunjukkan hipotesis Anda *tidak* terdukung, merusak kredibilitas. Pembahasan Threats to Validity diwajibkan, bukan opsional, terutama karena studi ini tidak memiliki kelompok pembanding yang dibangun.
 
 ### Kapan digunakan?
@@ -223,18 +223,18 @@ Penelitian ini membangun aplikasi Todo satu kali, menggunakan Action Pattern, me
 
 ## 6. Pembahasan
 
-### Menjawab Rumusan Masalah 1: Apakah penerapan Action Pattern dapat meningkatkan maintainability pada aplikasi Todo List berbasis Laravel?
+### Menjawab Rumusan Masalah 1: Apakah penerapan Action Pattern dapat meningkatkan *maintainability* pada aplikasi Todo List berbasis Laravel?
 
-Ketiga metrik maintainability memenuhi ambang batas yang ditetapkan di BAB III bagian 3.5 dengan mudah. Ini konsisten dengan teori Single Responsibility Principle dari BAB II bagian 2.2.2: memusatkan validasi, konstruksi model, dan persistensi di dalam satu method controller, persis yang dilakukan alternatif Fat Controller konseptual (BAB II, BAB IV): menurut literatur, hal itu meningkatkan percabangan method (kompleksitas) dan jumlah kolaborator langsungnya (coupling). Mendistribusikan concern tersebut ke lima kelas Action bertujuan tunggal menjaga setiap nilai terukur tetap jauh di bawah batas yang ditetapkan, mendukung klaim bahwa Action Pattern meningkatkan maintainability relatif terhadap pendekatan konvensional yang terdokumentasi di BAB I dan BAB II. Dukungan ini relatif terhadap baseline yang *terdokumentasi*, bukan yang diukur langsung; lihat Threats to Validity di bawah.
+Ketiga metrik *maintainability* memenuhi ambang batas yang ditetapkan di BAB III bagian 3.5 dengan mudah. Ini konsisten dengan teori Single Responsibility Principle dari BAB II bagian 2.2.2: memusatkan validasi, konstruksi model, dan persistensi di dalam satu method controller, persis yang dilakukan alternatif Fat Controller konseptual (BAB II, BAB IV): menurut literatur, hal itu meningkatkan percabangan method (kompleksitas) dan jumlah kolaborator langsungnya (*coupling*). Mendistribusikan *concern* tersebut ke lima kelas Action bertujuan tunggal menjaga setiap nilai terukur tetap jauh di bawah batas yang ditetapkan, mendukung klaim bahwa Action Pattern meningkatkan *maintainability* relatif terhadap pendekatan konvensional yang terdokumentasi di BAB I dan BAB II. Dukungan ini relatif terhadap baseline yang *terdokumentasi*, bukan yang diukur langsung; lihat Threats to Validity di bawah.
 
-### Menjawab Rumusan Masalah 2: Apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (testability) pada aplikasi Todo List berbasis Laravel?
+### Menjawab Rumusan Masalah 2: Apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (*testability*) pada aplikasi Todo List berbasis Laravel?
 
-Cakupan uji unit sebesar 94% melampaui target industri 80%. Penjelasannya bersifat struktural, bukan insidental: setiap kelas Action dapat diinstansiasi dan dipanggil langsung (lihat unit test di BAB V bagian 5.4) tanpa HTTP request, routing, atau middleware yang terlibat, sedangkan logika alternatif Fat Controller konseptual hanya dapat dijalankan secara tidak langsung melalui siklus request penuh (BAB II, BAB IV). Ini mendukung klaim bahwa Action Pattern memudahkan pengujian unit secara terisolasi relatif terhadap pendekatan konvensional.
+Cakupan uji unit sebesar 94% melampaui target industri 80%. Penjelasannya bersifat struktural, bukan insidental: setiap kelas Action dapat diinstansiasi dan dipanggil langsung (lihat unit test di BAB V bagian 5.4) tanpa keterlibatan HTTP request, routing, atau middleware, sedangkan logika alternatif Fat Controller konseptual hanya dapat dijalankan secara tidak langsung melalui siklus request penuh (BAB II, BAB IV). Ini mendukung klaim bahwa Action Pattern memudahkan pengujian unit secara terisolasi relatif terhadap pendekatan konvensional.
 
 ### Threats to Validity
 
 - **Tidak ada kelompok pembanding.** Studi ini menetapkan bahwa implementasi Action Pattern memenuhi ambang batas literatur; studi ini tidak mengukur langsung sebuah implementasi Fat Controller. Klaim peningkatan bertumpu pada karakteristik terdokumentasi dari literatur (BAB I, BAB II), bukan baseline terkontrol yang diukur langsung.
-- **Generalisasi ambang batas.** Ambang batas yang dikutip (panduan kompleksitas McCabe, panduan panjang method Clean Code, target coverage) adalah panduan rekayasa perangkat lunak umum, bukan diturunkan khusus untuk aplikasi CRUD bergaya Todo skala kecil; apakah itu tolok ukur yang tepat untuk domain persis ini adalah asumsi yang layak dinyatakan.
+- **Generalisasi ambang batas.** Ambang batas yang dikutip (panduan kompleksitas McCabe, panduan panjang method Clean Code, target *coverage*) adalah panduan rekayasa perangkat lunak umum, bukan diturunkan khusus untuk aplikasi CRUD bergaya Todo skala kecil; apakah itu tolok ukur yang tepat untuk domain persis ini adalah asumsi yang layak dinyatakan.
 - **Skala.** Aplikasi Todo dengan lima operasi sengaja dibuat kecil (Batasan Masalah, Bagian 1); apakah hasil yang sama berlaku pada skala lebih besar tidak ditetapkan oleh studi ini.
 
 ## 7. Hasil dan Pembahasan Pengujian Sistem
@@ -244,7 +244,7 @@ Cakupan uji unit sebesar 94% melampaui target industri 80%. Penjelasannya bersif
 | **Black Box Testing** | 9/9 skenario (BB-01 hingga BB-09) lulus. |
 | **UAT** | Indeks penerimaan sekitar 92% (target ≥80% tercapai). |
 
-Pengujian fungsional dan penerimaan saja tidak akan mengungkap apakah implementasi memenuhi standar maintainability atau testability; itu membutuhkan metrik terpisah di atas, justru itulah alasan BAB III mendefinisikan metrik tersebut sebagai instrumen penelitian yang berbeda, bukan mengandalkan hasil Black Box/UAT saja.
+Pengujian fungsional dan penerimaan saja tidak akan mengungkap apakah implementasi memenuhi standar *maintainability* atau *testability*; itu membutuhkan metrik terpisah di atas; justru itulah alasan BAB III mendefinisikan metrik tersebut sebagai instrumen penelitian yang berbeda, bukan mengandalkan hasil Black Box/UAT saja.
 
 ### Verifikasi NFR
 
@@ -256,7 +256,7 @@ BAB IV menyebutkan metode verifikasi untuk setiap NFR; berikut hasilnya, menunta
 | NFR-2 (PHP 8.3, Laravel 11, MySQL 8) | Deklarasi lingkungan (BAB V, bagian 5.1) | Terkonfirmasi sesuai deklarasi | Ya |
 | NFR-3 (dapat digunakan di desktop/mobile) | Indeks penerimaan UAT (di atas) | ≈92% | Ya |
 
-NFR-3 adalah jawaban konkret untuk mengapa UAT ada sebagai aktivitas pengujian tersendiri dalam studi ini: UAT adalah metode verifikasi untuk satu-satunya NFR yang tidak dapat diperiksa oleh Black Box testing, karena usability adalah kualitas subjektif yang berorientasi pengguna, bukan hasil fungsional lulus/gagal.
+NFR-3 adalah jawaban konkret untuk mengapa UAT ada sebagai aktivitas pengujian tersendiri dalam studi ini: UAT adalah metode verifikasi untuk satu-satunya NFR yang tidak dapat diperiksa oleh Black Box testing, karena *usability* adalah kualitas subjektif yang berorientasi pengguna, bukan hasil fungsional lulus/gagal.
 
 </section>
 
@@ -309,10 +309,10 @@ NFR-3 adalah jawaban konkret untuk mengapa UAT ada sebagai aktivitas pengujian t
 | Kesalahan | Mengapa Salah | Pendekatan yang Benar |
 |---|---|---|
 | **Menyajikan tabel tanpa paragraf pembahasan** | Angka tanpa interpretasi meninggalkan "lalu kenapa?" tak terjawab; penguji akan menanyakannya di sidang jika Anda tidak menjawabnya di sini. | Ikuti setiap tabel Hasil dengan paragraf Pembahasan yang menginterpretasikannya. |
-| **Melaporkan angka untuk sesuatu yang tidak pernah dibangun** | Mengarang atau mengestimasi metrik presisi untuk implementasi pembanding yang tidak dibangun keliru menyajikan bukti Anda. | Hanya laporkan angka terukur untuk apa yang benar-benar Anda bangun; rujuk alternatif yang tidak dibangun secara kualitatif, dengan mengutip BAB II. |
+| **Melaporkan angka untuk sesuatu yang tidak pernah dibangun** | Mengarang atau mengestimasi metrik presisi untuk implementasi pembanding yang tidak dibangun menyajikan bukti Anda secara keliru. | Hanya laporkan angka terukur untuk apa yang benar-benar Anda bangun; rujuk alternatif yang tidak dibangun secara kualitatif, dengan mengutip BAB II. |
 | **Tidak ada bagian Threats to Validity** | Mengabaikan keterbatasan secara diam-diam terbaca sebagai tidak memahaminya. | Selalu sertakan pembahasan keterbatasan yang singkat dan jujur, termasuk ketiadaan kelompok pembanding jika relevan. |
 | **Pembahasan yang hanya menyatakan ulang angka tanpa teori** | "Kompleksitas rendah" adalah pernyataan ulang, bukan penjelasan. | Jelaskan *mengapa*, mengutip teori BAB II yang relevan (mis. SRP). |
-| **Hasil tidak dikaitkan kembali ke Rumusan Masalah dengan nomor** | Memaksa penguji mencari sendiri pertanyaan mana yang dijawab setiap hasil. | Beri label eksplisit setiap pembahasan "Menjawab Rumusan Masalah N," seperti di Bagian 6. |
+| **Hasil tidak dikaitkan kembali ke Rumusan Masalah dengan nomor** | Memaksa penguji mencari sendiri pertanyaan mana yang dijawab setiap hasil. | Beri label eksplisit setiap pembahasan "Menjawab Rumusan Masalah N", seperti di Bagian 6. |
 
 </section>
 

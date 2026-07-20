@@ -51,10 +51,10 @@ This chapter is pure software engineering: everything you learned in the [UML Mi
 |---|---|
 | **4.1 Analisis Kebutuhan** | Aktor, prasyarat, kebutuhan fungsional (FR), kebutuhan nonfungsional (NFR) |
 | **4.2 Perancangan Sistem** | Diagram arsitektur, Use Case, Activity, Sequence, dan Class |
-| **4.3 Perancangan Desain Antarmuka** | Wireframe / mockup UI |
+| **4.3 Perancangan Desain Antarmuka** | *Wireframe* / *mockup* UI |
 | **4.4 Rancangan Skenario Pengujian** | Tabel skenario pengujian Blackbox dan UAT, direncanakan sebelum implementasi |
 
-Bab ini murni rekayasa perangkat lunak: semua yang Anda pelajari di [Seri Mini UML](/blog/uml-series-part-1-introduction-use-case) berlaku langsung di sini. Jika Anda belum membaca seri itu, mulailah dari sana; bagian ini mengasumsikan Anda tahu cara membaca diagram Use Case, Activity, Sequence, dan Class, termasuk bagaimana seri itu memperlakukan login sebagai prasyarat bukan use case, dan mengapa operasi CRUD tidak boleh dimodelkan sebagai use case terpisah.
+Bab ini murni rekayasa perangkat lunak: semua yang Anda pelajari di [Seri Mini UML](/blog/uml-series-part-1-introduction-use-case) berlaku langsung di sini. Jika Anda belum membaca seri itu, mulailah dari sana; bagian ini mengasumsikan Anda tahu cara membaca diagram Use Case, Activity, Sequence, dan Class, termasuk bagaimana seri itu memperlakukan login sebagai prasyarat bukan *use case*, dan mengapa operasi CRUD tidak boleh dimodelkan sebagai *use case* terpisah.
 
 </section>
 
@@ -104,7 +104,7 @@ Bab ini menerjemahkan ruang lingkup BAB I dan metodologi BAB III menjadi diagram
 - **Di sinilah alasan pemilihan Action Pattern menjadi terlihat, bukan sekadar diklaim.** Menampilkan alternatif Fat Controller sebagai Class Diagram konseptual, berdampingan dengan desain Action Pattern yang benar-benar akan Anda bangun, membuat perbedaan struktural menjadi konkret sebelum satu baris kode pun ada.
 - **Batasan Masalah (BAB I) ditegakkan di sini.** Apa pun di luar ruang lingkup yang dinyatakan seharusnya tidak muncul di satu pun diagram bab ini; jika muncul, ruang lingkup Anda diam-diam telah berkembang.
 - **Prasyarat yang dinyatakan harus diimplementasikan secara konsisten, atau itu hanya klaim sepihak.** Jika BAB IV menyatakan "User terautentikasi" sebagai prasyarat, skema database dan kode di BAB V harus benar-benar membatasi data ke user tersebut; jika tidak, prasyarat itu hanya hiasan, bukan batasan nyata pada desain.
-- **Skenario pengujian yang direncanakan di sini (bagian 4.4) mencegah bias pengujian yang dilakukan setelah implementasi.** Mendefinisikan "seperti apa perilaku yang benar" sebelum menulis kode menjaga Black Box test Anda tetap objektif dan valid.
+- **Skenario pengujian yang direncanakan di sini (Bagian 4.4) mencegah bias pengujian yang dilakukan setelah implementasi.** Mendefinisikan "seperti apa perilaku yang benar" sebelum menulis kode menjaga Black Box test Anda tetap objektif dan valid.
 
 ### Kapan digunakan?
 Susun segera setelah BAB III stabil, karena keputusan arsitektur dan metrik di BAB III langsung membentuk apa yang Anda gambarkan di sini.
@@ -115,11 +115,11 @@ Keluaran BAB IV sepenuhnya digunakan oleh BAB V (Implementasi): setiap diagram d
 ### Bagaimana membuatnya?
 1. Identifikasi aktor, nyatakan prasyarat apa pun (seperti autentikasi), dan ubah Rumusan Masalah menjadi kebutuhan fungsional/nonfungsional.
 2. Gambar arsitektur sistem yang benar-benar akan Anda bangun, dikelompokkan ke dalam lapisan yang jelas, bukan rantai datar berupa kotak-kotak.
-3. Gambar satu Use Case Diagram. Kelompokkan operasi CRUD di bawah satu use case (mis. "Kelola X"), bukan satu oval per operasi, dan jaga perilakunya identik bagi pengguna terlepas dari arsitektur internal. Tambahkan tabel Use Case Description singkat (aktor, deskripsi, prasyarat, pascasyarat) untuk konteks langsung.
-4. Gambar satu Activity Diagram per use case, merinci logika keputusan sesungguhnya di dalam satu diagram itu (mis. melalui percabangan `switch`/`case` untuk use case yang menggabungkan beberapa operasi); hindari secara mekanis menghasilkan satu diagram per kebutuhan fungsional, dan hindari memaksa setiap cabang mengulang detail yang sama jika itu hanya akan membuat diagram lebih sulit dibaca.
+3. Gambar satu Use Case Diagram. Kelompokkan operasi CRUD di bawah satu *use case* (mis. "Kelola X"), bukan satu oval per operasi, dan jaga perilakunya identik bagi pengguna terlepas dari arsitektur internal. Tambahkan tabel Use Case Description singkat (aktor, deskripsi, prasyarat, pascasyarat) untuk konteks langsung.
+4. Gambar satu Activity Diagram per *use case*, merinci logika keputusan sesungguhnya di dalam satu diagram itu (mis. melalui percabangan `switch`/`case` untuk *use case* yang menggabungkan beberapa operasi); hindari secara mekanis menghasilkan satu diagram per kebutuhan fungsional, dan hindari memaksa setiap cabang mengulang detail yang sama jika itu hanya akan membuat diagram lebih sulit dibaca.
 5. Gambar Sequence Diagram yang mengontraskan bagaimana tanggung jawab mengalir untuk skenario yang representatif.
 6. Gambar **dua** Class Diagram sebagai finalisasi desain: satu ilustrasi konseptual alternatif Fat Controller (diberi label jelas sebagai tidak diimplementasikan maupun diukur), dan satu untuk desain Action Pattern yang benar-benar akan Anda bangun dan ukur. Class diletakkan terakhir karena mensintesis semua yang ditetapkan Activity dan Sequence Diagram menjadi satu struktur statis, persis urutan yang digunakan Seri Mini UML sendiri (Activity, lalu Sequence, lalu Class).
-7. Sketsa wireframe antarmuka.
+7. Sketsa *wireframe* antarmuka.
 8. Tulis tabel skenario pengujian Blackbox dan UAT.
 
 </section>
@@ -180,7 +180,7 @@ Naming a verification method for every NFR matters: an NFR with no way to check 
 
 ### Prasyarat (Precondition)
 
-> **User telah terautentikasi.** Setiap use case di bawah mengasumsikan User yang sudah login, menggunakan scaffolding autentikasi default Laravel. Mengikuti pola yang sama yang diajarkan di [Seri Mini UML](/blog/uml-series-part-1-introduction-use-case), login **tidak** dimodelkan sebagai use case tersendiri: login adalah prasyarat, diperiksa sekali per request melalui middleware, bukan tujuan yang dikejar User demi dirinya sendiri. Membangun sistem registrasi/manajemen akun lengkap berada di luar Batasan Masalah (Bagian 1); yang *ada* dalam ruang lingkup adalah memastikan setiap todo dibatasi dengan benar ke User pemiliknya, itulah mengapa skema database (BAB V, bagian 5.2) menyertakan kolom `user_id` dan setiap Action hanya mengkueri data milik User yang terautentikasi.
+> **User telah terautentikasi.** Setiap *use case* di bawah mengasumsikan User yang sudah login, menggunakan *scaffolding* autentikasi default Laravel. Mengikuti pola yang sama yang diajarkan di [Seri Mini UML](/blog/uml-series-part-1-introduction-use-case), login **tidak** dimodelkan sebagai *use case* tersendiri: login adalah prasyarat, diperiksa sekali per *request* melalui *middleware*, bukan tujuan yang dikejar User demi dirinya sendiri. Membangun sistem registrasi/manajemen akun lengkap berada di luar Batasan Masalah (Bagian 1); yang *ada* dalam ruang lingkup adalah memastikan setiap todo dibatasi dengan benar ke User pemiliknya, itulah mengapa skema database (BAB V, Bagian 5.2) menyertakan kolom `user_id` dan setiap Action hanya mengueri data milik User yang terautentikasi.
 
 ### Kebutuhan Fungsional
 
@@ -194,17 +194,17 @@ Ditelusuri langsung dari fungsionalitas inti yang disebutkan di bagian contoh be
 | **FR-4** | Sistem harus memungkinkan User menghapus todo. |
 | **FR-5** | Sistem harus memungkinkan User memfilter todo berdasarkan status (semua / aktif / selesai). |
 
-FR-1 hingga FR-4 dikelompokkan di bawah satu use case, **Kelola Todo**, dalam desain di bawah (bagian 4.2); memodelkan masing-masing sebagai oval use case tersendiri akan mengulangi kesalahan CRUD-sebagai-use-case yang diperingatkan Seri Mini UML.
+FR-1 hingga FR-4 dikelompokkan di bawah satu *use case*, **Kelola Todo**, dalam desain di bawah (Bagian 4.2); memodelkan masing-masing sebagai oval *use case* tersendiri akan mengulangi kesalahan CRUD-sebagai-use-case yang diperingatkan Seri Mini UML.
 
 ### Kebutuhan Nonfungsional
 
-> **Kesalahan umum yang harus dihindari:** NFR mendeskripsikan atribut kualitas *sistem* (performa, usability, kompatibilitas). Ini **bukan** hal yang sama dengan metrik penelitian yang didefinisikan di BAB III, bagian 3.5. Cyclomatic complexity, coupling, dan test coverage adalah *instrumen penelitian* Anda untuk mengevaluasi implementasi terhadap ambang batas literatur; bukan kebutuhan yang harus dipenuhi sistem jadi dengan sendirinya. Jaga kedua daftar tetap terpisah.
+> **Kesalahan umum yang harus dihindari:** NFR mendeskripsikan atribut kualitas *sistem* (performa, *usability*, kompatibilitas). Ini **bukan** hal yang sama dengan metrik penelitian yang didefinisikan di BAB III, Bagian 3.5. *Cyclomatic complexity*, *coupling*, dan *test coverage* adalah *instrumen penelitian* Anda untuk mengevaluasi implementasi terhadap ambang batas literatur; bukan kebutuhan yang harus dipenuhi sistem jadi dengan sendirinya. Jaga kedua daftar tetap terpisah.
 
 | ID | Kebutuhan | Metode Verifikasi |
 |---|---|---|
-| **NFR-1** | Aplikasi harus merespons setiap aksi pengguna dalam 1 detik pada kondisi pengembangan lokal. | Diukur selama eksekusi skenario Blackbox (BAB V, bagian 5.5). |
-| **NFR-2** | Aplikasi harus berjalan pada PHP 8.3, Laravel 11, dan MySQL 8. | Dipenuhi melalui konstruksi; dikonfirmasi oleh deklarasi lingkungan (BAB V, bagian 5.1). |
-| **NFR-3** | Antarmuka harus dapat digunakan pada viewport lebar desktop maupun mobile. | Diverifikasi melalui UAT (bagian 4.4 di bawah, dijalankan di BAB V, bagian 5.5). |
+| **NFR-1** | Aplikasi harus merespons setiap aksi pengguna dalam 1 detik pada kondisi pengembangan lokal. | Diukur selama eksekusi skenario Blackbox (BAB V, Bagian 5.5). |
+| **NFR-2** | Aplikasi harus berjalan pada PHP 8.3, Laravel 11, dan MySQL 8. | Dipenuhi melalui konstruksi; dikonfirmasi oleh deklarasi lingkungan (BAB V, Bagian 5.1). |
+| **NFR-3** | Antarmuka harus dapat digunakan pada viewport lebar desktop maupun mobile. | Diverifikasi melalui UAT (Bagian 4.4 di bawah, dijalankan di BAB V, Bagian 5.5). |
 
 Menyebutkan metode verifikasi untuk setiap NFR itu penting: NFR tanpa cara untuk memeriksanya adalah klaim yang tidak dapat diverifikasi, bukan kebutuhan.
 
@@ -608,11 +608,11 @@ Model --> DB
 @enduml
 ```
 
-Pada alternatif Fat Controller konseptual yang dibahas di BAB II, Application Layer ini tidak akan ada sama sekali: `TodoController` di Presentation Layer akan memanggil Model secara langsung, menangani sendiri semua validasi dan business logic.
+Pada alternatif Fat Controller konseptual yang dibahas di BAB II, Application Layer ini tidak akan ada sama sekali: `TodoController` di Presentation Layer akan memanggil Model secara langsung, menangani sendiri semua validasi dan *business logic*.
 
 ### Use Case Diagram
 
-Perilaku di bawah ini identik terlepas dari arsitektur internal: Use Case Diagram mendeskripsikan apa yang bisa dilakukan pengguna, bukan bagaimana sistem terstruktur secara internal. Login tidak ditampilkan sebagai use case; login adalah prasyarat yang dinyatakan di bagian 4.1, dan kontrol akses (User hanya bisa melihat dan bertindak atas todo miliknya sendiri) ditegakkan oleh setiap use case, bukan use case tersendiri.
+Perilaku di bawah ini identik terlepas dari arsitektur internal: Use Case Diagram mendeskripsikan apa yang bisa dilakukan pengguna, bukan bagaimana sistem terstruktur secara internal. Login tidak ditampilkan sebagai *use case*; login adalah prasyarat yang dinyatakan di Bagian 4.1, dan kontrol akses (User hanya bisa melihat dan bertindak atas todo miliknya sendiri) ditegakkan oleh setiap *use case*, bukan *use case* tersendiri.
 
 ```plantuml
 @startuml
@@ -651,24 +651,24 @@ User -- UC2
 @enduml
 ```
 
-**Mengapa hanya dua use case, bukan lima:** Buat, Edit, Selesaikan, dan Hapus semuanya adalah segi dari satu tujuan, mengelola daftar todo miliknya sendiri, sehingga dikelompokkan di bawah **Kelola Todo** dan dirinci sebagai satu Activity Diagram di bawah, persis perbaikan yang direkomendasikan Seri Mini UML untuk kesalahan "CRUD sebagai use case terpisah". **Filter Todo** tetap terpisah karena merupakan tujuan yang berbeda (mengorganisasi/melihat), bukan mutasi data.
+**Mengapa hanya dua *use case*, bukan lima:** Buat, Edit, Selesaikan, dan Hapus semuanya adalah segi dari satu tujuan, mengelola daftar todo miliknya sendiri, sehingga dikelompokkan di bawah **Kelola Todo** dan dirinci sebagai satu Activity Diagram di bawah, persis perbaikan yang direkomendasikan Seri Mini UML untuk kesalahan "CRUD sebagai *use case* terpisah". **Filter Todo** tetap terpisah karena merupakan tujuan yang berbeda (mengorganisasi/melihat), bukan mutasi data.
 
-**Mengapa tidak ada `<<include>>` atau `<<extend>>`:** contoh Sistem Pendaftaran Kampus asli (Seri Mini UML, Bagian 1) memiliki sublangkah wajib sesungguhnya (Lakukan Pembayaran, di-include oleh Daftar Mata Kuliah) dan ekstensi opsional sesungguhnya (Kelola Periode Pendaftaran memperluas Kelola Mata Kuliah). Aplikasi Todo ini, karena desain yang disengaja (Batasan Masalah, Bagian 1), tidak memiliki keduanya: tidak ada langkah wajib eksternal yang sebanding dengan pembayaran, dan tidak ada varian opsional dari Kelola Todo yang layak mendapat oval sendiri. Memaksakan relasi `<<extend>>` demi mendemonstrasikan notasinya akan mengulangi kesalahan over-modelling yang diperingatkan Seri Mini UML. Tidak semua sistem membutuhkan relasi ini, dan sistem sederhana memang sebaiknya tidak memilikinya.
+**Mengapa tidak ada `<<include>>` atau `<<extend>>`:** contoh Sistem Pendaftaran Kampus asli (Seri Mini UML, Bagian 1) memiliki sublangkah wajib sesungguhnya (Lakukan Pembayaran, di-include oleh Daftar Mata Kuliah) dan ekstensi opsional sesungguhnya (Kelola Periode Pendaftaran memperluas Kelola Mata Kuliah). Aplikasi Todo ini, karena desain yang disengaja (Batasan Masalah, Bagian 1), tidak memiliki keduanya: tidak ada langkah wajib eksternal yang sebanding dengan pembayaran, dan tidak ada varian opsional dari Kelola Todo yang layak mendapat oval sendiri. Memaksakan relasi `<<extend>>` demi mendemonstrasikan notasinya akan mengulangi kesalahan *over-modelling* yang diperingatkan Seri Mini UML. Tidak semua sistem membutuhkan relasi ini, dan sistem sederhana memang sebaiknya tidak memilikinya.
 
 ### Use Case Description
 
-Tabel deskripsi singkat memberi setiap use case konteks langsung, tanpa membutuhkan teknik Use Case Scenario langkah-demi-langkah lengkap dari Seri Mini UML, Bagian 2.
+Tabel deskripsi singkat memberi setiap *use case* konteks langsung, tanpa membutuhkan teknik Use Case Scenario langkah-demi-langkah lengkap dari Seri Mini UML, Bagian 2.
 
-| Field | Kelola Todo | Filter Todo |
+| Bidang | Kelola Todo | Filter Todo |
 |---|---|---|
 | **Aktor** | User | User |
 | **Deskripsi** | Membuat, mengedit, menyelesaikan, dan menghapus todo milik User sendiri | Mempersempit daftar todo yang terlihat berdasarkan status |
-| **Prasyarat** | User telah terautentikasi (bagian 4.1) | User telah terautentikasi (bagian 4.1) |
+| **Prasyarat** | User telah terautentikasi (Bagian 4.1) | User telah terautentikasi (Bagian 4.1) |
 | **Pascasyarat** | Daftar todo mencerminkan aksi yang diambil; data tetap dibatasi ke User | Hanya todo yang cocok dengan status terpilih yang ditampilkan; data yang mendasari tidak berubah |
 
 ### Activity Diagram: Kelola Todo
 
-Satu diagram, satu use case. Percabangan `switch`/`case` merepresentasikan pilihan aksi User; setiap cabang mendapat detail sebanyak yang dibutuhkannya saja. Buat dan Hapus memiliki logika keputusan sesungguhnya (validasi, dan langkah konfirmasi/batal), sehingga ditampilkan lengkap; Edit mengikuti bentuk validasi yang identik dengan Buat, sehingga dicatat alih-alih digambar ulang, dan Selesaikan tidak memiliki percabangan yang layak ditampilkan.
+Satu diagram, satu *use case*. Percabangan `switch`/`case` merepresentasikan pilihan aksi User; setiap cabang mendapat detail sebanyak yang dibutuhkannya saja. Buat dan Hapus memiliki logika keputusan sesungguhnya (validasi, dan langkah konfirmasi/batal), sehingga ditampilkan lengkap; Edit mengikuti bentuk validasi yang identik dengan Buat, sehingga dicatat alih-alih digambar ulang, dan Selesaikan tidak memiliki percabangan yang layak ditampilkan.
 
 ```plantuml
 @startuml
@@ -951,17 +951,17 @@ Plan test scenarios **before** implementation. These scenarios validate the Acti
 
 ## 5. 4.3 Perancangan Desain Antarmuka
 
-Skripsi biasanya menyertakan tangkapan layar mockup nyata (Figma, Balsamiq). Untuk seri ini, wireframe dideskripsikan secara struktural: terjemahkan ini ke tool mockup nyata untuk laporan Anda sendiri.
+Skripsi biasanya menyertakan tangkapan layar *mockup* nyata (Figma, Balsamiq). Untuk seri ini, *wireframe* dideskripsikan secara struktural: terjemahkan ini ke *tool mockup* nyata untuk laporan Anda sendiri.
 
 | Wilayah layar | Elemen |
 |---|---|
 | **Header** | Judul aplikasi, tab filter (Semua / Aktif / Selesai) |
 | **Form tambah** | Input judul satu baris, kolom deskripsi opsional, tombol "Tambah" |
-| **Daftar todo** | Satu baris per todo: checkbox (toggle selesai), judul, cuplikan deskripsi, tombol Edit dan Hapus |
+| **Daftar todo** | Satu baris per todo: *checkbox* (toggle selesai), judul, cuplikan deskripsi, tombol Edit dan Hapus |
 | **Konfirmasi hapus** | Dialog konfirmasi ditampilkan sebelum penghapusan selesai (Bagian 4 di atas), dengan aksi Konfirmasi dan Batal |
 | **Empty state** | Pesan "Belum ada todo, tambahkan di atas" ketika daftar terfilter kosong |
 
-Antarmuka adalah konstanta terkontrol, dan tidak berubah antara ilustrasi konseptual Fat Controller dan implementasi Action Pattern yang dibangun, karena hanya struktur backend yang bervariasi di antara keduanya.
+Antarmuka adalah konstanta terkontrol, dan tidak berubah antara ilustrasi konseptual Fat Controller dan implementasi Action Pattern yang dibangun, karena hanya struktur *backend* yang bervariasi di antara keduanya.
 
 ## 6. 4.4 Rancangan Skenario Pengujian
 
@@ -969,7 +969,7 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 
 ### Rencana Skenario Blackbox Testing
 
-| ID | Skenario | Expected Result |
+| ID | Skenario | Hasil yang Diharapkan |
 |---|---|---|
 | **BB-01** | Membuat todo dengan judul valid | Todo muncul di daftar |
 | **BB-02** | Membuat todo dengan judul kosong | Error validasi ditampilkan, tidak ada todo terbuat |
@@ -979,7 +979,7 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 | **BB-06** | Menghapus todo, lalu batalkan konfirmasi | Todo tetap ada di daftar, tidak berubah |
 | **BB-07** | Filter berdasarkan "Aktif" | Hanya todo belum selesai ditampilkan |
 | **BB-08** | Filter berdasarkan "Selesai" | Hanya todo selesai ditampilkan |
-| **BB-09** | Mencoba melihat atau mengubah todo milik user lain secara langsung (mis. via manipulasi URL) | Akses ditolak; mengonfirmasi prasyarat autentikasi (bagian 4.1) benar-benar ditegakkan |
+| **BB-09** | Mencoba melihat atau mengubah todo milik user lain secara langsung (mis. via manipulasi URL) | Akses ditolak; mengonfirmasi prasyarat autentikasi (Bagian 4.1) benar-benar ditegakkan |
 
 ### Rencana Skenario UAT
 
@@ -1016,15 +1016,15 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 
 | Kesalahan | Mengapa Salah | Pendekatan yang Benar |
 |---|---|---|
-| **Memodelkan operasi CRUD sebagai use case terpisah** | "Buat Todo", "Edit Todo", "Hapus Todo" sebagai oval terpisah mengotori diagram dan mengulangi kesalahan yang secara eksplisit diperingatkan Seri Mini UML. | Kelompokkan di bawah satu use case (mis. "Kelola Todo"), dirinci dalam satu Activity Diagram, seperti di Bagian 4. |
-| **Memodelkan login sebagai use case** | Login tidak memberikan tujuan mandiri bagi pengguna; login adalah infrastruktur yang dibutuhkan setiap use case lain. | Tangkap autentikasi sebagai prasyarat di bagian 4.1, seperti dilakukan di sini. |
+| **Memodelkan operasi CRUD sebagai *use case* terpisah** | "Buat Todo", "Edit Todo", "Hapus Todo" sebagai oval terpisah mengotori diagram dan mengulangi kesalahan yang secara eksplisit diperingatkan Seri Mini UML. | Kelompokkan di bawah satu *use case* (mis. "Kelola Todo"), dirinci dalam satu Activity Diagram, seperti di Bagian 4. |
+| **Memodelkan login sebagai *use case*** | Login tidak memberikan tujuan mandiri bagi pengguna; login adalah infrastruktur yang dibutuhkan setiap *use case* lain. | Tangkap autentikasi sebagai prasyarat di Bagian 4.1, seperti dilakukan di sini. |
 | **Menyatakan prasyarat tanpa mengimplementasikannya** | Menyatakan "User terautentikasi" namun tidak pernah membatasi data ke user tersebut dalam skema atau kode adalah klaim sepihak: prasyarat itu hanya ada di atas kertas. | Pastikan prasyarat memiliki konsekuensi yang terlihat dalam desain (di sini, `user_id` pada `Todo`) dan dalam implementasi (BAB V). |
-| **Menjejalkan setiap skenario ke satu diagram hanya untuk memaksakan pemetaan 1:1 use case-ke-diagram** | Satu diagram dengan detail lengkap pada setiap cabang use case multi-operasi bisa menjadi lebih sulit dibaca daripada dua diagram yang fokus, merusak kejelasan yang justru menjadi alasan diagram itu ada. | Pertahankan pemetaan 1:1, tetapi biarkan detail cabang bervariasi: rincikan hanya yang memiliki logika keputusan sesungguhnya, dan catat (alih-alih gambar ulang) cabang yang mengulang bentuk yang sudah ditampilkan, seperti Edit di Bagian 4. |
+| **Menjejalkan setiap skenario ke satu diagram hanya untuk memaksakan pemetaan 1:1 use case-ke-diagram** | Satu diagram dengan detail lengkap pada setiap cabang *use case* multi-operasi bisa menjadi lebih sulit dibaca daripada dua diagram yang fokus, merusak kejelasan yang justru menjadi alasan diagram itu ada. | Pertahankan pemetaan 1:1, tetapi biarkan detail cabang bervariasi: rincikan hanya yang memiliki logika keputusan sesungguhnya, dan catat (alih-alih gambar ulang) cabang yang mengulang bentuk yang sudah ditampilkan, seperti Edit di Bagian 4. |
 | **Menghilangkan kontras konseptual Fat Controller sama sekali** | Tanpanya, alasan pemilihan Action Pattern hanya bertumpu pada klaim; pembaca tidak pernah melihat seperti apa alternatifnya. | Sertakan Class Diagram konseptual, diberi label jelas sebagai ilustrasi saja, seperti di Bagian 4. |
 | **Tidak memberi label diagram mana yang diimplementasikan dan mana yang konseptual** | Penguji tidak dapat membedakan apa yang benar-benar dibangun versus apa yang ilustratif, merusak kepercayaan pada bab secara keseluruhan. | Beri label eksplisit pada setiap diagram, seperti dilakukan di sepanjang Bagian 4. |
-| **Skenario pengujian ditulis setelah implementasi** | Skenario post-hoc cenderung cocok dengan apa yang kode lakukan, menyembunyikan bug alih-alih menangkapnya. | Finalisasi bagian 4.4 sebelum menulis kode implementasi apa pun (BAB V). |
-| **NFR bercampur dengan metrik penelitian** | Mencampuradukkan "apa yang harus dilakukan sistem" dengan "apa yang diukur tentang kode," membingungkan penguji tentang kontribusi Anda yang sebenarnya. | Jaga NFR (Bagian 3) dan metrik penelitian (BAB III, bagian 3.5) dalam daftar yang jelas terpisah. |
-| **Diagram yang tidak cocok dengan Batasan Masalah** | Diagram yang menunjukkan fitur multi-user atau notifikasi yang dikecualikan Batasan Masalah menandakan scope creep yang tidak terkendali. | Periksa silang setiap elemen diagram terhadap BAB I, bagian 1.3, sebelum finalisasi. |
+| **Skenario pengujian ditulis setelah implementasi** | Skenario post-hoc cenderung cocok dengan apa yang kode lakukan, menyembunyikan bug alih-alih menangkapnya. | Finalisasi Bagian 4.4 sebelum menulis kode implementasi apa pun (BAB V). |
+| **NFR bercampur dengan metrik penelitian** | Mencampuradukkan "apa yang harus dilakukan sistem" dengan "apa yang diukur tentang kode", membingungkan penguji tentang kontribusi Anda yang sebenarnya. | Jaga NFR (Bagian 3) dan metrik penelitian (BAB III, Bagian 3.5) dalam daftar yang jelas terpisah. |
+| **Diagram yang tidak cocok dengan Batasan Masalah** | Diagram yang menunjukkan fitur multi-user atau notifikasi yang dikecualikan Batasan Masalah menandakan *scope creep* yang tidak terkendali. | Periksa silang setiap elemen diagram terhadap BAB I, Bagian 1.3, sebelum finalisasi. |
 
 </section>
 
@@ -1042,6 +1042,6 @@ With the design fully worked out (a layered architecture, the consolidated Use C
 
 ## 8. Apa yang Akan Datang Selanjutnya?
 
-Dengan desain yang tuntas dikerjakan (arsitektur berlapis, Use Case Diagram yang telah dikonsolidasikan beserta tabel deskripsinya, satu Activity Diagram per use case, Sequence Diagram, dan Class Diagram konseptual-versus-diimplementasikan sebagai finalisasi, ditambah wireframe dan skenario pengujian), penelitian ini siap memasuki tahap membangun. Bagian 5 membahas **BAB V (Implementasi dan Pengujian)**: menyiapkan lingkungan, mengimplementasikan database termasuk pembatasan `user_id` yang dirancang di sini, dan menulis kode PHP sesungguhnya untuk implementasi Action Pattern, menunjukkan persis dari mana kompleksitas rendah yang dirancang di sini berasal.
+Dengan desain yang tuntas dikerjakan (arsitektur berlapis, Use Case Diagram yang telah dikonsolidasikan beserta tabel deskripsinya, satu Activity Diagram per *use case*, Sequence Diagram, dan Class Diagram konseptual-versus-diimplementasikan sebagai finalisasi, ditambah *wireframe* dan skenario pengujian), penelitian ini siap memasuki tahap membangun. Bagian 5 membahas **BAB V (Implementasi dan Pengujian)**: menyiapkan lingkungan, mengimplementasikan database termasuk pembatasan `user_id` yang dirancang di sini, dan menulis kode PHP sesungguhnya untuk implementasi Action Pattern, menunjukkan persis dari mana kompleksitas rendah yang dirancang di sini berasal.
 
 </section>

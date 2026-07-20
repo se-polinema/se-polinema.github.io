@@ -60,7 +60,7 @@ Setiap skripsi JTI Polinema mengikuti kerangka lima subbab yang sama:
 | **1.4 Tujuan** | Apa yang akan Anda hasilkan ketika selesai? |
 | **1.5 Manfaat** | Siapa yang diuntungkan, dan bagaimana? |
 
-Kelima subbab ini bukanlah esai independen, melainkan **satu argumen yang diceritakan lima kali, dari lima sudut pandang**. Latar Belakang yang lemah menghasilkan Rumusan Masalah yang kabur, yang membuat Batasan Masalah mustahil ditulis dengan ketat, yang membiarkan scope creep masuk, yang merupakan penyebab terbesar proyek skripsi meleset dari tenggat satu semester. Menulis BAB I dengan benar adalah **aktivitas rekayasa perangkat lunak**, bukan sekadar formalitas akademik: di sinilah Anda menulis dokumen requirements pertama (dan terpenting) dari proyek Anda.
+Kelima subbab ini bukanlah esai independen, melainkan **satu argumen yang diceritakan lima kali, dari lima sudut pandang**. Latar Belakang yang lemah menghasilkan Rumusan Masalah yang kabur, yang membuat Batasan Masalah mustahil ditulis dengan ketat, yang membiarkan *scope creep* masuk, yang merupakan penyebab terbesar proyek skripsi meleset dari tenggat satu semester. Menulis BAB I dengan benar adalah **aktivitas rekayasa perangkat lunak**, bukan sekadar formalitas akademik: di sinilah Anda menulis dokumen *requirements* pertama (dan terpenting) dari proyek Anda.
 
 </section>
 
@@ -101,9 +101,9 @@ Work top-down: research the general context first (Latar Belakang), narrow it in
 BAB I adalah proses penyempitan bertahap: menyempit dari konteks dunia nyata yang luas menjadi satu set pertanyaan yang dinyatakan secara presisi dan dapat dijawab, lalu menarik garis batas tegas di sekitar apa yang benar-benar akan Anda hasilkan.
 
 ### Mengapa penting?
-- **Ini adalah dokumen requirements pertama Anda.** Rumusan Masalah dan Batasan Masalah, secara fungsional, adalah spesifikasi requirements untuk proyek skripsi Anda sendiri. Requirements yang ceroboh di sini menyebabkan masalah lanjutan yang sama seperti pada proyek software apa pun: pekerjaan ulang, scope creep, dan tenggat yang meleset.
-- **Dinilai sebelum siapa pun membaca BAB IV atau V.** Pembimbing dan penguji menilai kelayakan hanya dari BAB I. Latar belakang yang terlalu luas atau ruang lingkup yang dibiarkan terbuka akan dikembalikan untuk revisi sebelum Anda menulis satu baris kode pun.
-- **Melindungi semester Anda.** Batasan Masalah yang ketat adalah alat paling efektif melawan scope creep, penyebab #1 proyek mini-skripsi tidak selesai tepat waktu.
+- **Ini adalah dokumen *requirements* pertama Anda.** Rumusan Masalah dan Batasan Masalah, secara fungsional, adalah spesifikasi *requirements* untuk proyek skripsi Anda sendiri. *Requirements* yang ceroboh di sini menyebabkan masalah lanjutan yang sama seperti pada proyek software apa pun: pekerjaan ulang, *scope creep*, dan tenggat yang meleset.
+- **Dinilai sebelum siapa pun membaca BAB IV atau V.** Pembimbing dan penguji menilai kelayakan hanya dari BAB I. Latar Belakang yang terlalu luas atau ruang lingkup yang dibiarkan terbuka akan dikembalikan untuk revisi sebelum Anda menulis satu baris kode pun.
+- **Melindungi semester Anda.** Batasan Masalah yang ketat adalah alat paling efektif melawan *scope creep*, penyebab #1 proyek mini-skripsi tidak selesai tepat waktu.
 - **Menetapkan kriteria penerimaan untuk sidang Anda sendiri.** Tujuan dan Rumusan Masalah harus cocok 1:1; di sidang Anda, hal pertama yang diperiksa penguji adalah apakah BAB VI benar-benar menjawab setiap pertanyaan yang diajukan BAB I.
 
 ### Kapan digunakan?
@@ -112,7 +112,7 @@ Susun BAB I **sebelum** Anda menulis kode apa pun, idealnya bahkan sebelum Anda 
 ### Di mana tempatnya?
 BAB I berada di awal siklus hidup skripsi, tetapi pengaruhnya berjalan sepanjang dokumen:
 - **Rumusan Masalah** dijawab oleh **BAB VI (Hasil dan Pembahasan)**.
-- **Batasan Masalah** membatasi **BAB IV (Analisis dan Perancangan)**: apa pun di luar batas seharusnya tidak muncul di requirements atau diagram Anda.
+- **Batasan Masalah** membatasi **BAB IV (Analisis dan Perancangan)**: apa pun di luar batas seharusnya tidak muncul di *requirements* atau diagram Anda.
 - **Tujuan** dinyatakan kembali sebagai **Kesimpulan** di **BAB VII**.
 
 ### Bagaimana membuatnya?
@@ -173,11 +173,11 @@ Kesederhanaan aplikasi ini adalah intinya. Yang membuatnya **layak-skripsi** buk
 
 Contoh berkelanjutan ini mengajukan pertanyaan rekayasa perangkat lunak yang benar-benar dapat diteliti (dan, yang penting, **dapat dicapai oleh pemula**):
 
-> **"Apakah aplikasi Todo Laravel yang dibangun dengan Action Pattern memenuhi ambang batas maintainability dan testability yang ditetapkan literatur rekayasa perangkat lunak?"**
+> **"Apakah aplikasi Todo Laravel yang dibangun dengan Action Pattern memenuhi ambang batas maintainability dan *testability* yang ditetapkan literatur rekayasa perangkat lunak?"**
 
 Penelitian ini membangun aplikasi Todo, menggunakan Action Pattern (setiap operasi diekstraksi ke dalam kelas khusus bertujuan tunggal), lalu **mengukurnya** terhadap ambang batas konkret bersumber literatur: cyclomatic complexity, coupling, lines of code per method, dan test coverage unit. Gaya "fat controller" konvensional (business logic dipadatkan langsung ke dalam metode controller) hanya dibahas sebagai **motivasi dan kontras desain konseptual** (BAB II dan BAB IV); tidak pernah dibangun atau diukur. Ini secara sengaja menukar perbandingan A/B terkontrol penuh (lebih sulit, menggandakan pekerjaan implementasi) dengan studi validasi-ambang-batas satu-implementasi yang jauh lebih dapat dicapai dalam satu semester, terutama bagi mahasiswa pemula atau yang mengerjakan dengan tempo santai, namun tetap berbasis bukti yang sesungguhnya, bukan sekadar "saya sudah membangunnya."
 
-Perhatikan dua peran berbeda dari **coupling** dan **coverage**, karena keduanya mudah tertukar: coupling adalah indikator *struktural* testability dalam penelitian ini: semakin sedikit dependensi sebuah kelas, semakin sedikit yang perlu di-fake/mock untuk mengujinya secara terisolasi. Unit test sendiri ada untuk memverifikasi *kebenaran fungsional*, bukan untuk mengukur testability secara langsung; coverage yang dicapai penelitian ini adalah *bukti penguat* bahwa desain dengan coupling rendah tersebut benar-benar mudah diuji dalam praktik, bukan definisi dari testability itu sendiri.
+Perhatikan dua peran berbeda dari **coupling** dan **coverage**, karena keduanya mudah tertukar: *coupling* adalah indikator *struktural* *testability* dalam penelitian ini: semakin sedikit dependensi sebuah kelas, semakin sedikit yang perlu di-fake/mock untuk mengujinya secara terisolasi. Unit test sendiri ada untuk memverifikasi *kebenaran fungsional*, bukan untuk mengukur *testability* secara langsung; *coverage* yang dicapai penelitian ini adalah *bukti penguat* bahwa desain dengan *coupling* rendah tersebut benar-benar mudah diuji dalam praktik, bukan definisi dari *testability* itu sendiri.
 
 Ini adalah contoh terapan dari prosesnya, bukan formula yang tinggal diganti subjeknya. Kerangka skripsi yang sama (satu contoh berkelanjutan, desain satu-implementasi, studi validasi-ambang-batas) dapat mendukung design pattern, gaya arsitektur, atau tool lain yang ingin Anda evaluasi (Repository Pattern, DDD, package tertentu, strategi caching). Namun mengganti subjek evaluasi tidak mengganti pekerjaannya: Anda tetap membutuhkan Studi Literatur sendiri untuk menemukan atau menjustifikasi ambang batas yang dapat dipertanggungjawabkan, karena tidak semua pattern memiliki angka mapan seperti panduan kompleksitas McCabe; Anda tetap membutuhkan metrik yang benar-benar cocok dengan apa yang dievaluasi, karena cyclomatic complexity dan coupling mengukur struktur kode dan tidak banyak berbicara soal, misalnya, strategi caching; dan Anda tetap perlu menjustifikasi ulang Batasan Masalah serta kelayakan untuk kasus spesifik Anda.
 
@@ -311,7 +311,7 @@ Ini adalah **kontrak ruang lingkup** Anda, dan pertahanan terbaik Anda agar tida
 
 ### 1.4 Tujuan
 
-Nyatakan satu tujuan **per item Rumusan Masalah**, dengan urutan yang sama, menggunakan kata-kata yang senada. Jika sebuah Tujuan tidak dapat ditelusuri kembali ke pertanyaan Rumusan Masalah, hapus, karena itu adalah scope creep yang belum tertangkap.
+Nyatakan satu tujuan **per item Rumusan Masalah**, dengan urutan yang sama, menggunakan kata-kata yang senada. Jika sebuah Tujuan tidak dapat ditelusuri kembali ke pertanyaan Rumusan Masalah, hapus, karena itu adalah *scope creep* yang belum tertangkap.
 
 ### 1.5 Manfaat
 
@@ -342,13 +342,13 @@ Harus:
 Jangan:
 - Jangan menyertakan pertanyaan "bagaimana cara membangunnya" tanpa pengukuran yang menyertainya.
 - Jangan biarkan istilah seperti "kriteria" atau "ambang batas" tanpa acuan yang jelas; nyatakan kriteria siapa dan bagaimana diukur.
-- Jangan mencampuradukkan dua konstruk berbeda dalam satu metrik, seperti memperlakukan test coverage seolah-olah itu definisi dari testability.
+- Jangan mencampuradukkan dua konstruk berbeda dalam satu metrik, seperti memperlakukan *test coverage* seolah-olah itu definisi dari *testability*.
 
 **Batasan Masalah**
 
 Harus:
 - Sebutkan cakupan dan pengecualian yang konkret: fitur, tech stack, lingkungan, metrik.
-- Nyatakan secara eksplisit jika sesuatu dibahas secara konseptual namun tidak dibangun atau diukur.
+- Nyatakan secara eksplisit jika sesuatu dibahas secara konseptual, namun tidak dibangun atau diukur.
 
 Jangan:
 - Jangan biarkan ruang lingkup kabur, seperti "sesederhana mungkin."
@@ -360,7 +360,7 @@ Harus:
 - Tulis persis satu Tujuan per item Rumusan Masalah, urutan sama, kata-kata senada.
 
 Jangan:
-- Jangan menambahkan Tujuan tanpa item Rumusan Masalah yang cocok; itu adalah scope creep yang belum tertangkap.
+- Jangan menambahkan Tujuan tanpa item Rumusan Masalah yang cocok; itu adalah *scope creep* yang belum tertangkap.
 
 **Manfaat**
 
@@ -417,15 +417,15 @@ Notice the traceability: every Rumusan Masalah has exactly one matching Tujuan, 
 Berikut draf ringkas BAB I untuk contoh berkelanjutan ini, menunjukkan bagaimana setiap subbab tertelusur ke subbab berikutnya.
 
 **1.1 Latar Belakang (kutipan)**
-> Laravel adalah salah satu framework PHP yang paling banyak diadopsi untuk membangun aplikasi web, termasuk banyak proyek mahasiswa dan tim kecil di Polinema. Struktur MVC bawaannya membuat developer mudah, bahkan cenderung menjadi pilihan yang paling praktis, untuk menempatkan validasi dan business logic langsung di dalam metode controller. Seiring aplikasi bertumbuh, gaya "fat controller" ini dikenal dalam praktik industri mengurangi keterbacaan, karena business logic menumpuk dalam satu kelas bersama kode penanganan HTTP. Gaya ini juga menyulitkan unit testing, karena business logic menjadi terjalin dengan siklus request/response dan tidak dapat diuji secara terisolasi. Literatur rekayasa perangkat lunak secara konsisten mengaitkan gaya ini dengan cyclomatic complexity dan coupling yang lebih tinggi, indikator tak langsung yang mapan untuk maintainability yang buruk; karakteristik terdokumentasi inilah yang menjadi acuan pembanding (baseline) dalam penelitian ini, sehingga implementasi fat controller kedua tidak perlu dibangun semata untuk pembanding.
+> Laravel adalah salah satu framework PHP yang paling banyak diadopsi untuk membangun aplikasi web, termasuk banyak proyek mahasiswa dan tim kecil di Polinema. Struktur MVC bawaannya memudahkan developer, bahkan cenderung menjadi pilihan yang paling praktis, untuk menempatkan validasi dan business logic langsung di dalam metode controller. Seiring aplikasi bertumbuh, gaya "fat controller" ini dikenal dalam praktik industri dapat mengurangi keterbacaan, karena business logic menumpuk dalam satu kelas bersama kode penanganan HTTP. Gaya ini juga menyulitkan unit testing, karena business logic menjadi terjalin dengan siklus request/response dan tidak dapat diuji secara terisolasi. Literatur rekayasa perangkat lunak secara konsisten mengaitkan gaya ini dengan cyclomatic complexity dan coupling yang lebih tinggi, indikator tak langsung yang mapan untuk maintainability yang buruk; karakteristik terdokumentasi inilah yang menjadi acuan pembanding (baseline) dalam penelitian ini, sehingga implementasi fat controller kedua tidak perlu dibangun semata untuk pembanding.
 >
 > Komunitas Laravel memopulerkan *Action Pattern*, mengekstraksi setiap operasi bisnis ke dalam kelas khusus bertujuan tunggal, sebagai solusi atas masalah-masalah ini. Namun, panduan ini sebagian besar bersifat anekdotal: demonstrasi yang dapat diakses mahasiswa dan benar-benar memvalidasi solusi tersebut terhadap ambang batas kualitas kode yang mapan, bukan sekadar mengklaim bahwa solusi itu berhasil, masih terbatas.
 >
-> Berdasarkan permasalahan-permasalahan tersebut, penelitian ini mengajukan hipotesis bahwa merestrukturisasi business logic menggunakan Action Pattern akan meningkatkan maintainability dan memudahkan pengujian unit secara terisolasi, dibandingkan dengan pendekatan fat controller konvensional. Proyek ini menginvestigasi proposisi tersebut dengan membangun aplikasi Todo List menggunakan Action Pattern dan mengevaluasinya terhadap ambang batas kualitas kode yang mapan serta karakteristik fat controller terdokumentasi di atas, menyediakan demonstrasi yang minimal dan dapat direproduksi yang dapat diakses mahasiswa pemula.
+> Berdasarkan permasalahan-permasalahan tersebut, penelitian ini mengajukan hipotesis bahwa merestrukturisasi business logic menggunakan Action Pattern akan meningkatkan maintainability dan memudahkan pengujian unit secara terisolasi, dibandingkan dengan pendekatan fat controller konvensional. Proyek ini menginvestigasi proposisi tersebut dengan membangun aplikasi Todo List menggunakan Action Pattern dan mengevaluasinya terhadap ambang batas kualitas kode yang mapan serta karakteristik fat controller terdokumentasi di atas, menyediakan demonstrasi minimal dan dapat direproduksi yang dapat diakses mahasiswa pemula.
 
 **1.2 Rumusan Masalah**
 1. Apakah penerapan Action Pattern dapat meningkatkan maintainability pada aplikasi Todo List berbasis Laravel, ditinjau dari cyclomatic complexity, coupling, dan lines of code per method?
-2. Apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (testability) pada aplikasi Todo List berbasis Laravel, ditinjau dari cakupan pengujian (test coverage) yang dicapai?
+2. Apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (*testability*) pada aplikasi Todo List berbasis Laravel, ditinjau dari cakupan pengujian (*test coverage*) yang dicapai?
 
 **1.3 Batasan Masalah**
 - Aplikasi dibatasi pada fitur CRUD Todo (create, read, update, delete) dan filter status, dengan autentikasi dasar satu pengguna per akun (memakai scaffolding auth default Laravel) sebagai prasyarat; tidak ada sistem registrasi/manajemen akun multi-user, notifikasi, atau integrasi eksternal yang dibangun.
@@ -436,10 +436,10 @@ Berikut draf ringkas BAB I untuk contoh berkelanjutan ini, menunjukkan bagaimana
 
 **1.4 Tujuan**
 1. Mengevaluasi apakah penerapan Action Pattern dapat meningkatkan maintainability pada aplikasi Todo List berbasis Laravel, ditinjau dari cyclomatic complexity, coupling, dan lines of code per method.
-2. Mengevaluasi apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (testability) pada aplikasi Todo List berbasis Laravel, ditinjau dari cakupan pengujian (test coverage) yang dicapai.
+2. Mengevaluasi apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (*testability*) pada aplikasi Todo List berbasis Laravel, ditinjau dari cakupan pengujian (*test coverage*) yang dicapai.
 
 **1.5 Manfaat**
-- **Teoretis:** menyediakan bukti empiris tentang tingkat kepatuhan implementasi Action Pattern pada aplikasi Laravel skala kecil terhadap ambang batas maintainability dan testability yang direkomendasikan literatur.
+- **Teoretis:** menyediakan bukti empiris tentang tingkat kepatuhan implementasi Action Pattern pada aplikasi Laravel skala kecil terhadap ambang batas maintainability dan *testability* yang direkomendasikan literatur.
 - **Praktis:** memberi panduan bagi mahasiswa dan developer pemula dalam menerapkan Action Pattern pada proyek Laravel mereka, dengan tolok ukur yang jelas dan dapat dicapai dalam satu semester.
 
 Perhatikan traceability-nya: setiap Rumusan Masalah punya tepat satu Tujuan yang cocok, dan setiap elemen Batasan Masalah ada untuk menjaga proyek tetap dapat diselesaikan dalam satu semester.
@@ -505,9 +505,9 @@ Jika ada jawaban "tidak," revisi BAB I sekarang: jauh lebih murah memperbaiki ka
 |---|---|---|
 | **Latar Belakang terasa seperti bab buku teks** | Halaman yang menjelaskan "apa itu Laravel" atau "apa itu design pattern" seharusnya ada di BAB II (Landasan Teori), bukan BAB I. | Fokuskan Latar Belakang pada *masalah dan kesenjangan*; simpan definisi dan teori untuk BAB II. |
 | **Rumusan Masalah dirumuskan sebagai tugas** ("Membuat aplikasi Todo List") | Tugas bukan pertanyaan: tidak bisa "dijawab" dengan bukti di BAB VI. | Rumuskan ulang sebagai pertanyaan: "Bagaimana perbandingan maintainability antara...?" |
-| **Batasan Masalah dibiarkan kabur** ("Sistem dibuat sesederhana mungkin") | Ruang lingkup yang kabur tidak dapat menghentikan scope creep: setiap penambahan bisa diperdebatkan cocok. | Sebutkan cakupan/pengecualian yang konkret: fitur spesifik, stack, environment, metrik. |
+| **Batasan Masalah dibiarkan kabur** ("Sistem dibuat sesederhana mungkin") | Ruang lingkup yang kabur tidak dapat menghentikan *scope creep*: setiap penambahan bisa diperdebatkan cocok. | Sebutkan cakupan/pengecualian yang konkret: fitur spesifik, stack, environment, metrik. |
 | **Tujuan dan Rumusan Masalah tidak cocok 1:1** | Tujuan ekstra tanpa pertanyaan yang cocok adalah ruang lingkup yang tidak pernah dijustifikasi; pertanyaan tanpa Tujuan tidak akan pernah terjawab. | Tulis berdampingan dan periksa jumlah serta urutannya cocok persis. |
-| **Tidak ada Rumusan Masalah yang terukur** | Proyek yang rumusan masalahnya hanya "bangun X" tidak dapat menunjukkan kecermatan ilmiah: ini latihan membangun, bukan mini-tesis. | Tambahkan setidaknya satu pertanyaan perbandingan atau pengukuran. |
+| **Tidak ada Rumusan Masalah yang terukur** | Proyek yang Rumusan Masalahnya hanya "bangun X" tidak dapat menunjukkan kecermatan ilmiah: ini latihan membangun, bukan mini-tesis. | Tambahkan setidaknya satu pertanyaan perbandingan atau pengukuran. |
 | **Manfaat adalah boilerplate generik** | "Bermanfaat bagi masyarakat luas" tidak mengatakan apa-apa dan tidak meyakinkan siapa pun. | Sebutkan peran spesifik (developer, mahasiswa berikutnya, institusi) dan manfaat spesifik. |
 
 </section>

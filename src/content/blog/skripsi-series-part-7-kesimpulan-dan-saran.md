@@ -43,14 +43,14 @@ If you have followed this series' traceability chain (Rumusan Masalah in BAB I, 
 
 ## 1. Apa Itu BAB VII: Kesimpulan dan Saran?
 
-**BAB VII** adalah bab terpendek dalam skripsi, dan sering ditulis terburu-buru, sebuah kesalahan, karena ini adalah hal terakhir yang dibaca dengan saksama oleh banyak pembaca (dan setiap penguji yang membuka dokumen Anda untuk pertama kali). Bab ini memiliki dua subbab:
+**BAB VII** adalah bab terpendek dalam skripsi, dan sering ditulis terburu-buru, padahal ini adalah kesalahan, karena ini adalah hal terakhir yang dibaca dengan saksama oleh banyak pembaca (dan setiap penguji yang membuka dokumen Anda untuk pertama kali). Bab ini memiliki dua subbab:
 
 | Subbab | Tujuan |
 |---|---|
 | **7.1 Kesimpulan** | Jawaban langsung dan bernomor untuk setiap Rumusan Masalah, tidak lebih, tidak ada yang baru |
 | **7.2 Saran** | Rekomendasi jujur untuk siapa pun yang melanjutkan pekerjaan ini: diri Anda di masa depan, mahasiswa lain, atau maintainer |
 
-Jika Anda mengikuti rantai traceability seri ini (Rumusan Masalah di BAB I, Tujuan di BAB I, Hasil dan Pembahasan di BAB VI), menulis Kesimpulan hampir mekanis: nyatakan ulang setiap pertanyaan terjawab sebagai temuan.
+Jika Anda mengikuti rantai *traceability* seri ini (Rumusan Masalah di BAB I, Tujuan di BAB I, Hasil dan Pembahasan di BAB VI), menulis Kesimpulan hampir mekanis: nyatakan ulang setiap pertanyaan terjawab sebagai temuan.
 
 </section>
 
@@ -88,10 +88,10 @@ BAB VII is the final artefact examiners weigh your entire project against; it is
 ## 2. Mengapa Menulis Kesimpulan dan Saran dengan Benar Itu Penting?
 
 ### Apa itu?
-Kesimpulan adalah argumen penutup dari argumen yang telah Anda susun sejak BAB I; Saran adalah pengakuan jujur Anda tentang apa yang masih terbuka.
+Kesimpulan adalah argumen penutup dari kasus yang telah Anda bangun sejak BAB I; Saran adalah pengakuan jujur Anda tentang apa yang masih terbuka.
 
 ### Mengapa penting?
-- **Ini adalah checkpoint terakhir rantai traceability Anda.** Jika sebuah poin Kesimpulan tidak terpetakan ke item Rumusan Masalah, entah proyek Anda menyimpang, atau Anda mengklaim sesuatu yang sebenarnya belum Anda tetapkan.
+- **Ini adalah *checkpoint* terakhir rantai *traceability* Anda.** Jika sebuah poin Kesimpulan tidak terpetakan ke item Rumusan Masalah, entah proyek Anda menyimpang, atau Anda mengklaim sesuatu yang sebenarnya belum Anda tetapkan.
 - **Penguji sering membaca BAB I dan BAB VII berurutan sebelum membaca yang lain.** Ketidakcocokan antara keduanya adalah cara tercepat memicu pertanyaan sulit di sidang Anda.
 - **Saran bukan permintaan maaf.** Bagian Saran yang ditulis dengan baik menandakan kematangan ilmiah: Anda tahu batas apa yang Anda buktikan, dan bisa menunjuk secara presisi apa langkah berikutnya.
 - **Bab ini adalah gladi resik sidang Anda.** Pertanyaan yang diajukan penguji, sebagian besar, adalah "apakah Kesimpulan Anda benar-benar konsisten dengan Hasil Anda?" dan "apa yang akan Anda lakukan berbeda?" Keduanya terjawab dengan menulis bab ini secara cermat.
@@ -106,7 +106,7 @@ BAB VII adalah artefak akhir yang menjadi ukuran penguji terhadap seluruh proyek
 1. Daftar setiap item Rumusan Masalah dan tulis satu kalimat Kesimpulan per item, masing-masing didukung oleh angka BAB VI yang spesifik.
 2. Tulis Saran sebagai langkah konkret dan dapat ditindaklanjuti, bukan harapan yang kabur.
 3. Latih pembelaan sidang Anda menggunakan Kesimpulan sebagai poin pembicaraan.
-4. Kemas proyek untuk handover: deliverable nyata, bukan hanya bab.
+4. Kemas proyek untuk *handover*: *deliverable* nyata, bukan hanya bab.
 
 </section>
 
@@ -179,16 +179,16 @@ Rehearse answers to these; they are near-universal for a measurement-based skrip
 
 ## 4. Persiapan Sidang: Pertanyaan Penguji yang Umum
 
-Latih jawaban untuk ini; hampir universal untuk skripsi berbasis pengukuran seperti penelitian ini.
+Latih jawaban untuk pertanyaan-pertanyaan ini, yang hampir universal untuk skripsi berbasis pengukuran seperti penelitian ini.
 
 | Pertanyaan | Cara menjawab dengan baik |
 |---|---|
 | "Mengapa metrik ini dan bukan yang lain?" | Tunjuk ke teori BAB II dan definisi BAB III; pilihan metrik Anda sudah dijustifikasi sebelum Anda mengukur apa pun. |
 | "Mengapa Anda tidak membangun perbandingan nyata dengan Fat Controller?" | Tunjuk ke Batasan Masalah (BAB I bagian 1.3); itu adalah keputusan eksplisit mengenai ruang lingkup agar mini-skripsi dapat dicapai dalam satu semester. BAB IV menunjukkan kontras konseptual, dan Saran poin 2 mengusulkan perbandingan nyata sebagai pekerjaan lanjutan. |
 | "Bukankah sistem ini terlalu kecil untuk digeneralisasi?" | Setujui, dan tunjuk ke Threats to Validity Anda sendiri di BAB VI; Anda sudah mengatakan ini, dan menunjukkan bahwa Anda tahu batas Anda adalah sebuah kekuatan, bukan kelemahan. |
-| "Apa yang terjadi jika aplikasinya lebih besar?" | Jawab dari Saran Anda; ini persis yang dimaksudkan poin Saran 1. |
+| "Apa yang terjadi jika aplikasinya lebih besar?" | Jawab dari Saran Anda; ini persis yang dimaksudkan oleh poin Saran 1. |
 | "Jelaskan bagaimana Action Pattern benar-benar bekerja di kode Anda." | Siapkan implementasi dan cuplikan ilustratif BAB V bagian 5.4 untuk dijelaskan langsung; ini pertanyaan yang bisa Anda jawab dengan paling percaya diri, karena Anda sendiri yang menulis kodenya. |
-| "Bagaimana Anda menangani isolasi data multipengguna?" | Tunjuk ke prasyarat autentikasi (BAB IV bagian 4.1), scoping `user_id` dan pengecekan kepemilikan `abort_unless` (BAB V bagian 5.4), dan BB-09, skenario Blackbox yang secara khusus menguji penolakan akses lintas pengguna (BAB VI bagian 7). Prasyarat ini tidak hanya dinyatakan, tetapi ditegakkan dan diverifikasi. |
+| "Bagaimana Anda menangani isolasi data multipengguna?" | Tunjuk ke prasyarat autentikasi (BAB IV bagian 4.1), *scoping* `user_id` dan pengecekan kepemilikan `abort_unless` (BAB V bagian 5.4), dan BB-09, skenario Blackbox yang secara khusus menguji penolakan akses lintas pengguna (BAB VI bagian 7). Prasyarat ini tidak hanya dinyatakan, tetapi ditegakkan dan diverifikasi. |
 
 **Tips presentasi:** susun slide pembelaan Anda mengikuti kerangka yang sama seperti seri ini: Rumusan Masalah, Metodologi, Desain, Implementasi, Hasil, Kesimpulan. Penguji yang sudah membaca BAB I Anda langsung mengenali strukturnya, yang membangun kepercayaan pada pekerjaan Anda alih-alih kebingungan.
 
@@ -223,18 +223,18 @@ The Prototype Iteration Log (Part 5, Section 5.4) is worth revisiting here too: 
 
 Skripsi adalah dokumen, tetapi mini-skripsi dengan sistem yang berfungsi juga merupakan **perangkat lunak yang dapat diserahkan** (software deliverable). Kemas seperti Anda menyerahkan proyek nyata:
 
-- **README:** instruksi setup, cara menjalankan aplikasi, cara menjalankan test, cara mereproduksi pengukuran metrik.
-- **`.env.example`:** jangan pernah commit kredensial nyata; dokumentasikan variabel environment yang dibutuhkan.
-- **Release bertag:** agar penguji (atau diri Anda di masa depan) dapat checkout versi persis yang diukur secara langsung. Ini bukan hipotetis: inilah persis yang ditunjuk tag `v0.3-final` di Log Iterasi Prototipe Bagian 5, versi yang sama yang diukur BAB VI.
-- **Migration dan seed data:** siapa pun seharusnya bisa `git clone`, menjalankan migration, dan melihat aplikasi berfungsi dalam hitungan menit.
+- **README:** instruksi setup, cara menjalankan aplikasi, cara menjalankan *test*, cara mereproduksi pengukuran metrik.
+- **`.env.example`:** jangan pernah *commit* kredensial nyata; dokumentasikan variabel *environment* yang dibutuhkan.
+- **_Release_ bertag:** agar penguji (atau diri Anda di masa depan) dapat *checkout* versi persis yang diukur secara langsung. Ini bukan hipotetis: inilah persis yang ditunjuk tag `v0.3-final` di Log Iterasi Prototipe Bagian 5, versi yang sama yang diukur BAB VI.
+- **_Migration_ dan _seed data_:** siapa pun seharusnya bisa `git clone`, menjalankan *migration*, dan melihat aplikasi berfungsi dalam hitungan menit.
 
 Ini bukan pekerjaan ekstra tanpa tujuan. Proyek yang benar-benar bisa dijalankan penguji lebih meyakinkan daripada yang hanya mereka baca.
 
 ## 6. Menuntaskan Benang Merah "Selesai Tepat Waktu"
 
-Bagian 1 telah menyatakan bahwa Batasan Masalah adalah pertahanan terbaik Anda melawan scope creep, dan Bagian 3 memberi Anda linimasa 16 minggu yang sudah memperhitungkan waktu cadangan yang dihemat oleh desain satu-implementasi. Pada titik ini di semester, layak melakukan retrospektif singkat: apakah setiap BAB mendarat di minggu yang direncanakan? Jika tidak, di mana penyimpangan dimulai? Biasanya entah Rumusan Masalah yang kurang spesifik (Bagian 1) atau fase desain yang berlarut karena Batasan Masalah kurang ketat (Bagian 4). Tuliskan refleksi ini; ini adalah hal paling berguna yang bisa Anda serahkan kepada mahasiswa junior yang memulai skripsi mereka sendiri semester depan.
+Bagian 1 telah menyatakan bahwa Batasan Masalah adalah pertahanan terbaik Anda melawan *scope creep*, dan Bagian 3 memberi Anda linimasa 16 minggu yang sudah memperhitungkan waktu cadangan yang dihemat oleh desain satu-implementasi. Pada titik ini di semester, layak melakukan retrospektif singkat: apakah setiap BAB mendarat di minggu yang direncanakan? Jika tidak, di mana penyimpangan dimulai? Biasanya entah Rumusan Masalah yang kurang spesifik (Bagian 1) atau fase desain yang berlarut karena Batasan Masalah kurang ketat (Bagian 4). Tuliskan refleksi ini; ini adalah hal paling berguna yang bisa Anda serahkan kepada mahasiswa junior yang memulai skripsi mereka sendiri semester depan.
 
-Log Iterasi Prototipe (Bagian 5, bagian 5.4) layak ditinjau ulang di sini juga: `v0.1-prototype` hingga `v0.3-final` adalah bukti bahwa loop evaluasi-dan-penyempurnaan Prototyping menjaga desain satu-implementasi tetap sesuai jadwal, karena setiap iterasi memperbaiki kesenjangan yang spesifik, bukan memicu mulai ulang. Jika log Anda sendiri menunjukkan mulai ulang alih-alih penyempurnaan, itulah penyimpangan yang layak dituliskan.
+Log Iterasi Prototipe (Bagian 5, bagian 5.4) layak ditinjau ulang di sini juga: `v0.1-prototype` hingga `v0.3-final` adalah bukti bahwa *loop* evaluasi-dan-penyempurnaan Prototyping menjaga desain satu-implementasi tetap sesuai jadwal, karena setiap iterasi memperbaiki kesenjangan yang spesifik, bukan memicu mulai ulang. Jika log Anda sendiri menunjukkan mulai ulang alih-alih penyempurnaan, itulah penyimpangan yang layak dituliskan.
 
 </section>
 
@@ -263,8 +263,8 @@ Log Iterasi Prototipe (Bagian 5, bagian 5.4) layak ditinjau ulang di sini juga: 
 | **Kesimpulan memperkenalkan temuan baru yang tidak ada di BAB VI** | Kesimpulan adalah sintesis dari apa yang sudah ditunjukkan, bukan tempat untuk klaim baru. | Setiap kalimat Kesimpulan harus mengutip kembali ke hasil BAB VI yang spesifik. |
 | **Jumlah Kesimpulan tidak cocok dengan jumlah Rumusan Masalah** | Memutus rantai traceability yang menjadi dasar seluruh dokumen. | Tulis persis satu poin Kesimpulan per item Rumusan Masalah, urutan yang sama. |
 | **Saran bersifat kabur** ("perlu penelitian lebih lanjut") | Tidak memberi pembaca sesuatu untuk ditindaklanjuti. | Sebutkan langkah selanjutnya yang spesifik, terbatas ruang lingkupnya, dan konkret, seperti di Bagian 3. |
-| **Tidak ada gladi resik sidang** | Kali pertama Anda mengucapkan Kesimpulan Anda secara lisan seharusnya bukan di depan penguji. | Latih menjelaskan setiap poin Kesimpulan dan bukti pendukung BAB VI-nya dengan keras sebelumnya. |
-| **Proyek tidak dapat dijalankan oleh siapa pun selain penulis** | Deliverable yang tidak dapat direproduksi merusak bahkan BAB VI yang kuat. | Kemas dengan README, `.env.example`, dan migration, seperti di Bagian 5. |
+| **Tidak ada gladi resik sidang** | Kali pertama Anda mengucapkan Kesimpulan Anda secara lisan seharusnya bukan di depan penguji. | Latih menjelaskan setiap poin Kesimpulan dan bukti pendukung BAB VI-nya secara lisan sebelumnya. |
+| **Proyek tidak dapat dijalankan oleh siapa pun selain penulis** | *Deliverable* yang tidak dapat direproduksi merusak bahkan BAB VI yang kuat. | Kemas dengan README, `.env.example`, dan *migration*, seperti di Bagian 5. |
 
 </section>
 
@@ -284,8 +284,8 @@ What carries over directly is the skeleton, not the content: swap the Todo app f
 
 ## 8. Seri Selesai: Menerapkan Ini pada Skripsi Anda Sendiri
 
-Sepanjang tujuh bagian, satu contoh yang sengaja dibuat sederhana, aplikasi Todo yang mengevaluasi Action Pattern Laravel terhadap ambang batas literatur, dibawa melalui ketujuh BAB skripsi Polinema, menunjukkan pada setiap langkah bagaimana **struktur akademik** (Latar Belakang, Rumusan Masalah, dan seterusnya hingga Kesimpulan) dan **disiplin rekayasa perangkat lunak** (requirements, desain UML, version control, pengujian, pengukuran) saling menguatkan, dan bagaimana desain satu-implementasi berbasis validasi-ambang-batas menjaga disiplin itu tetap dapat dicapai pemula dalam satu semester.
+Sepanjang tujuh bagian, satu contoh yang sengaja dibuat sederhana, aplikasi Todo yang mengevaluasi Action Pattern Laravel terhadap ambang batas literatur, dibawa melalui ketujuh BAB skripsi Polinema, menunjukkan pada setiap langkah bagaimana **struktur akademik** (Latar Belakang, Rumusan Masalah, dan seterusnya hingga Kesimpulan) dan **disiplin rekayasa perangkat lunak** (*requirements*, desain UML, *version control*, pengujian, pengukuran) saling menguatkan, dan bagaimana desain satu-implementasi berbasis validasi-ambang-batas menjaga disiplin itu tetap dapat dicapai pemula dalam satu semester.
 
-Yang bisa langsung dipakai ulang adalah kerangkanya, bukan isinya: ganti aplikasi Todo dengan sistem kecil Anda sendiri, ganti Action Pattern dengan apa pun yang ingin Anda evaluasi (design pattern lain, gaya arsitektur, tool, library), dan pertahankan rantai traceability dari Rumusan Masalah ke Kesimpulan, desain satu-implementasi, serta disiplin merancang sebelum membangun dan mengukur sebelum menyimpulkan. Yang tidak otomatis ikut berpindah adalah buktinya sendiri: Studi Literatur Anda sendiri untuk menjustifikasi ambang batas yang dapat dipertanggungjawabkan bagi subjek baru Anda, metrik yang dipilih karena benar-benar mengukurnya (cyclomatic complexity cocok untuk pattern struktur kode, belum tentu cocok untuk strategi caching atau pilihan UI), dan Batasan Masalah yang dijustifikasi ulang untuk kasus spesifik Anda, bukan disalin dari studi ini. Disiplin menyusun ulang landasan itulah, lebih dari template bab spesifik apa pun, yang membuat skripsi selesai tepat waktu.
+Yang bisa langsung dipakai ulang adalah kerangkanya, bukan isinya: ganti aplikasi Todo dengan sistem kecil Anda sendiri, ganti Action Pattern dengan apa pun yang ingin Anda evaluasi (*design pattern* lain, gaya arsitektur, *tool*, *library*), dan pertahankan rantai *traceability* dari Rumusan Masalah ke Kesimpulan, desain satu-implementasi, serta disiplin merancang sebelum membangun dan mengukur sebelum menyimpulkan. Yang tidak otomatis ikut berpindah adalah buktinya sendiri: Studi Literatur Anda sendiri untuk menjustifikasi ambang batas yang dapat dipertanggungjawabkan bagi subjek baru Anda, metrik yang dipilih karena benar-benar mengukurnya (*cyclomatic complexity* cocok untuk *pattern* struktur kode, belum tentu cocok untuk strategi *caching* atau pilihan UI), dan Batasan Masalah yang dijustifikasi ulang untuk kasus spesifik Anda, bukan disalin dari studi ini. Disiplin menyusun ulang landasan itulah, lebih dari *template* bab spesifik apa pun, yang membuat skripsi selesai tepat waktu.
 
 </section>
