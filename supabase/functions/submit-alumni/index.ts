@@ -14,6 +14,8 @@ interface AlumniPayload {
   photo?: string | null
   cohort_year?: number
   exit_year?: number
+  role_id?: string
+  role_en?: string
   current_role_id?: string | null
   current_role_en?: string | null
   current_organization_id?: string | null
@@ -48,7 +50,15 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'bad_request' }, 400, headers)
   }
 
-  if (!payload.turnstileToken || !payload.name || !payload.cohort_year || !payload.exit_year) {
+  if (
+    !payload.turnstileToken ||
+    !payload.name ||
+    !payload.cohort_year ||
+    !payload.exit_year ||
+    !payload.role_id ||
+    !payload.role_en ||
+    !payload.research_topics
+  ) {
     return jsonResponse({ error: 'invalid_request' }, 400, headers)
   }
 
@@ -82,8 +92,8 @@ Deno.serve(async (req) => {
       photo: payload.photo || null,
       cohort_year: payload.cohort_year,
       exit_year: payload.exit_year,
-      role_id: 'Mahasiswa',
-      role_en: 'Student',
+      role_id: payload.role_id.trim(),
+      role_en: payload.role_en.trim(),
       current_role_id: payload.current_role_id?.trim() || null,
       current_role_en: payload.current_role_en?.trim() || null,
       current_organization_id: payload.current_organization_id?.trim() || null,

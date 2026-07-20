@@ -57,6 +57,14 @@
           <input v-model.number="form.exit_year" type="number" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
         <div>
+          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.roleIdLabel }} <span class="text-red-400">*</span></label>
+          <input v-model="form.role_id" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+        </div>
+        <div>
+          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.roleEnLabel }} <span class="text-red-400">*</span></label>
+          <input v-model="form.role_en" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+        </div>
+        <div>
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.currentPositionIdLabel }}</label>
           <input v-model="form.current_role_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
@@ -96,8 +104,8 @@
         </div>
 
         <div class="sm:col-span-2">
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.researchTopicsLabel }}</label>
-          <textarea v-model="form.research_topics" rows="5" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.researchTopicsLabel }} <span class="text-red-400">*</span></label>
+          <textarea v-model="form.research_topics" rows="5" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
         <div class="sm:col-span-2">
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.careerUpdateLabel }}</label>
@@ -155,6 +163,12 @@ const form = reactive({
   photo: null as string | null,
   cohort_year: new Date().getFullYear(),
   exit_year: new Date().getFullYear(),
+  // Pre-filled with the site's old hardcoded default (every self-
+  // submission used to be forced to this regardless of what the alumnus
+  // actually did in the lab) — now just a starting point the submitter
+  // can edit, e.g. "Lab Coordinator" / "Koordinator Lab".
+  role_id: 'Mahasiswa',
+  role_en: 'Student',
   current_role_id: '',
   current_role_en: '',
   current_organization_id: '',
@@ -210,6 +224,8 @@ async function handleSubmit() {
       photo: form.photo || null,
       cohort_year: form.cohort_year,
       exit_year: form.exit_year,
+      role_id: form.role_id.trim(),
+      role_en: form.role_en.trim(),
       current_role_id: form.current_role_id.trim() || null,
       current_role_en: form.current_role_en.trim() || null,
       current_organization_id: form.current_organization_id.trim() || null,
