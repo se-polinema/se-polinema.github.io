@@ -26,8 +26,8 @@ body:
     id: cohort_year
     attributes:
       label: Cohort Year
-      description: The year they joined the lab
-      placeholder: "2021"
+      description: The year they enrolled at Polinema (angkatan) — typically 4 years before graduation for D-IV. This is NOT the year they joined the lab or graduated (that's Exit Year below).
+      placeholder: "2022"
     validations:
       required: true
 
