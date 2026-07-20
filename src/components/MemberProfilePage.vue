@@ -112,6 +112,15 @@
         >
           {{ t.alumni.profile }} ↗
         </a>
+        <a
+          v-if="member.github_url"
+          :href="member.github_url"
+          target="_blank"
+          rel="noopener"
+          class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
+        >
+          GitHub ↗
+        </a>
       </div>
     </template>
   </div>
@@ -137,6 +146,7 @@ interface MemberRow {
   current_organization_en: string | null
   linkedin_url: string | null
   profile_url: string | null
+  github_url: string | null
   streams: string[] | null
   research_topics: string | null
   career_update: string | null

@@ -88,6 +88,10 @@
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.profileUrlLabel }}</label>
           <input v-model="form.profile_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
+        <div>
+          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.githubLabel }}</label>
+          <input v-model="form.github_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+        </div>
 
         <div class="sm:col-span-2">
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.alumniSubmit.streamsLabel }}</label>
@@ -175,6 +179,7 @@ const form = reactive({
   current_organization_en: '',
   linkedin_url: '',
   profile_url: '',
+  github_url: '',
   streams: [] as string[],
   research_topics: '',
   career_update: '',
@@ -206,6 +211,11 @@ watch(
 
     const meta = user.value.user_metadata as Record<string, string> | undefined
     form.name = meta?.full_name || meta?.name || meta?.user_name || ''
+    // GitHub OAuth metadata includes the handle as user_name — prefill the
+    // profile link from it (still editable, in case it's stale or wrong).
+    if (meta?.user_name) {
+      form.github_url = `https://github.com/${meta.user_name}`
+    }
     state.value = 'form'
   },
   { immediate: true }
@@ -232,6 +242,7 @@ async function handleSubmit() {
       current_organization_en: form.current_organization_en.trim() || null,
       linkedin_url: form.linkedin_url.trim() || null,
       profile_url: form.profile_url.trim() || null,
+      github_url: form.github_url.trim() || null,
       streams: form.streams,
       research_topics: form.research_topics.trim() || null,
       career_update: form.career_update.trim() || null,

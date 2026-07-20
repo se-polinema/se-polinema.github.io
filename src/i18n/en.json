@@ -658,6 +658,7 @@
     "currentAffiliationEnLabel": "Current Affiliation (English)",
     "linkedinLabel": "LinkedIn URL",
     "profileUrlLabel": "Personal Website / Portfolio URL",
+    "githubLabel": "GitHub URL",
     "streamsLabel": "Research Streams",
     "researchTopicsLabel": "Research Topics",
     "careerUpdateLabel": "Latest Career Update",

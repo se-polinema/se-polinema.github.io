@@ -22,6 +22,7 @@ interface AlumniPayload {
   current_organization_en?: string | null
   linkedin_url?: string | null
   profile_url?: string | null
+  github_url?: string | null
   streams?: string[]
   research_topics?: string | null
   career_update?: string | null
@@ -100,6 +101,7 @@ Deno.serve(async (req) => {
       current_organization_en: payload.current_organization_en?.trim() || null,
       linkedin_url: payload.linkedin_url?.trim() || null,
       profile_url: payload.profile_url?.trim() || null,
+      github_url: payload.github_url?.trim() || null,
       streams: payload.streams ?? [],
       research_topics: payload.research_topics?.trim() || null,
       career_update: payload.career_update?.trim() || null,

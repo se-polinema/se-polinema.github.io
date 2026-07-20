@@ -259,6 +259,10 @@
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.profileUrlLabel }}</label>
                 <input v-model="memberForm.profile_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
               </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.githubLabel }}</label>
+                <input v-model="memberForm.github_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
               <div class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.streamsLabel }}</label>
                 <div class="flex flex-wrap gap-3">
@@ -544,6 +548,7 @@ interface MemberRow {
   current_organization_en: string | null
   linkedin_url: string | null
   profile_url: string | null
+  github_url: string | null
   streams: string[] | null
   research_topics: string | null
   career_update: string | null
@@ -603,6 +608,7 @@ function emptyMemberForm() {
     current_organization_en: '',
     linkedin_url: '',
     profile_url: '',
+    github_url: '',
     streams: [] as string[],
     research_topics: '',
     career_update: '',
@@ -698,6 +704,7 @@ function editMember(m: MemberRow) {
     current_organization_en: m.current_organization_en ?? '',
     linkedin_url: m.linkedin_url ?? '',
     profile_url: m.profile_url ?? '',
+    github_url: m.github_url ?? '',
     streams: m.streams ?? [],
     research_topics: m.research_topics ?? '',
     career_update: m.career_update ?? '',
@@ -736,6 +743,7 @@ async function handleSaveMember() {
     current_organization_en: memberForm.current_organization_en.trim() || null,
     linkedin_url: memberForm.linkedin_url.trim() || null,
     profile_url: memberForm.profile_url.trim() || null,
+    github_url: memberForm.github_url.trim() || null,
     streams: memberForm.streams,
     research_topics: memberForm.research_topics.trim() || null,
     career_update: memberForm.career_update.trim() || null,
