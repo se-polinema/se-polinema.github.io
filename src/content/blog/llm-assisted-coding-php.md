@@ -794,7 +794,7 @@ The LLM responds with something like:
 > - Missing visibility keyword on `function calc` — should be `public function`.
 > - Missing `declare(strict_types=1)`.
 > - Properties `$disc`, `$p2` should use meaningful names.
-> - `elseif` should be `else if` per PSR-12.
+> - `else if` should be `elseif` per PSR-12.
 
 ### Step 2: Ask the LLM to Refactor
 
