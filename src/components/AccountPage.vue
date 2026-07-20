@@ -8,6 +8,9 @@
     <!-- Signed out -->
     <div v-else-if="!user" class="border border-primary/10 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800/50 p-6">
       <p class="text-sm text-neutral-600 dark:text-gray-300 mb-4">{{ t.account.signInPrompt }}</p>
+      <p v-if="oauthError" class="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
+        {{ oauthError }}
+      </p>
       <GitHubSignInButton :redirect-to="redirectTo" />
       <a
         :href="`/login?redirect=${encodeURIComponent('/account')}`"
@@ -83,13 +86,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
 import GitHubSignInButton from './GitHubSignInButton.vue'
+import { readOAuthError } from '../lib/oauthError'
 
 const { t } = useI18n()
 const { user, ready, signOut } = useAuth()
+
+// Supabase redirects failed OAuth attempts back here with an error param —
+// seeded empty for SSR, filled in onMounted (post-hydration reactive
+// update, not subject to Vue's production hydration-patch suppression).
+const oauthError = ref('')
+onMounted(() => {
+  oauthError.value = readOAuthError()
+})
 
 interface Registration {
   event_slug: string
