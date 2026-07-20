@@ -1,19 +1,23 @@
 ---
+// Sign-in and sign-up are the same action now that login is GitHub-only
+// (OAuth creates the account on first use) — there's no separate "create
+// account" step anymore. Redirect to /login, preserving any ?redirect=
+// param: astro.config.mjs's static `redirects` option only maps to a
+// fixed target path, so it can't forward an incoming query string —
+// this small client-side redirect can.
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
-import AuthForm from '../components/AuthForm.vue'
 ---
 
 <VSCodeLayout
-  title="Create Account"
-  description="Create a Software Engineering Laboratory account to register for events."
+  title="Redirecting…"
+  description="Sign in to your Software Engineering Laboratory account."
 >
   <div class="px-8 py-5">
-    <a
-      href="/events"
-      class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
-    >
-      &larr; Back to Events
-    </a>
-    <AuthForm client:load mode="register" />
+    <p class="text-sm font-mono text-neutral-500 dark:text-gray-400">
+      Redirecting to <a href="/login" class="text-accent hover:text-accent/80 transition-colors">sign in</a>…
+    </p>
   </div>
+  <script>
+    window.location.replace('/login' + window.location.search)
+  </script>
 </VSCodeLayout>

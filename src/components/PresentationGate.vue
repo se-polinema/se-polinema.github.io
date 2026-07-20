@@ -9,7 +9,7 @@
       {{ t.events.admin.loading }}
     </div>
 
-    <!-- Sign-in form -->
+    <!-- Sign-in -->
     <div v-else-if="gateState === 'unauthenticated'" class="w-full max-w-sm px-8">
       <div class="mb-6">
         <div class="text-[10px] font-mono uppercase tracking-widest text-neutral-400 dark:text-gray-500 mb-1">
@@ -20,45 +20,7 @@
         </h1>
       </div>
 
-      <form @submit.prevent="handleSignIn" class="space-y-4">
-        <div v-if="signInError" class="px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
-          {{ signInError }}
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
-            {{ t.events.auth.emailLabel }}
-          </label>
-          <input
-            v-model="signInForm.email"
-            type="email"
-            required
-            :placeholder="t.events.auth.emailPlaceholder"
-            class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
-          />
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
-            {{ t.events.auth.passwordLabel }}
-          </label>
-          <input
-            v-model="signInForm.password"
-            type="password"
-            required
-            :placeholder="t.events.auth.passwordPlaceholder"
-            class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
-          />
-        </div>
-        <button
-          type="submit"
-          :disabled="signingIn"
-          class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          <svg v-if="signingIn" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12a9 9 0 11-6.219-8.56"/>
-          </svg>
-          {{ signingIn ? t.events.auth.submittingLogin : t.events.auth.loginBtn }}
-        </button>
-      </form>
+      <GitHubSignInButton />
     </div>
 
     <!-- Unauthorized -->
@@ -108,9 +70,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { supabase } from '../lib/supabase'
+import GitHubSignInButton from './GitHubSignInButton.vue'
 // Static imports so Vite emits these CSS files and links them in <head> —
 // dynamic CSS imports inside client:load islands are not reliably served by GitHub Pages.
 import 'reveal.js/reveal.css'
@@ -128,9 +91,6 @@ const { t } = useI18n()
 type GateState = 'loading' | 'unauthenticated' | 'unauthorized' | 'ready' | 'error'
 
 const gateState = ref<GateState>('loading')
-const signingIn = ref(false)
-const signInError = ref('')
-const signInForm = reactive({ email: '', password: '' })
 
 onMounted(async () => {
   const { data: { user } } = await supabase.auth.getUser()
@@ -205,30 +165,9 @@ async function bootReveal() {
   }
 }
 
-async function handleSignIn() {
-  signingIn.value = true
-  signInError.value = ''
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: signInForm.email.trim().toLowerCase(),
-    password: signInForm.password,
-  })
-
-  signingIn.value = false
-
-  if (error || !data.user) {
-    signInError.value = error?.message ?? t.value.events.auth.loginError
-    return
-  }
-
-  await checkRoleAndLoad(data.user.id)
-}
-
 async function handleSignOut() {
   await supabase.auth.signOut()
   gateState.value = 'unauthenticated'
-  signInForm.email = ''
-  signInForm.password = ''
 }
 
 function downloadPdf() {

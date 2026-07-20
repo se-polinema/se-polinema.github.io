@@ -1,47 +1,11 @@
 <template>
   <div class="px-8 py-5">
-    <!-- Sign-in form -->
+    <!-- Sign-in -->
     <div v-if="authState === 'unauthenticated'" class="max-w-sm">
       <h1 class="font-serif text-2xl font-bold text-primary dark:text-gray-100 mb-6">
         {{ t.events.admin.heading }}
       </h1>
-      <form @submit.prevent="handleSignIn" class="space-y-4">
-        <div v-if="signInError" class="px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
-          {{ signInError }}
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
-            {{ t.events.admin.emailLabel }}
-          </label>
-          <input
-            v-model="signInForm.email"
-            type="email"
-            required
-            class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
-          />
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
-            {{ t.events.admin.passwordLabel }}
-          </label>
-          <input
-            v-model="signInForm.password"
-            type="password"
-            required
-            class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
-          />
-        </div>
-        <button
-          type="submit"
-          :disabled="signingIn"
-          class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          <svg v-if="signingIn" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12a9 9 0 11-6.219-8.56"/>
-          </svg>
-          {{ signingIn ? t.events.admin.signingIn : t.events.admin.signIn }}
-        </button>
-      </form>
+      <GitHubSignInButton />
     </div>
 
     <!-- Loading -->
@@ -522,6 +486,7 @@ import { useAuth } from '../composables/useAuth'
 import { supabase } from '../lib/supabase'
 import MemberPhotoUpload from './MemberPhotoUpload.vue'
 import AdminEventSection from './AdminEventSection.vue'
+import GitHubSignInButton from './GitHubSignInButton.vue'
 import research from '../data/research.json'
 
 const { t } = useI18n()
@@ -531,12 +496,8 @@ const { user, ready, signOut } = useAuth()
 type AuthState = 'loading' | 'unauthenticated' | 'unauthorized' | 'admin'
 
 const authState = ref<AuthState>('loading')
-const signingIn = ref(false)
-const signInError = ref('')
 const loadingData = ref(false)
 const copiedCode = ref('')
-
-const signInForm = reactive({ email: '', password: '' })
 
 interface EventRow {
   slug: string
@@ -996,26 +957,6 @@ async function deleteSubscriber(s: Subscriber) {
     return
   }
   await loadSubscribers()
-}
-
-async function handleSignIn() {
-  signingIn.value = true
-  signInError.value = ''
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: signInForm.email,
-    password: signInForm.password,
-  })
-
-  if (error) {
-    signingIn.value = false
-    signInError.value = error.message
-    return
-  }
-  // On success, leave signingIn=true — useAuth()'s onAuthStateChange fires
-  // reactively and the watch() above transitions authState away from the
-  // sign-in form entirely, so there's no separate "re-enabled button" flash
-  // to avoid here.
 }
 
 async function handleSignOut() {
