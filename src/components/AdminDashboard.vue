@@ -374,8 +374,8 @@
               <div class="flex-1">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.staffAdmin.emailLabel }}</label>
                 <input
-                  v-model="grantEmail"
-                  type="email"
+                  v-model="grantIdentifier"
+                  type="text"
                   required
                   class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
                 />
@@ -402,6 +402,7 @@
                 <tr class="border-b border-primary/10 dark:border-gray-700">
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.staffAdmin.nameCol }}</th>
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.staffAdmin.emailCol }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.staffAdmin.githubCol }}</th>
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.staffAdmin.grantedCol }}</th>
                   <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2"></th>
                 </tr>
@@ -413,6 +414,16 @@
                     <span v-if="a.id === user?.id" class="ml-1.5 text-[10px] font-mono text-neutral-400 dark:text-gray-500">({{ t.staffAdmin.youLabel }})</span>
                   </td>
                   <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">{{ a.email ?? '—' }}</td>
+                  <td class="py-2.5 pr-4 font-mono text-xs text-neutral-500 dark:text-gray-400">
+                    <a
+                      v-if="a.github_username"
+                      :href="`https://github.com/${a.github_username}`"
+                      target="_blank"
+                      rel="noopener"
+                      class="text-accent hover:text-accent/80 transition-colors"
+                    >@{{ a.github_username }}</a>
+                    <span v-else>—</span>
+                  </td>
                   <td class="py-2.5 pr-4 font-mono text-xs text-neutral-400 dark:text-gray-500">
                     {{ a.role_updated_at ? formatDate(a.role_updated_at) : t.staffAdmin.autoAssigned }}
                   </td>
@@ -572,12 +583,13 @@ interface AdminProfile {
   id: string
   email: string | null
   full_name: string | null
+  github_username: string | null
   role: string
   role_updated_at: string | null
 }
 
 const admins = ref<AdminProfile[]>([])
-const grantEmail = ref('')
+const grantIdentifier = ref('')
 const grantingAdmin = ref(false)
 const staffActionError = ref('')
 
@@ -882,7 +894,7 @@ async function loadAdmins() {
   const { data } = await supabase
     .schema('se')
     .from('profiles')
-    .select('id, email, full_name, role, role_updated_at')
+    .select('id, email, full_name, github_username, role, role_updated_at')
     .eq('role', 'admin')
     .order('email')
 
@@ -893,14 +905,19 @@ async function handleGrantAdmin() {
   grantingAdmin.value = true
   staffActionError.value = ''
 
-  const email = grantEmail.value.trim().toLowerCase()
+  // Accepts an email, a bare GitHub username, an @-prefixed handle, or a
+  // pasted GitHub profile URL — GitHub is now the only sign-in method, so
+  // an admin may only know a colleague's handle, not their email.
+  const identifier = grantIdentifier.value
+    .trim()
+    .replace(/^https?:\/\/(www\.)?github\.com\//i, '')
+    .replace(/^@/, '')
 
-  const { data: found, error: lookupError } = await supabase
-    .schema('se')
-    .from('profiles')
-    .select('id')
-    .eq('email', email)
-    .maybeSingle()
+  const lookup = identifier.includes('@')
+    ? supabase.schema('se').from('profiles').select('id').eq('email', identifier.toLowerCase())
+    : supabase.schema('se').from('profiles').select('id').ilike('github_username', identifier)
+
+  const { data: found, error: lookupError } = await lookup.maybeSingle()
 
   if (lookupError || !found) {
     grantingAdmin.value = false
@@ -917,7 +934,7 @@ async function handleGrantAdmin() {
     return
   }
 
-  grantEmail.value = ''
+  grantIdentifier.value = ''
   await loadAdmins()
 }
 

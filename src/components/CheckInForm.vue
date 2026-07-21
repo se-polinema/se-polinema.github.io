@@ -18,54 +18,7 @@
     <!-- Sign-in required -->
     <div v-else-if="!isSignedIn">
       <p class="text-sm text-neutral-500 dark:text-gray-400 mb-6">{{ t.events.checkin.signInFirst }}</p>
-      <form @submit.prevent="handleSignIn" class="space-y-4">
-        <div v-if="signInError" class="px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
-          {{ signInError }}
-        </div>
-
-        <GitHubSignInButton />
-
-        <div class="flex items-center gap-3">
-          <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
-          <span class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500">{{ t.events.auth.orDivider }}</span>
-          <div class="flex-1 h-px bg-primary/10 dark:bg-gray-700"></div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
-            {{ t.events.auth.emailLabel }} <span class="text-red-400">*</span>
-          </label>
-          <input
-            v-model="signInForm.email"
-            type="email"
-            required
-            :placeholder="t.events.auth.emailPlaceholder"
-            class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
-          />
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">
-            {{ t.events.auth.passwordLabel }} <span class="text-red-400">*</span>
-          </label>
-          <input
-            v-model="signInForm.password"
-            type="password"
-            required
-            :placeholder="t.events.auth.passwordPlaceholder"
-            class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
-          />
-        </div>
-        <button
-          type="submit"
-          :disabled="signingIn"
-          class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          <svg v-if="signingIn" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12a9 9 0 11-6.219-8.56"/>
-          </svg>
-          {{ signingIn ? t.events.auth.submittingLogin : t.events.auth.loginBtn }}
-        </button>
-      </form>
+      <GitHubSignInButton />
     </div>
 
     <!-- No events -->
@@ -139,39 +92,17 @@ const { lang, t } = useI18n()
 type CheckInState = 'idle' | 'submitting' | 'success'
 
 const isSignedIn = ref(false)
-const signingIn = ref(false)
-const signInError = ref('')
 const checkInState = ref<CheckInState>('idle')
 const errorMessage = ref('')
 const successTitle = ref('')
 const successMessage = ref('')
 
-const signInForm = reactive({ email: '', password: '' })
 const form = reactive({ eventSlug: '', code: '' })
 
 onMounted(async () => {
   const { data: { user } } = await supabase.auth.getUser()
   isSignedIn.value = !!user
 })
-
-async function handleSignIn() {
-  signingIn.value = true
-  signInError.value = ''
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: signInForm.email.trim().toLowerCase(),
-    password: signInForm.password,
-  })
-
-  signingIn.value = false
-
-  if (error) {
-    signInError.value = error.message
-    return
-  }
-
-  isSignedIn.value = true
-}
 
 async function handleSubmit() {
   checkInState.value = 'submitting'

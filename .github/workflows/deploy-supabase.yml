@@ -26,17 +26,6 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
 
-      - name: Disable email confirmation (auto-confirm signups)
-        run: |
-          curl --fail-with-body -sS -X PATCH \
-            "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/config/auth" \
-            -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{"mailer_autoconfirm": true}'
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
-
       - name: Enable GitHub OAuth provider
         run: |
           curl --fail-with-body -sS -X PATCH \
@@ -55,22 +44,6 @@ jobs:
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
           SUPABASE_AUTH_GITHUB_CLIENT_ID: ${{ secrets.SUPABASE_AUTH_GITHUB_CLIENT_ID }}
           SUPABASE_AUTH_GITHUB_SECRET: ${{ secrets.SUPABASE_AUTH_GITHUB_SECRET }}
-
-      - name: Enable Turnstile captcha for auth
-        run: |
-          curl --fail-with-body -sS -X PATCH \
-            "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/config/auth" \
-            -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "security_captcha_enabled": true,
-              "security_captcha_provider": "turnstile",
-              "security_captcha_secret": "'"$TURNSTILE_SECRET_KEY"'"
-            }'
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
-          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
 
       - name: Ensure se schema is exposed via PostgREST
         # This project's Supabase instance is shared with another app (schema
