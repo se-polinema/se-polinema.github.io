@@ -997,6 +997,26 @@ if (php_sapi_name() === 'cli') {
 }
 ```
 
+### Langkah 3: Jalankan Pipeline Lengkap
+
+```bash
+# Hasilkan kebutuhan
+php generate-requirements.php "$(cat feature.txt)" > requirements.json
+
+# Validasi dan bangun matriks ketertelusuran
+php validate-and-trace.php requirements.json > traceability.md
+```
+
+Contoh keluaran matriks ketertelusuran (tabel Markdown):
+
+| FR ID | Kebutuhan | User Story | Kriteria Penerimaan | Prioritas |
+|---|---|---|---|---|
+| FR-001 | Sistem harus memungkinkan mahasiswa mencari katalog berdasarkan judul, pengarang, atau ISBN. | Sebagai mahasiswa, saya ingin mencari katalog... | **Given** saya berada di halaman pencarian, **When** saya memasukkan ISBN... | High |
+| FR-002 | Sistem harus menegakkan periode pinjaman maksimum 14 hari per buku. | Sebagai pustakawan, saya ingin sistem melacak periode pinjaman... | **Given** sebuah buku dipinjam, **When** 14 hari berlalu... | High |
+| FR-003 | Sistem harus menghitung denda Rp 1.000 per hari untuk buku yang terlambat. | Sebagai pustakawan, saya ingin sistem menghitung denda... | **Given** sebuah buku terlambat 3 hari, **When** saya melihat dendanya... | Medium |
+| FR-004 | Sistem harus mencegah mahasiswa meminjam lebih dari 3 buku sekaligus. | Sebagai mahasiswa, saya ingin batas peminjaman yang jelas... | **Given** seorang mahasiswa memiliki 3 pinjaman aktif, **When** mereka mencoba meminjam... | High |
+| FR-005 | Sistem harus memungkinkan pustakawan menambahkan buku baru dan menandai buku sebagai hilang atau rusak. | Sebagai pustakawan, saya ingin mengelola katalog... | **Given** saya masuk sebagai pustakawan, **When** saya menambahkan buku baru... | Medium |
+
 ### Latihan untuk Pembaca
 
 Modifikasi `generate-requirements.php` untuk:
@@ -1182,6 +1202,32 @@ Jalankan:
 
 ```bash
 php artisan requirements:import requirements.json
+```
+
+### Menghubungkan Pengujian dengan Kebutuhan
+
+PHPUnit mendukung anotasi `@covers`, tetapi Anda juga dapat menggunakan atribut kustom:
+
+```php
+#[Requirement('FR-001')]
+#[Requirement('FR-003')]
+public function test_course_search_by_semester(): void
+{
+    // Uji bahwa filter semester mengembalikan mata kuliah yang benar
+}
+```
+
+Skrip CI dapat mengurai atribut ini, melakukan *query* pada *database*, dan memverifikasi:
+1. Setiap FR memiliki setidaknya satu pengujian yang tertaut.
+2. Setiap pengujian tertaut ke setidaknya satu FR.
+3. Tidak ada FR yang lebih dari 30 hari tanpa verifikasi pengujian.
+
+```php
+// Verifikasi cakupan pengujian untuk semua kebutuhan
+$uncovered = Requirement::doesntHave('testLinks')->get();
+foreach ($uncovered as $req) {
+    echo "Tidak ada pengujian yang mencakup {$req->fr_id}: {$req->description}\n";
+}
 ```
 
 Ini menutup loop: kebutuhan → kode → pengujian → laporan verifikasi.
