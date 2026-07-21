@@ -191,7 +191,7 @@ A use case diagram consists of:
 - **Actors:** Stick figures representing users or external systems.
 - **Use Cases:** Ovals representing a unit of functionality: a goal the actor wants to achieve.
 - **System Boundary:** A rectangle that defines the scope of the system.
-- **Relationships:** Lines connecting actors to use cases, plus `<extend>` and `<include>` relationships between use cases.
+- **Relationships:** Lines connecting actors to use cases, plus `<<extend>>` and `<<include>>` relationships between use cases.
 
 Use case diagrams give stakeholders a **bird's-eye view** of system functionality without requiring any technical knowledge. They belong in the **Software Requirements Specification (SRS)** and are created first: during the requirements elicitation phase, before any design or coding begins.
 
@@ -200,7 +200,7 @@ Use case diagrams give stakeholders a **bird's-eye view** of system functionalit
 2. Brainstorm every goal (use case) each actor wants to achieve.
 3. Draw the system boundary.
 4. Connect actors to their use cases.
-5. Apply `<include>` for mandatory sub-steps and `<extend>` for optional, conditional behaviours.
+5. Apply `<<include>>` for mandatory sub-steps and `<<extend>>` for optional, conditional behaviours.
 
 ### Naming Use Cases with Subject–Predicate–Object (SPO)
 
@@ -243,7 +243,7 @@ Use case diagram memberikan pandangan **tingkat tinggi** kepada *stakeholder* te
 2. Brainstorm setiap tujuan (use case) yang ingin dicapai setiap aktor.
 3. Gambar batas sistem.
 4. Hubungkan aktor ke use case mereka.
-5. Terapkan `<include>` untuk sub-langkah wajib dan `<extend>` untuk perilaku opsional dan kondisional.
+5. Terapkan `<<include>>` untuk sub-langkah wajib dan `<<extend>>` untuk perilaku opsional dan kondisional.
 
 ### Penamaan Use Case dengan Subject–Predicate–Object (SPO)
 
@@ -471,7 +471,7 @@ Diagram tunggal ini memberi tahu tim pengembangan: *Saat membangun fitur pendaft
 | **Modelling Login / authentication as a use case (included everywhere)** | Login is a *subfunction*: it delivers no standalone goal for the user. Pointing `<<include>>` at it from every other use case clutters the diagram and blurs what the system actually does. | Capture "user is authenticated" as a **precondition** in the use case scenario (as Part 2 does). Only model authentication as a use case if account management (creating, resetting, or revoking sessions) is *itself* a stated system goal. |
 | **Modelling CRUD as separate use cases** | "Create Course", "Edit Course", "Delete Course" are three separate ovals: this clutters the diagram. | Use one use case: `Manage Courses`. Detail the CRUD operations in the use case scenario (Part 2). |
 | **Including the database as an actor** | A database is internal infrastructure, not an actor interacting with the system. | The database is part of the system; it does not appear on a use case diagram. |
-| **Too many `<extend>` relationships** | Overusing extend makes the diagram unreadable. Extend is for *optional* behaviour only. | If the behaviour is common, use `<include>`. If it is truly optional (e.g., "Apply Discount Code" during payment), use `<extend>`. |
+| **Too many `<<extend>>` relationships** | Overusing extend makes the diagram unreadable. Extend is for *optional* behaviour only. | If the behaviour is common, use `<<include>>`. If it is truly optional (e.g., "Apply Discount Code" during payment), use `<<extend>>`. |
 | **No system boundary** | Without a boundary box, it is unclear what is inside vs. outside the system. | Always draw the system boundary box and label it. |
 | **Actors inside the boundary** | Actors are external to the system: they trigger use cases, they are not part of the system. | Place all actors outside the boundary box. |
 
@@ -486,7 +486,7 @@ Diagram tunggal ini memberi tahu tim pengembangan: *Saat membangun fitur pendaft
 | **Memodelkan Login / autentikasi sebagai use case (di-include di mana-mana)** | Login adalah *subfunction*: tidak memberikan tujuan mandiri kepada pengguna. Mengarahkan `<<include>>` ke use case Login dari setiap use case lain mengotori diagram dan mengaburkan apa yang sebenarnya dilakukan sistem. | Tangkap "pengguna telah terautentikasi" sebagai **prasyarat** dalam use case scenario (seperti yang dilakukan Bagian 2). Modelkan autentikasi sebagai use case hanya jika manajemen akun (membuat, mereset, atau mencabut sesi) *itu sendiri* merupakan tujuan sistem yang dinyatakan. |
 | **Memodelkan CRUD sebagai use case terpisah** | "Buat Mata Kuliah", "Edit Mata Kuliah", "Hapus Mata Kuliah" adalah tiga oval terpisah: ini mengotori diagram. | Gunakan satu use case: `Kelola Mata Kuliah`. Detailkan operasi CRUD dalam use case scenario (Bagian 2). |
 | **Memasukkan *database* sebagai aktor** | *Database* adalah infrastruktur internal, bukan aktor yang berinteraksi dengan sistem. | *Database* adalah bagian dari sistem; ia tidak muncul di use case diagram. |
-| **Terlalu banyak relasi `<extend>`** | Penggunaan extend yang berlebihan membuat diagram tidak terbaca. Extend hanya untuk perilaku *opsional*. | Jika perilaku umum, gunakan `<include>`. Jika benar-benar opsional (misalnya, "Terapkan Kode Diskon" saat pembayaran), gunakan `<extend>`. |
+| **Terlalu banyak relasi `<<extend>>`** | Penggunaan extend yang berlebihan membuat diagram tidak terbaca. Extend hanya untuk perilaku *opsional*. | Jika perilaku umum, gunakan `<<include>>`. Jika benar-benar opsional (misalnya, "Terapkan Kode Diskon" saat pembayaran), gunakan `<<extend>>`. |
 | **Tidak ada batas sistem** | Tanpa kotak batas, tidak jelas apa yang di dalam vs. di luar sistem. | Selalu gambar kotak batas sistem dan beri label. |
 | **Aktor di dalam batas** | Aktor berada di luar sistem: mereka memicu use case, bukan bagian dari sistem. | Tempatkan semua aktor di luar kotak batas. |
 

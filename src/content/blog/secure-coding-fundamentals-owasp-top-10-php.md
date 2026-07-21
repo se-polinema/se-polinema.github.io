@@ -2923,18 +2923,18 @@ For each task, provide:
 
 | # | Vulnerability | OWASP | Location |
 |---|---|---|---|
-| 1 | SQL injection via `$_GET['id']` | A03 | Lines 5–6 |
-| 2 | SQL injection via `$_POST['grade']` | A03 | Line 12 |
-| 3 | XSS via unsanitised `$comment` echo | A03 | Line 15 |
-| 4 | XSS via unsanitised `$student['name']` echo | A03 | Line 20 |
+| 1 | SQL injection via `$_GET['id']` | A03 | Lines 6–7 |
+| 2 | SQL injection via `$_POST['grade']` | A03 | Lines 12, 16 |
+| 3 | XSS via unsanitised `$comment` echo | A03 | Line 19 |
+| 4 | XSS via unsanitised `$student['name']` echo | A03 | Line 24 |
 | 5 | Broken Access Control — no ownership check | A01 | Entire file |
-| 6 | Weak hashing — MD5 on SSN | A02 | Line 18 |
-| 7 | Exposed `config.php` with credentials | A05 | Line 3 |
-| 8 | Debug data in HTML comments | A05 | Line 23 |
-| 9 | No CSRF protection on POST | A04/A01 | Line 9 |
-| 10 | No rate limiting | A04 | Line 9 |
-| 11 | No audit log for grade changes | A09 | Line 12 |
-| 12 | MySQLi with `mysqli_query` (no prepared statements) | A03 | Lines 6, 12 |
+| 6 | Weak hashing — MD5 on SSN | A02 | Line 22 |
+| 7 | Exposed `config.php` with credentials | A05 | Line 4 |
+| 8 | Debug data in HTML comments | A05 | Line 27 |
+| 9 | No CSRF protection on POST | A04/A01 | Line 11 |
+| 10 | No rate limiting | A04 | Line 11 |
+| 11 | No audit log for grade changes | A09 | Line 16 |
+| 12 | MySQLi with `mysqli_query` (no prepared statements) | A03 | Lines 8, 15 |
 
 </section>
 
@@ -2995,18 +2995,18 @@ Untuk setiap tugas, berikan:
 
 | # | Kerentanan | OWASP | Lokasi |
 |---|---|---|---|
-| 1 | SQL injection via `$_GET['id']` | A03 | Baris 5–6 |
-| 2 | SQL injection via `$_POST['grade']` | A03 | Baris 12 |
-| 3 | XSS via `$comment` tidak disanitasi di echo | A03 | Baris 15 |
-| 4 | XSS via `$student['name']` tidak disanitasi di echo | A03 | Baris 20 |
+| 1 | SQL injection via `$_GET['id']` | A03 | Baris 6–7 |
+| 2 | SQL injection via `$_POST['grade']` | A03 | Baris 12, 16 |
+| 3 | XSS via `$comment` tidak disanitasi di echo | A03 | Baris 19 |
+| 4 | XSS via `$student['name']` tidak disanitasi di echo | A03 | Baris 24 |
 | 5 | Broken Access Control: tidak ada pemeriksaan kepemilikan | A01 | Keseluruhan file |
-| 6 | Hashing lemah: MD5 pada SSN | A02 | Baris 18 |
-| 7 | `config.php` terekspos dengan kredensial | A05 | Baris 3 |
-| 8 | Data debug di komentar HTML | A05 | Baris 23 |
-| 9 | Tidak ada perlindungan CSRF pada POST | A04/A01 | Baris 9 |
-| 10 | Tidak ada rate limiting | A04 | Baris 9 |
-| 11 | Tidak ada log audit untuk perubahan nilai | A09 | Baris 12 |
-| 12 | MySQLi dengan `mysqli_query` (tanpa prepared statements) | A03 | Baris 6, 12 |
+| 6 | Hashing lemah: MD5 pada SSN | A02 | Baris 22 |
+| 7 | `config.php` terekspos dengan kredensial | A05 | Baris 4 |
+| 8 | Data debug di komentar HTML | A05 | Baris 27 |
+| 9 | Tidak ada perlindungan CSRF pada POST | A04/A01 | Baris 11 |
+| 10 | Tidak ada rate limiting | A04 | Baris 11 |
+| 11 | Tidak ada log audit untuk perubahan nilai | A09 | Baris 16 |
+| 12 | MySQLi dengan `mysqli_query` (tanpa prepared statements) | A03 | Baris 8, 15 |
 
 </section>
 

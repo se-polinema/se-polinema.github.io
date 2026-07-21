@@ -1649,7 +1649,7 @@ Here is what changed and why:
 |---|---|
 | All magic values extracted to `const` | Single source of truth; easy to adjust limits and fees |
 | `$a`, `$b`, `$x`, `$y` renamed to descriptive names | Code tells you what it does without mental translation |
-| `$s == 1` replaced by `MembershipStatus::ACTIVE` | Meaningful constant names instead of raw integers |
+| `$s == 1` replaced by `self::STATUS_ACTIVE` | Meaningful constant names instead of raw integers |
 | `"bk"` replaced by `self::BOOK_TYPE` | No more magic strings floating in logic |
 | `time() - strtotime($d)` extracted to `calculateDaysLate()` | One responsibility per function; testable in isolation |
 | `check()` renamed to `validateCheckout()` | Verb-noun pattern tells you exactly what the method returns |
@@ -1837,7 +1837,7 @@ Berikut adalah apa yang berubah dan mengapa:
 |---|---|
 | Semua nilai *magic* diekstrak ke `const` | Sumber kebenaran tunggal; mudah menyesuaikan batas dan biaya |
 | `$a`, `$b`, `$x`, `$y` diganti dengan nama deskriptif | Kode memberi tahu Anda apa yang dilakukannya tanpa terjemahan mental |
-| `$s == 1` diganti oleh `MembershipStatus::ACTIVE` | Nama konstanta yang bermakna alih-alih integer mentah |
+| `$s == 1` diganti oleh `self::STATUS_ACTIVE` | Nama konstanta yang bermakna alih-alih integer mentah |
 | `"bk"` diganti oleh `self::BOOK_TYPE` | Tidak ada lagi *magic string* mengambang dalam logika |
 | `time() - strtotime($d)` diekstrak ke `calculateDaysLate()` | Satu tanggung jawab per fungsi; dapat diuji secara terisolasi |
 | `check()` diganti menjadi `validateCheckout()` | Pola kata kerja-kata benda memberi tahu persis apa yang dikembalikan metode |

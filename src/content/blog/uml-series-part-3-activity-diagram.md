@@ -439,7 +439,7 @@ Use swimlanes to separate actors and system components that have distinct respon
 Every decision branch must have a guard condition in square brackets: `[Yes]`, `[No]`, `[Quota available]`, `[Payment declined]`. Without labels, the reader must guess what each branch means.
 
 ### One Start, One or More Ends
-Every activity diagram has exactly one initial node. It can have multiple final nodes: one for each alternative path that terminates the workflow. In our diagram, `[End]` appears at the return-to-catalogue paths, and a second `[End]` at successful enrolment.
+Every activity diagram has exactly one initial node. It can have multiple final nodes: one for each alternative path that terminates the workflow. In our diagram, a `stop` node appears at every early-exit path (registration closed, course full, schedule conflict cancelled, enrolment cancelled, payment retry cancelled), plus a final `stop` at successful enrolment.
 
 ### Avoid Overlapping Arrows
 In complex diagrams, arrows can cross each other and become unreadable. Use PlantUML's `top to bottom direction` (top-down) or `left to right direction` (left-right) layout directives to minimise crossings. If a diagram becomes too dense, consider splitting it into sub-diagrams.
@@ -460,7 +460,7 @@ Gunakan swimlanes untuk memisahkan aktor dan komponen sistem yang memiliki tangg
 Setiap cabang keputusan harus memiliki guard condition dalam tanda kurung siku: `[Ya]`, `[Tidak]`, `[Kuota tersedia]`, `[Pembayaran ditolak]`. Tanpa label, pembaca harus menebak arti setiap cabang.
 
 ### Satu Mulai, Satu atau Lebih Selesai
-Setiap activity diagram memiliki tepat satu initial node. Diagram dapat memiliki beberapa final node: satu untuk setiap jalur alternatif yang mengakhiri alur kerja. Dalam diagram kita, `[Selesai]` muncul di jalur kembali ke katalog, dan `[Selesai]` kedua di pendaftaran berhasil.
+Setiap activity diagram memiliki tepat satu initial node. Diagram dapat memiliki beberapa final node: satu untuk setiap jalur alternatif yang mengakhiri alur kerja. Dalam diagram kita, node `stop` muncul di setiap jalur keluar dini (pendaftaran ditutup, kuota penuh, konflik jadwal dibatalkan, pendaftaran dibatalkan, pembayaran dibatalkan saat coba lagi), ditambah satu `stop` terakhir di pendaftaran berhasil.
 
 ### Hindari Panah Tumpang Tindih
 Dalam diagram yang kompleks, panah dapat saling bersilangan dan menjadi tidak terbaca. Gunakan direktif layout PlantUML `top to bottom direction` (atas-bawah) atau `left to right direction` (kiri-kanan) untuk meminimalkan persilangan. Jika diagram menjadi terlalu padat, pertimbangkan untuk membaginya menjadi sub-diagram.
