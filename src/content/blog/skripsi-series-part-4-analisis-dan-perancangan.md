@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Mini Series Part 4: Analisis dan Perancangan Sistem (Analysis & Design)"
+title: "Skripsi Mini Series Part 4: System Analysis and Design (Analisis dan Perancangan Sistem)"
 titleId: "Seri Mini Skripsi Bagian 4: Analisis dan Perancangan Sistem"
 date: 2026-07-14
 updated: 2026-07-14
@@ -7,11 +7,11 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 4 of the Skripsi Mini Series. Learn how to write BAB IV (Analisis dan Perancangan Sistem): requirements analysis, UI wireframes, and a full UML design for our Action Pattern implementation, with the Fat Controller alternative shown as a clearly labelled conceptual contrast."
+excerpt: "Part 4 of the Skripsi Mini Series. Learn how to write Chapter 4: System Analysis and Design (BAB IV: Analisis dan Perancangan Sistem): requirements analysis, UI wireframes, and a full UML design for our Action Pattern implementation, with the Fat Controller alternative shown as a clearly labelled conceptual contrast."
 excerptId: "Bagian 4 dari Seri Mini Skripsi. Pelajari cara menulis BAB IV (Analisis dan Perancangan Sistem): analisis kebutuhan, wireframe UI, dan desain UML lengkap untuk implementasi Action Pattern dalam penelitian ini, dengan alternatif Fat Controller ditampilkan sebagai kontras konseptual yang diberi label jelas."
 stream: se-methodologies-architecture
 tags:
-  - Skripsi
+  - Thesis
   - Research Methodology
   - Laravel
   - Software Engineering
@@ -26,18 +26,18 @@ seriesOrder: 4
 
 <section lang="en">
 
-## 1. What is BAB IV: Analisis dan Perancangan Sistem (System Analysis and Design)?
+## 1. What is Chapter 4: System Analysis and Design (BAB IV: Analisis dan Perancangan Sistem)?
 
-**BAB IV** is usually the longest chapter in a JTI Polinema **skripsi** (undergraduate thesis), and for good reason: it is where a vague idea becomes a **buildable blueprint**. It has four subsections:
+**Chapter 4** is usually the longest chapter in a JTI Polinema **thesis** (*skripsi*), and for good reason: it is where a vague idea becomes a **buildable blueprint**. It has four subsections:
 
 | Subsection | Purpose |
 |---|---|
-| **4.1 Analisis Kebutuhan (Requirements Analysis)** | Actors, preconditions, functional requirements (FR), non-functional requirements (NFR) |
-| **4.2 Perancangan Sistem (System Design)** | Architecture diagram, Use Case, Activity, Sequence, and Class diagrams |
-| **4.3 Perancangan Desain Antarmuka (Interface Design)** | UI wireframes / mockups |
-| **4.4 Rancangan Skenario Pengujian (Test Scenario Design)** | Blackbox and UAT test-scenario tables, planned before implementation |
+| **4.1 Requirements Analysis (Analisis Kebutuhan)** | Actors, preconditions, functional requirements (FR), non-functional requirements (NFR) |
+| **4.2 System Design (Perancangan Sistem)** | Architecture diagram, Use Case, Activity, Sequence, and Class diagrams |
+| **4.3 Interface Design (Perancangan Desain Antarmuka)** | UI wireframes / mockups |
+| **4.4 Test Scenario Design (Rancangan Skenario Pengujian)** | Blackbox and UAT test-scenario tables, planned before implementation |
 
-This chapter is pure software engineering: everything you learned in the [UML Mini Series](/blog/uml-series-part-1-introduction-use-case) applies directly here. If you haven't read that series, start there; this part assumes you know how to read a Use Case, Activity, Sequence, and Class diagram, including how it treats login as a precondition rather than a use case, and why CRUD operations should not be modelled as separate use cases.
+This chapter is pure software engineering: everything you learned in the [UML Mini Series](/blog/uml-series-part-1-introduction-use-case) applies directly here. If you have not read that series yet, start there. This part assumes you already know how to read a Use Case, Activity, Sequence, and Class diagram, and it assumes you remember two of that series' key lessons: login belongs in a diagram as a precondition, not as its own use case, and CRUD operations should never be modelled as separate use cases.
 
 </section>
 
@@ -62,29 +62,29 @@ Bab ini murni rekayasa perangkat lunak: semua yang Anda pelajari di [Seri Mini U
 
 <section lang="en">
 
-## 2. Why Getting Analisis dan Perancangan Right Matters
+## 2. Why Getting System Analysis and Design Right Matters
 
 ### What is it?
-This chapter translates BAB I's scope and BAB III's methodology into diagrams and specifications precise enough that BAB V can be built directly from them, with no ambiguity left to resolve mid-implementation.
+This chapter translates Chapter 1's scope and Chapter 3's methodology into diagrams and specifications precise enough that Chapter 5 can be built directly from them, with no ambiguity left to resolve mid-implementation.
 
 ### Why does it matter?
-- **It is the contract between design and code.** Every class in your Class Diagram should appear in BAB V; if implementation invents classes never designed here, your design was incomplete.
+- **It is the contract between design and code.** Every class in your Class Diagram should appear in Chapter 5; if implementation invents classes never designed here, your design was incomplete.
 - **It is where the case for Action Pattern becomes visible, not just asserted.** Showing the Fat Controller alternative as a conceptual Class Diagram, side by side with the Action Pattern design you will actually build, makes the structural difference concrete before a single line of code exists.
-- **Batasan Masalah (Scope and Limitations) (BAB I) is enforced here.** Anything outside your stated scope should not appear in a single diagram in this chapter; if it does, your scope has silently grown.
-- **A stated precondition must be implemented consistently, or it is a self-claim.** If BAB IV declares "User is authenticated" as a precondition, the database schema and code in BAB V must actually scope data to that user; otherwise the precondition is decoration, not a real constraint on the design.
+- **Scope and Limitations (Batasan Masalah) from Chapter 1 is enforced here.** Anything outside your stated scope should not appear in a single diagram in this chapter; if it does, your scope has silently grown.
+- **A stated precondition must be implemented consistently, or it is a self-claim.** If Chapter 4 declares "User is authenticated" as a precondition, the database schema and code in Chapter 5 must actually scope data to that user; otherwise the precondition is decoration, not a real constraint on the design.
 - **Test scenarios planned here (Section 4.4) prevent test-after-the-fact bias.** Defining "what correct behaviour looks like" before writing code keeps your Black Box tests honest.
 
 ### When do you use it?
-Draft this immediately after BAB III is stable, since architecture and metric decisions in BAB III directly shape what you diagram here.
+Draft this immediately after Chapter 3 is stable, since architecture and metric decisions in Chapter 3 directly shape what you diagram here.
 
 ### Where does it fit?
-BAB IV output is consumed entirely by BAB V (Implementasi): every diagram of the implemented design here should map to a corresponding class, method, or view built there. The conceptual Fat Controller diagrams are not built anywhere; they exist only to make BAB VI's later discussion concrete.
+Chapter 4's output is consumed entirely by Chapter 5: every diagram of the implemented design here should map to a corresponding class, method, or view built there. The conceptual Fat Controller diagrams are not built anywhere; they exist only to make Chapter 6's later discussion concrete.
 
 ### How do you create one?
-1. Identify actors, state any preconditions (such as authentication), and turn **Rumusan Masalah (Research Questions)** into functional/non-functional requirements.
+1. Identify actors, state any preconditions (such as authentication), and turn **Research Questions (Rumusan Masalah)** into functional/non-functional requirements.
 2. Draw the system architecture you will actually build, grouped into clear layers rather than a flat chain of boxes.
 3. Draw one Use Case Diagram. Group CRUD operations under one use case (e.g. "Manage X"), not one bubble per operation, and keep the behaviour identical to the user regardless of internal architecture. Add a short Use Case Description table (actor, description, precondition, postcondition) for immediate context.
-4. Draw one Activity Diagram per use case, elaborating its genuine decision logic within that single diagram (e.g. via a `switch`/`case` fork for a use case that bundles several operations); avoid mechanically producing one diagram per functional requirement, and avoid forcing every branch to repeat the same detail if it would just make the diagram harder to read.
+4. Draw one Activity Diagram per use case, and let that single diagram carry the use case's genuine decision logic (for example, a `switch`/`case` fork for a use case that bundles several operations). Do not mechanically produce one diagram per functional requirement, and do not force every branch to repeat the same level of detail when that would only make the diagram harder to read.
 5. Draw a Sequence Diagram contrasting how responsibility flows for a representative scenario.
 6. Draw **two** Class Diagrams as the finalisation of the design: one conceptual illustration of the Fat Controller alternative (clearly labelled as not implemented or measured), and one for the Action Pattern design you will actually build and measure. Class comes last because it synthesises everything the Activity and Sequence diagrams established into one static structure, exactly the order the UML Mini Series itself uses (Activity, then Sequence, then Class).
 7. Sketch interface wireframes.
@@ -128,19 +128,19 @@ Keluaran BAB IV sepenuhnya digunakan oleh BAB V (Implementasi): setiap diagram d
 
 <section lang="en">
 
-## 3. 4.1 Analisis Kebutuhan (Requirements Analysis)
+## 3. 4.1 Requirements Analysis (Analisis Kebutuhan)
 
-### Identifikasi Aktor
+### Actor Identification (Identifikasi Aktor)
 
 | Actor | Description |
 |---|---|
-| **User** | The single actor who creates, edits, completes, deletes, and filters their own todos. No admin, no multi-tenant roles: kept minimal per Batasan Masalah (Part 1). |
+| **User** | The single actor who creates, edits, completes, deletes, and filters their own todos. No admin, no multi-tenant roles: kept minimal per Scope and Limitations (Part 1). |
 
-### Prasyarat (Precondition)
+### Precondition (Prasyarat)
 
-> **User is authenticated.** Every use case below assumes a logged-in User, using Laravel's default authentication scaffolding. Following the same pattern taught in the [UML Mini Series](/blog/uml-series-part-1-introduction-use-case), login is **not** modelled as its own use case: it is a precondition, checked once per request via middleware, not a goal the User pursues for its own sake. Building a full registration/account-management system is outside Batasan Masalah (Part 1); what *is* in scope is making sure every todo is correctly scoped to its owning User, which is why the database schema (BAB V, Section 5.2) includes a `user_id` column and every Action queries only the authenticated User's data.
+> **User is authenticated.** Every use case below assumes a logged-in User, using Laravel's default authentication scaffolding. Following the same pattern taught in the [UML Mini Series](/blog/uml-series-part-1-introduction-use-case), login is **not** modelled as its own use case: it is a precondition, checked once per request via middleware, rather than a goal the User pursues for its own sake. A full registration or account-management system falls outside Scope and Limitations (Part 1); what *is* in scope is making sure every todo is correctly scoped to its owning User. That is why the database schema (Chapter 5, Section 5.2) includes a `user_id` column, and why every Action queries only the authenticated User's data.
 
-### Kebutuhan Fungsional (Functional Requirements)
+### Functional Requirements (Kebutuhan Fungsional)
 
 Directly traced from the core functionalities named in Part 1's continuous-example section:
 
@@ -154,15 +154,15 @@ Directly traced from the core functionalities named in Part 1's continuous-examp
 
 FR-1 through FR-4 are grouped under a single use case, **Manage Todos**, in the design below (Section 4.2); modelling each as its own use case bubble would repeat the CRUD-as-use-case mistake the UML Mini Series warns against.
 
-### Kebutuhan Nonfungsional (Non-Functional Requirements)
+### Non-Functional Requirements (Kebutuhan Nonfungsional)
 
-> **Common mistake to avoid:** NFRs describe the *system's* quality attributes (performance, usability, compatibility). They are **not** the same as the research metrics defined in BAB III, Section 3.5. Cyclomatic complexity, coupling, and test coverage are your *research instruments* for evaluating the implementation against literature thresholds; they are not requirements the finished system must satisfy on their own. Keep the two lists separate.
+> **Common mistake to avoid:** NFRs describe the *system's* quality attributes (performance, usability, compatibility). They are **not** the same as the research metrics defined in Chapter 3, Section 3.5. Cyclomatic complexity, coupling, and test coverage are your *research instruments* for evaluating the implementation against literature thresholds; they are not requirements the finished system must satisfy on their own. Keep the two lists separate.
 
 | ID | Requirement | Verification Method |
 |---|---|---|
-| **NFR-1** | The application shall respond to any user action within 1 second under local development conditions. | Measured during Blackbox scenario execution (BAB V, Section 5.5). |
-| **NFR-2** | The application shall run on PHP 8.3, Laravel 11, and MySQL 8. | Satisfied by construction; confirmed by the environment declaration (BAB V, Section 5.1). |
-| **NFR-3** | The interface shall be usable on both desktop and mobile-width viewports. | Verified via UAT (Section 4.4 below, executed in BAB V, Section 5.5). |
+| **NFR-1** | The application shall respond to any user action within 1 second under local development conditions. | Measured during Blackbox scenario execution (Chapter 5, Section 5.5). |
+| **NFR-2** | The application shall run on PHP 8.3, Laravel 11, and MySQL 8. | Satisfied by construction; confirmed by the environment declaration (Chapter 5, Section 5.1). |
+| **NFR-3** | The interface shall be usable on both desktop and mobile-width viewports. | Verified via UAT (Section 4.4 below, executed in Chapter 5, Section 5.5). |
 
 Naming a verification method for every NFR matters: an NFR with no way to check it is an unverifiable claim, not a requirement.
 
@@ -214,9 +214,9 @@ Menyebutkan metode verifikasi untuk setiap NFR itu penting: NFR tanpa cara untuk
 
 <section lang="en">
 
-## 4. 4.2 Perancangan Sistem (System Design)
+## 4. 4.2 System Design (Perancangan Sistem)
 
-### Arsitektur Diagram
+### Architecture Diagram (Arsitektur Diagram)
 
 This is the architecture we actually build, grouped into explicit layers rather than a flat chain of same-styled boxes, so the grouping itself communicates the layered structure.
 
@@ -263,7 +263,7 @@ Model --> DB
 @enduml
 ```
 
-In the conceptual Fat Controller alternative discussed in BAB II, the Application Layer would not exist at all: `TodoController` in the Presentation Layer would call the Model directly, absorbing all validation and business logic itself.
+In the conceptual Fat Controller alternative discussed in Chapter 2, the Application Layer would not exist at all: `TodoController` in the Presentation Layer would call the Model directly, absorbing all validation and business logic itself.
 
 ### Use Case Diagram
 
@@ -308,7 +308,7 @@ User -- UC2
 
 **Why only two use cases, not five:** Create, Edit, Complete, and Delete are all facets of one goal, managing one's todo list, so they are grouped under **Manage Todos** and detailed as one Activity Diagram below, exactly the fix the UML Mini Series recommends for the "CRUD as separate use cases" mistake. **Filter Todos** stays separate because it is a distinct goal (organising/viewing), not a mutation of data.
 
-**Why no `<<include>>` or `<<extend>>`:** the original Campus Registration example (UML Mini Series, Part 1) had a genuine mandatory sub-step (Make Payment, included by Enrol in Course) and a genuine optional extension (Manage Registration Period extends Manage Courses). This Todo application, by deliberate design (Batasan Masalah, Part 1), has neither: there is no external mandatory step comparable to payment, and no optional variant of Manage Todos worth its own bubble. Forcing an `<<extend>>` relationship in order to demonstrate the notation would itself repeat the over-modelling mistakes the UML Mini Series warns against. Not every system needs these relationships, and a simple one honestly shouldn't have them.
+**Why no `<<include>>` or `<<extend>>`:** the original Campus Registration example (UML Mini Series, Part 1) had a genuine mandatory sub-step (Make Payment, included by Enrol in Course) and a genuine optional extension (Manage Registration Period extends Manage Courses). This Todo application, by deliberate design (Scope and Limitations, Part 1), has neither: there is no external mandatory step comparable to payment, and no optional variant of Manage Todos worth its own bubble. Forcing an `<<extend>>` relationship in order to demonstrate the notation would itself repeat the over-modelling mistakes the UML Mini Series warns against. Not every system needs these relationships, and a simple one honestly shouldn't have them.
 
 ### Use Case Description
 
@@ -323,7 +323,7 @@ A short description table gives each use case immediate context, without needing
 
 ### Activity Diagram: Manage Todos
 
-One diagram, one use case. A `switch`/`case` fork represents the User's choice of action; each branch gets only as much detail as it needs. Create and Delete carry real decision logic (validation, and a confirm/cancel step), so they are shown in full; Edit follows the identical validation shape as Create, so it is noted rather than redrawn, and Complete has no branching worth showing.
+One diagram, one use case. A `switch`/`case` fork represents the User's choice of action, and each branch gets only as much detail as it needs. Create and Delete carry real decision logic (validation, plus a confirm/cancel step), so they are shown in full. Edit follows the identical validation shape as Create, so it is noted rather than redrawn; Complete has no branching worth showing.
 
 ```plantuml
 @startuml
@@ -494,7 +494,7 @@ TodoController --> Todo : validates,\ncreates, updates,\nscopes by user_id\ndire
 
 ### Class Diagram: Action Pattern (Implemented and Measured)
 
-This is the finalisation of the design we actually build in BAB V and measure in BAB VI: the static structure that the Manage Todos / Filter Todos Activity Diagrams and the Create Todo Sequence Diagram all converge on.
+This is the finalisation of the design we actually build in Chapter 5 and measure in Chapter 6: the static structure that the Manage Todos / Filter Todos Activity Diagrams and the Create Todo Sequence Diagram all converge on.
 
 ```plantuml
 @startuml
@@ -553,7 +553,7 @@ FilterTodosAction --> Todo
 @enduml
 ```
 
-Notice the qualitative difference already visible **before writing a line of code**: the Fat Controller illustration has one class doing everything, including its own ad hoc user-scoping; the Action Pattern design distributes responsibility across five single-purpose classes, each depending on only `Todo`, with the authenticated user's ID passed in explicitly rather than assumed. This is exactly what BAB VI's metrics will later quantify, against literature thresholds rather than against the conceptual illustration directly.
+Notice the qualitative difference already visible **before writing a line of code**: the Fat Controller illustration has one class doing everything, including its own ad hoc user-scoping; the Action Pattern design distributes responsibility across five single-purpose classes, each depending on only `Todo`, with the authenticated user's ID passed in explicitly rather than assumed. This is exactly what Chapter 6's metrics will later quantify, against literature thresholds rather than against the conceptual illustration directly.
 
 </section>
 
@@ -906,9 +906,9 @@ Perhatikan perbedaan kualitatif yang sudah terlihat **sebelum menulis satu baris
 
 <section lang="en">
 
-## 5. 4.3 Perancangan Desain Antarmuka (Interface Design)
+## 5. 4.3 Interface Design (Perancangan Desain Antarmuka)
 
-A skripsi typically includes actual mockup screenshots (Figma, Balsamiq). For this series we describe the wireframe structurally: translate this into a real mockup tool for your own report.
+A thesis typically includes actual mockup screenshots (Figma, Balsamiq). For this series we describe the wireframe structurally: translate this into a real mockup tool for your own report.
 
 | Screen region | Elements |
 |---|---|
@@ -920,13 +920,13 @@ A skripsi typically includes actual mockup screenshots (Figma, Balsamiq). For th
 
 The interface is a controlled constant, and it does not change between the conceptual Fat Controller illustration and the built Action Pattern implementation, since only the backend structure varies between them.
 
-## 6. 4.4 Rancangan Skenario Pengujian (Test Scenario Design)
+## 6. 4.4 Test Scenario Design (Rancangan Skenario Pengujian)
 
 Plan test scenarios **before** implementation. These scenarios validate the Action Pattern implementation, the only thing actually built and run.
 
-### Rencana Skenario Blackbox Testing
+### Blackbox Testing Scenario Plan (Rencana Skenario Blackbox Testing)
 
-| ID | Skenario | Expected Result |
+| ID | Scenario | Expected Result |
 |---|---|---|
 | **BB-01** | Create a todo with a valid title | Todo appears in the list |
 | **BB-02** | Create a todo with an empty title | Validation error shown, no todo created |
@@ -938,9 +938,9 @@ Plan test scenarios **before** implementation. These scenarios validate the Acti
 | **BB-08** | Filter by "Completed" | Only completed todos shown |
 | **BB-09** | Attempt to view or modify another user's todo directly (e.g. via URL manipulation) | Access denied; confirms the authentication precondition (Section 4.1) is actually enforced |
 
-### Rencana Skenario UAT
+### UAT Scenario Plan (Rencana Skenario UAT)
 
-| ID | Skenario | Kriteria Penerimaan |
+| ID | Scenario | Acceptance Criteria |
 |---|---|---|
 | **UAT-01** | User adds several todos and manages them end-to-end | User completes the flow without confusion or errors |
 | **UAT-02** | User rates ease of use on a 5-point Likert scale | Average score contributes to the acceptance index (target ≥ 80%) |
@@ -994,19 +994,19 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 
 <section lang="en">
 
-## 7. Common Mistakes in BAB IV
+## 7. Common Mistakes in Chapter 4
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
 | **Modelling CRUD operations as separate use cases** | "Create Todo", "Edit Todo", "Delete Todo" as separate bubbles clutters the diagram and repeats a mistake the UML Mini Series explicitly warns against. | Group them under one use case (e.g. "Manage Todos"), detailed in one Activity Diagram, as in Section 4. |
 | **Modelling login as a use case** | Login delivers no standalone goal for the user; it is infrastructure every other use case depends on. | Capture authentication as a precondition in Section 4.1, as done here. |
-| **Stating a precondition without implementing it** | Declaring "User is authenticated" but never scoping data to that user in the schema or code is a self-claim: the precondition exists on paper only. | Make sure the precondition has a visible consequence in the design (here, `user_id` on `Todo`) and in the implementation (BAB V). |
+| **Stating a precondition without implementing it** | Declaring "User is authenticated" but never scoping data to that user in the schema or code is a self-claim: the precondition exists on paper only. | Make sure the precondition has a visible consequence in the design (here, `user_id` on `Todo`) and in the implementation (Chapter 5). |
 | **Cramming every scenario into one diagram just to force a 1:1 use-case-to-diagram mapping** | A single diagram with full detail on every branch of a multi-operation use case can become harder to read than two focused ones, undermining the very clarity diagrams exist to provide. | Keep the 1:1 mapping, but let branches vary in detail: elaborate only the ones with genuine decision logic, and note (rather than redraw) branches that repeat an already-shown shape, as with Edit in Section 4. |
 | **Omitting the Fat Controller conceptual contrast entirely** | Without it, the case for choosing Action Pattern rests only on assertion; the reader never sees what the alternative would have looked like. | Include the conceptual Class Diagram, clearly labelled as illustration only, as in Section 4. |
 | **Not labelling which diagrams are implemented and which are conceptual** | An examiner cannot tell what was actually built versus what is illustrative, undermining trust in the whole chapter. | Label every diagram explicitly, as done throughout Section 4. |
-| **Test scenarios written after implementation** | Post-hoc scenarios tend to match what the code does, hiding bugs instead of catching them. | Finalise Section 4.4 before writing any implementation code (BAB V). |
-| **NFRs mixed with research metrics** | Conflates "what the system must do" with "what we are measuring about the code," confusing examiners about your actual contribution. | Keep NFRs (Section 3) and research metrics (BAB III, Section 3.5) in clearly separate lists. |
-| **Diagrams that don't match Batasan Masalah** | A diagram showing multi-user or notification features that Batasan Masalah excluded signals uncontrolled scope creep. | Cross-check every diagram element against BAB I, Section 1.3, before finalising. |
+| **Test scenarios written after implementation** | Post-hoc scenarios tend to match what the code does, hiding bugs instead of catching them. | Finalise Section 4.4 before writing any implementation code (Chapter 5). |
+| **NFRs mixed with research metrics** | Conflates "what the system must do" with "what we are measuring about the code," confusing examiners about your actual contribution. | Keep NFRs (Section 3) and research metrics (Chapter 3, Section 3.5) in clearly separate lists. |
+| **Diagrams that don't match Scope and Limitations** | A diagram showing multi-user or notification features that Scope and Limitations excluded signals uncontrolled scope creep. | Cross-check every diagram element against Chapter 1, Section 1.3, before finalising. |
 
 </section>
 
@@ -1034,7 +1034,7 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 
 ## 8. What Comes Next?
 
-With the design fully worked out (a layered architecture, the consolidated Use Case Diagram with its description table, one Activity Diagram per use case, the Sequence Diagram, and the conceptual-versus-implemented Class Diagrams as the finalisation, plus wireframes and test scenarios), we are ready to build. In Part 5, we cover **BAB V (Implementasi dan Pengujian, Implementation and Testing)**: setting up the environment, implementing the database including the `user_id` scoping designed here, and writing the actual PHP code for the Action Pattern implementation, showing exactly where the low complexity we designed here comes from.
+With the design fully worked out (a layered architecture, the consolidated Use Case Diagram with its description table, one Activity Diagram per use case, the Sequence Diagram, and the conceptual-versus-implemented Class Diagrams as the finalisation, plus wireframes and test scenarios), we are ready to build. Part 5 covers **Chapter 5: Implementation and Testing (BAB V: Implementasi dan Pengujian)**: setting up the environment, implementing the database (including the `user_id` scoping designed here), and writing the actual PHP code for the Action Pattern implementation. That chapter will show exactly where the low complexity we designed here comes from.
 
 </section>
 

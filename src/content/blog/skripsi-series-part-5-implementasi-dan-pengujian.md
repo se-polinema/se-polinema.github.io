@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Mini Series Part 5: Implementasi dan Pengujian (Implementation & Testing)"
+title: "Skripsi Mini Series Part 5: Implementation and Testing (Implementasi dan Pengujian)"
 titleId: "Seri Mini Skripsi Bagian 5: Implementasi dan Pengujian"
 date: 2026-07-14
 updated: 2026-07-15
@@ -7,11 +7,11 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 5 of the Skripsi Mini Series. Learn how to write BAB V (Implementasi dan Pengujian): setting up the environment, implementing the database, writing the PHP code for the Action Pattern implementation, documenting prototype iterations, and running Black Box and unit tests."
+excerpt: "Part 5 of the Skripsi Mini Series. Learn how to write Chapter 5: Implementation and Testing: setting up the environment, implementing the database, writing the PHP code for the Action Pattern implementation, documenting prototype iterations, and running Black Box and unit tests."
 excerptId: "Bagian 5 dari Seri Mini Skripsi. Pelajari cara menulis BAB V (Implementasi dan Pengujian): menyiapkan environment, mengimplementasikan database, menulis kode PHP untuk implementasi Action Pattern, mendokumentasikan iterasi prototipe, serta menjalankan pengujian Black Box dan unit test."
 stream: se-methodologies-architecture
 tags:
-  - Skripsi
+  - Thesis
   - Research Methodology
   - Laravel
   - Software Engineering
@@ -26,17 +26,17 @@ seriesOrder: 5
 
 <section lang="en">
 
-## 1. What is BAB V: Implementasi dan Pengujian (Implementation and Testing)?
+## 1. What is Chapter 5: Implementation and Testing (BAB V: Implementasi dan Pengujian)?
 
-**BAB V** is where design (BAB IV) becomes running code, and where the test plan (BAB IV Section 4.4) gets executed. It has five subsections:
+**Chapter 5** is where the design from Chapter 4 becomes running code, and where the test plan from Chapter 4, Section 4.4 gets executed. It has five subsections:
 
 | Subsection | Purpose |
 |---|---|
-| **5.1 Lingkungan Implementasi** | Software and hardware environment used |
-| **5.2 Implementasi Basis Data** | Database schema/migrations |
-| **5.3 Implementasi Antarmuka** | Views/templates implementing the wireframes |
-| **5.4 Implementasi Algoritma Inti** | The core logic we actually build: the Action Pattern `TodoController` and its Action classes, plus a log of how the prototype evolved |
-| **5.5 Implementasi Pengujian** | Running the metric-measurement tools, and executing the Black Box and UAT scenarios planned in BAB IV |
+| **5.1 Implementation Environment** | Software and hardware environment used |
+| **5.2 Database Implementation** | Database schema/migrations |
+| **5.3 Interface Implementation** | Views/templates implementing the wireframes |
+| **5.4 Core Algorithm Implementation** | The core logic we actually build: the Action Pattern `TodoController` and its Action classes, plus a log of how the prototype evolved |
+| **5.5 Testing Implementation** | Running the metric-measurement tools, and executing the Black Box and UAT scenarios planned in Chapter 4 |
 
 **SE angle:** this is also where you practise real engineering discipline: version control, small commits, and continuous testing rather than a single "big bang" implementation at the end.
 
@@ -64,30 +64,30 @@ seriesOrder: 5
 
 <section lang="en">
 
-## 2. Why Getting Implementasi dan Pengujian Right Matters
+## 2. Why Getting Implementation and Testing Right Matters
 
 ### What is it?
-This chapter is evidence that your design (BAB IV) actually works: every design decision must show up as running, tested code.
+This chapter is evidence that your design from Chapter 4 actually works: every design decision must show up as running, tested code.
 
 ### Why does it matter?
-- **It is where your evaluation becomes real data.** Cyclomatic complexity, coupling, LOC, and coverage cannot be measured against a diagram; they require compiled, runnable code, and the tools that measure them need to actually be run, not just named in BAB III.
+- **It is where your evaluation becomes real data.** Cyclomatic complexity, coupling, LOC, and coverage cannot be measured against a diagram. They require compiled, runnable code, and the tools that measure them must actually be run, not just named in Chapter 3.
 - **Continuous testing prevents a week-16 crisis.** Running your test suite after every feature, not once at the end, catches regressions while they're cheap to fix.
-- **Version control is your safety net, and your Prototyping evidence.** Since BAB III chose Prototyping, a methodology built around iterative refinement, your commit history is what proves the "build, evaluate, refine" loop actually happened, not just that the final version exists.
-- **A precondition without a test is a self-claim.** BAB IV declared "User is authenticated" and scoped `Todo` by `user_id`; that claim only becomes real evidence once a test actually tries to violate it and confirms it is blocked.
+- **Version control is your safety net, and your Prototyping evidence.** Chapter 3 chose Prototyping, a methodology built around iterative refinement. Your commit history is what proves the "build, evaluate, refine" loop actually happened, not just that a final version exists.
+- **A precondition without a test is a self-claim.** Chapter 4 declared "User is authenticated" and scoped `Todo` by `user_id`. That claim only becomes real evidence once a test actually tries to violate it and confirms the violation is blocked.
 
 ### When do you use it?
-Build incrementally, feature by feature, immediately following BAB IV's completed design, not all at once in the final weeks (see the timeline in Part 3).
+Build incrementally, feature by feature, immediately following Chapter 4's completed design, not all at once in the final weeks (see the timeline in Part 3).
 
 ### Where does it fit?
-BAB V's code is the direct object measured in BAB VI: every number reported there must trace back to a specific file, class, tool run, or test run here.
+Chapter 5's code is the direct object measured in Chapter 6: every number Chapter 6 reports must trace back to a specific file, class, tool run, or test run in Chapter 5.
 
 ### How do you create one?
 1. Document your environment precisely (so anyone can reproduce your measurements).
 2. Implement the database schema, including any columns a stated precondition requires.
 3. Build the views.
 4. Implement the Action Pattern logic feature by feature, committing each separately, and keep a short log of meaningful iterations rather than every commit.
-5. Run the metric-measurement tools defined in BAB III Section 3.5, and record their raw output.
-6. Run the Black Box and UAT scenarios from BAB IV Section 4.4 against the implementation, including the scenario that tests the precondition itself.
+5. Run the metric-measurement tools defined in Chapter 3, Section 3.5, and record their raw output.
+6. Run the Black Box and UAT scenarios from Chapter 4, Section 4.4 against the implementation, including the scenario that tests the precondition itself.
 
 </section>
 
@@ -124,16 +124,16 @@ Kode BAB V adalah objek langsung yang diukur di BAB VI: setiap angka yang dilapo
 
 <section lang="en">
 
-## 3. 5.1 Lingkungan Implementasi (Implementation Environment)
+## 3. 5.1 Implementation Environment (Lingkungan Implementasi)
 
 | Category | Item |
 |---|---|
 | **Software** | PHP 8.3, Laravel 11, MySQL 8, Composer 2, PHPUnit 11, PHPMD 2.x |
 | **Hardware** | Any development machine capable of running the above (document your actual specs for reproducibility) |
 
-## 4. 5.2 Implementasi Basis Data (Database Implementation)
+## 4. 5.2 Database Implementation (Implementasi Basis Data)
 
-The `user_id` column is the direct implementation of the authentication precondition stated in BAB IV Section 4.1: it is what turns "User is authenticated" from a design assertion into an enforceable constraint.
+The `user_id` column directly implements the authentication precondition stated in Chapter 4, Section 4.1: it turns "User is authenticated" from a design assertion into an enforceable constraint.
 
 ```php
 // database/migrations/xxxx_xx_xx_create_todos_table.php
@@ -147,13 +147,13 @@ Schema::create('todos', function (Blueprint $table) {
 });
 ```
 
-## 5. 5.3 Implementasi Antarmuka (Interface Implementation)
+## 5. 5.3 Interface Implementation (Implementasi Antarmuka)
 
-The Blade view implements the wireframe from BAB IV Section 4.3: a single `index.blade.php` with a form, filter tabs, a todo list partial, and a confirmation dialog before delete requests are submitted.
+The Blade view implements the wireframe from Chapter 4, Section 4.3: a single `index.blade.php` with a form, filter tabs, a todo list partial, and a confirmation dialog before delete requests are submitted.
 
-## 6. 5.4 Implementasi Algoritma Inti (Core Algorithm Implementation)
+## 6. 5.4 Core Algorithm Implementation (Implementasi Algoritma Inti)
 
-This is the section where the BAB IV Class Diagrams become real. First, the implementation we actually build, test, and measure, matching every class and method the Class Diagram promised.
+This section is where Chapter 4's Class Diagrams become real code. What follows first is the implementation this project actually builds, tests, and measures, matching every class and method the Class Diagram promised.
 
 ### Action Pattern (Implemented and Measured)
 
@@ -256,13 +256,13 @@ class FilterTodosAction
 }
 ```
 
-`UpdateTodoAction` itself is omitted here: its `execute()` method follows the identical validate-then-persist shape as `CreateTodoAction`, just updating an existing `Todo` instead of creating one, exactly the "same shape, not redrawn" note BAB IV already made for Edit's Activity Diagram branch.
+`UpdateTodoAction` itself is omitted here, since its `execute()` method follows the identical validate-then-persist shape as `CreateTodoAction`; it simply updates an existing `Todo` instead of creating a new one. This mirrors the "same shape, not redrawn" note Chapter 4 already made for the Edit branch of the Activity Diagram.
 
-The controller now only orchestrates HTTP concerns (validation, authorization, redirect); business logic is isolated in the Action classes, each testable in complete isolation from the HTTP layer. The `abort_unless` checks are the concrete, testable form of BAB IV's authentication precondition: without them, any authenticated user could complete or delete any other user's todo, and the precondition would be nothing but a comment.
+The controller now only orchestrates HTTP concerns (validation, authorization, redirect); business logic is isolated in the Action classes, each testable in complete isolation from the HTTP layer. The `abort_unless` checks are the concrete, testable form of Chapter 4's authentication precondition: without them, any authenticated user could complete or delete any other user's todo, and the precondition would be nothing but a comment.
 
 ### Fat Controller (Illustrative Snippet Only, Not Part of the Measured Codebase)
 
-The following is a short illustration of the conceptual alternative discussed in BAB II and BAB IV. It is never built as a full application, never tested, and never measured; it exists only so the contrast in Section "A First Look at the Difference" below is concrete rather than abstract.
+This short illustration of the conceptual alternative is discussed in Chapter 2 and Chapter 4. It is never built as a full application, tested, or measured; it exists only to make the contrast in "A First Look at the Difference" below concrete rather than abstract.
 
 ```php
 class TodoController extends Controller
@@ -296,17 +296,17 @@ Validation, model construction, and persistence would all live directly inside t
 | Can business logic be tested without an HTTP request? | No, would require mocking `Request`/routing | Yes, call `execute()` directly with an array and a user ID |
 | How many classes does `store()`'s logic touch? | 1 (`TodoController` would do it all) | 2 (`TodoController` delegates, `CreateTodoAction` executes) |
 
-Only the Action Pattern column reflects code that is actually built and measured. BAB VI formalises this contrast with real numbers, checked against literature thresholds rather than against the illustrative column directly.
+Only the Action Pattern column reflects code that is actually built and measured. Chapter 6 formalises this contrast with real numbers, checked against literature thresholds rather than against the illustrative column directly.
 
 ### Prototype Iteration Log
 
-BAB III chose Prototyping specifically because it iterates: build, evaluate, refine, repeat. Writing a full diagram-and-code narrative for every iteration would bloat this chapter far past what a **mini-skripsi** (course-scale thesis project) needs; instead, keep a **compact log of meaningful milestones**, each tied to a concrete trigger and a git reference, and let the repository itself carry the detailed evidence (see the tagged-release packaging guidance in Part 7). This is the same principle BAB IV already applied to diagrams: document what is meaningful, not everything.
+Chapter 3 chose Prototyping specifically because it iterates: build, evaluate, refine, repeat. Writing a full diagram-and-code narrative for every iteration would bloat this chapter far past what a **mini thesis** (mini skripsi) needs. Instead, keep a **compact log of meaningful milestones**, each tied to a concrete trigger and a git reference, and let the repository itself carry the detailed evidence (see the tagged-release packaging guidance in Part 7). This is the same principle Chapter 4 already applied to diagrams: document what is meaningful, not everything.
 
 | Iteration | What Changed | Trigger | Git Reference |
 |---|---|---|---|
-| Prototype v1 | Initial CRUD logic via Action Pattern, no user scoping | Baseline implementation from the BAB IV design | `v0.1-prototype` |
-| Prototype v2 | Added `user_id` to `Todo` and `abort_unless` ownership checks to the controller | Design review found the authentication precondition (BAB IV Section 4.1) had no enforced consequence: a self-claim gap | `v0.2-prototype` |
-| Prototype v3 (final) | Added the delete-confirmation flow (dialog, then confirm/cancel) | Activity Diagram review found Delete had no genuine decision logic distinguishing it from Create | `v0.3-final` (this is the version measured in BAB VI) |
+| Prototype v1 | Initial CRUD logic via Action Pattern, no user scoping | Baseline implementation from the Chapter 4 design | `v0.1-prototype` |
+| Prototype v2 | Added `user_id` to `Todo` and `abort_unless` ownership checks to the controller | Design review found the authentication precondition (Chapter 4, Section 4.1) had no enforced consequence: a self-claim gap | `v0.2-prototype` |
+| Prototype v3 (final) | Added the delete-confirmation flow (dialog, then confirm/cancel) | Activity Diagram review found Delete had no genuine decision logic distinguishing it from Create | `v0.3-final` (this is the version measured in Chapter 6) |
 
 Notice each row exists because an **evaluation** surfaced a real gap, not because of cosmetic polish; that is what makes this evidence of Prototyping rather than a changelog. A student following this template should expect two to four rows, not one per commit and not one for every minor styling change.
 
@@ -506,15 +506,15 @@ Perhatikan bahwa setiap baris ada karena sebuah **evaluasi** mengungkap kesenjan
 
 <section lang="en">
 
-## 7. 5.5 Implementasi Pengujian (Testing Implementation)
+## 7. 5.5 Testing Implementation (Implementasi Pengujian)
 
-### Metode
+### Method
 
-The implementation is validated with Black Box scenarios (BAB IV Section 4.4), plus unit tests targeting the isolated Action classes directly, including a test that confirms the authentication precondition is actually enforced, not just declared. Metric measurement uses the tools named in BAB III Section 3.5, run directly against the codebase.
+The implementation is validated with Black Box scenarios (Chapter 4, Section 4.4), plus unit tests targeting the isolated Action classes directly, including a test that confirms the authentication precondition is actually enforced, not just declared. Metric measurement uses the tools named in Chapter 3, Section 3.5, run directly against the codebase.
 
-### Menjalankan Tool Pengukuran Metrik
+### Running the Metric-Measurement Tools
 
-BAB III promised specific tools for the maintainability metrics; here they are actually invoked, not just named. Run these from the project root:
+Chapter 3 promised specific tools for the maintainability metrics; here they are actually invoked, not just named. Run these from the project root:
 
 ```bash
 # Cyclomatic complexity and coupling (BAB III, Section 3.5)
@@ -524,11 +524,11 @@ vendor/bin/phpmd app/Actions text codesize,design
 vendor/bin/phpunit --coverage-text
 ```
 
-Record the raw output of both commands; the numbers BAB VI reports must trace back to an actual run of these, not an estimate.
+Record the raw output of both commands. The numbers Chapter 6 reports must trace back to an actual run of these tools, not an estimate.
 
-### Implementasi Black Box Testing (excerpt)
+### Black Box Testing Implementation (excerpt)
 
-| ID | Skenario | Actual Result | Status |
+| ID | Scenario | Actual Result | Status |
 |---|---|---|---|
 | BB-01 | Create todo with valid title | Todo appears in list | Pass |
 | BB-02 | Create todo with empty title | Validation error shown | Pass |
@@ -563,7 +563,7 @@ public function test_create_todo_action_scopes_the_todo_to_the_given_user(): voi
 }
 ```
 
-Notice these tests need no `Request`, no route, no controller: a direct consequence of the Action Pattern's isolation, which is exactly the testability claim from our **Rumusan Masalah (Research Questions)**. The second test is what actually verifies BAB IV's precondition; without it, "User is authenticated" and "todos are scoped to their owner" would be design claims with no supporting evidence, the same self-claim problem BAB IV Section 2 warns against for NFRs.
+Notice these tests need no `Request`, no route, and no controller. That is a direct consequence of the Action Pattern's isolation, and it is exactly the testability claim made in this project's **Research Questions (Rumusan Masalah)**. The second test is what actually verifies Chapter 4's precondition. Without this test, "User is authenticated" and "todos are scoped to their owner" would remain design claims with no supporting evidence, the same self-claim problem Chapter 4, Section 2 warns against for NFRs.
 
 </section>
 
@@ -634,18 +634,18 @@ Perhatikan bahwa test ini tidak membutuhkan `Request`, rute, atau controller: ko
 
 <section lang="en">
 
-## 8. Common Mistakes in BAB V
+## 8. Common Mistakes in Chapter 5
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
-| **Building the Fat Controller illustration as a full, working, separate application** | Doubles implementation effort for no additional evidence; **Batasan Masalah (Scope and Limitations)** (BAB I) explicitly scoped this out. | Keep the illustration to a short, clearly labelled snippet, as in Section 6. |
-| **Not labelling which code is measured and which is illustrative** | An examiner reading BAB V cannot tell what the actual research artefact is. | Label every code block explicitly, as done throughout this chapter. |
+| **Building the Fat Controller illustration as a full, working, separate application** | Doubles implementation effort for no additional evidence; **Scope and Limitations (Batasan Masalah)** (Chapter 1) explicitly scoped this out. | Keep the illustration to a short, clearly labelled snippet, as in Section 6. |
+| **Not labelling which code is measured and which is illustrative** | An examiner reading Chapter 5 cannot tell what the actual research artefact is. | Label every code block explicitly, as done throughout this chapter. |
 | **Implementing fewer classes or methods than the Class Diagram promised** | Leaves an unexplained gap between design and implementation an examiner will notice immediately. | Match every class/method, or explicitly note why one is omitted (e.g. `UpdateTodoAction` following `CreateTodoAction`'s shape), as in Section 6. |
-| **Naming a metric tool in BAB III but never actually running it in BAB V** | The numbers BAB VI reports become unverifiable claims, not measurements. | Show the actual commands and record their raw output, as in Section 7. |
-| **Choosing Prototyping in BAB III but documenting only the final version in BAB V** | Undermines the methodology you claimed to follow; there is no evidence of "build, evaluate, refine." | Keep a compact Iteration Log tied to real triggers and git references, as in Section 6, not a full narrative per version. |
-| **Stating a precondition in BAB IV but never writing a test that could fail it** | A precondition with no test that could violate it is a claim, not a verified property of the system. | Write at least one scenario that deliberately tries to break the precondition (e.g. BB-09) and confirms it is blocked. |
-| **Writing tests only after all features are "done"** | Bugs found late are more expensive to fix, and late testing pressure often means scenarios get skipped. | Test continuously, as designed in BAB IV Section 4.4, feature by feature. |
-| **Skipping environment documentation** | Without exact versions, no one (including future-you) can reproduce your measurements. | Record exact tool versions in Section 5.1; this becomes essential for BAB VI credibility. |
+| **Naming a metric tool in Chapter 3 but never actually running it in Chapter 5** | The numbers Chapter 6 reports become unverifiable claims, not measurements. | Show the actual commands and record their raw output, as in Section 7. |
+| **Choosing Prototyping in Chapter 3 but documenting only the final version in Chapter 5** | Undermines the methodology you claimed to follow; there is no evidence of "build, evaluate, refine." | Keep a compact Iteration Log tied to real triggers and git references, as in Section 6, not a full narrative per version. |
+| **Stating a precondition in Chapter 4 but never writing a test that could fail it** | A precondition with no test that could violate it is a claim, not a verified property of the system. | Write at least one scenario that deliberately tries to break the precondition (e.g. BB-09) and confirms it is blocked. |
+| **Writing tests only after all features are "done"** | Bugs found late are more expensive to fix, and late testing pressure often means scenarios get skipped. | Test continuously, as designed in Chapter 4, Section 4.4, feature by feature. |
+| **Skipping environment documentation** | Without exact versions, no one (including future-you) can reproduce your measurements. | Record exact tool versions in Section 5.1; this becomes essential for Chapter 6 credibility. |
 
 </section>
 
@@ -672,7 +672,7 @@ Perhatikan bahwa test ini tidak membutuhkan `Request`, rute, atau controller: ko
 
 ## 9. What Comes Next?
 
-The Action Pattern implementation is now built, tested, and functionally validated, including the authentication precondition itself, with a compact iteration log giving real evidence that Prototyping was actually followed. In Part 6, we cover **BAB VI (Hasil dan Pembahasan, Results and Discussion)**: running the metric-measurement tools for real, presenting the results against literature thresholds, and, most importantly, discussing what the numbers actually mean, tying every result back to the Rumusan Masalah from Part 1.
+The Action Pattern implementation is now built, tested, and functionally validated, including the authentication precondition itself, with a compact iteration log giving real evidence that Prototyping was actually followed. Part 6 covers **Chapter 6: Results and Discussion (BAB VI: Hasil dan Pembahasan)**: running the metric-measurement tools for real, presenting the results against literature thresholds, and, most importantly, discussing what the numbers actually mean by tying every result back to the Research Questions from Part 1.
 
 </section>
 

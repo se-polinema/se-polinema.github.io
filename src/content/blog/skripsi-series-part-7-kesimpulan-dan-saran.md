@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Mini Series Part 7: Kesimpulan dan Saran (Conclusion & Defense)"
+title: "Skripsi Mini Series Part 7: Conclusion and Recommendations (Kesimpulan dan Saran)"
 titleId: "Seri Mini Skripsi Bagian 7: Kesimpulan dan Saran"
 date: 2026-07-14
 updated: 2026-07-14
@@ -7,11 +7,11 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 7 (final) of the Skripsi Mini Series. Learn how to write BAB VII (Kesimpulan dan Saran) that traces directly back to BAB I, prepare for your sidang defense with common examiner questions, and package your project for a professional handover."
+excerpt: "Part 7 (final) of the Skripsi Mini Series. Learn how to write Chapter 7: Conclusion and Recommendations (BAB VII: Kesimpulan dan Saran) so it traces directly back to Chapter 1: Introduction (BAB I), prepare for your thesis defense (sidang) with common examiner (penguji) questions, and package your project for a professional handover."
 excerptId: "Bagian 7 (terakhir) dari Seri Mini Skripsi. Pelajari cara menulis BAB VII (Kesimpulan dan Saran) yang tertelusur langsung ke BAB I, mempersiapkan sidang dengan pertanyaan penguji yang umum, dan mengemas proyek Anda untuk handover yang profesional."
 stream: se-methodologies-architecture
 tags:
-  - Skripsi
+  - Thesis
   - Research Methodology
   - Laravel
   - Software Engineering
@@ -26,16 +26,16 @@ seriesOrder: 7
 
 <section lang="en">
 
-## 1. What is BAB VII: Kesimpulan dan Saran (Conclusion and Recommendations)?
+## 1. What Is Chapter 7: Conclusion and Recommendations (BAB VII: Kesimpulan dan Saran)?
 
-**BAB VII** is the shortest chapter in the **skripsi** (undergraduate thesis), and often the most rushed, which is a mistake, since it is the last thing many readers (and every examiner opening your document for the first time) will read closely. It has two subsections:
+**Chapter 7** is the shortest chapter in the **thesis** (skripsi), and it's often the one students rush through. That's a mistake: it is the last thing many readers, and every examiner (penguji) opening your document for the first time, will read closely. It has two subsections:
 
 | Subsection | Purpose |
 |---|---|
-| **7.1 Kesimpulan (Conclusion)** | A direct, numbered answer to each **Rumusan Masalah (Research Questions)**, nothing more, nothing new |
-| **7.2 Saran (Recommendations)** | Honest recommendations for whoever continues this work: future you, another student, or a maintainer |
+| **7.1 Conclusion (Kesimpulan)** | A direct, numbered answer to each **Research Question** (Rumusan Masalah), nothing more, nothing new |
+| **7.2 Recommendations (Saran)** | Honest recommendations for whoever continues this work: future you, another student, or a maintainer |
 
-If you have followed this series' traceability chain (Rumusan Masalah in BAB I, Tujuan in BAB I, **Hasil dan Pembahasan** (Results and Discussion) in BAB VI), writing Kesimpulan is almost mechanical: restate each answered question as a finding.
+If you've followed this series' traceability chain, Research Questions and Objectives (Tujuan) in Chapter 1: Introduction (BAB I), then Chapter 6: Results and Discussion (BAB VI: Hasil dan Pembahasan), writing the Conclusion is almost mechanical: restate each answered question as a finding.
 
 </section>
 
@@ -58,27 +58,27 @@ Jika Anda mengikuti rantai *traceability* seri ini (Rumusan Masalah di BAB I, Tu
 
 <section lang="en">
 
-## 2. Why Getting Kesimpulan dan Saran Right Matters
+## 2. Why Getting the Conclusion and Recommendations Right Matters
 
 ### What is it?
-Kesimpulan is the closing argument of the case you have been building since BAB I; Saran is your honest acknowledgement of what remains open.
+The Conclusion is the closing argument for the case you've been building since Chapter 1; the Recommendations section is your honest acknowledgement of what remains open.
 
 ### Why does it matter?
-- **It is the last checkpoint of your traceability chain.** If a Kesimpulan point does not map to a Rumusan Masalah item, either your project drifted, or you're claiming something you didn't actually establish.
-- **Examiners often read BAB I and BAB VII back-to-back before reading anything else.** A mismatch between the two is the fastest way to trigger hard questions in your **sidang** (thesis defense).
-- **Saran is not an apology.** A well-written Saran section signals scientific maturity: you know the boundary of what you proved, and you can point precisely at what's next.
-- **This chapter is your dress rehearsal for the sidang.** The questions an examiner asks are, overwhelmingly, "does your Kesimpulan really follow from your Hasil?" and "what would you do differently?" Both are answered by writing this chapter carefully.
+- **It's the last checkpoint of your traceability chain.** If a Conclusion point doesn't map to a Research Question, either your project drifted, or you're claiming something you never actually established.
+- **Examiners often read Chapter 1 and Chapter 7 back-to-back before anything else.** A mismatch between the two is the fastest way to trigger hard questions at your **thesis defense** (sidang).
+- **The Recommendations section isn't an apology.** A well-written one signals scientific maturity: you know the boundary of what you proved, and you can point precisely at what comes next.
+- **This chapter is your dress rehearsal for the defense.** The questions an examiner asks almost always boil down to "does your Conclusion really follow from your Results?" and "what would you do differently?" Writing this chapter carefully answers both in advance.
 
 ### When do you use it?
-Write it last, after BAB VI is finished and stable. Never draft Kesimpulan speculatively before you have actual results.
+Write it last, after Chapter 6 is finished and stable. Never draft the Conclusion speculatively, before you have actual results.
 
 ### Where does it fit?
-BAB VII is the final artefact examiners weigh your entire project against; it is also, practically, the outline for your sidang presentation slides.
+Chapter 7 is the final artefact examiners weigh your entire project against. Practically speaking, it also doubles as the outline for your defense presentation slides.
 
 ### How do you create one?
-1. List each Rumusan Masalah item and write one Kesimpulan sentence per item, each backed by a specific BAB VI number.
-2. Write Saran as concrete, actionable next steps, not vague wishes.
-3. Rehearse your sidang defense using the Kesimpulan as your talking points.
+1. List each Research Question and write one Conclusion sentence per item, each backed by a specific Chapter 6 result.
+2. Write the Recommendations as concrete, actionable next steps, not vague wishes.
+3. Rehearse your thesis defense using the Conclusion points as your talking points.
 4. Package the project for handover: a real deliverable, not just a chapter.
 
 </section>
@@ -114,22 +114,22 @@ BAB VII adalah artefak akhir yang menjadi ukuran penguji terhadap seluruh proyek
 
 <section lang="en">
 
-## 3. Worked Example: Kesimpulan dan Saran for Our Project
+## 3. Worked Example: Conclusion and Recommendations for Our Project
 
-### 7.1 Kesimpulan (Conclusion)
+### 7.1 Conclusion
 
-> 1. Penerapan Action Pattern pada aplikasi Todo List berbasis Laravel meningkatkan maintainability: cyclomatic complexity rata-rata 2.4, coupling rata-rata 1.8, dan lines of code per method rata-rata 9, seluruhnya memenuhi ambang batas yang ditetapkan (BAB VI Section 4).
-> 2. Penerapan Action Pattern memudahkan pengujian unit secara terisolasi: unit test coverage mencapai 94%, melampaui target 80%, karena setiap kelas Action dapat diuji tanpa bootstrap HTTP (BAB VI Section 5).
+> 1. Applying the Action Pattern in the Laravel-based Todo List application improved maintainability: an average cyclomatic complexity of 2.4, average coupling of 1.8, and average lines of code per method of 9, all meeting the thresholds set from the literature (Chapter 6, Section 4).
+> 2. Applying the Action Pattern made unit tests easier to isolate: unit test coverage reached 94%, exceeding the 80% target, because each Action class could be tested without HTTP bootstrapping (Chapter 6, Section 5).
 
-Notice each point cites a specific BAB VI location and matches a Rumusan Masalah item exactly, in the same order. This is not optional decoration; it is what makes the Kesimpulan verifiable.
+Notice that each point cites a specific location in Chapter 6 and matches a Research Question exactly, in the same order. That is not optional decoration; it is what makes the Conclusion verifiable.
 
-### 7.2 Saran (Recommendations)
+### 7.2 Recommendations
 
-> 1. **Bagi pengembangan selanjutnya:** terapkan Action Pattern pada fitur dengan business logic yang lebih kompleks (mis. melibatkan beberapa model atau API eksternal) untuk menguji apakah keunggulan maintainability bertahan pada skala yang lebih besar.
-> 2. **Bagi penelitian selanjutnya:** lakukan studi komparatif langsung dengan mengimplementasikan varian Fat Controller yang dibahas secara konseptual di BAB IV, untuk memvalidasi kontras yang diamati secara kualitatif, dan pertimbangkan metrik tambahan seperti Maintainability Index atau waktu penyelesaian tugas maintenance oleh developer independen.
-> 3. **Bagi pengguna hasil penelitian ini:** gunakan Action Pattern secara selektif pada fitur yang benar-benar memiliki business logic nontrivial; untuk operasi CRUD yang sangat sederhana, overhead kelas tambahan mungkin tidak sepadan dengan manfaatnya, sebuah trade-off yang berada di luar Batasan Masalah studi ini namun layak dipertimbangkan oleh developer.
+> 1. **For future development:** apply the Action Pattern to features with more complex business logic (e.g., involving multiple models or external APIs) to test whether the maintainability gains hold at a larger scale.
+> 2. **For future research:** run a direct comparative study by implementing the Fat Controller variant discussed conceptually in Chapter 4: System Analysis and Design (BAB IV), to validate the contrast observed qualitatively here, and consider additional metrics such as the Maintainability Index or the time independent developers take to complete a maintenance task.
+> 3. **For anyone using these results:** apply the Action Pattern selectively, only to features that genuinely have nontrivial business logic. For very simple CRUD operations, the overhead of an extra class may not be worth the benefit, a trade-off that falls outside this study's **Scope and Limitations** (Batasan Masalah) but is still worth a developer's consideration.
 
-Each Saran item is **actionable**: a future reader knows exactly what to do next, not just that "more research is needed." Saran point 2 is also where the comparative study we deliberately scoped out (Part 1's Batasan Masalah) becomes honest, concrete future work rather than a silently dropped ambition.
+Each Recommendation item is **actionable**: a future reader knows exactly what to do next, not just that "more research is needed." Recommendation 2 is also where the comparative study we deliberately scoped out (Part 1's Scope and Limitations) becomes honest, concrete future work rather than a silently dropped ambition.
 
 </section>
 
@@ -158,20 +158,20 @@ Setiap item Saran **dapat ditindaklanjuti**: pembaca masa depan tahu persis apa 
 
 <section lang="en">
 
-## 4. Sidang Prep: Common Examiner Questions
+## 4. Thesis Defense Prep: Common Examiner Questions
 
-Rehearse answers to these; they are near-universal for a measurement-based skripsi like ours.
+Rehearse answers to these; they are near-universal for a measurement-based thesis like ours.
 
 | Question | How to answer well |
 |---|---|
-| "Why this metric and not another?" | Point to BAB II theory and the BAB III definition; your metric choice was justified before you ever measured anything. |
-| "Why didn't you build a real comparison against Fat Controller?" | Point to Batasan Masalah (BAB I Section 1.3); it was an explicit scoping decision to keep the **mini-skripsi** (course-scale thesis project) achievable in one semester. BAB IV shows the conceptual contrast, and Saran point 2 proposes the real comparison as follow-up work. |
-| "Isn't this too small a system to generalise from?" | Agree, and point to your own Threats to Validity in BAB VI; you already said this, and showing you know your limits is a strength, not a weakness. |
-| "What would happen if the app were larger?" | Answer from your Saran; this is exactly what Saran point 1 exists to address. |
-| "Walk me through how Action Pattern actually works in your code." | Have BAB V Section 5.4's implementation and illustrative snippet ready to explain live; this is the question you can answer most confidently, since you wrote the code yourself. |
-| "How do you handle multi-user data isolation?" | Point to the authentication precondition (BAB IV Section 4.1), the `user_id` scoping and `abort_unless` ownership checks (BAB V Section 5.4), and BB-09, the Blackbox scenario that specifically tests cross-user access denial (BAB VI Section 7). The precondition is not just stated, it is enforced and verified. |
+| "Why this metric and not another?" | Point to the theory in Chapter 2: Literature Review (BAB II) and the definition in Chapter 3: Development Methodology (BAB III); your metric choice was justified before you ever measured anything. |
+| "Why didn't you build a real comparison against Fat Controller?" | Point to Scope and Limitations (Chapter 1, Section 1.3); it was an explicit scoping decision to keep the **mini thesis** (mini skripsi) achievable in one semester. Chapter 4 shows the conceptual contrast, and Recommendation 2 proposes the real comparison as follow-up work. |
+| "Isn't this too small a system to generalise from?" | Agree, and point to your own Threats to Validity in Chapter 6; you already flagged this limitation yourself, and showing you know the boundaries of your work is a strength, not a weakness. |
+| "What would happen if the app were larger?" | Answer from your Recommendations section; this is exactly what Recommendation 1 exists to address. |
+| "Walk me through how Action Pattern actually works in your code." | Have the implementation and illustrative code snippet from Chapter 5: Implementation and Testing (BAB V), Section 5.4, ready to explain live; this is the question you can answer most confidently, since you wrote the code yourself. |
+| "How do you handle multi-user data isolation?" | Point to the authentication precondition (Chapter 4, Section 4.1), the `user_id` scoping and `abort_unless` ownership checks (Chapter 5, Section 5.4), and BB-09, the Blackbox scenario that specifically tests cross-user access denial (Chapter 6, Section 7). The precondition is not just stated; it is enforced and verified. |
 
-**Presentation tip:** structure your defense slides around the same skeleton as this series: Rumusan Masalah, Metodologi, Design, Implementation, Results, Kesimpulan. An examiner who has read your BAB I recognises the structure instantly, which builds confidence in your work rather than confusion.
+**Presentation tip:** structure your defense slides around the same skeleton as this series: Research Questions, Methodology, Design, Implementation, Results, Conclusion. An examiner who has read your Chapter 1 will recognise the structure instantly, and that recognition builds confidence in your work rather than confusion.
 
 </section>
 
@@ -200,18 +200,18 @@ Latih jawaban untuk pertanyaan-pertanyaan ini, yang hampir universal untuk skrip
 
 ## 5. Packaging and Handover: the SE Angle
 
-A skripsi is a document, but a mini-skripsi with a working system is also a **software deliverable**. Package it the way you would hand off a real project:
+A thesis is a document, but a mini thesis with a working system is also a **software deliverable**. Package it the way you would hand off a real project:
 
-- **README:** setup instructions, how to run the application, how to run tests, how to reproduce the metric measurements.
-- **`.env.example`:** never commit real credentials; document required environment variables.
-- **A tagged release:** so examiners (or future you) can check out the exact version that was measured directly. This is not a hypothetical: it is exactly what the `v0.3-final` tag in Part 5's Prototype Iteration Log points to, the same version BAB VI measured.
-- **Migration and seed data:** anyone should be able to `git clone`, run migrations, and see a working app in minutes.
+- **README:** setup instructions, how to run the application, how to run the tests, and how to reproduce the metric measurements.
+- **`.env.example`:** never commit real credentials; document the required environment variables instead.
+- **A tagged release:** so examiners (or future you) can check out the exact version that was measured. This isn't hypothetical: it's exactly what the `v0.3-final` tag in Part 5's Prototype Iteration Log points to, the same version Chapter 6 measured.
+- **Migration and seed data:** anyone should be able to `git clone` the repository, run the migrations, and see a working app within minutes.
 
-This is not extra work for its own sake. A project an examiner can actually run is more convincing than one they only read about.
+This isn't extra work for its own sake: a project an examiner can actually run is more convincing than one they can only read about.
 
 ## 6. Closing the "Finish On Time" Thread (Benang Merah)
 
-Back in Part 1, we said **Batasan Masalah (Scope and Limitations)** is your best defence against scope creep, and Part 3 gave you a 16-week timeline that already accounted for the schedule slack a single-build design frees up. At this point in the semester, it's worth a short retrospective: did each BAB land in its planned week? If not, where did the drift start? Usually either an underspecified Rumusan Masalah (Part 1) or a design phase that ran long because Batasan Masalah wasn't tight enough (Part 4). Write this reflection down; it is the single most useful thing you can hand to a junior student starting their own skripsi next semester.
+Back in Part 1, we said Scope and Limitations is your best defence against scope creep, and Part 3 gave you a 16-week timeline that already accounted for the schedule slack a single-build design frees up. At this point in the semester, it's worth a short retrospective: did each chapter land in its planned week? If not, where did the drift start? Usually it's either an underspecified Research Question (Part 1) or a design phase that ran long because Scope and Limitations wasn't tight enough (Part 4). Write this reflection down: it's the single most useful thing you can hand to a junior student starting their own thesis next semester.
 
 The Prototype Iteration Log (Part 5, Section 5.4) is worth revisiting here too: `v0.1-prototype` to `v0.3-final` is evidence that Prototyping's evaluate-and-refine loop kept the single-build design on schedule, since each iteration fixed a specific gap instead of triggering a restart. If your own log shows a restart rather than a refinement, that is the drift worth writing down.
 
@@ -242,15 +242,15 @@ Log Iterasi Prototipe (Bagian 5, bagian 5.4) layak ditinjau ulang di sini juga: 
 
 <section lang="en">
 
-## 7. Common Mistakes in BAB VII
+## 7. Common Mistakes in Chapter 7
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
-| **Kesimpulan introduces new findings not in BAB VI** | A conclusion is a synthesis of what was shown, not a place for new claims. | Every Kesimpulan sentence must cite back to a specific BAB VI result. |
-| **Kesimpulan count doesn't match Rumusan Masalah count** | Breaks the traceability chain the whole document was built on. | Write exactly one Kesimpulan point per Rumusan Masalah item, same order. |
-| **Saran is vague** ("perlu penelitian lebih lanjut") | Gives the reader nothing to act on. | Name a specific next step, scoped and concrete, as in Section 3. |
-| **No sidang rehearsal** | The first time you say your Kesimpulan out loud shouldn't be in front of examiners. | Practise explaining each Kesimpulan point and its supporting BAB VI evidence out loud beforehand. |
-| **Project not runnable by anyone but the author** | An un-reproducible deliverable undermines even a strong BAB VI. | Package with README, `.env.example`, and migrations, as in Section 5. |
+| **Conclusion introduces new findings not in Chapter 6** | A conclusion is a synthesis of what was shown, not a place for new claims. | Every Conclusion sentence must cite back to a specific Chapter 6 result. |
+| **Conclusion count doesn't match the number of Research Questions** | Breaks the traceability chain the whole document was built on. | Write exactly one Conclusion point per Research Question, in the same order. |
+| **Recommendations are vague** (e.g. "perlu penelitian lebih lanjut," meaning "further research is needed") | Gives the reader nothing to act on. | Name a specific next step, scoped and concrete, as in Section 3. |
+| **No thesis defense rehearsal** | The first time you say your Conclusion out loud shouldn't be in front of examiners. | Practise explaining each Conclusion point and its supporting Chapter 6 evidence out loud beforehand. |
+| **Project not runnable by anyone but the author** | An unreproducible deliverable undermines even a strong Chapter 6. | Package it with a README, `.env.example`, and migrations, as in Section 5. |
 
 </section>
 
@@ -272,11 +272,11 @@ Log Iterasi Prototipe (Bagian 5, bagian 5.4) layak ditinjau ulang di sini juga: 
 
 <section lang="en">
 
-## 8. Series Complete: Applying This to Your Own Skripsi
+## 8. Series Complete: Applying This to Your Own Thesis
 
-Across seven parts, we carried one deliberately simple example, a Todo app evaluating the Laravel Action Pattern against literature thresholds, through all seven BABs of a Polinema skripsi, showing at each step how the **academic structure** (**Latar Belakang** (Background), Rumusan Masalah, and so on through Kesimpulan) and **software-engineering discipline** (requirements, UML design, version control, testing, measurement) reinforce each other, and how a single-build, threshold-validation design keeps that discipline achievable for a beginner in one semester.
+Across seven parts, we carried one deliberately simple example, a Todo app evaluating the Laravel Action Pattern against literature thresholds, through all seven chapters of a Polinema thesis. At each step, we showed how the **academic structure** (**Background** (Latar Belakang), Research Questions, and so on through the Conclusion) reinforces **software-engineering discipline** (requirements, UML design, version control, testing, measurement), and how a single-build, threshold-validation design keeps that discipline achievable for a beginner in one semester.
 
-What carries over directly is the skeleton, not the content: swap the Todo app for your own small system, swap the Action Pattern for whatever you want to evaluate (a different design pattern, an architecture style, a tool, a library), and keep the traceability chain from Rumusan Masalah to Kesimpulan, the single-build design, and the discipline of designing before building and measuring before concluding. What does not carry over automatically is the evidence itself: your own **Studi Literatur** (Literature Review) to justify a defensible threshold for your new subject, metrics chosen because they actually measure it (cyclomatic complexity fits a code-structure pattern, not necessarily a caching strategy or a UI choice), and a Batasan Masalah re-argued for your specific case rather than copied from this one. That discipline of redoing the groundwork, more than any specific chapter template, is what finishes a skripsi on time.
+What carries over directly is the skeleton, not the content. Swap the Todo app for your own small system, swap the Action Pattern for whatever you want to evaluate (a different design pattern, an architecture style, a tool, a library), and keep the traceability chain from Research Questions to Conclusion, the single-build design, and the discipline of designing before building and measuring before concluding. What doesn't carry over automatically is the evidence itself: your own **Literature Study** (Studi Literatur) to justify a defensible threshold for your new subject, metrics chosen because they actually measure it (cyclomatic complexity fits a code-structure pattern, but not necessarily a caching strategy or a UI choice), and a Scope and Limitations section re-argued for your specific case rather than copied from this one. That discipline of redoing the groundwork, more than any specific chapter template, is what finishes a thesis on time.
 
 </section>
 

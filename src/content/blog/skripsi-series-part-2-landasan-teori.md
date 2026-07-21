@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Mini Series Part 2: Landasan Teori (Literature Review & Theory)"
+title: "Skripsi Mini Series Part 2: Literature Review (Landasan Teori)"
 titleId: "Seri Mini Skripsi Bagian 2: Landasan Teori"
 date: 2026-07-14
 updated: 2026-07-14
@@ -7,11 +7,11 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 2 of the Skripsi Mini Series. Learn how to write BAB II (Landasan Teori): running a real Studi Literatur, avoiding plagiarism, and building the Dasar Teori that grounds our Laravel Action Pattern comparison in existing knowledge."
+excerpt: "Part 2 of the Skripsi Mini Series. Learn how to write Chapter 2: Literature Review (BAB II: Landasan Teori): running a real Literature Study (Studi Literatur), avoiding plagiarism, and building the Theoretical Basis (Dasar Teori) that grounds our Laravel Action Pattern comparison in existing knowledge."
 excerptId: "Bagian 2 dari Seri Mini Skripsi. Pelajari cara menulis BAB II (Landasan Teori): menjalankan Studi Literatur yang sesungguhnya, menghindari plagiarisme, dan menyusun Dasar Teori yang mendasarkan perbandingan Action Pattern Laravel dalam penelitian ini pada pengetahuan yang sudah ada."
 stream: se-methodologies-architecture
 tags:
-  - Skripsi
+  - Thesis
   - Research Methodology
   - Laravel
   - Software Engineering
@@ -26,16 +26,16 @@ seriesOrder: 2
 
 <section lang="en">
 
-## 1. What is BAB II: Landasan Teori (Theoretical Foundation)?
+## 1. What is Chapter 2: Literature Review (BAB II: Landasan Teori)?
 
-**BAB II (Landasan Teori)** answers a different question than BAB I. BAB I argued *why your problem matters*; BAB II proves *you understand the concepts needed to solve it*, and *you know what other researchers have already tried*. It has two subsections:
+**Chapter 2** answers a different question than **Chapter 1: Introduction (BAB I: Pendahuluan)**. Where Chapter 1 argued *why your problem matters*, Chapter 2 proves two things: *you understand the concepts needed to solve it*, and *you know what other researchers have already tried*. It has two subsections:
 
 | Subsection | Purpose |
 |---|---|
-| **2.1 Studi Literatur (Literature Review)** | A comparison table of prior related work: what others studied, how, and what gap remains for your project to fill. |
-| **2.2 Dasar Teori (Theoretical Basis)** | Definitions and theory for every concept your project depends on, cited from credible sources. |
+| **2.1 Literature Study (Studi Literatur)** | A comparison table of prior related work: what others studied, how, and what gap remains for your project to fill. |
+| **2.2 Theoretical Basis (Dasar Teori)** | Definitions and theory for every concept your project depends on, cited from credible sources. |
 
-A common misconception is that BAB II is "the chapter where I explain what Laravel is." It is not a tutorial for the reader: it is **evidence that your project rests on solid ground**, and a **map of the gap** your **Rumusan Masalah (Research Questions)** (BAB I) sits in.
+A common misconception treats Chapter 2 as "the chapter where I explain what Laravel is." It is not a tutorial for the reader. Instead, it is **evidence that your project rests on solid ground** and a **map of the gap** where your **Research Questions (Rumusan Masalah)**, defined in Chapter 1, sit.
 
 </section>
 
@@ -58,28 +58,28 @@ Kesalahpahaman umum adalah menganggap BAB II sebagai "bab tempat saya menjelaska
 
 <section lang="en">
 
-## 2. Why Getting Landasan Teori Right Matters
+## 2. Why Getting Chapter 2 Right Matters
 
 ### What is it?
-Landasan Teori is the bridge between "what has been established" (literature, theory) and "what you are about to test" (your Rumusan Masalah).
+Chapter 2 is the bridge between "what has been established" (literature, theory) and "what you are about to test" (your Research Questions).
 
 ### Why does it matter?
-- **It protects you from reinventing known findings.** If a comparable comparison already exists, your examiner will ask why yours is different: Studi Literatur is where you answer that *before* it is asked.
-- **It supplies your vocabulary.** Every technical term you use in BAB III–VI (cyclomatic complexity, coupling, Action Pattern) must first be defined here, with a citation: using an undefined term later is an easy point deduction.
-- **It is where plagiarism risk is highest.** Copy-pasted definitions without paraphrasing or citation are the single most common cause of failed Turnitin/plagiarism checks in skripsi.
-- **It anchors your metrics.** In our example, the *reason* cyclomatic complexity and coupling are valid maintainability proxies is a theoretical claim (traceable to McCabe's 1976 complexity metric and Chidamber & Kemerer's coupling metrics), not something you get to assert for free in BAB III.
+- **It protects you from reinventing known findings.** If a comparable comparison already exists, your examiner will ask why your work is different. Literature Study is where you answer that question *before* it is asked.
+- **It supplies your vocabulary.** Every technical term you use in Chapters 3 through 6 (cyclomatic complexity, coupling, Action Pattern) must first be defined here, with a citation. Using an undefined term later is an easy way to lose points.
+- **It is where plagiarism risk is highest.** Copy-pasted definitions without paraphrasing or citation are the single most common cause of failed Turnitin and plagiarism checks in a thesis (skripsi).
+- **It anchors your metrics.** In our example, claiming that cyclomatic complexity and coupling are valid maintainability proxies is itself a theoretical claim, traceable to McCabe's 1976 complexity metric and Chidamber & Kemerer's coupling metrics, not something you get to assert for free in Chapter 3.
 
 ### When do you use it?
-Start Studi Literatur searches **early** (in parallel with drafting BAB I) because what you find may reshape your Rumusan Masalah. Finalise Dasar Teori once your Rumusan Masalah and **Batasan Masalah (Scope and Limitations)** are stable, since it must cover exactly (and only) the concepts your finalised scope needs.
+Start Literature Study searches **early** (in parallel with drafting Chapter 1), because what you find may reshape your Research Questions. Finalise Theoretical Basis once your Research Questions and **Scope and Limitations (Batasan Masalah)** are stable, since it must cover exactly (and only) the concepts your finalised scope needs.
 
 ### Where does it fit?
-Dasar Teori's concepts get **used**, not repeated, in every later chapter: BAB III cites theory to justify metric choices, BAB IV cites architecture/design theory (MVC, SOLID) to justify design decisions, BAB VI cites the same theory to interpret results.
+Theoretical Basis concepts get **used**, not repeated, in every later chapter: Chapter 3 cites theory to justify metric choices, Chapter 4 cites architecture and design theory (MVC, SOLID) to justify design decisions, and Chapter 6 cites the same theory to interpret results.
 
 ### How do you create one?
-1. Search academic databases (Google Scholar, Garuda, Sinta, ACM/IEEE Digital Library) using keywords from your Rumusan Masalah.
+1. Search academic databases (Google Scholar, Garuda, Sinta, ACM/IEEE Digital Library) using keywords from your Research Questions.
 2. Read abstracts first; keep only papers relevant to your specific gap.
-3. Fill a Studi Literatur comparison table (Section 4 below).
-4. Write Dasar Teori subsections: one per concept your Rumusan Masalah/Batasan Masalah actually names.
+3. Fill a Literature Study comparison table (Section 4 below).
+4. Write Theoretical Basis subsections: one per concept your Research Questions and Scope and Limitations actually name.
 5. Cite every claim; paraphrase, never copy verbatim without quotation.
 
 </section>
@@ -118,16 +118,16 @@ Konsep di Dasar Teori **digunakan**, bukan diulang, di setiap bab berikutnya: BA
 
 ## 3. Continuing Our Example: What Theory Does Our Evaluation Need?
 
-Our Rumusan Masalah (Part 1) names four concepts that must each get a Dasar Teori subsection: the **Action Pattern**, **maintainability** (as a measurable quality attribute), **testability**, and the **literature thresholds** we evaluate against. Working backward from Rumusan Masalah to a theory list is the fastest way to avoid writing theory you never use:
+Our Research Questions (Part 1) name four concepts that must each get a Theoretical Basis subsection: the **Action Pattern**, **maintainability** (as a measurable quality attribute), **testability**, and the **literature thresholds** we evaluate against. Working backward from Research Questions to a theory list is the fastest way to avoid writing theory you never use:
 
-| Rumusan Masalah keyword | Required theory subsection |
+| Research Questions keyword | Required theory subsection |
 |---|---|
 | "Action Pattern" | 2.2.1 Laravel Framework & MVC · 2.2.2 Single Responsibility Principle · 2.2.3 The Action Pattern |
 | "maintainability" | 2.2.4 Software Quality (ISO/IEC 25010) · 2.2.5 Cyclomatic Complexity · 2.2.6 Coupling |
 | "testability" | 2.2.7 Unit Testing & Testability · 2.2.8 Black Box Testing and UAT |
 | "ambang batas yang direkomendasikan literatur" | 2.2.9 Code Metric Thresholds |
 
-Notice this list contains **nothing about Todo apps**: the domain (todos) is incidental; the theory is entirely about *evaluating an implementation against established standards*, which is the actual research contribution. This is a useful test for your own project: if a theory subsection doesn't trace back to a Rumusan Masalah keyword, cut it.
+Notice this list contains **nothing about Todo apps**. The domain (todos) is incidental; the theory is entirely about *evaluating an implementation against established standards*, which is the actual research contribution. This is a useful test for your own project: if a theory subsection doesn't trace back to a Research Questions keyword, cut it.
 
 </section>
 
@@ -152,9 +152,9 @@ Perhatikan daftar ini **tidak menyebut apa pun tentang aplikasi Todo**: domain (
 
 <section lang="en">
 
-## 4. Writing BAB II Section by Section
+## 4. Writing Chapter 2 Section by Section
 
-### 2.1 Studi Literatur
+### 2.1 Literature Study
 
 Build a comparison table, not a summarised list. Each row is one prior study; columns force you to state the **gap** explicitly rather than leave it implied.
 
@@ -168,9 +168,9 @@ Build a comparison table, not a summarised list. Each row is one prior study; co
 
 Aim for 4–6 rows: enough to establish you searched broadly, few enough that each row is meaningfully discussed (not just pasted).
 
-**On avoiding plagiarism:** never copy a sentence from an abstract into your table or prose. Read the finding, close the source, and write it in your own words from memory, then verify accuracy against the source. Use a reference manager (Zotero or Mendeley) from day one so every citation is tracked and formatted consistently; retrofitting citations at the end of the semester is a common cause of missed deadlines.
+**On avoiding plagiarism:** never copy a sentence from an abstract into your table or prose. Read the finding, close the source, and write it in your own words from memory, then verify accuracy against the source. Use a reference manager (Zotero or Mendeley) from day one so every citation is tracked and formatted consistently. Retrofitting citations at the end of the semester is a common cause of missed deadlines.
 
-### 2.2 Dasar Teori
+### 2.2 Theoretical Basis
 
 Write one subsection per concept identified in Section 3. For each:
 1. **Define it**, citing a credible source (textbook, standard, peer-reviewed paper, not a random blog post).
@@ -212,9 +212,9 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 
 <section lang="en">
 
-## 5. Worked Example: Landasan Teori for Our Action Pattern Evaluation
+## 5. Worked Example: Chapter 2 for Our Action Pattern Evaluation
 
-**2.1 Studi Literatur (template: replace with real sources you find)**
+**2.1 Literature Study (template: replace with real sources you find)**
 
 | Peneliti & Tahun | Judul | Metode/Fokus | Hasil | Perbedaan dengan Penelitian Ini |
 |---|---|---|---|---|
@@ -222,9 +222,9 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 | *[cari studi 2]* | Perbandingan arsitektur MVC dan layered architecture pada testability | Eksperimen terkontrol | Layered architecture meningkatkan test coverage | Penelitian ini mengevaluasi satu implementasi Action Pattern terhadap ambang batas literatur, bukan perbandingan A/B antar gaya arsitektur |
 | *[cari studi 3]* | Evaluasi coupling pada aplikasi PHP skala kecil | Studi literatur + tooling statis | Coupling tinggi berkorelasi dengan bug density | Penelitian ini mengukur coupling sebagai proksi maintainability, bukan bug density |
 
-> This table is a **structural template**. Fill each `[cari studi N]` row with an actual paper you located through Google Scholar, Garuda, or Sinta: never submit placeholder rows like these in a real skripsi.
+> This table is a **structural template**. Fill each `[cari studi N]` row with an actual paper you located through Google Scholar, Garuda, or Sinta: never submit placeholder rows like these in a real thesis.
 
-**2.2 Dasar Teori (outline)**
+**2.2 Theoretical Basis (outline)**
 
 - **2.2.1 Laravel Framework & MVC**: Laravel's Model-View-Controller structure and where business logic conventionally lives.
 - **2.2.2 Single Responsibility Principle**: one of the SOLID principles; a class should have one reason to change (see our [Design Patterns with PHP](/blog/design-patterns-with-php) and [Clean Code Principles](/blog/clean-code-principles) tutorials for a deeper treatment).
@@ -233,7 +233,7 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 - **2.2.5 Cyclomatic Complexity**: McCabe's metric for counting independent paths through a method, as a maintainability proxy.
 - **2.2.6 Coupling**: the degree of interdependency between classes; lower coupling is theorised to ease isolated changes and testing.
 - **2.2.7 Unit Testing & Testability**: what makes code easy or hard to unit test in isolation.
-- **2.2.8 Black Box Testing and UAT**: functional testing theory, used later in BAB IV/V to validate the implementation behaves correctly for end users.
+- **2.2.8 Black Box Testing and UAT**: functional testing theory, used later in Chapters 4 and 5 to validate the implementation behaves correctly for end users.
 - **2.2.9 Code Metric Thresholds**: established reference values used to judge whether a measured metric is acceptable: McCabe's (1976) cyclomatic complexity guideline (≤10 per method), Robert C. Martin's *Clean Code* (2008) guidance on short methods (~20 lines), and commonly cited industry test-coverage targets (~80%). Coupling has no single canonical threshold in the literature; a real thesis must locate and cite its own defensible source for this one.
 
 </section>
@@ -270,10 +270,10 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 
 <section lang="en">
 
-## 6. Self-Check: Is Your Landasan Teori Ready?
+## 6. Self-Check: Is Your Chapter 2 Ready?
 
-1. Does every Dasar Teori subsection trace back to a word actually used in your Rumusan Masalah or Batasan Masalah?
-2. Does every Studi Literatur row end with a stated difference from your own project, not just a summary of theirs?
+1. Does every Theoretical Basis subsection trace back to a word actually used in your Research Questions or Scope and Limitations?
+2. Does every Literature Study row end with a stated difference from your own project, not just a summary of theirs?
 3. Is every direct quote inside quotation marks with a page number? Is everything else paraphrased in your own words?
 4. Could you explain each theory concept out loud, from memory, without looking at your source? If not, you don't understand it well enough to cite it correctly.
 5. Did you run your draft through your campus's plagiarism checker before submitting?
@@ -296,15 +296,15 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 
 <section lang="en">
 
-## 7. Common Mistakes in BAB II
+## 7. Common Mistakes in Chapter 2
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
-| **Dasar Teori reads like a Wikipedia dump** | Copying definitions verbatim (even with a citation) demonstrates you found the source, not that you understand it. | Paraphrase every definition in your own words; quote only when the exact wording matters. |
-| **Studi Literatur is a list, not a table** | Lists let you skip stating the gap for each study: a table's last column forces it. | Always use the comparison table format with an explicit "Perbedaan" column. |
+| **Theoretical Basis reads like a Wikipedia dump** | Copying definitions verbatim (even with a citation) demonstrates you found the source, not that you understand it. | Paraphrase every definition in your own words; quote only when the exact wording matters. |
+| **Literature Study is a list, not a table** | Lists let you skip stating the gap for each study: a table's last column forces it. | Always use the comparison table format with an explicit "Perbedaan" column. |
 | **Citing blogs and unranked websites as primary sources** | Weak sources undermine the credibility of your entire argument. | Prefer peer-reviewed papers, textbooks, and official documentation; use blogs only for implementation details, never for theoretical claims. |
 | **Theory sections with no citation at all** | An uncited claim is, by definition, unverifiable, and looks like it was invented for the thesis. | Every definition and every claim of fact needs a citation. |
-| **Writing Dasar Teori for concepts your project doesn't use** | Padding wastes the reader's time and signals you don't know your own scope. | Use the traceability check in Section 3: cut anything that doesn't map to a Rumusan Masalah keyword. |
+| **Writing Theoretical Basis for concepts your project doesn't use** | Padding wastes the reader's time and signals you don't know your own scope. | Use the traceability check in Section 3: cut anything that doesn't map to a Research Questions keyword. |
 
 </section>
 
@@ -328,7 +328,7 @@ Tulis satu subbab per konsep yang teridentifikasi di Bagian 3. Untuk masing-masi
 
 ## 8. What Comes Next?
 
-With BAB I giving us a scoped question and BAB II grounding it in theory, we are ready to design *how* we will actually answer it. In Part 3, we cover **BAB III (Metodologi Pengembangan, Development Methodology)**: choosing a development method (we use Prototyping), drawing the Alur Penelitian, and precisely defining the metrics and instruments we will use to measure maintainability and testability.
+With Chapter 1 giving us a scoped question and Chapter 2 grounding it in theory, we are ready to design *how* we will actually answer it. In Part 3, we cover **Chapter 3: Development Methodology (BAB III: Metodologi Pengembangan)**: choosing a development method (we use Prototyping), drawing the Research Flow (Alur Penelitian), and precisely defining the metrics and instruments we will use to measure maintainability and testability.
 
 </section>
 

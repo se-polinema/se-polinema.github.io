@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Mini Series Part 1: Pendahuluan (Introduction)"
+title: "Skripsi Mini Series Part 1: Introduction (Pendahuluan)"
 titleId: "Seri Mini Skripsi Bagian 1: Pendahuluan"
 date: 2026-07-14
 updated: 2026-07-14
@@ -7,11 +7,11 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 1 of the Skripsi Mini Series. Learn how to write BAB I (Pendahuluan) of a Polinema skripsi (Latar Belakang, Rumusan Masalah, Batasan Masalah, Tujuan, and Manfaat) using a simple Laravel Todo app that evaluates the Action Pattern as the running example."
+excerpt: "Part 1 of the Skripsi Mini Series. Learn how to write Chapter 1: Introduction (BAB I: Pendahuluan) of a Polinema thesis (skripsi), covering Background, Research Questions, Scope and Limitations, Objectives, and Significance, using a simple Laravel Todo app that evaluates the Action Pattern as the running example."
 excerptId: "Bagian 1 dari Seri Mini Skripsi. Pelajari cara menulis BAB I (Pendahuluan) skripsi Polinema (Latar Belakang, Rumusan Masalah, Batasan Masalah, Tujuan, dan Manfaat) menggunakan aplikasi Todo Laravel sederhana yang mengevaluasi Action Pattern sebagai contoh berkelanjutan."
 stream: se-methodologies-architecture
 tags:
-  - Skripsi
+  - Thesis
   - Research Methodology
   - Laravel
   - Software Engineering
@@ -26,21 +26,21 @@ seriesOrder: 1
 
 <section lang="en">
 
-## 1. What is BAB I: Pendahuluan (Introduction)?
+## 1. What is Chapter 1: Introduction (BAB I: Pendahuluan)?
 
-**BAB I (Pendahuluan)** is the opening chapter of a Polinema skripsi (undergraduate thesis). Its job is not to teach the reader anything new: it is to convince an examiner, in five short subsections, that your project is a **real problem worth solving**, that you have **scoped it to finish in one semester**, and that you know **exactly what you will and will not build**.
+**Chapter 1** is the opening chapter of a Polinema thesis (skripsi). Its job is not to teach the reader anything new. Instead, it must convince an examiner, in five short subsections, that your project addresses a **real problem worth solving**, that you have **scoped it to finish in one semester**, and that you know **exactly what you will and will not build**.
 
-Every JTI Polinema skripsi follows the same five-subsection skeleton:
+Every JTI Polinema thesis follows the same five-subsection skeleton:
 
 | Subsection | Question it answers |
 |---|---|
-| **1.1 Latar Belakang (Background)** | Why does this problem exist, and why now? |
-| **1.2 Rumusan Masalah (Research Questions)** | What, precisely, are you trying to answer? |
-| **1.3 Batasan Masalah (Scope and Limitations)** | What is explicitly *out* of scope? |
-| **1.4 Tujuan (Objectives)** | What will you have produced when you are done? |
-| **1.5 Manfaat (Significance)** | Who benefits, and how? |
+| **1.1 Background (Latar Belakang)** | Why does this problem exist, and why now? |
+| **1.2 Research Questions (Rumusan Masalah)** | What, precisely, are you trying to answer? |
+| **1.3 Scope and Limitations (Batasan Masalah)** | What is explicitly *out* of scope? |
+| **1.4 Objectives (Tujuan)** | What will you have produced when you are done? |
+| **1.5 Significance (Manfaat)** | Who benefits, and how? |
 
-These five subsections are not independent essays: they are **one argument told five times, from five angles**. A weak Latar Belakang produces vague Rumusan Masalah, which makes Batasan Masalah impossible to write tightly, which lets scope creep in, which is the single biggest reason skripsi projects miss their semester deadline. Getting BAB I right is a **software-engineering activity**, not just an academic formality: it is where you write your project's first (and most important) requirements document.
+These five subsections are not independent essays. They form **one argument told five times, from five angles**. A weak Background produces a vague set of Research Questions; vague Research Questions make Scope and Limitations impossible to write tightly; and a loose scope invites scope creep, the single biggest reason thesis projects miss their semester deadline. Getting Chapter 1 right is a **software-engineering activity**, not just an academic formality: it is where you write your project's first, and most important, requirements document.
 
 </section>
 
@@ -68,28 +68,28 @@ Kelima subbab ini bukanlah esai independen, melainkan **satu argumen yang diceri
 
 <section lang="en">
 
-## 2. Why Does Getting BAB I Right Matter?
+## 2. Why Does Getting Chapter 1 Right Matter?
 
 ### What is it?
-BAB I is a funnel: it narrows from a broad, real-world context down to one precisely stated, answerable set of questions, then draws a hard boundary around what you will actually deliver.
+Chapter 1 is a funnel: it narrows from a broad, real-world context down to one precisely stated, answerable set of questions, then draws a hard boundary around what you will actually deliver.
 
 ### Why does it matter?
-- **It is your first requirements document.** Rumusan Masalah and Batasan Masalah are, functionally, a requirements spec for your own thesis project. Sloppy requirements here cause the same downstream pain they cause in any software project: rework, scope creep, and missed deadlines.
-- **It is graded before anyone reads BAB IV or V.** **Pembimbing** (thesis advisor) and **penguji** (examiner) judge feasibility from BAB I alone. A background that is too broad or a scope that is left open gets sent back for revision before you write a single line of code.
-- **It protects your semester.** A tight Batasan Masalah is the single most effective tool against scope creep, the #1 reason **mini-skripsi** (course-scale thesis project) projects do not finish on time.
-- **It sets the acceptance criteria for your own defense.** Tujuan and Rumusan Masalah must match 1:1; at your **sidang** (thesis defense), the first thing an examiner checks is whether **BAB VI (Hasil dan Pembahasan, Results and Discussion)** actually answered every question BAB I asked.
+- **It is your first requirements document.** Research Questions and Scope and Limitations are, functionally, a requirements spec for your own thesis project. Sloppy requirements here cause the same downstream pain they cause in any software project: rework, scope creep, and missed deadlines.
+- **It is graded before anyone reads Chapter 4 or 5.** Your advisor (pembimbing) and examiner (penguji) judge feasibility from Chapter 1 alone: a background that is too broad, or a scope left open, gets sent back for revision before you write a single line of code.
+- **It protects your semester.** A tight Scope and Limitations section is the single most effective defense against scope creep, which is the number one reason mini thesis (mini skripsi) projects miss their deadline.
+- **It sets the acceptance criteria for your own defense.** Objectives and Research Questions must match one to one. At your thesis defense (sidang), the first thing an examiner checks is whether Chapter 6: Results and Discussion (BAB VI: Hasil dan Pembahasan) actually answered every question Chapter 1 asked.
 
 ### When do you use it?
-Draft BAB I **before** you write any code, ideally before you even pick your final tech stack. It should be revised at least once after you finish **BAB III (Metodologi Pengembangan, Development Methodology)**, once your scope has been reality-tested against an actual development plan.
+Draft Chapter 1 **before** you write any code, ideally before you even choose your final tech stack. Revise it at least once after you finish Chapter 3: Development Methodology (BAB III: Metodologi Pengembangan), once your scope has been reality-tested against an actual development plan.
 
 ### Where does it fit?
-BAB I sits at the very start of the skripsi lifecycle, but its influence runs through the whole document:
-- **Rumusan Masalah** is answered by **BAB VI (Hasil dan Pembahasan)**.
-- **Batasan Masalah** constrains **BAB IV (Analisis dan Perancangan Sistem, System Analysis and Design)**: anything outside the boundary should not appear in your requirements or diagrams.
-- **Tujuan** is restated as **Kesimpulan (Conclusion)** in **BAB VII (Kesimpulan dan Saran, Conclusion and Recommendations)**.
+Chapter 1 sits at the very start of the thesis lifecycle, but its influence runs through the whole document:
+- **Research Questions** are answered in **Chapter 6: Results and Discussion (BAB VI: Hasil dan Pembahasan)**.
+- **Scope and Limitations** constrains **Chapter 4: System Analysis and Design (BAB IV: Analisis dan Perancangan Sistem)**: anything outside the boundary should not appear in your requirements or diagrams.
+- **Objectives** are restated as the **Conclusion (Kesimpulan)** in **Chapter 7: Conclusion and Recommendations (BAB VII: Kesimpulan dan Saran)**.
 
 ### How do you create one?
-Work top-down: research the general context first (Latar Belakang), narrow it into specific questions (Rumusan Masalah), draw a hard line around what you will build (Batasan Masalah), restate each question as a deliverable (Tujuan), then explain who benefits (Manfaat). Section 4 below walks through each subsection in detail.
+Work top-down: research the general context first (Background), narrow it into specific questions (Research Questions), draw a hard line around what you will build (Scope and Limitations), restate each question as a deliverable (Objectives), then explain who benefits (Significance). Section 4 below walks through each subsection in detail.
 
 </section>
 
@@ -126,9 +126,9 @@ Kerjakan dari atas ke bawah: teliti konteks umum terlebih dahulu (Latar Belakang
 
 ## 3. Introducing Our Continuous Example: A Todo App That Evaluates the Laravel Action Pattern
 
-Throughout this seven-part series, we will carry **one deliberately simple system** through every BAB of the skripsi: a **Todo List application built with Laravel**. The application itself is intentionally trivial: create, complete, edit, delete, and filter todos, for a single user. There is no multi-tenant complexity, no payment integration, no real-time features.
+Throughout this seven-part series, we will carry **one deliberately simple system** through every chapter of the thesis: a **Todo List application built with Laravel**. The application itself is intentionally trivial: create, complete, edit, delete, and filter todos, for a single user. There is no multi-tenant complexity, no payment integration, and no real-time features.
 
-The application being simple is the point. What makes it **skripsi-worthy** is not the app: it is the **research question wrapped around it**.
+The application's simplicity is the point: what makes it **thesis-worthy** is not the app itself but the **research question wrapped around it**.
 
 ### The Research Angle
 
@@ -136,13 +136,13 @@ Our continuous example asks a genuinely researchable (and, importantly, **beginn
 
 > **"Does a Laravel Todo application built with the Action Pattern meet the maintainability and testability thresholds established in software-engineering literature?"**
 
-We will build the Todo application **once**, using the Action Pattern (each operation extracted into a dedicated, single-purpose class), and then **measure** it against concrete, literature-sourced thresholds: cyclomatic complexity, coupling, lines of code per method, and unit-test coverage. The conventional "fat controller" style (where business logic is packed directly into controller methods) is discussed only as **motivation and a conceptual design contrast** (**BAB II, Landasan Teori (Literature Review)**, and BAB IV); it is never built or measured. This deliberately trades a full controlled A/B comparison (harder, doubles the implementation work) for a single-build, threshold-validation study that is far more achievable in one semester, especially for a beginner or slow-pace student, while still being genuinely evidence-based, not just "I built it."
+We will build the Todo application **once**, using the Action Pattern (each operation extracted into a dedicated, single-purpose class), and then **measure** it against concrete, literature-sourced thresholds: cyclomatic complexity, coupling, lines of code per method, and unit-test coverage. The conventional "fat controller" style, where business logic is packed directly into controller methods, is discussed only as **motivation and a conceptual design contrast** in Chapter 2: Literature Review (BAB II: Landasan Teori) and Chapter 4; it is never built or measured. This design deliberately trades a full controlled A/B comparison, which is harder and doubles the implementation work, for a single-build, threshold-validation study. That approach is far more achievable in one semester, especially for a beginner or slow-paced student, while still being genuinely evidence-based rather than just "I built it."
 
-Note the two roles **coupling** and **coverage** play, since it is easy to conflate them: coupling is our *structural* indicator of testability: fewer dependencies on a class means fewer things to fake/mock to test it in isolation. Unit tests themselves exist to verify *functional correctness*, not to measure testability directly; the coverage we achieve with them is *confirming evidence* that the low-coupling design was actually easy to test in practice, not the definition of testability itself.
+Coupling and coverage play two different roles here, and it is easy to conflate them. Coupling is our *structural* indicator of testability: fewer dependencies on a class means fewer things to fake or mock when testing it in isolation. Unit tests, by contrast, exist to verify *functional correctness*, not to measure testability directly. The coverage we achieve with them is *confirming evidence* that the low-coupling design was actually easy to test in practice, not the definition of testability itself.
 
-This is a worked example of the process, not a fill-in-the-blank template. The same skripsi skeleton (one running example, a single-build design, a threshold-validation study) can support a different design pattern, architecture style, or tool you want to evaluate (Repository Pattern, DDD, a specific package, a caching strategy). But swapping the subject does not swap the work: you still need your own Studi Literatur to find or justify a defensible threshold, since not every pattern has an established number the way McCabe's complexity guideline does; you still need metrics that actually fit what you are evaluating, since cyclomatic complexity and coupling measure code structure and would say little about, say, a caching strategy; and you still need to re-argue Batasan Masalah and feasibility for your specific case.
+This is a worked example of the process, not a fill-in-the-blank template. The same thesis skeleton (one running example, a single-build design, a threshold-validation study) can support a different design pattern, architecture style, or tool you want to evaluate, such as the Repository Pattern, DDD, a specific package, or a caching strategy. Swapping the subject, however, does not swap the work. You still need your own Literature Study (Studi Literatur) to find or justify a defensible threshold, since not every pattern has an established number the way McCabe's complexity guideline does. You still need metrics that actually fit what you are evaluating: cyclomatic complexity and coupling measure code structure and would say little about, say, a caching strategy. And you still need to re-argue Scope and Limitations and feasibility for your specific case.
 
-### Why a Small Application Is the Right Choice for a Mini Skripsi
+### Why a Small Application Is the Right Choice for a Mini Thesis
 
 - **It fits one semester, with room to spare.** A single-implementation Todo app is buildable in a couple of weeks, leaving most of the semester for measurement, writing, and revision.
 - **It isolates the variable you are testing.** With a trivial domain, your metrics are attributable to the *architectural choice*, not to incidental domain complexity.
@@ -156,7 +156,7 @@ This is a worked example of the process, not a fill-in-the-blank template. The s
 | **Actor** | A single **User** who manages their own todos. |
 | **Core functionality** | Create Todo, Complete Todo, Edit Todo, Delete Todo, Filter Todos (by status). |
 | **Implementation (built and measured)** | Action Pattern: each operation extracted into a single-purpose invokable class, e.g. `CreateTodoAction`, `CompleteTodoAction`. |
-| **Conceptual contrast (discussed, not built)** | Fat Controller: business logic inline in `TodoController` methods; used only as motivation (BAB II) and a design-illustration contrast (BAB IV). |
+| **Conceptual contrast (discussed, not built)** | Fat Controller: business logic inline in `TodoController` methods; used only as motivation (Chapter 2) and a design-illustration contrast (Chapter 4). |
 | **Evaluation metrics** | Cyclomatic complexity, class coupling, lines of code per method, and unit-test coverage, each checked against a literature threshold. |
 
 </section>
@@ -204,37 +204,37 @@ Ini adalah contoh terapan dari prosesnya, bukan formula yang tinggal diganti sub
 
 <section lang="en">
 
-## 4. Writing BAB I Section by Section
+## 4. Writing Chapter 1 Section by Section
 
-### 1.1 Latar Belakang (Background)
+### 1.1 Background
 
-Structure Latar Belakang as a **funnel**: general context → an observed problem or gap → why it matters now → how your project addresses it. Aim for 3–5 paragraphs, not a page-long literature dump (that belongs in BAB II).
+Structure Background as a **funnel**: general context → an observed problem or gap → why it matters now → how your project addresses it. Aim for 3–5 paragraphs, not a page-long literature dump (that belongs in Chapter 2).
 
 **SE angle:** if your topic is an engineering-practice evaluation (like ours), your funnel usually goes: *industry practice* (Laravel is widely used; fat controllers are a common default) → *known pain point* (fat controllers are hard to test and maintain as an app grows) → *proposed remedy in the literature/community* (Action Pattern, Service classes, etc.) → *the gap* (limited beginner-accessible demonstrations that actually validate the remedy against established thresholds, rather than asserting it works) → *your contribution* (a single, reproducible implementation measured against literature-sourced thresholds).
 
-### 1.2 Rumusan Masalah (Research Questions)
+### 1.2 Research Questions
 
-Turn your Latar Belakang into a short, numbered list of **answerable questions**, not tasks, not goals, questions. Each should be answerable with evidence you will actually collect in BAB VI.
+Turn your Background into a short, numbered list of **answerable questions**: not tasks, not goals, questions. Each one should be answerable with evidence you will actually collect in Chapter 6.
 
-**SE angle:** phrase these like research questions (RQs) in a software-engineering study: "How does X compare to Y, measured by Z?" rather than "Build a Todo app." A Rumusan Masalah that can be satisfied just by shipping code, with no measurement, is a red flag.
+**SE angle:** phrase these like research questions (RQs) in a software-engineering study, for example "How does X compare to Y, measured by Z?" rather than "Build a Todo app." A research question that can be satisfied just by shipping code, with no measurement, is a red flag.
 
-### 1.3 Batasan Masalah (Scope and Limitations)
+### 1.3 Scope and Limitations
 
 This is your **scope contract**, and your best defence against not finishing on time. Be explicit about the domain, the tech stack, the environment, and the metrics you will *not* cover.
 
-> **Time-boxing tip:** Write Batasan Masalah as if you are telling your future self, in week 10, exactly what you are *not allowed* to add. Every scope-creep decision later in the semester gets checked against this list; if it isn't in Batasan Masalah, it isn't in the project.
+> **Time-boxing tip:** Write Scope and Limitations as if you are telling your future self, in week 10, exactly what you are *not allowed* to add. Every scope-creep decision later in the semester gets checked against this list: if it isn't in Scope and Limitations, it isn't in the project.
 
-### 1.4 Tujuan (Objectives)
+### 1.4 Objectives
 
-State one objective **per Rumusan Masalah item**, in the same order, using the same wording. If a Tujuan does not trace back to a Rumusan Masalah question, delete it, since it is scope creep that has not been caught yet.
+State one objective **per Research Questions item**, in the same order and using the same wording. If an objective does not trace back to a research question, delete it: it is scope creep that has not been caught yet.
 
-### 1.5 Manfaat (Significance)
+### 1.5 Significance
 
-Split into **Manfaat Teoretis** (what this adds to the body of knowledge, e.g. empirical evidence on Action Pattern maintainability at small scale) and **Manfaat Praktis** (who benefits day-to-day, e.g. developers deciding whether to adopt Action Pattern in their own Laravel projects).
+Split into **Theoretical Significance (Manfaat Teoretis)** (what this adds to the body of knowledge, e.g. empirical evidence on Action Pattern maintainability at small scale) and **Practical Significance (Manfaat Praktis)** (who benefits day-to-day, e.g. developers deciding whether to adopt Action Pattern in their own Laravel projects).
 
 ### Quick Reference: Must Do / Don't Do
 
-**Latar Belakang**
+**Background**
 
 Must:
 - Structure it as a funnel: general context, then a specific problem, then why it matters now.
@@ -243,11 +243,11 @@ Must:
 - Close with an explicit hypothesis statement connecting the issues to what the research investigates.
 
 Don't:
-- Don't write a textbook chapter explaining basic concepts; that belongs in BAB II.
+- Don't write a textbook chapter explaining basic concepts; that belongs in Chapter 2.
 - Don't bury the actual research gap inside a sentence about the proposed remedy; state it as its own point.
 - Don't claim comparative "improvement" evidence you have not measured; if you are not building a control group, ground the baseline in what is documented instead.
 
-**Rumusan Masalah**
+**Research Questions**
 
 Must:
 - Phrase every item as an answerable question, not a task.
@@ -259,7 +259,7 @@ Don't:
 - Don't leave a term like "criteria" or "threshold" unanchored; state whose criteria and how they are measured.
 - Don't conflate two different constructs under one metric, such as treating test coverage as if it were the definition of testability.
 
-**Batasan Masalah**
+**Scope and Limitations**
 
 Must:
 - List concrete inclusions and exclusions: features, tech stack, environment, metrics.
@@ -267,17 +267,17 @@ Must:
 
 Don't:
 - Don't leave scope vague, such as "as simple as possible."
-- Don't let Batasan Masalah imply a scope that Rumusan Masalah does not ask about, or vice versa.
+- Don't let Scope and Limitations imply a scope that Research Questions does not ask about, or vice versa.
 
-**Tujuan**
+**Objectives**
 
 Must:
-- Write exactly one Tujuan per Rumusan Masalah item, same order, matching wording.
+- Write exactly one objective per Research Questions item, same order, matching wording.
 
 Don't:
-- Don't add a Tujuan with no matching Rumusan Masalah item; that is uncaught scope creep.
+- Don't add an objective with no matching Research Questions item; that is uncaught scope creep.
 
-**Manfaat**
+**Significance**
 
 Must:
 - Name a specific theoretical contribution and a specific practical beneficiary.
@@ -376,37 +376,37 @@ Jangan:
 
 <section lang="en">
 
-## 5. Worked Example: BAB I for "Evaluating the Laravel Action Pattern"
+## 5. Worked Example: Chapter 1 for "Evaluating the Laravel Action Pattern"
 
-Below is a condensed draft of BAB I for our continuous example, showing how each subsection traces to the next.
+Below is a condensed draft of Chapter 1 for our continuous example, showing how each subsection traces to the next.
 
-**1.1 Latar Belakang (excerpt)**
+**1.1 Background (excerpt)**
 > Laravel is one of the most widely adopted PHP frameworks for building web applications, including many student and small-team projects at Polinema. Its default MVC structure makes it easy, often the path of least resistance, for developers to place validation and business logic directly inside controller methods. As an application grows, this "fat controller" style is known in industry practice to reduce readability, since business logic accumulates within a single class alongside HTTP handling code. It also makes unit testing difficult, because business logic becomes entangled with the request/response lifecycle and cannot be exercised in isolation. Software-engineering literature consistently associates this style with higher cyclomatic complexity and coupling, established proxies for poor maintainability; these documented characteristics serve as the comparison baseline for this study, so a second fat-controller implementation does not need to be built purely for comparison.
 >
 > The Laravel community has popularised the *Action Pattern*, extracting each business operation into a dedicated, single-purpose class, as a remedy for these problems. However, this guidance is largely anecdotal: beginner-accessible demonstrations that actually validate the remedy against established code-quality thresholds, rather than simply asserting that it works, remain limited.
 >
 > Given these issues, this research proposes that restructuring business logic using the Action Pattern will improve maintainability and ease isolated unit testing, compared to the conventional fat-controller approach. This project investigates that proposition by building a Todo List application with the Action Pattern and evaluating it against established code-quality thresholds and the documented fat-controller characteristics above, providing a minimal, reproducible demonstration accessible to beginner students.
 
-**1.2 Rumusan Masalah**
+**1.2 Research Questions**
 1. Apakah penerapan Action Pattern dapat meningkatkan maintainability pada aplikasi Todo List berbasis Laravel, ditinjau dari cyclomatic complexity, coupling, dan lines of code per method?
 2. Apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (testability) pada aplikasi Todo List berbasis Laravel, ditinjau dari cakupan pengujian (test coverage) yang dicapai?
 
-**1.3 Batasan Masalah**
+**1.3 Scope and Limitations**
 - Aplikasi dibatasi pada fitur CRUD Todo (create, read, update, delete) dan filter status, dengan autentikasi dasar satu pengguna per akun (memakai scaffolding auth default Laravel) sebagai prasyarat; tidak ada sistem registrasi/manajemen akun multi-user, notifikasi, atau integrasi eksternal yang dibangun.
 - Evaluasi hanya pada lapisan business logic (Action), tidak mencakup frontend atau desain UI.
 - Evaluasi dilakukan terhadap ambang batas dari literatur, bukan terhadap implementasi Fat Controller kedua: Fat Controller dibahas sebagai motivasi (BAB II) dan ilustrasi desain (BAB IV), namun tidak diimplementasikan maupun diukur.
 - Stack tetap: PHP 8.3, Laravel 11, PHPUnit, dijalankan pada satu lingkungan lokal.
 - Metrik dibatasi pada cyclomatic complexity, coupling, LOC per method, dan test coverage, bukan performance benchmarking.
 
-**1.4 Tujuan**
+**1.4 Objectives**
 1. Mengevaluasi apakah penerapan Action Pattern dapat meningkatkan maintainability pada aplikasi Todo List berbasis Laravel, ditinjau dari cyclomatic complexity, coupling, dan lines of code per method.
 2. Mengevaluasi apakah penerapan Action Pattern dapat memudahkan pengujian unit secara terisolasi (testability) pada aplikasi Todo List berbasis Laravel, ditinjau dari cakupan pengujian (test coverage) yang dicapai.
 
-**1.5 Manfaat**
-- **Teoretis:** menyediakan bukti empiris tentang tingkat kepatuhan implementasi Action Pattern pada aplikasi Laravel skala kecil terhadap ambang batas maintainability dan testability yang direkomendasikan literatur.
-- **Praktis:** memberi panduan bagi mahasiswa dan developer pemula dalam menerapkan Action Pattern pada proyek Laravel mereka, dengan tolok ukur yang jelas dan dapat dicapai dalam satu semester.
+**1.5 Significance**
+- **Theoretical:** menyediakan bukti empiris tentang tingkat kepatuhan implementasi Action Pattern pada aplikasi Laravel skala kecil terhadap ambang batas maintainability dan testability yang direkomendasikan literatur.
+- **Practical:** memberi panduan bagi mahasiswa dan developer pemula dalam menerapkan Action Pattern pada proyek Laravel mereka, dengan tolok ukur yang jelas dan dapat dicapai dalam satu semester.
 
-Notice the traceability: every Rumusan Masalah has exactly one matching Tujuan, and every element of Batasan Masalah exists to keep the project buildable within one semester.
+Notice the traceability: every Research Questions item has exactly one matching objective, and every element of Scope and Limitations exists to keep the project buildable within one semester.
 
 </section>
 
@@ -450,17 +450,17 @@ Perhatikan traceability-nya: setiap Rumusan Masalah punya tepat satu Tujuan yang
 
 <section lang="en">
 
-## 6. Self-Check: Is Your BAB I Ready?
+## 6. Self-Check: Is Your Chapter 1 Ready?
 
-Before moving on to BAB II, trace through your own draft with this checklist:
+Before moving on to Chapter 2, trace through your own draft with this checklist:
 
-1. Can every sentence in Latar Belakang's last paragraph be traced to a Rumusan Masalah item? If a sentence introduces an idea no question follows up on, cut it.
-2. Does every Rumusan Masalah item have exactly one matching Tujuan, in the same order?
-3. Could you defend Batasan Masalah in a sidang by saying "this is out of scope because it's not in Batasan Masalah, full stop"? If a boundary is fuzzy, tighten the wording.
-4. Is at least one Rumusan Masalah item **measurable**: answerable with a number, a table, or a comparison, not just a description?
-5. Does Manfaat name a specific beneficiary (not just "masyarakat" or "peneliti selanjutnya")?
+1. Can every sentence in the last paragraph of Background be traced to a Research Questions item? If a sentence introduces an idea that no question follows up on, cut it.
+2. Does every Research Questions item have exactly one matching Objectives item, in the same order?
+3. Could you defend Scope and Limitations at your thesis defense by saying "this is out of scope because it is not in Scope and Limitations, full stop"? If a boundary is fuzzy, tighten the wording.
+4. Is at least one Research Questions item **measurable**: answerable with a number, a table, or a comparison, rather than just a description?
+5. Does Significance name a specific beneficiary, rather than a generic phrase like "the public" (masyarakat) or "future researchers" (peneliti selanjutnya)?
 
-If any answer is "no," revise BAB I now: it is far cheaper to fix a sentence in week 1 than to redesign your metrics in week 10.
+If any answer is "no," revise Chapter 1 now: it is far cheaper to fix a sentence in week 1 than to redesign your metrics in week 10.
 
 </section>
 
@@ -484,16 +484,16 @@ Jika ada jawaban "tidak," revisi BAB I sekarang: jauh lebih murah memperbaiki ka
 
 <section lang="en">
 
-## 7. Common Mistakes in BAB I
+## 7. Common Mistakes in Chapter 1
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
-| **Latar Belakang reads like a textbook chapter** | Pages explaining "what is Laravel" or "what is a design pattern" belong in BAB II (Landasan Teori), not BAB I. | Keep Latar Belakang focused on the *problem and gap*; save definitions and theory for BAB II. |
-| **Rumusan Masalah phrased as tasks** ("Membuat aplikasi Todo List," meaning "Build a Todo List application") | A task is not a question: it cannot be "answered" with evidence in BAB VI. | Rephrase as a question: "Bagaimana perbandingan maintainability antara...?" ("How does maintainability compare between...?") |
-| **Batasan Masalah left vague** ("Sistem dibuat sesederhana mungkin," meaning "The system is made as simple as possible") | Vague scope cannot stop scope creep: every addition can be argued to fit. | List concrete inclusions/exclusions: specific features, stack, environment, metrics. |
-| **Tujuan and Rumusan Masalah don't match 1:1** | Extra Tujuan with no matching question is scope that was never justified; a question with no Tujuan will never get answered. | Write them side by side and check the count and order match exactly. |
-| **No measurable Rumusan Masalah** | A project with only "build X" as its question cannot demonstrate rigor: it is a build exercise, not a mini-thesis. | Add at least one comparison or measurement question. |
-| **Manfaat is generic boilerplate** | "Bermanfaat bagi masyarakat luas" ("Benefits the wider community") says nothing and convinces no one. | Name a specific role (developer, future student, the institution) and a specific benefit. |
+| **Background reads like a textbook chapter** | Pages explaining "what is Laravel" or "what is a design pattern" belong in Chapter 2, not Chapter 1. | Keep Background focused on the *problem and gap*. Save definitions and theory for Chapter 2. |
+| **Research Questions phrased as tasks** ("Membuat aplikasi Todo List," meaning "Build a Todo List application") | A task is not a question: it cannot be "answered" with evidence in Chapter 6. | Rephrase as a question: "Bagaimana perbandingan maintainability antara...?" ("How does maintainability compare between...?") |
+| **Scope and Limitations left vague** ("Sistem dibuat sesederhana mungkin," meaning "The system is made as simple as possible") | Vague scope cannot stop scope creep: every addition can be argued to fit. | List concrete inclusions/exclusions: specific features, stack, environment, metrics. |
+| **Objectives and Research Questions don't match one to one** | An extra objective with no matching question is scope that was never justified. A question with no objective will never get answered. | Write them side by side and check the count and order match exactly. |
+| **No measurable research question** | A project with only "build X" as its question cannot demonstrate rigor: it is a build exercise, not a mini-thesis. | Add at least one comparison or measurement question. |
+| **Significance is generic boilerplate** | "Bermanfaat bagi masyarakat luas" ("Benefits the wider community") says nothing and convinces no one. | Name a specific role (developer, future student, the institution) and a specific benefit. |
 
 </section>
 
@@ -518,7 +518,7 @@ Jika ada jawaban "tidak," revisi BAB I sekarang: jauh lebih murah memperbaiki ka
 
 ## 8. What Comes Next?
 
-With BAB I drafted (a problem, a set of measurable questions, a tight scope, matching objectives, and named beneficiaries), you have the skeleton the rest of the skripsi hangs on. In Part 2, we cover **BAB II (Landasan Teori)**: how to run a proper **Studi Literatur (Literature Review)**, find and cite credible sources without plagiarising, and write the **Dasar Teori (Theoretical Basis)** section that grounds our Action Pattern comparison in existing knowledge.
+With Chapter 1 drafted (a problem, a set of measurable questions, a tight scope, matching objectives, and named beneficiaries), you have the skeleton the rest of the thesis hangs on. In Part 2, we cover **Chapter 2**: how to run a proper **Literature Study**, find and cite credible sources without plagiarising, and write the **Theoretical Basis (Dasar Teori)** section that grounds our Action Pattern comparison in existing knowledge.
 
 </section>
 

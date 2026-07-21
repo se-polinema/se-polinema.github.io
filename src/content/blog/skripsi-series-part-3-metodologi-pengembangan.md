@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Mini Series Part 3: Metodologi Pengembangan (Development Methodology)"
+title: "Skripsi Mini Series Part 3: Development Methodology (Metodologi Pengembangan)"
 titleId: "Seri Mini Skripsi Bagian 3: Metodologi Pengembangan"
 date: 2026-07-14
 updated: 2026-07-14
@@ -7,11 +7,11 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 3 of the Skripsi Mini Series. Learn how to write BAB III (Metodologi Pengembangan): choosing a development method, drawing the Alur Penelitian, and precisely defining metrics and instruments, with a week-by-week timeline to finish on time."
+excerpt: "Part 3 of the Skripsi Mini Series. Learn how to write Chapter 3: Development Methodology (BAB III: Metodologi Pengembangan): choosing a development method, drawing the Research Flow (Alur Penelitian), and precisely defining metrics and instruments, with a week-by-week timeline to finish on time."
 excerptId: "Bagian 3 dari Seri Mini Skripsi. Pelajari cara menulis BAB III (Metodologi Pengembangan): memilih metode pengembangan, menggambar Alur Penelitian, dan mendefinisikan metrik serta instrumen secara presisi, dengan linimasa mingguan agar selesai tepat waktu."
 stream: se-methodologies-architecture
 tags:
-  - Skripsi
+  - Thesis
   - Research Methodology
   - Laravel
   - Software Engineering
@@ -26,20 +26,20 @@ seriesOrder: 3
 
 <section lang="en">
 
-## 1. What is BAB III: Metodologi Pengembangan (Development Methodology)?
+## 1. What is Chapter 3: Development Methodology (BAB III: Metodologi Pengembangan)?
 
-**BAB III (Metodologi Pengembangan)** is the chapter that turns your BAB I questions into a concrete, executable **plan**. Where BAB I asked *what* you want to know, BAB III answers *how* you will find out, and, critically, *how you will measure it*. A typical Polinema JTI Metodologi chapter covers:
+**Chapter 3: Development Methodology** turns the questions from **Chapter 1: Introduction (BAB I: Pendahuluan)** into a concrete, executable **plan**. Chapter 1 asked *what* you want to know; Chapter 3 answers *how* you will find out and, just as importantly, *how you will measure it*. A typical Polinema JTI Development Methodology chapter covers these subsections:
 
 | Subsection | Purpose |
 |---|---|
-| **3.1 Alur Penelitian (Research Flow)** | A visual flow of every research phase, start to finish |
-| **3.2 Lokasi dan Waktu Penelitian (Location and Time of Research)** | Where and when the work happens |
-| **3.3 Metode Pengumpulan Data (Data Collection Method)** | How you will gather requirements, reference material, and measurement data |
-| **3.4 Metode Pengembangan Sistem (System Development Method)** | Which SDLC model you follow to build the system |
-| **3.x Analisis** (metrics/instruments) | Precisely what you will measure and with what tools |
-| **3.7 Pengujian (Testing)** | How correctness and comparison will be validated |
+| **3.1 Research Flow (Alur Penelitian)** | A visual flow of every research phase, start to finish |
+| **3.2 Location and Time of Research (Lokasi dan Waktu Penelitian)** | Where and when the work happens |
+| **3.3 Data Collection Method (Metode Pengumpulan Data)** | How you will gather requirements, reference material, and measurement data |
+| **3.4 System Development Method (Metode Pengembangan Sistem)** | Which SDLC model you follow to build the system |
+| **3.x Analysis** (metrics/instruments) | Precisely what you will measure and with what tools |
+| **3.7 Testing (Pengujian)** | How correctness and comparison will be validated |
 
-Get this chapter wrong and everything downstream suffers: an undefined metric in BAB III cannot be reported credibly in BAB VI.
+Get this chapter wrong, and everything downstream suffers: an undefined metric in Chapter 3 cannot be reported credibly in Chapter 6.
 
 </section>
 
@@ -66,29 +66,29 @@ Jika penulisan bab ini keliru, semua yang mengikutinya akan terdampak: metrik ya
 
 <section lang="en">
 
-## 2. Why Getting Metodologi Right Matters
+## 2. Why Getting the Methodology Right Matters
 
 ### What is it?
-Metodologi is the operational contract for your project: a defined process, a defined timeline, and defined instruments, the same discipline a software team applies before a sprint begins.
+The Development Methodology chapter is the operational contract for your project: a defined process, a defined timeline, and defined instruments. It mirrors the same discipline a software team applies before a sprint begins.
 
 ### Why does it matter?
-- **It is the single biggest lever for finishing on time.** A named methodology with phases and a timeline turns "build a Todo app" into a checklist you can actually track week by week.
-- **It makes your comparison defensible.** Without a precisely defined metric ("cyclomatic complexity, measured with PHPMD, averaged per method"), a reviewer cannot tell if your BAB VI numbers mean anything.
-- **It is reused as your instrument, not just described.** Whatever you define here (the tools, the formulas) you must actually run in BAB V and report in BAB VI. Vague definitions here become impossible measurements later.
+- **A defined methodology is the single biggest lever for finishing on time.** Naming your methodology, with explicit phases and a timeline, turns "build a Todo app" into a checklist you can actually track week by week.
+- **A defined methodology makes your comparison defensible.** Without a precisely defined metric, such as "cyclomatic complexity, measured with PHPMD, averaged per method", a reviewer cannot tell whether your Chapter 6 numbers mean anything.
+- **What you define here becomes your actual research instrument, not just a description of one.** Whatever you specify in this chapter (the tools, the formulas) you must run for real in Chapter 5 and report in Chapter 6. A vague definition here becomes an impossible measurement later.
 
 ### When do you use it?
-Draft it right after BAB II theory is stable, since your metrics (3.x) must be theoretically justified (cyclomatic complexity is valid *because* of the theory in BAB II Section 2.2.5). Revisit the timeline weekly throughout the semester as an actual project-tracking tool, not a one-time document.
+Draft this chapter right after Chapter 2's theory is stable, since your metrics (Section 3.x) must be theoretically justified: cyclomatic complexity is valid *because* of the theory in Chapter 2, Section 2.2.5. Revisit the timeline weekly throughout the semester; treat it as an actual project-tracking tool, not a one-time document.
 
 ### Where does it fit?
-Metodologi's outputs are consumed everywhere downstream: 3.4 (development method) shapes how BAB IV/V are organised; 3.x (metrics) defines exactly what BAB VI must report; 3.7 (testing approach) defines the Blackbox/UAT scenarios detailed in BAB IV Section 4.4 and executed in BAB V Section 5.5.
+The outputs of this chapter are used everywhere downstream. Section 3.4 (development method) shapes how Chapter 4 and Chapter 5 are organized. Section 3.x (metrics) defines exactly what Chapter 6 must report. Section 3.7 (testing approach) defines the Blackbox/UAT scenarios detailed in Chapter 4, Section 4.4, and executed in Chapter 5, Section 5.5.
 
 ### How do you create one?
-1. Draw the Alur Penelitian as a single diagram covering every phase.
-2. State location/time (often just "Laboratorium SE, Polinema, semester genap 2026").
-3. Name your data-collection methods (literature study, tool documentation, direct measurement).
+1. Draw the Research Flow as a single diagram covering every phase.
+2. State the location and time (often just "Laboratorium SE, Polinema, semester genap 2026").
+3. Name your data-collection methods: literature study, tool documentation, direct measurement.
 4. Choose and justify a development methodology.
-5. Define every metric with an exact formula/tool: no metric without a measurement procedure.
-6. Describe your testing approach at a methodological level (details go in BAB IV).
+5. Define every metric with an exact formula and tool; no metric without a measurement procedure.
+6. Describe your testing approach at a methodological level (details belong in Chapter 4).
 
 </section>
 
@@ -124,9 +124,9 @@ Keluaran Metodologi digunakan di berbagai bagian selanjutnya: 3.4 (metode pengem
 
 <section lang="en">
 
-## 3. Continuing Our Example: Alur Penelitian and Timeline
+## 3. Continuing Our Example: Research Flow and Timeline
 
-### 3.1 Alur Penelitian
+### 3.1 Research Flow (Alur Penelitian)
 
 ```plantuml
 @startuml
@@ -144,39 +144,39 @@ skinparam arrow {
 }
 
 start
-:Identifikasi Masalah\n(BAB I);
-:Studi Literatur &\nDasar Teori\n(BAB II);
-:Analisis Kebutuhan\n& Perancangan Sistem\n(BAB IV);
-:Implementasi\nAction Pattern\n(BAB V);
+:Identifikasi Masalah\n(Chapter 1);
+:Literature Study &\nTheoretical Basis\n(Chapter 2);
+:Analisis Kebutuhan\n& Perancangan Sistem\n(Chapter 4);
+:Implementasi\nAction Pattern\n(Chapter 5);
 :Pengujian Blackbox & UAT;
 :Pengukuran Metrik &\nPerbandingan terhadap\nAmbang Batas Literatur;
-:Analisis & Pembahasan\nHasil (BAB VI);
-:Penarikan Kesimpulan\n(BAB VII);
+:Analisis & Pembahasan\nHasil (Chapter 6);
+:Penarikan Kesimpulan\n(Chapter 7);
 stop
 @enduml
 ```
 
-### 3.2 Lokasi dan Waktu Penelitian
+### 3.2 Location and Time of Research
 
-State this plainly: e.g. *"Penelitian dilakukan secara mandiri menggunakan environment pengembangan lokal, selama semester genap 2026, dari minggu ke-1 hingga minggu ke-16."*
+State this plainly, for example: *"Penelitian dilakukan secara mandiri menggunakan environment pengembangan lokal, selama semester genap 2026, dari minggu ke-1 hingga minggu ke-16."*
 
 ### Suggested Timeline (16-week semester)
 
 | Week | Milestone |
 |---|---|
-| 1–2 | Finalise BAB I (Latar Belakang, Rumusan Masalah, Batasan Masalah) |
-| 3–4 | Studi Literatur + Dasar Teori (BAB II) |
+| 1–2 | Finalize Chapter 1: Background (Latar Belakang), Research Questions (Rumusan Masalah), and Scope and Limitations (Batasan Masalah) |
+| 3–4 | Literature Study + Theoretical Basis, Chapter 2 |
 | 5 | Seminar proposal |
-| 6–7 | Analisis Kebutuhan + start Perancangan (BAB IV) |
+| 6–7 | Analisis Kebutuhan + start Perancangan, Chapter 4 |
 | 8–9 | Finish Perancangan: UML diagrams, DB schema, UI wireframes, test scenarios |
-| 10–11 | Implementasi Action Pattern (BAB V) |
-| 12 | Buffer week: review with **pembimbing** (thesis advisor), catch-up slack (freed up by building only one implementation instead of two) |
-| 13 | Pengujian: Blackbox, UAT, metric measurement |
-| 14 | Analisis hasil, draft BAB VI |
-| 15 | Draft BAB VII, finalise full manuscript |
-| 16 | Sidang (defense) |
+| 10–11 | Implementasi Action Pattern, Chapter 5 |
+| 12 | Buffer week: review with **advisor** (pembimbing), catch-up slack (freed up by building only one implementation instead of two) |
+| 13 | Testing: Blackbox, UAT, metric measurement |
+| 14 | Analisis hasil, draft Chapter 6 |
+| 15 | Draft Chapter 7: Conclusion and Recommendations (Kesimpulan dan Saran), finalize full manuscript |
+| 16 | Thesis defense (Sidang) |
 
-> **Time-boxing tip:** if week 9 arrives and Perancangan is not finished, that is your earliest, cheapest signal to revisit Batasan Masalah (Part 1): cut scope now, not in week 14.
+> **Time-boxing tip:** If week 9 arrives and Perancangan is not finished, treat that as your earliest and cheapest signal to revisit Scope and Limitations (Part 1). Cut scope now, not in week 14.
 
 </section>
 
@@ -242,25 +242,25 @@ Nyatakan ini secara langsung: mis. *"Penelitian dilakukan secara mandiri menggun
 
 <section lang="en">
 
-## 4. Writing BAB III Section by Section
+## 4. Writing Chapter 3 Section by Section
 
-### 3.3 Metode Pengumpulan Data (Data Collection Method)
+### 3.3 Data Collection Method (Metode Pengumpulan Data)
 
-Name your actual sources: literature study (BAB II sources), official framework documentation (Laravel docs), and (specific to a measurement-based project) **direct instrumentation**: running static-analysis tools against your own code.
+Name your actual sources: the literature study (sources from Chapter 2), official framework documentation (Laravel docs), and, specific to a measurement-based project, **direct instrumentation**: running static-analysis tools against your own code.
 
-### 3.4 Metode Pengembangan Sistem (System Development Method)
+### 3.4 System Development Method (Metode Pengembangan Sistem)
 
-We use **Prototyping**, a natural fit for a solo, time-boxed **mini-skripsi** (course-scale thesis project) built around a single analyze-design-build-evaluate loop. Prototyping's phases, adapted for a solo student:
+We use **Prototyping**, a natural fit for a solo, time-boxed **mini thesis** (mini-skripsi) built around a single analyze-design-build-evaluate loop. Prototyping's phases, adapted for a solo student, are:
 
-1. **Requirements Gathering & Analysis**: BAB I/II output feeds directly in, alongside BAB IV's Analisis Kebutuhan.
-2. **Quick Design**: BAB IV: UML diagrams, DB schema, UI wireframes, just enough design to start building, refined iteratively with your pembimbing acting as the "user" stakeholder.
-3. **Build Prototype**: BAB V: build the Action Pattern implementation, test continuously rather than in one block at the end.
-4. **Evaluation**: BAB VI: Blackbox/UAT testing plus metric measurement against literature thresholds. If evaluation reveals issues, Prototyping allows refining the design and rebuilding, an honest, natural fit for a scoped mini-skripsi, unlike a rigid waterfall.
-5. **Finalise & Document**: final integration, BAB VI conclusions, and BAB VII.
+1. **Requirements Gathering & Analysis**: output from Chapter 1 and Chapter 2 feeds directly into this phase, alongside Chapter 4's Analisis Kebutuhan.
+2. **Quick Design**: in Chapter 4, produce UML diagrams, a DB schema, and UI wireframes, just enough design to start building. Refine this iteratively with your advisor acting as the "user" stakeholder.
+3. **Build Prototype**: in Chapter 5, build the Action Pattern implementation and test continuously rather than in one block at the end.
+4. **Evaluation**: in Chapter 6, run Blackbox/UAT testing plus metric measurement against literature thresholds. If evaluation reveals issues, Prototyping lets you refine the design and rebuild, an honest fit for a scoped mini thesis, unlike a rigid waterfall approach.
+5. **Finalize & Document**: final integration, conclusions in Chapter 6, and the write-up in Chapter 7.
 
-Because Prototyping iterates, expect to build more than one version of your prototype as evaluation surfaces gaps. Document this with a compact Iteration Log in BAB V (Section 5.4), not a full diagram-and-code narrative per version; Part 5 shows exactly what that looks like.
+Because Prototyping iterates, expect to build more than one version of your prototype as evaluation surfaces gaps. Document each iteration with a compact Iteration Log in Chapter 5 (Section 5.4) rather than a full diagram-and-code narrative per version; Part 5 shows exactly what that log looks like.
 
-Justify your own choice. Waterfall, Scrum/Agile, and RAD are equally valid if you argue why they fit your project's constraints (team size, timeline, requirement volatility) better.
+Justify your own choice: Waterfall, Scrum/Agile, and RAD are equally valid if you can argue why they fit your project's constraints (team size, timeline, requirement volatility) better than Prototyping does.
 
 ### 3.5 Defining Metrics (Research Instrument)
 
@@ -273,9 +273,9 @@ This is the section most projects under-specify. Each metric needs a **name, a f
 | **Lines of Code per Method** | Executable lines within a method body | PHPMD / manual count | LOC, reported as average | ≈ 20 lines or fewer (Martin, *Clean Code*, 2008) |
 | **Test Coverage** | Percentage of executable lines exercised by the unit test suite | PHPUnit with Xdebug/PCOV coverage driver | percentage | ≥ 80% (common industry target) |
 
-### 3.7 Pengujian (Testing)
+### 3.7 Testing (Pengujian)
 
-State, at a methodological level: the implementation will be validated with **Black Box Testing** (functional correctness) and **User Acceptance Testing** (does the end result meet user expectations). The detailed scenario tables belong in BAB IV Section 4.4: this section only states the approach and acceptance criteria (e.g., "seluruh skenario Blackbox harus lulus; indeks penerimaan UAT ≥ 80%").
+At a methodological level, state that the implementation will be validated with **Black Box Testing** (functional correctness) and **User Acceptance Testing** (whether the end result meets user expectations). The detailed scenario tables belong in Chapter 4, Section 4.4; this section only states the approach and acceptance criteria, for example: "seluruh skenario Blackbox harus lulus; indeks penerimaan UAT ≥ 80%".
 
 </section>
 
@@ -322,12 +322,12 @@ Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Bo
 
 <section lang="en">
 
-## 5. Self-Check: Is Your Metodologi Ready?
+## 5. Self-Check: Is Your Development Methodology Ready?
 
-1. Does the Alur Penelitian diagram include every phase you will actually go through, no hidden steps?
+1. Does the Research Flow diagram include every phase you will actually go through, with no hidden steps?
 2. Does every metric have a name, a formula or tool, and a unit? If you can't say "measured how," it isn't defined yet.
-3. Is your chosen SDLC model justified (not just named) for *your* project's constraints?
-4. Does your timeline account for review/revision cycles with your pembimbing, not just "build" time?
+3. Is your chosen SDLC model justified, not just named, for *your* project's constraints?
+4. Does your timeline account for review and revision cycles with your advisor, not just "build" time?
 5. Would a classmate be able to reproduce your measurement procedure exactly from this chapter alone?
 
 </section>
@@ -348,15 +348,15 @@ Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Bo
 
 <section lang="en">
 
-## 6. Common Mistakes in BAB III
+## 6. Common Mistakes in Chapter 3
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
-| **Alur Penelitian copied from a generic template** | A diagram with steps you won't actually follow is dishonest and confuses your own planning. | Draw your actual phases, specific to your project's build-and-evaluate structure. |
-| **"We will measure code quality" with no metric named** | Unmeasurable: a reviewer cannot check your BAB VI numbers against anything. | Name each metric explicitly with a formula/tool, as in Section 4. |
+| **Research Flow copied from a generic template** | A diagram with steps you won't actually follow is dishonest and confuses your own planning. | Draw your actual phases, specific to your project's build-and-evaluate structure. |
+| **"We will measure code quality" with no metric named** | Unmeasurable: a reviewer cannot check your Chapter 6 numbers against anything. | Name each metric explicitly with a formula/tool, as in Section 4. |
 | **Choosing a methodology without justification** | "We use Agile" with no reasoning is a name-drop, not a methodological choice. | State why the chosen method fits your team size, timeline, and requirement stability. |
 | **No timeline, or a timeline with no buffer** | Without weekly milestones, scope creep is invisible until it's too late to correct. | Build a week-by-week table with review checkpoints, and revisit it: this is a living document. |
-| **Testing approach only described in BAB V, never planned in BAB III** | Test scenarios invented after the code is written tend to test what the code *does*, not what it *should* do. | Define acceptance criteria in BAB III Section 3.7 before writing implementation code. |
+| **Testing approach only described in Chapter 5, never planned in Chapter 3** | Test scenarios invented after the code is written tend to test what the code *does*, not what it *should* do. | Define acceptance criteria in Chapter 3, Section 3.7, before writing implementation code. |
 
 </section>
 
@@ -380,7 +380,7 @@ Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Bo
 
 ## 7. What Comes Next?
 
-With a defined process, timeline, and, crucially, precisely defined metrics, we can now design the system itself. In Part 4, we cover **BAB IV (Analisis dan Perancangan Sistem, System Analysis and Design)**: requirements analysis, and the full UML design (Use Case, Activity, Class, Sequence diagrams) for our Action Pattern implementation, with Fat Controller kept as an explicitly labelled conceptual contrast, cross-linking the [UML Mini Series](/blog/uml-series-part-1-introduction-use-case).
+With a defined process, timeline, and, crucially, precisely defined metrics, we can now design the system itself. Part 4 covers **Chapter 4: System Analysis and Design (BAB IV: Analisis dan Perancangan Sistem)**: requirements analysis and the full UML design (Use Case, Activity, Class, and Sequence diagrams) for our Action Pattern implementation, with Fat Controller kept as an explicitly labeled conceptual contrast. It cross-links to the [UML Mini Series](/blog/uml-series-part-1-introduction-use-case).
 
 </section>
 

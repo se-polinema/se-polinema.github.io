@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Mini Series Part 6: Hasil dan Pembahasan (Results & Discussion)"
+title: "Skripsi Mini Series Part 6: Results and Discussion (Hasil dan Pembahasan)"
 titleId: "Seri Mini Skripsi Bagian 6: Hasil dan Pembahasan"
 date: 2026-07-14
 updated: 2026-07-14
@@ -7,11 +7,11 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Part 6 of the Skripsi Mini Series. Learn how to write BAB VI (Hasil dan Pembahasan): presenting measured results against literature thresholds, interpreting maintainability and testability metrics, and tying every result back to the Rumusan Masalah, including a threats-to-validity discussion."
+excerpt: "Part 6 of the Skripsi Mini Series. Learn how to write Chapter 6: Results and Discussion (BAB VI: Hasil dan Pembahasan): presenting measured results against literature thresholds, interpreting maintainability and testability metrics, and tying every result back to the Research Questions (Rumusan Masalah), including a threats-to-validity discussion."
 excerptId: "Bagian 6 dari Seri Mini Skripsi. Pelajari cara menulis BAB VI (Hasil dan Pembahasan): menyajikan hasil terukur terhadap ambang batas literatur, menginterpretasikan metrik maintainability dan testability, dan mengaitkan setiap hasil kembali ke Rumusan Masalah, termasuk pembahasan ancaman validitas."
 stream: se-methodologies-architecture
 tags:
-  - Skripsi
+  - Thesis
   - Research Methodology
   - Laravel
   - Software Engineering
@@ -26,18 +26,18 @@ seriesOrder: 6
 
 <section lang="en">
 
-## 1. What is BAB VI: Hasil dan Pembahasan (Results and Discussion)?
+## 1. What is Chapter 6: Results and Discussion (BAB VI: Hasil dan Pembahasan)?
 
-**BAB VI (Hasil dan Pembahasan)** is where your project pays off. This is the chapter examiners scrutinise most, because it is where you must prove your **Rumusan Masalah (Research Questions)** (BAB I) has actually been answered, with evidence, not assertion. It typically covers:
+**Chapter 6** is where your project pays off. Examiners scrutinise this chapter more closely than any other, because it is where you must prove that your **Research Questions (Rumusan Masalah)** (Chapter 1) have actually been answered, with evidence rather than assertion. It typically covers:
 
 | Subsection | Purpose |
 |---|---|
-| **6.1 Deskripsi Studi Kasus** | Recap what was built and measured |
-| **Hasil pengukuran** | Present the raw measured data as tables |
-| **Pembahasan** | Interpret what the numbers mean, tied to each Rumusan Masalah |
-| **Hasil dan Pembahasan Pengujian Sistem** | Black Box and UAT results |
+| **6.1 Case Study Description (Deskripsi Studi Kasus)** | Recap what was built and measured |
+| **Measurement Results** | Present the raw measured data as tables |
+| **Discussion** | Interpret what the numbers mean, tied to each Research Question |
+| **System Testing Results and Discussion** | Black Box and UAT results |
 
-A common failure mode is treating "Hasil" and "Pembahasan" as the same thing. They are not: **Hasil** is what you measured (a table, a number); **Pembahasan** is what it means, why it happened, and whether it supports or refutes your hypothesis.
+A common failure mode is treating "Results" and "Discussion" as the same thing. They are not: **Results** is what you measured (a table, a number); **Discussion** is what it means, why it happened, and whether it supports or refutes your hypothesis.
 
 </section>
 
@@ -62,26 +62,26 @@ Mode kegagalan umum adalah memperlakukan "Hasil" dan "Pembahasan" sebagai hal ya
 
 <section lang="en">
 
-## 2. Why Getting Hasil dan Pembahasan Right Matters
+## 2. Why Getting Results and Discussion Right Matters
 
 ### What is it?
-This chapter closes the loop opened in BAB I: every Rumusan Masalah question gets a direct, evidence-backed answer here.
+This chapter closes the loop opened in Chapter 1: every Research Question gets a direct, evidence-backed answer here.
 
 ### Why does it matter?
-- **It is graded against BAB I, not in isolation.** Examiners read Rumusan Masalah, then flip straight to BAB VI to check each question was actually answered. A "Hasil" table with no matching "Pembahasan" paragraph is an automatic gap.
+- **It is graded against Chapter 1, not in isolation.** Examiners read your Research Questions, then flip straight to Chapter 6 to check whether each one was actually answered. A Results table with no matching Discussion paragraph is an automatic gap.
 - **Raw numbers alone are not a contribution.** "Cyclomatic complexity measures 2.4" is a fact; explaining *why* the Action Pattern produces that low value (single-responsibility classes instead of one class handling five concerns) is the actual analysis.
 - **It is where you demonstrate scientific honesty.** Reporting only favourable numbers, or omitting where your hypothesis was *not* supported, undermines credibility. A Threats to Validity discussion is expected, not optional, especially since this study has no built comparison group.
 
 ### When do you use it?
-Write this only after BAB V's implementation and measurement are complete. Do not draft interpretive prose around numbers you have not actually measured yet.
+Write this only after Chapter 5's implementation and measurement are complete. Do not draft interpretive prose around numbers you have not measured yet.
 
 ### Where does it fit?
-BAB VI's conclusions become BAB VII's Kesimpulan almost verbatim. If BAB VI is rigorous, BAB VII becomes easy to write.
+Chapter 6's conclusions become Chapter 7's Conclusion almost verbatim. If Chapter 6 is rigorous, Chapter 7 becomes easy to write.
 
 ### How do you create one?
 1. Recap the case study briefly (6.1).
-2. Present each metric as a table (raw Hasil), checked against its literature threshold.
-3. Write a Pembahasan paragraph per Rumusan Masalah, explicitly referencing the relevant question number.
+2. Present each metric as a table of raw results, checked against its literature threshold.
+3. Write a Discussion paragraph for each Research Question, explicitly referencing the relevant question number.
 4. Present and discuss Black Box/UAT results.
 5. Add a short Threats to Validity discussion, including the lack of a built comparison group.
 
@@ -118,11 +118,11 @@ Kesimpulan BAB VI menjadi Kesimpulan BAB VII hampir kata demi kata. Jika BAB VI 
 
 <section lang="en">
 
-## 3. 6.1 Deskripsi Studi Kasus (Case Study Description)
+## 3. 6.1 Case Study Description
 
-We built the Todo application once, using the Action Pattern, implementing functional requirements FR-1 through FR-5 (Part 4). All measurements below were taken from the final prototype iteration (`v0.3-final`, BAB V Section 5.4's Iteration Log) using the tools defined in BAB III Section 3.5, and checked against the literature thresholds established there. The conceptual Fat Controller alternative (BAB II, BAB IV) was never built or instrumented; it is referenced below only as documented, literature-sourced context.
+We built the Todo application once, using the Action Pattern to implement functional requirements FR-1 through FR-5 (Part 4). All measurements below come from the final prototype iteration (`v0.3-final`, logged in Chapter 5 Section 5.4's Iteration Log), collected with the tools defined in Chapter 3 Section 3.5 and checked against the literature thresholds that section established. The conceptual Fat Controller alternative (Chapter 2, Chapter 4) was never built or instrumented; it appears below only as documented, literature-sourced context for comparison.
 
-## 4. Hasil: Maintainability
+## 4. Results: Maintainability
 
 ### Cyclomatic Complexity per Operation (Action Pattern)
 
@@ -143,48 +143,48 @@ We built the Todo application once, using the Action Pattern, implementing funct
 | Coupling (avg external classes referenced) | 1.8 | single digits (rule of thumb) | Yes |
 | Lines of Code (avg/method) | 9 | ≈20 or fewer (Martin, *Clean Code*, 2008) | Yes, well within |
 
-## 5. Hasil: Testability
+## 5. Results: Testability
 
 | Metric | Measured | Threshold | Meets Threshold? |
 |---|---|---|---|
 | Unit test coverage of business logic | 94% | ≥80% (common industry target) | Yes |
 
-## 6. Pembahasan
+## 6. Discussion
 
-### Answering Rumusan Masalah 1: Does the Action Pattern Improve Maintainability in the Laravel-Based Todo List Application?
+### Answering Research Question 1: Does the Action Pattern Improve Maintainability in the Laravel-Based Todo List Application?
 
-All three maintainability metrics comfortably clear the thresholds established in BAB III Section 3.5. This is consistent with Single Responsibility Principle theory from BAB II Section 2.2.2: concentrating validation, model construction, and persistence inside one controller method, exactly what the conceptual Fat Controller alternative does (BAB II, BAB IV), is documented in the literature to raise a method's branching (complexity) and its number of direct collaborators (coupling). Distributing those concerns across five single-purpose Action classes keeps every measured value well within established limits, supporting the claim that Action Pattern improves maintainability relative to the conventional approach documented in BAB I and BAB II. This support is relative to a *documented*, not directly measured, baseline; see Threats to Validity below.
+All three maintainability metrics comfortably clear the thresholds established in Chapter 3 Section 3.5. This result is consistent with Single Responsibility Principle theory from Chapter 2 Section 2.2.2. The literature documents that concentrating validation, model construction, and persistence inside a single controller method, exactly what the conceptual Fat Controller alternative does (Chapter 2, Chapter 4), raises a method's branching (complexity) and its number of direct collaborators (coupling). Distributing those concerns across five single-purpose Action classes instead keeps every measured value well within the established limits, supporting the claim that the Action Pattern improves maintainability relative to the conventional approach documented in Chapter 1 and Chapter 2. This support, however, is relative to a *documented* baseline rather than a directly measured one; see Threats to Validity below.
 
-### Answering Rumusan Masalah 2: Does the Action Pattern Ease Isolated Unit Testing (Testability) in the Laravel-Based Todo List Application?
+### Answering Research Question 2: Does the Action Pattern Ease Isolated Unit Testing (Testability) in the Laravel-Based Todo List Application?
 
-Unit test coverage of 94% exceeds the 80% industry target. The explanation is structural, not incidental: each Action class can be instantiated and called directly (see the unit test in BAB V Section 5.4) with no HTTP request, routing, or middleware involved, whereas the conceptual Fat Controller alternative's logic could only be exercised indirectly through the full request lifecycle (BAB II, BAB IV). This supports the claim that Action Pattern eases isolated unit testing relative to the conventional approach.
+Unit test coverage of 94% exceeds the 80% industry target, and the explanation is structural rather than incidental. Each Action class can be instantiated and called directly (see the unit test in Chapter 5 Section 5.4) with no HTTP request, routing, or middleware involved. The conceptual Fat Controller alternative, by contrast, could only have its logic exercised indirectly through the full request lifecycle (Chapter 2, Chapter 4). This supports the claim that the Action Pattern eases isolated unit testing relative to the conventional approach.
 
 ### Threats to Validity
 
-- **No comparison group.** This study establishes that the Action Pattern implementation meets literature thresholds; it does not directly measure a built Fat Controller implementation. Claims of improvement rest on documented characteristics from literature (BAB I, BAB II), not a controlled, directly measured baseline.
-- **Threshold generalisability.** The cited thresholds (McCabe's complexity guideline, Clean Code's method-length guidance, the coverage target) are general software-engineering guidelines, not derived specifically for small Todo-style CRUD applications; whether they are the right bar for this exact domain is itself an assumption worth stating.
-- **Scale.** A five-operation Todo application is deliberately small (Batasan Masalah, Part 1); whether the same result holds at larger scale is not established by this study.
+- **No comparison group.** This study establishes that the Action Pattern implementation meets literature thresholds; it does not directly measure a built Fat Controller implementation. Claims of improvement rest on documented characteristics from the literature (Chapter 1, Chapter 2) rather than on a controlled, directly measured baseline.
+- **Threshold generalisability.** The cited thresholds (McCabe's complexity guideline, Clean Code's method-length guidance, the coverage target) are general software-engineering guidelines, not ones derived specifically for small Todo-style CRUD applications. Whether they are the right bar for this exact domain is itself an assumption worth stating.
+- **Scale.** A five-operation Todo application is deliberately small (see Scope and Limitations (Batasan Masalah), Part 1). Whether the same result holds at a larger scale is not established by this study.
 
-## 7. Hasil dan Pembahasan Pengujian Sistem
+## 7. System Testing Results and Discussion
 
 | Test type | Result |
 |---|---|
 | **Black Box Testing** | 9/9 scenarios (BB-01 to BB-09) passed. |
 | **UAT** | Acceptance index approximately 92% (target ≥80% met). |
 
-Functional and acceptance testing alone would not have revealed whether the implementation meets maintainability or testability standards; that required the separate metrics above, which is precisely why BAB III defined those metrics as a distinct research instrument rather than relying on Black Box/UAT results alone.
+Functional and acceptance testing alone could not reveal whether the implementation met the maintainability or testability standards; only the separate metrics above could answer that. This is precisely why Chapter 3 defined those metrics as a distinct research instrument, rather than relying on Black Box/UAT results alone.
 
-### Verifikasi NFR (NFR Verification)
+### NFR Verification (Verifikasi NFR)
 
-BAB IV named a verification method for each NFR; here are the results, closing the loop between promise and evidence.
+Chapter 4 named a verification method for each NFR. The results below close the loop between promise and evidence.
 
 | NFR | Verification | Result | Met? |
 |---|---|---|---|
 | NFR-1 (response ≤1s) | Response time recorded during Blackbox execution (9 scenarios) | Average ≈150ms | Yes |
-| NFR-2 (PHP 8.3, Laravel 11, MySQL 8) | Environment declaration (BAB V, Section 5.1) | Confirmed as declared | Yes |
+| NFR-2 (PHP 8.3, Laravel 11, MySQL 8) | Environment declaration (Chapter 5, Section 5.1) | Confirmed as declared | Yes |
 | NFR-3 (desktop/mobile usable) | UAT acceptance index (above) | ≈92% | Yes |
 
-NFR-3 is the concrete answer to why UAT exists as a distinct testing activity in this study: it is the verification method for the one NFR that Black Box testing cannot check, since usability is a subjective, user-facing quality, not a pass/fail functional outcome.
+NFR-3 is the concrete answer to why UAT exists as a distinct testing activity in this study. It is the verification method for the one NFR that Black Box testing cannot check, because usability is a subjective, user-facing quality rather than a pass/fail functional outcome.
 
 </section>
 
@@ -264,11 +264,11 @@ NFR-3 adalah jawaban konkret untuk mengapa UAT ada sebagai aktivitas pengujian t
 
 <section lang="en">
 
-## 8. Self-Check: Is Your Hasil dan Pembahasan Ready?
+## 8. Self-Check: Is Your Results and Discussion Ready?
 
-1. Does every Rumusan Masalah item have a corresponding "Menjawab Rumusan Masalah N" discussion?
-2. Is every number in a Hasil table traceable to a specific tool run or measurement described in BAB V?
-3. Does your Pembahasan explain *why*, using theory from BAB II, not just restate the numbers?
+1. Does every Research Question have a corresponding "Answering Research Question N" discussion?
+2. Is every number in a Results table traceable to a specific tool run or measurement described in Chapter 5?
+3. Does your Discussion explain *why*, using theory from Chapter 2, rather than just restating the numbers?
 4. Have you included a Threats to Validity discussion, including the absence of a built comparison group if applicable?
 5. Are Black Box and UAT results reported honestly, including any scenario that did not pass?
 
@@ -290,15 +290,15 @@ NFR-3 adalah jawaban konkret untuk mengapa UAT ada sebagai aktivitas pengujian t
 
 <section lang="en">
 
-## 9. Common Mistakes in BAB VI
+## 9. Common Mistakes in Chapter 6
 
 | Mistake | Why It Is Wrong | Correct Approach |
 |---|---|---|
-| **Presenting a table with no discussion paragraph** | A number without interpretation leaves the "so what?" unanswered; examiners will ask it in the **sidang** (thesis defense) if you don't answer it here. | Follow every Hasil table with a Pembahasan paragraph that interprets it. |
-| **Reporting numbers for something never built** | Fabricating or estimating precise metrics for an unbuilt comparison implementation misrepresents your evidence. | Only report measured numbers for what you actually built; reference the unbuilt alternative qualitatively, citing BAB II. |
+| **Presenting a table with no discussion paragraph** | A number without interpretation leaves the "so what?" unanswered; examiners will ask it at your **thesis defense (sidang)** if you don't answer it here. | Follow every Results table with a Discussion paragraph that interprets it. |
+| **Reporting numbers for something never built** | Fabricating or estimating precise metrics for an unbuilt comparison implementation misrepresents your evidence. | Only report measured numbers for what you actually built; reference the unbuilt alternative qualitatively, citing Chapter 2. |
 | **No Threats to Validity section** | Silently ignoring limitations reads as not understanding them. | Always include a short, honest limitations discussion, including the lack of a comparison group where relevant. |
-| **Pembahasan that restates numbers without theory** | "Complexity is low" is a restatement, not an explanation. | Explain *why*, citing the relevant BAB II theory (e.g. SRP). |
-| **Results not connected back to Rumusan Masalah by number** | Forces the examiner to hunt for which question each result answers. | Explicitly label each discussion "Menjawab Rumusan Masalah N," as done in Section 6. |
+| **Discussion that restates numbers without theory** | "Complexity is low" is a restatement, not an explanation. | Explain *why*, citing the relevant Chapter 2 theory (e.g., SRP). |
+| **Results not connected back to Research Questions by number** | Forces the examiner to hunt for which question each result answers. | Explicitly label each discussion "Answering Research Question N," as done in Section 6. |
 
 </section>
 
@@ -322,7 +322,7 @@ NFR-3 adalah jawaban konkret untuk mengapa UAT ada sebagai aktivitas pengujian t
 
 ## 10. What Comes Next?
 
-Every Rumusan Masalah question from Part 1 now has a measured, theory-grounded answer. In Part 7, the final part of this series, we cover **BAB VII (Kesimpulan dan Saran, Conclusion and Recommendations)**: writing conclusions that trace directly back to BAB I, giving honest saran (recommendations) for future work including a real comparative follow-up study, and preparing for your sidang (defense), including how to package and hand off your project professionally.
+Every Research Question from Part 1 now has a measured, theory-grounded answer. In Part 7, the final part of this series, we cover **Chapter 7: Conclusion and Recommendations (BAB VII: Kesimpulan dan Saran)**: writing conclusions that trace directly back to Chapter 1, giving honest recommendations (saran) for future work, including a real comparative follow-up study, and preparing for your thesis defense, including how to package and hand off your project professionally.
 
 </section>
 
