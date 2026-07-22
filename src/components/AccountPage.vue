@@ -16,7 +16,7 @@
         :href="`/login?redirect=${encodeURIComponent('/account')}`"
         class="block mt-3 text-sm font-mono text-accent hover:text-accent/80 transition-colors"
       >
-        {{ t.alumniSubmit.backToLogin }}
+        {{ t.memberSubmit.backToLogin }}
       </a>
     </div>
 
@@ -58,20 +58,20 @@
         </ul>
       </section>
 
-      <section v-if="alumniStatus !== 'none'" class="mb-8">
-        <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 mb-3">{{ t.account.alumniHeading }}</h2>
+      <section v-if="memberStatus !== 'none'" class="mb-8">
+        <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 mb-3">{{ t.account.memberHeading }}</h2>
         <div
-          v-if="alumniStatus === 'pending'"
+          v-if="memberStatus === 'pending'"
           class="border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-neutral-700 dark:text-gray-300"
         >
-          {{ t.alumniSubmit.pendingMessage }}
+          {{ t.memberSubmit.pendingMessage }}
         </div>
         <div
-          v-else-if="alumniStatus === 'approved'"
+          v-else-if="memberStatus === 'approved'"
           class="border border-primary/10 dark:border-gray-700 p-4 text-sm text-neutral-700 dark:text-gray-300"
         >
-          {{ t.alumniSubmit.approvedMessage }}
-          <a :href="`/profile?id=${alumniMemberId}`" class="text-accent hover:text-accent/80 transition-colors font-mono">{{ t.alumniSubmit.viewProfileLink }} →</a>
+          {{ t.memberSubmit.approvedMessage }}
+          <a :href="`/profile?id=${memberId}`" class="text-accent hover:text-accent/80 transition-colors font-mono">{{ t.memberSubmit.viewProfileLink }} →</a>
         </div>
       </section>
 
@@ -113,8 +113,8 @@ interface Registration {
 
 const loading = ref(true)
 const registrations = ref<Registration[]>([])
-const alumniStatus = ref<'none' | 'pending' | 'approved'>('none')
-const alumniMemberId = ref<string | null>(null)
+const memberStatus = ref<'none' | 'pending' | 'approved'>('none')
+const memberId = ref<string | null>(null)
 
 const redirectTo = typeof window !== 'undefined' ? window.location.href : undefined
 
@@ -154,10 +154,10 @@ watch(
     registrations.value = (participantsData as unknown as Registration[]) ?? []
 
     if (memberData) {
-      alumniMemberId.value = memberData.id
-      alumniStatus.value = memberData.approved ? 'approved' : 'pending'
+      memberId.value = memberData.id
+      memberStatus.value = memberData.approved ? 'approved' : 'pending'
     } else {
-      alumniStatus.value = 'none'
+      memberStatus.value = 'none'
     }
 
     loading.value = false

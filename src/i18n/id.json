@@ -515,7 +515,7 @@
     "registrationsHeading": "Pendaftaran Acara Saya",
     "noRegistrations": "Anda belum mendaftar acara apa pun.",
     "statusWaitlisted": "Daftar Tunggu",
-    "alumniHeading": "Kiriman Alumni Saya"
+    "memberHeading": "Kiriman Anggota Saya"
   },
   "memberPhotoUpload": {
     "uploadLabel": "Unggah Foto",
@@ -576,17 +576,17 @@
     "profile": "Profil",
     "empty": "Belum ada data alumni."
   },
-  "alumniSubmit": {
-    "addAlumniCta": "+ Tambahkan Profil Alumni Anda",
-    "heading": "Tambahkan Profil Alumni Anda",
-    "description": "Kirimkan data Anda untuk direktori alumni. Data akan ditinjau oleh admin sebelum tampil secara publik.",
-    "signInPrompt": "Masuk untuk mengirimkan profil alumni Anda.",
+  "memberSubmit": {
+    "addCta": "+ Tambahkan Profil Anda",
+    "heading": "Tambahkan Profil Anda",
+    "description": "Kirimkan data Anda untuk direktori anggota. Data akan ditinjau oleh admin sebelum tampil secara publik.",
+    "signInPrompt": "Masuk untuk mengirimkan profil Anda.",
     "backToLogin": "Masuk di halaman login",
     "alreadyListedNote": "Sudah ditambahkan oleh admin dari kiriman sebelumnya? Hubungi kami untuk menautkan akun Anda daripada mengirim ulang.",
     "pendingHeading": "Kiriman diterima",
-    "pendingMessage": "Profil alumni Anda sedang menunggu tinjauan admin. Akan tampil di halaman Alumni setelah disetujui.",
+    "pendingMessage": "Profil Anda sedang menunggu tinjauan admin. Akan tampil secara publik setelah disetujui.",
     "approvedHeading": "Anda sudah terdaftar",
-    "approvedMessage": "Profil alumni Anda sudah tampil.",
+    "approvedMessage": "Profil Anda sudah tampil.",
     "viewProfileLink": "Lihat profil Anda",
     "streamsLabel": "Stream Riset",
     "submitBtn": "Kirim untuk Ditinjau",

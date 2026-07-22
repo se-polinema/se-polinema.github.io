@@ -4,20 +4,20 @@ import MemberSubmissionForm from '../../components/MemberSubmissionForm.vue'
 ---
 
 <VSCodeLayout
-  title="Add Your Alumni Profile"
-  description="Submit your own entry for the Software Engineering Laboratory alumni directory."
+  title="Add Your Member Profile"
+  description="Submit your own entry for the Software Engineering Laboratory student members directory."
 >
   <div class="px-8 py-5">
     <a
-      href="/alumni"
+      href="/members"
       class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
     >
-      &larr; Back to Alumni
+      &larr; Back to Members
     </a>
-    <h1>Add Your Alumni Profile</h1>
+    <h1>Add Your Profile</h1>
     <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">
-      Submit your own entry for the alumni directory. It will be reviewed by an admin before it appears publicly.
+      Submit your own entry for the student members directory. It will be reviewed by an admin before it appears publicly.
     </p>
-    <MemberSubmissionForm client:load status="alumni" />
+    <MemberSubmissionForm client:load status="student" />
   </div>
 </VSCodeLayout>

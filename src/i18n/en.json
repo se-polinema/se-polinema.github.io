@@ -515,7 +515,7 @@
     "registrationsHeading": "My Event Registrations",
     "noRegistrations": "You haven't registered for any events yet.",
     "statusWaitlisted": "Waitlisted",
-    "alumniHeading": "My Alumni Submission"
+    "memberHeading": "My Member Submission"
   },
   "memberPhotoUpload": {
     "uploadLabel": "Upload Photo",
@@ -576,17 +576,17 @@
     "profile": "Profile",
     "empty": "No alumni entries yet."
   },
-  "alumniSubmit": {
-    "addAlumniCta": "+ Add Your Alumni Profile",
-    "heading": "Add Your Alumni Profile",
-    "description": "Submit your own entry for the alumni directory. It will be reviewed by an admin before it appears publicly.",
-    "signInPrompt": "Sign in to submit your alumni profile.",
+  "memberSubmit": {
+    "addCta": "+ Add Your Profile",
+    "heading": "Add Your Profile",
+    "description": "Submit your own entry for the member directory. It will be reviewed by an admin before it appears publicly.",
+    "signInPrompt": "Sign in to submit your profile.",
     "backToLogin": "Sign in on the login page",
     "alreadyListedNote": "Already added by an admin from a previous submission? Contact us to link your account instead of submitting again.",
     "pendingHeading": "Submission received",
-    "pendingMessage": "Your alumni profile is awaiting admin review. It will appear on the Alumni page once approved.",
+    "pendingMessage": "Your profile is awaiting admin review. It will appear publicly once approved.",
     "approvedHeading": "You're already listed",
-    "approvedMessage": "Your alumni profile is live.",
+    "approvedMessage": "Your profile is live.",
     "viewProfileLink": "View your profile",
     "streamsLabel": "Research Streams",
     "submitBtn": "Submit for Review",

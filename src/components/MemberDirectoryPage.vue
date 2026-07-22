@@ -3,12 +3,12 @@
     <h1>{{ heading }}</h1>
     <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-4">{{ description }}</p>
 
-    <div v-if="props.status === 'alumni'" class="mb-8">
+    <div class="mb-8">
       <a
-        href="/alumni/submit"
+        :href="props.status === 'alumni' ? '/alumni/submit' : '/members/submit'"
         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
       >
-        {{ t.alumniSubmit.addAlumniCta }}
+        {{ t.memberSubmit.addCta }}
       </a>
     </div>
 

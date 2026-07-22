@@ -2,38 +2,38 @@
   <div class="max-w-2xl">
     <!-- Signed out -->
     <div v-if="state === 'signed-out'" class="border border-primary/10 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800/50 p-6">
-      <p class="text-sm text-neutral-600 dark:text-gray-300 mb-4">{{ t.alumniSubmit.signInPrompt }}</p>
+      <p class="text-sm text-neutral-600 dark:text-gray-300 mb-4">{{ t.memberSubmit.signInPrompt }}</p>
       <GitHubSignInButton :redirect-to="redirectTo" />
       <a
-        :href="`/login?redirect=${encodeURIComponent('/alumni/submit')}`"
+        :href="`/login?redirect=${encodeURIComponent(submitPath)}`"
         class="block mt-3 text-sm font-mono text-accent hover:text-accent/80 transition-colors"
       >
-        {{ t.alumniSubmit.backToLogin }}
+        {{ t.memberSubmit.backToLogin }}
       </a>
     </div>
 
     <!-- Pending review -->
     <div v-else-if="state === 'pending'" class="border border-primary/10 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800/50 p-6">
-      <h2 class="font-serif text-xl font-semibold text-primary dark:text-gray-100 mb-2">{{ t.alumniSubmit.pendingHeading }}</h2>
-      <p class="text-sm text-neutral-600 dark:text-gray-300">{{ t.alumniSubmit.pendingMessage }}</p>
+      <h2 class="font-serif text-xl font-semibold text-primary dark:text-gray-100 mb-2">{{ t.memberSubmit.pendingHeading }}</h2>
+      <p class="text-sm text-neutral-600 dark:text-gray-300">{{ t.memberSubmit.pendingMessage }}</p>
     </div>
 
     <!-- Already approved -->
     <div v-else-if="state === 'approved'" class="border border-primary/10 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800/50 p-6">
-      <h2 class="font-serif text-xl font-semibold text-primary dark:text-gray-100 mb-2">{{ t.alumniSubmit.approvedHeading }}</h2>
-      <p class="text-sm text-neutral-600 dark:text-gray-300 mb-3">{{ t.alumniSubmit.approvedMessage }}</p>
+      <h2 class="font-serif text-xl font-semibold text-primary dark:text-gray-100 mb-2">{{ t.memberSubmit.approvedHeading }}</h2>
+      <p class="text-sm text-neutral-600 dark:text-gray-300 mb-3">{{ t.memberSubmit.approvedMessage }}</p>
       <a
         v-if="existingMemberId"
         :href="`/profile?id=${existingMemberId}`"
         class="text-sm font-mono text-accent hover:text-accent/80 transition-colors"
       >
-        {{ t.alumniSubmit.viewProfileLink }} →
+        {{ t.memberSubmit.viewProfileLink }} →
       </a>
     </div>
 
     <!-- Form -->
     <form v-else-if="state === 'form'" @submit.prevent="handleSubmit" class="border border-primary/10 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800/50 p-6 space-y-4">
-      <p class="text-xs text-neutral-400 dark:text-gray-500 leading-relaxed">{{ t.alumniSubmit.alreadyListedNote }}</p>
+      <p class="text-xs text-neutral-400 dark:text-gray-500 leading-relaxed">{{ t.memberSubmit.alreadyListedNote }}</p>
 
       <div v-if="errorMessage" class="px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
         {{ errorMessage }}
@@ -52,7 +52,7 @@
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.cohortYearLabel }} <span class="text-red-400">*</span></label>
           <input v-model.number="form.cohort_year" type="number" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
-        <div>
+        <div v-if="props.status === 'alumni'">
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.exitYearLabel }} <span class="text-red-400">*</span></label>
           <input v-model.number="form.exit_year" type="number" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
@@ -94,7 +94,7 @@
         </div>
 
         <div class="sm:col-span-2">
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.alumniSubmit.streamsLabel }}</label>
+          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.memberSubmit.streamsLabel }}</label>
           <div class="flex flex-wrap gap-3">
             <label
               v-for="stream in research"
@@ -128,7 +128,7 @@
         :disabled="submitting || !turnstileToken"
         class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
-        {{ submitting ? t.alumniSubmit.submittingLabel : t.alumniSubmit.submitBtn }}
+        {{ submitting ? t.memberSubmit.submittingLabel : t.memberSubmit.submitBtn }}
       </button>
     </form>
 
@@ -140,13 +140,17 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import MemberPhotoUpload from './MemberPhotoUpload.vue'
 import TurnstileWidget from './TurnstileWidget.vue'
 import research from '../data/research.json'
+
+const props = defineProps<{
+  status: 'student' | 'alumni'
+}>()
 
 const { t, lang } = useI18n()
 const { user, ready } = useAuth()
@@ -161,17 +165,19 @@ const turnstileToken = ref('')
 const turnstileRef = ref<InstanceType<typeof TurnstileWidget> | null>(null)
 
 const redirectTo = typeof window !== 'undefined' ? window.location.href : undefined
+const submitPath = computed(() => (props.status === 'alumni' ? '/alumni/submit' : '/members/submit'))
 
 const form = reactive({
   name: '',
   photo: null as string | null,
-  // cohort_year is enrollment year (angkatan), not exit year — an alumnus
-  // has always already enrolled by the time they submit, so default to
-  // the 4-year D-IV convention (currentYear - 4) rather than today's year.
+  // cohort_year is enrollment year (angkatan), not exit year — a submitter
+  // (alumnus or current student) has always already enrolled by the time
+  // they submit, so default to the 4-year D-IV convention (currentYear - 4)
+  // rather than today's year.
   cohort_year: new Date().getFullYear() - 4,
   exit_year: new Date().getFullYear(),
   // Pre-filled with the site's old hardcoded default (every self-
-  // submission used to be forced to this regardless of what the alumnus
+  // submission used to be forced to this regardless of what the person
   // actually did in the lab) — now just a starting point the submitter
   // can edit, e.g. "Lab Coordinator" / "Koordinator Lab".
   role_id: 'Mahasiswa',
@@ -231,12 +237,13 @@ async function handleSubmit() {
   errorMessage.value = ''
 
   const { supabase } = await import('../lib/supabase')
-  const { error } = await supabase.functions.invoke('submit-alumni', {
+  const { error } = await supabase.functions.invoke('submit-member', {
     body: {
+      status: props.status,
       name: form.name.trim(),
       photo: form.photo || null,
       cohort_year: form.cohort_year,
-      exit_year: form.exit_year,
+      exit_year: props.status === 'alumni' ? form.exit_year : undefined,
       role_id: form.role_id.trim(),
       role_en: form.role_en.trim(),
       current_role_id: form.current_role_id.trim() || null,
@@ -260,14 +267,14 @@ async function handleSubmit() {
     turnstileToken.value = ''
     // functions.invoke() surfaces non-2xx responses as a generic SDK error
     // without parsing the JSON body — recover the actual server message
-    // (submit-alumni returns { error: <postgres error message> }) from
+    // (submit-member returns { error: <postgres error message> }) from
     // the raw Response on error.context.
     let serverMessage: string | null = null
     try {
       const body = await (error as { context?: Response }).context?.json()
       serverMessage = body?.error ?? null
     } catch {}
-    errorMessage.value = serverMessage || t.value.alumniSubmit.genericError
+    errorMessage.value = serverMessage || t.value.memberSubmit.genericError
     return
   }
 

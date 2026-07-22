@@ -4,10 +4,9 @@
 
 <script setup lang="ts">
 // Thin wrapper around Cloudflare Turnstile's explicit-render API. Shared by
-// NewsletterForm/AlumniSubmissionForm (verified server-side by the
-// subscribe-newsletter/submit-alumni Edge Functions) and
-// EventRegistrationForm (verified natively by Supabase Auth's captchaToken
-// option) — see docs/issue-10-form-abuse-protection.md.
+// NewsletterForm/MemberSubmissionForm (verified server-side by the
+// subscribe-newsletter/submit-member Edge Functions) — see
+// docs/issue-10-form-abuse-protection.md.
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const props = withDefaults(defineProps<{
