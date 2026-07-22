@@ -1,23 +1,6 @@
 ---
-import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
-import MemberSubmissionForm from '../../components/MemberSubmissionForm.vue'
+// Self-registration is student-only now (see 20260722022618_member_graduation.sql
+// — becoming an alumnus is a graduation event on an existing member row, not a
+// second registration form). Redirect any lingering links/bookmarks here.
+return Astro.redirect('/members/submit')
 ---
-
-<VSCodeLayout
-  title="Add Your Alumni Profile"
-  description="Submit your own entry for the Software Engineering Laboratory alumni directory."
->
-  <div class="px-8 py-5">
-    <a
-      href="/alumni"
-      class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
-    >
-      &larr; Back to Alumni
-    </a>
-    <h1>Add Your Alumni Profile</h1>
-    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">
-      Submit your own entry for the alumni directory. It will be reviewed by an admin before it appears publicly.
-    </p>
-    <MemberSubmissionForm client:load status="alumni" />
-  </div>
-</VSCodeLayout>

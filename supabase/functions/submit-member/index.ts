@@ -1,24 +1,23 @@
-// Turnstile-gated self-submission for both current students and alumni.
-// Generalized from the original submit-alumni (student self-service was
-// added later; the shape of a student vs. alumni row differs only by
-// exit_year, so one function handles both rather than duplicating the
-// Turnstile/CORS/auth boilerplate). Forwards the caller's own JWT (not
-// the service role) so the existing members_insert_self RLS policy
-// (auth.uid() = user_id AND approved = false AND status IN ('student',
-// 'alumni') — 013_alumni_self_service.sql, widened in
-// 20260722011948_widen_member_self_insert.sql) keeps doing the real
-// identity enforcement; this function only adds the Turnstile gate in
-// front of the same insert the client used to perform directly.
+// Turnstile-gated self-submission for current students. Self-registration
+// always creates a status='student' row — becoming an alumnus is a
+// graduation event on an existing row (see se.graduate_member,
+// 20260722022618_member_graduation.sql), not a second registration form.
+// Forwards the caller's own JWT (not the service role) so the existing
+// members_insert_self RLS policy (auth.uid() = user_id AND approved =
+// false AND status = 'student' — 013_alumni_self_service.sql, widened
+// to include alumni in 20260722011948_widen_member_self_insert.sql,
+// then narrowed back to student-only in
+// 20260722022618_member_graduation.sql) keeps doing the real identity
+// enforcement; this function only adds the Turnstile gate in front of
+// the same insert the client used to perform directly.
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { verifyTurnstile, corsHeaders, jsonResponse } from '../_shared/turnstile.ts'
 
 interface MemberPayload {
   turnstileToken?: string
-  status?: 'student' | 'alumni'
   name?: string
   photo?: string | null
   cohort_year?: number
-  exit_year?: number
   role_id?: string
   role_en?: string
   current_role_id?: string | null
@@ -56,18 +55,13 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'bad_request' }, 400, headers)
   }
 
-  if (payload.status !== 'student' && payload.status !== 'alumni') {
-    return jsonResponse({ error: 'invalid_request' }, 400, headers)
-  }
-
   if (
     !payload.turnstileToken ||
     !payload.name ||
     !payload.cohort_year ||
     !payload.role_id ||
     !payload.role_en ||
-    !payload.research_topics ||
-    (payload.status === 'alumni' && !payload.exit_year)
+    !payload.research_topics
   ) {
     return jsonResponse({ error: 'invalid_request' }, 400, headers)
   }
@@ -96,12 +90,12 @@ Deno.serve(async (req) => {
     .from('members')
     .insert({
       user_id: user.id,
-      status: payload.status,
+      status: 'student',
       approved: false,
       name: payload.name.trim(),
       photo: payload.photo || null,
       cohort_year: payload.cohort_year,
-      exit_year: payload.status === 'alumni' ? payload.exit_year : null,
+      exit_year: null,
       role_id: payload.role_id.trim(),
       role_en: payload.role_en.trim(),
       current_role_id: payload.current_role_id?.trim() || null,

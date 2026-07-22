@@ -72,6 +72,51 @@
         >
           {{ t.memberSubmit.approvedMessage }}
           <a :href="`/profile?id=${memberId}`" class="text-accent hover:text-accent/80 transition-colors font-mono">{{ t.memberSubmit.viewProfileLink }} →</a>
+
+          <!-- Graduation: turns an approved student row into alumni. Alumni
+               are graduated members, not a separate signup — see
+               20260722022618_member_graduation.sql. -->
+          <div v-if="memberRowStatus === 'student'" class="mt-4 pt-4 border-t border-primary/10 dark:border-gray-700">
+            <p v-if="graduated" class="text-sm text-green-700 dark:text-green-400">{{ t.account.graduatedMessage }}</p>
+            <template v-else>
+              <button
+                v-if="!showGraduateForm"
+                @click="showGraduateForm = true"
+                class="text-sm font-mono text-accent hover:text-accent/80 transition-colors"
+              >
+                {{ t.account.graduateBtn }}
+              </button>
+              <div v-else class="space-y-3">
+                <p class="text-sm text-neutral-600 dark:text-gray-300">{{ t.account.graduatePrompt }}</p>
+                <div v-if="graduateError" class="px-3 py-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-xs font-mono">
+                  {{ graduateError }}
+                </div>
+                <div class="flex items-end gap-3">
+                  <div>
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1">{{ t.membersAdmin.exitYearLabel }}</label>
+                    <input
+                      v-model.number="graduateExitYear"
+                      type="number"
+                      class="w-28 px-3 py-1.5 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors"
+                    />
+                  </div>
+                  <button
+                    @click="handleGraduate"
+                    :disabled="graduating"
+                    class="px-4 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    {{ graduating ? t.account.graduatingLabel : t.account.graduateConfirmBtn }}
+                  </button>
+                  <button
+                    @click="showGraduateForm = false"
+                    class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
+                  >
+                    {{ t.membersAdmin.cancelLabel }}
+                  </button>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </section>
 
@@ -115,6 +160,13 @@ const loading = ref(true)
 const registrations = ref<Registration[]>([])
 const memberStatus = ref<'none' | 'pending' | 'approved'>('none')
 const memberId = ref<string | null>(null)
+const memberRowStatus = ref<'student' | 'alumni' | null>(null)
+
+const showGraduateForm = ref(false)
+const graduateExitYear = ref(new Date().getFullYear())
+const graduating = ref(false)
+const graduateError = ref('')
+const graduated = ref(false)
 
 const redirectTo = typeof window !== 'undefined' ? window.location.href : undefined
 
@@ -146,7 +198,7 @@ watch(
       supabase
         .schema('se')
         .from('members')
-        .select('id, approved')
+        .select('id, approved, status')
         .eq('user_id', currentUser.id)
         .maybeSingle(),
     ])
@@ -155,6 +207,7 @@ watch(
 
     if (memberData) {
       memberId.value = memberData.id
+      memberRowStatus.value = memberData.status
       memberStatus.value = memberData.approved ? 'approved' : 'pending'
     } else {
       memberStatus.value = 'none'
@@ -164,6 +217,27 @@ watch(
   },
   { immediate: true }
 )
+
+async function handleGraduate() {
+  graduating.value = true
+  graduateError.value = ''
+
+  const { supabase } = await import('../lib/supabase')
+  const { error } = await supabase
+    .schema('se')
+    .rpc('graduate_member', { p_exit_year: graduateExitYear.value })
+
+  graduating.value = false
+
+  if (error) {
+    graduateError.value = error.message || t.value.memberSubmit.genericError
+    return
+  }
+
+  memberRowStatus.value = 'alumni'
+  showGraduateForm.value = false
+  graduated.value = true
+}
 
 async function handleSignOut() {
   await signOut()

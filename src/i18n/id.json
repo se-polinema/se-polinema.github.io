@@ -515,7 +515,12 @@
     "registrationsHeading": "Pendaftaran Acara Saya",
     "noRegistrations": "Anda belum mendaftar acara apa pun.",
     "statusWaitlisted": "Daftar Tunggu",
-    "memberHeading": "Kiriman Anggota Saya"
+    "memberHeading": "Kiriman Anggota Saya",
+    "graduateBtn": "Saya sudah lulus",
+    "graduatePrompt": "Masukkan tahun kelulusan Anda untuk memindahkan profil Anda ke direktori alumni.",
+    "graduateConfirmBtn": "Konfirmasi Kelulusan",
+    "graduatingLabel": "Memperbarui...",
+    "graduatedMessage": "Selamat! Profil Anda sekarang tampil di direktori alumni."
   },
   "memberPhotoUpload": {
     "uploadLabel": "Unggah Foto",

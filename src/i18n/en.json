@@ -515,7 +515,12 @@
     "registrationsHeading": "My Event Registrations",
     "noRegistrations": "You haven't registered for any events yet.",
     "statusWaitlisted": "Waitlisted",
-    "memberHeading": "My Member Submission"
+    "memberHeading": "My Member Submission",
+    "graduateBtn": "I've graduated",
+    "graduatePrompt": "Enter your graduation year to move your profile to the alumni directory.",
+    "graduateConfirmBtn": "Confirm Graduation",
+    "graduatingLabel": "Updating...",
+    "graduatedMessage": "Congratulations! Your profile now appears in the alumni directory."
   },
   "memberPhotoUpload": {
     "uploadLabel": "Upload Photo",

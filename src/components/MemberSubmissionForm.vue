@@ -52,10 +52,6 @@
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.cohortYearLabel }} <span class="text-red-400">*</span></label>
           <input v-model.number="form.cohort_year" type="number" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
-        <div v-if="props.status === 'alumni'">
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.exitYearLabel }} <span class="text-red-400">*</span></label>
-          <input v-model.number="form.exit_year" type="number" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-        </div>
         <div>
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.roleIdLabel }} <span class="text-red-400">*</span></label>
           <input v-model="form.role_id" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
@@ -140,17 +136,13 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch, computed } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import MemberPhotoUpload from './MemberPhotoUpload.vue'
 import TurnstileWidget from './TurnstileWidget.vue'
 import research from '../data/research.json'
-
-const props = defineProps<{
-  status: 'student' | 'alumni'
-}>()
 
 const { t, lang } = useI18n()
 const { user, ready } = useAuth()
@@ -165,17 +157,15 @@ const turnstileToken = ref('')
 const turnstileRef = ref<InstanceType<typeof TurnstileWidget> | null>(null)
 
 const redirectTo = typeof window !== 'undefined' ? window.location.href : undefined
-const submitPath = computed(() => (props.status === 'alumni' ? '/alumni/submit' : '/members/submit'))
+const submitPath = '/members/submit'
 
 const form = reactive({
   name: '',
   photo: null as string | null,
   // cohort_year is enrollment year (angkatan), not exit year — a submitter
-  // (alumnus or current student) has always already enrolled by the time
-  // they submit, so default to the 4-year D-IV convention (currentYear - 4)
-  // rather than today's year.
+  // has always already enrolled by the time they submit, so default to
+  // the 4-year D-IV convention (currentYear - 4) rather than today's year.
   cohort_year: new Date().getFullYear() - 4,
-  exit_year: new Date().getFullYear(),
   // Pre-filled with the site's old hardcoded default (every self-
   // submission used to be forced to this regardless of what the person
   // actually did in the lab) — now just a starting point the submitter
@@ -239,11 +229,9 @@ async function handleSubmit() {
   const { supabase } = await import('../lib/supabase')
   const { error } = await supabase.functions.invoke('submit-member', {
     body: {
-      status: props.status,
       name: form.name.trim(),
       photo: form.photo || null,
       cohort_year: form.cohort_year,
-      exit_year: props.status === 'alumni' ? form.exit_year : undefined,
       role_id: form.role_id.trim(),
       role_en: form.role_en.trim(),
       current_role_id: form.current_role_id.trim() || null,
