@@ -13,7 +13,6 @@ techStack:
   - "Redis"
   - "captcha"
 images:
-  - "/images/projects/polinema-snap-link.svg"
   - "/images/projects/polinema-snap-link-screenshot.png"
 contributors: []
 researchers:
