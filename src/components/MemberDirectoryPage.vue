@@ -5,7 +5,7 @@
 
     <!-- Self-registration only exists for current students — alumni are
          graduated members, not a separate signup (see
-         20260722022618_member_graduation.sql). -->
+         20260722023755_member_graduation.sql). -->
     <div v-if="props.status === 'student'" class="mb-8">
       <a
         href="/members/submit"

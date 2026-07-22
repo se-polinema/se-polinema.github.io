@@ -75,7 +75,7 @@
 
           <!-- Graduation: turns an approved student row into alumni. Alumni
                are graduated members, not a separate signup — see
-               20260722022618_member_graduation.sql. -->
+               20260722023755_member_graduation.sql. -->
           <div v-if="memberRowStatus === 'student'" class="mt-4 pt-4 border-t border-primary/10 dark:border-gray-700">
             <p v-if="graduated" class="text-sm text-green-700 dark:text-green-400">{{ t.account.graduatedMessage }}</p>
             <template v-else>
