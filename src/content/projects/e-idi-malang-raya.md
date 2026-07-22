@@ -9,7 +9,8 @@ techStack:
   - "MySQL"
   - "Bootstrap"
   - "jQuery"
-images: []
+images:
+  - "/images/projects/e-idi-malang-raya.png"
 contributors: []
 researchers:
   - "imam-fahrur-rozi"
