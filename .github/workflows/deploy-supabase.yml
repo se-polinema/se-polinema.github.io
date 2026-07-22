@@ -104,11 +104,27 @@ jobs:
               uri_allow_list: $uri_allow_list
             }')
 
-          curl --fail-with-body -sS -X PATCH \
+          # Supabase's PATCH response echoes back the ENTIRE auth config,
+          # including every configured provider's secret in cleartext
+          # (GitHub/Google OAuth secrets, the Turnstile CAPTCHA secret,
+          # etc.) — printing that unredirected leaked real secrets into
+          # this repo's (public) Action logs on every deploy. Only surface
+          # the body if the request actually failed, matching what's
+          # needed to debug a failure without dumping secrets on the
+          # common, successful path.
+          patch_status=$(curl -sS -o /tmp/auth-config-patch-response.json -w '%{http_code}' -X PATCH \
             "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/config/auth" \
             -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
             -H "Content-Type: application/json" \
-            -d "$body"
+            -d "$body")
+
+          if [ "$patch_status" -lt 200 ] || [ "$patch_status" -ge 300 ]; then
+            echo "Auth config PATCH failed with HTTP $patch_status:" >&2
+            cat /tmp/auth-config-patch-response.json >&2
+            exit 1
+          fi
+
+          echo "Auth config updated successfully (HTTP $patch_status)"
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
@@ -138,12 +154,22 @@ jobs:
             echo "se already exposed, nothing to do"
           else
             updated="${current},se"
-            curl --fail-with-body -sS -X PATCH \
+            # PostgREST's config response can include jwt_secret — same
+            # reasoning as the auth-config PATCH above, suppress the body
+            # unless the request actually failed.
+            patch_status=$(curl -sS -o /tmp/postgrest-patch-response.json -w '%{http_code}' -X PATCH \
               "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/postgrest" \
               -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
               -H "Content-Type: application/json" \
-              -d "{\"db_schema\": \"$updated\"}"
-            echo "Updated db_schema to: $updated"
+              -d "{\"db_schema\": \"$updated\"}")
+
+            if [ "$patch_status" -lt 200 ] || [ "$patch_status" -ge 300 ]; then
+              echo "PostgREST config PATCH failed with HTTP $patch_status:" >&2
+              cat /tmp/postgrest-patch-response.json >&2
+              exit 1
+            fi
+
+            echo "Updated db_schema to: $updated (HTTP $patch_status)"
           fi
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
