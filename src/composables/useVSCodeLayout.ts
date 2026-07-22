@@ -49,6 +49,7 @@ export function resolveRoute(pathname: string): { page: string; view: SidebarVie
   if (pathname.startsWith('/publications')) return { page: 'publications', view: 'publications' }
   if (pathname.startsWith('/researchers')) return { page: 'researchers', view: 'researchers' }
   if (pathname.startsWith('/projects')) return { page: 'projects', view: 'explorer' }
+  if (pathname.startsWith('/showcase')) return { page: 'showcase', view: 'explorer' }
   if (pathname.startsWith('/books')) return { page: 'books', view: 'explorer' }
   if (pathname.startsWith('/decks')) return { page: 'decks', view: 'decks' }
   if (pathname.startsWith('/achievements')) return { page: 'achievements', view: 'achievements' }

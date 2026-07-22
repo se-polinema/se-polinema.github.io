@@ -87,11 +87,19 @@ jobs:
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
 
       - name: Set Edge Function secrets
-        run: supabase secrets set TURNSTILE_SECRET_KEY="$TURNSTILE_SECRET_KEY"
+        # OPENCODE_GO_API_KEY already exists as a repo secret (used by the
+        # opencode/weekly-recommendation dev-tooling workflows) and is a
+        # plain bearer token for OpenCode Go's OpenAI-compatible REST
+        # gateway — reused here for suggest-project-content rather than
+        # provisioning a new AI provider.
+        run: |
+          supabase secrets set TURNSTILE_SECRET_KEY="$TURNSTILE_SECRET_KEY"
+          supabase secrets set OPENCODE_GO_API_KEY="$OPENCODE_GO_API_KEY"
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
           TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
 
       - name: Deploy Edge Functions
         run: supabase functions deploy

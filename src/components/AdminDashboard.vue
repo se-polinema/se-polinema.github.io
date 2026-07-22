@@ -93,6 +93,15 @@
           {{ t.membersAdmin.tabLabel }}
         </button>
         <button
+          @click="adminTab = 'projects'"
+          class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
+          :class="adminTab === 'projects'
+            ? 'border-accent text-primary dark:text-gray-100'
+            : 'border-transparent text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300'"
+        >
+          {{ t.showcaseAdmin.tabLabel }}
+        </button>
+        <button
           @click="adminTab = 'staff'"
           class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
           :class="adminTab === 'staff'
@@ -215,7 +224,7 @@
               </div>
               <div class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.photoLabel }}</label>
-                <MemberPhotoUpload v-model="memberForm.photo" :upload-path-prefix="editingMemberId ? `admin/${editingMemberId}` : adminUploadPrefix" />
+                <ImageUpload v-model="memberForm.photo" bucket="member-photos" :upload-path-prefix="editingMemberId ? `admin/${editingMemberId}` : adminUploadPrefix" />
               </div>
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.cohortYearLabel }}</label>
@@ -347,6 +356,167 @@
                     </button>
                     <button @click="deleteMember(m)" class="text-xs font-mono text-red-500/70 hover:text-red-600 dark:hover:text-red-400 transition-colors">
                       {{ t.membersAdmin.deleteAction }}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </template>
+
+      <!-- PROJECTS TAB (Showcase) -->
+      <template v-else-if="adminTab === 'projects'">
+        <div v-if="loadingData" class="py-10 text-center">
+          <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
+        </div>
+
+        <div v-else>
+          <div v-if="projectActionError" class="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
+            {{ projectActionError }}
+          </div>
+
+          <div class="flex items-center gap-2 mb-6">
+            <button
+              v-for="f in projectFilterOptions"
+              :key="f"
+              @click="projectFilter = f"
+              class="px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors"
+              :class="projectFilter === f
+                ? 'bg-primary text-white border-primary'
+                : 'text-primary/60 dark:text-gray-400 border-primary/20 dark:border-gray-600 hover:border-primary/40'"
+            >
+              {{ f === 'all' ? t.showcaseAdmin.filterAll : t.showcaseAdmin.filterPending }}
+            </button>
+            <button
+              @click="openAddProjectForm"
+              class="ml-auto inline-flex items-center gap-2 px-4 py-1.5 text-xs font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
+            >
+              {{ t.showcaseAdmin.addNew }}
+            </button>
+          </div>
+
+          <form
+            v-if="showProjectForm"
+            @submit.prevent="handleSaveProject"
+            class="mb-8 p-5 border border-primary/10 dark:border-gray-700 space-y-4"
+          >
+            <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100">
+              {{ editingProjectId ? t.showcaseAdmin.editEntry : t.showcaseAdmin.addNew }}
+            </h2>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="flex items-end pb-2">
+                <label class="inline-flex items-center gap-2 text-sm font-mono text-primary dark:text-gray-100">
+                  <input v-model="projectForm.approved" type="checkbox" class="h-4 w-4" />
+                  {{ t.showcaseAdmin.approvedFieldLabel }}
+                </label>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.titleLabel }}</label>
+                <input v-model="projectForm.title" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.briefLabel }}</label>
+                <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.briefHint }}</p>
+                <textarea v-model="projectBrief" rows="3" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <button
+                  type="button"
+                  @click="handleSuggestProject"
+                  :disabled="suggestingProject || !projectForm.title.trim() || !projectBrief.trim()"
+                  class="mt-2 inline-flex items-center gap-2 px-4 py-1.5 text-xs font-mono font-semibold text-accent-700 dark:text-accent-400 border border-accent/40 hover:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {{ suggestingProject ? t.showcaseAdmin.suggestingLabel : t.showcaseAdmin.suggestBtn }}
+                </button>
+                <p v-if="projectSuggestError" class="mt-2 text-xs font-mono text-red-600 dark:text-red-400">{{ projectSuggestError }}</p>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.imageLabel }}</label>
+                <ImageUpload v-model="projectForm.image" bucket="project-images" :upload-path-prefix="editingProjectId ? `admin/${editingProjectId}` : adminProjectUploadPrefix" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineEnLabel }}</label>
+                <input v-model="projectForm.tagline_en" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineIdLabel }}</label>
+                <input v-model="projectForm.tagline_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionEnLabel }}</label>
+                <textarea v-model="projectForm.description_en" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionIdLabel }}</label>
+                <textarea v-model="projectForm.description_id" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.tagsLabel }}</label>
+                <input v-model="projectTagsInput" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.repoUrlLabel }}</label>
+                <input v-model="projectForm.repo_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.demoUrlLabel }}</label>
+                <input v-model="projectForm.demo_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button
+                type="submit"
+                :disabled="savingProject"
+                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {{ savingProject ? t.showcaseAdmin.savingLabel : t.showcaseAdmin.saveLabel }}
+              </button>
+              <button
+                type="button"
+                @click="closeProjectForm"
+                class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors"
+              >
+                {{ t.showcaseAdmin.cancelLabel }}
+              </button>
+            </div>
+          </form>
+
+          <div v-if="filteredProjects.length === 0" class="py-10 text-center">
+            <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.showcaseAdmin.noEntries }}</p>
+          </div>
+
+          <div v-else class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-primary/10 dark:border-gray-700">
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.showcaseAdmin.titleLabel }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4"></th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-primary/5 dark:divide-gray-700">
+                <tr v-for="p in filteredProjects" :key="p.id">
+                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100">{{ p.title }}</td>
+                  <td class="py-2.5 pr-4">
+                    <span
+                      v-if="!p.approved"
+                      class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                    >
+                      {{ t.showcaseAdmin.pendingBadge }}
+                    </span>
+                  </td>
+                  <td class="py-2.5 text-right space-x-3">
+                    <button v-if="!p.approved" @click="approveProject(p)" class="text-xs font-mono text-accent-700 dark:text-accent-400 hover:text-accent transition-colors">
+                      {{ t.showcaseAdmin.approveAction }}
+                    </button>
+                    <button @click="editProject(p)" class="text-xs font-mono text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
+                      {{ t.showcaseAdmin.editAction }}
+                    </button>
+                    <button @click="deleteProject(p)" class="text-xs font-mono text-red-500/70 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                      {{ t.showcaseAdmin.deleteAction }}
                     </button>
                   </td>
                 </tr>
@@ -499,10 +669,11 @@ import { useI18n } from '../composables/useI18n'
 import { useConfirmDialog } from '../composables/useConfirmDialog'
 import { useAuth } from '../composables/useAuth'
 import { supabase } from '../lib/supabase'
-import MemberPhotoUpload from './MemberPhotoUpload.vue'
+import ImageUpload from './ImageUpload.vue'
 import AdminEventSection from './AdminEventSection.vue'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import research from '../data/research.json'
+import { suggestProjectContent } from '../lib/suggestProject'
 
 const { t } = useI18n()
 const { confirm, confirmUnsaved } = useConfirmDialog()
@@ -568,7 +739,7 @@ interface MemberRow {
   created_at: string
 }
 
-const adminTab = ref<'events' | 'members' | 'staff' | 'subscribers'>('events')
+const adminTab = ref<'events' | 'members' | 'projects' | 'staff' | 'subscribers'>('events')
 const members = ref<MemberRow[]>([])
 const memberFilterOptions = ['all', 'student', 'alumni', 'pending'] as const
 const memberFilter = ref<typeof memberFilterOptions[number]>('all')
@@ -604,6 +775,38 @@ interface Subscriber {
 
 const subscribers = ref<Subscriber[]>([])
 const subscriberActionError = ref('')
+
+interface ProjectRow {
+  id: string
+  title: string
+  tagline_en: string | null
+  tagline_id: string | null
+  description_en: string | null
+  description_id: string | null
+  tags: string[] | null
+  repo_url: string | null
+  demo_url: string | null
+  image: string | null
+  user_id: string | null
+  approved: boolean
+  created_at: string
+}
+
+const projects = ref<ProjectRow[]>([])
+const projectFilterOptions = ['all', 'pending'] as const
+const projectFilter = ref<typeof projectFilterOptions[number]>('all')
+const showProjectForm = ref(false)
+const adminProjectUploadPrefix = ref(`admin/new-${crypto.randomUUID()}`)
+const editingProjectId = ref<string | null>(null)
+const savingProject = ref(false)
+const projectActionError = ref('')
+let projectFormSnapshot = ''
+
+// Transient — describes the project for the AI-suggest call, not saved to
+// the row itself.
+const projectBrief = ref('')
+const suggestingProject = ref(false)
+const projectSuggestError = ref('')
 
 function emptyMemberForm() {
   return {
@@ -804,6 +1007,202 @@ async function deleteMember(m: MemberRow) {
   await loadMembers()
 }
 
+function emptyProjectForm() {
+  return {
+    title: '',
+    tagline_en: '',
+    tagline_id: '',
+    description_en: '',
+    description_id: '',
+    tags: [] as string[],
+    repo_url: '',
+    demo_url: '',
+    image: null as string | null,
+    approved: true,
+  }
+}
+
+const projectForm = reactive(emptyProjectForm())
+
+// Comma-separated text UX over the underlying tags array — mirrors how
+// memberForm.streams is a checkbox list bound directly to an array, except
+// tags are freeform so a plain delimited text input is the natural editor.
+const projectTagsInput = computed({
+  get: () => projectForm.tags.join(', '),
+  set: (val: string) => {
+    projectForm.tags = val.split(',').map((s) => s.trim()).filter(Boolean)
+  },
+})
+
+const filteredProjects = computed(() => {
+  if (projectFilter.value === 'pending') return projects.value.filter((p) => !p.approved)
+  return projects.value
+})
+
+function resetProjectForm() {
+  Object.assign(projectForm, emptyProjectForm())
+  editingProjectId.value = null
+  projectBrief.value = ''
+  projectSuggestError.value = ''
+}
+
+function snapshotProjectForm() {
+  projectFormSnapshot = JSON.stringify(projectForm)
+}
+
+function isProjectFormDirty(): boolean {
+  return JSON.stringify(projectForm) !== projectFormSnapshot
+}
+
+function openAddProjectForm() {
+  resetProjectForm()
+  adminProjectUploadPrefix.value = `admin/new-${crypto.randomUUID()}`
+  projectActionError.value = ''
+  showProjectForm.value = true
+  snapshotProjectForm()
+}
+
+function forceCloseProjectForm() {
+  showProjectForm.value = false
+  resetProjectForm()
+}
+
+async function closeProjectForm() {
+  if (!isProjectFormDirty()) {
+    forceCloseProjectForm()
+    return
+  }
+
+  const result = await confirmUnsaved({
+    title: t.value.confirmDialog.unsavedTitle,
+    message: t.value.confirmDialog.unsavedMessage,
+    saveLabel: t.value.confirmDialog.saveLabel,
+    discardLabel: t.value.confirmDialog.dontSaveLabel,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+  })
+
+  if (result === 'save') {
+    await handleSaveProject()
+  } else if (result === 'discard') {
+    forceCloseProjectForm()
+  }
+  // 'cancel' → leave the form open, do nothing.
+}
+
+function editProject(p: ProjectRow) {
+  editingProjectId.value = p.id
+  Object.assign(projectForm, {
+    title: p.title,
+    tagline_en: p.tagline_en ?? '',
+    tagline_id: p.tagline_id ?? '',
+    description_en: p.description_en ?? '',
+    description_id: p.description_id ?? '',
+    tags: p.tags ?? [],
+    repo_url: p.repo_url ?? '',
+    demo_url: p.demo_url ?? '',
+    image: p.image,
+    approved: p.approved,
+  })
+  projectBrief.value = ''
+  projectActionError.value = ''
+  projectSuggestError.value = ''
+  showProjectForm.value = true
+  snapshotProjectForm()
+}
+
+async function loadProjects() {
+  const { data } = await supabase
+    .schema('se')
+    .from('projects')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  projects.value = data ?? []
+}
+
+async function handleSuggestProject() {
+  suggestingProject.value = true
+  projectSuggestError.value = ''
+
+  const { suggestion } = await suggestProjectContent({
+    title: projectForm.title,
+    brief: projectBrief.value,
+    repo_url: projectForm.repo_url,
+  })
+
+  suggestingProject.value = false
+
+  if (!suggestion) {
+    projectSuggestError.value = t.value.showcaseAdmin.suggestError
+    return
+  }
+
+  projectForm.tagline_en = suggestion.tagline_en
+  projectForm.tagline_id = suggestion.tagline_id
+  projectForm.description_en = suggestion.description_en
+  projectForm.description_id = suggestion.description_id
+  projectForm.tags = suggestion.tags
+}
+
+async function handleSaveProject() {
+  savingProject.value = true
+  projectActionError.value = ''
+
+  const payload = {
+    title: projectForm.title.trim(),
+    tagline_en: projectForm.tagline_en.trim() || null,
+    tagline_id: projectForm.tagline_id.trim() || null,
+    description_en: projectForm.description_en.trim() || null,
+    description_id: projectForm.description_id.trim() || null,
+    tags: projectForm.tags,
+    repo_url: projectForm.repo_url.trim() || null,
+    demo_url: projectForm.demo_url.trim() || null,
+    image: projectForm.image || null,
+    approved: projectForm.approved,
+  }
+
+  const { error } = editingProjectId.value
+    ? await supabase.schema('se').from('projects').update(payload).eq('id', editingProjectId.value)
+    : await supabase.schema('se').from('projects').insert(payload)
+
+  savingProject.value = false
+
+  if (error) {
+    projectActionError.value = error.message
+    return
+  }
+
+  forceCloseProjectForm()
+  await loadProjects()
+}
+
+async function approveProject(p: ProjectRow) {
+  const { error } = await supabase.schema('se').from('projects').update({ approved: true }).eq('id', p.id)
+  if (error) {
+    projectActionError.value = error.message
+    return
+  }
+  await loadProjects()
+}
+
+async function deleteProject(p: ProjectRow) {
+  const ok = await confirm({
+    title: t.value.confirmDialog.deleteTitle,
+    message: t.value.confirmDialog.deleteMessage,
+    confirmLabel: t.value.confirmDialog.deleteConfirmLabel,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+    variant: 'danger',
+  })
+  if (!ok) return
+
+  const { error } = await supabase.schema('se').from('projects').delete().eq('id', p.id)
+  if (error) {
+    projectActionError.value = error.message
+    return
+  }
+  await loadProjects()
+}
+
 // Reactive session from the shared useAuth() composable, instead of a
 // one-time getUser() + hand-rolled state machine — covers initial load,
 // sign-in, and sign-out through this single watcher, and keeps this page's
@@ -818,6 +1217,7 @@ watch(
       events.value = []
       participantsByEvent.value = {}
       members.value = []
+      projects.value = []
       return
     }
 
@@ -868,6 +1268,7 @@ async function loadData() {
   participantsByEvent.value = byEvent
 
   await loadMembers()
+  await loadProjects()
   await loadEventDates()
   await loadAdmins()
   await loadSubscribers()

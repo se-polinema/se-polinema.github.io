@@ -46,7 +46,7 @@
         </div>
         <div class="sm:col-span-2">
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.photoLabel }}</label>
-          <MemberPhotoUpload v-model="form.photo" :upload-path-prefix="user?.id ?? ''" />
+          <ImageUpload v-model="form.photo" bucket="member-photos" :upload-path-prefix="user?.id ?? ''" />
         </div>
         <div>
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.membersAdmin.cohortYearLabel }} <span class="text-red-400">*</span></label>
@@ -140,7 +140,7 @@ import { reactive, ref, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
 import GitHubSignInButton from './GitHubSignInButton.vue'
-import MemberPhotoUpload from './MemberPhotoUpload.vue'
+import ImageUpload from './ImageUpload.vue'
 import TurnstileWidget from './TurnstileWidget.vue'
 import research from '../data/research.json'
 

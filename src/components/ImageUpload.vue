@@ -40,6 +40,7 @@ import { resizeImageForUpload, ImageResizeError } from '../utils/resizeImage'
 const props = defineProps<{
   modelValue: string | null
   uploadPathPrefix: string
+  bucket: string
 }>()
 
 const emit = defineEmits<{
@@ -64,7 +65,7 @@ async function handleFileChange(event: Event) {
     const path = `${props.uploadPathPrefix}/photo.jpg`
 
     const { error: uploadError } = await supabase.storage
-      .from('member-photos')
+      .from(props.bucket)
       .upload(path, blob, { upsert: true, contentType: 'image/jpeg' })
 
     if (uploadError) {
@@ -72,7 +73,7 @@ async function handleFileChange(event: Event) {
       return
     }
 
-    const { data } = supabase.storage.from('member-photos').getPublicUrl(path)
+    const { data } = supabase.storage.from(props.bucket).getPublicUrl(path)
     // Cache-bust: the object path is stable (upsert overwrites the same key
     // on re-upload), so append a timestamp to avoid a stale cached image.
     emit('update:modelValue', `${data.publicUrl}?t=${Date.now()}`)

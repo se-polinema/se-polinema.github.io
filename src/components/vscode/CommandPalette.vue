@@ -96,6 +96,7 @@ const goToPages: { label: string; href: string }[] = [
   { label: 'Members', href: '/members' },
   { label: 'Alumni', href: '/alumni' },
   { label: 'Projects', href: '/projects' },
+  { label: 'Showcase', href: '/showcase' },
   { label: 'Books', href: '/books' },
   { label: 'Decks', href: '/decks' },
   { label: 'Achievements', href: '/achievements' },
