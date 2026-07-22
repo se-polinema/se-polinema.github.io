@@ -8,6 +8,8 @@ on:
       - 'src/content/blog/**'
       - 'scripts/sync-events.mjs'
       - 'scripts/migrate-member-photos.mjs'
+      - 'scripts/sync-static-projects.mjs'
+      - 'src/content/projects/**'
   workflow_dispatch:
 
 jobs:
@@ -218,6 +220,12 @@ jobs:
 
       - name: Migrate legacy member photos into Storage
         run: npm run migrate:member-photos
+        env:
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Sync static curated projects into se.projects
+        run: npm run sync:static-projects
         env:
           PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

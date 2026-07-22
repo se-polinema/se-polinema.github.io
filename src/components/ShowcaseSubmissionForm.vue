@@ -75,7 +75,22 @@
           <input v-model="form.title" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
         </div>
 
-        <div class="sm:col-span-2">
+        <div class="sm:col-span-2 flex items-center gap-2">
+          <button
+            v-for="m in (['ai', 'manual'] as const)"
+            :key="m"
+            type="button"
+            @click="formMode = m"
+            class="px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors"
+            :class="formMode === m
+              ? 'bg-primary text-white border-primary'
+              : 'text-primary/60 dark:text-gray-400 border-primary/20 dark:border-gray-600 hover:border-primary/40'"
+          >
+            {{ m === 'ai' ? t.showcaseAdmin.aiAssistMode : t.showcaseAdmin.manualMode }}
+          </button>
+        </div>
+
+        <div v-if="formMode === 'ai'" class="sm:col-span-2">
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.briefLabel }}</label>
           <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.briefHint }}</p>
           <textarea v-model="brief" rows="3" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
@@ -85,7 +100,7 @@
             :disabled="suggesting || !form.title.trim() || !brief.trim()"
             class="mt-2 inline-flex items-center gap-2 px-4 py-1.5 text-xs font-mono font-semibold text-accent-700 dark:text-accent-400 border border-accent/40 hover:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {{ suggesting ? t.showcaseAdmin.suggestingLabel : t.showcaseAdmin.suggestBtn }}
+            {{ suggesting ? t.showcaseAdmin.suggestingLabel : t.showcaseAdmin.generateBtn }}
           </button>
           <p v-if="suggestError" class="mt-2 text-xs font-mono text-red-600 dark:text-red-400">{{ suggestError }}</p>
         </div>
@@ -95,26 +110,29 @@
           <ImageUpload v-model="form.image" bucket="project-images" :upload-path-prefix="uploadPrefix" />
         </div>
 
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineEnLabel }}</label>
-          <input v-model="form.tagline_en" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineIdLabel }}</label>
-          <input v-model="form.tagline_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-        </div>
-        <div class="sm:col-span-2">
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionEnLabel }}</label>
-          <textarea v-model="form.description_en" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-        </div>
-        <div class="sm:col-span-2">
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionIdLabel }}</label>
-          <textarea v-model="form.description_id" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-        </div>
-        <div class="sm:col-span-2">
-          <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.tagsLabel }}</label>
-          <input v-model="tagsInput" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-        </div>
+        <template v-if="formMode === 'manual' || hasGenerated">
+          <div>
+            <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineEnLabel }}</label>
+            <input v-model="form.tagline_en" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+          </div>
+          <div>
+            <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineIdLabel }}</label>
+            <input v-model="form.tagline_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionEnLabel }}</label>
+            <textarea v-model="form.description_en" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionIdLabel }}</label>
+            <textarea v-model="form.description_id" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.tagsLabel }}</label>
+            <input v-model="tagsInput" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+          </div>
+        </template>
+
         <div>
           <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.repoUrlLabel }}</label>
           <input v-model="form.repo_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
@@ -186,6 +204,15 @@ const brief = ref('')
 const suggesting = ref(false)
 const suggestError = ref('')
 
+// AI Assist (default) shows the brief box; the tagline/description/tags
+// fields stay hidden until a successful generation reveals them (still
+// editable after). Manual skips the brief box and shows those fields
+// immediately. Switching modes never clears form data — both modes bind
+// the same reactive `form` fields, this only toggles which input surface
+// is visible.
+const formMode = ref<'ai' | 'manual'>('ai')
+const hasGenerated = ref(false)
+
 // A fresh id per opened form: project cover images live at
 // {uid}/{this-uuid}/photo.jpg so multiple projects from the same user
 // don't collide (members' fixed {uid}/photo.jpg only works because a
@@ -252,6 +279,8 @@ function openAddForm() {
   errorMessage.value = ''
   suggestError.value = ''
   turnstileToken.value = ''
+  formMode.value = 'ai'
+  hasGenerated.value = false
   uploadPrefix.value = `${user.value?.id ?? ''}/${crypto.randomUUID()}`
   state.value = 'form'
 }
@@ -278,6 +307,7 @@ async function handleSuggest() {
   form.description_en = suggestion.description_en
   form.description_id = suggestion.description_id
   form.tags = suggestion.tags
+  hasGenerated.value = true
 }
 
 async function handleSubmit() {
@@ -297,7 +327,7 @@ async function handleSubmit() {
       tags: form.tags,
       repo_url: form.repo_url.trim() || null,
       demo_url: form.demo_url.trim() || null,
-      image: form.image || null,
+      images: form.image ? [form.image] : [],
       turnstileToken: turnstileToken.value,
     },
   })

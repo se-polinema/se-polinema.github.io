@@ -23,12 +23,18 @@
           :key="p.id"
           class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors"
         >
-          <a :href="`/showcase/detail?id=${p.id}`" class="block no-underline">
+          <a :href="`/showcase/detail?id=${p.id}`" class="block no-underline relative">
+            <span
+              v-if="p.featured"
+              class="absolute top-2 right-2 z-10 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-accent text-white"
+            >
+              {{ t.showcase.featuredBadge }}
+            </span>
             <div
-              v-if="p.image"
+              v-if="p.images && p.images.length"
               class="relative h-36 w-full mb-4 bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden"
             >
-              <img :src="p.image" :alt="p.title" class="h-full w-full object-cover" loading="lazy" />
+              <img :src="p.images[0]" :alt="p.title" class="h-full w-full object-cover" loading="lazy" />
             </div>
             <div
               v-else
@@ -74,7 +80,8 @@ interface ProjectRow {
   tagline_en: string | null
   tagline_id: string | null
   tags: string[] | null
-  image: string | null
+  images: string[] | null
+  featured: boolean
 }
 
 const { lang, t } = useI18n()
@@ -91,7 +98,7 @@ onMounted(async () => {
   const { data } = await supabase
     .schema('se')
     .from('projects')
-    .select('id, title, tagline_en, tagline_id, tags, image')
+    .select('id, title, tagline_en, tagline_id, tags, images, featured')
     .eq('approved', true)
     .order('created_at', { ascending: false })
 

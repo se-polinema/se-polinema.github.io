@@ -417,7 +417,22 @@
                 <input v-model="projectForm.title" required class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
               </div>
 
-              <div class="sm:col-span-2">
+              <div class="sm:col-span-2 flex items-center gap-2">
+                <button
+                  v-for="m in (['ai', 'manual'] as const)"
+                  :key="m"
+                  type="button"
+                  @click="projectFormMode = m"
+                  class="px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors"
+                  :class="projectFormMode === m
+                    ? 'bg-primary text-white border-primary'
+                    : 'text-primary/60 dark:text-gray-400 border-primary/20 dark:border-gray-600 hover:border-primary/40'"
+                >
+                  {{ m === 'ai' ? t.showcaseAdmin.aiAssistMode : t.showcaseAdmin.manualMode }}
+                </button>
+              </div>
+
+              <div v-if="projectFormMode === 'ai'" class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.briefLabel }}</label>
                 <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.briefHint }}</p>
                 <textarea v-model="projectBrief" rows="3" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
@@ -427,35 +442,44 @@
                   :disabled="suggestingProject || !projectForm.title.trim() || !projectBrief.trim()"
                   class="mt-2 inline-flex items-center gap-2 px-4 py-1.5 text-xs font-mono font-semibold text-accent-700 dark:text-accent-400 border border-accent/40 hover:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  {{ suggestingProject ? t.showcaseAdmin.suggestingLabel : t.showcaseAdmin.suggestBtn }}
+                  {{ suggestingProject ? t.showcaseAdmin.suggestingLabel : t.showcaseAdmin.generateBtn }}
                 </button>
                 <p v-if="projectSuggestError" class="mt-2 text-xs font-mono text-red-600 dark:text-red-400">{{ projectSuggestError }}</p>
               </div>
 
               <div class="sm:col-span-2">
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.imageLabel }}</label>
-                <ImageUpload v-model="projectForm.image" bucket="project-images" :upload-path-prefix="editingProjectId ? `admin/${editingProjectId}` : adminProjectUploadPrefix" />
-              </div>
-              <div>
-                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineEnLabel }}</label>
-                <input v-model="projectForm.tagline_en" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-              </div>
-              <div>
-                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineIdLabel }}</label>
-                <input v-model="projectForm.tagline_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <ImageUpload v-model="projectCoverImage" bucket="project-images" :upload-path-prefix="editingProjectId ? `admin/${editingProjectId}` : adminProjectUploadPrefix" />
               </div>
               <div class="sm:col-span-2">
-                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionEnLabel }}</label>
-                <textarea v-model="projectForm.description_en" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.additionalImagesLabel }}</label>
+                <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.additionalImagesHint }}</p>
+                <textarea v-model="projectAdditionalImagesInput" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
               </div>
-              <div class="sm:col-span-2">
-                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionIdLabel }}</label>
-                <textarea v-model="projectForm.description_id" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-              </div>
-              <div class="sm:col-span-2">
-                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.tagsLabel }}</label>
-                <input v-model="projectTagsInput" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
-              </div>
+
+              <template v-if="projectFormMode === 'manual' || projectHasGenerated">
+                <div>
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineEnLabel }}</label>
+                  <input v-model="projectForm.tagline_en" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.taglineIdLabel }}</label>
+                  <input v-model="projectForm.tagline_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionEnLabel }}</label>
+                  <textarea v-model="projectForm.description_en" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.descriptionIdLabel }}</label>
+                  <textarea v-model="projectForm.description_id" rows="4" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.tagsLabel }}</label>
+                  <input v-model="projectTagsInput" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+              </template>
+
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.repoUrlLabel }}</label>
                 <input v-model="projectForm.repo_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
@@ -463,6 +487,61 @@
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.demoUrlLabel }}</label>
                 <input v-model="projectForm.demo_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.videoUrlLabel }}</label>
+                <input v-model="projectForm.video_url" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.slugLabel }}</label>
+                <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.slugHint }}</p>
+                <input v-model="projectForm.slug" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.statusLabel }}</label>
+                <select v-model="projectForm.status" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors">
+                  <option value="active">{{ t.showcaseAdmin.statusActive }}</option>
+                  <option value="completed">{{ t.showcaseAdmin.statusCompleted }}</option>
+                  <option value="prototype">{{ t.showcaseAdmin.statusPrototype }}</option>
+                  <option value="under-development">{{ t.showcaseAdmin.statusUnderDevelopment }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.streamLabel }}</label>
+                <select v-model="projectForm.stream" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors">
+                  <option value="">—</option>
+                  <option v-for="s in research" :key="s.id" :value="s.id">{{ s.name.en }} / {{ s.name.id }}</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.researchersLabel }}</label>
+                <div class="flex flex-wrap gap-3">
+                  <label
+                    v-for="r in researcherOptions"
+                    :key="r.id"
+                    class="inline-flex items-center gap-1.5 text-xs font-mono text-primary dark:text-gray-100"
+                  >
+                    <input type="checkbox" :value="r.id" v-model="projectForm.researchers" class="h-3.5 w-3.5" />
+                    {{ r.name }}
+                  </label>
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.contributorsLabel }}</label>
+                <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.showcaseAdmin.contributorsHint }}</p>
+                <input v-model="projectContributorsInput" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="flex items-end pb-2">
+                <label class="inline-flex items-center gap-2 text-sm font-mono text-primary dark:text-gray-100">
+                  <input v-model="projectForm.featured" type="checkbox" class="h-4 w-4" />
+                  {{ t.showcaseAdmin.featuredLabel }}
+                </label>
+              </div>
+              <div class="flex items-end pb-2">
+                <label class="inline-flex items-center gap-2 text-sm font-mono text-primary dark:text-gray-100">
+                  <input v-model="projectForm.private" type="checkbox" class="h-4 w-4" />
+                  {{ t.showcaseAdmin.privateLabel }}
+                </label>
               </div>
             </div>
 
@@ -664,7 +743,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useConfirmDialog } from '../composables/useConfirmDialog'
 import { useAuth } from '../composables/useAuth'
@@ -786,7 +865,15 @@ interface ProjectRow {
   tags: string[] | null
   repo_url: string | null
   demo_url: string | null
-  image: string | null
+  images: string[] | null
+  status: string
+  stream: string | null
+  researchers: string[] | null
+  contributors: string[] | null
+  featured: boolean
+  private: boolean
+  video_url: string | null
+  slug: string | null
   user_id: string | null
   approved: boolean
   created_at: string
@@ -807,6 +894,26 @@ let projectFormSnapshot = ''
 const projectBrief = ref('')
 const suggestingProject = ref(false)
 const projectSuggestError = ref('')
+
+// AI Assist (default) shows the brief box; the tagline/description/tags
+// fields stay hidden until a successful generation reveals them. Manual
+// skips the brief box and shows those fields immediately. See the
+// identical pattern + rationale in ShowcaseSubmissionForm.vue.
+const projectFormMode = ref<'ai' | 'manual'>('ai')
+const projectHasGenerated = ref(false)
+
+// Researcher slug -> display name, for the curatorial "researchers"
+// checkbox list — same client-side resolution already used by
+// Sidebar.vue for the researchers sidebar panel.
+const researcherOptions = ref<{ id: string; name: string }[]>([])
+
+onMounted(async () => {
+  try {
+    researcherOptions.value = await (await fetch('/api/researchers.json')).json()
+  } catch {
+    researcherOptions.value = []
+  }
+})
 
 function emptyMemberForm() {
   return {
@@ -1017,7 +1124,15 @@ function emptyProjectForm() {
     tags: [] as string[],
     repo_url: '',
     demo_url: '',
-    image: null as string | null,
+    images: [] as string[],
+    status: 'active' as 'active' | 'completed' | 'prototype' | 'under-development',
+    stream: '',
+    researchers: [] as string[],
+    contributors: [] as string[],
+    featured: false,
+    private: false,
+    video_url: '',
+    slug: '',
     approved: true,
   }
 }
@@ -1034,6 +1149,35 @@ const projectTagsInput = computed({
   },
 })
 
+const projectContributorsInput = computed({
+  get: () => projectForm.contributors.join(', '),
+  set: (val: string) => {
+    projectForm.contributors = val.split(',').map((s) => s.trim()).filter(Boolean)
+  },
+})
+
+// ImageUpload writes a single {prefix}/photo.jpg — bind it to images[0]
+// (the cover shown on the directory card) while preserving whatever
+// gallery images[1..] already holds.
+const projectCoverImage = computed({
+  get: () => projectForm.images[0] ?? null,
+  set: (val: string | null) => {
+    const rest = projectForm.images.slice(1)
+    projectForm.images = val ? [val, ...rest] : rest
+  },
+})
+
+// Plain "one URL per line" textarea for the rest of the gallery — a rare
+// admin action, not worth a multi-upload repeater component.
+const projectAdditionalImagesInput = computed({
+  get: () => projectForm.images.slice(1).join('\n'),
+  set: (val: string) => {
+    const extra = val.split('\n').map((s) => s.trim()).filter(Boolean)
+    const cover = projectForm.images[0]
+    projectForm.images = cover ? [cover, ...extra] : extra
+  },
+})
+
 const filteredProjects = computed(() => {
   if (projectFilter.value === 'pending') return projects.value.filter((p) => !p.approved)
   return projects.value
@@ -1044,6 +1188,8 @@ function resetProjectForm() {
   editingProjectId.value = null
   projectBrief.value = ''
   projectSuggestError.value = ''
+  projectFormMode.value = 'ai'
+  projectHasGenerated.value = false
 }
 
 function snapshotProjectForm() {
@@ -1100,12 +1246,23 @@ function editProject(p: ProjectRow) {
     tags: p.tags ?? [],
     repo_url: p.repo_url ?? '',
     demo_url: p.demo_url ?? '',
-    image: p.image,
+    images: p.images ?? [],
+    status: (p.status ?? 'active') as typeof projectForm.status,
+    stream: p.stream ?? '',
+    researchers: p.researchers ?? [],
+    contributors: p.contributors ?? [],
+    featured: p.featured ?? false,
+    private: p.private ?? false,
+    video_url: p.video_url ?? '',
+    slug: p.slug ?? '',
     approved: p.approved,
   })
   projectBrief.value = ''
   projectActionError.value = ''
   projectSuggestError.value = ''
+  // Existing rows already have their fields set — show them immediately
+  // rather than hiding them behind a re-generate.
+  projectFormMode.value = 'manual'
   showProjectForm.value = true
   snapshotProjectForm()
 }
@@ -1142,6 +1299,7 @@ async function handleSuggestProject() {
   projectForm.description_en = suggestion.description_en
   projectForm.description_id = suggestion.description_id
   projectForm.tags = suggestion.tags
+  projectHasGenerated.value = true
 }
 
 async function handleSaveProject() {
@@ -1157,7 +1315,15 @@ async function handleSaveProject() {
     tags: projectForm.tags,
     repo_url: projectForm.repo_url.trim() || null,
     demo_url: projectForm.demo_url.trim() || null,
-    image: projectForm.image || null,
+    images: projectForm.images,
+    status: projectForm.status,
+    stream: projectForm.stream || null,
+    researchers: projectForm.researchers,
+    contributors: projectForm.contributors,
+    featured: projectForm.featured,
+    private: projectForm.private,
+    video_url: projectForm.video_url.trim() || null,
+    slug: projectForm.slug.trim() || null,
     approved: projectForm.approved,
   }
 
