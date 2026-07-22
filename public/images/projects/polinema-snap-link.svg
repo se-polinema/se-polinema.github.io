@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
-  <rect width="800" height="400" fill="#1a1a2e"/>
-  <rect x="1" y="1" width="798" height="398" fill="none" stroke="#16213e" stroke-width="2"/>
-  <text x="400" y="180" font-family="monospace" font-size="36" fill="#e94560" text-anchor="middle" font-weight="bold">poline.ma</text>
-  <text x="400" y="230" font-family="system-ui, sans-serif" font-size="20" fill="#a0a0b0" text-anchor="middle">Polinema SnapLink</text>
-  <text x="400" y="270" font-family="system-ui, sans-serif" font-size="14" fill="#606070" text-anchor="middle">Official URL Shortener — Politeknik Negeri Malang</text>
-  <line x1="300" y1="300" x2="500" y2="300" stroke="#e94560" stroke-width="1" opacity="0.3"/>
-  <text x="400" y="330" font-family="monospace" font-size="12" fill="#404050" text-anchor="middle">Laravel · Blade · MySQL · Redis · Google SSO</text>
-</svg>
