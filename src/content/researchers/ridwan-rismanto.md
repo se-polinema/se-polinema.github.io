@@ -28,7 +28,7 @@ researchInterests:
     - "Concept-map-based learning evaluation"
     - "Supervisor recommendation systems"
     - "OCR for document digitization"
-email: "ridwan.rismanto@polinema.ac.id"
+email: "rismanto@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=fJc_GegAAAAJ&hl=en"
 featured: true
 order: 2
