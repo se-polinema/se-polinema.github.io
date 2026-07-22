@@ -28,7 +28,7 @@ researchInterests:
     - "Multi-criteria decision support systems"
     - "Twitter sentiment analysis"
     - "Thesis topic recommendation systems"
-email: "elok.nur@polinema.ac.id"
+email: "elok@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 featured: true
 order: 3
