@@ -346,7 +346,7 @@ skinparam arrow {
 
 |User|
 start
-:Select an action on a todo\n(Create, Edit, Complete, or Delete);
+:Select an action on a todo\n(Create, Delete, Edit, or Complete);
 
 switch (Action?)
 case (Create)
@@ -357,6 +357,14 @@ case (Create)
   else (no)
     :Show validation error;
   endif
+case (Delete)
+  |System|
+  :Show confirmation dialog;
+  if (User confirmed?) then (Confirm)
+    :Delete todo\n(only if owned by authenticated user);
+  else (Cancel)
+    :Keep todo unchanged;
+  endif
 case (Edit)
   :Update title & optional description\n(same validation as Create, not repeated here);
   |System|
@@ -364,17 +372,6 @@ case (Edit)
 case (Complete)
   |System|
   :Mark todo as complete;
-case (Delete)
-  |System|
-  :Show confirmation dialog;
-  |User|
-  if (Confirm deletion?) then (Cancel)
-    |System|
-    :Keep todo unchanged;
-  else (Confirm)
-    |System|
-    :Delete todo\n(only if owned by authenticated user);
-  endif
 endswitch
 
 :Show result to user;
@@ -691,7 +688,7 @@ skinparam arrow {
 
 |User|
 start
-:Pilih aksi pada sebuah todo\n(Buat, Edit, Selesaikan, atau Hapus);
+:Pilih aksi pada sebuah todo\n(Buat, Hapus, Edit, atau Selesaikan);
 
 switch (Aksi?)
 case (Buat)
@@ -702,6 +699,14 @@ case (Buat)
   else (tidak)
     :Tampilkan error validasi;
   endif
+case (Hapus)
+  |System|
+  :Tampilkan dialog konfirmasi;
+  if (User mengonfirmasi?) then (Konfirmasi)
+    :Hapus todo\n(hanya jika dimiliki user terautentikasi);
+  else (Batal)
+    :Biarkan todo tidak berubah;
+  endif
 case (Edit)
   :Perbarui judul & deskripsi opsional\n(validasi sama seperti Buat, tidak diulang di sini);
   |System|
@@ -709,17 +714,6 @@ case (Edit)
 case (Selesaikan)
   |System|
   :Tandai todo sebagai selesai;
-case (Hapus)
-  |System|
-  :Tampilkan dialog konfirmasi;
-  |User|
-  if (Konfirmasi penghapusan?) then (Batal)
-    |System|
-    :Biarkan todo tidak berubah;
-  else (Konfirmasi)
-    |System|
-    :Hapus todo\n(hanya jika dimiliki user terautentikasi);
-  endif
 endswitch
 
 :Tampilkan hasil ke user;
