@@ -1406,7 +1406,7 @@ Ini berarti Anda dapat menukar `PdoEnrolmentRepository` dengan `RedisEnrolmentRe
 
 <section lang="en">
 
-## Hands-On: From Anemic CRUD to DDD Domain Model
+## Hands-On: From Anemic CRUD (Create, Read, Update, Delete) to DDD Domain Model
 
 Let us apply everything by refactoring a real example. We start with an **anemic domain model** — a common anti-pattern where "domain" classes are data bags with getters and setters, and all business logic lives in services or controllers.
 
@@ -2028,7 +2028,7 @@ class EnrolmentController
 
 <section lang="id">
 
-## Hands-On: Dari Anemic CRUD ke Domain Model DDD
+## Hands-On: Dari Anemic CRUD (Create, Read, Update, Delete) ke Domain Model DDD
 
 Mari kita terapkan semuanya dengan me-refactor contoh nyata. Kita mulai dengan **anemic domain model**: anti-pola umum di mana kelas "domain" adalah data bag dengan getter dan setter, dan semua logika bisnis tinggal di service atau controller.
 

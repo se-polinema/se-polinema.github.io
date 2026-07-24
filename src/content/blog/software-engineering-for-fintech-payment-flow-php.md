@@ -28,7 +28,7 @@ excerptId: "Pelajari bagaimana prinsip-prinsip rekayasa perangkat lunak diterapk
 
 ## Why Fintech Software Is Different
 
-**Money is not a CRUD resource.** When you update a blog post and the database writes fail, the user refreshes and tries again. When you transfer money and the database writes fail halfway — someone is missing funds, and the error is measured in real currency, not UX friction.
+**Money is not a CRUD (Create, Read, Update, Delete) resource.** When you update a blog post and the database writes fail, the user refreshes and tries again. When you transfer money and the database writes fail halfway — someone is missing funds, and the error is measured in real currency, not UX friction.
 
 Fintech software carries constraints that most other domains never encounter:
 
@@ -42,7 +42,7 @@ Fintech software carries constraints that most other domains never encounter:
 | **Trust** | The user trusts the app to display data | The user, the merchant, the bank, and the regulator must all trust the system simultaneously |
 | **Fraud surface** | Spam forms, SQL injection | Credential stuffing, account takeover, money laundering, chargeback fraud |
 
-These constraints mean that **generic CRUD patterns are dangerous in fintech.** Every write must be atomic, every mutation must be recorded, and every operation must be idempotent — because a retried HTTP request should never result in a double charge.
+These constraints mean that **generic CRUD patterns are dangerous in fintech.** Every write must be atomic, every mutation must be recorded, and every operation must be idempotent (calling the same operation twice produces the same result as calling it once, with no duplicate side effects), because a retried HTTP request should never result in a double charge.
 
 </section>
 
@@ -50,7 +50,7 @@ These constraints mean that **generic CRUD patterns are dangerous in fintech.** 
 
 ## Mengapa Perangkat Lunak Fintech Berbeda
 
-**Uang bukanlah sumber daya CRUD.** Ketika Anda memperbarui posting blog dan penulisan database gagal, pengguna menyegarkan dan mencoba lagi. Ketika Anda mentransfer uang dan penulisan database gagal di tengah jalan, seseorang kehilangan dana, dan kesalahannya diukur dalam mata uang nyata, bukan friksi UX.
+**Uang bukanlah sumber daya CRUD (Create, Read, Update, Delete).** Ketika Anda memperbarui posting blog dan penulisan database gagal, pengguna menyegarkan dan mencoba lagi. Ketika Anda mentransfer uang dan penulisan database gagal di tengah jalan, seseorang kehilangan dana, dan kesalahannya diukur dalam mata uang nyata, bukan friksi UX.
 
 Perangkat lunak fintech membawa batasan yang tidak pernah ditemui oleh sebagian besar domain lain:
 
@@ -64,7 +64,7 @@ Perangkat lunak fintech membawa batasan yang tidak pernah ditemui oleh sebagian 
 | **Kepercayaan** | Pengguna mempercayai aplikasi untuk menampilkan data | Pengguna, *merchant*, bank, dan regulator harus semuanya mempercayai sistem secara simultan |
 | **Permukaan penipuan** | *Form spam*, *SQL injection* | *Credential stuffing*, pengambilalihan akun, pencucian uang, *chargeback fraud* |
 
-Batasan ini berarti bahwa **pola CRUD generik berbahaya di fintech.** Setiap penulisan harus atomik, setiap mutasi harus dicatat, dan setiap operasi harus idempoten, karena permintaan HTTP yang dicoba ulang tidak boleh menghasilkan *double charge*.
+Batasan ini berarti bahwa **pola CRUD generik berbahaya di fintech.** Setiap penulisan harus atomik, setiap mutasi harus dicatat, dan setiap operasi harus idempoten (memanggil operasi yang sama dua kali menghasilkan hasil yang sama seperti memanggilnya sekali, tanpa efek samping ganda), karena permintaan HTTP yang dicoba ulang tidak boleh menghasilkan *double charge*.
 
 </section>
 

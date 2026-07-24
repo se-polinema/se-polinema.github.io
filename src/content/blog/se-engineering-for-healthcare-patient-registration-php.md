@@ -124,7 +124,7 @@ Datang / Telepon → Periksa Pasien Lama → Pendaftaran Baru → Tetapkan Nomor
 | Langkah | Yang Terjadi | Aturan Domain |
 |---|---|---|
 | **Periksa Pasien Lama** | Cari berdasarkan nama, tanggal lahir, NIK, atau nomor telepon | Cegah pendaftaran ganda: satu orang, satu rekam medis |
-| **Pendaftaran Baru** | Kumpulkan demografi: nama, TTL, jenis kelamin, alamat, telepon, email, kontak darurat | Semua field wajib harus ada dan valid |
+| **Pendaftaran Baru** | Kumpulkan demografi: nama, TTL (Tanggal Lahir, singkatan ini bukan *Time To Live* seperti pada konteks caching/DNS), jenis kelamin, alamat, telepon, email, kontak darurat | Semua field wajib harus ada dan valid |
 | **Tetapkan Nomor RM** | Hasilkan identifier unik dan immutable sesuai format institusi (misal: `RM-20260706-0001`) | Nomor rekam medis tidak pernah dialokasikan ulang atau dihapus |
 | **Catat Persetujuan** | Tangkap persetujuan pasien untuk pengumpulan, penyimpanan, dan berbagi data | Persetujuan harus eksplisit, dicatat dengan timestamp, dan dapat dicabut |
 | **Verifikasi Asuransi** | Periksa kelayakan asuransi jika pasien memiliki cakupan (BPJS, swasta) | Verifikasi asuransi mungkin berjalan asinkron sehingga pendaftaran tidak boleh terblokir olehnya |

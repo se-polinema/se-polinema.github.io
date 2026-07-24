@@ -1942,9 +1942,9 @@ Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulan
 | **Where rendering happens** | Server (Blade → HTML) | Browser (Vue → DOM) | Server (Livewire → HTML diffs) |
 | **Who owns UI state** | Server; each request starts fresh | Browser; state survives between interactions | Server; persisted between Livewire round-trips |
 | **Page navigation** | Full-page reloads (or Turbo/Hotwire for partial) | Client-side routing, no full-page reloads | Server-driven but feels SPA-like |
-| **Interactivity ceiling** | Moderate — good for forms and CRUD | High — drag-and-drop, real-time charts, complex UIs | Moderate — good for forms, modals, data tables |
+| **Interactivity ceiling** | Moderate — good for forms and CRUD (create, read, update, delete) | High — drag-and-drop, real-time charts, complex UIs | Moderate — good for forms, modals, data tables |
 | **Data binding** | Manual: set variables in Controller, read in Blade | Automatic, two-way (`v-model`) | Automatic, server-round-trip (`wire:model`) |
-| **SEO friendliness** | Excellent — fully rendered HTML from server | Requires SSR (Nuxt) or pre-rendering for SEO | Excellent — server-rendered HTML by default |
+| **SEO friendliness** | Excellent — fully rendered HTML from server | Requires SSR (server-side rendering, e.g. Nuxt) or pre-rendering for SEO | Excellent — server-rendered HTML by default |
 | **Initial page load** | Fast — only the needed HTML | Slower — JS bundle must download, parse, then fetch API data | Moderate — initial HTML rendered on server |
 | **Testing** | HTTP feature tests + unit tests for Service classes | Component tests (Vitest) + E2E (Cypress/Playwright) | Livewire component tests + unit tests |
 | **Learning curve** | Low for PHP developers — same language everywhere | Higher — need JavaScript, Vue, state management | Low-Medium — PHP only, but learn Livewire's lifecycle |
@@ -1996,9 +1996,9 @@ Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulan
 | **Di mana rendering terjadi** | Server (Blade → HTML) | Browser (Vue → DOM) | Server (Livewire → HTML diffs) |
 | **Siapa yang memiliki *state* UI** | Server; setiap request dimulai dari awal | Browser; *state* bertahan antar interaksi | Server; dipertahankan antar *round-trip* Livewire |
 | **Navigasi halaman** | Reload halaman penuh (atau Turbo/Hotwire untuk parsial) | Client-side routing, tanpa reload halaman penuh | Berbasis server tetapi terasa seperti SPA |
-| **Batas interaktivitas** | Sedang: baik untuk form dan CRUD | Tinggi: drag-and-drop, grafik real-time, UI kompleks | Sedang: baik untuk form, modal, tabel data |
+| **Batas interaktivitas** | Sedang: baik untuk form dan CRUD (create, read, update, delete) | Tinggi: drag-and-drop, grafik real-time, UI kompleks | Sedang: baik untuk form, modal, tabel data |
 | **Data binding** | Manual: atur variabel di Controller, baca di Blade | Otomatis, dua arah (`v-model`) | Otomatis, server-round-trip (`wire:model`) |
-| **Keramahan SEO** | Sangat baik: HTML yang sepenuhnya dirender dari server | Memerlukan SSR (Nuxt) atau pre-rendering untuk SEO | Sangat baik: HTML dirender server secara default |
+| **Keramahan SEO** | Sangat baik: HTML yang sepenuhnya dirender dari server | Memerlukan SSR (*server-side rendering*, mis. Nuxt) atau pre-rendering untuk SEO | Sangat baik: HTML dirender server secara default |
 | **Waktu muat awal** | Cepat: hanya HTML yang dibutuhkan | Lebih lambat: JS bundle harus diunduh, di-parse, lalu fetch data API | Sedang: HTML awal dirender di server |
 | **Pengujian** | HTTP *feature test* + *unit test* untuk kelas Service | *component test* (Vitest) + E2E (Cypress/Playwright) | Livewire *component test* + *unit test* |
 | **Kurva pembelajaran** | Rendah untuk pengembang PHP: bahasa yang sama di mana-mana | Lebih tinggi: perlu JavaScript, Vue, manajemen *state* | Rendah-Sedang: hanya PHP, tetapi pelajari lifecycle Livewire |
@@ -2047,7 +2047,7 @@ Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulan
 
 ### 1. The Fat Controller (MVC)
 
-The most common MVC anti-pattern. The controller grows until it holds business logic, validation rules, query building, email sending, and file processing — everything except the View.
+The most common MVC anti-pattern (a common approach that looks reasonable but reliably causes problems). The controller grows until it holds business logic, validation rules, query building, email sending, and file processing — everything except the View.
 
 **Symptom:** Your `EnrolmentController::create()` method is 200 lines long.
 
@@ -2210,7 +2210,7 @@ You can then provide an Eloquent-based implementation of `EnrolmentRepository` f
 
 ### 1. Fat Controller (MVC)
 
-Anti-pola MVC yang paling umum. Controller tumbuh hingga berisi logika bisnis, aturan validasi, pembangunan *query*, pengiriman email, dan pemrosesan file, semuanya kecuali View.
+Anti-pola MVC yang paling umum (pendekatan yang terlihat masuk akal tetapi selalu berujung masalah). Controller tumbuh hingga berisi logika bisnis, aturan validasi, pembangunan *query*, pengiriman email, dan pemrosesan file, semuanya kecuali View.
 
 **Gejala:** Metode `EnrolmentController::create()` Anda sepanjang 200 baris.
 

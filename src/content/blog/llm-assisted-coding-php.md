@@ -60,7 +60,7 @@ Software Engineering Lab di Politeknik Negeri Malang menempatkan **Code Quality 
 
 ## The Mini-Project: Order Discount Service
 
-Throughout this tutorial we will work with a single, runnable PHP mini-project: an `OrderDiscountService` that calculates discounts for an e-commerce order based on customer membership level, order total, and coupon codes. Using the same codebase across all three workflows lets you see how an LLM assists at every stage — from greenfield generation to maintenance.
+Throughout this tutorial we will work with a single, runnable PHP mini-project: an `OrderDiscountService` that calculates discounts for an e-commerce order based on customer membership level, order total, and coupon codes. Using the same codebase across all three workflows lets you see how an LLM assists at every stage, from greenfield (starting from an empty codebase, as opposed to *brownfield* work in an existing one) generation to maintenance.
 
 ### Project Structure
 

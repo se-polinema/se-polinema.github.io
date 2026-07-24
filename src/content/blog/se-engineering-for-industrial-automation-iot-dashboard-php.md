@@ -2931,7 +2931,7 @@ Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan 
 
 ## Summary
 
-1. **Industrial IoT is a data-intensive domain** where write throughput and time-range query performance are the primary concerns — far more so than CRUD or relational integrity.
+1. **Industrial IoT is a data-intensive domain** where write throughput and time-range query performance are the primary concerns — far more so than CRUD (Create, Read, Update, Delete) or relational integrity.
 2. **The architecture follows a clear pipeline:** sensors → edge gateway → MQTT broker → PHP ingestion → time-series database → dashboard API. Each layer solves a specific problem and fails in specific ways.
 3. **MQTT is the lingua franca of IoT.** It is push-based, lightweight, and designed for constrained devices. Your PHP backend must be a persistent subscriber, not a polling cron job.
 4. **Time-series databases are non-negotiable** for sensor data. InfluxDB line protocol is simple, batchable, and wires straight into ingestion code. Use retention policies and downsampling tasks to manage storage growth.
@@ -2959,7 +2959,7 @@ Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan 
 
 ## Ringkasan
 
-1. **IoT industri adalah domain intensif data** di mana throughput penulisan dan performa *query* rentang waktu adalah perhatian utama, jauh lebih penting daripada CRUD atau integritas relasional.
+1. **IoT industri adalah domain intensif data** di mana throughput penulisan dan performa *query* rentang waktu adalah perhatian utama, jauh lebih penting daripada CRUD (Create, Read, Update, Delete) atau integritas relasional.
 2. **Arsitektur mengikuti *pipeline* yang jelas:** sensor → gateway edge → broker MQTT → ingesti PHP → database *time-series* → API dasbor. Setiap lapisan memecahkan masalah spesifik dan gagal dengan cara spesifik.
 3. **MQTT adalah lingua franca IoT.** Ini berbasis push, ringan, dan dirancang untuk perangkat terbatas. Backend PHP Anda harus menjadi subscriber persisten, bukan cron job polling.
 4. **Database *time-series* tidak dapat dinegosiasikan** untuk data sensor. *Line protocol* InfluxDB sederhana, dapat di-batch, dan terhubung langsung ke kode ingesti. Gunakan kebijakan retensi dan tugas *downsample* untuk mengelola pertumbuhan penyimpanan.

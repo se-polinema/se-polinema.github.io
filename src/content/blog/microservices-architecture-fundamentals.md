@@ -137,7 +137,7 @@ Layanan berkomunikasi melalui API yang terdefinisi dengan baik, paling umum HTTP
 
 ### 4. Isolasi Kegagalan
 
-Kegagalan di Recommendations Service seharusnya tidak menjatuhkan seluruh platform. *Circuit breaker*, *timeout*, *retry*, dan *graceful degradation* adalah perhatian utama. Sistem harus dirancang untuk **resilient**, bukan hanya *reliable*.
+Kegagalan di Recommendations Service seharusnya tidak menjatuhkan seluruh platform. *Circuit breaker* (menghentikan panggilan ke layanan yang sedang gagal agar tidak memperparah kegagalan), *timeout* (batas waktu tunggu sebelum panggilan dianggap gagal), *retry* (mencoba ulang panggilan yang gagal), dan *graceful degradation* (sistem tetap berfungsi sebagian meski satu komponen gagal) adalah perhatian utama. Sistem harus dirancang untuk **resilient**, bukan hanya *reliable*.
 
 ### 5. Diorganisasikan Berdasarkan Kapabilitas Bisnis
 
@@ -170,7 +170,7 @@ graph TB
 
 ## When NOT to Use Microservices
 
-Microservices are not a silver bullet. They introduce significant operational complexity. Before adopting them, consider the following counter-indicators:
+Microservices are not a silver bullet (a single solution that fixes everything, an idea more common in folklore than in engineering). They introduce significant operational complexity. Before adopting them, consider the following counter-indicators:
 
 ### The Distributed Big Ball of Mud
 
@@ -192,7 +192,7 @@ The rule of thumb: **start with a monolith, split when you must.** A single team
 |---|---|
 | Early-stage product with evolving domain model | Monolith. You do not yet know where the boundaries are. |
 | Team of fewer than 10 developers | Monolith. The coordination overhead of microservices outweighs the benefits. |
-| Simple CRUD application without complex domain logic | Monolith. Microservices add complexity with no payoff. |
+| Simple CRUD (Create, Read, Update, Delete) application without complex domain logic | Monolith. Microservices add complexity with no payoff. |
 | Strong consistency requirements across entities | Monolith or careful Saga patterns. Distributed transactions are hard. |
 | Limited operational maturity (no container orchestration, no CI/CD) | Monolith. You need solid DevOps foundations before microservices. |
 
@@ -211,7 +211,7 @@ You know it is time to consider extracting microservices when:
 
 ## Kapan TIDAK Menggunakan Microservices
 
-Microservices bukanlah *silver bullet*. Mereka memperkenalkan kompleksitas operasional yang signifikan. Sebelum mengadopsinya, pertimbangkan kontra-indikator berikut:
+Microservices bukanlah *silver bullet* (solusi tunggal yang menyelesaikan segalanya, gagasan yang lebih sering muncul dalam mitos daripada dalam praktik rekayasa nyata). Mereka memperkenalkan kompleksitas operasional yang signifikan. Sebelum mengadopsinya, pertimbangkan kontra-indikator berikut:
 
 ### Distributed Big Ball of Mud
 
@@ -233,7 +233,7 @@ Aturan praktisnya: **mulai dengan monolit, pisahkan ketika harus.** Satu tim ber
 |---|---|
 | Produk tahap awal dengan model domain yang terus berkembang | Monolit. Anda belum tahu di mana batas-batasnya. |
 | Tim kurang dari 10 developer | Monolit. *Overhead* koordinasi microservices lebih besar daripada manfaatnya. |
-| Aplikasi CRUD sederhana tanpa logika domain yang kompleks | Monolit. Microservices menambah kompleksitas tanpa hasil. |
+| Aplikasi CRUD (Create, Read, Update, Delete) sederhana tanpa logika domain yang kompleks | Monolit. Microservices menambah kompleksitas tanpa hasil. |
 | Persyaratan konsistensi kuat antar entitas | Monolit atau pola Saga yang hati-hati. Transaksi terdistribusi itu sulit. |
 | Kematangan operasional terbatas (tanpa *container orchestration*, tanpa CI/CD) | Monolit. Anda butuh fondasi DevOps yang solid sebelum microservices. |
 
@@ -254,7 +254,7 @@ Anda tahu saatnya mempertimbangkan untuk mengekstrak microservices ketika:
 
 ## Designing Service Boundaries with Domain-Driven Design
 
-The hardest question in microservices is: **Where do I draw the lines?** Randomly splitting a monolith along technical layers produces services that are tightly coupled at the data level — the distributed monolith anti-pattern.
+The hardest question in microservices is: **Where do I draw the lines?** Randomly splitting a monolith along technical layers produces services that are tightly coupled at the data level, the distributed monolith anti-pattern (a common approach that looks reasonable but reliably causes problems).
 
 **Domain-Driven Design (DDD)** provides a structured way to identify boundaries through **Bounded Contexts**. A bounded context is a logical boundary within which a particular domain model applies. Each bounded context becomes a candidate microservice.
 
@@ -280,7 +280,7 @@ Each bounded context has its own ubiquitous language. In the Enrollment context,
 
 ## Merancang Batas Layanan dengan Domain-Driven Design
 
-Pertanyaan tersulit dalam microservices adalah: **Di mana saya menarik garisnya?** Memisahkan monolit secara acak berdasarkan *layer* teknis menghasilkan layanan yang *tightly coupled* pada level data, yaitu *anti-pattern distributed monolith*.
+Pertanyaan tersulit dalam microservices adalah: **Di mana saya menarik garisnya?** Memisahkan monolit secara acak berdasarkan *layer* teknis menghasilkan layanan yang *tightly coupled* pada level data, yaitu *anti-pattern distributed monolith* (pendekatan yang terlihat masuk akal tetapi selalu berujung masalah).
 
 **Domain-Driven Design (DDD)** menyediakan cara terstruktur untuk mengidentifikasi batasan melalui **Bounded Contexts**. Bounded context adalah batas logis di mana model domain tertentu berlaku. Setiap bounded context menjadi kandidat microservice.
 

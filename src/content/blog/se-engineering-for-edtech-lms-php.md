@@ -24,7 +24,7 @@ excerptId: "Pelajari bagaimana prinsip-prinsip rekayasa perangkat lunak beradapt
 
 ## Why EdTech Needs Its Own SE Lens
 
-**Educational technology is not just a CRUD app with a classroom theme.** It is a domain with its own legal constraints, accessibility mandates, and business rules that would make most CRUD applications collapse.
+**Educational technology is not just a CRUD (Create, Read, Update, Delete) app with a classroom theme.** It is a domain with its own legal constraints, accessibility mandates, and business rules that would make most CRUD applications collapse.
 
 Consider the difference between an e-commerce checkout and a course enrollment:
 
@@ -46,7 +46,7 @@ These constraints mean that **generic software engineering advice must be adapte
 
 ## Mengapa EdTech Membutuhkan Lensa SE Tersendiri
 
-**Teknologi pendidikan bukan sekadar aplikasi CRUD dengan tema ruang kelas.** Ini adalah domain dengan batasan hukumnya sendiri, mandat aksesibilitas, dan aturan bisnis yang akan membuat sebagian besar aplikasi CRUD runtuh.
+**Teknologi pendidikan bukan sekadar aplikasi CRUD (Create, Read, Update, Delete) dengan tema ruang kelas.** Ini adalah domain dengan batasan hukumnya sendiri, mandat aksesibilitas, dan aturan bisnis yang akan membuat sebagian besar aplikasi CRUD runtuh.
 
 Pertimbangkan perbedaan antara checkout e-commerce dan pendaftaran mata kuliah:
 
