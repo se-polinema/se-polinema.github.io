@@ -689,6 +689,36 @@
     "additionalImagesLabel": "Additional Images",
     "additionalImagesHint": "One image URL per line, in addition to the cover image above."
   },
+  "announcementsAdmin": {
+    "tabLabel": "Announcements",
+    "addNew": "+ Add Announcement",
+    "editEntry": "Edit Announcement",
+    "messageEnLabel": "Message (English)",
+    "messageIdLabel": "Message (Bahasa Indonesia)",
+    "typeLabel": "Type",
+    "typeInfo": "Info",
+    "typeWarning": "Warning",
+    "typeSuccess": "Success",
+    "linkUrlEnLabel": "Link URL (English)",
+    "linkUrlIdLabel": "Link URL (Bahasa Indonesia)",
+    "linkTextEnLabel": "Link Text (English)",
+    "linkTextIdLabel": "Link Text (Bahasa Indonesia)",
+    "dismissibleLabel": "Dismissible",
+    "activeLabel": "Active (visible to viewers)",
+    "startDateLabel": "Show from",
+    "startDateHint": "Optional. Leave empty to show immediately once active.",
+    "endDateLabel": "Expires at",
+    "endDateHint": "Optional. After this moment, the announcement stops appearing to viewers, even if still active.",
+    "activeBadge": "Active",
+    "expiredBadge": "Expired",
+    "inactiveBadge": "Inactive",
+    "editAction": "Edit",
+    "deleteAction": "Delete",
+    "saveLabel": "Save",
+    "savingLabel": "Saving...",
+    "cancelLabel": "Cancel",
+    "noEntries": "No announcements yet."
+  },
   "showcaseSubmit": {
     "signInPrompt": "Sign in to submit your project.",
     "listHeading": "Your Projects",
@@ -1008,8 +1038,7 @@
     "formValidationConsent": "You must agree to the privacy terms before sending."
   },
   "announcement": {
-    "closeLabel": "Close announcement",
-    "fallbackText": "New announcement from SE Lab"
+    "closeLabel": "Close announcement"
   },
   "glossary": {
     "label": "Glossary",

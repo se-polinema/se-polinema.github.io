@@ -102,6 +102,15 @@
           {{ t.showcaseAdmin.tabLabel }}
         </button>
         <button
+          @click="adminTab = 'announcements'"
+          class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
+          :class="adminTab === 'announcements'
+            ? 'border-accent text-primary dark:text-gray-100'
+            : 'border-transparent text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300'"
+        >
+          {{ t.announcementsAdmin.tabLabel }}
+        </button>
+        <button
           @click="adminTab = 'staff'"
           class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
           :class="adminTab === 'staff'
@@ -605,6 +614,165 @@
         </div>
       </template>
 
+      <!-- ANNOUNCEMENTS TAB -->
+      <template v-else-if="adminTab === 'announcements'">
+        <div v-if="loadingData" class="py-10 text-center">
+          <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
+        </div>
+
+        <div v-else>
+          <div v-if="announcementActionError" class="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-mono">
+            {{ announcementActionError }}
+          </div>
+
+          <div class="flex items-center gap-2 mb-6">
+            <button
+              @click="openAddAnnouncementForm"
+              class="ml-auto inline-flex items-center gap-2 px-4 py-1.5 text-xs font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
+            >
+              {{ t.announcementsAdmin.addNew }}
+            </button>
+          </div>
+
+          <form
+            v-if="showAnnouncementForm"
+            @submit.prevent="handleSaveAnnouncement"
+            class="mb-8 p-5 border border-primary/10 dark:border-gray-700 space-y-4"
+          >
+            <h2 class="font-serif text-lg font-semibold text-primary dark:text-gray-100">
+              {{ editingAnnouncementId ? t.announcementsAdmin.editEntry : t.announcementsAdmin.addNew }}
+            </h2>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="flex items-end pb-2">
+                <label class="inline-flex items-center gap-2 text-sm font-mono text-primary dark:text-gray-100">
+                  <input v-model="announcementForm.active" type="checkbox" class="h-4 w-4" />
+                  {{ t.announcementsAdmin.activeLabel }}
+                </label>
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.typeLabel }}</label>
+                <select v-model="announcementForm.type" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors">
+                  <option value="info">{{ t.announcementsAdmin.typeInfo }}</option>
+                  <option value="warning">{{ t.announcementsAdmin.typeWarning }}</option>
+                  <option value="success">{{ t.announcementsAdmin.typeSuccess }}</option>
+                </select>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.messageEnLabel }}</label>
+                <textarea v-model="announcementForm.message" required rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.messageIdLabel }}</label>
+                <textarea v-model="announcementForm.message_id" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.linkUrlEnLabel }}</label>
+                <input v-model="announcementForm.link" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.linkUrlIdLabel }}</label>
+                <input v-model="announcementForm.link_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.linkTextEnLabel }}</label>
+                <input v-model="announcementForm.link_text" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.linkTextIdLabel }}</label>
+                <input v-model="announcementForm.link_text_id" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.startDateLabel }}</label>
+                <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.startDateHint }}</p>
+                <input v-model="announcementForm.start_date" type="datetime-local" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.endDateLabel }}</label>
+                <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.endDateHint }}</p>
+                <input v-model="announcementForm.end_date" type="datetime-local" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              </div>
+
+              <div class="flex items-end pb-2">
+                <label class="inline-flex items-center gap-2 text-sm font-mono text-primary dark:text-gray-100">
+                  <input v-model="announcementForm.dismissible" type="checkbox" class="h-4 w-4" />
+                  {{ t.announcementsAdmin.dismissibleLabel }}
+                </label>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button
+                type="submit"
+                :disabled="savingAnnouncement"
+                class="inline-flex items-center gap-2 px-5 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {{ savingAnnouncement ? t.announcementsAdmin.savingLabel : t.announcementsAdmin.saveLabel }}
+              </button>
+              <button
+                type="button"
+                @click="closeAnnouncementForm"
+                class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors"
+              >
+                {{ t.announcementsAdmin.cancelLabel }}
+              </button>
+            </div>
+          </form>
+
+          <div v-if="announcements.length === 0" class="py-10 text-center">
+            <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.announcementsAdmin.noEntries }}</p>
+          </div>
+
+          <div v-else class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-primary/10 dark:border-gray-700">
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4">{{ t.announcementsAdmin.messageEnLabel }}</th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2 pr-4"></th>
+                  <th class="text-left text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 pb-2"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-primary/5 dark:divide-gray-700">
+                <tr v-for="a in announcements" :key="a.id">
+                  <td class="py-2.5 pr-4 font-medium text-primary dark:text-gray-100 max-w-md truncate">{{ a.message }}</td>
+                  <td class="py-2.5 pr-4">
+                    <span
+                      v-if="isAnnouncementExpired(a)"
+                      class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-neutral-200 text-neutral-600 dark:bg-gray-700 dark:text-gray-400"
+                    >
+                      {{ t.announcementsAdmin.expiredBadge }}
+                    </span>
+                    <span
+                      v-else-if="a.active"
+                      class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                    >
+                      {{ t.announcementsAdmin.activeBadge }}
+                    </span>
+                    <span
+                      v-else
+                      class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-neutral-200 text-neutral-600 dark:bg-gray-700 dark:text-gray-400"
+                    >
+                      {{ t.announcementsAdmin.inactiveBadge }}
+                    </span>
+                  </td>
+                  <td class="py-2.5 text-right space-x-3">
+                    <button @click="editAnnouncement(a)" class="text-xs font-mono text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
+                      {{ t.announcementsAdmin.editAction }}
+                    </button>
+                    <button @click="deleteAnnouncement(a)" class="text-xs font-mono text-red-500/70 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                      {{ t.announcementsAdmin.deleteAction }}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </template>
+
       <!-- STAFF TAB -->
       <template v-else-if="adminTab === 'staff'">
         <div v-if="loadingData" class="py-10 text-center">
@@ -818,7 +986,7 @@ interface MemberRow {
   created_at: string
 }
 
-const adminTab = ref<'events' | 'members' | 'projects' | 'staff' | 'subscribers'>('events')
+const adminTab = ref<'events' | 'members' | 'projects' | 'announcements' | 'staff' | 'subscribers'>('events')
 const members = ref<MemberRow[]>([])
 const memberFilterOptions = ['all', 'student', 'alumni', 'pending'] as const
 const memberFilter = ref<typeof memberFilterOptions[number]>('all')
@@ -878,6 +1046,30 @@ interface ProjectRow {
   approved: boolean
   created_at: string
 }
+
+interface AnnouncementRow {
+  id: string
+  type: string
+  message: string
+  message_id: string | null
+  link: string | null
+  link_id: string | null
+  link_text: string | null
+  link_text_id: string | null
+  dismissible: boolean
+  active: boolean
+  start_date: string | null
+  end_date: string | null
+  created_at: string
+  updated_at: string
+}
+
+const announcements = ref<AnnouncementRow[]>([])
+const showAnnouncementForm = ref(false)
+const editingAnnouncementId = ref<string | null>(null)
+const savingAnnouncement = ref(false)
+const announcementActionError = ref('')
+let announcementFormSnapshot = ''
 
 const projects = ref<ProjectRow[]>([])
 const projectFilterOptions = ['all', 'pending'] as const
@@ -1369,6 +1561,175 @@ async function deleteProject(p: ProjectRow) {
   await loadProjects()
 }
 
+// datetime-local inputs work in the browser's local timezone and have no
+// concept of UTC; Postgres timestamptz columns want ISO 8601. Converting at
+// the form boundary (not deeper) keeps every other read/write plain ISO.
+function isoToDatetimeLocal(iso: string | null): string {
+  if (!iso) return ''
+  const d = new Date(iso)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
+function datetimeLocalToIso(local: string): string | null {
+  if (!local) return null
+  const d = new Date(local)
+  return Number.isNaN(d.getTime()) ? null : d.toISOString()
+}
+
+function emptyAnnouncementForm() {
+  return {
+    type: 'info' as 'info' | 'warning' | 'success',
+    message: '',
+    message_id: '',
+    link: '',
+    link_id: '',
+    link_text: '',
+    link_text_id: '',
+    dismissible: true,
+    active: false,
+    start_date: '',
+    end_date: '',
+  }
+}
+
+const announcementForm = reactive(emptyAnnouncementForm())
+
+// An expired row still has active = true until an admin turns it off — the
+// badge should reflect what viewers actually see (RLS + the banner's own
+// expiry check both hide it), not the raw column value.
+function isAnnouncementExpired(a: AnnouncementRow): boolean {
+  return !!a.end_date && new Date(a.end_date) < new Date()
+}
+
+function resetAnnouncementForm() {
+  Object.assign(announcementForm, emptyAnnouncementForm())
+  editingAnnouncementId.value = null
+}
+
+function snapshotAnnouncementForm() {
+  announcementFormSnapshot = JSON.stringify(announcementForm)
+}
+
+function isAnnouncementFormDirty(): boolean {
+  return JSON.stringify(announcementForm) !== announcementFormSnapshot
+}
+
+function openAddAnnouncementForm() {
+  resetAnnouncementForm()
+  announcementActionError.value = ''
+  showAnnouncementForm.value = true
+  snapshotAnnouncementForm()
+}
+
+function forceCloseAnnouncementForm() {
+  showAnnouncementForm.value = false
+  resetAnnouncementForm()
+}
+
+async function closeAnnouncementForm() {
+  if (!isAnnouncementFormDirty()) {
+    forceCloseAnnouncementForm()
+    return
+  }
+
+  const result = await confirmUnsaved({
+    title: t.value.confirmDialog.unsavedTitle,
+    message: t.value.confirmDialog.unsavedMessage,
+    saveLabel: t.value.confirmDialog.saveLabel,
+    discardLabel: t.value.confirmDialog.dontSaveLabel,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+  })
+
+  if (result === 'save') {
+    await handleSaveAnnouncement()
+  } else if (result === 'discard') {
+    forceCloseAnnouncementForm()
+  }
+  // 'cancel' → leave the form open, do nothing.
+}
+
+function editAnnouncement(a: AnnouncementRow) {
+  editingAnnouncementId.value = a.id
+  Object.assign(announcementForm, {
+    type: a.type as 'info' | 'warning' | 'success',
+    message: a.message,
+    message_id: a.message_id ?? '',
+    link: a.link ?? '',
+    link_id: a.link_id ?? '',
+    link_text: a.link_text ?? '',
+    link_text_id: a.link_text_id ?? '',
+    dismissible: a.dismissible,
+    active: a.active,
+    start_date: isoToDatetimeLocal(a.start_date),
+    end_date: isoToDatetimeLocal(a.end_date),
+  })
+  announcementActionError.value = ''
+  showAnnouncementForm.value = true
+  snapshotAnnouncementForm()
+}
+
+async function loadAnnouncements() {
+  const { data } = await supabase
+    .schema('se')
+    .from('announcements')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  announcements.value = data ?? []
+}
+
+async function handleSaveAnnouncement() {
+  savingAnnouncement.value = true
+  announcementActionError.value = ''
+
+  const payload = {
+    type: announcementForm.type,
+    message: announcementForm.message.trim(),
+    message_id: announcementForm.message_id.trim() || null,
+    link: announcementForm.link.trim() || null,
+    link_id: announcementForm.link_id.trim() || null,
+    link_text: announcementForm.link_text.trim() || null,
+    link_text_id: announcementForm.link_text_id.trim() || null,
+    dismissible: announcementForm.dismissible,
+    active: announcementForm.active,
+    start_date: datetimeLocalToIso(announcementForm.start_date),
+    end_date: datetimeLocalToIso(announcementForm.end_date),
+  }
+
+  const { error } = editingAnnouncementId.value
+    ? await supabase.schema('se').from('announcements').update(payload).eq('id', editingAnnouncementId.value)
+    : await supabase.schema('se').from('announcements').insert(payload)
+
+  savingAnnouncement.value = false
+
+  if (error) {
+    announcementActionError.value = error.message
+    return
+  }
+
+  forceCloseAnnouncementForm()
+  await loadAnnouncements()
+}
+
+async function deleteAnnouncement(a: AnnouncementRow) {
+  const ok = await confirm({
+    title: t.value.confirmDialog.deleteTitle,
+    message: t.value.confirmDialog.deleteMessage,
+    confirmLabel: t.value.confirmDialog.deleteConfirmLabel,
+    cancelLabel: t.value.confirmDialog.cancelLabel,
+    variant: 'danger',
+  })
+  if (!ok) return
+
+  const { error } = await supabase.schema('se').from('announcements').delete().eq('id', a.id)
+  if (error) {
+    announcementActionError.value = error.message
+    return
+  }
+  await loadAnnouncements()
+}
+
 // Reactive session from the shared useAuth() composable, instead of a
 // one-time getUser() + hand-rolled state machine — covers initial load,
 // sign-in, and sign-out through this single watcher, and keeps this page's
@@ -1435,6 +1796,7 @@ async function loadData() {
 
   await loadMembers()
   await loadProjects()
+  await loadAnnouncements()
   await loadEventDates()
   await loadAdmins()
   await loadSubscribers()

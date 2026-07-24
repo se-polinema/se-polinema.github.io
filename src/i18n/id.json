@@ -689,6 +689,36 @@
     "additionalImagesLabel": "Gambar Tambahan",
     "additionalImagesHint": "Satu URL gambar per baris, selain gambar sampul di atas."
   },
+  "announcementsAdmin": {
+    "tabLabel": "Pengumuman",
+    "addNew": "+ Tambah Pengumuman",
+    "editEntry": "Edit Pengumuman",
+    "messageEnLabel": "Pesan (Bahasa Inggris)",
+    "messageIdLabel": "Pesan (Bahasa Indonesia)",
+    "typeLabel": "Tipe",
+    "typeInfo": "Info",
+    "typeWarning": "Peringatan",
+    "typeSuccess": "Berhasil",
+    "linkUrlEnLabel": "URL Tautan (Bahasa Inggris)",
+    "linkUrlIdLabel": "URL Tautan (Bahasa Indonesia)",
+    "linkTextEnLabel": "Teks Tautan (Bahasa Inggris)",
+    "linkTextIdLabel": "Teks Tautan (Bahasa Indonesia)",
+    "dismissibleLabel": "Dapat ditutup",
+    "activeLabel": "Aktif (tampil ke pengunjung)",
+    "startDateLabel": "Tampilkan mulai",
+    "startDateHint": "Opsional. Kosongkan untuk langsung tampil setelah diaktifkan.",
+    "endDateLabel": "Kedaluwarsa pada",
+    "endDateHint": "Opsional. Setelah waktu ini, pengumuman berhenti tampil ke pengunjung, meski masih aktif.",
+    "activeBadge": "Aktif",
+    "expiredBadge": "Kedaluwarsa",
+    "inactiveBadge": "Nonaktif",
+    "editAction": "Edit",
+    "deleteAction": "Hapus",
+    "saveLabel": "Simpan",
+    "savingLabel": "Menyimpan...",
+    "cancelLabel": "Batal",
+    "noEntries": "Belum ada pengumuman."
+  },
   "showcaseSubmit": {
     "signInPrompt": "Masuk untuk mengirimkan proyek Anda.",
     "listHeading": "Proyek Anda",
@@ -1008,8 +1038,7 @@
     "formValidationConsent": "Anda harus menyetujui ketentuan privasi sebelum mengirim."
   },
   "announcement": {
-    "closeLabel": "Tutup pengumuman",
-    "fallbackText": "Pengumuman baru dari SE Lab"
+    "closeLabel": "Tutup pengumuman"
   },
   "glossary": {
     "label": "Glosarium",

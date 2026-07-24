@@ -3,8 +3,6 @@ import '../styles/global.css'
 import JsonLd from '../components/JsonLd.astro'
 import CookieConsent from '../components/CookieConsent.vue'
 import AnnouncementBanner from '../components/AnnouncementBanner.vue'
-import { getCollection } from 'astro:content'
-import announcementData from '../data/announcement.json'
 
 export interface Props {
   title?: string
@@ -40,37 +38,6 @@ const websiteJsonLd = {
 }
 
 const shouldRegisterServiceWorker = import.meta.env.PROD
-
-let announcementConfig: typeof announcementData | null = null
-
-if (announcementData.enabled && announcementData.message) {
-  announcementConfig = announcementData
-} else if (announcementData.autoPromoteFallback !== false) {
-  try {
-    const posts = await getCollection('blog', ({ data }) => data.category === 'announcement')
-    if (posts.length > 0) {
-      const latest = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0]
-      if (latest) {
-        announcementConfig = {
-          enabled: true,
-          dismissible: true,
-          type: 'info' as const,
-          startDate: '',
-          endDate: '',
-          message: latest.data.excerpt || latest.data.title,
-          messageId: latest.data.excerptId || latest.data.titleId || latest.data.excerpt || latest.data.title,
-          link: `/blog/${latest.id}`,
-          linkId: `/blog/${latest.id}`,
-          linkText: 'Read more',
-          linkTextId: 'Baca selengkapnya',
-          autoPromoteFallback: true,
-        }
-      }
-    }
-  } catch {
-    // Silently fail — blog collection may not be available in all contexts
-  }
-}
 ---
 
 <!doctype html>
@@ -205,11 +172,7 @@ if (announcementData.enabled && announcementData.message) {
   </head>
   <body>
     <a href="#hero" class="skip-to-content">Skip to content</a>
-    {
-      announcementConfig?.enabled ? (
-        <AnnouncementBanner client:load config={announcementConfig} />
-      ) : null
-    }
+    <AnnouncementBanner client:load />
     <slot />
     <CookieConsent client:load />
   </body>
