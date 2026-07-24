@@ -659,14 +659,46 @@
                 </select>
               </div>
 
-              <div class="sm:col-span-2">
-                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.messageEnLabel }}</label>
-                <textarea v-model="announcementForm.message" required rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+              <div class="sm:col-span-2 flex items-center gap-2">
+                <button
+                  v-for="m in (['ai', 'manual'] as const)"
+                  :key="m"
+                  type="button"
+                  @click="announcementFormMode = m"
+                  class="px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors"
+                  :class="announcementFormMode === m
+                    ? 'bg-primary text-white border-primary'
+                    : 'text-primary/60 dark:text-gray-400 border-primary/20 dark:border-gray-600 hover:border-primary/40'"
+                >
+                  {{ m === 'ai' ? t.announcementsAdmin.aiAssistMode : t.announcementsAdmin.manualMode }}
+                </button>
               </div>
-              <div class="sm:col-span-2">
-                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.messageIdLabel }}</label>
-                <textarea v-model="announcementForm.message_id" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+
+              <div v-if="announcementFormMode === 'ai'" class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.briefLabel }}</label>
+                <p class="text-xs text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.briefHint }}</p>
+                <textarea v-model="announcementBrief" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                <button
+                  type="button"
+                  @click="handleSuggestAnnouncement"
+                  :disabled="suggestingAnnouncement || !announcementBrief.trim()"
+                  class="mt-2 inline-flex items-center gap-2 px-4 py-1.5 text-xs font-mono font-semibold text-accent-700 dark:text-accent-400 border border-accent/40 hover:bg-accent/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {{ suggestingAnnouncement ? t.announcementsAdmin.suggestingLabel : t.announcementsAdmin.generateBtn }}
+                </button>
+                <p v-if="announcementSuggestError" class="mt-2 text-xs font-mono text-red-600 dark:text-red-400">{{ announcementSuggestError }}</p>
               </div>
+
+              <template v-if="announcementFormMode === 'manual' || announcementHasGenerated">
+                <div class="sm:col-span-2">
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.messageEnLabel }}</label>
+                  <textarea v-model="announcementForm.message" required rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.messageIdLabel }}</label>
+                  <textarea v-model="announcementForm.message_id" rows="2" class="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-gray-900 border border-primary/20 dark:border-gray-600 text-primary dark:text-gray-100 placeholder-neutral-400 dark:placeholder-gray-600 focus:outline-none focus:border-accent dark:focus:border-accent transition-colors" />
+                </div>
+              </template>
 
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-gray-500 mb-1.5">{{ t.announcementsAdmin.linkUrlEnLabel }}</label>
@@ -921,6 +953,7 @@ import AdminEventSection from './AdminEventSection.vue'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import research from '../data/research.json'
 import { suggestProjectContent } from '../lib/suggestProject'
+import { suggestAnnouncementContent } from '../lib/suggestAnnouncement'
 
 const { t } = useI18n()
 const { confirm, confirmUnsaved } = useConfirmDialog()
@@ -1070,6 +1103,17 @@ const editingAnnouncementId = ref<string | null>(null)
 const savingAnnouncement = ref(false)
 const announcementActionError = ref('')
 let announcementFormSnapshot = ''
+
+// Transient — describes the announcement for the AI-suggest call, not
+// saved to the row itself. Same AI-Assist/Manual mode pattern as the
+// Projects tab: AI Assist (default) hides the message fields behind a
+// brief box + Generate until a successful generation reveals them; Manual
+// skips straight to the fields.
+const announcementBrief = ref('')
+const suggestingAnnouncement = ref(false)
+const announcementSuggestError = ref('')
+const announcementFormMode = ref<'ai' | 'manual'>('ai')
+const announcementHasGenerated = ref(false)
 
 const projects = ref<ProjectRow[]>([])
 const projectFilterOptions = ['all', 'pending'] as const
@@ -1605,6 +1649,30 @@ function isAnnouncementExpired(a: AnnouncementRow): boolean {
 function resetAnnouncementForm() {
   Object.assign(announcementForm, emptyAnnouncementForm())
   editingAnnouncementId.value = null
+  announcementBrief.value = ''
+  announcementSuggestError.value = ''
+  announcementFormMode.value = 'ai'
+  announcementHasGenerated.value = false
+}
+
+async function handleSuggestAnnouncement() {
+  suggestingAnnouncement.value = true
+  announcementSuggestError.value = ''
+
+  const { suggestion } = await suggestAnnouncementContent({
+    brief: announcementBrief.value,
+  })
+
+  suggestingAnnouncement.value = false
+
+  if (!suggestion) {
+    announcementSuggestError.value = t.value.announcementsAdmin.suggestError
+    return
+  }
+
+  announcementForm.message = suggestion.message_en
+  announcementForm.message_id = suggestion.message_id
+  announcementHasGenerated.value = true
 }
 
 function snapshotAnnouncementForm() {
@@ -1664,7 +1732,12 @@ function editAnnouncement(a: AnnouncementRow) {
     start_date: isoToDatetimeLocal(a.start_date),
     end_date: isoToDatetimeLocal(a.end_date),
   })
+  announcementBrief.value = ''
   announcementActionError.value = ''
+  announcementSuggestError.value = ''
+  // Existing rows already have their message set — show it immediately
+  // rather than hiding it behind a re-generate, same as editProject().
+  announcementFormMode.value = 'manual'
   showAnnouncementForm.value = true
   snapshotAnnouncementForm()
 }
@@ -1680,6 +1753,17 @@ async function loadAnnouncements() {
 }
 
 async function handleSaveAnnouncement() {
+  // The message fields are gated behind AI-Assist/Manual mode, so unlike
+  // the always-rendered title field on the Projects form, the browser's
+  // native `required` validation can't catch a blank message here — an
+  // admin who stays in AI mode without generating (or without switching to
+  // Manual) could otherwise hit a raw NOT NULL/CHECK constraint error from
+  // Postgres. Guard explicitly so the failure is a clear message instead.
+  if (!announcementForm.message.trim()) {
+    announcementActionError.value = t.value.announcementsAdmin.messageRequiredError
+    return
+  }
+
   savingAnnouncement.value = true
   announcementActionError.value = ''
 
