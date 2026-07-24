@@ -1000,7 +1000,7 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 | **Not labelling which diagrams are implemented and which are conceptual** | An examiner cannot tell what was actually built versus what is illustrative, undermining trust in the whole chapter. | Label every diagram explicitly, as done throughout Section 4. |
 | **Test scenarios written after implementation** | Post-hoc scenarios tend to match what the code does, hiding bugs instead of catching them. | Finalise Section 4.4 before writing any implementation code (Chapter 5). |
 | **NFRs mixed with research metrics** | Conflates "what the system must do" with "what we are measuring about the code," confusing examiners about your actual contribution. | Keep NFRs (Section 3) and research metrics (Chapter 3, Section 3.5) in clearly separate lists. |
-| **Diagrams that don't match Scope and Limitations** | A diagram showing multi-user or notification features that Scope and Limitations excluded signals uncontrolled scope creep. | Cross-check every diagram element against Chapter 1, Section 1.3, before finalising. |
+| **Diagrams that don't match Scope and Limitations** | A diagram showing multi-user or notification features that Scope and Limitations excluded signals uncontrolled scope creep (requirements quietly expanding past what was agreed). | Cross-check every diagram element against Chapter 1, Section 1.3, before finalising. |
 
 </section>
 
@@ -1018,7 +1018,7 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 | **Tidak memberi label diagram mana yang diimplementasikan dan mana yang konseptual** | Penguji tidak dapat membedakan apa yang benar-benar dibangun versus apa yang ilustratif, merusak kepercayaan pada bab secara keseluruhan. | Beri label eksplisit pada setiap diagram, seperti dilakukan di sepanjang Bagian 4. |
 | **Skenario pengujian ditulis setelah implementasi** | Skenario post-hoc cenderung cocok dengan apa yang kode lakukan, menyembunyikan bug alih-alih menangkapnya. | Finalisasi Bagian 4.4 sebelum menulis kode implementasi apa pun (BAB V). |
 | **NFR bercampur dengan metrik penelitian** | Mencampuradukkan "apa yang harus dilakukan sistem" dengan "apa yang diukur tentang kode", membingungkan penguji tentang kontribusi Anda yang sebenarnya. | Jaga NFR (Bagian 3) dan metrik penelitian (BAB III, Bagian 3.5) dalam daftar yang jelas terpisah. |
-| **Diagram yang tidak cocok dengan Batasan Masalah** | Diagram yang menunjukkan fitur multi-user atau notifikasi yang dikecualikan Batasan Masalah menandakan *scope creep* yang tidak terkendali. | Periksa silang setiap elemen diagram terhadap BAB I, Bagian 1.3, sebelum finalisasi. |
+| **Diagram yang tidak cocok dengan Batasan Masalah** | Diagram yang menunjukkan fitur multi-user atau notifikasi yang dikecualikan Batasan Masalah menandakan *scope creep* (fitur yang terus bertambah diam-diam di luar rencana awal) yang tidak terkendali. | Periksa silang setiap elemen diagram terhadap BAB I, Bagian 1.3, sebelum finalisasi. |
 
 </section>
 

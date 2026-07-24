@@ -40,7 +40,7 @@ Every JTI Polinema thesis follows the same five-subsection skeleton:
 | **1.4 Objectives (Tujuan)** | What will you have produced when you are done? |
 | **1.5 Significance (Manfaat)** | Who benefits, and how? |
 
-These five subsections are not independent essays. They form **one argument told five times, from five angles**. A weak Background produces a vague set of Research Questions; vague Research Questions make Scope and Limitations impossible to write tightly; and a loose scope invites scope creep, the single biggest reason thesis projects miss their semester deadline. Getting Chapter 1 right is a **software-engineering activity**, not just an academic formality: it is where you write your project's first, and most important, requirements document.
+These five subsections are not independent essays. They form **one argument told five times, from five angles**. A weak Background produces a vague set of Research Questions; vague Research Questions make Scope and Limitations impossible to write tightly; and a loose scope invites scope creep (requirements quietly expanding past what was originally agreed), the single biggest reason thesis projects miss their semester deadline. Getting Chapter 1 right is a **software-engineering activity**, not just an academic formality: it is where you write your project's first, and most important, requirements document.
 
 </section>
 
@@ -60,7 +60,7 @@ Setiap skripsi JTI Polinema mengikuti kerangka lima subbab yang sama:
 | **1.4 Tujuan** | Apa yang akan Anda hasilkan ketika selesai? |
 | **1.5 Manfaat** | Siapa yang diuntungkan, dan bagaimana? |
 
-Kelima subbab ini bukanlah esai independen, melainkan **satu argumen yang diceritakan lima kali, dari lima sudut pandang**. Latar Belakang yang lemah menghasilkan Rumusan Masalah yang kabur, yang membuat Batasan Masalah mustahil ditulis dengan ketat, yang membiarkan *scope creep* masuk, yang merupakan penyebab terbesar proyek skripsi meleset dari tenggat satu semester. Menulis BAB I dengan benar adalah **aktivitas rekayasa perangkat lunak**, bukan sekadar formalitas akademik: di sinilah Anda menulis dokumen *requirements* pertama (dan terpenting) dari proyek Anda.
+Kelima subbab ini bukanlah esai independen, melainkan **satu argumen yang diceritakan lima kali, dari lima sudut pandang**. Latar Belakang yang lemah menghasilkan Rumusan Masalah yang kabur, yang membuat Batasan Masalah mustahil ditulis dengan ketat, yang membiarkan *scope creep* (fitur atau pekerjaan yang terus bertambah diam-diam di luar rencana awal) masuk, yang merupakan penyebab terbesar proyek skripsi meleset dari tenggat satu semester. Menulis BAB I dengan benar adalah **aktivitas rekayasa perangkat lunak**, bukan sekadar formalitas akademik: di sinilah Anda menulis dokumen *requirements* pertama (dan terpenting) dari proyek Anda.
 
 </section>
 

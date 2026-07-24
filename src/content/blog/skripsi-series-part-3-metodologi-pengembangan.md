@@ -355,7 +355,7 @@ Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Bo
 | **Research Flow copied from a generic template** | A diagram with steps you won't actually follow is dishonest and confuses your own planning. | Draw your actual phases, specific to your project's build-and-evaluate structure. |
 | **"We will measure code quality" with no metric named** | Unmeasurable: a reviewer cannot check your Chapter 6 numbers against anything. | Name each metric explicitly with a formula/tool, as in Section 4. |
 | **Choosing a methodology without justification** | "We use Agile" with no reasoning is a name-drop, not a methodological choice. | State why the chosen method fits your team size, timeline, and requirement stability. |
-| **No timeline, or a timeline with no buffer** | Without weekly milestones, scope creep is invisible until it's too late to correct. | Build a week-by-week table with review checkpoints, and revisit it: this is a living document. |
+| **No timeline, or a timeline with no buffer** | Without weekly milestones, scope creep (requirements quietly expanding past what was agreed) is invisible until it's too late to correct. | Build a week-by-week table with review checkpoints, and revisit it: this is a living document. |
 | **Testing approach only described in Chapter 5, never planned in Chapter 3** | Test scenarios invented after the code is written tend to test what the code *does*, not what it *should* do. | Define acceptance criteria in Chapter 3, Section 3.7, before writing implementation code. |
 
 </section>
@@ -369,7 +369,7 @@ Nyatakan, pada level metodologis: implementasi akan divalidasi dengan **Black Bo
 | **Alur Penelitian disalin dari _template_ generik** | Diagram dengan langkah yang tidak benar-benar Anda ikuti tidak jujur dan membingungkan perencanaan Anda sendiri. | Gambar fase Anda yang sebenarnya, spesifik untuk struktur bangun-lalu-evaluasi proyek Anda. |
 | **"Kami akan mengukur kualitas kode" tanpa metrik yang disebutkan** | Tidak terukur: peninjau tidak dapat memeriksa angka BAB VI Anda terhadap apa pun. | Sebutkan setiap metrik secara eksplisit dengan formula/*tool*, seperti di Bagian 4. |
 | **Memilih metodologi tanpa justifikasi** | "Kami menggunakan Agile" tanpa alasan hanyalah *name-drop*, bukan pilihan metodologis. | Nyatakan mengapa metode yang dipilih cocok dengan ukuran tim, linimasa, dan stabilitas kebutuhan Anda. |
-| **Tidak ada linimasa, atau linimasa tanpa buffer** | Tanpa *milestone* mingguan, *scope creep* tidak terlihat sampai terlambat untuk dikoreksi. | Buat tabel mingguan dengan *checkpoint* tinjauan, dan tinjau ulang: ini adalah dokumen hidup. |
+| **Tidak ada linimasa, atau linimasa tanpa buffer** | Tanpa *milestone* mingguan, *scope creep* (fitur yang terus bertambah diam-diam di luar rencana awal) tidak terlihat sampai terlambat untuk dikoreksi. | Buat tabel mingguan dengan *checkpoint* tinjauan, dan tinjau ulang: ini adalah dokumen hidup. |
 | **Pendekatan pengujian hanya dideskripsikan di BAB V, tidak pernah direncanakan di BAB III** | Skenario pengujian yang dikarang setelah kode ditulis cenderung menguji apa yang kode *lakukan*, bukan apa yang *seharusnya* dilakukan. | Definisikan kriteria penerimaan di BAB III Bagian 3.7 sebelum menulis kode implementasi. |
 
 </section>
