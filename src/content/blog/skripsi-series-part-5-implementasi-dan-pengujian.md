@@ -194,13 +194,13 @@ class TodoController extends Controller
         return redirect()->route('todos.index')->with('success', 'Todo updated.');
     }
 
-    public function complete(Todo $todo, CompleteTodoAction $action)
+    public function toggle(Todo $todo, ToggleTodoAction $action)
     {
         abort_unless($todo->user_id === auth()->id(), 403);
 
         $action->execute($todo);
 
-        return redirect()->route('todos.index')->with('success', 'Todo completed.');
+        return redirect()->route('todos.index')->with('success', 'Todo status updated.');
     }
 
     public function destroy(Todo $todo, DeleteTodoAction $action)
@@ -226,11 +226,11 @@ class CreateTodoAction
     }
 }
 
-class CompleteTodoAction
+class ToggleTodoAction
 {
     public function execute(Todo $todo): Todo
     {
-        $todo->update(['is_completed' => true]);
+        $todo->update(['is_completed' => ! $todo->is_completed]);
 
         return $todo;
     }
@@ -258,7 +258,7 @@ class FilterTodosAction
 
 `UpdateTodoAction` itself is omitted here, since its `execute()` method follows the identical validate-then-persist shape as `CreateTodoAction`; it simply updates an existing `Todo` instead of creating a new one. This mirrors the "same shape, not redrawn" note Chapter 4 already made for the Edit branch of the Activity Diagram.
 
-The controller now only orchestrates HTTP concerns (validation, authorization, redirect); business logic is isolated in the Action classes, each testable in complete isolation from the HTTP layer. The `abort_unless` checks are the concrete, testable form of Chapter 4's authentication precondition: without them, any authenticated user could complete or delete any other user's todo, and the precondition would be nothing but a comment.
+The controller now only orchestrates HTTP concerns (validation, authorization, redirect); business logic is isolated in the Action classes, each testable in complete isolation from the HTTP layer. The `abort_unless` checks are the concrete, testable form of Chapter 4's authentication precondition: without them, any authenticated user could toggle or delete any other user's todo, and the precondition would be nothing but a comment.
 
 ### Fat Controller (Illustrative Snippet Only, Not Part of the Measured Codebase)
 
@@ -384,13 +384,13 @@ class TodoController extends Controller
         return redirect()->route('todos.index')->with('success', 'Todo updated.');
     }
 
-    public function complete(Todo $todo, CompleteTodoAction $action)
+    public function toggle(Todo $todo, ToggleTodoAction $action)
     {
         abort_unless($todo->user_id === auth()->id(), 403);
 
         $action->execute($todo);
 
-        return redirect()->route('todos.index')->with('success', 'Todo completed.');
+        return redirect()->route('todos.index')->with('success', 'Todo status updated.');
     }
 
     public function destroy(Todo $todo, DeleteTodoAction $action)
@@ -416,11 +416,11 @@ class CreateTodoAction
     }
 }
 
-class CompleteTodoAction
+class ToggleTodoAction
 {
     public function execute(Todo $todo): Todo
     {
-        $todo->update(['is_completed' => true]);
+        $todo->update(['is_completed' => ! $todo->is_completed]);
 
         return $todo;
     }
@@ -448,7 +448,7 @@ class FilterTodosAction
 
 `UpdateTodoAction` sendiri tidak ditampilkan di sini: method `execute()`-nya mengikuti bentuk validasi-lalu-simpan yang identik dengan `CreateTodoAction`, hanya memperbarui `Todo` yang sudah ada alih-alih membuat yang baru, persis catatan "bentuk sama, tidak digambar ulang" yang sudah dibuat BAB IV untuk cabang Edit pada Activity Diagram.
 
-Controller sekarang hanya mengoordinasikan urusan HTTP (validasi, otorisasi, redirect); business logic terisolasi di kelas Action, masing-masing dapat diuji sepenuhnya terisolasi dari lapisan HTTP. Pengecekan `abort_unless` adalah bentuk konkret dan dapat diuji dari prasyarat autentikasi BAB IV: tanpanya, user terautentikasi mana pun dapat menyelesaikan atau menghapus todo milik user lain, dan prasyarat itu tidak lebih dari sekadar komentar.
+Controller sekarang hanya mengoordinasikan urusan HTTP (validasi, otorisasi, redirect); business logic terisolasi di kelas Action, masing-masing dapat diuji sepenuhnya terisolasi dari lapisan HTTP. Pengecekan `abort_unless` adalah bentuk konkret dan dapat diuji dari prasyarat autentikasi BAB IV: tanpanya, user terautentikasi mana pun dapat mengubah status atau menghapus todo milik user lain, dan prasyarat itu tidak lebih dari sekadar komentar.
 
 ### Fat Controller (Cuplikan Ilustratif Saja, Bukan Bagian dari Codebase yang Diukur)
 
@@ -533,7 +533,7 @@ Record the raw output of both commands. The numbers Chapter 6 reports must trace
 | BB-01 | Create todo with valid title | Todo appears in list | Pass |
 | BB-02 | Create todo with empty title | Validation error shown | Pass |
 | BB-03 | Edit an existing todo's title | Updated title reflected in list | Pass |
-| BB-04 | Mark todo complete | Shown as completed | Pass |
+| BB-04 | Toggle a todo's completion twice | Shown completed, then active again | Pass |
 | BB-05 | Delete a todo and confirm | Todo removed from list | Pass |
 | BB-06 | Delete a todo, then cancel the confirmation | Todo remains unchanged | Pass |
 | BB-07 | Filter by "Active" | Only incomplete todos shown | Pass |
@@ -560,6 +560,18 @@ public function test_create_todo_action_scopes_the_todo_to_the_given_user(): voi
     $todo = $action->execute(['title' => 'Another todo', 'description' => null], userId: 7);
 
     $this->assertSame(7, $todo->user_id);
+}
+
+public function test_toggle_todo_action_flips_completion_both_ways(): void
+{
+    $action = new ToggleTodoAction();
+    $todo = Todo::factory()->create(['is_completed' => false]);
+
+    $action->execute($todo);
+    $this->assertTrue($todo->fresh()->is_completed);
+
+    $action->execute($todo);
+    $this->assertFalse($todo->fresh()->is_completed);
 }
 ```
 
@@ -596,7 +608,7 @@ Catat output mentah dari kedua perintah; angka yang dilaporkan BAB VI harus tert
 | BB-01 | Membuat todo dengan judul valid | Todo muncul di daftar | Lulus |
 | BB-02 | Membuat todo dengan judul kosong | Error validasi ditampilkan | Lulus |
 | BB-03 | Mengedit judul todo yang ada | Judul terbaru tercermin di daftar | Lulus |
-| BB-04 | Menandai todo selesai | Ditampilkan selesai | Lulus |
+| BB-04 | Toggle status selesai todo dua kali | Ditampilkan selesai, lalu aktif lagi | Lulus |
 | BB-05 | Menghapus todo dan konfirmasi | Todo terhapus dari daftar | Lulus |
 | BB-06 | Menghapus todo, lalu batalkan konfirmasi | Todo tetap tidak berubah | Lulus |
 | BB-07 | Filter berdasarkan "Aktif" | Hanya todo belum selesai ditampilkan | Lulus |
@@ -623,6 +635,18 @@ public function test_create_todo_action_scopes_the_todo_to_the_given_user(): voi
     $todo = $action->execute(['title' => 'Another todo', 'description' => null], userId: 7);
 
     $this->assertSame(7, $todo->user_id);
+}
+
+public function test_toggle_todo_action_flips_completion_both_ways(): void
+{
+    $action = new ToggleTodoAction();
+    $todo = Todo::factory()->create(['is_completed' => false]);
+
+    $action->execute($todo);
+    $this->assertTrue($todo->fresh()->is_completed);
+
+    $action->execute($todo);
+    $this->assertFalse($todo->fresh()->is_completed);
 }
 ```
 

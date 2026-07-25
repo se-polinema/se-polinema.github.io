@@ -134,7 +134,7 @@ Keluaran BAB IV sepenuhnya digunakan oleh BAB V (Implementasi): setiap diagram d
 
 | Actor | Description |
 |---|---|
-| **User** | The single actor who creates, edits, completes, deletes, and filters their own todos. No admin, no multi-tenant roles: kept minimal per Scope and Limitations (Part 1). |
+| **User** | The single actor who creates, edits, toggles the completion of, deletes, and filters their own todos. No admin, no multi-tenant roles: kept minimal per Scope and Limitations (Part 1). |
 
 ### Precondition (Prasyarat)
 
@@ -148,7 +148,7 @@ Directly traced from the core functionalities named in Part 1's continuous-examp
 |---|---|
 | **FR-1** | The system shall allow the User to create a new todo with a title and optional description. |
 | **FR-2** | The system shall allow the User to edit an existing todo's title/description. |
-| **FR-3** | The system shall allow the User to mark a todo as complete. |
+| **FR-3** | The system shall allow the User to toggle a todo's completion status (mark it complete or reopen it). |
 | **FR-4** | The system shall allow the User to delete a todo. |
 | **FR-5** | The system shall allow the User to filter todos by status (all / active / completed). |
 
@@ -176,7 +176,7 @@ Naming a verification method for every NFR matters: an NFR with no way to check 
 
 | Aktor | Deskripsi |
 |---|---|
-| **User** | Satu-satunya aktor yang membuat, mengedit, menyelesaikan, menghapus, dan memfilter todo miliknya sendiri. Tidak ada admin, tidak ada peran multi-tenant: dijaga minimal sesuai Batasan Masalah (Bagian 1). |
+| **User** | Satu-satunya aktor yang membuat, mengedit, mengubah status penyelesaian, menghapus, dan memfilter todo miliknya sendiri. Tidak ada admin, tidak ada peran multi-tenant: dijaga minimal sesuai Batasan Masalah (Bagian 1). |
 
 ### Prasyarat (Precondition)
 
@@ -190,7 +190,7 @@ Ditelusuri langsung dari fungsionalitas inti yang disebutkan di bagian contoh be
 |---|---|
 | **FR-1** | Sistem harus memungkinkan User membuat todo baru dengan judul dan deskripsi opsional. |
 | **FR-2** | Sistem harus memungkinkan User mengedit judul/deskripsi todo yang ada. |
-| **FR-3** | Sistem harus memungkinkan User menandai todo sebagai selesai. |
+| **FR-3** | Sistem harus memungkinkan User mengubah status penyelesaian todo (menandainya selesai atau membukanya kembali). |
 | **FR-4** | Sistem harus memungkinkan User menghapus todo. |
 | **FR-5** | Sistem harus memungkinkan User memfilter todo berdasarkan status (semua / aktif / selesai). |
 
@@ -306,7 +306,7 @@ User -- UC2
 @enduml
 ```
 
-**Why only two use cases, not five:** Create, Edit, Complete, and Delete are all facets of one goal, managing one's todo list, so they are grouped under **Manage Todos** and detailed as one Activity Diagram below, exactly the fix the UML Mini Series recommends for the "CRUD as separate use cases" mistake. **Filter Todos** stays separate because it is a distinct goal (organising/viewing), not a mutation of data.
+**Why only two use cases, not five:** Create, Edit, Toggle completion, and Delete are all facets of one goal, managing one's todo list, so they are grouped under **Manage Todos** and detailed as one Activity Diagram below, exactly the fix the UML Mini Series recommends for the "CRUD as separate use cases" mistake. **Filter Todos** stays separate because it is a distinct goal (organising/viewing), not a mutation of data.
 
 **Why no `<<include>>` or `<<extend>>`:** the original Campus Registration example (UML Mini Series, Part 1) had a genuine mandatory sub-step (Make Payment, included by Enrol in Course) and a genuine optional extension (Manage Registration Period extends Manage Courses). This Todo application, by deliberate design (Scope and Limitations, Part 1), has neither: there is no external mandatory step comparable to payment, and no optional variant of Manage Todos worth its own bubble. Forcing an `<<extend>>` relationship in order to demonstrate the notation would itself repeat the over-modelling mistakes the UML Mini Series warns against. Not every system needs these relationships, and a simple one honestly shouldn't have them.
 
@@ -317,13 +317,13 @@ A short description table gives each use case immediate context, without needing
 | Field | Manage Todos | Filter Todos |
 |---|---|---|
 | **Actor** | User | User |
-| **Description** | Create, edit, complete, and delete the User's own todos | Narrow the visible todo list by status |
+| **Description** | Create, edit, toggle completion of, and delete the User's own todos | Narrow the visible todo list by status |
 | **Precondition** | User is authenticated (Section 4.1) | User is authenticated (Section 4.1) |
 | **Postcondition** | The todo list reflects the action taken; data stays scoped to the User | Only todos matching the selected status are shown; underlying data is unchanged |
 
 ### Activity Diagram: Manage Todos
 
-One diagram, one use case. A `switch`/`case` fork represents the User's choice of action, and each branch gets only as much detail as it needs. Create and Delete carry real decision logic (validation, plus a confirm/cancel step), so they are shown in full. Edit follows the identical validation shape as Create, so it is noted rather than redrawn; Complete has no branching worth showing.
+One diagram, one use case. A `switch`/`case` fork represents the User's choice of action, and each branch gets only as much detail as it needs. Create and Delete carry real decision logic (validation, plus a confirm/cancel step), so they are shown in full. Edit follows the identical validation shape as Create, so it is noted rather than redrawn; toggling completion has no branching worth showing, it flips whichever way the todo currently isn't.
 
 ```plantuml
 @startuml
@@ -346,7 +346,7 @@ skinparam arrow {
 
 |User|
 start
-:Select an action on a todo\n(Create, Delete, Edit, or Complete);
+:Select an action on a todo\n(Create, Delete, Edit, or Toggle completion);
 
 switch (Action?)
 case (Create)
@@ -369,9 +369,9 @@ case (Edit)
   :Update title & optional description\n(same validation as Create, not repeated here);
   |System|
   :Save changes if valid;
-case (Complete)
+case (Toggle completion)
   |System|
-  :Mark todo as complete;
+  :Flip todo's completed status;
 endswitch
 
 :Show result to user;
@@ -474,7 +474,7 @@ class TodoController {
   +index(): View
   +store(Request): RedirectResponse
   +update(Request, Todo): RedirectResponse
-  +complete(Todo): RedirectResponse
+  +toggle(Todo): RedirectResponse
   +destroy(Todo): RedirectResponse
 }
 
@@ -510,7 +510,7 @@ class TodoController {
   +index(): View
   +store(Request): RedirectResponse
   +update(Request, Todo): RedirectResponse
-  +complete(Todo): RedirectResponse
+  +toggle(Todo): RedirectResponse
   +destroy(Todo): RedirectResponse
 }
 
@@ -520,7 +520,7 @@ class CreateTodoAction {
 class UpdateTodoAction {
   +execute(Todo, array): Todo
 }
-class CompleteTodoAction {
+class ToggleTodoAction {
   +execute(Todo): Todo
 }
 class DeleteTodoAction {
@@ -539,12 +539,12 @@ class Todo {
 
 TodoController --> CreateTodoAction
 TodoController --> UpdateTodoAction
-TodoController --> CompleteTodoAction
+TodoController --> ToggleTodoAction
 TodoController --> DeleteTodoAction
 TodoController --> FilterTodosAction
 CreateTodoAction --> Todo
 UpdateTodoAction --> Todo
-CompleteTodoAction --> Todo
+ToggleTodoAction --> Todo
 DeleteTodoAction --> Todo
 FilterTodosAction --> Todo
 @enduml
@@ -648,7 +648,7 @@ User -- UC2
 @enduml
 ```
 
-**Mengapa hanya dua *use case*, bukan lima:** Buat, Edit, Selesaikan, dan Hapus semuanya adalah segi dari satu tujuan, mengelola daftar todo miliknya sendiri, sehingga dikelompokkan di bawah **Kelola Todo** dan dirinci sebagai satu Activity Diagram di bawah, persis perbaikan yang direkomendasikan Seri Mini UML untuk kesalahan "CRUD sebagai *use case* terpisah". **Filter Todo** tetap terpisah karena merupakan tujuan yang berbeda (mengorganisasi/melihat), bukan mutasi data.
+**Mengapa hanya dua *use case*, bukan lima:** Buat, Edit, Ubah Status Selesai, dan Hapus semuanya adalah segi dari satu tujuan, mengelola daftar todo miliknya sendiri, sehingga dikelompokkan di bawah **Kelola Todo** dan dirinci sebagai satu Activity Diagram di bawah, persis perbaikan yang direkomendasikan Seri Mini UML untuk kesalahan "CRUD sebagai *use case* terpisah". **Filter Todo** tetap terpisah karena merupakan tujuan yang berbeda (mengorganisasi/melihat), bukan mutasi data.
 
 **Mengapa tidak ada `<<include>>` atau `<<extend>>`:** contoh Sistem Pendaftaran Kampus asli (Seri Mini UML, Bagian 1) memiliki sublangkah wajib sesungguhnya (Lakukan Pembayaran, di-include oleh Daftar Mata Kuliah) dan ekstensi opsional sesungguhnya (Kelola Periode Pendaftaran memperluas Kelola Mata Kuliah). Aplikasi Todo ini, karena desain yang disengaja (Batasan Masalah, Bagian 1), tidak memiliki keduanya: tidak ada langkah wajib eksternal yang sebanding dengan pembayaran, dan tidak ada varian opsional dari Kelola Todo yang layak mendapat oval sendiri. Memaksakan relasi `<<extend>>` demi mendemonstrasikan notasinya akan mengulangi kesalahan *over-modelling* yang diperingatkan Seri Mini UML. Tidak semua sistem membutuhkan relasi ini, dan sistem sederhana memang sebaiknya tidak memilikinya.
 
@@ -659,13 +659,13 @@ Tabel deskripsi singkat memberi setiap *use case* konteks langsung, tanpa membut
 | Bidang | Kelola Todo | Filter Todo |
 |---|---|---|
 | **Aktor** | User | User |
-| **Deskripsi** | Membuat, mengedit, menyelesaikan, dan menghapus todo milik User sendiri | Mempersempit daftar todo yang terlihat berdasarkan status |
+| **Deskripsi** | Membuat, mengedit, mengubah status penyelesaian, dan menghapus todo milik User sendiri | Mempersempit daftar todo yang terlihat berdasarkan status |
 | **Prasyarat** | User telah terautentikasi (Bagian 4.1) | User telah terautentikasi (Bagian 4.1) |
 | **Pascasyarat** | Daftar todo mencerminkan aksi yang diambil; data tetap dibatasi ke User | Hanya todo yang cocok dengan status terpilih yang ditampilkan; data yang mendasari tidak berubah |
 
 ### Activity Diagram: Kelola Todo
 
-Satu diagram, satu *use case*. Percabangan `switch`/`case` merepresentasikan pilihan aksi User; setiap cabang mendapat detail sebanyak yang dibutuhkannya saja. Buat dan Hapus memiliki logika keputusan sesungguhnya (validasi, dan langkah konfirmasi/batal), sehingga ditampilkan lengkap; Edit mengikuti bentuk validasi yang identik dengan Buat, sehingga dicatat alih-alih digambar ulang, dan Selesaikan tidak memiliki percabangan yang layak ditampilkan.
+Satu diagram, satu *use case*. Percabangan `switch`/`case` merepresentasikan pilihan aksi User; setiap cabang mendapat detail sebanyak yang dibutuhkannya saja. Buat dan Hapus memiliki logika keputusan sesungguhnya (validasi, dan langkah konfirmasi/batal), sehingga ditampilkan lengkap; Edit mengikuti bentuk validasi yang identik dengan Buat, sehingga dicatat alih-alih digambar ulang, dan Ubah Status Selesai tidak memiliki percabangan yang layak ditampilkan, statusnya cukup dibalik ke kondisi sebaliknya.
 
 ```plantuml
 @startuml
@@ -688,7 +688,7 @@ skinparam arrow {
 
 |User|
 start
-:Pilih aksi pada sebuah todo\n(Buat, Hapus, Edit, atau Selesaikan);
+:Pilih aksi pada sebuah todo\n(Buat, Hapus, Edit, atau Ubah Status Selesai);
 
 switch (Aksi?)
 case (Buat)
@@ -711,9 +711,9 @@ case (Edit)
   :Perbarui judul & deskripsi opsional\n(validasi sama seperti Buat, tidak diulang di sini);
   |System|
   :Simpan perubahan jika valid;
-case (Selesaikan)
+case (Ubah Status Selesai)
   |System|
-  :Tandai todo sebagai selesai;
+  :Balik status selesai todo;
 endswitch
 
 :Tampilkan hasil ke user;
@@ -816,7 +816,7 @@ class TodoController {
   +index(): View
   +store(Request): RedirectResponse
   +update(Request, Todo): RedirectResponse
-  +complete(Todo): RedirectResponse
+  +toggle(Todo): RedirectResponse
   +destroy(Todo): RedirectResponse
 }
 
@@ -852,7 +852,7 @@ class TodoController {
   +index(): View
   +store(Request): RedirectResponse
   +update(Request, Todo): RedirectResponse
-  +complete(Todo): RedirectResponse
+  +toggle(Todo): RedirectResponse
   +destroy(Todo): RedirectResponse
 }
 
@@ -862,7 +862,7 @@ class CreateTodoAction {
 class UpdateTodoAction {
   +execute(Todo, array): Todo
 }
-class CompleteTodoAction {
+class ToggleTodoAction {
   +execute(Todo): Todo
 }
 class DeleteTodoAction {
@@ -881,12 +881,12 @@ class Todo {
 
 TodoController --> CreateTodoAction
 TodoController --> UpdateTodoAction
-TodoController --> CompleteTodoAction
+TodoController --> ToggleTodoAction
 TodoController --> DeleteTodoAction
 TodoController --> FilterTodosAction
 CreateTodoAction --> Todo
 UpdateTodoAction --> Todo
-CompleteTodoAction --> Todo
+ToggleTodoAction --> Todo
 DeleteTodoAction --> Todo
 FilterTodosAction --> Todo
 @enduml
@@ -908,7 +908,7 @@ A thesis typically includes actual mockup screenshots (Figma, Balsamiq). For thi
 |---|---|
 | **Header** | App title, filter tabs (All / Active / Completed) |
 | **Add form** | Single-line title input, optional description field, "Add" button |
-| **Todo list** | One row per todo: checkbox (complete toggle), title, description snippet, Edit and Delete buttons |
+| **Todo list** | One row per todo: checkbox (completion toggle), title, description snippet, Edit and Delete buttons |
 | **Delete confirmation** | A confirmation dialog shown before deletion completes (Section 4 above), with Confirm and Cancel actions |
 | **Empty state** | "No todos yet, add one above" message when the filtered list is empty |
 
@@ -925,7 +925,7 @@ Plan test scenarios **before** implementation. These scenarios validate the Acti
 | **BB-01** | Create a todo with a valid title | Todo appears in the list |
 | **BB-02** | Create a todo with an empty title | Validation error shown, no todo created |
 | **BB-03** | Edit an existing todo's title | Updated title reflected in the list |
-| **BB-04** | Mark a todo as complete | Todo shown as completed (e.g. strikethrough / checked) |
+| **BB-04** | Toggle a todo's completion, then toggle it back | Todo shown as completed (e.g. strikethrough / checked), then active again when unchecked |
 | **BB-05** | Delete a todo and confirm | Todo removed from the list |
 | **BB-06** | Delete a todo, then cancel the confirmation | Todo remains in the list, unchanged |
 | **BB-07** | Filter by "Active" | Only incomplete todos shown |
@@ -968,7 +968,7 @@ Rencanakan skenario pengujian **sebelum** implementasi. Skenario ini memvalidasi
 | **BB-01** | Membuat todo dengan judul valid | Todo muncul di daftar |
 | **BB-02** | Membuat todo dengan judul kosong | Error validasi ditampilkan, tidak ada todo terbuat |
 | **BB-03** | Mengedit judul todo yang ada | Judul terbaru tercermin di daftar |
-| **BB-04** | Menandai todo sebagai selesai | Todo ditampilkan selesai (mis. strikethrough / tercentang) |
+| **BB-04** | Toggle status selesai todo, lalu toggle kembali | Todo ditampilkan selesai (mis. strikethrough / tercentang), lalu aktif lagi saat dicentang ulang |
 | **BB-05** | Menghapus todo dan konfirmasi | Todo terhapus dari daftar |
 | **BB-06** | Menghapus todo, lalu batalkan konfirmasi | Todo tetap ada di daftar, tidak berubah |
 | **BB-07** | Filter berdasarkan "Aktif" | Hanya todo belum selesai ditampilkan |
