@@ -416,6 +416,18 @@
         "url": "/publications",
         "internal": true,
         "estimatedTime": "~varies by paper"
+      },
+      {
+        "order": 12,
+        "level": "advanced",
+        "title": "Software Engineering for Startup Tools: Building an MVP Dashboard with PHP",
+        "titleId": "Rekayasa Perangkat Lunak untuk Startup Tools: Membangun Dashboard MVP dengan PHP",
+        "description": "Learn how SE fundamentals adapt to startup environments. Build a wait-list dashboard, apply rapid validation techniques, and deploy on a budget.",
+        "descriptionId": "Pelajari bagaimana dasar-dasar SE beradaptasi dengan lingkungan startup. Bangun dashboard wait-list, terapkan teknik validasi cepat, dan deploy dengan anggaran terbatas.",
+        "type": "tutorial",
+        "url": "/blog/se-engineering-for-startup-tools-mvp-php",
+        "internal": true,
+        "estimatedTime": "~45 min read"
       }
     ]
   },
