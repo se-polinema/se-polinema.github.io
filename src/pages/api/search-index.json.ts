@@ -68,7 +68,7 @@ export const GET: APIRoute = async () => {
       titleId,
       excerpt,
       excerptId,
-      href: `/publications`,
+      href: `/publications/${p.id}`,
       searchText,
     })
   }
