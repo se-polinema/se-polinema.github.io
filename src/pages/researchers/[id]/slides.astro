@@ -1,0 +1,70 @@
+---
+import PresentationLayout from '../../../layouts/PresentationLayout.astro'
+import ResearcherSlidesViewer from '../../../components/ResearcherSlidesViewer.vue'
+import EditOnGitHub from '../../../components/EditOnGitHub.astro'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const researchers = await getCollection('researchers')
+  const slides = await getCollection('slides')
+
+  const researchersWithDeck = new Set(slides.map((deck) => deck.data.researcher))
+
+  return researchers
+    .filter((researcher) => researchersWithDeck.has(researcher.id))
+    .map((researcher) => ({
+      params: { id: researcher.id },
+      props: { researcher },
+    }))
+}
+
+const { researcher } = Astro.props
+
+const deck = (await getCollection('slides', ({ data }) =>
+  data.researcher === researcher.id,
+))[0]
+
+if (!deck) {
+  return new Response(
+    `No slide deck found for "${researcher.data.name}".`,
+    { status: 404 },
+  )
+}
+
+const { title, theme } = deck.data
+const raw = deck.body ?? ''
+
+// Static page: use English title by default (language switch is client-side via useI18n)
+const displayTitle = title
+const backUrl = `/researchers/${researcher.id}`
+---
+
+<PresentationLayout title={displayTitle}>
+  <ResearcherSlidesViewer
+    client:load
+    title={displayTitle}
+    theme={theme}
+    backUrl={backUrl}
+  />
+
+  <EditOnGitHub filePath={`src/content/slides/${deck.id}.md`} />
+
+  <!--
+    The reveal.js app container.
+    hidden attribute is removed by ResearcherSlidesViewer after reveal init.
+    The <script type="text/template"> block is inert HTML — browsers do not execute
+    or display its content; reveal's Markdown plugin reads it as raw text.
+  -->
+  <div class="reveal" hidden>
+    <div class="slides">
+      <section
+        data-markdown
+        data-separator="^\r?\n---\r?\n$"
+        data-separator-vertical="^\r?\n--\r?\n$"
+        data-separator-notes="^Note:"
+      >
+        <script type="text/template" set:html={raw} is:inline></script>
+      </section>
+    </div>
+  </div>
+</PresentationLayout>

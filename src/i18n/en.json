@@ -85,7 +85,14 @@
     "hindexLabel": "h-index",
     "i10indexLabel": "i10-index",
     "citedByLabel": "Citations",
-    "citedLabel": "Cited {n} times"
+    "citedLabel": "Cited {n} times",
+    "profileSlidesHeading": "Profile Slides",
+    "viewProfileSlides": "Show Profile Slides",
+    "backToProfile": "Back to Profile",
+    "contactHeading": "Contact & Policy",
+    "phone": "Phone",
+    "email": "Email",
+    "policy": "Teaching Policy"
   },
   "news": {
     "label": "News & Announcements",

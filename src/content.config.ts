@@ -56,6 +56,8 @@ const researchersCollection = defineCollection({
       en: z.array(z.string()),
     }),
     email: z.string(),
+    phone: z.string().optional(),
+    policy: localizedText.optional(),
     googleScholarUrl: z.url(),
     institutionalUrl: z.url().optional(),
     orcidUrl: z.url().optional(),
@@ -153,6 +155,18 @@ const presentationsCollection = defineCollection({
   }),
 })
 
+const slidesCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/slides' }),
+  schema: z.object({
+    researcher: z.string(),
+    title: z.string(),
+    titleId: z.string().optional(),
+    description: z.string().optional(),
+    descriptionId: z.string().optional(),
+    theme: z.enum(['auto', 'light', 'dark']).default('auto'),
+  }),
+})
+
 // Alumni (and current student members) moved to Supabase (se.members table) —
 // see MemberDirectoryPage.vue, src/pages/alumni/, src/pages/members/, and
 // supabase/migrations/008_members.sql. No longer a content collection.
@@ -183,4 +197,5 @@ export const collections = {
   publications: publicationsCollection,
   projects: projectsCollection,
   presentations: presentationsCollection,
+  slides: slidesCollection,
 }

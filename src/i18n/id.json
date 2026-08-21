@@ -85,7 +85,14 @@
     "hindexLabel": "h-index",
     "i10indexLabel": "i10-index",
     "citedByLabel": "Sitasi",
-    "citedLabel": "Disitasi {n} kali"
+    "citedLabel": "Disitasi {n} kali",
+    "profileSlidesHeading": "Slide Profil",
+    "viewProfileSlides": "Lihat Slide Profil",
+    "backToProfile": "Kembali ke Profil",
+    "contactHeading": "Kontak & Kebijakan",
+    "phone": "Telepon",
+    "email": "Email",
+    "policy": "Kebijakan Perkuliahan"
   },
   "news": {
     "label": "Berita & Pengumuman",

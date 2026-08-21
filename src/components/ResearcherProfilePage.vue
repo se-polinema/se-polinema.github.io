@@ -24,6 +24,7 @@
             <div>
               <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.contact }}</div>
               <a :href="`mailto:${researcher.email}`" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.email }}</a>
+              <a v-if="researcher.phone" :href="`tel:${researcher.phone}`" class="block mt-0.5 text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.phone }}</a>
             </div>
             <div>
               <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.externalProfiles }}</div>
@@ -127,10 +128,47 @@
 
         <!-- Sections -->
         <div class="profile-body">
+          <!-- Profile Slides -->
+          <section v-if="props.slides?.length" class="mb-7">
+            <h2>{{ t.team.profileSlidesHeading }}</h2>
+            <div class="flex flex-col gap-3">
+              <div v-for="deck in props.slides" :key="deck.id">
+                <a
+                  :href="deck.url"
+                  class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors no-underline"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                  </svg>
+                  {{ t.team.viewProfileSlides }}
+                </a>
+              </div>
+            </div>
+          </section>
+
           <!-- Biography -->
           <section class="mb-7">
             <h2>{{ t.team.biographyHeading }}</h2>
             <p class="text-neutral-600 dark:text-gray-300 leading-relaxed text-sm">{{ lang === 'id' ? researcher.profileBody.id : researcher.profileBody.en }}</p>
+          </section>
+
+          <!-- Contact & Policy -->
+          <section v-if="researcher.phone || researcher.policy" class="mb-7">
+            <h2>{{ t.team.contactHeading }}</h2>
+            <ul class="space-y-2 text-sm text-neutral-600 dark:text-gray-300">
+              <li v-if="researcher.email">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500">{{ t.team.email }}</span>
+                <a :href="`mailto:${researcher.email}`" class="block text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.email }}</a>
+              </li>
+              <li v-if="researcher.phone">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500">{{ t.team.phone }}</span>
+                <a :href="`tel:${researcher.phone}`" class="block text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.phone }}</a>
+              </li>
+              <li v-if="researcher.policy">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500">{{ t.team.policy }}</span>
+                <p class="whitespace-pre-line mt-1 leading-relaxed">{{ lang === 'id' ? researcher.policy.id : researcher.policy.en }}</p>
+              </li>
+            </ul>
           </section>
 
           <!-- Books -->
@@ -255,6 +293,8 @@ const props = defineProps<{
     expertise: string[]
     researchInterests: { id: string[]; en: string[] }
     email: string
+    phone?: string
+    policy?: Localized
     googleScholarUrl: string
     institutionalUrl?: string
     orcidUrl?: string
@@ -271,6 +311,7 @@ const props = defineProps<{
     } | null
   }
   publications: Publication[]
+  slides?: Array<{ id: string; title: string; titleId?: string; url: string }>
 }>()
 
 const { lang, t } = useI18n()
