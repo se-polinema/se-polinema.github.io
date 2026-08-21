@@ -52,6 +52,15 @@ if (existsSync(metricsPath)) {
   }
 }
 
+const slides = (await getCollection('slides', ({ data }) =>
+  data.researcher === researcher.id,
+)).map((deck) => ({
+  id: deck.id,
+  title: deck.data.title,
+  titleId: deck.data.titleId,
+  url: `/researchers/${researcher.id}/slides`,
+}))
+
 const researcherProfile = {
   name: researcher.data.name,
   photo: researcher.data.photo,
@@ -62,6 +71,8 @@ const researcherProfile = {
   expertise: researcher.data.expertise,
   researchInterests: researcher.data.researchInterests,
   email: researcher.data.email,
+  phone: researcher.data.phone,
+  policy: researcher.data.policy,
   googleScholarUrl: researcher.data.googleScholarUrl,
   institutionalUrl: researcher.data.institutionalUrl,
   orcidUrl: researcher.data.orcidUrl,
@@ -118,7 +129,7 @@ const personJsonLd = {
   image={researcher.data.photo}
 >
   <JsonLd slot="head" data={personJsonLd} />
-  <ResearcherProfilePage client:load researcher={researcherProfile} publications={publications} />
+  <ResearcherProfilePage client:load researcher={researcherProfile} publications={publications} slides={slides} />
   <div class="px-8">
     <EditOnGitHub filePath={`src/content/researchers/${researcher.id}.md`} />
   </div>
