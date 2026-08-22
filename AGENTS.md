@@ -14,6 +14,18 @@ npm run build      # build + typecheck (astro check && astro build)
 npm run preview    # preview production build (astro preview)
 ```
 
+## Knowledge Graph (graphify)
+
+`graphify-out/GRAPH_REPORT.md` and `graphify-out/graph.json` contain a
+knowledge graph of `src/` (modules, pages, components, and their
+relationships).
+
+- Before planning any requirement, issue, or refactor, read
+  `graphify-out/GRAPH_REPORT.md` first to locate affected files and hubs.
+- For targeted questions, run: `graphify query "<question>"`.
+- After significant structural changes, regenerate with the `/graphify`
+  skill and commit the updated `graph.json` + `GRAPH_REPORT.md`.
+
 ## Sync Scripts
 
 ### Publication Sync (`npm run sync:publications` — scheduled + manual)

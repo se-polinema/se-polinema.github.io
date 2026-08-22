@@ -250,6 +250,11 @@ jobs:
 
           This run is for planning only.
 
+          Before drafting the plan, read graphify-out/GRAPH_REPORT.md — the
+          repository knowledge-graph report — to understand module structure and
+          file relationships, and consult graphify-out/graph.json when you need
+          exact dependency edges. If these files are absent, proceed without them.
+
           Reply in issue #${ISSUE_NUMBER} with a comment that:
           1. Begins with exactly this HTML comment on its own line: <!-- opencode-plan -->
           2. Summarises the request in 2-3 sentences.
