@@ -94,9 +94,7 @@
         </h2>
         <p>{{ t.privacy.contactText }}</p>
         <p class="mt-2">
-          <a :href="'mailto:' + t.privacy.contactEmail" class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors">
-            {{ t.privacy.contactEmail }}
-          </a>
+          <ObfuscatedEmail :encoded="LAB_EMAIL_ENCODED" class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors" />
         </p>
         <p class="text-xs text-neutral-400 dark:text-gray-500 mt-1">{{ t.privacy.contactAffiliation }}</p>
       </section>
@@ -106,6 +104,8 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { LAB_EMAIL_ENCODED } from '../utils/email'
+import ObfuscatedEmail from './ObfuscatedEmail.vue'
 
 const { t } = useI18n()
 </script>

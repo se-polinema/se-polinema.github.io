@@ -172,10 +172,11 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { decodeEmail } from '../utils/email'
 
 const props = withDefaults(defineProps<{
   researcherName: string
-  researcherEmail: string
+  researcherEmailEncoded: string
   researcherStreams?: string[]
 }>(), {
   researcherStreams: () => [],
@@ -266,7 +267,7 @@ function handleSubmit() {
     `${form.message.trim()}\n\n---\nName: ${form.name.trim()}\nEmail: ${form.email.trim()}\n${affiliationLine}Topic: ${topicLabel}`
   )
   const subject = encodeURIComponent(`[SE Lab Inquiry] ${topicLabel} — ${props.researcherName}`)
-  mailtoHref.value = `mailto:${props.researcherEmail}?subject=${subject}&body=${body}`
+  mailtoHref.value = `mailto:${decodeEmail(props.researcherEmailEncoded)}?subject=${subject}&body=${body}`
   submitted.value = true
 
   window.location.href = mailtoHref.value

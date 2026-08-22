@@ -99,12 +99,10 @@
               </p>
             </div>
 
-            <a
-              :href="`mailto:${opp.supervisorEmail}`"
+            <ObfuscatedEmail
+              :encoded="opp.supervisorEmailEncoded"
               class="inline-flex items-center gap-2 self-start px-4 py-2 font-mono text-[12px] font-medium text-primary transition-colors mt-1 bg-accent"
-            >
-              {{ t.join.page.contactSupervisor }} ↗
-            </a>
+            >{{ t.join.page.contactSupervisor }} ↗</ObfuscatedEmail>
 
             <a
               v-if="opp.stream"
@@ -136,6 +134,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import ObfuscatedEmail from './ObfuscatedEmail.vue'
 
 interface Opportunity {
   title: string
@@ -148,7 +147,7 @@ interface Opportunity {
   requirements: string[]
   requirementsId?: string[]
   supervisor: string
-  supervisorEmail: string
+  supervisorEmailEncoded: string
   howToApply: string
   howToApplyId?: string
 }

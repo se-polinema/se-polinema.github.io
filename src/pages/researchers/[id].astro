@@ -6,6 +6,7 @@ import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { encodeEmail } from '../../utils/email'
 
 export async function getStaticPaths() {
   const researchers = await getCollection('researchers')
@@ -70,8 +71,7 @@ const researcherProfile = {
   profileBody: researcher.data.profileBody,
   expertise: researcher.data.expertise,
   researchInterests: researcher.data.researchInterests,
-  email: researcher.data.email,
-  phone: researcher.data.phone,
+  emailEncoded: encodeEmail(researcher.data.email),
   policy: researcher.data.policy,
   googleScholarUrl: researcher.data.googleScholarUrl,
   institutionalUrl: researcher.data.institutionalUrl,
@@ -102,7 +102,6 @@ const personJsonLd = {
   name: researcher.data.name,
   jobTitle: researcher.data.title.en,
   image: photoUrl,
-  email: researcher.data.email,
   url: profileUrl,
   sameAs: sameAsUrls.length > 0 ? sameAsUrls : undefined,
   knowsAbout: [

@@ -23,8 +23,7 @@
             </div>
             <div>
               <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.contact }}</div>
-              <a :href="`mailto:${researcher.email}`" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.email }}</a>
-              <a v-if="researcher.phone" :href="`tel:${researcher.phone}`" class="block mt-0.5 text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.phone }}</a>
+              <ObfuscatedEmail :encoded="researcher.emailEncoded" class="text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all" />
             </div>
             <div>
               <div class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-0.5">{{ t.team.externalProfiles }}</div>
@@ -105,7 +104,7 @@
             <!-- Contact Form -->
             <ResearcherContactForm
               :researcher-name="researcher.name"
-              :researcher-email="researcher.email"
+              :researcher-email-encoded="researcher.emailEncoded"
               :researcher-streams="researcher.streams || []"
             />
           </div>
@@ -153,16 +152,12 @@
           </section>
 
           <!-- Contact & Policy -->
-          <section v-if="researcher.phone || researcher.policy" class="mb-7">
+          <section v-if="researcher.emailEncoded || researcher.policy" class="mb-7">
             <h2>{{ t.team.contactHeading }}</h2>
             <ul class="space-y-2 text-sm text-neutral-600 dark:text-gray-300">
-              <li v-if="researcher.email">
+              <li v-if="researcher.emailEncoded">
                 <span class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500">{{ t.team.email }}</span>
-                <a :href="`mailto:${researcher.email}`" class="block text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.email }}</a>
-              </li>
-              <li v-if="researcher.phone">
-                <span class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500">{{ t.team.phone }}</span>
-                <a :href="`tel:${researcher.phone}`" class="block text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all">{{ researcher.phone }}</a>
+                <ObfuscatedEmail :encoded="researcher.emailEncoded" class="block text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all" />
               </li>
               <li v-if="researcher.policy">
                 <span class="font-mono text-[10px] uppercase tracking-widest text-primary/35 dark:text-gray-500">{{ t.team.policy }}</span>
@@ -278,6 +273,7 @@ import { useI18n } from '../composables/useI18n'
 import researchData from '../data/research.json'
 import ResearcherContactForm from './ResearcherContactForm.vue'
 import BookCover from './BookCover.vue'
+import ObfuscatedEmail from './ObfuscatedEmail.vue'
 
 type Localized = { id: string; en: string }
 type Publication = { id: string; title: string; year: number; authors: string[]; venue: string; type: string; url: string; citedByCount: number }
@@ -292,8 +288,7 @@ const props = defineProps<{
     profileBody: Localized
     expertise: string[]
     researchInterests: { id: string[]; en: string[] }
-    email: string
-    phone?: string
+    emailEncoded: string
     policy?: Localized
     googleScholarUrl: string
     institutionalUrl?: string

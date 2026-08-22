@@ -20,12 +20,10 @@
             </div>
 
             <div>
-              <a
-                :href="'mailto:' + t.contact.email"
+              <ObfuscatedEmail
+                :encoded="LAB_EMAIL_ENCODED"
                 class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-primary text-white hover:bg-accent hover:text-primary transition-colors"
-              >
-                {{ t.contact.email }}
-              </a>
+              />
             </div>
           </div>
         </div>
@@ -168,6 +166,8 @@
 import { ref, reactive } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useConsent } from '../composables/useConsent'
+import { decodeEmail, LAB_EMAIL_ENCODED } from '../utils/email'
+import ObfuscatedEmail from './ObfuscatedEmail.vue'
 
 const { lang, t } = useI18n()
 const { consent, grant } = useConsent()
@@ -228,7 +228,7 @@ function handleSubmit() {
   const body = encodeURIComponent(
     `${form.message}\n\n---\nFrom: ${form.name} <${form.email}>`
   )
-  mailtoHref.value = `mailto:${t.value.contact.email}?subject=${encodeURIComponent(form.subject)}&body=${body}`
+  mailtoHref.value = `mailto:${decodeEmail(LAB_EMAIL_ENCODED)}?subject=${encodeURIComponent(form.subject)}&body=${body}`
   submitted.value = true
 
   window.location.href = mailtoHref.value

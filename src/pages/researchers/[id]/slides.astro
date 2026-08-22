@@ -34,6 +34,14 @@ if (!deck) {
 const { title, theme } = deck.data
 const raw = deck.body ?? ''
 
+// Phone stays out of the indexed profile page — this noindex slides page is
+// the only place it's shown.
+const phone = researcher.data.phone
+const contactSlide = phone
+  ? `\n\n---\n\n## Contact\n\n**${researcher.data.name}**\n\nEmail (primary): ${researcher.data.email}\n\nWhatsApp (urgent only): ${phone}\n`
+  : ''
+const deckMarkdown = raw + contactSlide
+
 // Static page: use English title by default (language switch is client-side via useI18n)
 const displayTitle = title
 const backUrl = `/researchers/${researcher.id}`
@@ -63,7 +71,7 @@ const backUrl = `/researchers/${researcher.id}`
         data-separator-vertical="^\r?\n--\r?\n$"
         data-separator-notes="^Note:"
       >
-        <script type="text/template" set:html={raw} is:inline></script>
+        <script type="text/template" set:html={deckMarkdown} is:inline></script>
       </section>
     </div>
   </div>

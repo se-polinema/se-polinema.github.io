@@ -81,9 +81,7 @@
           <p class="mt-1">
             <span class="text-[#9CDCFE]">"email"</span>
             <span class="text-[color:var(--color-vscode-chrome-fg-muted)]">: </span>
-            <a :href="`mailto:${t.contact.email}`" class="text-[#CE9178] hover:text-accent transition-colors">
-              "{{ t.contact.email }}"
-            </a>
+            <span class="text-[color:var(--color-vscode-chrome-fg-muted)]">"</span><ObfuscatedEmail :encoded="LAB_EMAIL_ENCODED" class="text-[#CE9178] hover:text-accent transition-colors" /><span class="text-[color:var(--color-vscode-chrome-fg-muted)]">"</span>
           </p>
         </div>
 
@@ -199,6 +197,8 @@ import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import { useDragResize } from '../../composables/useDragResize'
 import NewsletterForm from '../NewsletterForm.vue'
+import ObfuscatedEmail from '../ObfuscatedEmail.vue'
+import { LAB_EMAIL_ENCODED } from '../../utils/email'
 
 const {
   panelOpen, activePanelTab, panelHeight,
