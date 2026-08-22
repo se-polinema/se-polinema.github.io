@@ -18,6 +18,7 @@ expertise:
   - "Distributed Systems"
   - "Chatbots"
   - "Programming Education"
+  - "Automated Test Case Generation"
 researchInterests:
   id:
     - "Model publish-subscribe adaptif"
@@ -26,10 +27,10 @@ researchInterests:
     - "Adaptive publish-subscribe models"
     - "Automated web-programming assessment"
 email: "dhanifudin@polinema.ac.id"
-phone: "+62 341 404424"
+phone: "+62 851-6373-6894"
 policy:
-  id: "Aturan perkuliahan: hadir tepat waktu, kumpulkan tugas sebelum tenggat, jaga integritas akademik, dan aktif berpartisipasi dalam sesi praktikum. Konsultasi dilakukan melalui janji temu via email."
-  en: "Course rules: attend sessions on time, submit assignments before the deadline, uphold academic integrity, and actively participate in practical sessions. Consultations are by appointment via email."
+  id: "Aturan perkuliahan: hadir tepat waktu, kumpulkan tugas sebelum tenggat, jaga integritas akademik, dan aktif berpartisipasi dalam sesi perkuliahan. Tidak ada toleransi keterlambatan setelah jam masuk disepakati bersama. Konsultasi dilakukan melalui janji temu via email."
+  en: "Course rules: attend sessions on time, submit assignments before the deadline, uphold academic integrity, and actively participate in class sessions. No late tolerance after the mutually agreed start time. Consultations are by appointment via email."
 googleScholarUrl: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 featured: true
 order: 4
