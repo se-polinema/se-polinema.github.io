@@ -9,6 +9,8 @@ theme: auto
 
 # Dian Hanifudin Subhi
 
+<img src="/images/team/dian-hanifudin-subhi.jpg" alt="Dian Hanifudin Subhi" style="width:200px;border-radius:8px;" />
+
 ## Lecturer / Researcher
 
 Software Engineering Laboratory · JTI Polinema
@@ -20,13 +22,31 @@ Software Engineering Laboratory · JTI Polinema
 - **Name:** Dian Hanifudin Subhi
 - **Role:** Dosen / Peneliti (Lecturer / Researcher)
 - **Affiliation:** Software Engineering Laboratory, Jurusan Teknologi Informasi, Politeknik Negeri Malang
-- **Expertise:** Distributed Systems, Chatbots, Programming Education
+- **Expertise:** Distributed Systems, Chatbots, Programming Education, Automated Test Case Generation
+
+---
+
+## Books
+
+- **Penuntun Praktikum Struktur Data** (2020)
+- **Git Tanpa Drama**
+- **Pemrograman Mobile Menggunakan Flutter** (2021)
+- **Laravel REST API** (2022, Polinema Press)
+
+---
+
+## Certifications
+
+- Software Engineer — Certiport
+- Associate Cloud Engineer — Google Cloud
+- Cloud Digital Leader — Google Cloud
 
 ---
 
 ## Contact
 
-- **Email:** [dhanifudin@polinema.ac.id](mailto:dhanifudin@polinema.ac.id)
+- **Email (primary):** [dhanifudin@polinema.ac.id](mailto:dhanifudin@polinema.ac.id)
+- **WhatsApp (urgent only):** +62 851-6373-6894
 - **Google Scholar:** [scholar.google.com](https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en)
 
 ---
