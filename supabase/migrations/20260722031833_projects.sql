@@ -9,7 +9,7 @@
 --
 -- Deliberate deviation from se.members: NO unique-per-user constraint.
 -- A member is a single identity (you *are* a member, capped at one row),
--- but a project is an artifact a person contributes — one person can
+-- but a project is an artifact a person contributes: one person can
 -- reasonably submit several. So unlike members_user_id_key, there is no
 -- partial unique index here.
 --

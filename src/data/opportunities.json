@@ -19,8 +19,8 @@
     ],
     "supervisor": "Imam Fahrur Rozi",
     "supervisorEmail": "imam.fahrur@polinema.ac.id",
-    "howToApply": "Send an email to the supervisor with your CV and a brief statement of interest. Include \"Thesis Application — Code Quality\" in the subject line.",
-    "howToApplyId": "Kirim email ke dosen pembimbing dengan CV dan pernyataan minat singkat. Cantumkan \"Lamaran Tugas Akhir — Kualitas Kode\" pada subjek email."
+    "howToApply": "Send an email to the supervisor with your CV and a brief statement of interest. Include \"Thesis Application: Code Quality\" in the subject line.",
+    "howToApplyId": "Kirim email ke dosen pembimbing dengan CV dan pernyataan minat singkat. Cantumkan \"Lamaran Tugas Akhir: Kualitas Kode\" pada subjek email."
   },
   {
     "title": "Web-Based Thesis Management Platform for Academic Departments",
@@ -42,8 +42,8 @@
     ],
     "supervisor": "SE Lab Research Team",
     "supervisorEmail": "imam.fahrur@polinema.ac.id",
-    "howToApply": "Send an email with your CV, portfolio/GitHub link, and available hours per week. Use subject line \"Internship Application — Thesis Management Platform\".",
-    "howToApplyId": "Kirim email dengan CV, tautan portofolio/GitHub, dan jam tersedia per minggu. Gunakan subjek \"Lamaran Magang — Platform Manajemen Tugas Akhir\"."
+    "howToApply": "Send an email with your CV, portfolio/GitHub link, and available hours per week. Use subject line \"Internship Application: Thesis Management Platform\".",
+    "howToApplyId": "Kirim email dengan CV, tautan portofolio/GitHub, dan jam tersedia per minggu. Gunakan subjek \"Lamaran Magang: Platform Manajemen Tugas Akhir\"."
   },
   {
     "title": "Microservices Architecture Patterns for Academic Information Systems",
@@ -65,12 +65,12 @@
     ],
     "supervisor": "Imam Fahrur Rozi",
     "supervisorEmail": "imam.fahrur@polinema.ac.id",
-    "howToApply": "Send an email to the supervisor with your CV and a 1-page research proposal outline. Include \"Thesis Application — Microservices\" in the subject line.",
-    "howToApplyId": "Kirim email ke dosen pembimbing dengan CV dan outline proposal riset 1 halaman. Cantumkan \"Lamaran Tugas Akhir — Microservices\" pada subjek email."
+    "howToApply": "Send an email to the supervisor with your CV and a 1-page research proposal outline. Include \"Thesis Application: Microservices\" in the subject line.",
+    "howToApplyId": "Kirim email ke dosen pembimbing dengan CV dan outline proposal riset 1 halaman. Cantumkan \"Lamaran Tugas Akhir: Microservices\" pada subjek email."
   },
   {
-    "title": "Research Assistant — AI-Powered Requirements Automation Tool",
-    "titleId": "Asisten Riset — Alat Otomatisasi Kebutuhan Perangkat Lunak Berbasis AI",
+    "title": "Research Assistant: AI-Powered Requirements Automation Tool",
+    "titleId": "Asisten Riset: Alat Otomatisasi Kebutuhan Perangkat Lunak Berbasis AI",
     "type": "research-assistant",
     "stream": "emerging-technologies-se",
     "status": "open",
@@ -90,7 +90,7 @@
     ],
     "supervisor": "Imam Fahrur Rozi",
     "supervisorEmail": "imam.fahrur@polinema.ac.id",
-    "howToApply": "Send an email with your CV, a writing sample (paper, report, or blog post), and a short paragraph on why you're interested in AI for software engineering. Use subject line \"Research Assistant Application — Requirements Automation\".",
-    "howToApplyId": "Kirim email dengan CV, contoh tulisan (makalah, laporan, atau posting blog), dan paragraf singkat tentang mengapa Anda tertarik pada AI untuk rekayasa perangkat lunak. Gunakan subjek \"Lamaran Asisten Riset — Otomatisasi Kebutuhan\"."
+    "howToApply": "Send an email with your CV, a writing sample (paper, report, or blog post), and a short paragraph on why you're interested in AI for software engineering. Use subject line \"Research Assistant Application: Requirements Automation\".",
+    "howToApplyId": "Kirim email dengan CV, contoh tulisan (makalah, laporan, atau posting blog), dan paragraf singkat tentang mengapa Anda tertarik pada AI untuk rekayasa perangkat lunak. Gunakan subjek \"Lamaran Asisten Riset: Otomatisasi Kebutuhan\"."
   }
 ]

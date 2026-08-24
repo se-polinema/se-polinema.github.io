@@ -1,9 +1,16 @@
-# AGENTS.md — SE Polinema Development Guide
+# AGENTS.md: SE Polinema Development Guide
 
 ## Overview
 
 Static site built with [Astro](https://astro.build) + Vue 3 + Tailwind CSS v4.
 Hosted on GitHub Pages at `se.polinema.ac.id`.
+
+## Writing Style
+
+Do not use em-dashes (—) in content: blog posts, docs, researcher bios, i18n
+strings, or any prose. Use a comma, period, colon, or restructure the sentence
+instead. (This rule doesn't apply to UI-symbol uses like a table's empty-cell
+placeholder or a CSS class name that happens to contain the character.)
 
 ## Getting Started
 
@@ -28,7 +35,7 @@ relationships).
 
 ## Sync Scripts
 
-### Publication Sync (`npm run sync:publications` — scheduled + manual)
+### Publication Sync (`npm run sync:publications`, scheduled + manual)
 
 Fetches Google Scholar publications *and* author-level metrics (h-index,
 i10-index, total/5-year citations, per-publication citation counts) for all
@@ -43,7 +50,7 @@ node scripts/update-publications.mjs
 
 - Reads all researchers from `src/content/researchers/*.md`
 - Extracts Google Scholar user IDs from `googleScholarUrl`
-- For each researcher, calls `node-scholarly`'s `searchAuthorId()` once —
+- For each researcher, calls `node-scholarly`'s `searchAuthorId()` once:
   this single call returns both the publication list (up to 100 per
   researcher) and author-level metrics, so nothing is fetched twice
 - Deduplicates new publications against existing ones (by normalized title + year)
@@ -93,12 +100,13 @@ node scripts/update-publications.mjs
 
 ### Metrics refresh workflow
 
-1. Run `node scripts/update-publications.mjs` — syncs new publications *and*
-   scholar metrics from Google Scholar in one pass
+1. Run `node scripts/update-publications.mjs`, which syncs new publications
+   *and* scholar metrics from Google Scholar in one pass
 2. Commit both updated data files (`_sync-meta.json`, `_scholar-metrics.json`)
    and any new publication `.md` files (the scheduled workflow does this
    automatically via PR)
-3. The Astro build reads these files at build time — no runtime calls to Scholar
+3. The Astro build reads these files at build time; there are no runtime
+   calls to Scholar
 
 The site gracefully handles missing metrics data:
 - `_scholar-metrics.json` is optional (not required for build)
@@ -114,7 +122,7 @@ npm run sync:events
 ```
 
 Requires `SUPABASE_SERVICE_ROLE_KEY` environment variable.
-Insert-only — never clobbers existing check-in codes.
+Insert-only: never clobbers existing check-in codes.
 
 ## Adding a Research Tool / Artifact
 

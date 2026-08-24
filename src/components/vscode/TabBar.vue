@@ -1,5 +1,5 @@
 <template>
-  <!-- Tab strip / Inner page header — fixed-height outer prevents layout collapse during transition -->
+  <!-- Tab strip / Inner page header: fixed-height outer prevents layout collapse during transition -->
   <div
     class="flex flex-shrink-0 overflow-hidden"
     style="height: 35px; background: var(--color-vscode-tabbar)"
@@ -51,7 +51,7 @@
           <span class="truncate flex-1 min-w-0">{{ innerTab.label }}</span>
         </a>
         <!--
-          Sibling button, not a child of the <a> above — an <a> containing
+          Sibling button, not a child of the <a> above: an <a> containing
           a nested interactive close control is invalid HTML (interactive
           content can't nest). "Closing" this tab navigates up to the
           parent list page, same as VS Code closing a file back to the
@@ -130,7 +130,7 @@ const { activeSection, currentPage, cursorLine, initObserver, scrollTo, restoreR
 
 // Seeded synchronously from the server-known path (same value SSR and
 // client) so a detail page's SSR/first-paint tab already reads
-// "slug.ext" instead of the base page label — mirrors the split logic the
+// "slug.ext" instead of the base page label; mirrors the split logic the
 // onMounted handler below re-confirms client-side.
 function splitDetailPath(pathname: string): { isDetailPage: boolean; slug: string } {
   const parts = pathname.split("/").filter(Boolean);
@@ -246,7 +246,7 @@ const parentHref = computed(() => {
 
 // "Closing" the current tab navigates up to where it came from: a detail
 // page (e.g. /publications/foo) closes back to its list page; a
-// dedicated list/section page (e.g. /publications) closes back to home —
+// dedicated list/section page (e.g. /publications) closes back to home,
 // same relationship as closing a file back to the folder that contains it.
 function closeTab() {
   if (isDetailPage.value && parentHref.value) {
@@ -346,7 +346,7 @@ onMounted(() => {
   const editor = document.getElementById("editor");
   if (editor) initObserver(editor);
 
-  // Re-confirms the initialPath seed above from window.location — a
+  // Re-confirms the initialPath seed above from window.location: a
   // no-op when initialPath was provided (same value), and the sole source
   // of truth when it wasn't.
   const detail = splitDetailPath(window.location.pathname);

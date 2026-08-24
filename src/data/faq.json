@@ -8,33 +8,33 @@
           "key": "who-can-join",
           "en": {
             "question": "Who can join the SE Lab?",
-            "answer": "SE Lab welcomes undergraduate and graduate students from Politeknik Negeri Malang—especially those in Information Technology and related programs—as well as external researchers and collaborators. Students typically join through thesis supervision, internships, or research assistant positions. We value curiosity, initiative, and a genuine interest in software engineering research."
+            "answer": "SE Lab welcomes undergraduate and graduate students from Politeknik Negeri Malang, especially those in Information Technology and related programs, as well as external researchers and collaborators. Students typically join through thesis supervision, internships, or research assistant positions. We value curiosity, initiative, and a genuine interest in software engineering research."
           },
           "id": {
             "question": "Siapa yang bisa bergabung dengan SE Lab?",
-            "answer": "SE Lab menyambut mahasiswa sarjana dan pascasarjana dari Politeknik Negeri Malang—khususnya dari Jurusan Teknologi Informasi dan program terkait—serta peneliti dan kolaborator eksternal. Mahasiswa biasanya bergabung melalui bimbingan tugas akhir, magang, atau posisi asisten riset. Kami menghargai rasa ingin tahu, inisiatif, dan minat yang tulus dalam riset rekayasa perangkat lunak."
+            "answer": "SE Lab menyambut mahasiswa sarjana dan pascasarjana dari Politeknik Negeri Malang, khususnya dari Jurusan Teknologi Informasi dan program terkait, serta peneliti dan kolaborator eksternal. Mahasiswa biasanya bergabung melalui bimbingan tugas akhir, magang, atau posisi asisten riset. Kami menghargai rasa ingin tahu, inisiatif, dan minat yang tulus dalam riset rekayasa perangkat lunak."
           }
         },
         {
           "key": "prerequisites",
           "en": {
             "question": "What programming skills or courses are expected?",
-            "answer": "We expect familiarity with at least one programming language (JavaScript/TypeScript, Python, Java, or similar) and basic understanding of software engineering concepts such as version control, testing, and software design. Specific prerequisites vary by project—some require web development experience, others need data analysis or machine learning background. Check individual opportunity listings on the /join page for detailed requirements."
+            "answer": "We expect familiarity with at least one programming language (JavaScript/TypeScript, Python, Java, or similar) and basic understanding of software engineering concepts such as version control, testing, and software design. Specific prerequisites vary by project: some require web development experience, others need data analysis or machine learning background. Check individual opportunity listings on the /join page for detailed requirements."
           },
           "id": {
             "question": "Keterampilan pemrograman atau mata kuliah apa yang diharapkan?",
-            "answer": "Kami mengharapkan penguasaan setidaknya satu bahasa pemrograman (JavaScript/TypeScript, Python, Java, atau sejenisnya) dan pemahaman dasar tentang konsep rekayasa perangkat lunak seperti version control, pengujian, dan desain perangkat lunak. Prasyarat spesifik bervariasi per proyek—beberapa memerlukan pengalaman pengembangan web, yang lain membutuhkan latar belakang analisis data atau machine learning. Lihat daftar peluang individu di halaman /join untuk persyaratan rinci."
+            "answer": "Kami mengharapkan penguasaan setidaknya satu bahasa pemrograman (JavaScript/TypeScript, Python, Java, atau sejenisnya) dan pemahaman dasar tentang konsep rekayasa perangkat lunak seperti version control, pengujian, dan desain perangkat lunak. Prasyarat spesifik bervariasi per proyek: beberapa memerlukan pengalaman pengembangan web, yang lain membutuhkan latar belakang analisis data atau machine learning. Lihat daftar peluang individu di halaman /join untuk persyaratan rinci."
           }
         },
         {
           "key": "how-to-join",
           "en": {
             "question": "How do I apply to join the lab?",
-            "answer": "Visit the /join page to browse open opportunities. Each listing includes requirements, supervisor contact, and application instructions. You can also reach out directly to a researcher whose work interests you—see the /researchers page for profiles and contact information. For general inquiries, email imam.fahrur@polinema.ac.id."
+            "answer": "Visit the /join page to browse open opportunities. Each listing includes requirements, supervisor contact, and application instructions. You can also reach out directly to a researcher whose work interests you. See the /researchers page for profiles and contact information. For general inquiries, email imam.fahrur@polinema.ac.id."
           },
           "id": {
             "question": "Bagaimana cara mendaftar untuk bergabung dengan lab?",
-            "answer": "Kunjungi halaman /join untuk melihat peluang yang terbuka. Setiap daftar mencakup persyaratan, kontak pembimbing, dan instruksi pendaftaran. Anda juga dapat menghubungi langsung peneliti yang karyanya menarik minat Anda—lihat halaman /researchers untuk profil dan informasi kontak. Untuk pertanyaan umum, kirim email ke imam.fahrur@polinema.ac.id."
+            "answer": "Kunjungi halaman /join untuk melihat peluang yang terbuka. Setiap daftar mencakup persyaratan, kontak pembimbing, dan instruksi pendaftaran. Anda juga dapat menghubungi langsung peneliti yang karyanya menarik minat Anda. Lihat halaman /researchers untuk profil dan informasi kontak. Untuk pertanyaan umum, kirim email ke imam.fahrur@polinema.ac.id."
           }
         },
         {
@@ -58,11 +58,11 @@
           "key": "research-streams",
           "en": {
             "question": "Which research streams can I join?",
-            "answer": "SE Lab has three main research streams: (1) Software Engineering Methodologies & Architecture—covering software design patterns, microservices, and development processes; (2) Emerging Technologies in SE—exploring AI/ML for software engineering, NLP, and intelligent systems; (3) Domain-Specific SE Applications—applying software engineering to education, health, and other sectors. Each stream has dedicated researchers and ongoing projects."
+            "answer": "SE Lab has three main research streams: (1) Software Engineering Methodologies & Architecture, covering software design patterns, microservices, and development processes; (2) Emerging Technologies in SE, exploring AI/ML for software engineering, NLP, and intelligent systems; (3) Domain-Specific SE Applications, applying software engineering to education, health, and other sectors. Each stream has dedicated researchers and ongoing projects."
           },
           "id": {
             "question": "Stream riset apa saja yang bisa saya ikuti?",
-            "answer": "SE Lab memiliki tiga stream riset utama: (1) Software Engineering Methodologies & Architecture—mencakup pola desain perangkat lunak, microservices, dan proses pengembangan; (2) Emerging Technologies in SE—mengeksplorasi AI/ML untuk rekayasa perangkat lunak, NLP, dan sistem cerdas; (3) Domain-Specific SE Applications—menerapkan rekayasa perangkat lunak pada sektor pendidikan, kesehatan, dan lainnya. Setiap stream memiliki peneliti dan proyek yang sedang berjalan."
+            "answer": "SE Lab memiliki tiga stream riset utama: (1) Software Engineering Methodologies & Architecture, mencakup pola desain perangkat lunak, microservices, dan proses pengembangan; (2) Emerging Technologies in SE, mengeksplorasi AI/ML untuk rekayasa perangkat lunak, NLP, dan sistem cerdas; (3) Domain-Specific SE Applications, menerapkan rekayasa perangkat lunak pada sektor pendidikan, kesehatan, dan lainnya. Setiap stream memiliki peneliti dan proyek yang sedang berjalan."
           }
         },
         {
@@ -125,11 +125,11 @@
           "key": "attend-seminars",
           "en": {
             "question": "How can I attend lab seminars or workshops?",
-            "answer": "Lab seminars and workshops are announced on the /events page and through our newsletter. Most events are free and open to the public. Some workshops require registration due to limited capacity—check individual event listings for registration links and deadlines. You can also subscribe to our newsletter to receive event announcements directly."
+            "answer": "Lab seminars and workshops are announced on the /events page and through our newsletter. Most events are free and open to the public. Some workshops require registration due to limited capacity. Check individual event listings for registration links and deadlines. You can also subscribe to our newsletter to receive event announcements directly."
           },
           "id": {
             "question": "Bagaimana cara menghadiri seminar atau lokakarya lab?",
-            "answer": "Seminar dan lokakarya lab diumumkan di halaman /events dan melalui buletin kami. Sebagian besar acara gratis dan terbuka untuk umum. Beberapa lokakarya memerlukan pendaftaran karena kapasitas terbatas—periksa daftar acara individu untuk tautan pendaftaran dan batas waktu. Anda juga dapat berlangganan buletin kami untuk menerima pengumuman acara langsung."
+            "answer": "Seminar dan lokakarya lab diumumkan di halaman /events dan melalui buletin kami. Sebagian besar acara gratis dan terbuka untuk umum. Beberapa lokakarya memerlukan pendaftaran karena kapasitas terbatas. Periksa daftar acara individu untuk tautan pendaftaran dan batas waktu. Anda juga dapat berlangganan buletin kami untuk menerima pengumuman acara langsung."
           }
         },
         {
@@ -153,11 +153,11 @@
           "key": "lab-location",
           "en": {
             "question": "Where is the SE Lab located at Polinema?",
-            "answer": "SE Lab is part of Jurusan Teknologi Informasi (Information Technology Department) at Politeknik Negeri Malang, located at Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, East Java — Indonesia 65141. For in-person visits, please contact us in advance to schedule a meeting."
+            "answer": "SE Lab is part of Jurusan Teknologi Informasi (Information Technology Department) at Politeknik Negeri Malang, located at Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, East Java, Indonesia 65141. For in-person visits, please contact us in advance to schedule a meeting."
           },
           "id": {
             "question": "Di mana lokasi SE Lab di Polinema?",
-            "answer": "SE Lab merupakan bagian dari Jurusan Teknologi Informasi di Politeknik Negeri Malang, berlokasi di Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, Jawa Timur — Indonesia 65141. Untuk kunjungan langsung, harap hubungi kami terlebih dahulu untuk menjadwalkan pertemuan."
+            "answer": "SE Lab merupakan bagian dari Jurusan Teknologi Informasi di Politeknik Negeri Malang, berlokasi di Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, Jawa Timur, Indonesia 65141. Untuk kunjungan langsung, harap hubungi kami terlebih dahulu untuk menjadwalkan pertemuan."
           }
         },
         {

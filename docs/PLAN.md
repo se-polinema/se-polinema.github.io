@@ -1,4 +1,4 @@
-# Software Engineering Laboratory — Landing Page Plan
+# Software Engineering Laboratory: Landing Page Plan
 
 ## Overview
 
@@ -17,7 +17,7 @@ Landing page for **Software Engineering Laboratory** under **Jurusan Teknologi I
 
 ## Design Philosophy: "Editorial Academic"
 
-A purpose-built academic design — content-forward, typography-driven, restrained.
+A purpose-built academic design: content-forward, typography-driven, restrained.
 
 ### Anti-patterns (explicitly avoided)
 - Glassmorphism / frosted cards
@@ -40,10 +40,10 @@ A purpose-built academic design — content-forward, typography-driven, restrain
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| Polinema Navy | `#29156A` | 7% — headings, nav, footer |
-| JTI Yellow | `#FFB100` | 2% — hover states, active indicators |
-| JTI Red | `#FF5248` | 1% — key CTAs, stats |
-| Neutrals | White / off-white / light gray | 90% — backgrounds |
+| Polinema Navy | `#29156A` | 7%: headings, nav, footer |
+| JTI Yellow | `#FFB100` | 2%: hover states, active indicators |
+| JTI Red | `#FF5248` | 1%: key CTAs, stats |
+| Neutrals | White / off-white / light gray | 90%: backgrounds |
 
 ### Brand Assets
 
@@ -90,7 +90,7 @@ A purpose-built academic design — content-forward, typography-driven, restrain
 ## i18n Strategy
 
 - Source files: `src/i18n/id.json`, `src/i18n/en.json`
-- Composable: `useI18n.ts` — detects language, provides reactive locale
+- Composable: `useI18n.ts`, which detects language and provides reactive locale
 - Toggle: Header language switch, stored in localStorage
 - Blog posts: Each post has `lang` frontmatter, filterable
 
@@ -99,8 +99,8 @@ A purpose-built academic design — content-forward, typography-driven, restrain
 - Astro Content Collections (`src/content/blog/`)
 - Posts in markdown with bilingual frontmatter
 - Landing: 3 latest posts in News.vue
-- `/blog` — full listing with category + language filter, pagination
-- `/blog/[slug]` — individual post page
+- `/blog`: full listing with category + language filter, pagination
+- `/blog/[slug]`: individual post page
 
 ## Project Structure
 
@@ -157,20 +157,20 @@ se.polinema.ac.id/
 ## Mobile-First Breakpoints
 
 ```
-sm:  640px   — small tablets
-md:  768px   — tablets
-lg:  1024px  — desktop
-xl:  1280px  — large desktop
+sm:  640px    small tablets
+md:  768px    tablets
+lg:  1024px   desktop
+xl:  1280px   large desktop
 ```
 
 ## Design Principles
 
-1. **Asymmetric editorial grid** — not everything centered
+1. **Asymmetric editorial grid**: not everything centered
 2. **Thin horizontal rules** for section dividers, not waves or gradients
-3. **Serif headings, sans-serif body** — institutional gravitas
-4. **Color restraint** — 90% neutral, 7% navy, 2% yellow, 1% red
-5. **Faculty directory style** team cards — rectangular photos, thin navy borders
-6. **Journal TOC style** research listing — numbered, text-forward
+3. **Serif headings, sans-serif body**: institutional gravitas
+4. **Color restraint**: 90% neutral, 7% navy, 2% yellow, 1% red
+5. **Faculty directory style** team cards: rectangular photos, thin navy borders
+6. **Journal TOC style** research listing: numbered, text-forward
 
 ---
 

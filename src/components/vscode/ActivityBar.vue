@@ -5,7 +5,7 @@
     aria-label="Activity Bar"
   >
     <!-- Scrolls independently (min-h-0 lets it actually shrink instead of
-         forcing the aside to overflow) so a short viewport clips nothing —
+         forcing the aside to overflow) so a short viewport clips nothing;
          the bottom account/command-palette/language group stays pinned via
          mt-auto below, matching real VS Code's own activity bar behavior
          when there are more icons than vertical space. -->
@@ -212,18 +212,18 @@ const { activeSidebarView, setView, restoreRouteState } = useVSCodeLayout(props.
 const { lang, t, toggleLang } = useI18n()
 const { user } = useAuth()
 
-// Mirrors AccountStatusItem.vue's signInHref/accountLabel logic — same
+// Mirrors AccountStatusItem.vue's signInHref/accountLabel logic: same
 // module-singleton useAuth() instance, so this always agrees with the
 // StatusBar's own account item. Unlike that component (which gates its
 // whole signed-out branch behind `ready`, so it's always a fresh mount,
-// never a hydration patch), this icon is always rendered — no `ready`
+// never a hydration patch), this icon is always rendered, no `ready`
 // gate, to avoid the icon rail shifting as it appears/disappears. That
 // means the redirect path can't be read from `window.location` directly
 // in a computed: Vue's hydration doesn't rectify attribute mismatches in
 // production, so an SSR-vs-client `href` difference would silently keep
 // the stale SSR value. Seed a safe SSR default ('') and correct it in
-// onMounted instead — a normal reactive update after hydration, which
-// does patch the DOM — same discipline used throughout this codebase for
+// onMounted instead: a normal reactive update after hydration, which
+// does patch the DOM, same discipline used throughout this codebase for
 // window-dependent state (see useVSCodeLayout.ts's restorePanelState()).
 const redirectPath = ref('')
 

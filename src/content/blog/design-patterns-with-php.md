@@ -22,7 +22,7 @@ tagsId:
 
 ## What Are Design Patterns and Why Should You Learn Them?
 
-**Design patterns** are proven, reusable solutions to common problems in software design. They are not finished code you copy and paste — they are templates you adapt to your own context. The term was popularised by the "Gang of Four" (GoF) in their 1994 book *Design Patterns: Elements of Reusable Object-Oriented Software*, and more than three decades later, the core patterns remain foundational vocabulary for every professional developer.
+**Design patterns** are proven, reusable solutions to common problems in software design. They are not finished code you copy and paste; they are templates you adapt to your own context. The term was popularised by the "Gang of Four" (GoF) in their 1994 book *Design Patterns: Elements of Reusable Object-Oriented Software*, and more than three decades later, the core patterns remain foundational vocabulary for every professional developer.
 
 Think of design patterns as **shared vocabulary**. When a colleague says "we should use a Strategy here", everyone who knows patterns immediately understands: *we have a family of interchangeable algorithms, and we want to select one at runtime without hard-coding a switch statement*. That one word replaces a five-minute explanation.
 
@@ -31,7 +31,7 @@ Here is what learning design patterns gives you:
 | Benefit | What It Means in Practice |
 |---|---|
 | **Shared vocabulary** | Communicate design intent with your team in one word instead of a paragraph. |
-| **Proven solutions** | Patterns have been refined by thousands of developers over decades — you are not guessing. |
+| **Proven solutions** | Patterns have been refined by thousands of developers over decades, so you are not guessing. |
 | **Better design instincts** | Recognising patterns sharpens your ability to spot coupling, rigidity, and abstraction opportunities. |
 | **Framework literacy** | Laravel, Symfony, and most PHP frameworks are built on patterns. Understanding them makes frameworks predictable instead of magical. |
 | **Interview readiness** | Pattern-based questions ("Design a payment gateway...") appear in nearly every technical interview. |
@@ -82,7 +82,7 @@ graph TB
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: The three GoF design patterns covered in this tutorial — Strategy, Observer, and Factory Method</span>
+  <span lang="en">Figure: The three GoF design patterns covered in this tutorial: Strategy, Observer, and Factory Method</span>
   <span lang="id">Gambar: Tiga pola desain GoF yang dibahas dalam tutorial ini, yaitu Strategy, Observer, dan Factory Method</span>
 </figcaption>
 </figure>
@@ -95,10 +95,10 @@ graph TB
 
 Each pattern follows a consistent template so you can compare them directly:
 
-1. **Real-world motivation** — a concrete scenario where the pattern solves a genuine problem (not a toy example).
-2. **Before: the code smell** — PHP code written without the pattern, annotated with what makes it hard to maintain.
-3. **After: pattern-based refactor** — the same scenario restructured using the pattern, with implementation details explained.
-4. **When to use & when not to use** — a short, honest guide. Patterns are tools, not dogma.
+1. **Real-world motivation**: a concrete scenario where the pattern solves a genuine problem (not a toy example).
+2. **Before: the code smell**: PHP code written without the pattern, annotated with what makes it hard to maintain.
+3. **After: pattern-based refactor**: the same scenario restructured using the pattern, with implementation details explained.
+4. **When to use & when not to use**: a short, honest guide. Patterns are tools, not dogma.
 
 Skip around if you like, but reading all three patterns in sequence helps you see how they complement each other without overlapping.
 
@@ -151,7 +151,7 @@ class RegistrationController
 }
 ```
 
-This works, but every new discount rule forces you to modify `RegistrationController` — a class that should care about HTTP requests, not discount math. The controller violates the **Open/Closed Principle**: it is open for modification every time marketing invents a promotion.
+This works, but every new discount rule forces you to modify `RegistrationController`, a class that should care about HTTP requests, not discount math. The controller violates the **Open/Closed Principle**: it is open for modification every time marketing invents a promotion.
 
 ### Before: The Code Smell
 
@@ -194,7 +194,7 @@ echo $service->calculateTotal([['price' => 500000], ['price' => 300000]], 'early
 
 **Problems:**
 
-- Adding a new discount type requires editing `OrderService` — and re-testing every existing discount path.
+- Adding a new discount type requires editing `OrderService`, and re-testing every existing discount path.
 - The discount logic is trapped inside the service; you cannot reuse it in a command-line script or a reporting module without duplicating the code.
 - Every `case` branch couples two concerns: *how* the discount is calculated and *when* it is selected.
 
@@ -202,7 +202,7 @@ echo $service->calculateTotal([['price' => 500000], ['price' => 300000]], 'early
 
 The **Strategy pattern** defines a family of algorithms, encapsulates each one in its own class, and makes them interchangeable. The context (caller) delegates to a strategy object without knowing which concrete strategy it holds.
 
-Step 1 — define the strategy interface:
+Step 1: define the strategy interface:
 
 ```php
 <?php
@@ -213,7 +213,7 @@ interface DiscountStrategy
 }
 ```
 
-Step 2 — implement each discount as a concrete strategy class:
+Step 2: implement each discount as a concrete strategy class:
 
 ```php
 <?php
@@ -251,7 +251,7 @@ class WeekendFlashDiscount implements DiscountStrategy
 }
 ```
 
-Step 3 — refactor `OrderService` to accept a strategy instead of a string:
+Step 3: refactor `OrderService` to accept a strategy instead of a string:
 
 ```php
 <?php
@@ -275,7 +275,7 @@ echo $service->calculateTotal(
 // Output: 720000
 ```
 
-Step 4 — now you can inject any strategy at runtime:
+Step 4: now you can inject any strategy at runtime:
 
 ```php
 <?php
@@ -293,7 +293,7 @@ $total = $orderService->calculateTotal($cart->items, $discount);
 
 **What changed:**
 
-- `OrderService` is **closed for modification** — you add a new discount by creating one new class, zero changes to existing code.
+- `OrderService` is **closed for modification**: you add a new discount by creating one new class, zero changes to existing code.
 - Each discount is **independently testable** in isolation. `EarlyBirdDiscountTest` can verify the 10% math without booting the entire order system.
 - The `match` statement at the boundary (controller or service provider) is the single place where you map inputs to strategies. That is a dependency wiring concern, not business logic.
 
@@ -301,9 +301,9 @@ $total = $orderService->calculateTotal($cart->items, $discount);
 
 | Use When... | Avoid When... |
 |---|---|
-| You have multiple variants of an algorithm and they all share the same interface. | You only have one or two variants — a simple `if`/`else` is cheaper. |
+| You have multiple variants of an algorithm and they all share the same interface. | You only have one or two variants; a simple `if`/`else` is cheaper. |
 | The algorithm is likely to change independently of the context that uses it. | The algorithm is trivial (one line) and adding a class hierarchy is overkill. |
-| You want to unit-test each variant in isolation. | The variants differ in required parameters, not just behaviour — Strategy requires a uniform interface. |
+| You want to unit-test each variant in isolation. | The variants differ in required parameters, not just behaviour; Strategy requires a uniform interface. |
 | You find yourself adding `elseif` branches to a method every sprint. | The total number of strategies will never realistically exceed three. |
 
 </section>
@@ -503,7 +503,7 @@ $total = $orderService->calculateTotal($cart->items, $discount);
 
 ### Real-World Motivation
 
-An EdTech campus portal needs to react when a student enrols in a course: send a confirmation email, log the enrolment for audit, update the attendance roster, and — in future — send a push notification to the student's mobile app. Each of these side effects is a separate concern that should not be hard-wired into the enrolment method.
+An EdTech campus portal needs to react when a student enrols in a course: send a confirmation email, log the enrolment for audit, update the attendance roster, and, in future, send a push notification to the student's mobile app. Each of these side effects is a separate concern that should not be hard-wired into the enrolment method.
 
 Without the Observer pattern, the `enrol()` method becomes a dumping ground for every side effect:
 
@@ -533,7 +533,7 @@ class EnrolmentService
 }
 ```
 
-Every new side effect forces you to edit `EnrolmentService` and re-deploy the entire module — even though the core enrolment logic never changed.
+Every new side effect forces you to edit `EnrolmentService` and re-deploy the entire module, even though the core enrolment logic never changed.
 
 ### Before: The Code Smell
 
@@ -581,17 +581,17 @@ class CourseEnrolment
 
 **Problems:**
 
-- `CourseEnrolment` knows about email, logging, and attendance. It has four reasons to change — that is three too many (Single Responsibility Principle violation).
+- `CourseEnrolment` knows about email, logging, and attendance. It has four reasons to change: that is three too many (Single Responsibility Principle violation).
 - Adding a new listener (push notification, analytics) requires editing this class and retesting everything.
 - You cannot disable email notifications in a test environment without mocking the mailer or modifying the class.
 
 ### After: Observer Pattern
 
-The **Observer pattern** defines a one-to-many dependency: when one object (the subject) changes state, all its dependents (observers) are notified automatically. The subject knows only that observers implement a given interface — it never knows their concrete types.
+The **Observer pattern** defines a one-to-many dependency: when one object (the subject) changes state, all its dependents (observers) are notified automatically. The subject knows only that observers implement a given interface; it never knows their concrete types.
 
 PHP provides `SplSubject` and `SplObserver` in the Standard PHP Library, but a lightweight custom implementation is often clearer:
 
-Step 1 — define the observer interface:
+Step 1: define the observer interface:
 
 ```php
 <?php
@@ -602,7 +602,7 @@ interface EnrolmentObserver
 }
 ```
 
-Step 2 — define the subject (what gets observed):
+Step 2: define the subject (what gets observed):
 
 ```php
 <?php
@@ -634,7 +634,7 @@ class EnrolmentSubject
 }
 ```
 
-Step 3 — implement concrete observers:
+Step 3: implement concrete observers:
 
 ```php
 <?php
@@ -694,7 +694,7 @@ class AttendanceObserver implements EnrolmentObserver
 }
 ```
 
-Step 4 — refactor `CourseEnrolment` to extend the subject:
+Step 4: refactor `CourseEnrolment` to extend the subject:
 
 ```php
 <?php
@@ -733,7 +733,7 @@ class CourseEnrolment extends EnrolmentSubject
 }
 ```
 
-Step 5 — wire observers at application bootstrap:
+Step 5: wire observers at application bootstrap:
 
 ```php
 <?php
@@ -750,16 +750,16 @@ $enrolment->enrol(42, 7);
 **What changed:**
 
 - `CourseEnrolment` now has **one reason to change**: the core enrolment logic. Every side effect is an independent class.
-- Adding push notifications is a new `PushNotificationObserver` class and one line in the bootstrap — zero changes to `CourseEnrolment`.
+- Adding push notifications is a new `PushNotificationObserver` class and one line in the bootstrap, zero changes to `CourseEnrolment`.
 - In tests, you can construct `CourseEnrolment` with an empty observer array and assert only the core logic. Observers get their own isolated tests.
 
 ### When to Use (and When Not to Use) the Observer Pattern
 
 | Use When... | Avoid When... |
 |---|---|
-| One action triggers multiple, independent side effects. | There is only one consumer of the event — direct calling is simpler. |
+| One action triggers multiple, independent side effects. | There is only one consumer of the event; direct calling is simpler. |
 | The set of side effects changes frequently or varies by environment. | The set of side effects is fixed and small (one or two). |
-| You want to add listeners from different modules or packages without touching core code. | Order of notification matters critically — Observer does not (and should not) guarantee execution order. |
+| You want to add listeners from different modules or packages without touching core code. | Order of notification matters critically; Observer does not (and should not) guarantee execution order. |
 | You need to disable specific side effects in tests or staging without mocking everything. | The side effects are tightly coupled and must run in a specific transactional context. |
 
 </section>
@@ -1103,15 +1103,15 @@ echo $service->exportStudentGrades($students, 'csv');
 
 **Problems:**
 
-- `ExportService` knows how to construct three different exporter classes — it depends on every concrete exporter.
+- `ExportService` knows how to construct three different exporter classes; it depends on every concrete exporter.
 - The `if`/`elseif` chain is duplicated in every controller that needs an export (invoices, attendance, transcripts).
 - Configuring an exporter constructor (paper size, delimiter, sheet name) leaks implementation details into the service layer.
 
 ### After: Factory Method Pattern
 
-The **Factory Method** pattern defines an interface for creating an object, but lets subclasses decide which class to instantiate. The client depends only on the abstract creator and product interfaces — never on concrete classes.
+The **Factory Method** pattern defines an interface for creating an object, but lets subclasses decide which class to instantiate. The client depends only on the abstract creator and product interfaces, never on concrete classes.
 
-Step 1 — define the product interface (the report):
+Step 1: define the product interface (the report):
 
 ```php
 <?php
@@ -1122,7 +1122,7 @@ interface ReportExporter
 }
 ```
 
-Step 2 — implement concrete products:
+Step 2: implement concrete products:
 
 ```php
 <?php
@@ -1141,7 +1141,7 @@ class PdfExporter implements ReportExporter
     public function export(string $title, array $headers, array $rows): string
     {
         // In production: use Dompdf or TCPDF
-        return "[PDF] {$title} ({$this->pageSize} {$this->orientation}) — " . count($rows) . " rows";
+        return "[PDF] {$title} ({$this->pageSize} {$this->orientation}), " . count($rows) . " rows";
     }
 }
 
@@ -1178,12 +1178,12 @@ class ExcelExporter implements ReportExporter
     public function export(string $title, array $headers, array $rows): string
     {
         // In production: use PhpSpreadsheet
-        return "[Excel] {$title} (sheet: {$this->sheetName}) — " . count($rows) . " rows";
+        return "[Excel] {$title} (sheet: {$this->sheetName}), " . count($rows) . " rows";
     }
 }
 ```
 
-Step 3 — define the creator (factory) interface:
+Step 3: define the creator (factory) interface:
 
 ```php
 <?php
@@ -1194,7 +1194,7 @@ interface ReportExporterFactory
 }
 ```
 
-Step 4 — implement concrete factories:
+Step 4: implement concrete factories:
 
 ```php
 <?php
@@ -1224,7 +1224,7 @@ class ExcelExporterFactory implements ReportExporterFactory
 }
 ```
 
-Step 5 — refactor `ExportService` to use a factory:
+Step 5: refactor `ExportService` to use a factory:
 
 ```php
 <?php
@@ -1250,7 +1250,7 @@ echo $service->exportStudentGrades($students, new CsvExporterFactory());
 **What changed:**
 
 - `ExportService` depends on `ReportExporterFactory` (abstraction) instead of `PdfExporter`, `CsvExporter`, and `ExcelExporter` (concretions).
-- Adding a new format (e.g., `JsonExporter`) means creating `JsonExporter` and `JsonExporterFactory` — zero changes to `ExportService` or any existing factory.
+- Adding a new format (e.g., `JsonExporter`) means creating `JsonExporter` and `JsonExporterFactory`: zero changes to `ExportService` or any existing factory.
 - Each factory encapsulates its product's construction details. The caller does not need to know that `PdfExporter` wants `A4` or that `ExcelExporter` takes a sheet name.
 - The `match` or `switch` that selects a factory lives at the application boundary (controller or DI container), not inside business logic.
 
@@ -1258,7 +1258,7 @@ echo $service->exportStudentGrades($students, new CsvExporterFactory());
 
 The **Factory Method** pattern (shown above) uses inheritance: each concrete factory subclass creates one type of product. It answers "how do I create a family member?"
 
-The **Abstract Factory** pattern creates *families* of related products through composition. For example, if you also needed a `ChartRenderer` alongside your `ReportExporter`, an `ExportToolkit` abstract factory could create both `ReportExporter` and `ChartRenderer` together — ensuring PDF reports always pair with PDF charts.
+The **Abstract Factory** pattern creates *families* of related products through composition. For example, if you also needed a `ChartRenderer` alongside your `ReportExporter`, an `ExportToolkit` abstract factory could create both `ReportExporter` and `ChartRenderer` together, ensuring PDF reports always pair with PDF charts.
 
 ### When to Use (and When Not to Use) the Factory Method Pattern
 
@@ -1266,8 +1266,8 @@ The **Abstract Factory** pattern creates *families* of related products through 
 |---|---|
 | Object creation involves logic or configuration that should not be repeated at every call site. | The object can be created with a simple `new` statement and no configuration. |
 | You want to centralise which concrete class is instantiated so you can swap it in one place. | There is only one concrete implementation and no plausible second one in the foreseeable future. |
-| The client should depend on an interface, not on a concrete class (Dependency Inversion). | The concrete class is a value object or DTO with no behaviour — a factory adds ceremony without value. |
-| You are already using a DI container — factory wiring is a natural fit there. | The factory itself becomes a dumping ground for unrelated creation logic ("god factory"). |
+| The client should depend on an interface, not on a concrete class (Dependency Inversion). | The concrete class is a value object or DTO with no behaviour; a factory adds ceremony without value. |
+| You are already using a DI container, so factory wiring is a natural fit there. | The factory itself becomes a dumping ground for unrelated creation logic ("god factory"). |
 
 </section>
 
@@ -1379,7 +1379,7 @@ class PdfExporter implements ReportExporter
     public function export(string $title, array $headers, array $rows): string
     {
         // Di produksi: gunakan Dompdf atau TCPDF
-        return "[PDF] {$title} ({$this->pageSize} {$this->orientation}) — " . count($rows) . " baris";
+        return "[PDF] {$title} ({$this->pageSize} {$this->orientation}), " . count($rows) . " baris";
     }
 }
 
@@ -1416,7 +1416,7 @@ class ExcelExporter implements ReportExporter
     public function export(string $title, array $headers, array $rows): string
     {
         // Di produksi: gunakan PhpSpreadsheet
-        return "[Excel] {$title} (sheet: {$this->sheetName}) — " . count($rows) . " baris";
+        return "[Excel] {$title} (sheet: {$this->sheetName}), " . count($rows) . " baris";
     }
 }
 ```
@@ -1521,10 +1521,10 @@ Here is a summary of the three patterns side by side so you can choose the right
 |---|---|---|---|
 | **GoF Category** | Behavioural | Behavioural | Creational |
 | **Problem it solves** | Switching between algorithms at runtime without conditionals | Notifying multiple dependent objects when state changes | Decoupling object creation from business logic |
-| **Key phrase** | "I have multiple ways to do X — let me plug in the one I want." | "When X happens, let Y, Z, and anyone else who cares know." | "I need an X, but I do not want to know how it is built." |
+| **Key phrase** | "I have multiple ways to do X; let me plug in the one I want." | "When X happens, let Y, Z, and anyone else who cares know." | "I need an X, but I do not want to know how it is built." |
 | **PHP keyword** | `interface` + multiple `implements` | `attach()` / `notify()` on subject | `interface` for factory + product |
 | **Tests become** | One test class per strategy | One test per observer + one test for subject in isolation | One test per factory + one test per product |
-| **Overuse risk** | "Strategy for everything" — a strategy interface for a single-line `if` | "Observer spaghetti" — too many observers without clear contracts | "Factory explosion" — a factory for every `new` statement |
+| **Overuse risk** | "Strategy for everything": a strategy interface for a single-line `if` | "Observer spaghetti": too many observers without clear contracts | "Factory explosion": a factory for every `new` statement |
 
 </section>
 
@@ -1555,7 +1555,7 @@ Design patterns are powerful, but they have sharp edges. Here are the three most
 
 ### 1. Patterns Before Problems (Over-Engineering)
 
-Writing a Strategy interface and three concrete strategies for a discount that has never changed and never will is not engineering — it is résumé padding. **The pattern must solve a real, current problem.** If your `if`/`else` has two branches and no foreseeable third, leave it alone.
+Writing a Strategy interface and three concrete strategies for a discount that has never changed and never will is not engineering; it is résumé padding. **The pattern must solve a real, current problem.** If your `if`/`else` has two branches and no foreseeable third, leave it alone.
 
 **Red flag:** You spend more time writing interfaces and factories than you spend writing the actual business logic.
 
@@ -1563,15 +1563,15 @@ Writing a Strategy interface and three concrete strategies for a discount that h
 
 ### 2. Pattern Misuse (Wrong Tool for the Job)
 
-- **Singleton masquerading as Factory:** A `DatabaseFactory` that always returns the same `Database` instance (because it caches a static property) is not a factory — it is a Singleton with extra steps.
-- **Observer used like a queue:** If observers must run in order and the failure of observer 2 must cancel observer 1's work, you need a transactional pipeline or a message queue — not Observer.
-- **Strategy used like configuration:** If your "strategies" only differ by numeric values (e.g., `TaxFixedAmount` vs `TaxPercentage`), you do not need Strategy — you need a single `TaxCalculator` with configuration parameters.
+- **Singleton masquerading as Factory:** A `DatabaseFactory` that always returns the same `Database` instance (because it caches a static property) is not a factory; it is a Singleton with extra steps.
+- **Observer used like a queue:** If observers must run in order and the failure of observer 2 must cancel observer 1's work, you need a transactional pipeline or a message queue, not Observer.
+- **Strategy used like configuration:** If your "strategies" only differ by numeric values (e.g., `TaxFixedAmount` vs `TaxPercentage`), you do not need Strategy; you need a single `TaxCalculator` with configuration parameters.
 
 ### 3. Premature Abstraction
 
 Abstracting too early locks you into a shape you do not yet understand. Write the concrete implementation first. When duplication emerges across three or more places, *then* extract the interface and the pattern. The cost of premature abstraction (wrong abstraction, rigid interface) is far higher than the cost of temporary duplication.
 
-> "Duplication is far cheaper than the wrong abstraction." — Sandi Metz
+> "Duplication is far cheaper than the wrong abstraction." (Sandi Metz)
 
 </section>
 
@@ -1609,7 +1609,7 @@ Mengabstraksi terlalu dini mengunci Anda ke dalam bentuk yang belum Anda pahami.
 
 ## When to Use Patterns (and When to Stop)
 
-Patterns are tools, not trophies. The goal is not to maximise the number of patterns in your codebase — it is to write software that is easy to understand, modify, and extend. Here is a decision framework:
+Patterns are tools, not trophies. The goal is not to maximise the number of patterns in your codebase; it is to write software that is easy to understand, modify, and extend. Here is a decision framework:
 
 ### Start with a Pattern When...
 
@@ -1620,9 +1620,9 @@ Patterns are tools, not trophies. The goal is not to maximise the number of patt
 
 ### Stop (Revert) When...
 
-- The interface has only one implementation — **YAGNI** (You Ain't Gonna Need It).
+- The interface has only one implementation: **YAGNI** (You Ain't Gonna Need It).
 - Debugging requires stepping through six files for a simple operation.
-- The pattern is adding ceremony without reducing coupling — e.g., a factory whose only job is `return new ConcreteClass()` with no configuration.
+- The pattern is adding ceremony without reducing coupling, e.g., a factory whose only job is `return new ConcreteClass()` with no configuration.
 - Onboarding time for new team members is increasing because of pattern-heavy code.
 
 ### A Practical Decision Table
@@ -1635,7 +1635,7 @@ Patterns are tools, not trophies. The goal is not to maximise the number of patt
 | One event triggers email, SMS, push notification, analytics, and audit log. | Observer pattern. |
 | One report format (PDF) used everywhere. | Direct `new PdfExporter()`. |
 | Three report formats selected at runtime, each with different constructor config. | Factory Method. |
-| You are building a framework or library consumed by unknown users. | Patterns make sense earlier — you control the contract, users provide the implementations. |
+| You are building a framework or library consumed by unknown users. | Patterns make sense earlier: you control the contract, users provide the implementations. |
 
 </section>
 
@@ -1739,7 +1739,7 @@ class PaymentGateway
 
     private function callApi(string $endpoint, array $data): bool
     {
-        // Simulated — always succeeds in this exercise
+        // Simulated: always succeeds in this exercise
         return true;
     }
 }
@@ -1755,7 +1755,7 @@ print_r($result);
 ### Your Task
 
 1. **Define a `PaymentMethod` interface** with a single method `process(array $order): array`.
-2. **Create concrete strategy classes** — `CreditCardPayment`, `BankTransferPayment`, `EwalletPayment` — each implementing `PaymentMethod`.
+2. **Create concrete strategy classes**: `CreditCardPayment`, `BankTransferPayment`, and `EwalletPayment`, each implementing `PaymentMethod`.
 3. **Refactor `PaymentGateway`** so that `pay()` accepts a `PaymentMethod` instead of a `$method` string. The `$apiKey` should still be available to strategies.
 4. **Write a factory or `match`** at the boundary (e.g., in a controller) that maps strings to strategy instances.
 
@@ -1838,7 +1838,7 @@ class PaymentGateway
     }
 }
 
-// Boundary — maps request input to strategy
+// Boundary: maps request input to strategy
 function resolvePaymentMethod(string $methodName): PaymentMethod
 {
     return match ($methodName) {
@@ -1927,7 +1927,7 @@ class PaymentGateway
 
     private function callApi(string $endpoint, array $data): bool
     {
-        // Simulasi — selalu berhasil dalam latihan ini
+        // Simulasi: selalu berhasil dalam latihan ini
         return true;
     }
 }
@@ -2026,7 +2026,7 @@ class PaymentGateway
     }
 }
 
-// Batas — memetakan input request ke strategi
+// Batas: memetakan input request ke strategi
 function resolvePaymentMethod(string $methodName): PaymentMethod
 {
     return match ($methodName) {
@@ -2061,19 +2061,19 @@ Bandingkan dengan yang asli: menambahkan metode pembayaran baru (`QRIS`, `PayLat
 2. **Strategy** lets you swap algorithms at runtime by encapsulating each variant behind a common interface. Use it when you have multiple algorithms that change independently of their context.
 3. **Observer** decouples a subject from its dependents by defining a one-to-many notification mechanism. Use it when one event triggers multiple, independently maintainable side effects.
 4. **Factory Method** delegates object creation to subclasses, so calling code depends on abstractions, not concrete classes. Use it when object construction involves non-trivial configuration or you need to centralise which class gets instantiated.
-5. **Do not pattern everything.** Write concrete code first. Refactor to a pattern when a real problem emerges — not before. The wrong abstraction costs more than temporary duplication.
+5. **Do not pattern everything.** Write concrete code first. Refactor to a pattern when a real problem emerges, not before. The wrong abstraction costs more than temporary duplication.
 6. **Practise deliberately.** The PaymentGateway exercise in this tutorial is a real refactoring sequence. Do it by hand. The muscle memory of extracting an interface, creating concrete strategies, and wiring them at the boundary is what makes patterns second nature.
 
-> "Patterns are not a substitute for thinking. They are a starting point for thinking." — Ralph Johnson (GoF co-author)
+> "Patterns are not a substitute for thinking. They are a starting point for thinking." (Ralph Johnson, GoF co-author)
 
 ## What to Read Next
 
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Write readable, maintainable PHP classes before applying patterns to them.
-- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)** — Use TDD to verify your pattern-based refactors without breaking existing behaviour.
-- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** — See how design patterns scale from classes to distributed services.
-- **[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.oreilly.com/library/view/design-patterns-elements/0201633612/)** by Gamma, Helm, Johnson, and Vlissides — The original GoF book.
-- **[Head First Design Patterns (2nd Edition)](https://www.oreilly.com/library/view/head-first-design/9781492077992/)** by Freeman and Robson — A beginner-friendly, visually rich introduction.
-- **[PHP: The Right Way — Design Patterns](https://phptherightway.com/pages/Design-Patterns.html)** — PHP-specific pattern examples and community best practices.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Write readable, maintainable PHP classes before applying patterns to them.
+- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)**: Use TDD to verify your pattern-based refactors without breaking existing behaviour.
+- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)**: See how design patterns scale from classes to distributed services.
+- **[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.oreilly.com/library/view/design-patterns-elements/0201633612/)** by Gamma, Helm, Johnson, and Vlissides: The original GoF book.
+- **[Head First Design Patterns (2nd Edition)](https://www.oreilly.com/library/view/head-first-design/9781492077992/)** by Freeman and Robson: A beginner-friendly, visually rich introduction.
+- **[PHP: The Right Way (Design Patterns)](https://phptherightway.com/pages/Design-Patterns.html)**: PHP-specific pattern examples and community best practices.
 
 </section>
 
@@ -2097,6 +2097,6 @@ Bandingkan dengan yang asli: menambahkan metode pembayaran baru (`QRIS`, `PayLat
 - **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: Lihat bagaimana design patterns diskalakan dari kelas ke layanan terdistribusi.
 - **[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.oreilly.com/library/view/design-patterns-elements/0201633612/)** oleh Gamma, Helm, Johnson, dan Vlissides: Buku GoF asli.
 - **[Head First Design Patterns (Edisi ke-2)](https://www.oreilly.com/library/view/head-first-design/9781492077992/)** oleh Freeman dan Robson: Pengenalan ramah pemula yang kaya visual.
-- **[PHP: The Right Way — Design Patterns](https://phptherightway.com/pages/Design-Patterns.html)**: Contoh pola spesifik PHP dan praktik terbaik komunitas.
+- **[PHP: The Right Way (Design Patterns)](https://phptherightway.com/pages/Design-Patterns.html)**: Contoh pola spesifik PHP dan praktik terbaik komunitas.
 
 </section>

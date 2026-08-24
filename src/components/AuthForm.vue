@@ -21,13 +21,13 @@ import GitHubSignInButton from './GitHubSignInButton.vue'
 import { readOAuthError } from '../lib/oauthError'
 
 // Sign-in and sign-up are the same action with GitHub OAuth (it creates
-// the account on first use), so there's only one entry point left —
-// /register redirects here (see src/pages/register.astro) — and no more
+// the account on first use), so there's only one entry point left:
+// /register redirects here (see src/pages/register.astro), and no more
 // login/register mode to branch on.
 const { t } = useI18n()
 
-// Supabase redirects failed OAuth attempts back here with an error param —
-// seeded empty for SSR, filled in onMounted (post-hydration reactive
+// Supabase redirects failed OAuth attempts back here with an error param.
+// Seeded empty for SSR, filled in onMounted (post-hydration reactive
 // update, not subject to Vue's production hydration-patch suppression).
 const oauthError = ref('')
 onMounted(() => {

@@ -14,7 +14,7 @@ tags:
 tagsId:
   - Domain-Driven Design
   - PHP
-excerpt: "A hands-on guide to Domain-Driven Design (DDD) for PHP developers. Learn ubiquitous language, bounded contexts, entities, value objects, aggregates, repositories, and layered architecture — then refactor an anemic CRUD course registration model into a rich DDD-style domain model with runnable before-and-after code."
+excerpt: "A hands-on guide to Domain-Driven Design (DDD) for PHP developers. Learn ubiquitous language, bounded contexts, entities, value objects, aggregates, repositories, and layered architecture, then refactor an anemic CRUD course registration model into a rich DDD-style domain model with runnable before-and-after code."
 excerptId: "Panduan praktis Domain-Driven Design (DDD) untuk pengembang PHP. Pelajari ubiquitous language, bounded context, entity, value object, aggregate, repository, dan arsitektur berlapis, lalu refactor model registrasi mata kuliah CRUD yang anemic menjadi domain model gaya DDD dengan kode before-and-after yang dapat dijalankan."
 ---
 
@@ -22,9 +22,9 @@ excerptId: "Panduan praktis Domain-Driven Design (DDD) untuk pengembang PHP. Pel
 
 ## What Is Domain-Driven Design?
 
-**Domain-Driven Design (DDD)** is a software design approach that puts the business domain at the centre of every decision. Instead of starting with a database schema or a framework, you start by deeply understanding the problem space — the *domain* — and modelling your code to mirror it.
+**Domain-Driven Design (DDD)** is a software design approach that puts the business domain at the centre of every decision. Instead of starting with a database schema or a framework, you start by deeply understanding the problem space, the *domain*, and modelling your code to mirror it.
 
-Eric Evans introduced DDD in his 2003 book and the core insight is deceptively simple: **the code should speak the same language as the business experts.** When a lecturer says "a student enrols in a course only if they have completed the prerequisite," your `Enrolment` class should enforce that rule — not some orphaned `if` statement in a controller a thousand lines away.
+Eric Evans introduced DDD in his 2003 book and the core insight is deceptively simple: **the code should speak the same language as the business experts.** When a lecturer says "a student enrols in a course only if they have completed the prerequisite," your `Enrolment` class should enforce that rule, not some orphaned `if` statement in a controller a thousand lines away.
 
 ### Common Misconceptions
 
@@ -35,7 +35,7 @@ Eric Evans introduced DDD in his 2003 book and the core insight is deceptively s
 | "DDD is only for enterprise Java projects." | DDD works in any language. PHP, with strong typing (PHP 8+), interfaces, and readonly classes, supports DDD well. |
 | "DDD means no framework." | DDD means the domain layer has **zero framework dependencies**. Infrastructure layers (HTTP, database) can still use Symfony or Laravel. |
 
-In this tutorial, you will learn the four pillars of DDD — Ubiquitous Language, Bounded Contexts, Building Blocks, and Layered Architecture — and apply them by refactoring a real PHP example.
+In this tutorial, you will learn the four pillars of DDD: Ubiquitous Language, Bounded Contexts, Building Blocks, and Layered Architecture, and apply them by refactoring a real PHP example.
 
 </section>
 
@@ -64,7 +64,7 @@ Dalam tutorial ini, Anda akan mempelajari empat pilar DDD: Ubiquitous Language, 
 
 ```mermaid
 graph TB
-    subgraph P["DOMAIN-DRIVEN DESIGN — THE FOUR PILLARS"]
+    subgraph P["DOMAIN-DRIVEN DESIGN: THE FOUR PILLARS"]
         direction LR
         UL["UBIQUITOUS LANGUAGE<br/>Shared glossary between devs & domain experts"]
         BC["BOUNDED CONTEXTS<br/>Splitting large domains into manageable parts"]
@@ -91,7 +91,7 @@ graph TB
 
 In a typical campus system, the same concept has different names in different places. The business expert says "course registration," the database schema has a table called `enrolments`, the controller variable is `$reg`, and the API returns `{ "enrollment_status": "confirmed" }`. When a bug report arrives, nobody is sure which term refers to what.
 
-This translation layer — from business language to code language and back — is the source of countless misunderstandings and bugs.
+This translation layer, from business language to code language and back, is the source of countless misunderstandings and bugs.
 
 ### The Solution
 
@@ -99,11 +99,11 @@ This translation layer — from business language to code language and back — 
 
 ### Building a Ubiquitous Language
 
-Step 1 — Sit with a domain expert (a lecturer, a registrar) and capture raw statements:
+Step 1: Sit with a domain expert (a lecturer, a registrar) and capture raw statements:
 
 > "When a student wants to join a course, they submit a registration request. The system checks whether the student has completed all required prerequisite courses. If they have, the registration is confirmed and the student is added to the course roster."
 
-Step 2 — Extract the nouns and verbs. These become candidates for classes and methods:
+Step 2: Extract the nouns and verbs. These become candidates for classes and methods:
 
 | Raw Term | Refined Term | Becomes |
 |---|---|---|
@@ -114,11 +114,11 @@ Step 2 — Extract the nouns and verbs. These become candidates for classes and 
 | "completed prerequisite" | `hasCompletedPrerequisite(Course)` | Method on `Student` |
 | "course roster" | `CourseRoster` | Value Object or Read Model |
 
-Step 3 — **Enforce the language in code.** Never let a controller variable `$reg` slip through when the domain says `$enrolment`. Every mismatch erodes trust in the model.
+Step 3: **Enforce the language in code.** Never let a controller variable `$reg` slip through when the domain says `$enrolment`. Every mismatch erodes trust in the model.
 
 ### PHP Example: Before and After
 
-**Before — inconsistent language:**
+**Before (inconsistent language):**
 
 ```php
 <?php
@@ -149,7 +149,7 @@ class RegistrationCtrl
 }
 ```
 
-**After — ubiquitous language in class and method names:**
+**After (ubiquitous language in class and method names):**
 
 ```php
 <?php
@@ -183,7 +183,7 @@ No translation needed. The code reads like the domain expert's sentence.
 | Do | Don't |
 |---|---|
 | Use the domain expert's exact words for class and method names. | Invent your own abbreviations (`$reg`, `$sid`, `chkPrereq`). |
-| Document the glossary in a shared wiki or README — keep it alive. | Assume everyone "just knows" the terms. |
+| Document the glossary in a shared wiki or README; keep it alive. | Assume everyone "just knows" the terms. |
 | Refactor class names when the business changes its terminology. | Keep the old name because "renaming is too hard." |
 | Use the same term in API responses, error messages, and logs. | Call it "enrolment" in the API and "registration" in the email template. |
 
@@ -303,11 +303,11 @@ Tidak perlu translasi. Kode terbaca seperti kalimat pakar domain.
 
 ### The Problem
 
-A large domain — like a university — contains many sub-domains: course catalogues, student enrolment, billing, library management, attendance tracking. If you try to build *one unified model* that satisfies every sub-domain, you end up with a `Student` class that has 200 properties (GPA, overdue books, unpaid invoices, dormitory room number, dietary preferences for the cafeteria) and every change to one sub-domain breaks another.
+A large domain, like a university, contains many sub-domains: course catalogues, student enrolment, billing, library management, attendance tracking. If you try to build *one unified model* that satisfies every sub-domain, you end up with a `Student` class that has 200 properties (GPA, overdue books, unpaid invoices, dormitory room number, dietary preferences for the cafeteria) and every change to one sub-domain breaks another.
 
 ### The Solution
 
-A **Bounded Context** is a logical boundary within which a particular domain model applies. Inside each context, terms have precise, unambiguous meanings. The same real-world thing (e.g., a "Student") may have different models in different contexts, and that is not only acceptable — it is *correct*.
+A **Bounded Context** is a logical boundary within which a particular domain model applies. Inside each context, terms have precise, unambiguous meanings. The same real-world thing (e.g., a "Student") may have different models in different contexts, and that is not only acceptable, it is *correct*.
 
 ### Context Map for a Campus System
 
@@ -396,9 +396,9 @@ graph TB
 
 Two contexts that need to share data have several options:
 
-**Shared Kernel** — two contexts agree on a small, shared subset of the model. For example, Identity and Enrolment contexts both use the same `StudentId` value object. Keep the shared kernel as small as possible.
+**Shared Kernel**: two contexts agree on a small, shared subset of the model. For example, Identity and Enrolment contexts both use the same `StudentId` value object. Keep the shared kernel as small as possible.
 
-**Anti-Corruption Layer (ACL)** — when one context must consume data from another, build a translation layer that converts the external model into your internal model. This prevents the other context's design from "leaking" into yours.
+**Anti-Corruption Layer (ACL)**: when one context must consume data from another, build a translation layer that converts the external model into your internal model. This prevents the other context's design from "leaking" into yours.
 
 ```php
 <?php
@@ -486,11 +486,11 @@ ACL adalah kode tambahan, tetapi ini adalah investasi satu kali. Tanpanya, perub
 
 ## Pillar 3: DDD Building Blocks in PHP
 
-DDD provides a set of **tactical patterns** — concrete building blocks you use to construct the domain model. Each block has a specific role and a specific set of rules.
+DDD provides a set of **tactical patterns**: concrete building blocks you use to construct the domain model. Each block has a specific role and a specific set of rules.
 
 ### Entity
 
-An **Entity** is an object defined by its **identity**, not its attributes. Two `Student` objects with the same NIM are the same student, even if one has a stale name and the other has an updated one. Entities are mutable — their attributes change over time while their identity remains constant.
+An **Entity** is an object defined by its **identity**, not its attributes. Two `Student` objects with the same NIM are the same student, even if one has a stale name and the other has an updated one. Entities are mutable: their attributes change over time while their identity remains constant.
 
 ```php
 <?php
@@ -547,7 +547,7 @@ Key rules:
 
 ### Value Object
 
-A **Value Object** has no identity. It is defined entirely by its attributes. Two `Money` objects with the same amount and currency are interchangeable. Value Objects are **immutable** — methods return new instances rather than modifying state.
+A **Value Object** has no identity. It is defined entirely by its attributes. Two `Money` objects with the same amount and currency are interchangeable. Value Objects are **immutable**: methods return new instances rather than modifying state.
 
 ```php
 <?php
@@ -648,11 +648,11 @@ class Email
 }
 ```
 
-### Entity vs Value Object — Quick Decision Table
+### Entity vs Value Object: Quick Decision Table
 
 | Criterion | Entity | Value Object |
 |---|---|---|
-| Has identity? | Yes — two objects with the same ID are the same thing. | No — two objects with the same attributes are interchangeable. |
+| Has identity? | Yes: two objects with the same ID are the same thing. | No: two objects with the same attributes are interchangeable. |
 | Mutable or immutable? | Mutable (attributes change, identity stays). | Immutable (methods return new instances). |
 | Equality check | By ID (`$a->id()->equals($b->id())`). | By value (every attribute must match). |
 | Lifecycle | Created, updated, (soft) deleted. | Created and discarded. |
@@ -660,7 +660,7 @@ class Email
 
 ### Aggregate and Aggregate Root
 
-An **Aggregate** is a cluster of entities and value objects treated as a single unit for data changes. The **Aggregate Root** is the single entry point — all external references to the aggregate go through the root.
+An **Aggregate** is a cluster of entities and value objects treated as a single unit for data changes. The **Aggregate Root** is the single entry point: all external references to the aggregate go through the root.
 
 **Why?** Without aggregates, any part of the code can modify any entity, and business invariants scatter across the codebase. With aggregates, the root guarantees consistency.
 
@@ -743,7 +743,7 @@ Key rules:
 - Only the aggregate root (`Enrolment`) has a global identity. Internal entities have local identities.
 - External code never holds a reference to `EnrolmentHistory`. It talks to `Enrolment` only.
 - All invariants are checked inside the aggregate before state changes.
-- Aggregates should be small. A `University` aggregate containing every `Student` and `Course` is the wrong granularity — prefer many small aggregates.
+- Aggregates should be small. A `University` aggregate containing every `Student` and `Course` is the wrong granularity: prefer many small aggregates.
 
 ### Repository
 
@@ -815,7 +815,7 @@ class PdoEnrolmentRepository implements EnrolmentRepository
 }
 ```
 
-The `PdoEnrolmentRepository` lives in the infrastructure layer. The `EnrolmentRepository` interface lives in the domain layer. Application code depends on the interface — it never knows about PDO.
+The `PdoEnrolmentRepository` lives in the infrastructure layer. The `EnrolmentRepository` interface lives in the domain layer. Application code depends on the interface: it never knows about PDO.
 
 ### Domain Service
 
@@ -1232,14 +1232,14 @@ class PrerequisiteChecker
 
 ## Pillar 4: Layered Architecture
 
-DDD prescribes a **layered architecture** where each layer has a distinct responsibility and dependencies point inward. The domain layer is the heart — it has zero dependencies on frameworks, databases, or HTTP libraries.
+DDD prescribes a **layered architecture** where each layer has a distinct responsibility and dependencies point inward. The domain layer is the heart: it has zero dependencies on frameworks, databases, or HTTP libraries.
 
 ### The Four Layers
 
 | Layer | Responsibility | Depends On | Example Classes |
 |---|---|---|---|
 | **User Interface** | HTTP controllers, CLI commands, queue consumers. | Application layer. | `EnrolmentController`, `ImportStudentsCommand` |
-| **Application** | Use case orchestration. Thin — delegates to domain. | Domain layer. | `EnrolStudentUseCase`, `CancelEnrolmentUseCase` |
+| **Application** | Use case orchestration. Thin: delegates to domain. | Domain layer. | `EnrolStudentUseCase`, `CancelEnrolmentUseCase` |
 | **Domain** | Business rules, entities, value objects, domain services. | Nothing (pure PHP). | `Student`, `Enrolment`, `PrerequisiteChecker` |
 | **Infrastructure** | Database, HTTP clients, email, file system. | Implements domain interfaces. | `PdoEnrolmentRepository`, `SmtpMailer` |
 
@@ -1302,7 +1302,7 @@ Notice:
 │                   │                           │
 │    ┌──────────────┴──────────────────────┐    │
 │    │    Infrastructure (PDO, HTTP,        │    │
-│    │    Mailer — implements Domain        │    │
+│    │    Mailer: implements Domain         │    │
 │    │    interfaces)                       │    │
 │    └─────────────────────────────────────┘    │
 └──────────────────────────────────────────────┘
@@ -1389,7 +1389,7 @@ Perhatikan:
 │                   │                           │
 │    ┌──────────────┴──────────────────────┐    │
 │    │    Infrastructure (PDO, HTTP,        │    │
-│    │    Mailer — mengimplementasikan      │    │
+│    │    Mailer: mengimplementasikan       │    │
 │    │    interface Domain)                 │    │
 │    └─────────────────────────────────────┘    │
 └──────────────────────────────────────────────┘
@@ -1408,14 +1408,14 @@ Ini berarti Anda dapat menukar `PdoEnrolmentRepository` dengan `RedisEnrolmentRe
 
 ## Hands-On: From Anemic CRUD (Create, Read, Update, Delete) to DDD Domain Model
 
-Let us apply everything by refactoring a real example. We start with an **anemic domain model** — a common anti-pattern where "domain" classes are data bags with getters and setters, and all business logic lives in services or controllers.
+Let us apply everything by refactoring a real example. We start with an **anemic domain model**, a common anti-pattern where "domain" classes are data bags with getters and setters, and all business logic lives in services or controllers.
 
 ### Before: Anemic CRUD Course Registration
 
 ```php
 <?php
 
-// The "model" — just a data bag
+// The "model": just a data bag
 class Student
 {
     public int $id;
@@ -1479,7 +1479,7 @@ class RegistrationService
             return ['error' => 'Already enrolled'];
         }
 
-        // Check prerequisites — this logic is here, not on the model
+        // Check prerequisites: this logic is here, not on the model
         foreach ($course['prerequisite_ids'] as $prereqId) {
             $completed = $this->db->prepare(
                 'SELECT COUNT(*) FROM enrolments
@@ -1491,7 +1491,7 @@ class RegistrationService
             }
         }
 
-        // Check capacity — raw SQL check
+        // Check capacity: raw SQL check
         $count = $this->db->prepare(
             'SELECT COUNT(*) FROM enrolments
              WHERE course_id = ? AND status = ?'
@@ -1501,7 +1501,7 @@ class RegistrationService
             return ['error' => 'Course is full'];
         }
 
-        // Insert — string status, no domain event
+        // Insert: string status, no domain event
         $stmt = $this->db->prepare(
             'INSERT INTO enrolments (student_id, course_id, status, created_at)
              VALUES (?, ?, ?, ?)'
@@ -1550,7 +1550,7 @@ print_r($result);
 **Problems with this code:**
 
 1. **Anemic domain model.** `Student`, `Course`, and `Enrolment` have zero behaviour. They are glorified arrays with public properties.
-2. **Scattered business rules.** Prerequisite checking, capacity enforcement, and duplicate detection live inside `RegistrationService` — a class that should orchestrate, not contain domain logic.
+2. **Scattered business rules.** Prerequisite checking, capacity enforcement, and duplicate detection live inside `RegistrationService`, a class that should orchestrate, not contain domain logic.
 3. **String-based statuses.** `'pending'`, `'confirmed'`, `'cancelled'` are error-prone magic strings. A typo (`'cnfirmed'`) goes undetected until runtime.
 4. **Framework-coupled data access.** `RegistrationService` depends on `\PDO` directly. Swapping the database means rewriting every service.
 5. **Side effects embedded in business logic.** Sending an email is hard-coded inside `registerStudentForCourse`. You cannot disable it in tests without mocking the mailer.
@@ -1560,7 +1560,7 @@ print_r($result);
 
 We now refactor the same functionality following DDD principles.
 
-**Step 1 — Value Objects (Domain layer, zero dependencies):**
+**Step 1: Value Objects (Domain layer, zero dependencies):**
 
 ```php
 <?php
@@ -1611,7 +1611,7 @@ enum EnrolmentStatus: string
 }
 ```
 
-**Step 2 — Entities with behaviour (Domain layer):**
+**Step 2: Entities with behaviour (Domain layer):**
 
 ```php
 <?php
@@ -1728,7 +1728,7 @@ class Prerequisite
 }
 ```
 
-**Step 3 — The Enrolment Aggregate (Domain layer):**
+**Step 3: The Enrolment Aggregate (Domain layer):**
 
 ```php
 <?php
@@ -1805,7 +1805,7 @@ class Enrolment
 }
 ```
 
-**Step 4 — Repository Interfaces (Domain layer):**
+**Step 4: Repository Interfaces (Domain layer):**
 
 ```php
 <?php
@@ -1818,7 +1818,7 @@ interface EnrolmentRepository
 }
 ```
 
-**Step 5 — Application Use Case (Application layer):**
+**Step 5: Application Use Case (Application layer):**
 
 ```php
 <?php
@@ -1915,7 +1915,7 @@ class EnrolmentResult
 }
 ```
 
-**Step 6 — Infrastructure Implementation (Infrastructure layer):**
+**Step 6: Infrastructure Implementation (Infrastructure layer):**
 
 ```php
 <?php
@@ -1976,7 +1976,7 @@ class PdoEnrolmentRepository implements EnrolmentRepository
 }
 ```
 
-**Step 7 — Controller (User Interface layer):**
+**Step 7: Controller (User Interface layer):**
 
 ```php
 <?php
@@ -2018,11 +2018,11 @@ class EnrolmentController
 |---|---|---|
 | **Where are business rules?** | Scattered in `RegistrationService` and raw SQL queries. | Inside `Student`, `Course`, and `Enrolment` entities. |
 | **Status management** | Magic strings (`'confirmed'`, `'pending'`). | Typed enum `EnrolmentStatus`. |
-| **Invariant enforcement** | Ad-hoc `if` checks in service layer. | Inside aggregate methods (`confirm()`, `cancel()`) — impossible to bypass. |
+| **Invariant enforcement** | Ad-hoc `if` checks in service layer. | Inside aggregate methods (`confirm()`, `cancel()`): impossible to bypass. |
 | **Database coupling** | `\PDO` directly in service class. | Repository interface in Domain; PDO implementation in Infrastructure. |
 | **Testability** | Must mock `\PDO` and `Mailer` to test business rules. | Unit-test entities with no mocks. Integration-test repositories in isolation. |
 | **Side effects** | `$this->mailer->send()` inside business logic. | Removed from use case; emitted as domain events handled by infrastructure. |
-| **Domain expert readability** | `registerStudentForCourse($sid, $cid)` — generic. | `$student->hasCompletedPrerequisitesFor($course)` — reads like a conversation. |
+| **Domain expert readability** | `registerStudentForCourse($sid, $cid)`: generic. | `$student->hasCompletedPrerequisitesFor($course)`: reads like a conversation. |
 
 </section>
 
@@ -2037,7 +2037,7 @@ Mari kita terapkan semuanya dengan me-refactor contoh nyata. Kita mulai dengan *
 ```php
 <?php
 
-// "Model" — hanya data bag
+// "Model": hanya data bag
 class Student
 {
     public int $id;
@@ -2101,7 +2101,7 @@ class RegistrationService
             return ['error' => 'Sudah terdaftar'];
         }
 
-        // Periksa prasyarat — logika ini di sini, bukan di model
+        // Periksa prasyarat: logika ini di sini, bukan di model
         foreach ($course['prerequisite_ids'] as $prereqId) {
             $completed = $this->db->prepare(
                 'SELECT COUNT(*) FROM enrolments
@@ -2113,7 +2113,7 @@ class RegistrationService
             }
         }
 
-        // Periksa kapasitas — pengecekan SQL mentah
+        // Periksa kapasitas: pengecekan SQL mentah
         $count = $this->db->prepare(
             'SELECT COUNT(*) FROM enrolments
              WHERE course_id = ? AND status = ?'
@@ -2123,7 +2123,7 @@ class RegistrationService
             return ['error' => 'Mata kuliah penuh'];
         }
 
-        // Insert — status string, tanpa domain event
+        // Insert: status string, tanpa domain event
         $stmt = $this->db->prepare(
             'INSERT INTO enrolments (student_id, course_id, status, created_at)
              VALUES (?, ?, ?, ?)'
@@ -2661,7 +2661,7 @@ DDD and microservices are a natural pairing. A **bounded context** in DDD maps d
 | DDD Concept | Microservices Equivalent |
 |---|---|
 | Bounded Context | A microservice (e.g., `EnrolmentService`) |
-| Ubiquitous Language | The API contract — JSON field names, endpoint paths, error codes |
+| Ubiquitous Language | The API contract: JSON field names, endpoint paths, error codes |
 | Aggregate | A transactional boundary inside a service |
 | Domain Event | An event published to a message broker (e.g., `StudentEnrolled`) |
 | Anti-Corruption Layer | An API gateway or a dedicated integration service |
@@ -2672,7 +2672,7 @@ DDD and microservices are a natural pairing. A **bounded context** in DDD maps d
 ```php
 <?php
 
-// Inside EnrolmentService — after confirm()
+// Inside EnrolmentService: after confirm()
 class EnrolmentConfirmedEventHandler
 {
     public function __construct(private \PhpAmqpLib\Channel\AMQPChannel $channel) {}
@@ -2696,7 +2696,7 @@ class EnrolmentConfirmedEventHandler
 }
 ```
 
-The Billing Service subscribes to `enrolment.confirmed` and generates an invoice — without ever knowing the Enrolment Service's internal schema.
+The Billing Service subscribes to `enrolment.confirmed` and generates an invoice, without ever knowing the Enrolment Service's internal schema.
 
 For a deeper dive into how bounded contexts drive service decomposition, see our **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** tutorial, which covers communication patterns, database-per-service, contract testing, and deployment basics.
 
@@ -2724,7 +2724,7 @@ DDD dan microservices adalah pasangan alami. **Bounded context** dalam DDD memet
 ```php
 <?php
 
-// Di dalam EnrolmentService — setelah confirm()
+// Di dalam EnrolmentService: setelah confirm()
 class EnrolmentConfirmedEventHandler
 {
     public function __construct(private \PhpAmqpLib\Channel\AMQPChannel $channel) {}
@@ -2758,7 +2758,7 @@ Untuk pendalaman lebih lanjut tentang bagaimana bounded context mendorong dekomp
 
 <section lang="en">
 
-## When to Use — and When to Skip — DDD
+## When to Use (and When to Skip) DDD
 
 DDD is not a one-size-fits-all approach. The cost of DDD (more files, stricter modelling discipline, ubiquitous language maintenance) must be justified by the complexity of the domain.
 
@@ -2776,13 +2776,13 @@ DDD is not a one-size-fits-all approach. The cost of DDD (more files, stricter m
 
 | Condition | Why DDD Is Overkill |
 |---|---|
-| The application is mostly **CRUD** — simple create, read, update, delete with no complex rules. | DDD adds dozens of files to solve a problem you do not have. A thin controller + repository is sufficient. |
+| The application is mostly **CRUD**: simple create, read, update, delete with no complex rules. | DDD adds dozens of files to solve a problem you do not have. A thin controller + repository is sufficient. |
 | The domain is **data-intensive, not behaviour-intensive**. | If the challenge is fast queries and report generation, invest in database design and caching, not rich domain models. |
 | The team is **small (1–3 developers)** and the project is short-lived. | The time spent modelling is rarely recouped on short projects. |
 | There are **no domain experts available**. | DDD without a domain expert is just architecture for its own sake. The model will be wrong. |
 | You are building a **prototype or MVP** with an uncertain domain. | Start with a simple CRUD approach. Introduce DDD when the domain rules stabilise and complexity emerges. |
 
-### Complexity Threshold — A Practical Heuristic
+### Complexity Threshold: A Practical Heuristic
 
 Use DDD if you answer **yes** to at least three of these:
 
@@ -2842,26 +2842,26 @@ Jika Anda menjawab **tidak** untuk sebagian besar, mulailah dengan sederhana. DD
 
 ## Summary
 
-1. **Domain-Driven Design aligns code with the business domain.** The goal is not more classes — it is software that domain experts can read and verify.
+1. **Domain-Driven Design aligns code with the business domain.** The goal is not more classes: it is software that domain experts can read and verify.
 2. **Ubiquitous Language** eliminates the translation tax between business and engineering. Every term in the code is a term the stakeholder uses.
-3. **Bounded Contexts** define clear boundaries where a specific model applies. Different contexts can have different models of the same real-world concept — and they should.
+3. **Bounded Contexts** define clear boundaries where a specific model applies. Different contexts can have different models of the same real-world concept, and they should.
 4. **Entities** have identity and lifecycle. **Value Objects** are immutable and defined by their attributes. **Aggregates** enforce invariants for a cluster of related objects.
-5. **Repositories** abstract data access behind collection-like interfaces in the domain layer. Infrastructure implements them — domain never touches PDO or ORM.
+5. **Repositories** abstract data access behind collection-like interfaces in the domain layer. Infrastructure implements them: domain never touches PDO or ORM.
 6. **Layered architecture** keeps domain code pure. Dependencies point inward: Infrastructure → Application → Domain. Domain depends on nothing.
 7. **DDD and microservices** complement each other. Bounded contexts naturally map to independently deployable services.
 8. **DDD is not always the answer.** CRUD applications, small teams, short-lived projects, and domains without experts are better served by simpler approaches. Start with a well-structured CRUD model and introduce DDD when complexity demands it.
 
-> "The heart of software is its ability to solve domain-related problems for its users. All other features, vital though they may be, support this basic purpose." — Eric Evans
+> "The heart of software is its ability to solve domain-related problems for its users. All other features, vital though they may be, support this basic purpose." (Eric Evans)
 
 ## What to Read Next
 
-- **[Design Patterns with PHP](/blog/design-patterns-with-php)** — Apply Strategy, Observer, and Factory Method patterns to your DDD domain model.
-- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** — See how bounded contexts map to independently deployable services.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Write readable, maintainable domain code before adding DDD complexity.
-- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)** — TDD and DDD work hand-in-hand: tests verify domain rules, refactoring keeps the model clean.
-- **[Domain-Driven Design: Tackling Complexity in the Heart of Software](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)** by Eric Evans — The original "Blue Book" that started DDD.
-- **[Implementing Domain-Driven Design](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)** by Vaughn Vernon — Practical DDD implementation with code examples (Java/C#, applicable to PHP).
-- **[Domain-Driven Design in PHP](https://leanpub.com/ddd-in-php)** by Carlos Buenosvinos, Christian Soronellas, and Keyvan Akbary — A DDD book written specifically for PHP developers.
+- **[Design Patterns with PHP](/blog/design-patterns-with-php)**: Apply Strategy, Observer, and Factory Method patterns to your DDD domain model.
+- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)**: See how bounded contexts map to independently deployable services.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Write readable, maintainable domain code before adding DDD complexity.
+- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)**: TDD and DDD work hand-in-hand: tests verify domain rules, refactoring keeps the model clean.
+- **[Domain-Driven Design: Tackling Complexity in the Heart of Software](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)** by Eric Evans: The original "Blue Book" that started DDD.
+- **[Implementing Domain-Driven Design](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)** by Vaughn Vernon: Practical DDD implementation with code examples (Java/C#, applicable to PHP).
+- **[Domain-Driven Design in PHP](https://leanpub.com/ddd-in-php)** by Carlos Buenosvinos, Christian Soronellas, and Keyvan Akbary: A DDD book written specifically for PHP developers.
 
 </section>
 

@@ -30,7 +30,7 @@ tagsId:
 
 **Continuous Integration (CI)** is the practice of automatically building and testing your code every time you push changes to a shared repository. Instead of waiting until the night before a deadline to discover that your branch conflicts with a teammate's work, CI gives you an answer within minutes of every push: did my change break anything?
 
-**Continuous Delivery / Deployment (CD)** extends CI by automating the release process. Once your code passes all tests and quality checks, CD can deliver it to a staging environment (Continuous Delivery) or all the way to production (Continuous Deployment) — without a human copying files via FTP at 2 AM.
+**Continuous Delivery / Deployment (CD)** extends CI by automating the release process. Once your code passes all tests and quality checks, CD can deliver it to a staging environment (Continuous Delivery) or all the way to production (Continuous Deployment), without a human copying files via FTP at 2 AM.
 
 Together, CI/CD forms the backbone of modern software delivery. It replaces hope with evidence. You do not *hope* your merge works. You push, the pipeline runs, and you know.
 
@@ -47,11 +47,11 @@ Without CI/CD, the typical student or small-team workflow looks like this:
 7. Discover something broke
 8. SSH in at midnight to fix it
 
-With CI/CD, steps 2 through 8 become a single automated pipeline. You push code, and the machine does everything else — including telling you exactly what went wrong if something fails.
+With CI/CD, steps 2 through 8 become a single automated pipeline. You push code, and the machine does everything else, including telling you exactly what went wrong if something fails.
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang researches **SE Methodologies & Architecture**, which includes build automation, deployment pipelines, and quality assurance workflows. This tutorial bridges the gap between the testing tutorials (TDD, blackbox/whitebox) and shipping real software — a critical skill for internships, thesis projects, and open-source contributions.
+The Software Engineering Lab at Politeknik Negeri Malang researches **SE Methodologies & Architecture**, which includes build automation, deployment pipelines, and quality assurance workflows. This tutorial bridges the gap between the testing tutorials (TDD, blackbox/whitebox) and shipping real software, a critical skill for internships, thesis projects, and open-source contributions.
 
 ### What You Will Learn
 
@@ -631,21 +631,21 @@ jobs:
 
 ### Walkthrough: What Each Step Does
 
-**`actions/checkout@v4`** — Clones your repository onto the runner. Without this, the runner is an empty machine.
+**`actions/checkout@v4`**: Clones your repository onto the runner. Without this, the runner is an empty machine.
 
-**`shivammathur/setup-php@v2`** — Installs PHP with the specified version, Composer, and optional extensions. This is the community-standard PHP action, maintained by Shivam Mathur. It handles PHP installation, extension setup, and `php.ini` configuration.
+**`shivammathur/setup-php@v2`**: Installs PHP with the specified version, Composer, and optional extensions. This is the community-standard PHP action, maintained by Shivam Mathur. It handles PHP installation, extension setup, and `php.ini` configuration.
 
-**Composer cache step** — The `composer config cache-files-dir` command returns the path where Composer stores downloaded packages. We save this path to `$GITHUB_OUTPUT` so the caching step can use it.
+**Composer cache step**: The `composer config cache-files-dir` command returns the path where Composer stores downloaded packages. We save this path to `$GITHUB_OUTPUT` so the caching step can use it.
 
-**`actions/cache@v4`** — GitHub's official caching action. It stores the Composer cache directory and restores it on subsequent runs if the `composer.lock` hash has not changed. This turns a 60-second `composer install` into a 5-second one.
+**`actions/cache@v4`**: GitHub's official caching action. It stores the Composer cache directory and restores it on subsequent runs if the `composer.lock` hash has not changed. This turns a 60-second `composer install` into a 5-second one.
 
-**`composer install`** — Installs project dependencies. The flags `--no-progress`, `--no-interaction`, and `--prefer-dist` make it suitable for non-interactive CI environments.
+**`composer install`**: Installs project dependencies. The flags `--no-progress`, `--no-interaction`, and `--prefer-dist` make it suitable for non-interactive CI environments.
 
-**`vendor/bin/phpunit`** — Runs the test suite. If any test fails, the step exits with a non-zero code, and the job is marked as failed.
+**`vendor/bin/phpunit`**: Runs the test suite. If any test fails, the step exits with a non-zero code, and the job is marked as failed.
 
 ### Why Caching Matters
 
-On the first run, `composer install` downloads every package from scratch — typically 30–90 seconds. On subsequent runs with a cache hit, Composer finds the packages already stored locally and installation drops to 3–10 seconds. Over 100 workflow runs, this saves roughly an hour of compute time.
+On the first run, `composer install` downloads every package from scratch, typically 30–90 seconds. On subsequent runs with a cache hit, Composer finds the packages already stored locally and installation drops to 3–10 seconds. Over 100 workflow runs, this saves roughly an hour of compute time.
 
 ### Commit and Push
 
@@ -658,7 +658,7 @@ $ git remote add origin https://github.com/your-username/php-ci-demo.git
 $ git push -u origin main
 ```
 
-Switch to the **Actions** tab in your GitHub repository. You should see the workflow running — and passing.
+Switch to the **Actions** tab in your GitHub repository. You should see the workflow running, and passing.
 
 </section>
 
@@ -748,7 +748,7 @@ Beralihlah ke tab **Actions** di repositori GitHub Anda. Anda seharusnya melihat
 
 ## Running PHPUnit Across Multiple PHP Versions with a Matrix
 
-Real projects need to support multiple PHP versions. Your production server might run PHP 8.2 while a client's environment still uses 8.1 — or your library claims support for 8.0 through 8.3 and you need to prove it.
+Real projects need to support multiple PHP versions. Your production server might run PHP 8.2 while a client's environment still uses 8.1, or your library claims support for 8.0 through 8.3 and you need to prove it.
 
 GitHub Actions supports **matrix strategies**: you define a list of values, and the runner spawns one parallel job for each combination. For PHP, the most common matrix dimension is `php-version`.
 
@@ -804,15 +804,15 @@ jobs:
 
 ### Key Additions
 
-**`strategy.fail-fast: false`** — By default, GitHub cancels all matrix jobs as soon as one fails. Setting `fail-fast` to `false` lets all versions run to completion, so you see the full picture. If PHP 8.0 fails but 8.1, 8.2, and 8.3 pass, you know the problem is specific to 8.0.
+**`strategy.fail-fast: false`**: By default, GitHub cancels all matrix jobs as soon as one fails. Setting `fail-fast` to `false` lets all versions run to completion, so you see the full picture. If PHP 8.0 fails but 8.1, 8.2, and 8.3 pass, you know the problem is specific to 8.0.
 
-**`matrix.php-version: ['8.0', '8.1', '8.2', '8.3']`** — Defines four parallel jobs. You can add or remove versions freely.
+**`matrix.php-version: ['8.0', '8.1', '8.2', '8.3']`**: Defines four parallel jobs. You can add or remove versions freely.
 
-**`${{ matrix.php-version }}` in the cache key** — Critical. Without this, all four jobs share one cache, and PHP 8.0 packages overwrite PHP 8.3 packages (or vice versa), causing version mismatches. Adding the PHP version to the cache key gives each version its own cache.
+**`${{ matrix.php-version }}` in the cache key**: Critical. Without this, all four jobs share one cache, and PHP 8.0 packages overwrite PHP 8.3 packages (or vice versa), causing version mismatches. Adding the PHP version to the cache key gives each version its own cache.
 
 ### What This Looks Like in Practice
 
-After pushing this workflow, the Actions tab shows **four parallel checkmarks** — one for each PHP version. If all four pass, your codebase is proven compatible. If one fails, you expand the job log and see exactly which test failed on which version.
+After pushing this workflow, the Actions tab shows **four parallel checkmarks**, one for each PHP version. If all four pass, your codebase is proven compatible. If one fails, you expand the job log and see exactly which test failed on which version.
 
 </section>
 
@@ -1171,22 +1171,22 @@ Add this job at the end of `.github/workflows/php.yml`:
 
 ### Breaking Down the Deployment Logic
 
-**`needs: [test, static-analysis, code-style]`** — This job starts only after all three prerequisite jobs succeed. If any of them fail, deployment is skipped. This is the fundamental safety guarantee of CD: broken code never reaches production.
+**`needs: [test, static-analysis, code-style]`**: This job starts only after all three prerequisite jobs succeed. If any of them fail, deployment is skipped. This is the fundamental safety guarantee of CD: broken code never reaches production.
 
-**`if: github.ref == 'refs/heads/main' && github.event_name == 'push'`** — Two conditions:
+**`if: github.ref == 'refs/heads/main' && github.event_name == 'push'`**: Two conditions:
 - Only deploy from the `main` branch (not `develop` or feature branches)
 - Only deploy on `push` events (not on pull requests, which should only verify, not deploy)
 
-**`easingthemes/ssh-deploy`** — A popular community action that:
+**`easingthemes/ssh-deploy`**: A popular community action that:
 1. Establishes an SSH connection using the private key
 2. Uses rsync to copy files to the remote server
 3. Runs post-deployment commands via `SCRIPT_AFTER`
 
-**`--exclude` flags** — Critical for not overwriting server-specific files:
-- `.git/` — The server does not need Git history
-- `.github/` — Workflow files are only for CI
-- `.env` — Production environment variables should never be overwritten from the repository
-- `vendor/` — Dependencies will be installed fresh on the server
+**`--exclude` flags**: Critical for not overwriting server-specific files:
+- `.git/`: The server does not need Git history
+- `.github/`: Workflow files are only for CI
+- `.env`: Production environment variables should never be overwritten from the repository
+- `vendor/`: Dependencies will be installed fresh on the server
 
 ### Alternative Deployment Targets
 
@@ -1276,7 +1276,7 @@ Untuk proyek mahasiswa, pendekatan VPS + SSH adalah yang paling edukatif karena 
 
 ## Managing Secrets and Environment Variables
 
-The deployment job references `${{ secrets.SSH_PRIVATE_KEY }}`, `${{ secrets.REMOTE_HOST }}`, and other secret values. These are **not** stored in the workflow file — they are stored in GitHub's encrypted secrets store and injected at runtime.
+The deployment job references `${{ secrets.SSH_PRIVATE_KEY }}`, `${{ secrets.REMOTE_HOST }}`, and other secret values. These are **not** stored in the workflow file: they are stored in GitHub's encrypted secrets store and injected at runtime.
 
 ### Where Secrets Live
 
@@ -1311,9 +1311,9 @@ These are plain-text and visible in logs. Use them for anything that is not a cr
 
 1. **Never hardcode secrets in workflow files.** Anyone with read access to the repository can see the file content. Secrets are encrypted at rest and only decrypted during workflow execution.
 
-2. **Never echo secrets to logs.** GitHub automatically redacts secret values from log output — the string `***` replaces them. But if you base64-encode or otherwise transform a secret before printing, the redaction may fail.
+2. **Never echo secrets to logs.** GitHub automatically redacts secret values from log output: the string `***` replaces them. But if you base64-encode or otherwise transform a secret before printing, the redaction may fail.
 
-3. **Use the principle of least privilege.** Create a dedicated `deploy` user on your VPS with SSH key access only — no password, no sudo unless needed for specific commands.
+3. **Use the principle of least privilege.** Create a dedicated `deploy` user on your VPS with SSH key access only, no password, no sudo unless needed for specific commands.
 
 4. **Rotate SSH keys periodically.** If a team member leaves the project, regenerate the deploy key and update the `SSH_PRIVATE_KEY` secret.
 
@@ -1402,7 +1402,7 @@ CI/CD pipelines fail. Even experienced developers spend time in the Actions tab 
 
 **Cause:** Someone updated `composer.json` locally but forgot to run `composer update` and commit the new `composer.lock`.
 
-**Fix:** Always run `composer install` in CI. Use `composer update` only locally when you intentionally change dependencies — and commit the resulting `composer.lock`.
+**Fix:** Always run `composer install` in CI. Use `composer update` only locally when you intentionally change dependencies, and commit the resulting `composer.lock`.
 
 ### Pitfall 2: Tests Pass Locally but Fail in CI
 
@@ -1434,7 +1434,7 @@ CI/CD pipelines fail. Even experienced developers spend time in the Actions tab 
 
 **Cause:** Caching is misconfigured. Common mistakes: wrong cache key, missing `hashFiles`, or caching the wrong directory.
 
-**Fix:** Verify that your cache key includes `hashFiles('**/composer.lock')`. Check the cache step output in the Actions log — it will say "Cache not found" on first run and "Cache restored from key" on subsequent runs.
+**Fix:** Verify that your cache key includes `hashFiles('**/composer.lock')`. Check the cache step output in the Actions log: it will say "Cache not found" on first run and "Cache restored from key" on subsequent runs.
 
 ### Pitfall 4: Deployment Overwrites Production `.env`
 
@@ -1454,7 +1454,7 @@ CI/CD pipelines fail. Even experienced developers spend time in the Actions tab 
 
 ### How to Read GitHub Actions Logs
 
-When a job fails, click on it in the Actions tab. Each step is expandable. The failing step is marked with a red cross. Expand it and scroll to the bottom — the error message is usually in the last 10 lines.
+When a job fails, click on it in the Actions tab. Each step is expandable. The failing step is marked with a red cross. Expand it and scroll to the bottom: the error message is usually in the last 10 lines.
 
 Look for:
 - **Exit code:** The number after "Process completed with exit code" (non-zero = failure)
@@ -1556,7 +1556,7 @@ CI/CD is powerful, but it is not free. Every workflow run consumes GitHub Action
 | **Projects with tests** | If you have tests but no CI, tests are only as good as the developer's memory. CI makes them mandatory. |
 | **Library or package code** | Libraries must support multiple PHP versions. A matrix strategy proves compatibility automatically. |
 | **Frequently deployed applications** | If you deploy weekly or daily, automation eliminates the most error-prone part of the process. |
-| **Team projects (academic or industry)** | CI enforces standards that instructors or tech leads set — consistently, without manual checking. |
+| **Team projects (academic or industry)** | CI enforces standards that instructors or tech leads set, consistently, without manual checking. |
 | **Open-source projects** | External contributors need to know within minutes whether their PR passes. CI gives them that feedback. |
 
 ### When CI/CD May Be Overkill
@@ -1578,7 +1578,7 @@ If you are new to CI/CD, here is the order in which to adopt it:
 3. **Add code quality jobs** (PHPStan, PHPCS). This enforces standards.
 4. **Add deployment** as the final step, protected by `needs` and branch conditions.
 
-Each layer builds on the previous one. Start with testing — if you have no tests, CI gives you nothing to verify. The progression mirrors how professional teams adopt DevOps: test first, then quality, then deployment.
+Each layer builds on the previous one. Start with testing: if you have no tests, CI gives you nothing to verify. The progression mirrors how professional teams adopt DevOps: test first, then quality, then deployment.
 
 </section>
 
@@ -1638,7 +1638,7 @@ Setiap lapisan dibangun di atas yang sebelumnya. Mulai dengan pengujian: jika An
 8. **Debugging** involves reading logs, checking exit codes, and using `ACTIONS_STEP_DEBUG` for verbose output.
 9. **Be pragmatic:** CI/CD is worth the investment for team projects, libraries, and frequently deployed applications. It may be overkill for solo prototypes and throwaway code.
 
-> CI/CD does not replace discipline — it encodes it. The pipeline is the permanent, machine-readable version of "did you remember to run the tests?"
+> CI/CD does not replace discipline: it encodes it. The pipeline is the permanent, machine-readable version of "did you remember to run the tests?"
 
 </section>
 
@@ -1673,8 +1673,8 @@ Now it is your turn. Pick one of your existing PHP repositories (or create a new
 1. **Create `.github/workflows/php.yml`** with a test job that runs PHPUnit.
 2. **Add a matrix strategy** that tests against at least two PHP versions (e.g., 8.1 and 8.2).
 3. **Configure Composer caching** so subsequent runs are faster.
-4. **Add at least one code quality job** — either PHPStan at level 5 or PHP_CodeSniffer with PSR-12.
-5. **Add a deployment job skeleton** that references `${{ secrets.* }}` for SSH credentials (you do not need to actually deploy — just the job definition counts).
+4. **Add at least one code quality job**: either PHPStan at level 5 or PHP_CodeSniffer with PSR-12.
+5. **Add a deployment job skeleton** that references `${{ secrets.* }}` for SSH credentials (you do not need to actually deploy, just the job definition counts).
 6. **Push the workflow** and verify that all jobs pass in the Actions tab.
 
 ### Verification Checklist
@@ -1708,7 +1708,7 @@ If your personal project uses Laravel, you may need to configure environment var
 - How a failing test appears in the CI log versus your local terminal
 - The difference between a red cross on one PHP version and green on all others
 
-Set it up, break it, fix it — then check the "Deploy to VPS" job off by actually configuring SSH access to a server (a $5 VPS from any provider works). The first time you push to `main` and watch the code appear on a live URL without touching the terminal is a milestone worth reaching.
+Set it up, break it, fix it, then check the "Deploy to VPS" job off by actually configuring SSH access to a server (a $5 VPS from any provider works). The first time you push to `main` and watch the code appear on a live URL without touching the terminal is a milestone worth reaching.
 
 </section>
 

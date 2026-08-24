@@ -16,7 +16,7 @@
         {{ t.learningPaths?.viewLearningPaths || 'View Learning Paths' }}
         <span class="text-[10px]">→</span>
       </a>
-      <span class="text-xs text-neutral-400 dark:text-gray-500 ml-2">— {{ t.learningPaths?.seeAlso || 'See also' }}: guided step-by-step tracks</span>
+      <span class="text-xs text-neutral-400 dark:text-gray-500 ml-2">{{ t.learningPaths?.seeAlso || 'See also' }}: guided step-by-step tracks</span>
     </div>
 
     <div class="flex flex-wrap items-center gap-3 mb-6">

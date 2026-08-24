@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
 
-// Full lightweight metadata for every blog post — the same shape
+// Full lightweight metadata for every blog post, the same shape
 // src/pages/blog/index.astro used to bake directly into the archive
 // page's props. Fetched client-side by BlogArchivePage.vue instead, so
 // the archive page's own HTML stays constant-size as the collection

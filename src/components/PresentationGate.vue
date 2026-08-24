@@ -1,5 +1,5 @@
 <template>
-  <!-- Auth gate overlay — hidden once admin is confirmed -->
+  <!-- Auth gate overlay, hidden once admin is confirmed -->
   <div
     v-if="gateState !== 'ready'"
     class="fixed inset-0 z-50 flex items-center justify-center bg-[#f8f7f4] dark:bg-gray-950"
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <!-- Hint bar — floats above the reveal deck once authorized -->
+  <!-- Hint bar, floats above the reveal deck once authorized -->
   <div
     v-if="gateState === 'ready'"
     class="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 py-1.5 bg-black/60 text-white text-[11px] font-mono select-none"
@@ -74,7 +74,7 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { supabase } from '../lib/supabase'
 import GitHubSignInButton from './GitHubSignInButton.vue'
-// Static imports so Vite emits these CSS files and links them in <head> —
+// Static imports so Vite emits these CSS files and links them in <head>:
 // dynamic CSS imports inside client:load islands are not reliably served by GitHub Pages.
 import 'reveal.js/reveal.css'
 import 'reveal.js/plugin/highlight/monokai.css'

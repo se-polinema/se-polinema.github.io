@@ -1,5 +1,5 @@
 // Supabase appends OAuth failures (e.g. a misconfigured provider secret) to
-// the redirect URL as `error`/`error_code`/`error_description` — on the
+// the redirect URL as `error`/`error_code`/`error_description`: on the
 // query string for some flows, on the URL hash for others. Read either,
 // return a human message, and strip the params so a refresh doesn't
 // re-show a stale error.

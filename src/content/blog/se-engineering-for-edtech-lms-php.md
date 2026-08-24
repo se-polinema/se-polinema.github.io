@@ -31,14 +31,14 @@ Consider the difference between an e-commerce checkout and a course enrollment:
 | Aspect | E-Commerce | LMS Course Enrollment |
 |---|---|---|
 | **Time sensitivity** | Cart expires in minutes or hours | Enrollment window spans weeks (specific start/end dates) |
-| **Capacity** | Inventory count — re-stock is a business decision | Classroom size — capped by physical seats or regulation |
+| **Capacity** | Inventory count: restocking is a business decision | Classroom size: capped by physical seats or regulation |
 | **Prerequisites** | "Customers who bought X also bought Y" (recommendation) | "You must pass Calculus I before enrolling in Calculus II" (hard rule) |
 | **User roles** | Customer, merchant, admin | Student, lecturer, academic advisor, department head, registrar, system admin |
-| **Grading integrity** | Not applicable | Final grades are legal records — tampering can have academic and legal consequences |
+| **Grading integrity** | Not applicable | Final grades are legal records: tampering can have academic and legal consequences |
 | **Accessibility** | "Nice to have" for conversion | Legally required (WCAG, Section 508, local regulations) |
-| **Academic calendar** | Not applicable | Semesters, terms, add/drop periods, exam weeks — everything is date-bound |
+| **Academic calendar** | Not applicable | Semesters, terms, add/drop periods, exam weeks: everything is date-bound |
 
-These constraints mean that **generic software engineering advice must be adapted**. The patterns you learn — Clean Code, TDD, DDD, microservices — all still apply, but they are applied to problems shaped by the education domain. This tutorial shows you how.
+These constraints mean that **generic software engineering advice must be adapted**. The patterns you learn, such as Clean Code, TDD, DDD, and microservices, still all apply, but they are applied to problems shaped by the education domain. This tutorial shows you how.
 
 </section>
 
@@ -97,7 +97,7 @@ Each state transition has business rules:
 - **Confirmed → Dropped**: within the add/drop period
 - **Active → Completed**: after the academic term ends and a final grade is assigned
 
-Understanding this lifecycle is crucial — it is not just a status column in a database. The enrollment state machine is the backbone of every LMS business process.
+Understanding this lifecycle is crucial: it is not just a status column in a database. The enrollment state machine is the backbone of every LMS business process.
 
 </section>
 
@@ -146,12 +146,12 @@ Let us define the system from the outside in, starting with **who** uses the sys
 
 ### Actors
 
-1. **Student** — views course catalog, enrols in classes, submits assignments, views grades, communicates with lecturers.
-2. **Lecturer** — manages class content, creates assessments, grades submissions, views class roster, communicates with students.
-3. **Academic Advisor (Dosen Wali / PA)** — approves student study plans (KRS), monitors academic progress, provides guidance.
-4. **Department Head (Ketua Jurusan)** — approves class offerings, manages curriculum, handles grade appeals.
-5. **Registrar (BAAK)** — manages enrollment periods, processes add/drop requests, maintains academic records, issues transcripts.
-6. **System Administrator** — manages user accounts, configures terms/semesters, handles system-wide settings.
+1. **Student**: views course catalog, enrols in classes, submits assignments, views grades, communicates with lecturers.
+2. **Lecturer**: manages class content, creates assessments, grades submissions, views class roster, communicates with students.
+3. **Academic Advisor (Dosen Wali / PA)**: approves student study plans (KRS), monitors academic progress, provides guidance.
+4. **Department Head (Ketua Jurusan)**: approves class offerings, manages curriculum, handles grade appeals.
+5. **Registrar (BAAK)**: manages enrollment periods, processes add/drop requests, maintains academic records, issues transcripts.
+6. **System Administrator**: manages user accounts, configures terms/semesters, handles system-wide settings.
 
 ### Functional Requirements (Excerpt)
 
@@ -173,11 +173,11 @@ Let us define the system from the outside in, starting with **who** uses the sys
 |---|---|---|
 | NFR-01 | Enrollment confirmation must complete within 2 seconds under normal load. | Performance |
 | NFR-02 | During peak enrollment (start of semester), the system must handle 500 concurrent enrollment requests. | Scalability |
-| NFR-03 | Grade data must be encrypted at rest and auditable — no grade change occurs without a timestamp, author, and reason. | Security |
+| NFR-03 | Grade data must be encrypted at rest and auditable: no grade change occurs without a timestamp, author, and reason. | Security |
 | NFR-04 | The student-facing interface must meet WCAG 2.1 Level AA accessibility standards. | Accessibility |
 | NFR-05 | The system must support both English and Indonesian interfaces. | Localization |
 
-This requirements exercise is not academic — it shapes every architectural decision that follows.
+This requirements exercise is not academic: it shapes every architectural decision that follows.
 
 </section>
 
@@ -238,11 +238,11 @@ For most campus LMS projects, a **modular monolith** is the right starting point
 
 | Factor | Why a Monolith Wins Early |
 |---|---|
-| **Team size** | Most campus dev teams are 3—8 people. A microservices team needs 8+ and strong DevOps. |
+| **Team size** | Most campus dev teams are 3-8 people. A microservices team needs 8+ and strong DevOps. |
 | **Deployment simplicity** | One application, one database, one CI/CD pipeline. BAAK does not need to coordinate deployments with Jurusan. |
-| **Transactional integrity** | Enrollment spans students, courses, prerequisites, and capacity — all in one database transaction. Distributed transactions (sagas) are unnecessary until you split databases. |
+| **Transactional integrity** | Enrollment spans students, courses, prerequisites, and capacity: all in one database transaction. Distributed transactions (sagas) are unnecessary until you split databases. |
 | **Observability** | A single application log is easier to trace than distributed traces across 5 services. |
-| **Refactoring surface** | You can extract modules into services later. The reverse — merging services — is much harder. |
+| **Refactoring surface** | You can extract modules into services later. The reverse, merging services, is much harder. |
 
 ### When to Extract a Microservice
 
@@ -403,18 +403,18 @@ erDiagram
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
+  <span lang="en">Figure: Core LMS data model: students, courses, classes, enrollments, assessments, and grades</span>
   <span lang="id">Gambar: Model data inti LMS: mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
 </figcaption>
 </figure>
 
 ### Key Design Decisions
 
-**Why a separate `classes` table?** A course is a catalog entry (e.g., "Calculus I"). A class is an instance of that course offered in a specific semester with a specific lecturer (e.g., "Calculus I — Class A — Odd Semester 2025/2026 — Dr. Andi"). This separation lets you reuse the same course definition across semesters while tracking distinct class instances.
+**Why a separate `classes` table?** A course is a catalog entry (e.g., "Calculus I"). A class is an instance of that course offered in a specific semester with a specific lecturer (e.g., "Calculus I, Class A, Odd Semester 2025/2026, Dr. Andi"). This separation lets you reuse the same course definition across semesters while tracking distinct class instances.
 
-**Why `enrollment.status` instead of soft-delete?** An enrollment is not just active or deleted. It has a lifecycle: pending, confirmed, active, completed, dropped, withdrawn. The status field captures this state machine. When a student drops a class, you do not delete the row — you transition the status and record the timestamp. This preserves the audit trail.
+**Why `enrollment.status` instead of soft-delete?** An enrollment is not just active or deleted. It has a lifecycle: pending, confirmed, active, completed, dropped, withdrawn. The status field captures this state machine. When a student drops a class, you do not delete the row; instead, you transition the status and record the timestamp. This preserves the audit trail.
 
-**Why a separate `grades` table?** A student may have grades for multiple assessments (assignments, UTS, UAS) within a single enrollment. The `grades` table captures each one. The `final_grade` on the `enrollments` table is a computed summary — recalculated when any component grade changes.
+**Why a separate `grades` table?** A student may have grades for multiple assessments (assignments, UTS, UAS) within a single enrollment. The `grades` table captures each one. The `final_grade` on the `enrollments` table is a computed summary: recalculated when any component grade changes.
 
 ### SQL Schema (Core Tables)
 
@@ -489,7 +489,7 @@ CREATE TABLE enrollments (
 );
 ```
 
-This schema is intentionally simple — it focuses on the core enrollment flow. A production LMS would add indexes, audit tables, grade change logs, and full-text search for the course catalog.
+This schema is intentionally simple: it focuses on the core enrollment flow. A production LMS would add indexes, audit tables, grade change logs, and full-text search for the course catalog.
 
 </section>
 
@@ -578,7 +578,7 @@ erDiagram
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: Core LMS data model — students, courses, classes, enrollments, assessments, and grades</span>
+  <span lang="en">Figure: Core LMS data model: students, courses, classes, enrollments, assessments, and grades</span>
   <span lang="id">Gambar: Model data inti LMS: mahasiswa, mata kuliah, kelas, pendaftaran, penilaian, dan nilai</span>
 </figcaption>
 </figure>
@@ -705,7 +705,7 @@ interface EnrollmentServiceInterface
 }
 ```
 
-Every enrollment result is either a success (with the enrollment ID) or a failure (with a list of violated rules). No exceptions for business rule violations — the caller needs structured reasons.
+Every enrollment result is either a success (with the enrollment ID) or a failure (with a list of violated rules). No exceptions for business rule violations: the caller needs structured reasons.
 
 ### Step 2: Value Objects and DTOs
 
@@ -847,7 +847,7 @@ class CourseEnrollmentService implements \App\Enrollment\Application\EnrollmentS
         if (!empty($conflicts)) {
             foreach ($conflicts as $conflict) {
                 $errors[] = sprintf(
-                    'Schedule conflict with %s (%s %s—%s).',
+                    'Schedule conflict with %s (%s %s-%s).',
                     $conflict['class_code'],
                     $conflict['day'],
                     $conflict['start'],
@@ -1408,7 +1408,7 @@ class ClassEntity
 }
 ```
 
-This enrollment service is **framework-agnostic**. It depends only on interfaces (`EnrollmentRepositoryInterface`, etc.), not on PDO, Eloquent, or Doctrine. You can swap the infrastructure layer — from MySQL to PostgreSQL to an API client — without touching the business logic. This is the essence of domain-driven design applied to EdTech.
+This enrollment service is **framework-agnostic**. It depends only on interfaces (`EnrollmentRepositoryInterface`, etc.), not on PDO, Eloquent, or Doctrine. You can swap the infrastructure layer, from MySQL to PostgreSQL to an API client, without touching the business logic. This is the essence of domain-driven design applied to EdTech.
 
 To run the tests:
 
@@ -1605,7 +1605,7 @@ class CourseEnrollmentService implements \App\Enrollment\Application\EnrollmentS
         if (!empty($conflicts)) {
             foreach ($conflicts as $conflict) {
                 $errors[] = sprintf(
-                    'Bentrok jadwal dengan %s (%s %s—%s).',
+                    'Bentrok jadwal dengan %s (%s %s-%s).',
                     $conflict['class_code'],
                     $conflict['day'],
                     $conflict['start'],
@@ -2205,7 +2205,7 @@ In most Indonesian higher education (and many international systems), a course g
 | Final Exam (UAS) | 40% | Comprehensive exam at week 16 |
 | Participation / Quizzes | 10% | Attendance, in-class quizzes |
 
-The weights must sum to 100%. The system should **enforce this at the class level** — a lecturer cannot publish grades if the assessment weights do not add up to 100%.
+The weights must sum to 100%. The system should **enforce this at the class level**: a lecturer cannot publish grades if the assessment weights do not add up to 100%.
 
 ### Grade Conversion
 
@@ -2213,15 +2213,15 @@ Indonesian universities commonly use a letter-grade scale with numeric ranges:
 
 | Numeric Range | Letter Grade | Grade Point | Description |
 |---|---|---|---|
-| 85—100 | A | 4.0 | Excellent |
-| 80—84 | A- | 3.7 | Very Good |
-| 75—79 | B+ | 3.3 | Good |
-| 70—74 | B | 3.0 | Satisfactory |
-| 65—69 | B- | 2.7 | Adequate |
-| 60—64 | C+ | 2.3 | Fair |
-| 55—59 | C | 2.0 | Sufficient |
-| 40—54 | D | 1.0 | Poor |
-| 0—39 | E | 0.0 | Fail |
+| 85-100 | A | 4.0 | Excellent |
+| 80-84 | A- | 3.7 | Very Good |
+| 75-79 | B+ | 3.3 | Good |
+| 70-74 | B | 3.0 | Satisfactory |
+| 65-69 | B- | 2.7 | Adequate |
+| 60-64 | C+ | 2.3 | Fair |
+| 55-59 | C | 2.0 | Sufficient |
+| 40-54 | D | 1.0 | Poor |
+| 0-39 | E | 0.0 | Fail |
 
 The conversion function must be exact and testable. A PHP implementation:
 
@@ -2273,7 +2273,7 @@ Every grade change must be recorded with:
 - **What** the new value is
 - **Why** it was changed (reason: initial entry, correction, appeal)
 
-This is not optional — it is a compliance requirement. A simple `grade_audit_log` table:
+This is not optional: it is a compliance requirement. A simple `grade_audit_log` table:
 
 ```sql
 CREATE TABLE grade_audit_log (
@@ -2290,7 +2290,7 @@ CREATE TABLE grade_audit_log (
 );
 ```
 
-No DELETE on grades. No UPDATE without an audit row. If a grade is changed 5 times, there are 5 audit rows — and the `grades` table always holds the latest value.
+No DELETE on grades. No UPDATE without an audit row. If a grade is changed 5 times, there are 5 audit rows, and the `grades` table always holds the latest value.
 
 </section>
 
@@ -2406,7 +2406,7 @@ Tidak ada DELETE pada nilai. Tidak ada UPDATE tanpa baris audit. Jika nilai diub
 
 ## Accessibility & Inclusive Design
 
-EdTech software serves learners across the full spectrum of abilities, devices, and network conditions. Accessibility is not a feature — it is a core requirement, often legally mandated.
+EdTech software serves learners across the full spectrum of abilities, devices, and network conditions. Accessibility is not a feature: it is a core requirement, often legally mandated.
 
 ### Why Accessibility Matters for an LMS
 
@@ -2435,7 +2435,7 @@ Even the enrollment service can contribute to accessibility:
 - **Multiple feedback channels**: Return structured errors (as we did in `EnrollmentResult`) so the front-end can display them visually and announce them via ARIA live regions.
 - **Warnings, not just errors**: "Only 2 seat(s) remaining" helps students with anxiety or cognitive load make informed decisions before the class fills.
 
-Accessibility is not something you bolt on after development. It is part of the requirements, the design, and the code reviews — just like performance and security.
+Accessibility is not something you bolt on after development. It is part of the requirements, the design, and the code reviews, just like performance and security.
 
 </section>
 
@@ -2482,26 +2482,26 @@ Aksesibilitas bukan sesuatu yang Anda tambahkan setelah pengembangan. Ini adalah
 
 ## Summary
 
-1. **EdTech is a distinct domain** with its own constraints — academic calendars, grade integrity, many user roles, and legal accessibility mandates. Generic CRUD patterns are not enough.
+1. **EdTech is a distinct domain** with its own constraints: academic calendars, grade integrity, many user roles, and legal accessibility mandates. Generic CRUD patterns are not enough.
 2. **Start with a modular monolith.** Separate your code into Enrollment, Course, Assessment, and User modules. Extract microservices only when a module needs independent deployment rhythm or scaling.
 3. **The enrollment state machine** (pending → confirmed → active → completed / dropped / withdrawn) is the backbone of your LMS. Model it as a first-class concept, not a status string.
-4. **Business rules belong in domain services**, not controllers. The `CourseEnrollmentService` validates capacity, prerequisites, time conflicts, enrollment windows, and student status — all in one place, all testable.
+4. **Business rules belong in domain services**, not controllers. The `CourseEnrollmentService` validates capacity, prerequisites, time conflicts, enrollment windows, and student status: all in one place, all testable.
 5. **Test with in-memory repositories.** Fast, deterministic tests let you verify every business rule without a database. The same interfaces work with MySQL or PostgreSQL in production.
 6. **Grades are legal records.** Every grade change must be audited with who, when, old value, new value, and reason. No silent updates. No deletes.
 7. **Accessibility is not optional.** WCAG compliance, semantic HTML, keyboard navigation, and clear error messages are required by law and essential for diverse learners.
-8. **Framework-agnostic domain code** keeps your business logic portable. The enrollment service we wrote would work in Laravel, Symfony, or a plain PHP application — because it depends only on interfaces.
+8. **Framework-agnostic domain code** keeps your business logic portable. The enrollment service we wrote would work in Laravel, Symfony, or a plain PHP application, because it depends only on interfaces.
 
-> "Software is not just about computers. It's about people — and the problems they need solved." In EdTech, the people are students, lecturers, and administrators. Every design decision should serve them.
+> "Software is not just about computers. It's about people, and the problems they need solved." In EdTech, the people are students, lecturers, and administrators. Every design decision should serve them.
 
 ## What to Read Next
 
-- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)** — Apply DDD patterns like entities, value objects, aggregates, and repositories to your EdTech domain model.
-- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** — Learn when and how to split your LMS monolith into independently deployable services.
-- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)** — Master testing strategies for complex business logic like enrollment validation and grade calculation.
-- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)** — Use the Red-Green-Refactor cycle to build your LMS features with confidence.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Keep your enrollment service readable and maintainable as the business rules grow.
-- **[Design Patterns with PHP](/blog/design-patterns-with-php)** — Apply Strategy (grading schemes), Observer (enrollment notifications), and State (enrollment lifecycle) patterns to your LMS.
-- **[WCAG 2.1 Overview](https://www.w3.org/WAI/standards-guidelines/wcag/)** — The definitive accessibility standard for web applications, including LMS platforms.
+- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)**: Apply DDD patterns like entities, value objects, aggregates, and repositories to your EdTech domain model.
+- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)**: Learn when and how to split your LMS monolith into independently deployable services.
+- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)**: Master testing strategies for complex business logic like enrollment validation and grade calculation.
+- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)**: Use the Red-Green-Refactor cycle to build your LMS features with confidence.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Keep your enrollment service readable and maintainable as the business rules grow.
+- **[Design Patterns with PHP](/blog/design-patterns-with-php)**: Apply Strategy (grading schemes), Observer (enrollment notifications), and State (enrollment lifecycle) patterns to your LMS.
+- **[WCAG 2.1 Overview](https://www.w3.org/WAI/standards-guidelines/wcag/)**: The definitive accessibility standard for web applications, including LMS platforms.
 
 </section>
 

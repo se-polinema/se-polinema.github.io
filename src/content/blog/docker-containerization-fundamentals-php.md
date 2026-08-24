@@ -28,7 +28,7 @@ tagsId:
 
 Every PHP developer has heard (or said) the phrase "it works on my machine." Your colleague runs `composer install` and the app breaks because they have PHP 8.1 but the production server runs 7.4. Or a junior developer spends two days configuring Apache just to run a ten-line PHP script.
 
-**Containers solve the "works on my machine" problem.** A container packages your application code, PHP runtime, extensions, web server, and all dependencies into a single lightweight, portable unit. That unit runs identically on your laptop, your teammate's Windows machine, a CI server, and the production cloud — no surprises.
+**Containers solve the "works on my machine" problem.** A container packages your application code, PHP runtime, extensions, web server, and all dependencies into a single lightweight, portable unit. That unit runs identically on your laptop, your teammate's Windows machine, a CI server, and the production cloud, with no surprises.
 
 **Why Docker for PHP?** PHP applications are rarely self-contained. A typical project needs:
 
@@ -38,7 +38,7 @@ Every PHP developer has heard (or said) the phrase "it works on my machine." You
 - Redis for caching / sessions
 - Composer for dependency management
 
-Installing and configuring all of these locally is tedious and error-prone. Docker lets you define the entire stack as code — a `Dockerfile` for your app and a `docker-compose.yml` for the orchestration — and spin it up with two commands.
+Installing and configuring all of these locally is tedious and error-prone. Docker lets you define the entire stack as code (a `Dockerfile` for your app and a `docker-compose.yml` for the orchestration) and spin it up with two commands.
 
 By the end of this tutorial, you will have a running PHP + Nginx + MySQL application, fully containerized, with live-reload for development. You will also understand how and why the existing [Microservices Architecture Fundamentals tutorial](/blog/microservices-architecture-fundamentals) uses containers to decompose a monolith into independently deployable services.
 
@@ -74,7 +74,7 @@ Di akhir tutorial ini, Anda akan memiliki aplikasi PHP + Nginx + MySQL yang berj
 
 ### Docker Desktop (Windows / macOS)
 
-[Docker Desktop](https://www.docker.com/products/docker-desktop/) is the recommended installation for Windows and macOS. It includes the Docker Engine, Docker CLI (`docker`), Docker Compose (`docker compose`), and a lightweight Kubernetes cluster — all managed through a GUI.
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) is the recommended installation for Windows and macOS. It includes the Docker Engine, Docker CLI (`docker`), Docker Compose (`docker compose`), and a lightweight Kubernetes cluster, all managed through a GUI.
 
 1. Download the installer from [docker.com](https://www.docker.com/products/docker-desktop/).
 2. Run the installer. On Windows, you may need to enable WSL 2.
@@ -214,14 +214,14 @@ Before writing any code, let's understand the six fundamental Docker concepts. T
 
 <figure>
   <figcaption class="mt-3 text-sm text-neutral-500">
-    <span lang="en">Figure: Docker core concepts — how images, containers, registries, Dockerfiles, and docker-compose relate.</span>
-    <span lang="id">Gambar: Konsep inti Docker — bagaimana image, container, registry, Dockerfile, dan docker-compose saling berhubungan.</span>
+    <span lang="en">Figure: Docker core concepts: how images, containers, registries, Dockerfiles, and docker-compose relate.</span>
+    <span lang="id">Gambar: Konsep inti Docker: bagaimana image, container, registry, Dockerfile, dan docker-compose saling berhubungan.</span>
   </figcaption>
 </figure>
 
 ### Image
 
-An **image** is a read-only template with instructions for creating a container. Think of it as a snapshot of a filesystem — it contains the OS layer, the PHP runtime, your application code, and any dependencies. Images are built from instructions in a `Dockerfile`.
+An **image** is a read-only template with instructions for creating a container. Think of it as a snapshot of a filesystem: it contains the OS layer, the PHP runtime, your application code, and any dependencies. Images are built from instructions in a `Dockerfile`.
 
 ```bash
 docker images          # list all local images
@@ -229,7 +229,7 @@ docker pull php:8.2-fpm  # download an image from a registry
 docker rmi php:8.2-fpm   # remove an image
 ```
 
-Images are **layered**: each instruction in a `Dockerfile` (`FROM`, `RUN`, `COPY`) creates a new layer. Docker caches layers to speed up rebuilds — if a line hasn't changed, Docker reuses the cached layer.
+Images are **layered**: each instruction in a `Dockerfile` (`FROM`, `RUN`, `COPY`) creates a new layer. Docker caches layers to speed up rebuilds: if a line hasn't changed, Docker reuses the cached layer.
 
 ### Container
 
@@ -245,7 +245,7 @@ docker rm <container-id>    # remove a stopped container
 
 ### Layer
 
-Each instruction in a `Dockerfile` produces a **layer**. Layers are stacked to form the final image. Docker caches layers independently — meaning if you change only your application code, only the `COPY` layer is rebuilt; the PHP installation layer stays cached.
+Each instruction in a `Dockerfile` produces a **layer**. Layers are stacked to form the final image. Docker caches layers independently, meaning if you change only your application code, only the `COPY` layer is rebuilt; the PHP installation layer stays cached.
 
 This is why `Dockerfile` ordering matters: put commands that change least often (OS updates, PHP installation) at the top, and commands that change most often (your source code) at the bottom.
 
@@ -298,8 +298,8 @@ Sebelum menulis kode apa pun, mari pahami enam konsep dasar Docker. Konsep ini m
 
 <figure>
   <figcaption class="mt-3 text-sm text-neutral-500">
-    <span lang="en">Figure: Docker core concepts — how images, containers, registries, Dockerfiles, and docker-compose relate.</span>
-    <span lang="id">Gambar: Konsep inti Docker — bagaimana image, container, registry, Dockerfile, dan docker-compose saling berhubungan.</span>
+    <span lang="en">Figure: Docker core concepts: how images, containers, registries, Dockerfiles, and docker-compose relate.</span>
+    <span lang="id">Gambar: Konsep inti Docker: bagaimana image, container, registry, Dockerfile, dan docker-compose saling berhubungan.</span>
   </figcaption>
 </figure>
 
@@ -455,7 +455,7 @@ Hello, Docker! PHP 8.2.x is running.
 Loaded extensions: Core, date, libxml, openssl, ...
 ```
 
-Congratulations — you have just built and run your first PHP Docker container.
+Congratulations! You have just built and run your first PHP Docker container.
 
 ### Step 6: Interactive mode
 
@@ -584,8 +584,8 @@ Our architecture looks like this:
 
 <figure>
   <figcaption class="mt-3 text-sm text-neutral-500">
-    <span lang="en">Figure: Multi-container architecture — Nginx handles HTTP and proxies PHP requests to PHP-FPM, which talks to MySQL.</span>
-    <span lang="id">Gambar: Arsitektur multi-container — Nginx menangani HTTP dan meneruskan permintaan PHP ke PHP-FPM, yang berkomunikasi dengan MySQL.</span>
+    <span lang="en">Figure: Multi-container architecture: Nginx handles HTTP and proxies PHP requests to PHP-FPM, which talks to MySQL.</span>
+    <span lang="id">Gambar: Arsitektur multi-container: Nginx menangani HTTP dan meneruskan permintaan PHP ke PHP-FPM, yang berkomunikasi dengan MySQL.</span>
   </figcaption>
 </figure>
 
@@ -605,7 +605,7 @@ docker-php-stack/
 
 ### Step 1: The PHP application
 
-Create `public/index.php` — the entry point that Nginx will serve:
+Create `public/index.php`, the entry point that Nginx will serve:
 
 ```php
 <?php
@@ -627,7 +627,7 @@ try {
 }
 ```
 
-Create `src/Database.php` — a simple PDO wrapper:
+Create `src/Database.php`, a simple PDO wrapper:
 
 ```php
 <?php
@@ -684,7 +684,7 @@ Let's break this down:
 
 | Instruction | Purpose |
 |-------------|---------|
-| `FROM php:8.2-fpm` | Official PHP-FPM image — PHP runs as a FastCGI process, not an HTTP server |
+| `FROM php:8.2-fpm` | Official PHP-FPM image: PHP runs as a FastCGI process, not an HTTP server |
 | `apt-get update && apt-get install -y libpq-dev` | Install system packages needed for PHP extensions |
 | `docker-php-ext-install pdo pdo_mysql` | Install PHP extensions (helper script included in the official image) |
 | `COPY --from=composer:2 ...` | Copy the Composer binary from the official Composer image (multi-stage copy) |
@@ -714,7 +714,7 @@ server {
 }
 ```
 
-Key line: `fastcgi_pass app:9000` — Nginx forwards PHP requests to the `app` service (our PHP-FPM container) on port 9000.
+Key line: `fastcgi_pass app:9000`. Nginx forwards PHP requests to the `app` service (our PHP-FPM container) on port 9000.
 
 ### Step 4: The docker-compose.yml
 
@@ -788,12 +788,12 @@ Let's walk through each service:
 - **build**: builds the image from our `Dockerfile`
 - **environment**: passes database credentials as environment variables (read by `getenv()` in `Database.php`)
 - **depends_on**: waits for MySQL to be healthy before starting
-- **volumes**: mounts `./public` and `./src` from the host into the container — changes you make locally are reflected immediately (no rebuild needed)
+- **volumes**: mounts `./public` and `./src` from the host into the container; changes you make locally are reflected immediately (no rebuild needed)
 
 #### `web` (Nginx)
 
 - **image**: uses the official Nginx Alpine image (5 MB, very small)
-- **ports**: maps host port 8080 to container port 80 — visit `http://localhost:8080`
+- **ports**: maps host port 8080 to container port 80. Visit `http://localhost:8080`
 - **volumes**: mounts our Nginx config and the `public/` directory
 
 #### `db` (MySQL)
@@ -867,8 +867,8 @@ Arsitektur kita terlihat seperti ini:
 
 <figure>
   <figcaption class="mt-3 text-sm text-neutral-500">
-    <span lang="en">Figure: Multi-container architecture — Nginx handles HTTP and proxies PHP requests to PHP-FPM, which talks to MySQL.</span>
-    <span lang="id">Gambar: Arsitektur multi-container — Nginx menangani HTTP dan meneruskan permintaan PHP ke PHP-FPM, yang berkomunikasi dengan MySQL.</span>
+    <span lang="en">Figure: Multi-container architecture: Nginx handles HTTP and proxies PHP requests to PHP-FPM, which talks to MySQL.</span>
+    <span lang="id">Gambar: Arsitektur multi-container: Nginx menangani HTTP dan meneruskan permintaan PHP ke PHP-FPM, yang berkomunikasi dengan MySQL.</span>
   </figcaption>
 </figure>
 
@@ -1158,7 +1158,7 @@ volumes:
   - ./src:/var/www/html/src
 ```
 
-This means any change you make to a PHP file on your host is immediately visible inside the container. There is no need to rebuild the image for every code change — just save the file and refresh the browser.
+This means any change you make to a PHP file on your host is immediately visible inside the container. There is no need to rebuild the image for every code change: just save the file and refresh the browser.
 
 > **Note**: If you change the `Dockerfile` (e.g., add a PHP extension) or `composer.json`, you *do* need to rebuild: `docker compose up -d --build`.
 
@@ -1196,7 +1196,7 @@ ports:
 Then connect with `mysql -h 127.0.0.1 -P 3307`.
 
 **"Cannot connect to MySQL" error:**
-This usually means the `db` container isn't ready yet when `app` starts. The `healthcheck` in our compose file solves this — if you remove it, add `restart: on-failure` or a retry loop in your PHP code.
+This usually means the `db` container isn't ready yet when `app` starts. The `healthcheck` in our compose file solves this. If you remove it, add `restart: on-failure` or a retry loop in your PHP code.
 
 **Inspecting a container's state:**
 
@@ -1370,7 +1370,7 @@ docker volume prune           # hapus volume tidak terpakai
 
 ## From Container to Microservices
 
-Now that you understand Docker fundamentals, you are ready to explore **microservices architecture** — a design approach where an application is built as a collection of small, independent services, each running in its own container and communicating over the network.
+Now that you understand Docker fundamentals, you are ready to explore **microservices architecture**, a design approach where an application is built as a collection of small, independent services, each running in its own container and communicating over the network.
 
 The Docker concepts you learned here are the building blocks of that tutorial:
 
@@ -1379,15 +1379,15 @@ The Docker concepts you learned here are the building blocks of that tutorial:
 - **Service names as hostnames** (`db`, `web`, `app`) are exactly how microservices discover each other
 - **Volumes** and **networks** isolate state and communication between services
 
-The [Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals) tutorial walks you through decomposing a monolithic PHP application into separate services (User Service, Product Service, Order Service) with an API Gateway, message queues, and service discovery — all running in Docker containers.
+The [Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals) tutorial walks you through decomposing a monolithic PHP application into separate services (User Service, Product Service, Order Service) with an API Gateway, message queues, and service discovery, all running in Docker containers.
 
 > If you haven't already, now is the perfect time to work through that tutorial. You already understand the container concepts it assumes.
 
 If you want to go even deeper, explore:
 
-- **Docker Swarm** or **Kubernetes** — for orchestrating containers across multiple machines in production
-- **GitHub Container Registry (GHCR)** — for storing and distributing your Docker images alongside your code
-- **[CI/CD with GitHub Actions for PHP](/blog/ci-cd-github-actions-php)** — where containers are built and tested automatically on every push
+- **Docker Swarm** or **Kubernetes**: for orchestrating containers across multiple machines in production
+- **GitHub Container Registry (GHCR)**: for storing and distributing your Docker images alongside your code
+- **[CI/CD with GitHub Actions for PHP](/blog/ci-cd-github-actions-php)**: where containers are built and tested automatically on every push
 
 </section>
 
@@ -1422,15 +1422,15 @@ Jika Anda ingin lebih mendalam, jelajahi:
 
 ## Summary
 
-Docker and containerization are no longer optional skills for PHP developers — they are foundational. In this tutorial you learned:
+Docker and containerization are no longer optional skills for PHP developers; they are foundational. In this tutorial you learned:
 
-1. **Why containers solve reproducibility.** No more "it works on my machine" — the same image runs identically everywhere.
+1. **Why containers solve reproducibility.** No more "it works on my machine": the same image runs identically everywhere.
 2. **How to install Docker** on Windows, macOS, and Linux.
-3. **The six core concepts** — image, container, layer, registry, Dockerfile, and docker-compose — and how they relate.
+3. **The six core concepts** (image, container, layer, registry, Dockerfile, and docker-compose) and how they relate.
 4. **How to containerize a PHP script** with a simple `Dockerfile`.
 5. **How to build a multi-service stack** with PHP-FPM, Nginx, and MySQL using `docker-compose.yml`.
-6. **Development workflow patterns** — bind mounts for live reload, `docker compose exec` for debugging, and cleanup commands.
-7. **How Docker bridges to microservices** — each container is a step toward a distributed architecture.
+6. **Development workflow patterns**: bind mounts for live reload, `docker compose exec` for debugging, and cleanup commands.
+7. **How Docker bridges to microservices**: each container is a step toward a distributed architecture.
 
 </section>
 
@@ -1453,6 +1453,6 @@ Docker dan kontainerisasi bukan lagi keterampilan opsional bagi pengembang PHP, 
 ---
 
 <blockquote>
-  <span lang="en">**What to Read Next:** [Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals) — apply your container skills to decompose a monolith into independently deployable services with API gateways and inter-service communication.</span>
-  <span lang="id">**Yang Harus Dibaca Selanjutnya:** [Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals) — terapkan keterampilan kontainer Anda untuk mendekomposisi monolith menjadi layanan yang dapat di-deploy secara independen dengan API gateway dan komunikasi antar layanan.</span>
+  <span lang="en">**What to Read Next:** [Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals). Apply your container skills to decompose a monolith into independently deployable services with API gateways and inter-service communication.</span>
+  <span lang="id">**Yang Harus Dibaca Selanjutnya:** [Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals). Terapkan keterampilan kontainer Anda untuk mendekomposisi monolith menjadi layanan yang dapat di-deploy secara independen dengan API gateway dan komunikasi antar layanan.</span>
 </blockquote>

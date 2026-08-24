@@ -194,7 +194,7 @@ const mobileOpen = ref(false)
 
 // Display-only grouping of the flat heading list into a VSCode-outline-style
 // tree (H2 = top-level "class" symbol, H3 = nested "method" symbol). Purely
-// a rendering concern — extraction, observing, and scrolling all continue to
+// a rendering concern: extraction, observing, and scrolling all continue to
 // operate on the flat `visibleHeadings` list untouched.
 const headingGroups = computed<HeadingGroup[]>(() => {
   const groups: HeadingGroup[] = []

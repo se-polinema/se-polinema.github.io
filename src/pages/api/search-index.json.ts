@@ -132,12 +132,12 @@ export const GET: APIRoute = async () => {
   }
 
   // se.members (alumni/student directory) is runtime Supabase data, not a
-  // content collection — fetched here at build time so it's searchable
+  // content collection: fetched here at build time so it's searchable
   // alongside everything else. Only approved rows are needed, which are
   // already fully public via the members_select_approved RLS policy, so
   // the anon key (already available in this build step) is sufficient; no
   // service-role key needed. persistSession: false since there's no
-  // localStorage in a Node build — mirrors scripts/sync-events.mjs /
+  // localStorage in a Node build; mirrors scripts/sync-events.mjs /
   // scripts/migrate-member-photos.mjs's server-side client setup.
   try {
     const url = import.meta.env.PUBLIC_SUPABASE_URL

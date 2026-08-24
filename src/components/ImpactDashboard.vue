@@ -293,8 +293,8 @@ const isDark = computed(() => theme.value === 'dark')
 
 // Theme-derived CSS values for the scoped <style> block below (bound via
 // v-bind() so they react live to theme toggles). Vue's :global() pseudo-class
-// only accepts a standalone selector — it can't express "ancestor .dark
-// overrides this scoped descendant class" — so v-bind() is the correct
+// only accepts a standalone selector: it can't express "ancestor .dark
+// overrides this scoped descendant class", so v-bind() is the correct
 // mechanism here instead of hand-rolled :global(html.dark) .foo rules.
 const statCardBg = computed(() => (isDark.value ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)'))
 const statCardBorder = computed(() => (isDark.value ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)'))

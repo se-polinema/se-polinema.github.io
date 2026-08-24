@@ -26,11 +26,11 @@
 // This split exists because two independent `<Teleport to="body">`
 // instances (each dialog previously its own component with its own
 // Teleport) reliably corrupt Vue's Teleport DOM patching the moment one
-// closes and the other opens shortly after — reproduced with real mouse
+// closes and the other opens shortly after, reproduced with real mouse
 // clicks in both directions on Vue 3.5.34: the second Teleport's mount
 // throws "Cannot read properties of null (reading 'insertBefore')" and
 // never renders. Neither the Transition wrapper nor the focus trap nor
-// which Vue app/island owns each dialog made a difference — only
+// which Vue app/island owns each dialog made a difference: only
 // collapsing to a single Teleport did. A same-Teleport v-if/v-else-if
 // swap is the same well-trodden pattern already used elsewhere in this
 // codebase (e.g. Sidebar.vue's panel switcher) and has never shown this

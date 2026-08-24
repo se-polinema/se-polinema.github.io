@@ -28,16 +28,16 @@ excerptId: "Pelajari bagaimana prinsip-prinsip rekayasa perangkat lunak diterapk
 
 ## Why Fintech Software Is Different
 
-**Money is not a CRUD (Create, Read, Update, Delete) resource.** When you update a blog post and the database writes fail, the user refreshes and tries again. When you transfer money and the database writes fail halfway — someone is missing funds, and the error is measured in real currency, not UX friction.
+**Money is not a CRUD (Create, Read, Update, Delete) resource.** When you update a blog post and the database writes fail, the user refreshes and tries again. When you transfer money and the database writes fail halfway, someone is missing funds, and the error is measured in real currency, not UX friction.
 
 Fintech software carries constraints that most other domains never encounter:
 
 | Constraint | Generic Software | Fintech Software |
 |---|---|---|
-| **Irreversibility** | Most operations are undoable (soft delete, rollback) | Payments are final. Refunds are separate transactions — never "undo." |
+| **Irreversibility** | Most operations are undoable (soft delete, rollback) | Payments are final. Refunds are separate transactions, never "undo." |
 | **Compliance** | GDPR, cookie consent (external-facing) | PCI-DSS, AML, KYC, central-bank reporting (pervasive) |
 | **Concurrency** | Optimistic locking is a nice-to-have | Double-spend prevention is existential |
-| **Auditability** | Optional logging | Every mutation is a ledger entry — immutability is legally required |
+| **Auditability** | Optional logging | Every mutation is a ledger entry, and immutability is legally required |
 | **Precision** | `float` rounding errors are cosmetic | One cent off breaks reconciliation; use integer cents or `decimal` |
 | **Trust** | The user trusts the app to display data | The user, the merchant, the bank, and the regulator must all trust the system simultaneously |
 | **Fraud surface** | Spam forms, SQL injection | Credential stuffing, account takeover, money laundering, chargeback fraud |
@@ -86,8 +86,8 @@ Request → Validate → Check Idempotency → Authorise → Record → Confirm
 | **Validate** | Check amount range, currency support, payee existence, signature/HMAC | Invalid input, suspicious amount |
 | **Check Idempotency** | Look up idempotency key; if already processed, return cached result | Prevents double charge on retry |
 | **Authorise** | Check balance, apply fraud rules, reserve funds | Insufficient balance, velocity limit exceeded |
-| **Record** | Write transaction to `transactions` table + append to `ledger` | Must be atomic — never debit without credit |
-| **Confirm** | Return success with transaction ID + receipt payload | Network timeout after record — idempotency saves you here |
+| **Record** | Write transaction to `transactions` table + append to `ledger` | Must be atomic: never debit without credit |
+| **Confirm** | Return success with transaction ID + receipt payload | Network timeout after record; idempotency saves you here |
 
 Every arrow in this pipeline can fail, and every failure must leave the system in a consistent state. That is what separates fintech engineering from general web development.
 
@@ -95,7 +95,7 @@ Every arrow in this pipeline can fail, and every failure must leave the system i
 
 Without explicit validation, you accept negative amounts. Without idempotency, a network retry charges twice. Without a ledger, you cannot prove what happened during a dispute. Without fraud guards, your system becomes a money-laundering vector.
 
-Each stage in the pipeline is a **principle applied** — not just a step.
+Each stage in the pipeline is a **principle applied**, not just a step.
 
 </section>
 
@@ -134,7 +134,7 @@ Setiap tahap dalam pipeline adalah **prinsip yang diterapkan**, bukan sekadar la
 
 ## Building a Minimal Payment Service in PHP
 
-Before we write code, let us define the project structure. A modular monolith — a pattern we recommend for early-stage fintech projects — keeps bounded contexts separate without distributed-system overhead.
+Before we write code, let us define the project structure. A modular monolith, a pattern we recommend for early-stage fintech projects, keeps bounded contexts separate without distributed-system overhead.
 
 ```
 src/
@@ -160,7 +160,7 @@ src/
     └── ValueObject.php             # Base value object
 ```
 
-This structure keeps payment logic isolated. The `Account` module owns balances; the `Payment` module executes payments and records the ledger. They communicate through interfaces — never direct table access.
+This structure keeps payment logic isolated. The `Account` module owns balances; the `Payment` module executes payments and records the ledger. They communicate through interfaces, never direct table access.
 
 ### Dependencies
 
@@ -222,7 +222,7 @@ In fintech, validation is your first and most important security layer. Invalid 
 | `currency` | Must be in allowed list (e.g., `IDR`, `USD`); normalise to uppercase | Prevents currency confusion and unsupported currency attempts |
 | `payee_account_id` | Must exist, must be active, must not be the same as payer | Prevents self-payment and payments to closed accounts |
 | `payer_account_id` | Must exist, must be active, must be authenticated | Only authenticated account holders can initiate payments |
-| `idempotency_key` | Required, non-empty, max 64 chars, alphanumeric + hyphens | Every payment must be idempotent — this key is the contract |
+| `idempotency_key` | Required, non-empty, max 64 chars, alphanumeric + hyphens | Every payment must be idempotent: this key is the contract |
 | `metadata` | Optional JSON object, max 1 KB | Stores reference numbers, invoice IDs, notes; sanitise before storage |
 | `signature` | HMAC-SHA256 of `amount|currency|payee|idempotency_key|timestamp` | Tamper detection between client and server |
 
@@ -559,7 +559,7 @@ Perhatikan bahwa kesalahan validasi **terstruktur dan spesifik.** Pesan seperti 
 1. The client generates a unique `idempotency_key` (typically a UUID v4) before each payment attempt.
 2. The client sends the key in the `Idempotency-Key` HTTP header with every payment request.
 3. The server stores the key → result mapping in a dedicated table.
-4. If the server receives a key it has already processed, it returns the cached result — without executing the payment again.
+4. If the server receives a key it has already processed, it returns the cached result without executing the payment again.
 
 This means the client can safely retry a payment request after a network timeout. If the first request succeeded, the retry returns the same result. If the first request failed, the retry processes normally.
 
@@ -632,7 +632,7 @@ CREATE TABLE idempotency_keys (
 
 ### Idempotency in the Payment Service
 
-Later, in the full `PaymentService`, the idempotency check is the **first database operation** — before balance checks, before fraud rules, before the ledger write:
+Later, in the full `PaymentService`, the idempotency check is the **first database operation**, before balance checks, before fraud rules, before the ledger write:
 
 ```php
 $existing = $this->idempotencyRepo->find($request->idempotencyKey);
@@ -794,7 +794,7 @@ async function pay(amount, payee) {
 
 ## Transaction Integrity with a Ledger / Audit Log
 
-A payment system without an audit log is a lawsuit waiting to happen. Every movement of money must leave a permanent, append-only record. This is called a **ledger** or **double-entry bookkeeping** — the same principle banks have used for centuries.
+A payment system without an audit log is a lawsuit waiting to happen. Every movement of money must leave a permanent, append-only record. This is called a **ledger** or **double-entry bookkeeping**, the same principle banks have used for centuries.
 
 ### Why Append-Only
 
@@ -802,8 +802,8 @@ A payment system without an audit log is a lawsuit waiting to happen. Every move
 |---|---|---|
 | INSERT into ledger | Yes | Every transaction creates a ledger entry |
 | SELECT from ledger | Yes | Read for reconciliation and reporting |
-| UPDATE on ledger | **No** | Once written, immutable — corrections are new entries, not edits |
-| DELETE from ledger | **No** | Nothing is ever deleted — a voided transaction gets a reversing entry |
+| UPDATE on ledger | **No** | Once written, immutable: corrections are new entries, not edits |
+| DELETE from ledger | **No** | Nothing is ever deleted; a voided transaction gets a reversing entry |
 
 This means even a "cancelled" payment leaves a trail: the original debit entry and a matching credit entry that reverses it. Both stay in the ledger forever.
 
@@ -897,7 +897,7 @@ Every payment is a **double-entry** operation:
 1. **Debit** the payer's account: money leaves the payer.
 2. **Credit** the payee's account: money enters the payee.
 
-Both entries share the same `transaction_id` for traceability. Both record `balance_before` and `balance_after` — so you can reconstruct any account's balance at any point in time without scanning the entire table.
+Both entries share the same `transaction_id` for traceability. Both record `balance_before` and `balance_after`, so you can reconstruct any account's balance at any point in time without scanning the entire table.
 
 This is not over-engineering. Central banks and auditors require this level of traceability for licensed payment providers.
 
@@ -1123,7 +1123,7 @@ public function checkDailyVolume(string $accountId, int $newAmount, string $curr
 
 ### Guard 3: Velocity Check
 
-Too many payments in a short window is a strong fraud signal — especially for small amounts (card testing or credential stuffing).
+Too many payments in a short window is a strong fraud signal, especially for small amounts (card testing or credential stuffing).
 
 ```php
 public function checkVelocity(string $accountId): ?string
@@ -1180,7 +1180,7 @@ public function checkSuspiciousAmount(int $amount, string $currency): ?string
 
 ### Running All Guards
 
-The `PaymentService` runs all guards as a batch — collecting every violation:
+The `PaymentService` runs all guards as a batch, collecting every violation:
 
 ```php
 $fraudErrors = [];
@@ -1210,7 +1210,7 @@ if (!empty($fraudErrors)) {
 }
 ```
 
-Each guard is **independent** — one guard failing does not prevent other guards from running. The client receives all violations at once, so they can address every issue in one iteration.
+Each guard is **independent**: one guard failing does not prevent other guards from running. The client receives all violations at once, so they can address every issue in one iteration.
 
 </section>
 
@@ -1699,8 +1699,8 @@ CREATE TABLE transactions (
 ### Walkthrough
 
 1. **Validate**: The `PaymentRequestValidator` checks every field. Malformed requests never reach the database.
-2. **Idempotency**: If the key exists, return the cached result immediately. This is a single primary-key lookup — sub-millisecond.
-3. **Balance check**: Query the ledger (`SELECT SUM(...)`) for the payer's current balance. No balance table to maintain — the ledger **is** the source of truth.
+2. **Idempotency**: If the key exists, return the cached result immediately. This is a single primary-key lookup, sub-millisecond.
+3. **Balance check**: Query the ledger (`SELECT SUM(...)`) for the payer's current balance. No balance table to maintain: the ledger **is** the source of truth.
 4. **Fraud checks**: Run all four guards. Suspicious amounts trigger warnings (not rejection), allowing human review without blocking legitimate users.
 5. **Execute**: All writes happen inside a database transaction. If any write fails, the entire transaction rolls back. The ledger entries and the transaction row are written together or not at all.
 6. **Cache**: Store the result against the idempotency key so subsequent retries return the same outcome.
@@ -2028,7 +2028,7 @@ var_dump(0.1 + 0.2);         // float(0.30000000000000004)
 
 Now multiply this by thousands of transactions per day. Reconciliation becomes a nightmare.
 
-**Do this instead:** Store amounts as integers in the smallest currency unit. `100.50 USD` → `10050` cents. All arithmetic is integer arithmetic — exact and predictable.
+**Do this instead:** Store amounts as integers in the smallest currency unit. `100.50 USD` → `10050` cents. All arithmetic is integer arithmetic, exact and predictable.
 
 ### Mistake 2: Missing Idempotency
 
@@ -2189,7 +2189,7 @@ Add a `getTransactionHistory` method. Requirements:
 2. Return all transactions where the account is either the payer or the payee.
 3. Each result must include the transaction ID, the counterparty (the other account), the amount (positive for incoming, negative for outgoing), the currency, the status, and the timestamp.
 4. Results must be ordered by most recent first.
-5. Implement proper SQL parameter binding — no string interpolation.
+5. Implement proper SQL parameter binding: no string interpolation.
 
 ### Starter Code
 
@@ -2381,24 +2381,24 @@ Hasil:       [
 1. **Fintech is a distinct domain** where mistakes are measured in currency, not UX friction. Every operation must be atomic, auditable, and idempotent.
 2. **The payment pipeline** follows a strict order: validate → check idempotency → authorise → record → confirm. Each stage has a specific failure mode and a safety net.
 3. **Input validation is your first security layer.** Validate amounts (positive integers only, no floats), currencies (allowlist), account existence, and idempotency key format before any business logic runs.
-4. **Idempotency keys prevent double charges.** Store a key → result mapping. Check it first — before balance queries, before fraud checks, before ledger writes. Cache results for 24 hours.
-5. **A double-entry ledger is non-negotiable.** Every payment creates a debit entry and a credit entry. Every entry records `balance_before` and `balance_after`. No UPDATES, no DELETES — append-only. The ledger **is** the source of truth for account balances.
+4. **Idempotency keys prevent double charges.** Store a key → result mapping. Check it first, before balance queries, before fraud checks, before ledger writes. Cache results for 24 hours.
+5. **A double-entry ledger is non-negotiable.** Every payment creates a debit entry and a credit entry. Every entry records `balance_before` and `balance_after`. No UPDATES, no DELETES; append-only. The ledger **is** the source of truth for account balances.
 6. **Fraud guards must run before money moves.** Maximum amount limits, daily volume caps, velocity checks, and suspicious pattern detection protect both your users and your platform.
 7. **Use integer cents for money.** `float` cannot represent `0.1 + 0.2` accurately. Store `100.50 USD` as `10050`. Your reconciliation team will thank you.
 8. **Keep external calls outside database transactions.** A slow bank gateway response should not hold rows locked. Record the transaction as `pending`, commit, call the gateway, then update the status.
 
-> "In fintech, you are not building features — you are building trust. Every transaction is a promise that your system will not lose, double-count, or misplace money. Honour that promise in every line of code."
+> "In fintech, you are not building features; you are building trust. Every transaction is a promise that your system will not lose, double-count, or misplace money. Honour that promise in every line of code."
 
 ## What to Read Next
 
-- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)** — Learn how bounded contexts separate payment, account, and fraud domains cleanly.
-- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** — Understand when to extract a Payment microservice as transaction volume grows.
-- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)** — Master testing strategies for payment validation, fraud rules, and idempotency guarantees.
-- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)** — Build your payment service with confidence using the Red-Green-Refactor cycle.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Keep your payment pipeline readable as business rules and compliance requirements grow.
-- **[Design Patterns with PHP](/blog/design-patterns-with-php)** — Apply Command (payment request), Strategy (fraud rules), and Memento (transaction snapshots) patterns.
-- **[PCI-DSS Quick Reference](https://www.pcisecuritystandards.org/)** — The Payment Card Industry Data Security Standard. Required reading for anyone handling card payments.
-- **[Stripe API Idempotency Documentation](https://docs.stripe.com/api/idempotent_requests)** — Production-grade idempotency implementation from one of the world's largest payment processors.
+- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)**: Learn how bounded contexts separate payment, account, and fraud domains cleanly.
+- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)**: Understand when to extract a Payment microservice as transaction volume grows.
+- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)**: Master testing strategies for payment validation, fraud rules, and idempotency guarantees.
+- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)**: Build your payment service with confidence using the Red-Green-Refactor cycle.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Keep your payment pipeline readable as business rules and compliance requirements grow.
+- **[Design Patterns with PHP](/blog/design-patterns-with-php)**: Apply Command (payment request), Strategy (fraud rules), and Memento (transaction snapshots) patterns.
+- **[PCI-DSS Quick Reference](https://www.pcisecuritystandards.org/)**: The Payment Card Industry Data Security Standard. Required reading for anyone handling card payments.
+- **[Stripe API Idempotency Documentation](https://docs.stripe.com/api/idempotent_requests)**: Production-grade idempotency implementation from one of the world's largest payment processors.
 
 </section>
 

@@ -3,7 +3,7 @@
  * (ConfirmDialog.vue, AnnouncementBanner.vue). Deliberately unscoped/global
  * (not a Vue <style scoped> block) so both components render an identical
  * dialog shell without copy-pasted CSS. These are part of the site's
- * always-dark VSCode chrome — independent of the site's light/dark theme
+ * always-dark VSCode chrome, independent of the site's light/dark theme
  * toggle, matching SearchOverlay.vue's approach of literal hex values.
  */
 

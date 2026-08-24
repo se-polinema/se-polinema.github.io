@@ -2,7 +2,7 @@
 -- linkedin_url / profile_url external-link columns. Alumni now sign in
 -- with GitHub (AuthForm.vue / GitHubSignInButton.vue), so their handle is
 -- readily available to prefill from at self-submission time
--- (user_metadata.user_name, see 012_oauth_profile_metadata.sql) — this
+-- (user_metadata.user_name, see 012_oauth_profile_metadata.sql): this
 -- column is where that gets stored. Optional/nullable: existing
 -- admin-transcribed rows simply won't have one.
 

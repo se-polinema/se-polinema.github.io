@@ -1,6 +1,6 @@
 // AI-drafts bilingual Showcase copy (tagline, description, tags) from a
 // title + short brief. Auth-required (a valid signed-in caller JWT) but,
-// unlike submit-project, NOT Turnstile-gated — Turnstile is specifically
+// unlike submit-project, NOT Turnstile-gated; Turnstile is specifically
 // an anonymous-abuse gate, and this endpoint already requires sign-in
 // before it will trigger a paid external API call. No rate-limiting
 // beyond that auth gate exists here; accepted as a v1 limitation rather
@@ -10,7 +10,7 @@
 // Calls the OpenCode Go gateway (an OpenAI-compatible REST API) using the
 // OPENCODE_GO_API_KEY secret already used by this repo's CI dev-tooling
 // workflows (.github/workflows/weekly-recommendation.yml,
-// .github/workflows/opencode.yml) — reused here rather than provisioning
+// .github/workflows/opencode.yml), reused here rather than provisioning
 // a new AI provider. Model id is the bare "kimi-k2.7-code" (the gateway's
 // own id), not the opencode CLI's "opencode-go/"-prefixed routing syntax.
 //
@@ -18,7 +18,7 @@
 // answer in a ```json fence or prepend reasoning text, so the response is
 // parsed with the exact fence-strip + first-{...}-regex + JSON.parse
 // strategy already used in weekly-recommendation.yml's "Create issue"
-// step — a bare JSON.parse on the raw content is not safe here.
+// step; a bare JSON.parse on the raw content is not safe here.
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { corsHeaders, jsonResponse } from '../_shared/turnstile.ts'
 
@@ -77,7 +77,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'invalid_request' }, 400, headers)
   }
 
-  // Anon key + the caller's own Authorization header — this is the auth
+  // Anon key + the caller's own Authorization header: this is the auth
   // gate. We don't need the user's role, just proof of a real session.
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
@@ -131,7 +131,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'ai_failed' }, 502, headers)
   }
 
-  // Strip optional ```json … ``` fences, then take the first {...} block —
+  // Strip optional ```json … ``` fences, then take the first {...} block:
   // mirrors the parsing already used in weekly-recommendation.yml.
   const stripped = content.replace(/^```json\s*/m, '').replace(/^```\s*$/m, '').trim()
   const match = stripped.match(/\{[\s\S]*\}/)

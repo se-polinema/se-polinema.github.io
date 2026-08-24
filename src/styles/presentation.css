@@ -1,5 +1,5 @@
 /*
- * SE Lab Presentation Theme — reveal.js custom theme
+ * SE Lab Presentation Theme: reveal.js custom theme
  * Follows the site's design tokens and respects light/dark mode.
  * Imported dynamically by PresentationGate.vue after auth.
  */
@@ -26,7 +26,7 @@
 /* ── Dark mode overrides ─────────────────────────────────────── */
 /* Link/progress colors mirror the site's --color-primary-400 dark-mode
    brand token (src/styles/global.css) so decks stay on-brand and legible
-   against the dark canvas — same OKLCH hue (~257) as the rest of the site. */
+   against the dark canvas, same OKLCH hue (~257) as the rest of the site. */
 html.dark {
   --r-background-color: #0d1117;
   --r-main-color: #e5e7eb;

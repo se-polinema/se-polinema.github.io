@@ -201,7 +201,7 @@ const visibleStreams = computed(() => {
   return props.streams.filter((s) => groupByStream.value[s.id].length > 0)
 })
 
-// Distinguish "nothing published yet" from "filters excluded everything" —
+// Distinguish "nothing published yet" from "filters excluded everything":
 // they need different messaging.
 const emptyMessage = computed(() => {
   return props.tools.length === 0 ? t.value.tools.emptyCatalog : t.value.tools.empty

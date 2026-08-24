@@ -1,6 +1,6 @@
 // Turnstile-gated newsletter signup. Replaces NewsletterForm.vue's previous
 // direct anon insert into se.subscribers (subscribers_insert_anon policy,
-// dropped in 017_drop_subscribers_anon_insert.sql) — this function is now
+// dropped in 017_drop_subscribers_anon_insert.sql); this function is now
 // the only insert path, using the service-role key, so Turnstile
 // verification actually gates the write rather than being a bypassable UI
 // nicety.

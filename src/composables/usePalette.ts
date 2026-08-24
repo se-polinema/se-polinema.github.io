@@ -1,12 +1,12 @@
 import { ref } from 'vue'
 
-// Live-switchable color palette system for comparing theme directions —
-// mirrors useTheme.ts's pattern exactly (module-singleton ref +
+// Live-switchable color palette system for comparing theme directions,
+// mirroring useTheme.ts's pattern exactly (module-singleton ref +
 // localStorage + an attribute applied to <html>), so it stays in sync
 // across every independently-mounted Vue island on a page.
 //
 // 'compass' is the current/default site look and maps to NO attribute at
-// all (see applyPalette) — so anyone who never touches the switcher sees
+// all (see applyPalette), so anyone who never touches the switcher sees
 // the exact same site as before this system existed. See
 // src/styles/global.css for the [data-palette="..."] token blocks and
 // the plan file for the intentional scope boundary (chrome regions +

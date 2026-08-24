@@ -5,7 +5,7 @@ interface DragResizeOptions {
   min: number
   max: () => number
   // Set true when the handle sits on the "far" edge relative to the
-  // resized element's growth direction — e.g. the bottom panel's handle
+  // resized element's growth direction, e.g. the bottom panel's handle
   // is on its TOP edge, so dragging up (decreasing clientY) should
   // increase height, the opposite of the raw pointer delta.
   invert?: boolean
@@ -24,7 +24,7 @@ function clamp(value: number, min: number, max: number): number {
 // resize handles (Sidebar.vue, BottomPanel.vue). `getValue` reads the
 // current size (owned by the caller, e.g. useVSCodeLayout's
 // sidebarWidth/panelHeight) so this composable holds no size state of
-// its own — it only translates pointer/keyboard input into clamped
+// its own: it only translates pointer/keyboard input into clamped
 // onChange calls, firing onCommit once at the end (drag release, or
 // immediately after a keyboard step) so callers can persist without
 // writing to localStorage on every pointermove.

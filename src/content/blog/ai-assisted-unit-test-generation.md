@@ -7,7 +7,7 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Learn how to use AI coding assistants to generate, review, and refine PHPUnit tests. Covers practical workflows with PHP examples, common AI pitfalls (hallucinations, brittle tests, missing edge cases), and when AI-assisted test generation helps — and when it fails."
+excerpt: "Learn how to use AI coding assistants to generate, review, and refine PHPUnit tests. Covers practical workflows with PHP examples, common AI pitfalls (hallucinations, brittle tests, missing edge cases), and when AI-assisted test generation helps, and when it fails."
 excerptId: "Pelajari cara menggunakan asisten coding AI untuk menghasilkan, meninjau, dan menyempurnakan pengujian PHPUnit. Mencakup alur kerja praktis dengan contoh PHP, jebakan umum AI (halusinasi, pengujian rapuh, kasus tepi yang hilang), serta kapan pembuatan pengujian berbantuan AI membantu, dan kapan ia gagal."
 stream: emerging-technologies-se
 tags:
@@ -26,11 +26,11 @@ tagsId:
 
 ## What Is AI-Assisted Test Generation?
 
-**AI-assisted test generation** is the practice of using large language models (LLMs) — like those powering GitHub Copilot, Codeium, or JetBrains AI Assistant — to suggest, draft, or extend unit tests for your code. Instead of staring at a blank test file, you provide the AI with your production code, describe the behaviour you want to test, and receive an initial test skeleton in seconds.
+**AI-assisted test generation** is the practice of using large language models (LLMs), like those powering GitHub Copilot, Codeium, or JetBrains AI Assistant, to suggest, draft, or extend unit tests for your code. Instead of staring at a blank test file, you provide the AI with your production code, describe the behaviour you want to test, and receive an initial test skeleton in seconds.
 
 The AI does not *understand* your code the way a human does. It predicts what tokens (words, symbols, patterns) are likely to follow based on its training data. When you give it a PHP function and ask for PHPUnit tests, it draws on millions of open-source test files it has seen to produce a plausible-looking test suite.
 
-This is fundamentally different from traditional test generation tools (like property-based testing frameworks or symbolic execution engines). Those tools reason about inputs and paths mathematically. AI tools reason probabilistically — which makes them remarkably flexible but also occasionally wrong in subtle, confident-sounding ways.
+This is fundamentally different from traditional test generation tools (like property-based testing frameworks or symbolic execution engines). Those tools reason about inputs and paths mathematically. AI tools reason probabilistically, which makes them remarkably flexible but also occasionally wrong in subtle, confident-sounding ways.
 
 </section>
 
@@ -52,11 +52,11 @@ Ini secara fundamental berbeda dari alat pembuatan pengujian tradisional (sepert
 
 ## Why Use AI for PHP Test Generation?
 
-PHP developers at Politeknik Negeri Malang and beyond already write tests with PHPUnit. Adding an AI assistant to the workflow brings several practical benefits — but only when used with discipline.
+PHP developers at Politeknik Negeri Malang and beyond already write tests with PHPUnit. Adding an AI assistant to the workflow brings several practical benefits, but only when used with discipline.
 
 ### Faster Initial Draft
 
-Writing the first test for a new class is often the hardest part. You need to decide on the test structure, mock dependencies, and choose representative inputs. An AI assistant can generate a complete test skeleton from your class definition in under a minute. You then review and refine it — which is much faster than typing it from scratch.
+Writing the first test for a new class is often the hardest part. You need to decide on the test structure, mock dependencies, and choose representative inputs. An AI assistant can generate a complete test skeleton from your class definition in under a minute. You then review and refine it, which is much faster than typing it from scratch.
 
 ```php
 // You write the class, then ask the AI: "Generate PHPUnit tests for this"
@@ -289,8 +289,8 @@ graph TB
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: The AI-assisted test workflow — AI drafts, you review, PHPUnit validates</span>
-  <span lang="id">Gambar: Alur kerja pengujian berbantuan AI — AI membuat draf, Anda meninjau, PHPUnit memvalidasi</span>
+  <span lang="en">Figure: The AI-assisted test workflow: AI drafts, you review, PHPUnit validates</span>
+  <span lang="id">Gambar: Alur kerja pengujian berbantuan AI: AI membuat draf, Anda meninjau, PHPUnit memvalidasi</span>
 </figcaption>
 </figure>
 
@@ -405,15 +405,15 @@ class GradeConverterTest extends TestCase
 
 Before running the tests, inspect the AI's output. Here is a **review checklist**:
 
-1. **Are all expected behaviours covered?** Look at the class — did the AI test every branch? It covered A through E, plus the two exception paths. Good.
+1. **Are all expected behaviours covered?** Look at the class: did the AI test every branch? It covered A through E, plus the two exception paths. Good.
 
 2. **Are boundary values tested?** The AI tested 90 (boundary between A and B), 80, 0, 100, -1, and 101. This is correct. However, it missed some boundaries: 89 (top of B), 79 (top of C), 69 (top of D), 59 (top of E). We should add those.
 
-3. **Does each test method test one behaviour?** `testGradeA` tests three values in one method. This is acceptable — they all belong to the same equivalence class — but splitting them could make failures more specific.
+3. **Does each test method test one behaviour?** `testGradeA` tests three values in one method. This is acceptable (they all belong to the same equivalence class), but splitting them could make failures more specific.
 
 4. **Are there any hallucinated methods?** The AI correctly used `expectException()` from PHPUnit. No hallucinated helpers.
 
-5. **Is the test file self-contained?** Yes — it imports `TestCase`, instantiates the class, and calls `convert()`.
+5. **Is the test file self-contained?** Yes: it imports `TestCase`, instantiates the class, and calls `convert()`.
 
 ### Step 4: Run the Tests
 
@@ -429,7 +429,7 @@ Time: 00:00.008, Memory: 6.00 MB
 OK (7 tests, 10 assertions)
 ```
 
-All green. But we are not done — the AI missed boundary cases.
+All green. But we are not done: the AI missed boundary cases.
 
 ### Step 5: Extend with Human Edge Cases
 
@@ -482,7 +482,7 @@ $ vendor/bin/phpunit tests/GradeConverterTest.php
 OK (14 tests, 17 assertions)
 ```
 
-This is the AI-assisted workflow in practice: the AI handles the 80% boilerplate, and you — the developer — add the 20% that demands real understanding of the domain.
+This is the AI-assisted workflow in practice: the AI handles the 80% boilerplate, and you, the developer, add the 20% that demands real understanding of the domain.
 
 </section>
 
@@ -682,14 +682,14 @@ Inilah alur kerja berbantuan AI dalam praktik: AI menangani 80% *boilerplate*, d
 
 ## Common Pitfalls of AI-Generated Tests
 
-AI is a powerful accelerator but not an oracle. Here are the most common ways AI-generated tests go wrong — and how to catch them.
+AI is a powerful accelerator but not an oracle. Here are the most common ways AI-generated tests go wrong, and how to catch them.
 
 ### 1. Tests That Pass but Assert Nothing
 
 The most dangerous failure mode: the AI writes a test that runs without errors but never actually verifies the behaviour.
 
 ```php
-// BAD: no assertion — this always passes
+// BAD: no assertion, this always passes
 public function testCalculate(): void
 {
     $result = $this->calc->calculate(100.0, 'gold');
@@ -733,7 +733,7 @@ public function calculate(float $price, string $memberLevel): float
 public function testGoldDiscount(): void
 {
     $this->assertEquals(90.0, $this->calc->calculate(100.0, 'gold'));
-    // Passes — but is wrong!
+    // Passes, but is wrong!
 }
 ```
 
@@ -749,17 +749,17 @@ For a `DiscountCalculator`, the AI will test:
 - Regular member, normal price
 
 The AI will likely **miss**:
-- Zero price: `calculate(0.0, 'gold')` — should return 0.0, not throw a division-by-zero
-- Negative price: `calculate(-50.0, 'silver')` — should this throw? Return 0? The spec must decide.
-- Unknown member level: `calculate(100.0, 'platinum')` — should this fall through to default or throw?
-- Very large price: `calculate(1_000_000_000.0, 'gold')` — any overflow issues?
+- Zero price: `calculate(0.0, 'gold')`, which should return 0.0, not throw a division-by-zero
+- Negative price: `calculate(-50.0, 'silver')`. Should this throw? Return 0? The spec must decide.
+- Unknown member level: `calculate(100.0, 'platinum')`. Should this fall through to default or throw?
+- Very large price: `calculate(1_000_000_000.0, 'gold')`. Any overflow issues?
 - Empty string member level: `calculate(100.0, '')`
 
 **How to catch it:** After the AI generates tests, ask yourself: "What inputs could break this?" Use Boundary Value Analysis (from Blackbox testing) and add at least two tests for values the AI missed.
 
 ### 5. Brittle Tests with Hardcoded Values
 
-The AI may generate tests that couple too tightly to implementation details. If you change the discount percentage for gold members from 20% to 25%, every test with `assertEquals(80.0, ...)` breaks — even though the behaviour is still correct.
+The AI may generate tests that couple too tightly to implementation details. If you change the discount percentage for gold members from 20% to 25%, every test with `assertEquals(80.0, ...)` breaks, even though the behaviour is still correct.
 
 **How to catch it:** Use data providers or test the invariant rather than the exact value:
 
@@ -809,7 +809,7 @@ AI adalah akselerator yang kuat tetapi bukan orakel. Berikut adalah cara paling 
 Mode kegagalan paling berbahaya: AI menulis pengujian yang berjalan tanpa error tetapi tidak pernah benar-benar memverifikasi perilaku.
 
 ```php
-// BURUK: tidak ada asersi — ini selalu berhasil
+// BURUK: tidak ada asersi, ini selalu berhasil
 public function testCalculate(): void
 {
     $result = $this->calc->calculate(100.0, 'gold');
@@ -853,7 +853,7 @@ public function calculate(float $price, string $memberLevel): float
 public function testGoldDiscount(): void
 {
     $this->assertEquals(90.0, $this->calc->calculate(100.0, 'gold'));
-    // Berhasil — tetapi salah!
+    // Berhasil, tetapi salah!
 }
 ```
 
@@ -926,7 +926,7 @@ Jika pengujian gagal hanya dalam urutan tertentu, Anda memiliki masalah isolasi.
 
 ### 1. Treat AI Output as a First Draft
 
-Never commit AI-generated tests without reviewing them. The AI is a junior developer who types very fast — not a senior engineer who understands your domain. Review every assertion, every expected value, and every edge case.
+Never commit AI-generated tests without reviewing them. The AI is a junior developer who types very fast, not a senior engineer who understands your domain. Review every assertion, every expected value, and every edge case.
 
 ### 2. Always Run Tests and Inspect Coverage
 
@@ -948,7 +948,7 @@ This is your superpower as a human. The AI will test `grade(85)` but not `grade(
 
 ### 5. Verify Business Logic Independently
 
-Pick two test cases and verify the expected values by hand — or better yet, ask a domain expert. Never trust that the AI computed the discount percentage correctly.
+Pick two test cases and verify the expected values by hand, or better yet, ask a domain expert. Never trust that the AI computed the discount percentage correctly.
 
 ### 6. Review Tests During Code Review
 
@@ -1020,10 +1020,10 @@ Penggunaan AI dengan dampak tertinggi adalah menambahkan pengujian ke kode *lega
 
 | Situation | Why AI Helps |
 |---|---|
-| **Simple utility classes** | Calculators, formatters, validators — the input/output contract is clear, and AI excels at enumerating cases. |
+| **Simple utility classes** | Calculators, formatters, validators: the input/output contract is clear, and AI excels at enumerating cases. |
 | **CRUD service classes** | Create, read, update, delete operations follow predictable patterns that AI recognizes well. |
 | **Adding tests to legacy code** | Untested classes that have been stable for months are perfect candidates. The AI generates a safety net quickly. |
-| **Data transformation pipelines** | Functions that map one data structure to another — AI generates both valid and invalid input tests. |
+| **Data transformation pipelines** | Functions that map one data structure to another; AI generates both valid and invalid input tests. |
 | **Boilerplate-heavy tests** | Tests that require extensive `setUp()`, mock configuration, or data providers. Let the AI write the ceremony. |
 
 ### When AI Struggles
@@ -1039,7 +1039,7 @@ Penggunaan AI dengan dampak tertinggi adalah menambahkan pengujian ke kode *lega
 
 ### The Pragmatic Approach
 
-Use AI test generation where the risk of getting it wrong is low and the cost of writing tests manually is high. For mission-critical logic, write the tests yourself — but use AI to suggest edge cases you might have overlooked. The goal is not to replace your judgment but to eliminate the tedious parts of test writing so you can focus on the parts that require intelligence.
+Use AI test generation where the risk of getting it wrong is low and the cost of writing tests manually is high. For mission-critical logic, write the tests yourself, but use AI to suggest edge cases you might have overlooked. The goal is not to replace your judgment but to eliminate the tedious parts of test writing so you can focus on the parts that require intelligence.
 
 </section>
 
@@ -1156,7 +1156,7 @@ calculate(-10.0, 'gold')     → throws InvalidArgumentException
 calculate(50.0, '')           → throws InvalidArgumentException
 ```
 
-Share your experience with a classmate. Compare what your AI generated versus theirs. Different AI assistants (Copilot vs Codeium vs Continue+Ollama) will produce different test suites — which one caught the most edge cases?
+Share your experience with a classmate. Compare what your AI generated versus theirs. Different AI assistants (Copilot vs Codeium vs Continue+Ollama) will produce different test suites: which one caught the most edge cases?
 
 </section>
 
@@ -1255,14 +1255,14 @@ Bagikan pengalaman Anda dengan teman sekelas. Bandingkan apa yang dihasilkan AI 
 3. **Common AI pitfalls** include tests without assertions, hallucinated methods, overfitting to buggy implementations, and missing edge cases. All are caught by running the tests and reviewing output carefully.
 4. **Best practices:** treat AI output as a first draft, verify expected values manually, use data providers for maintainable tests, and always run `--order-by=random` to catch isolation problems.
 5. **Be pragmatic:** use AI for simple utility classes, CRUD services, and legacy code coverage. Write mission-critical tests yourself, but ask AI to suggest edge cases.
-6. **AI is a junior pair programmer** — fast, tireless, often helpful, but never fully trustworthy without human review.
+6. **AI is a junior pair programmer**: fast, tireless, often helpful, but never fully trustworthy without human review.
 
 > The AI can write the tests, but only you can decide what the right behaviour is.
 
 ### Related Tutorials
 
-- [Test-Driven Development (TDD) with PHP](/blog/test-driven-development) — Learn the Red → Green → Refactor cycle that pairs naturally with AI test generation.
-- [Blackbox and Whitebox Test in Simple Way](/blog/blackbox-and-whitebox-test) — Master boundary value analysis and equivalence partitioning to spot the edge cases AI misses.
+- [Test-Driven Development (TDD) with PHP](/blog/test-driven-development): Learn the Red → Green → Refactor cycle that pairs naturally with AI test generation.
+- [Blackbox and Whitebox Test in Simple Way](/blog/blackbox-and-whitebox-test): Master boundary value analysis and equivalence partitioning to spot the edge cases AI misses.
 
 </section>
 

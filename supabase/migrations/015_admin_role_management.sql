@@ -8,7 +8,7 @@
 -- 1. SECURITY FIX: "profiles_update_own" (003_auth_registration.sql) was
 --    declared with only a USING clause and no WITH CHECK. Postgres reuses
 --    USING as the check when WITH CHECK is omitted, so that policy has
---    never restricted which COLUMNS a self-update can touch — any
+--    never restricted which COLUMNS a self-update can touch: any
 --    authenticated user could call
 --    `.from('profiles').update({ role: 'admin' }).eq('id', session.user.id)`
 --    and successfully self-promote, bypassing the @polinema.ac.id gate
@@ -64,7 +64,7 @@ BEGIN
     IF NEW.id = auth.uid() OR se.get_user_role() <> 'admin' THEN
       -- Nobody may change their own role (blocks self-promotion AND
       -- accidental self-demotion by an existing admin); non-admins may
-      -- never change anyone else's role either — defense in depth
+      -- never change anyone else's role either, defense in depth
       -- alongside the row-visibility restriction in profiles_update_admin
       -- below.
       NEW.role := OLD.role;
@@ -81,7 +81,7 @@ CREATE TRIGGER profiles_guard_role_change
   BEFORE UPDATE ON se.profiles
   FOR EACH ROW EXECUTE FUNCTION se.guard_profile_role_change();
 
--- Lets admin reach (UPDATE) rows other than their own — profiles_update_own
+-- Lets admin reach (UPDATE) rows other than their own; profiles_update_own
 -- only ever permitted touching your own row. Combined with the trigger
 -- above, this is what actually lets an admin grant role='admin' to someone
 -- else, while the trigger stops it being used on their own row.

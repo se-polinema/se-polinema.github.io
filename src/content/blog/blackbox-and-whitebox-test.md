@@ -24,7 +24,7 @@ tagsId:
 
 Before we dive into Blackbox and Whitebox testing, let us understand **why** we test software in the first place.
 
-Every application you build will eventually have a user. That user expects the software to work correctly, handle errors gracefully, and never lose their data. Testing is how you prove to yourself — and to your users — that the software behaves as intended.
+Every application you build will eventually have a user. That user expects the software to work correctly, handle errors gracefully, and never lose their data. Testing is how you prove to yourself, and to your users, that the software behaves as intended.
 
 Think of testing like checking your homework before submitting it. You do not just write the answers and hope they are correct. You review each problem, verify calculations, and double-check your reasoning. Software testing works the same way, but with a structured approach.
 
@@ -133,7 +133,7 @@ Saat merancang pengujian, selalu mulai dengan skenario (apa yang akan Anda uji?)
 
 ### What Is Blackbox Testing?
 
-Imagine a vending machine. You press a button, insert coins, and a drink comes out. You do **not** know what happens inside — the motors, the coils, the circuit board. All you know is: given this input, I expect this output.
+Imagine a vending machine. You press a button, insert coins, and a drink comes out. You do **not** know what happens inside: the motors, the coils, the circuit board. All you know is: given this input, I expect this output.
 
 **Blackbox testing works the same way.** You test the software without knowing its internal code structure. You provide inputs and check whether the outputs match your expectations.
 
@@ -187,7 +187,7 @@ Let us design test cases for a simple login form with these rules:
 | TC-06 | Email empty | (empty), Pass1234 | Error: "Email is required" |
 | TC-07 | Password empty | user@test.com, (empty) | Error: "Password is required" |
 
-Each test case is independent, repeatable, and has a clear expected result — that is the essence of good Blackbox testing.
+Each test case is independent, repeatable, and has a clear expected result. That is the essence of good Blackbox testing.
 
 </section>
 
@@ -342,7 +342,7 @@ class Calculator
 }
 ```
 
-This class is intentionally simple so we can see every branch clearly. The `grade` method has multiple branches — perfect for demonstrating Whitebox coverage.
+This class is intentionally simple so we can see every branch clearly. The `grade` method has multiple branches, perfect for demonstrating Whitebox coverage.
 
 **Step 2: The PHPUnit test** (`tests/CalculatorTest.php`)
 
@@ -376,7 +376,7 @@ class CalculatorTest extends TestCase
         $this->assertEquals(7, $this->calc->add(7, 0));
     }
 
-    // Statement & branch coverage: divide() — both branches
+    // Statement & branch coverage: divide(), both branches
     public function testDivideNormal(): void
     {
         $this->assertEquals(5, $this->calc->divide(10, 2));
@@ -389,7 +389,7 @@ class CalculatorTest extends TestCase
         $this->calc->divide(10, 0);
     }
 
-    // Branch coverage: grade() — boundaries
+    // Branch coverage: grade(), boundaries
     public function testGradeA(): void
     {
         $this->assertEquals('A', $this->calc->grade(80));  // lower boundary
@@ -435,7 +435,7 @@ class CalculatorTest extends TestCase
 }
 ```
 
-**What makes this Whitebox testing?** We looked at the internal logic of the `grade` method and wrote tests specifically for each branch: each `if/elseif/else` path, the exception path for invalid input, and both boundaries (0 and 100). A Blackbox tester might test `grade(85)` and `grade(55)` — but a Whitebox tester ensures **every path through the code is exercised**.
+**What makes this Whitebox testing?** We looked at the internal logic of the `grade` method and wrote tests specifically for each branch: each `if/elseif/else` path, the exception path for invalid input, and both boundaries (0 and 100). A Blackbox tester might test `grade(85)` and `grade(55)`, but a Whitebox tester ensures **every path through the code is exercised**.
 
 **Step 3: Run the tests**
 
@@ -574,7 +574,7 @@ class CalculatorTest extends TestCase
         $this->assertEquals(7, $this->calc->add(7, 0));
     }
 
-    // Cakupan statement & branch: divide() — kedua cabang
+    // Cakupan statement & branch: divide(), kedua cabang
     public function testDivideNormal(): void
     {
         $this->assertEquals(5, $this->calc->divide(10, 2));
@@ -587,7 +587,7 @@ class CalculatorTest extends TestCase
         $this->calc->divide(10, 0);
     }
 
-    // Cakupan branch: grade() — boundaries
+    // Cakupan branch: grade(), boundaries
     public function testGradeA(): void
     {
         $this->assertEquals('A', $this->calc->grade(80));  // batas bawah
@@ -672,8 +672,8 @@ Here are the most commonly used tools, categorized by language:
 
 **For beginners starting with PHP**, we recommend:
 
-- **PHPUnit** — the standard testing framework for PHP. It is well-documented and integrates with most IDEs.
-- **Pest** — a newer, simpler alternative to PHPUnit with a more readable syntax. Great if you find PHPUnit verbose.
+- **PHPUnit**: the standard testing framework for PHP. It is well-documented and integrates with most IDEs.
+- **Pest**: a newer, simpler alternative to PHPUnit with a more readable syntax. Great if you find PHPUnit verbose.
 
 Run `composer require --dev phpunit/phpunit` in your project to get started.
 
@@ -717,7 +717,7 @@ Jalankan `composer require --dev phpunit/phpunit` di proyek Anda untuk memulai.
 | **When to use** | Early in development, UAT | During and after coding |
 | **Automation** | GUI tools, Postman, Selenium | Unit test frameworks (PHPUnit, JUnit) |
 
-**You do not have to choose one.** Professional software teams use **both**. Blackbox ensures the product works for users. Whitebox ensures the code is robust and maintainable. Together, they give you confidence that your software is correct — from the outside and the inside.
+**You do not have to choose one.** Professional software teams use **both**. Blackbox ensures the product works for users. Whitebox ensures the code is robust and maintainable. Together, they give you confidence that your software is correct, from the outside and the inside.
 
 </section>
 
@@ -743,10 +743,10 @@ Jalankan `composer require --dev phpunit/phpunit` di proyek Anda untuk memulai.
 
 ## What We Learned
 
-1. **Testing is about confidence** — proving to yourself and users that the software behaves correctly.
+1. **Testing is about confidence**: proving to yourself and users that the software behaves correctly.
 2. **Test scenarios** define what to test; **test cases** define how to test it.
-3. **Blackbox testing** validates functionality without looking at the code — great for user-facing features.
-4. **Whitebox testing** validates code structure with full knowledge of the internals — great for developer-level quality.
+3. **Blackbox testing** validates functionality without looking at the code, great for user-facing features.
+4. **Whitebox testing** validates code structure with full knowledge of the internals, great for developer-level quality.
 5. **Effective tests follow three rules:** write tests before fixing bugs, test one thing at a time, and treat tests as documentation.
 6. **Use both approaches together** for the most thorough validation of your software.
 

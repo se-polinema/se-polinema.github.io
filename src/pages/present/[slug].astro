@@ -16,7 +16,7 @@ const { entry } = Astro.props
 const { title, theme } = entry.data
 
 // Pass the raw markdown source to reveal's Markdown plugin.
-// We do NOT use Astro's render() — reveal handles its own parsing/splitting on '---'.
+// We do NOT use Astro's render(); reveal handles its own parsing/splitting on '---'.
 const raw = entry.body ?? ''
 
 // Static page: use English title by default (language switch is client-side via useI18n)
@@ -40,7 +40,7 @@ const displayTitle = title
   <!--
     The reveal.js app container.
     hidden attribute is removed by PresentationGate after admin auth + reveal init.
-    The <script type="text/template"> block is inert HTML — browsers do not execute
+    The <script type="text/template"> block is inert HTML: browsers do not execute
     or display its content; reveal's Markdown plugin reads it as raw text.
   -->
   <div class="reveal" hidden>

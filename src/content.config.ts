@@ -167,7 +167,7 @@ const slidesCollection = defineCollection({
   }),
 })
 
-// Alumni (and current student members) moved to Supabase (se.members table) —
+// Alumni (and current student members) moved to Supabase (se.members table);
 // see MemberDirectoryPage.vue, src/pages/alumni/, src/pages/members/, and
 // supabase/migrations/008_members.sql. No longer a content collection.
 

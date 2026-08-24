@@ -16,7 +16,7 @@ const PUBLICATION_LIMIT = 100
 const REQUEST_DELAY_MS = 5000
 // scholarly.fill(pub) is a separate Scholar request per publication (the
 // author-level searchAuthorId(..., filled=true, ...) call does NOT cascade
-// down to individual publications — it only fills author-level fields like
+// down to individual publications; it only fills author-level fields like
 // h-index). This delay is between those per-publication fill() calls,
 // distinct from REQUEST_DELAY_MS which is between researchers.
 const FILL_DELAY_MS = 2000
@@ -139,7 +139,7 @@ function loadExistingPublications() {
 }
 
 // Patches just url/googleScholarUrl on an existing publication file via a
-// surgical text replacement — preserving every other frontmatter field
+// surgical text replacement, preserving every other frontmatter field
 // (featured, researchers, hand edits, etc.) AND the file's existing
 // formatting/quoting exactly. Deliberately does NOT round-trip through
 // gray-matter's parse+stringify: matter.stringify() re-serializes the
@@ -204,7 +204,7 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
     const publications = author.publications || []
 
     // Author-level metrics (h-index, i10-index, citations) come from this
-    // same searchAuthorId() call — reused here instead of a second, separate
+    // same searchAuthorId() call, reused here instead of a second, separate
     // Google Scholar fetch (see scripts/sync-scholar-metrics.mjs, now removed).
     const metrics = {
       researcher: researcher.slug,
@@ -223,7 +223,7 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
     const results = []
     for (const pub of publications) {
       // fill() is required before bib.author (and pub_url/eprint_url) are
-      // populated at all — the unfilled publication object from
+      // populated at all: the unfilled publication object from
       // searchAuthorId() only has title/pub_year/citation, no authors.
       // This is why the author/venue check below used to skip every
       // single publication: it was reading an object that never had
@@ -275,7 +275,7 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
 
       // citedby_url comes back as a Scholar-relative path (e.g.
       // "/scholar?hl=en&cites=...") once the publication has been
-      // filled, unlike the absolute URL on the unfilled object — needs
+      // filled, unlike the absolute URL on the unfilled object; needs
       // the domain re-added, or it fell back to the profile URL, which is
       // already absolute.
       const rawGsUrl = filled.citedby_url || pub.citedby_url ||
@@ -363,7 +363,7 @@ async function main() {
         allNew.push(pub)
         existingKeys.add(pub.key)
       } else if (originalExistingKeys.has(pub.key)) {
-        // Already on disk from a previous sync — backfill the real
+        // Already on disk from a previous sync: backfill the real
         // publisher link if this file still only has the old Scholar URL
         // (from before this fix) and we now have a better one. Only
         // touches url/googleScholarUrl; every other field on the file is
@@ -444,7 +444,7 @@ async function main() {
 
   // A researcher whose fetch errored this run currently has zeroed
   // placeholder metrics (see the catch block in
-  // fetchPublicationsForResearcher) — fall back to their previous synced
+  // fetchPublicationsForResearcher), fall back to their previous synced
   // values here rather than let a transient failure regress real data.
   // _error stays set so the failure is still visible in the output.
   const previousMetrics = loadPreviousResearcherMetrics()

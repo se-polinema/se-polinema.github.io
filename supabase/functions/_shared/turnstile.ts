@@ -1,5 +1,5 @@
 // Shared helpers for the Turnstile-gated Edge Functions (subscribe-newsletter,
-// submit-alumni) — see docs/issue-10-form-abuse-protection.md for why this
+// submit-alumni); see docs/issue-10-form-abuse-protection.md for why this
 // exists: the site is a pure static Astro build with no server of its own,
 // so verifying a Turnstile token requires an actual server hop, which these
 // functions are.
@@ -8,7 +8,7 @@ const ALLOWED_ORIGINS = ['https://se.polinema.ac.id', 'http://localhost:4321']
 
 // Verifies a Turnstile token against Cloudflare's siteverify endpoint using
 // the TURNSTILE_SECRET_KEY function secret (set via `supabase secrets set`,
-// never checked into config.toml — see deploy-supabase.yml).
+// never checked into config.toml; see deploy-supabase.yml).
 export async function verifyTurnstile(token: string, remoteIp?: string): Promise<boolean> {
   const secret = Deno.env.get('TURNSTILE_SECRET_KEY')
   if (!secret) {
@@ -34,7 +34,7 @@ export async function verifyTurnstile(token: string, remoteIp?: string): Promise
   }
 }
 
-// Reflects the request's Origin header back only if it's on the allowlist —
+// Reflects the request's Origin header back only if it's on the allowlist:
 // both functions are called from the browser, so this is the CORS surface.
 export function corsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get('origin') ?? ''

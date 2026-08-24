@@ -162,13 +162,13 @@ const submitPath = '/members/submit'
 const form = reactive({
   name: '',
   photo: null as string | null,
-  // cohort_year is enrollment year (angkatan), not exit year — a submitter
+  // cohort_year is enrollment year (angkatan), not exit year: a submitter
   // has always already enrolled by the time they submit, so default to
   // the 4-year D-IV convention (currentYear - 4) rather than today's year.
   cohort_year: new Date().getFullYear() - 4,
   // Pre-filled with the site's old hardcoded default (every self-
   // submission used to be forced to this regardless of what the person
-  // actually did in the lab) — now just a starting point the submitter
+  // actually did in the lab); now just a starting point the submitter
   // can edit, e.g. "Lab Coordinator" / "Koordinator Lab".
   role_id: 'Mahasiswa',
   role_en: 'Student',
@@ -210,7 +210,7 @@ watch(
 
     const meta = user.value.user_metadata as Record<string, string> | undefined
     form.name = meta?.full_name || meta?.name || meta?.user_name || ''
-    // GitHub OAuth metadata includes the handle as user_name — prefill the
+    // GitHub OAuth metadata includes the handle as user_name; prefill the
     // profile link from it (still editable, in case it's stale or wrong).
     if (meta?.user_name) {
       form.github_url = `https://github.com/${meta.user_name}`
@@ -254,7 +254,7 @@ async function handleSubmit() {
     turnstileRef.value?.reset()
     turnstileToken.value = ''
     // functions.invoke() surfaces non-2xx responses as a generic SDK error
-    // without parsing the JSON body — recover the actual server message
+    // without parsing the JSON body, so recover the actual server message
     // (submit-member returns { error: <postgres error message> }) from
     // the raw Response on error.context.
     let serverMessage: string | null = null

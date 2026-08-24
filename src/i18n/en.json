@@ -47,7 +47,7 @@
     "institution": "A research and development unit under the Department of Information Technology at Politeknik Negeri Malang.",
     "vision": {
       "label": "Vision",
-      "text": "To become a center of excellence in knowledge, technology, and software engineering innovation with global competitiveness — contributing meaningfully to academic, industry, and societal advancement."
+      "text": "To become a center of excellence in knowledge, technology, and software engineering innovation with global competitiveness, contributing meaningfully to academic, industry, and societal advancement."
     }
   },
   "research": {
@@ -295,7 +295,7 @@
   "contact": {
     "label": "Contact",
     "heading": "Get in touch",
-    "address": "Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, East Java — Indonesia 65141",
+    "address": "Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Malang, East Java, Indonesia 65141",
     "affiliation": "Jurusan Teknologi Informasi, Politeknik Negeri Malang",
     "mapTitle": "Find us on Google Maps",
     "socials": "Follow us",
@@ -384,7 +384,7 @@
       "successTitle": "Registration Successful!",
       "successMessage": "You have been registered for this event.",
       "waitlistedTitle": "You're on the Waitlist",
-      "waitlistedMessage": "This event is at capacity. You've been added to the waitlist — check your account page for updates.",
+      "waitlistedMessage": "This event is at capacity. You've been added to the waitlist. Check your account page for updates.",
       "alreadyRegistered": "You are already registered for this event.",
       "signedInAs": "Signed in as",
       "registerThisEvent": "Register for this event",
@@ -578,7 +578,7 @@
   },
   "alumni": {
     "heading": "Lab Alumni",
-    "description": "Former members of the Software Engineering Laboratory and where they are now — in industry, academia, and continuing their studies.",
+    "description": "Former members of the Software Engineering Laboratory and where they are now: in industry, academia, and continuing their studies.",
     "navLabel": "Alumni",
     "cohortLabel": "Cohort",
     "now": "Now:",
@@ -662,7 +662,7 @@
     "imageLabel": "Cover Image",
     "approvedFieldLabel": "Visible to public",
     "briefLabel": "Brief (for AI suggestions)",
-    "briefHint": "A sentence or two describing the project — used only to generate suggestions below, not saved.",
+    "briefHint": "A sentence or two describing the project, used only to generate suggestions below, not saved.",
     "suggestingLabel": "Suggesting...",
     "suggestError": "Couldn't generate suggestions. Please try again or fill in manually.",
     "filterAll": "All",
@@ -702,7 +702,7 @@
     "aiAssistMode": "AI Assist",
     "manualMode": "Manual",
     "briefLabel": "Brief (for AI suggestion)",
-    "briefHint": "A sentence or two describing what to announce — used only to generate suggestions below, not saved.",
+    "briefHint": "A sentence or two describing what to announce, used only to generate suggestions below, not saved.",
     "suggestingLabel": "Suggesting...",
     "generateBtn": "Generate",
     "suggestError": "Couldn't generate a suggestion. Please try again or fill in manually.",
@@ -846,7 +846,7 @@
   "learningPaths": {
     "label": "Learning Paths",
     "heading": "Curated Learning Tracks",
-    "description": "Guided, step-by-step learning tracks aligned with our research streams. Follow beginner-to-advanced sequences of tutorials, books, tools, and courses — each track builds toward real proficiency in a software engineering domain.",
+    "description": "Guided, step-by-step learning tracks aligned with our research streams. Follow beginner-to-advanced sequences of tutorials, books, tools, and courses. Each track builds toward real proficiency in a software engineering domain.",
     "allStreams": "All Streams",
     "allLevels": "All Levels",
     "searchPlaceholder": "Search steps by title or description...",
@@ -930,7 +930,7 @@
   "tools": {
     "label": "Research Software & Tools",
     "heading": "Research Software & Tools Catalog",
-    "description": "Lab-developed reusable research artifacts — software tools, frameworks, libraries, datasets, and prototypes produced by SE Lab researchers. Each artifact is linked to its repository, publication, and supervising researcher.",
+    "description": "Lab-developed reusable research artifacts: software tools, frameworks, libraries, datasets, and prototypes produced by SE Lab researchers. Each artifact is linked to its repository, publication, and supervising researcher.",
     "allStreams": "All Streams",
     "allTypes": "All Types",
     "allStatuses": "All Statuses",
@@ -993,14 +993,14 @@
     "rightsExercise": "To exercise any of these rights, please contact us at the email address below. We will respond within 30 days.",
     "cookiesHeading": "Cookie Policy",
     "cookiesIntro": "This site uses minimal cookies and browser storage for essential functionality:",
-    "cookiesLang": "<strong>Language preference</strong> — stored in localStorage to remember your selected language (en/id). No consent required.",
-    "cookiesTheme": "<strong>Theme preference</strong> — stored in localStorage to remember your dark/light mode choice. No consent required.",
-    "cookiesConsent": "<strong>Consent preference</strong> — stored in localStorage to remember your data-consent choice. No consent required.",
-    "cookiesAuth": "<strong>Authentication session</strong> — Supabase sets a session token cookie when you sign in for event registration. Essential for the service to function.",
+    "cookiesLang": "<strong>Language preference:</strong> stored in localStorage to remember your selected language (en/id). No consent required.",
+    "cookiesTheme": "<strong>Theme preference:</strong> stored in localStorage to remember your dark/light mode choice. No consent required.",
+    "cookiesConsent": "<strong>Consent preference:</strong> stored in localStorage to remember your data-consent choice. No consent required.",
+    "cookiesAuth": "<strong>Authentication session:</strong> Supabase sets a session token cookie when you sign in for event registration. Essential for the service to function.",
     "cookiesNoTracking": "We do not use advertising cookies, third-party tracking cookies, or analytics cookies.",
     "contactHeading": "Privacy Contact",
     "contactText": "For questions about this Privacy Policy or to exercise your data rights, contact the lab coordinator:",
-    "contactAffiliation": "Software Engineering Laboratory, Jurusan Teknologi Informasi, Politeknik Negeri Malang — Jl. Soekarno Hatta No.9, Malang, East Java, Indonesia 65141"
+    "contactAffiliation": "Software Engineering Laboratory, Jurusan Teknologi Informasi, Politeknik Negeri Malang, Jl. Soekarno Hatta No.9, Malang, East Java, Indonesia 65141"
   },
   "cookieConsent": {
     "bannerLabel": "Cookie and data consent",

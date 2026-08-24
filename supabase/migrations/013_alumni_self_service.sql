@@ -20,12 +20,12 @@
 --  - The partial unique index only prevents a signed-in user from
 --    submitting more than once; it does NOT catch the case where an admin
 --    already transcribed this same person from the old GitHub Issue flow
---    (that row has user_id NULL). Documented, not solved here — the submit
+--    (that row has user_id NULL). Documented, not solved here: the submit
 --    page asks users who are already listed to contact an admin instead.
 --  - Rejection is deliberately unmodeled: an admin declines a submission by
 --    deleting the row (existing members_delete_admin capability). A
 --    declined user's next visit to the submit page looks identical to
---    "never submitted" — accepted for this scope.
+--    "never submitted"; accepted for this scope.
 --  - Fails safe: the INSERT CHECK requires approved = false and
 --    status = 'alumni' explicitly. Combined with the column DEFAULT of
 --    approved = true, a client that omits `approved` (or sends the wrong
@@ -58,7 +58,7 @@ CREATE POLICY "members_select_admin" ON se.members
 
 -- Additive: members_insert_admin / members_update_admin / members_delete_admin
 -- from 008_members.sql are untouched. Approving a submission is just an
--- UPDATE ... SET approved = true, already covered by members_update_admin —
+-- UPDATE ... SET approved = true, already covered by members_update_admin;
 -- no new policy needed for the admin side of approval.
 CREATE POLICY "members_insert_self" ON se.members
   FOR INSERT WITH CHECK (

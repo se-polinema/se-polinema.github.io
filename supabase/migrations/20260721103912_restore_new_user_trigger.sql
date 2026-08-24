@@ -6,8 +6,8 @@
 -- se.handle_new_user(). This Supabase project is shared with another
 -- application (schema "dosen4"), and at some point that app's own
 -- migration re-created a trigger with the SAME name
--- "on_auth_user_created" pointing at dosen4.handle_new_user() instead
--- — Postgres allows only one trigger per name per table, so this
+-- "on_auth_user_created" pointing at dosen4.handle_new_user() instead.
+-- Postgres allows only one trigger per name per table, so this
 -- silently replaced (not supplemented) the SE Lab trigger. Confirmed
 -- live: `on_auth_user_created` currently calls dosen4.handle_new_user(),
 -- and se.profiles has had zero rows created for any new signup since

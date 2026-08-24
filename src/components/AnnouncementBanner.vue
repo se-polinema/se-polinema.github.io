@@ -94,7 +94,7 @@ interface AnnouncementRow {
 }
 
 // Fetched live from Supabase (se.announcements) rather than passed in as a
-// build-time prop — this is what makes the banner an admin-can-push-live
+// build-time prop: this is what makes the banner an admin-can-push-live
 // feature instead of one that needs a commit + redeploy. See
 // AdminDashboard.vue's Announcements tab for the write side and the
 // 20260724001207_announcements.sql migration for the RLS shape (public
@@ -137,7 +137,7 @@ function rowToConfig(row: AnnouncementRow): AnnouncementConfig {
 }
 
 // Re-derives locallyDismissed from localStorage for whatever row is
-// current, rather than the caller guessing — a Realtime event can fire for
+// current, rather than the caller guessing: a Realtime event can fire for
 // a row that has nothing to do with what's currently dismissed, so this
 // must never be reset unconditionally (that would re-pop an already-
 // dismissed banner just because some unrelated row changed).
@@ -169,7 +169,7 @@ async function fetchActive() {
     config.value = row ? rowToConfig(row) : null
     syncDismissedState()
 
-    // Realtime only fires on row *changes* — it will never fire purely
+    // Realtime only fires on row *changes*: it will never fire purely
     // because the clock crosses end_date. Without this timer, a tab left
     // open past expiration would keep showing an announcement the RLS
     // policy (and every other viewer) has already stopped serving.
@@ -182,7 +182,7 @@ async function fetchActive() {
       }
     }
   } catch {
-    // Supabase unreachable (offline, misconfigured env) — fail closed,
+    // Supabase unreachable (offline, misconfigured env); fail closed,
     // same as the rest of this component's defensive try/catch blocks.
     config.value = null
   }
@@ -275,7 +275,7 @@ onMounted(async () => {
       )
       .subscribe()
   } catch {
-    // Realtime unavailable — the banner still works via the initial fetch,
+    // Realtime unavailable: the banner still works via the initial fetch,
     // it just won't update live in an already-open tab.
   }
 })

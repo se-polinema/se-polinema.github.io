@@ -141,7 +141,7 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 // Upcoming events (collapsible=false) always render expanded, matching the
-// prior behavior exactly. Past events (collapsible=true) start collapsed —
+// prior behavior exactly. Past events (collapsible=true) start collapsed:
 // each section owns its own expand state rather than the parent tracking a
 // Set of expanded slugs.
 const expanded = ref(!props.collapsible)

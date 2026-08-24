@@ -1,13 +1,13 @@
 // Turnstile-gated self-submission for the Showcase (Projects/Products).
 // Clone of submit-member/index.ts's exact pattern: forwards the caller's
 // own JWT (not the service role) so the projects_insert_self RLS policy
-// (auth.uid() = user_id AND approved = false, plus every curatorial field
-// — featured/private/status/stream/researchers/contributors/video_url/
-// slug — pinned to its default; see 20260722031833_projects.sql and
+// (auth.uid() = user_id AND approved = false, plus every curatorial field:
+// featured/private/status/stream/researchers/contributors/video_url/
+// slug, pinned to its default; see 20260722031833_projects.sql and
 // 20260722082908_projects_extend.sql) keeps doing the real identity and
 // scope enforcement; this function only adds the Turnstile gate in front
 // of the same insert the client used to perform directly. Unlike
-// se.members, a user may submit more than one project — there is no
+// se.members, a user may submit more than one project; there is no
 // existing-row check here, every call is a fresh insert.
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { verifyTurnstile, corsHeaders, jsonResponse } from '../_shared/turnstile.ts'
@@ -58,7 +58,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'captcha_failed' }, 400, headers)
   }
 
-  // Anon key + the caller's own Authorization header — RLS runs as this
+  // Anon key + the caller's own Authorization header: RLS runs as this
   // user, exactly as it did for the client's old direct insert.
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,

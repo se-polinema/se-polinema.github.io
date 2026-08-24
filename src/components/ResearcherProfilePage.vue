@@ -340,13 +340,13 @@ function getStreamName(id: string) {
 </script>
 
 <style scoped>
-/* Override global 2.5rem — profile name should be prominent but not page-title scale */
+/* Override global 2.5rem: profile name should be prominent but not page-title scale */
 :deep(.profile-hd h1:not([class])) {
   font-size: 1.625rem;
   margin-bottom: 0;
 }
 
-/* Global h2 carries margin-top: 1.75rem which double-stacks with section mb — zero it out */
+/* Global h2 carries margin-top: 1.75rem which double-stacks with section mb; zero it out */
 :deep(.profile-body h2:not([class])) {
   margin-top: 0;
   margin-bottom: 0.25rem;

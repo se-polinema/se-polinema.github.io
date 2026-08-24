@@ -5,7 +5,7 @@
 -- after an email/password signUp. GitHub OAuth signups (signInWithOAuth) skip
 -- that client-side update entirely, so their profiles.full_name would be left
 -- NULL. Supabase populates raw_user_meta_data from the GitHub OAuth response
--- with a "full_name", "name", and "user_name" (GitHub handle) claim — use the
+-- with a "full_name", "name", and "user_name" (GitHub handle) claim: use the
 -- first one present. Email/password signups have no such metadata, so this is
 -- a no-op for them and the existing client-side UPDATE still applies.
 

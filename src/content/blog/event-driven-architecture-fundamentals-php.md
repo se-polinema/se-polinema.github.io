@@ -7,7 +7,7 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "A comprehensive guide to Event-Driven Architecture (EDA) for PHP developers. Learn why synchronous call chains break at scale, how events decouple services, the core patterns (Pub/Sub, Event Sourcing, Saga), and runnable PHP implementations using Laravel events, RabbitMQ, and Redis Streams — with idempotency, retries, and dead-letter queue strategies throughout."
+excerpt: "A comprehensive guide to Event-Driven Architecture (EDA) for PHP developers. Learn why synchronous call chains break at scale, how events decouple services, the core patterns (Pub/Sub, Event Sourcing, Saga), and runnable PHP implementations using Laravel events, RabbitMQ, and Redis Streams, with idempotency, retries, and dead-letter queue strategies throughout."
 excerptId: "Panduan komprehensif Arsitektur Event-Driven (EDA) untuk pengembang PHP. Pelajari mengapa rantai panggilan sinkron gagal pada skala besar, bagaimana event mendecouple layanan, pola inti (Pub/Sub, Event Sourcing, Saga), dan implementasi PHP yang dapat dijalankan menggunakan Laravel event, RabbitMQ, dan Redis Streams, dengan strategi idempotensi, retry, dan dead-letter queue di seluruh tutorial."
 stream: se-methodologies-architecture
 tags:
@@ -34,13 +34,13 @@ tagsId:
 
 ## Why Event-Driven Architecture?
 
-Every web developer starts with the same mental model: a client sends a request, the server processes it, and the client gets a response. This is the **synchronous request-response** pattern — simple, intuitive, and the foundation of HTTP. For a single monolith handling a few dozen requests per minute, it works perfectly.
+Every web developer starts with the same mental model: a client sends a request, the server processes it, and the client gets a response. This is the **synchronous request-response** pattern: simple, intuitive, and the foundation of HTTP. For a single monolith handling a few dozen requests per minute, it works perfectly.
 
 The cracks appear as the system grows. Consider an e-commerce checkout flow:
 
 ```php
 <?php
-// A synchronous checkout — each step blocks the next
+// A synchronous checkout: each step blocks the next
 
 class CheckoutController
 {
@@ -57,13 +57,13 @@ class CheckoutController
 }
 ```
 
-This code has a hidden problem: every bullet point is a failure point. If `notificationService->sendConfirmation()` times out after three seconds, the user has already been charged but sees an error page. If `analyticsService` is under maintenance, the entire checkout fails — even though analytics has nothing to do with completing a purchase.
+This code has a hidden problem: every bullet point is a failure point. If `notificationService->sendConfirmation()` times out after three seconds, the user has already been charged but sees an error page. If `analyticsService` is under maintenance, the entire checkout fails, even though analytics has nothing to do with completing a purchase.
 
 **Event-Driven Architecture (EDA)** replaces this tight chain with **fire-and-forget events**. The core operation writes its result, publishes an event, and immediately responds to the user. Everything else happens asynchronously, in its own time, with its own retry logic:
 
 ```php
 <?php
-// An event-driven checkout — fire and forget
+// An event-driven checkout: fire and forget
 
 class CheckoutController
 {
@@ -91,7 +91,7 @@ The difference is fundamental. The synchronous version **pushes** work downstrea
 | **Observability** | Traced in a single request waterfall (easier to debug) | Traced across async boundaries (requires correlation IDs) |
 | **Complexity** | Low to moderate | Higher (broker, DLQ, schema evolution, eventual consistency) |
 
-The rule of thumb: **if the caller does not need the answer to continue, publish an event.** If the caller needs an answer (e.g., "is this course full?"), use synchronous communication — and add a circuit breaker.
+The rule of thumb: **if the caller does not need the answer to continue, publish an event.** If the caller needs an answer (e.g., "is this course full?"), use synchronous communication, and add a circuit breaker.
 
 </section>
 
@@ -99,13 +99,13 @@ The rule of thumb: **if the caller does not need the answer to continue, publish
 
 ## Mengapa Arsitektur Event-Driven?
 
-Setiap pengembang web memulai dengan model mental yang sama: klien mengirim request, server memprosesnya, dan klien menerima respons. Ini adalah pola **synchronous request-response** — sederhana, intuitif, dan merupakan fondasi HTTP. Untuk monolit tunggal yang menangani beberapa lusin request per menit, ini bekerja dengan sempurna.
+Setiap pengembang web memulai dengan model mental yang sama: klien mengirim request, server memprosesnya, dan klien menerima respons. Ini adalah pola **synchronous request-response**: sederhana, intuitif, dan merupakan fondasi HTTP. Untuk monolit tunggal yang menangani beberapa lusin request per menit, ini bekerja dengan sempurna.
 
 Retakan mulai muncul seiring pertumbuhan sistem. Pertimbangkan alur checkout e-commerce:
 
 ```php
 <?php
-// Checkout sinkron — setiap langkah memblokir langkah berikutnya
+// Checkout sinkron: setiap langkah memblokir langkah berikutnya
 
 class CheckoutController
 {
@@ -122,13 +122,13 @@ class CheckoutController
 }
 ```
 
-Kode ini memiliki masalah tersembunyi: setiap langkah adalah titik kegagalan. Jika `notificationService->sendConfirmation()` timeout setelah tiga detik, pengguna sudah ditagih tetapi melihat halaman error. Jika `analyticsService` sedang maintenance, seluruh checkout gagal — padahal analytics tidak ada hubungannya dengan menyelesaikan pembelian.
+Kode ini memiliki masalah tersembunyi: setiap langkah adalah titik kegagalan. Jika `notificationService->sendConfirmation()` timeout setelah tiga detik, pengguna sudah ditagih tetapi melihat halaman error. Jika `analyticsService` sedang maintenance, seluruh checkout gagal, padahal analytics tidak ada hubungannya dengan menyelesaikan pembelian.
 
 **Arsitektur Event-Driven (EDA)** menggantikan rantai ketat ini dengan **event fire-and-forget**. Operasi inti menulis hasilnya, mempublikasikan event, dan segera merespons ke pengguna. Semua yang lain terjadi secara asinkron, dalam waktunya sendiri, dengan logika retry-nya sendiri:
 
 ```php
 <?php
-// Checkout event-driven — fire and forget
+// Checkout event-driven: fire and forget
 
 class CheckoutController
 {
@@ -156,7 +156,7 @@ Perbedaannya fundamental. Versi sinkron **mendorong** pekerjaan ke downstream da
 | **Observabilitas** | Dilacak dalam satu waterfall request (lebih mudah di-debug) | Dilacak melintasi batas asinkron (memerlukan correlation ID) |
 | **Kompleksitas** | Rendah hingga sedang | Lebih tinggi (broker, DLQ, evolusi schema, eventual consistency) |
 
-Aturan praktis: **jika caller tidak membutuhkan jawaban untuk melanjutkan, publikasikan event.** Jika caller membutuhkan jawaban (misalnya, "apakah mata kuliah ini penuh?"), gunakan komunikasi sinkron — dan tambahkan circuit breaker.
+Aturan praktis: **jika caller tidak membutuhkan jawaban untuk melanjutkan, publikasikan event.** Jika caller membutuhkan jawaban (misalnya, "apakah mata kuliah ini penuh?"), gunakan komunikasi sinkron, dan tambahkan circuit breaker.
 
 </section>
 
@@ -236,7 +236,7 @@ note right of Bus: Consumers process\nindependently, in parallel
 
 An event-driven system has four building blocks. Understanding them is the difference between a working EDA and an accidental distributed monolith.
 
-### Events — Facts That Happened
+### Events: Facts That Happened
 
 An event is **an immutable record of something that occurred in the past**. It is not a command ("please charge this card"), not a request ("can you send an email?"), and not a question ("is this course full?"). It is a statement of fact:
 
@@ -266,9 +266,9 @@ class StudentEnrolled
 }
 ```
 
-Naming conventions matter. Events should be named in **past tense**: `StudentEnrolled`, not `StudentEnrolls` or `EnrollStudent`. The past tense signals immutability — this event describes something that already happened and cannot be undone. If a consumer fails, it does not cancel the fact that the student enrolled; it just means the consumer has not yet reacted to it.
+Naming conventions matter. Events should be named in **past tense**: `StudentEnrolled`, not `StudentEnrolls` or `EnrollStudent`. The past tense signals immutability: this event describes something that already happened and cannot be undone. If a consumer fails, it does not cancel the fact that the student enrolled; it just means the consumer has not yet reacted to it.
 
-### Producers — Services That Publish Facts
+### Producers: Services That Publish Facts
 
 A producer (or publisher) is any code that detects a domain event and publishes it. The producer's sole responsibility is: **atomically persist the state change AND publish the event.** If the database write succeeds but the event never publishes, the system is in an inconsistent state.
 
@@ -319,7 +319,7 @@ class EnrolmentService
 
 The key: both the INSERT and the publish happen **inside the same database transaction**. If the publish throws, the INSERT is rolled back. This is the **transactional outbox pattern** in its simplest form.
 
-### Consumers — Services That React to Facts
+### Consumers: Services That React to Facts
 
 A consumer listens for specific event types and executes side effects. A single event can (and usually does) have multiple consumers, each reacting in a different way:
 
@@ -393,7 +393,7 @@ A **channel** (or topic, or exchange) is a named destination where events are pu
 
 Sistem event-driven memiliki empat blok bangunan. Memahaminya adalah perbedaan antara EDA yang berfungsi dan distributed monolith yang tidak disengaja.
 
-### Events — Fakta yang Telah Terjadi
+### Events: Fakta yang Telah Terjadi
 
 Event adalah **catatan immutable tentang sesuatu yang terjadi di masa lalu**. Ia bukan perintah ("tolong charge kartu ini"), bukan request ("bisakah kamu mengirim email?"), dan bukan pertanyaan ("apakah mata kuliah ini penuh?"). Ia adalah pernyataan fakta:
 
@@ -423,9 +423,9 @@ class StudentEnrolled
 }
 ```
 
-Konvensi penamaan itu penting. Event harus dinamai dalam **past tense**: `StudentEnrolled`, bukan `StudentEnrolls` atau `EnrollStudent`. Past tense menandakan immutability — event ini menggambarkan sesuatu yang sudah terjadi dan tidak dapat dibatalkan. Jika consumer gagal, itu tidak membatalkan fakta bahwa mahasiswa telah mendaftar; itu hanya berarti consumer belum bereaksi terhadapnya.
+Konvensi penamaan itu penting. Event harus dinamai dalam **past tense**: `StudentEnrolled`, bukan `StudentEnrolls` atau `EnrollStudent`. Past tense menandakan immutability: event ini menggambarkan sesuatu yang sudah terjadi dan tidak dapat dibatalkan. Jika consumer gagal, itu tidak membatalkan fakta bahwa mahasiswa telah mendaftar; itu hanya berarti consumer belum bereaksi terhadapnya.
 
-### Producers — Layanan yang Mempublikasikan Fakta
+### Producers: Layanan yang Mempublikasikan Fakta
 
 Producer (atau publisher) adalah kode apa pun yang mendeteksi domain event dan mempublikasikannya. Tanggung jawab tunggal producer adalah: **secara atomik menyimpan perubahan state DAN mempublikasikan event.** Jika penulisan database berhasil tetapi event tidak pernah dipublikasikan, sistem berada dalam state tidak konsisten.
 
@@ -476,7 +476,7 @@ class EnrolmentService
 
 Kuncinya: baik INSERT maupun publish terjadi **di dalam transaksi database yang sama**. Jika publish melempar exception, INSERT di-rollback. Ini adalah **pola transactional outbox** dalam bentuk paling sederhana.
 
-### Consumers — Layanan yang Bereaksi terhadap Fakta
+### Consumers: Layanan yang Bereaksi terhadap Fakta
 
 Consumer mendengarkan tipe event tertentu dan menjalankan side effect. Satu event dapat (dan biasanya) memiliki banyak consumer, masing-masing bereaksi dengan cara berbeda:
 
@@ -554,7 +554,7 @@ EDA has four patterns that solve different classes of problems. You do not need 
 
 ### Pub/Sub (Publish-Subscribe)
 
-The pattern we have been describing: a producer publishes an event to a channel, and zero or more consumers subscribe and react independently. This is the **entry-level EDA pattern** — the one you start with.
+The pattern we have been describing: a producer publishes an event to a channel, and zero or more consumers subscribe and react independently. This is the **entry-level EDA pattern**, the one you start with.
 
 **When to use:** Any time a single action should trigger multiple side effects that can happen independently. Sending a welcome email, updating a counter, and logging an audit trail after enrolment are all Pub/Sub.
 
@@ -575,7 +575,7 @@ Current state → Student #42 is enrolled in: [Calculus]
 
 **When to use:** When you need a full, auditable history of every state change (accounting, compliance, version control systems). Also when you need to answer "what was the state at time T?" questions.
 
-**Trade-off:** Event logs grow unbounded. Eventually you need snapshots — periodic summaries of state at a point in time — so you do not replay every event since the beginning of time.
+**Trade-off:** Event logs grow unbounded. Eventually you need snapshots, periodic summaries of state at a point in time, so you do not replay every event since the beginning of time.
 
 ### CQRS (Command Query Responsibility Segregation)
 
@@ -597,7 +597,7 @@ Split operations into **commands** (which change state and produce events) and *
 
 **Common pairing:** CQRS is often (but not always) used alongside Event Sourcing. The events from the command side populate the query-side materialised views.
 
-### Saga — Distributed Transactions
+### Saga: Distributed Transactions
 
 A saga coordinates a business transaction that spans multiple services using a chain of events and compensating actions. If any step fails, the saga executes compensating actions to undo the work of previous steps.
 
@@ -613,7 +613,7 @@ Compensating actions:
   ← Release seat (undo step 1)
 ```
 
-**When to use:** When a business transaction must atomically succeed or fail across multiple services that each own their own database. There is no ACID transaction spanning the services, so the saga provides **eventual consistency** — the system may be temporarily inconsistent but converges to a valid state.
+**When to use:** When a business transaction must atomically succeed or fail across multiple services that each own their own database. There is no ACID transaction spanning the services, so the saga provides **eventual consistency**: the system may be temporarily inconsistent but converges to a valid state.
 
 **Important:** Compensating actions are not the same as database rollbacks. A refund is a new business transaction, not a magical undo. It can also fail, which is why sagas need their own retry and dead-letter logic.
 
@@ -627,7 +627,7 @@ EDA memiliki empat pola yang menyelesaikan kelas masalah yang berbeda. Anda tida
 
 ### Pub/Sub (Publish-Subscribe)
 
-Pola yang telah kita jelaskan: producer mempublikasikan event ke channel, dan nol atau lebih consumer berlangganan dan bereaksi secara independen. Ini adalah **pola EDA entry-level** — yang Anda mulai dengannya.
+Pola yang telah kita jelaskan: producer mempublikasikan event ke channel, dan nol atau lebih consumer berlangganan dan bereaksi secara independen. Ini adalah **pola EDA entry-level**, yang Anda mulai dengannya.
 
 **Kapan digunakan:** Setiap kali satu aksi harus memicu beberapa side effect yang dapat terjadi secara independen. Mengirim email selamat datang, memperbarui penghitung, dan mencatat audit trail setelah pendaftaran semuanya adalah Pub/Sub.
 
@@ -648,7 +648,7 @@ State saat ini → Mahasiswa #42 terdaftar di: [Kalkulus]
 
 **Kapan digunakan:** Ketika Anda membutuhkan riwayat lengkap yang dapat diaudit dari setiap perubahan state (akuntansi, kepatuhan, sistem version control). Juga ketika Anda perlu menjawab pertanyaan "apa state pada waktu T?".
 
-**Trade-off:** Event log tumbuh tanpa batas. Akhirnya Anda memerlukan **snapshots** — ringkasan state periodik pada titik waktu tertentu — sehingga Anda tidak perlu memutar ulang setiap event sejak awal waktu.
+**Trade-off:** Event log tumbuh tanpa batas. Akhirnya Anda memerlukan **snapshots**, ringkasan state periodik pada titik waktu tertentu, sehingga Anda tidak perlu memutar ulang setiap event sejak awal waktu.
 
 ### CQRS (Command Query Responsibility Segregation)
 
@@ -670,7 +670,7 @@ Pisahkan operasi menjadi **commands** (yang mengubah state dan menghasilkan even
 
 **Pasangan umum:** CQRS sering (tetapi tidak selalu) digunakan bersama Event Sourcing. Event dari sisi command mengisi materialised view di sisi query.
 
-### Saga — Transaksi Terdistribusi
+### Saga: Transaksi Terdistribusi
 
 Saga mengoordinasikan transaksi bisnis yang mencakup beberapa layanan menggunakan rantai event dan compensating action. Jika ada langkah yang gagal, saga menjalankan compensating action untuk membatalkan pekerjaan langkah sebelumnya.
 
@@ -686,7 +686,7 @@ Compensating action:
   ← Lepaskan kursi (batalkan langkah 1)
 ```
 
-**Kapan digunakan:** Ketika transaksi bisnis harus secara atomik berhasil atau gagal di beberapa layanan yang masing-masing memiliki database sendiri. Tidak ada transaksi ACID yang mencakup layanan-layanan tersebut, sehingga saga menyediakan **eventual consistency** — sistem mungkin sementara tidak konsisten tetapi konvergen ke state yang valid.
+**Kapan digunakan:** Ketika transaksi bisnis harus secara atomik berhasil atau gagal di beberapa layanan yang masing-masing memiliki database sendiri. Tidak ada transaksi ACID yang mencakup layanan-layanan tersebut, sehingga saga menyediakan **eventual consistency**: sistem mungkin sementara tidak konsisten tetapi konvergen ke state yang valid.
 
 **Penting:** Compensating action tidak sama dengan database rollback. Refund adalah transaksi bisnis baru, bukan undo ajaib. Ia juga bisa gagal, itulah sebabnya saga memerlukan logika retry dan dead-letter sendiri.
 
@@ -702,7 +702,7 @@ An event payload is the contract between producer and consumer. Getting it wrong
 
 ### What Belongs in an Event
 
-A common mistake is putting too much data in an event — the full student record, the full course record, the current weather. This creates coupling: if the student schema changes, the event schema must change, and every consumer must be updated.
+A common mistake is putting too much data in an event: the full student record, the full course record, the current weather. This creates coupling: if the student schema changes, the event schema must change, and every consumer must be updated.
 
 **Include:** identifiers, timestamps, and the minimum data consumers need to decide whether to act.
 
@@ -743,9 +743,9 @@ Events evolve. A field is added (`discountApplied`), a field is deprecated (`leg
 
 | Strategy | How It Works | Producer Cost | Consumer Cost |
 |---|---|---|---|
-| **Always compatible (preferred)** | Add new fields with defaults; never remove or rename fields | Low | None — old consumers ignore new fields |
-| **Versioned events** | Publish `StudentEnrolled.v2` alongside `StudentEnrolled.v1` | Medium — publish both | Consumers migrate at their own pace |
-| **Upcast on consume** | Producer publishes the latest version; a middleware transforms old events for old consumers | Low | High — every consumer needs the upcaster |
+| **Always compatible (preferred)** | Add new fields with defaults; never remove or rename fields | Low | None; old consumers ignore new fields |
+| **Versioned events** | Publish `StudentEnrolled.v2` alongside `StudentEnrolled.v1` | Medium: publish both | Consumers migrate at their own pace |
+| **Upcast on consume** | Producer publishes the latest version; a middleware transforms old events for old consumers | Low | High: every consumer needs the upcaster |
 
 **Always start with always-compatible.** For Laravel:
 
@@ -761,7 +761,7 @@ class StudentEnrolled
     ) {}
 }
 
-// v2: add a field with a default — old consumers still work
+// v2: add a field with a default, old consumers still work
 class StudentEnrolled
 {
     public function __construct(
@@ -783,7 +783,7 @@ Payload event adalah kontrak antara producer dan consumer. Salah mendesainnya di
 
 ### Apa yang Harus Ada di Dalam Event
 
-Kesalahan umum adalah memasukkan terlalu banyak data ke dalam event — record mahasiswa lengkap, record mata kuliah lengkap, cuaca saat ini. Ini menciptakan coupling: jika schema mahasiswa berubah, schema event harus berubah, dan setiap consumer harus diperbarui.
+Kesalahan umum adalah memasukkan terlalu banyak data ke dalam event: record mahasiswa lengkap, record mata kuliah lengkap, cuaca saat ini. Ini menciptakan coupling: jika schema mahasiswa berubah, schema event harus berubah, dan setiap consumer harus diperbarui.
 
 **Sertakan:** identifier, timestamp, dan data minimum yang dibutuhkan consumer untuk memutuskan apakah akan bertindak.
 
@@ -824,9 +824,9 @@ Event berevolusi. Field ditambahkan (`discountApplied`), field didepresiasi (`le
 
 | Strategi | Cara Kerja | Biaya Producer | Biaya Consumer |
 |---|---|---|---|
-| **Always compatible (disarankan)** | Tambah field baru dengan default; jangan pernah hapus atau ganti nama field | Rendah | Tidak ada — consumer lama mengabaikan field baru |
-| **Versioned events** | Publikasikan `StudentEnrolled.v2` bersama `StudentEnrolled.v1` | Sedang — publikasikan keduanya | Consumer bermigrasi dengan kecepatan sendiri |
-| **Upcast on consume** | Producer mempublikasikan versi terbaru; middleware mentransformasi event lama untuk consumer lama | Rendah | Tinggi — setiap consumer butuh upcaster |
+| **Always compatible (disarankan)** | Tambah field baru dengan default; jangan pernah hapus atau ganti nama field | Rendah | Tidak ada; consumer lama mengabaikan field baru |
+| **Versioned events** | Publikasikan `StudentEnrolled.v2` bersama `StudentEnrolled.v1` | Sedang: publikasikan keduanya | Consumer bermigrasi dengan kecepatan sendiri |
+| **Upcast on consume** | Producer mempublikasikan versi terbaru; middleware mentransformasi event lama untuk consumer lama | Rendah | Tinggi: setiap consumer butuh upcaster |
 
 **Selalu mulai dengan always-compatible.** Untuk Laravel:
 
@@ -842,7 +842,7 @@ class StudentEnrolled
     ) {}
 }
 
-// v2: tambah field dengan default — consumer lama tetap berfungsi
+// v2: tambah field dengan default, consumer lama tetap berfungsi
 class StudentEnrolled
 {
     public function __construct(
@@ -862,7 +862,7 @@ class StudentEnrolled
 
 ## PHP Implementation Part 1: Laravel Events and Listeners
 
-Laravel provides the simplest entry point into EDA. Its event system is in-process and synchronous by default — perfect for a monolith that wants to move toward event-driven thinking without adopting a message broker.
+Laravel provides the simplest entry point into EDA. Its event system is in-process and synchronous by default, perfect for a monolith that wants to move toward event-driven thinking without adopting a message broker.
 
 ### Defining an Event
 
@@ -993,7 +993,7 @@ class EnrolmentService
 }
 ```
 
-In this configuration, `SendEnrolmentConfirmation` and `UpdateCourseOccupancy` run **synchronously** inside the same process. The user waits for the email to be queued before seeing a response. This is fine for a monolith with fast listeners — but if a listener is slow (e.g., generating a PDF certificate), it should be queued.
+In this configuration, `SendEnrolmentConfirmation` and `UpdateCourseOccupancy` run **synchronously** inside the same process. The user waits for the email to be queued before seeing a response. This is fine for a monolith with fast listeners, but if a listener is slow (e.g., generating a PDF certificate), it should be queued.
 
 ### Moving Listeners to a Queue
 
@@ -1038,7 +1038,7 @@ When `ShouldQueue` is implemented, Laravel serialises the event and pushes it to
 
 ## Implementasi PHP Bagian 1: Laravel Events dan Listeners
 
-Laravel menyediakan titik masuk paling sederhana ke EDA. Sistem event-nya bersifat in-process dan sinkron secara default — cocok untuk monolit yang ingin beralih ke pemikiran event-driven tanpa mengadopsi message broker.
+Laravel menyediakan titik masuk paling sederhana ke EDA. Sistem event-nya bersifat in-process dan sinkron secara default, cocok untuk monolit yang ingin beralih ke pemikiran event-driven tanpa mengadopsi message broker.
 
 ### Mendefinisikan Event
 
@@ -1169,7 +1169,7 @@ class EnrolmentService
 }
 ```
 
-Dalam konfigurasi ini, `SendEnrolmentConfirmation` dan `UpdateCourseOccupancy` berjalan **secara sinkron** di dalam proses yang sama. Pengguna menunggu email diantrekan sebelum melihat respons. Ini baik untuk monolit dengan listener cepat — tetapi jika listener lambat (misalnya, menghasilkan sertifikat PDF), ia harus diantrekan.
+Dalam konfigurasi ini, `SendEnrolmentConfirmation` dan `UpdateCourseOccupancy` berjalan **secara sinkron** di dalam proses yang sama. Pengguna menunggu email diantrekan sebelum melihat respons. Ini baik untuk monolit dengan listener cepat, tetapi jika listener lambat (misalnya, menghasilkan sertifikat PDF), ia harus diantrekan.
 
 ### Memindahkan Listener ke Queue
 
@@ -1246,7 +1246,7 @@ class RabbitMQEventBus
         $this->connection = new AMQPStreamConnection($host, $port, $user, $password);
         $this->channel = $this->connection->channel();
 
-        // Declare a topic exchange — enables flexible routing with wildcards
+        // Declare a topic exchange: enables flexible routing with wildcards
         $this->channel->exchange_declare(
             'campus_events',     // Exchange name
             'topic',             // Type: topic (routing-key-based)
@@ -1339,9 +1339,9 @@ class RabbitMQEventConsumer
      * Bind to a routing key pattern.
      *
      * Examples:
-     *   'student.enrolled' — exact match
-     *   'student.*'        — all student events
-     *   '#'                — all events (catch-all)
+     *   'student.enrolled': exact match
+     *   'student.*'       : all student events
+     *   '#'               : all events (catch-all)
      */
     public function subscribe(string $routingKey, callable $handler): void
     {
@@ -1383,7 +1383,7 @@ class RabbitMQEventConsumer
 }
 ```
 
-A concrete consumer — the billing service listening for new enrolments:
+A concrete consumer, the billing service listening for new enrolments:
 
 ```php
 <?php
@@ -1461,7 +1461,7 @@ class RabbitMQEventBus
         $this->connection = new AMQPStreamConnection($host, $port, $user, $password);
         $this->channel = $this->connection->channel();
 
-        // Deklarasikan topic exchange — memungkinkan routing fleksibel dengan wildcard
+        // Deklarasikan topic exchange: memungkinkan routing fleksibel dengan wildcard
         $this->channel->exchange_declare(
             'campus_events',     // Nama exchange
             'topic',             // Tipe: topic (berbasis routing-key)
@@ -1554,9 +1554,9 @@ class RabbitMQEventConsumer
      * Bind ke pola routing key.
      *
      * Contoh:
-     *   'student.enrolled' — cocok persis
-     *   'student.*'        — semua event mahasiswa
-     *   '#'                — semua event (catch-all)
+     *   'student.enrolled': cocok persis
+     *   'student.*'       : semua event mahasiswa
+     *   '#'               : semua event (catch-all)
      */
     public function subscribe(string $routingKey, callable $handler): void
     {
@@ -1598,7 +1598,7 @@ class RabbitMQEventConsumer
 }
 ```
 
-Consumer konkret — billing service mendengarkan pendaftaran baru:
+Consumer konkret, billing service mendengarkan pendaftaran baru:
 
 ```php
 <?php
@@ -1648,7 +1648,7 @@ Ini memungkinkan Anda mendesain routing granular: notification service berlangga
 
 ## PHP Implementation Part 3: Redis Streams
 
-Redis Streams provide an append-only log data structure that is simpler to operate than RabbitMQ (no separate broker process — Redis is likely already in your stack) while offering consumer groups, message acknowledgement, and replay capability.
+Redis Streams provide an append-only log data structure that is simpler to operate than RabbitMQ (no separate broker process; Redis is likely already in your stack) while offering consumer groups, message acknowledgement, and replay capability.
 
 ### Producer: Publishing to a Redis Stream
 
@@ -1791,7 +1791,7 @@ class RedisStreamConsumer
             // Acknowledge successful processing
             $this->redis->xAck($this->streamKey, $this->groupName, [$id]);
         } catch (\Throwable $e) {
-            // Do not acknowledge — the message stays pending
+            // Do not acknowledge: the message stays pending
             // and will be reclaimed by claimStaleMessages on next startup
             error_log("Failed to process message {$id}: {$e->getMessage()}");
         }
@@ -1834,7 +1834,7 @@ $consumer->listen(function (string $eventType, array $payload, string $id): void
 
 ## Implementasi PHP Bagian 3: Redis Streams
 
-Redis Streams menyediakan struktur data log append-only yang lebih sederhana untuk dioperasikan daripada RabbitMQ (tidak ada proses broker terpisah — Redis kemungkinan sudah ada di stack Anda) sambil menawarkan consumer group, acknowledgement pesan, dan kemampuan replay.
+Redis Streams menyediakan struktur data log append-only yang lebih sederhana untuk dioperasikan daripada RabbitMQ (tidak ada proses broker terpisah; Redis kemungkinan sudah ada di stack Anda) sambil menawarkan consumer group, acknowledgement pesan, dan kemampuan replay.
 
 ### Producer: Mempublikasikan ke Redis Stream
 
@@ -1978,7 +1978,7 @@ class RedisStreamConsumer
             // Akui pemrosesan berhasil
             $this->redis->xAck($this->streamKey, $this->groupName, [$id]);
         } catch (\Throwable $e) {
-            // Jangan akui — pesan tetap pending
+            // Jangan akui: pesan tetap pending
             // dan akan direklaim oleh claimStaleMessages saat startup berikutnya
             error_log("Gagal memproses pesan {$id}: {$e->getMessage()}");
         }
@@ -2025,11 +2025,11 @@ $consumer->listen(function (string $eventType, array $payload, string $id): void
 
 EDA introduces failure modes that synchronous code does not have: duplicate deliveries, poison messages, and silent consumer failures. Three patterns solve each of these.
 
-### Idempotency — Handling Duplicate Messages
+### Idempotency: Handling Duplicate Messages
 
 Most message brokers guarantee **at-least-once** delivery, not exactly-once. Your consumer may receive the same event twice. If it does, processing it twice must produce the same outcome as processing it once.
 
-The standard approach is **idempotency keys** — a unique identifier stored alongside each processed event:
+The standard approach is **idempotency keys**, a unique identifier stored alongside each processed event:
 
 ```php
 <?php
@@ -2042,14 +2042,14 @@ class IdempotentConsumer
 
     public function handleIfNotProcessed(string $eventId, callable $handler): bool
     {
-        // Atomically check and insert — prevents race conditions
+        // Atomically check and insert: prevents race conditions
         $stmt = $this->db->prepare(
             'INSERT IGNORE INTO processed_events (event_id, processed_at) VALUES (?, NOW())'
         );
         $stmt->execute([$eventId]);
 
         if ($stmt->rowCount() === 0) {
-            // Event was already processed — skip
+            // Event was already processed, skip
             echo "Skipping duplicate event: {$eventId}\n";
             return false;
         }
@@ -2073,11 +2073,11 @@ CREATE TABLE processed_events (
 -- DELETE FROM processed_events WHERE processed_at < NOW() - INTERVAL 30 DAY;
 ```
 
-The `INSERT IGNORE` is critical — it serialises concurrent processing of the same event ID. Only one consumer wins the INSERT; the others see `rowCount() === 0` and skip.
+The `INSERT IGNORE` is critical: it serialises concurrent processing of the same event ID. Only one consumer wins the INSERT; the others see `rowCount() === 0` and skip.
 
 ### Retry with Exponential Backoff
 
-Transient failures (network timeouts, temporary database unavailability, external API rate limits) should be retried, not abandoned. The key is **exponential backoff** — increasing the wait time between retries to avoid overwhelming a recovering system.
+Transient failures (network timeouts, temporary database unavailability, external API rate limits) should be retried, not abandoned. The key is **exponential backoff**: increasing the wait time between retries to avoid overwhelming a recovering system.
 
 ```php
 <?php
@@ -2106,7 +2106,7 @@ class RetryableConsumer
                     continue;
                 }
 
-                // Non-transient or exhausted retries — escalate to DLQ
+                // Non-transient or exhausted retries: escalate to DLQ
                 throw $e;
             }
         }
@@ -2124,7 +2124,7 @@ class RetryableConsumer
 
 ### Dead-Letter Queue (DLQ)
 
-When a message has been retried to exhaustion or encounters a non-transient failure (invalid payload, business rule violation), it should be moved to a **dead-letter queue** for human inspection — never silently dropped.
+When a message has been retried to exhaustion or encounters a non-transient failure (invalid payload, business rule violation), it should be moved to a **dead-letter queue** for human inspection, never silently dropped.
 
 **Laravel Queue DLQ pattern:**
 
@@ -2144,7 +2144,7 @@ class ProcessStudentEnrolled implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $tries = 3;
-    public int $backoff = [10, 60, 300];  // 10s, 1min, 5min — explicit backoff values
+    public int $backoff = [10, 60, 300];  // 10s, 1min, 5min: explicit backoff values
 
     public function __construct(
         public array $eventPayload
@@ -2204,7 +2204,7 @@ class RabbitMQDeadLetterConsumer
             $this->primaryQueue,
             '',
             false,
-            false,  // No ack — manual
+            false,  // No ack, manual
             false,
             false,
             function (AMQPMessage $msg) use ($handler, $maxRetries) {
@@ -2216,7 +2216,7 @@ class RabbitMQDeadLetterConsumer
                 } catch (\Throwable $e) {
                     $retryCount = $this->getRetryCount($msg);
                     if ($retryCount >= $maxRetries) {
-                        // Exhausted retries — reject without requeue → goes to DLQ
+                        // Exhausted retries: reject without requeue → goes to DLQ
                         echo "Max retries ({$maxRetries}) reached. Sending to DLQ.\n";
                         $msg->reject(false);  // false = do NOT requeue
                     } else {
@@ -2258,11 +2258,11 @@ class RabbitMQDeadLetterConsumer
 
 EDA memperkenalkan mode kegagalan yang tidak dimiliki kode sinkron: pengiriman duplikat, poison message, dan kegagalan consumer diam-diam. Tiga pola menyelesaikan masing-masing ini.
 
-### Idempotensi — Menangani Pesan Duplikat
+### Idempotensi: Menangani Pesan Duplikat
 
 Sebagian besar message broker menjamin pengiriman **at-least-once**, bukan exactly-once. Consumer Anda mungkin menerima event yang sama dua kali. Jika itu terjadi, memprosesnya dua kali harus menghasilkan hasil yang sama dengan memprosesnya sekali.
 
-Pendekatan standar adalah **kunci idempotensi** — identifier unik yang disimpan bersama setiap event yang diproses:
+Pendekatan standar adalah **kunci idempotensi**, identifier unik yang disimpan bersama setiap event yang diproses:
 
 ```php
 <?php
@@ -2275,14 +2275,14 @@ class IdempotentConsumer
 
     public function handleIfNotProcessed(string $eventId, callable $handler): bool
     {
-        // Periksa dan sisipkan secara atomik — mencegah race condition
+        // Periksa dan sisipkan secara atomik: mencegah race condition
         $stmt = $this->db->prepare(
             'INSERT IGNORE INTO processed_events (event_id, processed_at) VALUES (?, NOW())'
         );
         $stmt->execute([$eventId]);
 
         if ($stmt->rowCount() === 0) {
-            // Event sudah diproses — lewati
+            // Event sudah diproses, lewati
             echo "Melewatkan event duplikat: {$eventId}\n";
             return false;
         }
@@ -2306,11 +2306,11 @@ CREATE TABLE processed_events (
 -- DELETE FROM processed_events WHERE processed_at < NOW() - INTERVAL 30 DAY;
 ```
 
-`INSERT IGNORE` sangat penting — ini menserialisasi pemrosesan konkuren dari ID event yang sama. Hanya satu consumer yang berhasil INSERT; yang lain melihat `rowCount() === 0` dan melewatkan.
+`INSERT IGNORE` sangat penting: ini menserialisasi pemrosesan konkuren dari ID event yang sama. Hanya satu consumer yang berhasil INSERT; yang lain melihat `rowCount() === 0` dan melewatkan.
 
 ### Retry dengan Exponential Backoff
 
-Kegagalan sementara (timeout jaringan, ketidaktersediaan database sementara, rate limit API eksternal) harus dicoba ulang, bukan ditinggalkan. Kuncinya adalah **exponential backoff** — meningkatkan waktu tunggu antara percobaan ulang untuk menghindari membanjiri sistem yang sedang pulih.
+Kegagalan sementara (timeout jaringan, ketidaktersediaan database sementara, rate limit API eksternal) harus dicoba ulang, bukan ditinggalkan. Kuncinya adalah **exponential backoff**: meningkatkan waktu tunggu antara percobaan ulang untuk menghindari membanjiri sistem yang sedang pulih.
 
 ```php
 <?php
@@ -2339,7 +2339,7 @@ class RetryableConsumer
                     continue;
                 }
 
-                // Non-transient atau retry habis — eskalasi ke DLQ
+                // Non-transient atau retry habis: eskalasi ke DLQ
                 throw $e;
             }
         }
@@ -2357,7 +2357,7 @@ class RetryableConsumer
 
 ### Dead-Letter Queue (DLQ)
 
-Ketika pesan telah dicoba ulang hingga habis atau mengalami kegagalan non-transient (payload tidak valid, pelanggaran aturan bisnis), pesan harus dipindahkan ke **dead-letter queue** untuk inspeksi manusia — jangan pernah dibuang diam-diam.
+Ketika pesan telah dicoba ulang hingga habis atau mengalami kegagalan non-transient (payload tidak valid, pelanggaran aturan bisnis), pesan harus dipindahkan ke **dead-letter queue** untuk inspeksi manusia, jangan pernah dibuang diam-diam.
 
 **Pola Laravel Queue DLQ:**
 
@@ -2377,7 +2377,7 @@ class ProcessStudentEnrolled implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $tries = 3;
-    public int $backoff = [10, 60, 300];  // 10dtk, 1mnt, 5mnt — nilai backoff eksplisit
+    public int $backoff = [10, 60, 300];  // 10dtk, 1mnt, 5mnt: nilai backoff eksplisit
 
     public function __construct(
         public array $eventPayload
@@ -2437,7 +2437,7 @@ class RabbitMQDeadLetterConsumer
             $this->primaryQueue,
             '',
             false,
-            false,  // No ack — manual
+            false,  // No ack, manual
             false,
             false,
             function (AMQPMessage $msg) use ($handler, $maxRetries) {
@@ -2449,7 +2449,7 @@ class RabbitMQDeadLetterConsumer
                 } catch (\Throwable $e) {
                     $retryCount = $this->getRetryCount($msg);
                     if ($retryCount >= $maxRetries) {
-                        // Retry habis — reject tanpa requeue → masuk ke DLQ
+                        // Retry habis: reject tanpa requeue → masuk ke DLQ
                         echo "Maks retry ({$maxRetries}) tercapai. Mengirim ke DLQ.\n";
                         $msg->reject(false);  // false = JANGAN requeue
                     } else {
@@ -2489,7 +2489,7 @@ class RabbitMQDeadLetterConsumer
 
 <section lang="en">
 
-## When to Use EDA — and When Not To
+## When to Use EDA (and When Not To)
 
 ### Decision Framework
 
@@ -2516,17 +2516,17 @@ Synchronous debugging tools (`dd()`, stack traces, request waterfall charts) do 
 
 | Anti-Pattern | What It Looks Like | Fix |
 |---|---|---|
-| **Event as command** | `ChargeStudentCard` event — it demands action, it does not state a fact | Rename to `StudentEnrolled`; the billing consumer decides whether to charge |
+| **Event as command** | `ChargeStudentCard` event: it demands action, it does not state a fact | Rename to `StudentEnrolled`; the billing consumer decides whether to charge |
 | **Fat events** | The event contains the full student, course, and instructor records | Include only IDs + the minimum data consumers need to decide whether to act |
 | **Sync wrapper** | Consumer immediately calls the producer's API to get data that should have been in the event | Include the necessary data in the event payload, or maintain a local materialised view |
-| **Fire and forget (literally)** | No DLQ, no retry, no monitoring — events disappear into the void on failure | Always configure a DLQ. Monitor queue depth. Alert on DLQ backlog. |
+| **Fire and forget (literally)** | No DLQ, no retry, no monitoring; events disappear into the void on failure | Always configure a DLQ. Monitor queue depth. Alert on DLQ backlog. |
 | **Over-engineered early** | A 2-person team deploying Kafka, schema registry, and CQRS for a CRUD app | Start with Laravel Queues. Add a broker only when you have cross-service boundaries. |
 
 </section>
 
 <section lang="id">
 
-## Kapan Menggunakan EDA — dan Kapan Tidak
+## Kapan Menggunakan EDA (dan Kapan Tidak)
 
 ### Kerangka Keputusan
 
@@ -2553,10 +2553,10 @@ Alat debugging sinkron (`dd()`, stack trace, grafik waterfall request) tidak ber
 
 | Anti-Pattern | Seperti Apa | Perbaikan |
 |---|---|---|
-| **Event sebagai command** | Event `ChargeStudentCard` — ia menuntut aksi, bukan menyatakan fakta | Ganti nama menjadi `StudentEnrolled`; billing consumer memutuskan apakah akan menagih |
+| **Event sebagai command** | Event `ChargeStudentCard`: ia menuntut aksi, bukan menyatakan fakta | Ganti nama menjadi `StudentEnrolled`; billing consumer memutuskan apakah akan menagih |
 | **Fat events** | Event berisi record lengkap mahasiswa, mata kuliah, dan instruktur | Sertakan hanya ID + data minimum yang dibutuhkan consumer untuk memutuskan bertindak |
 | **Sync wrapper** | Consumer segera memanggil API producer untuk mendapatkan data yang seharusnya ada di event | Sertakan data yang diperlukan di payload event, atau pelihara materialised view lokal |
-| **Fire and forget (harfiah)** | Tidak ada DLQ, tidak ada retry, tidak ada monitoring — event menghilang begitu saja saat gagal | Selalu konfigurasikan DLQ. Monitor kedalaman queue. Beri peringatan pada backlog DLQ. |
+| **Fire and forget (harfiah)** | Tidak ada DLQ, tidak ada retry, tidak ada monitoring; event menghilang begitu saja saat gagal | Selalu konfigurasikan DLQ. Monitor kedalaman queue. Beri peringatan pada backlog DLQ. |
 | **Over-engineered sejak awal** | Tim 2 orang menerapkan Kafka, schema registry, dan CQRS untuk aplikasi CRUD | Mulai dengan Laravel Queues. Tambahkan broker hanya ketika Anda memiliki batas lintas layanan. |
 
 </section>
@@ -2604,7 +2604,7 @@ flowchart TD
 
 7. **Event payload design determines your coupling surface.** Include identifiers and decision data; exclude full entity graphs. Version with additive, always-compatible changes.
 
-8. **The Saga pattern coordinates distributed transactions** across services using a chain of events and compensating actions. Sagas provide eventual consistency — the system converges to a valid state.
+8. **The Saga pattern coordinates distributed transactions** across services using a chain of events and compensating actions. Sagas provide eventual consistency: the system converges to a valid state.
 
 </section>
 
@@ -2626,7 +2626,7 @@ flowchart TD
 
 7. **Desain payload event menentukan permukaan coupling Anda.** Sertakan identifier dan data keputusan; hindari graf entitas lengkap. Versioning dengan perubahan aditif yang always-compatible.
 
-8. **Pola Saga mengoordinasikan transaksi terdistribusi** di seluruh layanan menggunakan rantai event dan compensating action. Saga menyediakan eventual consistency — sistem konvergen ke state yang valid.
+8. **Pola Saga mengoordinasikan transaksi terdistribusi** di seluruh layanan menggunakan rantai event dan compensating action. Saga menyediakan eventual consistency: sistem konvergen ke state yang valid.
 
 </section>
 
@@ -2670,13 +2670,13 @@ flowchart TD
 
 ## Further Reading
 
-- [Laravel Events Documentation](https://laravel.com/docs/11.x/events) — Official guide to Laravel's event system, including `ShouldQueue`, broadcasting, and event subscribers.
-- [Laravel Queues Documentation](https://laravel.com/docs/11.x/queues) — Job dispatch, worker supervision, failed job handling, and queue configuration.
-- [RabbitMQ Tutorials (PHP)](https://www.rabbitmq.com/tutorials/tutorial-one-php) — Official step-by-step guides covering work queues, pub/sub, routing, topics, and RPC.
-- [Redis Streams Introduction](https://redis.io/docs/latest/develop/data-types/streams/) — Redis official documentation on streams, consumer groups, and `XAUTOCLAIM`.
-- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) — The canonical reference for messaging patterns (Gregor Hohpe, Bobby Woolf).
-- [Building Microservices (Sam Newman)](https://samnewman.io/books/building_microservices_2nd_edition/) — Chapters 4–5 cover integration patterns and event-driven collaboration in depth.
-- [Designing Event-Driven Systems (Ben Stopford)](https://www.confluent.io/designing-event-driven-systems/) — Free e-book focused on Kafka, but the conceptual chapters apply to any EDA implementation.
+- [Laravel Events Documentation](https://laravel.com/docs/11.x/events): Official guide to Laravel's event system, including `ShouldQueue`, broadcasting, and event subscribers.
+- [Laravel Queues Documentation](https://laravel.com/docs/11.x/queues): Job dispatch, worker supervision, failed job handling, and queue configuration.
+- [RabbitMQ Tutorials (PHP)](https://www.rabbitmq.com/tutorials/tutorial-one-php): Official step-by-step guides covering work queues, pub/sub, routing, topics, and RPC.
+- [Redis Streams Introduction](https://redis.io/docs/latest/develop/data-types/streams/): Redis official documentation on streams, consumer groups, and `XAUTOCLAIM`.
+- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/): The canonical reference for messaging patterns (Gregor Hohpe, Bobby Woolf).
+- [Building Microservices (Sam Newman)](https://samnewman.io/books/building_microservices_2nd_edition/): Chapters 4–5 cover integration patterns and event-driven collaboration in depth.
+- [Designing Event-Driven Systems (Ben Stopford)](https://www.confluent.io/designing-event-driven-systems/): Free e-book focused on Kafka, but the conceptual chapters apply to any EDA implementation.
 
 </section>
 
@@ -2684,19 +2684,19 @@ flowchart TD
 
 ## Bacaan Lebih Lanjut
 
-- [Dokumentasi Laravel Events](https://laravel.com/docs/11.x/events) — Panduan resmi sistem event Laravel, termasuk `ShouldQueue`, broadcasting, dan subscriber event.
-- [Dokumentasi Laravel Queues](https://laravel.com/docs/11.x/queues) — Dispatch job, supervisi worker, penanganan job gagal, dan konfigurasi queue.
-- [Tutorial RabbitMQ (PHP)](https://www.rabbitmq.com/tutorials/tutorial-one-php) — Panduan langkah demi langkah resmi yang mencakup work queue, pub/sub, routing, topics, dan RPC.
-- [Pengenalan Redis Streams](https://redis.io/docs/latest/develop/data-types/streams/) — Dokumentasi resmi Redis tentang streams, consumer group, dan `XAUTOCLAIM`.
-- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) — Referensi kanonis untuk pola messaging (Gregor Hohpe, Bobby Woolf).
-- [Building Microservices (Sam Newman)](https://samnewman.io/books/building_microservices_2nd_edition/) — Bab 4–5 mencakup pola integrasi dan kolaborasi event-driven secara mendalam.
-- [Designing Event-Driven Systems (Ben Stopford)](https://www.confluent.io/designing-event-driven-systems/) — E-book gratis yang berfokus pada Kafka, tetapi bab konseptualnya berlaku untuk implementasi EDA apa pun.
+- [Dokumentasi Laravel Events](https://laravel.com/docs/11.x/events): Panduan resmi sistem event Laravel, termasuk `ShouldQueue`, broadcasting, dan subscriber event.
+- [Dokumentasi Laravel Queues](https://laravel.com/docs/11.x/queues): Dispatch job, supervisi worker, penanganan job gagal, dan konfigurasi queue.
+- [Tutorial RabbitMQ (PHP)](https://www.rabbitmq.com/tutorials/tutorial-one-php): Panduan langkah demi langkah resmi yang mencakup work queue, pub/sub, routing, topics, dan RPC.
+- [Pengenalan Redis Streams](https://redis.io/docs/latest/develop/data-types/streams/): Dokumentasi resmi Redis tentang streams, consumer group, dan `XAUTOCLAIM`.
+- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/): Referensi kanonis untuk pola messaging (Gregor Hohpe, Bobby Woolf).
+- [Building Microservices (Sam Newman)](https://samnewman.io/books/building_microservices_2nd_edition/): Bab 4–5 mencakup pola integrasi dan kolaborasi event-driven secara mendalam.
+- [Designing Event-Driven Systems (Ben Stopford)](https://www.confluent.io/designing-event-driven-systems/): E-book gratis yang berfokus pada Kafka, tetapi bab konseptualnya berlaku untuk implementasi EDA apa pun.
 
 </section>
 
 ---
 
 <blockquote>
-  <span lang="en">**What to Read Next:** [Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals) — Learn how event-driven patterns fit into a broader microservices decomposition strategy, including service boundaries, data ownership, and contract testing. If you have not yet covered synchronous separation patterns, start with [MVC/MVVM Architecture Fundamentals with PHP](/blog/mvc-mvvm-architecture-fundamentals-php).</span>
-  <span lang="id">**Yang Harus Dibaca Selanjutnya:** [Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals) — Pelajari bagaimana pola event-driven cocok dalam strategi dekomposisi microservices yang lebih luas, termasuk batas layanan, kepemilikan data, dan contract testing. Jika Anda belum membahas pola pemisahan sinkron, mulai dengan [Dasar-Dasar Arsitektur MVC/MVVM dengan PHP](/blog/mvc-mvvm-architecture-fundamentals-php).</span>
+  <span lang="en">**What to Read Next:** [Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals): learn how event-driven patterns fit into a broader microservices decomposition strategy, including service boundaries, data ownership, and contract testing. If you have not yet covered synchronous separation patterns, start with [MVC/MVVM Architecture Fundamentals with PHP](/blog/mvc-mvvm-architecture-fundamentals-php).</span>
+  <span lang="id">**Yang Harus Dibaca Selanjutnya:** [Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals): pelajari bagaimana pola event-driven cocok dalam strategi dekomposisi microservices yang lebih luas, termasuk batas layanan, kepemilikan data, dan contract testing. Jika Anda belum membahas pola pemisahan sinkron, mulai dengan [Dasar-Dasar Arsitektur MVC/MVVM dengan PHP](/blog/mvc-mvvm-architecture-fundamentals-php).</span>
 </blockquote>

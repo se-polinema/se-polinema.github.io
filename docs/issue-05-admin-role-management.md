@@ -7,12 +7,12 @@
 ## Resolution
 
 Implemented as designed, plus two pre-existing issues discovered and fixed
-along the way (both directly in this feature's critical path — see
+along the way (both directly in this feature's critical path; see
 `supabase/migrations/015_admin_role_management.sql`'s header comment for
 detail):
 
 1. **Security fix**: `profiles_update_own` had no `WITH CHECK` clause, so
-   Postgres silently reused its `USING` expression — meaning any
+   Postgres silently reused its `USING` expression, meaning any
    authenticated user could self-promote to admin via a direct client call,
    bypassing the `@polinema.ac.id` gate entirely. Fixed with a
    `BEFORE UPDATE` trigger that reverts any role change on one's own row
@@ -42,11 +42,11 @@ table directly in the Supabase dashboard/SQL editor.
 Add a small "Staff" section to `AdminDashboard.vue` (a third tab, or a
 section under the existing Members tab) that:
 - Lists `se.profiles` rows with `role = 'admin'` (already fully readable
-  by admin via the existing `profiles_select_admin` RLS policy — no new
+  by admin via the existing `profiles_select_admin` RLS policy, so no new
   backend work needed for viewing).
 - Lets an existing admin promote another user to admin by email (an
   `UPDATE se.profiles SET role = 'admin' WHERE email = ...`). This DOES
-  need a new RLS policy — `se.profiles` currently has no admin-UPDATE
+  need a new RLS policy: `se.profiles` currently has no admin-UPDATE
   policy (only `profiles_update_own`), so this is the one piece of this
   proposal that isn't purely additive frontend work.
 

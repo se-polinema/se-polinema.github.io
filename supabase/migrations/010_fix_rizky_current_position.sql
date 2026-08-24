@@ -4,7 +4,7 @@
 --
 -- The raw submission left Current Position/Affiliation as the template's
 -- generic placeholder values ("Software Engineer" at "Politeknik Negeri
--- Malang") — the same common submitter mistake later spotted again on the
+-- Malang"), the same common submitter mistake later spotted again on the
 -- issue #268 seed (see 009_add_alumni_solikhin.sql and the template
 -- wording fix in .github/ISSUE_TEMPLATE/add-alumni.yml, which relabels
 -- these fields "Current Position"/"Current Affiliation" with an explicit

@@ -1,10 +1,10 @@
 ---
 // Sign-in and sign-up are the same action now that login is GitHub-only
-// (OAuth creates the account on first use) — there's no separate "create
+// (OAuth creates the account on first use); there's no separate "create
 // account" step anymore. Redirect to /login, preserving any ?redirect=
 // param: astro.config.mjs's static `redirects` option only maps to a
-// fixed target path, so it can't forward an incoming query string —
-// this small client-side redirect can.
+// fixed target path, so it can't forward an incoming query string.
+// This small client-side redirect can.
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 ---
 

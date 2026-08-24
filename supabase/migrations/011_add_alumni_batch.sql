@@ -1,6 +1,6 @@
 -- ============================================================
 -- Seed: batch of 3 alumni submissions found pending on GitHub Issues
--- (issues #269, #270, #271 — https://github.com/se-polinema/se-polinema.github.io/issues/{269,270,271}).
+-- (issues #269, #270, #271: https://github.com/se-polinema/se-polinema.github.io/issues/{269,270,271}).
 --
 -- None of the three submitted a "Research Streams" value. All three map
 -- to domain-specific-se-applications: each is a concrete applied/domain
@@ -16,21 +16,21 @@
 -- of truth where the submitted value was imprecise or blank, matching the
 -- correction pattern established in 010_fix_rizky_current_position.sql):
 --   - #270 Ikhwandi: submitted "Software engineer"; career_update says
---     "ex Software Engineer intern at Perum Jasa Tirta 1" — used the more
+--     "ex Software Engineer intern at Perum Jasa Tirta 1", used the more
 --     precise "Software Engineer Intern" as current_role. Affiliation
 --     ("Perum Jasa Tirta 1") was correctly filled in as submitted.
 --   - #271 Rafif: submitted affiliation was "-" (blank); career_update
 --     ("Fullstack Developer Intern at PT Amerta Indah Otsuka") used for
 --     both current_role and current_organization instead.
 --   - #269 Elvaretta: submitted role/organization already matched her
---     career_update exactly — used as submitted, no correction needed.
+--     career_update exactly, used as submitted, no correction needed.
 --
 -- Photos: #269 and #270 had attached images, resized/compressed to
 -- public/images/members/{elvaretta-salsabilla,ikhwandi}.jpg (683px wide,
--- ~683x910 and ~683x385 respectively — #270's source photo was landscape,
+-- ~683x910 and ~683x385 respectively; #270's source photo was landscape,
 -- unlike prior submissions; the site's object-cover/object-top display
 -- convention handles this without pre-cropping). #271 had no photo
--- attached — photo column left NULL.
+-- attached; photo column left NULL.
 -- ============================================================
 
 INSERT INTO se.members (

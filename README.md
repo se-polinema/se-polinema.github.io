@@ -59,8 +59,8 @@ This enables an Agentic AI feedback loop where reviewers can refine the implemen
 
 Only authorized members can trigger `/plan` and `/build`. Authorization is checked in two ways:
 
-1. **Authenticated API check** — queries `https://api.github.com/orgs/se-polinema/members/{actor}` using `OPENCODE_ORG_TOKEN` (a token with `read:org` scope). If the token is not configured, this check is skipped.
-2. **Fallback allowlist** — checks `.github/opencode-allowlist.txt` in this repository. Add one GitHub username per line to grant access without requiring org membership visibility.
+1. **Authenticated API check**: queries `https://api.github.com/orgs/se-polinema/members/{actor}` using `OPENCODE_ORG_TOKEN` (a token with `read:org` scope). If the token is not configured, this check is skipped.
+2. **Fallback allowlist**: checks `.github/opencode-allowlist.txt` in this repository. Add one GitHub username per line to grant access without requiring org membership visibility.
 
 If either check passes, the user is authorized.
 

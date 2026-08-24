@@ -81,7 +81,7 @@
             </a>
           </div>
 
-          <!-- Stats: mobile only — desktop sees them in the terminal -->
+          <!-- Stats: mobile only; desktop sees them in the terminal -->
           <div class="grid grid-cols-3 gap-4 max-w-xs lg:hidden">
             <div class="border-t border-primary/10 dark:border-gray-600 pt-4">
               <div class="font-serif text-3xl font-bold text-accent-700 dark:text-accent-400">{{ researchers }}</div>

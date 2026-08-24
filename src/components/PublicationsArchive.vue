@@ -82,8 +82,8 @@ const { t } = useI18n()
 const { activeFilters } = useVSCodeLayout()
 
 const fetchedPublications = ref<Publication[] | null>(null)
-// Starts true (rather than false) whenever a fetch will actually happen —
-// i.e. no `publications` prop was passed — so the SSR-rendered HTML (and
+// Starts true (rather than false) whenever a fetch will actually happen,
+// i.e. no `publications` prop was passed, so the SSR-rendered HTML (and
 // the pre-hydration client render, which must match it) shows a loading
 // state instead of a misleading "no results" empty state before the
 // client-side fetch resolves.
@@ -156,13 +156,13 @@ const paginatedPublications = computed(() => {
 })
 
 // filteredPublications only changes when a filter or the fetched index
-// changes — never as a side effect of paging — so resetting to page 1
+// changes, never as a side effect of paging, so resetting to page 1
 // here can't fight the user's own page navigation.
 watch(filteredPublications, () => {
   currentPage.value = 1
 })
 
-// Groups the current PAGE's slice by year, not the full filtered result —
+// Groups the current PAGE's slice by year, not the full filtered result:
 // a year that spans a page boundary shows its header on both pages,
 // which is normal/expected pagination behavior and far simpler than
 // paginating by whole year-groups (which would produce wildly uneven

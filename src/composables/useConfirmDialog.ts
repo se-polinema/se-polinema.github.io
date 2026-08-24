@@ -21,7 +21,7 @@ export interface UnsavedOptions {
 
 type DialogMode = 'confirm' | 'unsaved'
 
-// Module-level singleton state, same pattern as useConsent/useVSCodeLayout —
+// Module-level singleton state, same pattern as useConsent/useVSCodeLayout,
 // shared across independently-mounted client:load islands on the same page.
 // One <ConfirmDialog /> is mounted globally (VSCodeLayout.astro) and renders
 // whatever this state currently holds; callers await a typed result instead

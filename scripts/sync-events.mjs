@@ -9,8 +9,8 @@
  * an existing event's auto-generated check_in_code or registration_open flag.
  *
  * Required env vars (set as GitHub Actions secrets, never in client bundles):
- *   PUBLIC_SUPABASE_URL      — Supabase project URL
- *   SUPABASE_SERVICE_ROLE_KEY — service role key (bypasses RLS for writes)
+ *   PUBLIC_SUPABASE_URL: Supabase project URL
+ *   SUPABASE_SERVICE_ROLE_KEY: service role key (bypasses RLS for writes)
  *
  * Run:
  *   PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/sync-events.mjs
@@ -48,13 +48,13 @@ const events = readdirSync(BLOG_DIR)
   .map((e) => ({ slug: e.slug, title: e.data.title }))
 
 if (events.length === 0) {
-  console.log('No managed events found — nothing to sync.')
+  console.log('No managed events found, nothing to sync.')
   process.exit(0)
 }
 
 console.log(`Found ${events.length} managed event(s) to sync:`, events.map((e) => e.slug).join(', '))
 
-// ignoreDuplicates: true — insert new rows only; existing rows are left untouched
+// ignoreDuplicates: true, insert new rows only; existing rows are left untouched
 // so check_in_code and registration_open are never overwritten by a re-run.
 const { error } = await supabase
   .from('events')

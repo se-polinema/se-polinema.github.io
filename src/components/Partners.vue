@@ -8,7 +8,7 @@
 
       <!-- Logo grid -->
       <template v-if="partners.length > 0">
-        <!-- NOTE: placeholder data — replace with real partner logos in public/images/partners/ -->
+        <!-- NOTE: placeholder data, replace with real partner logos in public/images/partners/ -->
         <ul class="flex flex-wrap gap-8 items-center">
           <li v-for="partner in partners" :key="partner.name">
             <a

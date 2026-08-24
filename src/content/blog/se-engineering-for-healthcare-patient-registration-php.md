@@ -34,15 +34,15 @@ Consider the difference between a generic contact-management form and a patient 
 
 | Aspect | Generic CRUD | Patient Registration |
 |---|---|---|
-| **Data sensitivity** | Name, email — low risk if leaked | Medical record numbers, diagnoses, insurance IDs — protected by law |
+| **Data sensitivity** | Name, email: low risk if leaked | Medical record numbers, diagnoses, insurance IDs: protected by law |
 | **Duplicate prevention** | Email uniqueness is nice | Registering the same person twice creates fragmented medical history with dangerous consequences |
 | **Input validation** | Trim whitespace, validate email format | Validate medical record numbers against institutional format, validate consent flags, validate emergency contacts |
-| **Auditability** | Optional | Who registered the patient, when, and what data was entered — legally required |
-| **Consent management** | Not applicable | Patients must consent to data collection, storage, and sharing — revocable at any time |
-| **Data minimisation** | Collect whatever helps marketing | Collect only what is clinically necessary — "data minimisation" is a legal principle |
+| **Auditability** | Optional | Legally required: who registered the patient, when, and what data was entered |
+| **Consent management** | Not applicable | Patients must consent to data collection, storage, and sharing: revocable at any time |
+| **Data minimisation** | Collect whatever helps marketing | Collect only what is clinically necessary: "data minimisation" is a legal principle |
 | **Interoperability** | Not applicable | Data must be shareable with labs, pharmacies, referral hospitals (HL7/FHIR, SATUSEHAT) |
 
-These constraints mean that **generic software engineering advice must be adapted**. The patterns you learn — DDD, Clean Code, TDD, modular architecture — all still apply, but they are applied to problems shaped by the healthcare domain. This tutorial shows you how.
+These constraints mean that **generic software engineering advice must be adapted**. The patterns you learn (DDD, Clean Code, TDD, modular architecture) all still apply, but they are applied to problems shaped by the healthcare domain. This tutorial shows you how.
 
 </section>
 
@@ -86,11 +86,11 @@ Walk-in / Phone Call → Check Existing Patient → New Registration → Assign 
 
 | Step | What Happens | Domain Rule |
 |---|---|---|
-| **Check Existing Patient** | Search by name, date of birth, national ID (NIK), or phone number | Prevent duplicate registrations — one person, one medical record |
+| **Check Existing Patient** | Search by name, date of birth, national ID (NIK), or phone number | Prevent duplicate registrations: one person, one medical record |
 | **New Registration** | Collect demographics: name, DOB, gender, address, phone, email, emergency contact | All required fields must be present and valid |
 | **Assign Medical Record Number** | Generate a unique, immutable identifier following institutional format (e.g., `RM-20260706-0001`) | Medical record numbers are never re-assigned or deleted |
 | **Record Consent** | Capture patient consent for data collection, storage, and sharing | Consent must be explicit, recorded with timestamp, and revocable |
-| **Verify Insurance** | Check insurance eligibility if the patient has coverage (BPJS, private) | Insurance verification may be asynchronous — registration must not block on it |
+| **Verify Insurance** | Check insurance eligibility if the patient has coverage (BPJS, private) | Insurance verification may be asynchronous, so registration must not block on it |
 | **Confirm** | Return the medical record number and a confirmation receipt | The patient-facing output must not expose sensitive internal identifiers |
 
 ### Key Entities in a Clinic System
@@ -103,7 +103,7 @@ Walk-in / Phone Call → Check Existing Patient → New Registration → Assign 
 | **ConsentRecord** | A patient's consent for data handling | consent type (collection, storage, sharing), granted at, revoked at (nullable), version |
 | **RegistrationAudit** | Immutable log of registration events | patient id, event type (created, updated, consent_granted, consent_revoked), timestamp, performer |
 
-Understanding these entities is crucial — they are not just database rows. Each one carries business invariants that must be enforced at the domain level.
+Understanding these entities is crucial: they are not just database rows. Each one carries business invariants that must be enforced at the domain level.
 
 </section>
 
@@ -150,7 +150,7 @@ Memahami entitas ini sangat penting: entitas-entitas ini bukan sekadar baris dat
 
 ## Modeling the Domain: Value Objects and Entities
 
-Healthcare data is not a bag of strings. Every piece of information has rules. A medical record number follows a specific format. A phone number has a valid pattern. An email address must be structurally correct. Modeling these as **value objects** — immutable, self-validating types — catches errors at construction time, not deep inside a service method.
+Healthcare data is not a bag of strings. Every piece of information has rules. A medical record number follows a specific format. A phone number has a valid pattern. An email address must be structurally correct. Modeling these as **value objects** (immutable, self-validating types) catches errors at construction time, not deep inside a service method.
 
 ### The `MedicalRecordNumber` Value Object
 
@@ -218,7 +218,7 @@ class MedicalRecordNumber
 }
 ```
 
-By modelling the medical record number as a value object, you guarantee that any `MedicalRecordNumber` in your system is valid. You never need to validate it again — the type system enforces it.
+By modelling the medical record number as a value object, you guarantee that any `MedicalRecordNumber` in your system is valid. You never need to validate it again, because the type system enforces it.
 
 ### The `Phone` Value Object
 
@@ -490,7 +490,7 @@ class ConsentRecord
 }
 ```
 
-These value objects and entities form the domain layer. They have **zero framework dependencies** — no PDO, no HTTP, no annotations. They are pure PHP objects that enforce business rules through their constructors and named factory methods.
+These value objects and entities form the domain layer. They have **zero framework dependencies**: no PDO, no HTTP, no annotations. They are pure PHP objects that enforce business rules through their constructors and named factory methods.
 
 </section>
 
@@ -848,7 +848,7 @@ Value object dan entity ini membentuk lapisan domain. Mereka memiliki **nol depe
 
 ## Before: A Transaction-Script Style Registration Handler
 
-Before applying SE principles, a typical patient registration handler often looks like this — a procedural script that mixes validation, business logic, and database calls in one function:
+Before applying SE principles, a typical patient registration handler often looks like the procedural script below, which mixes validation, business logic, and database calls in one function:
 
 ```php
 <?php
@@ -939,7 +939,7 @@ class RegistrationController
 **What is wrong with this approach?**
 
 1. **Mixed responsibilities**: Validation, duplicate checks, MRN generation, and persistence are tangled together. You cannot test any piece independently.
-2. **Stringly-typed data**: The medical record number is a raw string — no guarantee it is valid downstream. Phone and email are also raw strings.
+2. **Stringly-typed data**: The medical record number is a raw string, with no guarantee it is valid downstream. Phone and email are also raw strings.
 3. **No domain layer**: Business rules (consent requirement, NIK validation, duplicate prevention) are interleaved with HTTP and database concerns.
 4. **Untestable without a database**: Every test must hit a real PDO connection. You cannot test the validation logic in isolation.
 5. **SQL injection risk**: The `getNextSequence` method concatenates a date string into SQL.
@@ -1060,7 +1060,7 @@ Skrip ini bekerja untuk klinik kecil hari ini, tetapi akan runtuh di bawah beban
 
 ## After: A Cleaner, Testable Registration Service
 
-Now let us refactor this into a proper domain service. The `PatientRegistrationService` depends on interfaces — not a database — and delegates validation to the value objects we already built.
+Now let us refactor this into a proper domain service. The `PatientRegistrationService` depends on interfaces, not a database, and delegates validation to the value objects we already built.
 
 ### The Registration Result DTO
 
@@ -1304,10 +1304,10 @@ class PatientRegistrationService
 
 | Before (Transaction Script) | After (Domain Service) |
 |---|---|
-| Phone validated inline with regex | Phone validated once by `Phone` value object — never again |
+| Phone validated inline with regex | Phone validated once by `Phone` value object, never again |
 | Email validated inline with `filter_var` | Email validated once by `Email` value object |
 | MRN generated as raw string concatenation | MRN generated by `MedicalRecordNumber::generate()` with format enforcement |
-| Duplicate check queries database directly | Duplicate check calls repository interface — swappable for testing |
+| Duplicate check queries database directly | Duplicate check calls repository interface, swappable for testing |
 | No audit trail | Every registration recorded via `AuditLogInterface` |
 | Consent stored as integer `1` | Consent modeled as `ConsentRecord` value object with revoke support |
 | Untestable without database | All business logic testable with in-memory repositories |
@@ -1578,7 +1578,7 @@ Domain service ini **agnostik framework**. Ia hanya bergantung pada interface PH
 
 ## Guarding Invariants: Validating Patient Data and Duplicate Checks
 
-Healthcare systems have stricter validation requirements than most domains. A duplicate patient record is not just a data quality issue — it can lead to fragmented medical histories, missed allergies, and incorrect treatments. Let us look at the specific invariants guarded by our service.
+Healthcare systems have stricter validation requirements than most domains. A duplicate patient record is not just a data quality issue: it can lead to fragmented medical histories, missed allergies, and incorrect treatments. Let us look at the specific invariants guarded by our service.
 
 ### Duplicate Detection Strategy
 
@@ -1590,7 +1590,7 @@ Our service checks three layers of duplication:
 | **National ID (NIK)** | Exact match on 16-digit string | NIK is a national unique identifier. Two patients cannot share a NIK. |
 | **Name + Date of Birth** | Exact match on both fields | Same name + same DOB is a strong signal of duplicate. We emit a **warning**, not an error, because genuine coincidences happen (twins, common names). |
 
-A warning is not a blocker — the staff member can override it. But the system should never silently create a duplicate.
+A warning is not a blocker: the staff member can override it. But the system should never silently create a duplicate.
 
 ### Validation Layers
 
@@ -1660,7 +1660,7 @@ Pendekatan berlapis ini berarti setiap kelas memiliki tanggung jawab tunggal. Va
 
 ## Privacy & Consent Basics for Health Data
 
-Privacy is not an afterthought in healthcare software — it is a legal and ethical obligation. While this tutorial is not legal advice, understanding the principles helps you build systems that protect patients from day one.
+Privacy is not an afterthought in healthcare software: it is a legal and ethical obligation. While this tutorial is not legal advice, understanding the principles helps you build systems that protect patients from day one.
 
 ### Core Privacy Principles
 
@@ -1677,12 +1677,12 @@ Privacy is not an afterthought in healthcare software — it is a legal and ethi
 ### Indonesia's Regulatory Landscape
 
 In Indonesia, healthcare data protection is governed by:
-- **UU No. 17 Tahun 2023 tentang Kesehatan** — establishes patient data confidentiality requirements
-- **UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (PDP)** — Indonesia's general data protection law
-- **Permenkes No. 24 Tahun 2022** — electronic medical record regulations under SATUSEHAT
+- **UU No. 17 Tahun 2023 tentang Kesehatan**: establishes patient data confidentiality requirements
+- **UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (PDP)**: Indonesia's general data protection law
+- **Permenkes No. 24 Tahun 2022**: electronic medical record regulations under SATUSEHAT
 
 Key takeaways for developers:
-1. Health data is classified as "specific personal data" under PDP Law — requiring higher protection standards
+1. Health data is classified as "specific personal data" under PDP Law, requiring higher protection standards
 2. Data controllers must appoint a Data Protection Officer (DPO)
 3. Data breaches must be reported within 3×24 hours
 4. Consent must be explicit, informed, and recorded (our `ConsentRecord` models this)
@@ -1697,7 +1697,7 @@ error_log("Patient {$patient->fullName} with NIK {$patient->nationalId} registra
 // NEVER include sensitive data in URLs
 header("Location: /patients?mrn={$mrn->toString()}&nik={$request->nationalId}");
 
-// NEVER store plaintext passwords or PINs — even for clinic staff
+// NEVER store plaintext passwords or PINs, even for clinic staff
 $stmt->execute([$username, $password]); // this should be password_hash()
 
 // NEVER share patient data with third parties without explicit consent
@@ -1760,7 +1760,7 @@ error_log("Pendaftaran pasien {$patient->fullName} dengan NIK {$patient->nationa
 // JANGAN PERNAH menyertakan data sensitif dalam URL
 header("Location: /patients?mrn={$mrn->toString()}&nik={$request->nationalId}");
 
-// JANGAN PERNAH menyimpan password atau PIN plaintext — bahkan untuk staf klinik
+// JANGAN PERNAH menyimpan password atau PIN plaintext, bahkan untuk staf klinik
 $stmt->execute([$username, $password]); // ini seharusnya password_hash()
 
 // JANGAN PERNAH membagikan data pasien ke pihak ketiga tanpa persetujuan eksplisit
@@ -1788,7 +1788,7 @@ $analytics->track('patient_registered', [
 
 ## Putting It Together: A Slim/Laravel-Style Controller Example
 
-Now let us see how the domain service integrates into a web application. This controller is thin — it only translates HTTP to the domain layer and back. No business logic lives here.
+Now let us see how the domain service integrates into a web application. This controller is thin: it only translates HTTP to the domain layer and back. No business logic lives here.
 
 ```php
 <?php
@@ -1878,7 +1878,7 @@ class PatientRegistrationController
 - No MRN generation (delegated to `MedicalRecordNumber::generate()`)
 - No database queries (delegated to repository implementations)
 
-If you switch to Laravel, the controller changes — `$request->input('full_name')` instead of `$body['full_name']`. But the `PatientRegistrationService` and all domain code remain identical.
+If you switch to Laravel, the controller changes: `$request->input('full_name')` instead of `$body['full_name']`. But the `PatientRegistrationService` and all domain code remain identical.
 
 </section>
 
@@ -2494,7 +2494,7 @@ PHPUnit 11.x.x by Sebastian Bergmann and contributors.
 OK (14 tests, 30 assertions)
 ```
 
-The entire test suite runs in milliseconds — no database setup, no fixtures, no transaction rollbacks. Every business rule is verified through clean, readable assertions.
+The entire test suite runs in milliseconds: no database setup, no fixtures, no transaction rollbacks. Every business rule is verified through clean, readable assertions.
 
 </section>
 
@@ -3020,21 +3020,21 @@ Seluruh rangkaian pengujian berjalan dalam milidetik: tidak ada setup database, 
 
 ## What You Learned
 
-1. **Healthcare is a distinct software domain** with its own constraints — medical record integrity, duplicate prevention, consent management, regulatory compliance, and data privacy. Generic CRUD patterns are insufficient.
+1. **Healthcare is a distinct software domain** with its own constraints: medical record integrity, duplicate prevention, consent management, regulatory compliance, and data privacy. Generic CRUD patterns are insufficient.
 
 2. **Value objects catch errors at construction time.** `MedicalRecordNumber`, `Phone`, `Email`, and `ConsentRecord` validate themselves. Once constructed, they are guaranteed valid. No defensive checks needed downstream.
 
-3. **Entities enforce domain invariants.** `Patient::register()` validates that the name is non-empty, the date of birth is not in the future, the NIK is 16 digits, and consent is granted — all before the object exists.
+3. **Entities enforce domain invariants.** `Patient::register()` validates that the name is non-empty, the date of birth is not in the future, the NIK is 16 digits, and consent is granted, all before the object exists.
 
 4. **Separate validation into layers.** Syntactic validation (missing fields) in the controller. Semantic validation (phone format, email format) in value objects. Domain invariant validation (consent, DOB) in entities. Contextual validation (duplicate check) in the service.
 
 5. **Duplicate detection needs nuance.** Phone and NIK duplicates are hard errors. Name + DOB duplicates are warnings (not all same-name-same-DOB pairs are duplicates). The system should flag but let the staff decide.
 
-6. **Consent is a first-class domain concept.** Model it as a value object with types (collection, storage, sharing), timestamps, versions, and revocation support. Consent is not a boolean flag — it has a lifecycle.
+6. **Consent is a first-class domain concept.** Model it as a value object with types (collection, storage, sharing), timestamps, versions, and revocation support. Consent is not a boolean flag; it has a lifecycle.
 
 7. **Domain services work with interfaces, not databases.** `PatientRegistrationService` depends on `PatientRepositoryInterface` and `AuditLogInterface`. In tests, swap in-memory implementations. In production, swap PDO or Eloquent. The business logic never changes.
 
-8. **Privacy is built in, not bolted on.** Never log patient identifiers. Never put them in URLs. Encrypt at rest. Audit every access. Minimise data collection to what is clinically necessary. These are not "nice to have" — they are legal obligations in Indonesia under the PDP Law and Health Law.
+8. **Privacy is built in, not bolted on.** Never log patient identifiers. Never put them in URLs. Encrypt at rest. Audit every access. Minimise data collection to what is clinically necessary. These are not "nice to have": they are legal obligations in Indonesia under the PDP Law and Health Law.
 
 > "Healthcare software is not about screens and databases. It is about protecting people at their most vulnerable. Every line of code is a promise that their data will not be lost, leaked, or misused."
 
@@ -3137,14 +3137,14 @@ class PatientRegistrationServiceExtended extends PatientRegistrationService
 
 ## What to Read Next
 
-- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)** — Apply DDD patterns like entities, value objects, aggregates, and repositories to your healthcare domain model.
-- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** — Learn when to extract Patient, Appointment, and Billing modules into separate services.
-- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)** — Master testing strategies for complex validation logic and duplicate detection rules.
-- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)** — Build your patient registration service with confidence using the Red-Green-Refactor cycle.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Keep your registration service readable as privacy regulations and clinical requirements evolve.
-- **[Design Patterns with PHP](/blog/design-patterns-with-php)** — Apply Strategy (consent types), Observer (registration events), and Repository patterns to your healthcare system.
-- **[Software Engineering for Fintech: Secure Payment Flow with PHP](/blog/software-engineering-for-fintech-payment-flow-php)** — See how similar SE principles apply to another regulated domain (fintech).
-- **[SATUSEHAT Integration Guide](https://satusehat.kemkes.go.id/)** — Indonesia's national health data exchange platform. Learn FHIR and HL7 standards for healthcare interoperability.
+- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)**: Apply DDD patterns like entities, value objects, aggregates, and repositories to your healthcare domain model.
+- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)**: Learn when to extract Patient, Appointment, and Billing modules into separate services.
+- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)**: Master testing strategies for complex validation logic and duplicate detection rules.
+- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)**: Build your patient registration service with confidence using the Red-Green-Refactor cycle.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Keep your registration service readable as privacy regulations and clinical requirements evolve.
+- **[Design Patterns with PHP](/blog/design-patterns-with-php)**: Apply Strategy (consent types), Observer (registration events), and Repository patterns to your healthcare system.
+- **[Software Engineering for Fintech: Secure Payment Flow with PHP](/blog/software-engineering-for-fintech-payment-flow-php)**: See how similar SE principles apply to another regulated domain (fintech).
+- **[SATUSEHAT Integration Guide](https://satusehat.kemkes.go.id/)**: Indonesia's national health data exchange platform. Learn FHIR and HL7 standards for healthcare interoperability.
 
 </section>
 

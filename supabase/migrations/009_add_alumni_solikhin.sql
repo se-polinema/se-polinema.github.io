@@ -9,7 +9,7 @@
 -- Development", "Information Systems & Educational Technology") are
 -- descriptive category names, not the site's canonical stream ids
 -- (se-methodologies-architecture, domain-specific-se-applications,
--- emerging-technologies-se). Both map to domain-specific-se-applications —
+-- emerging-technologies-se). Both map to domain-specific-se-applications:
 -- his research (PWA-based monitoring apps, educational software
 -- evaluation) is applied, domain-specific work, not core methodology/
 -- architecture or emerging tech.
@@ -20,7 +20,7 @@
 --
 -- Current Position/Affiliation: the raw submission left these as the
 -- template's generic placeholder values ("Software Engineer" at
--- "Politeknik Negeri Malang") — a common submitter mistake (see the
+-- "Politeknik Negeri Malang"), a common submitter mistake (see the
 -- template wording fix in .github/ISSUE_TEMPLATE/add-alumni.yml and the
 -- matching correction for the issue #267/Rizky seed in migration 010).
 -- His own career_update ("Full Stack Developer Intern at PT. Amerta Indah

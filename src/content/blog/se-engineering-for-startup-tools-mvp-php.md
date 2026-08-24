@@ -60,10 +60,10 @@ Build ───→ Measure ───→ Learn
 ```
 
 1. **Build**: Create the simplest thing that can test your hypothesis.
-2. **Measure**: Collect real data — not opinions, not "I would use this" from friends.
+2. **Measure**: Collect real data, not opinions, not "I would use this" from friends.
 3. **Learn**: Decide whether to pivot (change direction) or persevere (double down).
 
-This loop should take **days, not months**. If your build phase takes three months, you are not doing an MVP — you are building a product without evidence that anyone wants it.
+This loop should take **days, not months**. If your build phase takes three months, you are not doing an MVP; you are building a product without evidence that anyone wants it.
 
 </section>
 
@@ -137,20 +137,20 @@ graph TB
     end
 
     subgraph DECIDE["4. DECISION"]
-        D1["Pivot — change problem or solution"]
-        D2["Persevere — add features, scale"]
+        D1["Pivot: change problem or solution"]
+        D2["Persevere: add features, scale"]
     end
 
     IDEATION --> BUILD
     BUILD --> MEASURE
     MEASURE --> DECIDE
     DECIDE -->|"Pivot"| IDEATION
-    DECIDE -->|"Persevere"| SCALE["5. SCALE — refactor, expand team, raise funding"]
+    DECIDE -->|"Persevere"| SCALE["5. SCALE: refactor, expand team, raise funding"]
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: The startup software engineering lifecycle — from idea to validated product</span>
-  <span lang="id">Gambar: Siklus hidup rekayasa perangkat lunak startup — dari ide ke produk tervalidasi</span>
+  <span lang="en">Figure: The startup software engineering lifecycle, from idea to validated product</span>
+  <span lang="id">Gambar: Siklus hidup rekayasa perangkat lunak startup, dari ide ke produk tervalidasi</span>
 </figcaption>
 </figure>
 
@@ -168,9 +168,9 @@ Every startup idea rests on untested assumptions. Not all assumptions are equall
 
 | Startup Idea | Safe Assumption | Risky Assumption |
 |---|---|---|
-| "A marketplace for used textbooks at Politeknik" | Students buy textbooks (proven) | Students will list their old books (unproven — requires effort from sellers) |
-| "A food delivery app for campus canteens" | People order food (proven) | Canteen vendors will adopt the platform (unproven — requires behavior change) |
-| "A peer-to-peer study group matching app" | Students want study groups (proven) | Students will share their schedules and subjects (unproven — privacy concern) |
+| "A marketplace for used textbooks at Politeknik" | Students buy textbooks (proven) | Students will list their old books (unproven: requires effort from sellers) |
+| "A food delivery app for campus canteens" | People order food (proven) | Canteen vendors will adopt the platform (unproven: requires behavior change) |
+| "A peer-to-peer study group matching app" | Students want study groups (proven) | Students will share their schedules and subjects (unproven: privacy concern) |
 
 ### Step 2: Define the One-Pain-Point Rule
 
@@ -198,14 +198,14 @@ For a startup idea validation dashboard:
 
 | Story ID | User Story | Out of MVP? |
 |---|---|---|
-| US-01 | As a visitor, I want to submit my email to join the wait-list, so that I get notified when the product launches. | No — core |
-| US-02 | As a founder, I want to see how many people signed up this week, so that I know if interest is growing. | No — core |
-| US-03 | As a founder, I want to know which traffic source brought the most sign-ups, so that I can focus marketing efforts. | Yes — nice to have, but learn through manual analytics first |
-| US-04 | As a visitor, I want to refer friends and earn a priority spot, so that the product launches faster for me. | Yes — viral mechanics come after you prove people want the core product |
+| US-01 | As a visitor, I want to submit my email to join the wait-list, so that I get notified when the product launches. | No: core |
+| US-02 | As a founder, I want to see how many people signed up this week, so that I know if interest is growing. | No: core |
+| US-03 | As a founder, I want to know which traffic source brought the most sign-ups, so that I can focus marketing efforts. | Yes: nice to have, but learn through manual analytics first |
+| US-04 | As a visitor, I want to refer friends and earn a priority spot, so that the product launches faster for me. | Yes: viral mechanics come after you prove people want the core product |
 
 ### The Scoping Litmus Test
 
-For every feature you are tempted to add, ask: **"If I remove this, can I still test my riskiest assumption?"** If the answer is yes, remove it. Features that fail the litmus test go into a backlog labeled **"Post-Validation"** — not **"Sprint 2"**, because there may never be a Sprint 2 if the assumption is false.
+For every feature you are tempted to add, ask: **"If I remove this, can I still test my riskiest assumption?"** If the answer is yes, remove it. Features that fail the litmus test go into a backlog labeled **"Post-Validation"**, not **"Sprint 2"**, because there may never be a Sprint 2 if the assumption is false.
 
 </section>
 
@@ -221,9 +221,9 @@ Setiap ide startup bertumpu pada asumsi yang belum teruji. Tidak semua asumsi sa
 
 | Ide Startup | Asumsi Aman | Asumsi Berisiko |
 |---|---|---|
-| "Marketplace buku bekas di Politeknik" | Mahasiswa membeli buku teks (terbukti) | Mahasiswa akan mendaftarkan buku lama mereka (belum terbukti — memerlukan usaha dari penjual) |
-| "Aplikasi pesan-antar makanan untuk kantin kampus" | Orang memesan makanan (terbukti) | Vendor kantin akan mengadopsi platform (belum terbukti — memerlukan perubahan perilaku) |
-| "Aplikasi pencocokan kelompok belajar peer-to-peer" | Mahasiswa menginginkan kelompok belajar (terbukti) | Mahasiswa akan membagikan jadwal dan mata kuliah mereka (belum terbukti — masalah privasi) |
+| "Marketplace buku bekas di Politeknik" | Mahasiswa membeli buku teks (terbukti) | Mahasiswa akan mendaftarkan buku lama mereka (belum terbukti: memerlukan usaha dari penjual) |
+| "Aplikasi pesan-antar makanan untuk kantin kampus" | Orang memesan makanan (terbukti) | Vendor kantin akan mengadopsi platform (belum terbukti: memerlukan perubahan perilaku) |
+| "Aplikasi pencocokan kelompok belajar peer-to-peer" | Mahasiswa menginginkan kelompok belajar (terbukti) | Mahasiswa akan membagikan jadwal dan mata kuliah mereka (belum terbukti: masalah privasi) |
 
 ### Langkah 2: Terapkan Aturan Satu Pain Point
 
@@ -251,14 +251,14 @@ Untuk dashboard validasi ide startup:
 
 | ID Cerita | User Story | Di luar MVP? |
 |---|---|---|
-| US-01 | Sebagai pengunjung, saya ingin mengirimkan email saya untuk bergabung dengan wait-list, sehingga saya mendapat notifikasi saat produk diluncurkan. | Tidak — inti |
-| US-02 | Sebagai founder, saya ingin melihat berapa banyak orang yang mendaftar minggu ini, sehingga saya tahu apakah minat bertumbuh. | Tidak — inti |
-| US-03 | Sebagai founder, saya ingin tahu sumber trafik mana yang membawa pendaftaran terbanyak, sehingga saya bisa memfokuskan upaya pemasaran. | Ya — bagus untuk dimiliki, tetapi pelajari melalui analitik manual dulu |
-| US-04 | Sebagai pengunjung, saya ingin mereferensikan teman dan mendapatkan tempat prioritas, sehingga produk diluncurkan lebih cepat untuk saya. | Ya — mekanisme viral datang setelah Anda membuktikan orang menginginkan produk inti |
+| US-01 | Sebagai pengunjung, saya ingin mengirimkan email saya untuk bergabung dengan wait-list, sehingga saya mendapat notifikasi saat produk diluncurkan. | Tidak: inti |
+| US-02 | Sebagai founder, saya ingin melihat berapa banyak orang yang mendaftar minggu ini, sehingga saya tahu apakah minat bertumbuh. | Tidak: inti |
+| US-03 | Sebagai founder, saya ingin tahu sumber trafik mana yang membawa pendaftaran terbanyak, sehingga saya bisa memfokuskan upaya pemasaran. | Ya: bagus untuk dimiliki, tetapi pelajari melalui analitik manual dulu |
+| US-04 | Sebagai pengunjung, saya ingin mereferensikan teman dan mendapatkan tempat prioritas, sehingga produk diluncurkan lebih cepat untuk saya. | Ya: mekanisme viral datang setelah Anda membuktikan orang menginginkan produk inti |
 
 ### Uji Litmus Cakupan
 
-Untuk setiap fitur yang tergoda untuk ditambahkan, tanyakan: **"Jika saya menghapus ini, bisakah saya tetap menguji asumsi paling berisiko saya?"** Jika jawabannya ya, hapus. Fitur yang gagal uji litmus masuk ke dalam backlog berlabel **"Post-Validation"** — bukan **"Sprint 2"**, karena mungkin tidak akan pernah ada Sprint 2 jika asumsinya salah.
+Untuk setiap fitur yang tergoda untuk ditambahkan, tanyakan: **"Jika saya menghapus ini, bisakah saya tetap menguji asumsi paling berisiko saya?"** Jika jawabannya ya, hapus. Fitur yang gagal uji litmus masuk ke dalam backlog berlabel **"Post-Validation"**, bukan **"Sprint 2"**, karena mungkin tidak akan pernah ada Sprint 2 jika asumsinya salah.
 
 </section>
 
@@ -268,7 +268,7 @@ Untuk setiap fitur yang tergoda untuk ditambahkan, tanyakan: **"Jika saya mengha
 
 ## Architecture for Startup MVPs
 
-### Monolith-First Is Not a Compromise — It Is a Strategy
+### Monolith-First Is Not a Compromise: It Is a Strategy
 
 Startup engineers often feel pressure to design a microservices architecture because "that is what the big companies do." But the companies that use microservices successfully did not start with them. **Amazon started as a monolith. eBay started as a monolith. Twitter started as a monolith.** You should too.
 
@@ -280,7 +280,7 @@ Startup engineers often feel pressure to design a microservices architecture bec
 
 ### The Startup Layered Architecture
 
-For a PHP MVP, use a **layered monolith** — a single deployable unit with clear separation of concerns **inside** the codebase:
+For a PHP MVP, use a **layered monolith**: a single deployable unit with clear separation of concerns **inside** the codebase:
 
 ```
 ┌──────────────────────────────┐
@@ -294,7 +294,7 @@ For a PHP MVP, use a **layered monolith** — a single deployable unit with clea
 └──────────────────────────────┘
 ```
 
-This structure gives you the **code-level isolation** of a well-designed system without the **operational cost** of distributed services. When you need to extract a service later, the domain boundaries are already clear — you are just moving the boundary from a namespace to a network boundary.
+This structure gives you the **code-level isolation** of a well-designed system without the **operational cost** of distributed services. When you need to extract a service later, the domain boundaries are already clear; you are just moving the boundary from a namespace to a network boundary.
 
 ### Technology Stack Decision for Startup MVPs
 
@@ -324,7 +324,7 @@ If none of these are true in your 0-to-1000-user phase, stay monolithic.
 
 ## Arsitektur untuk MVP Startup
 
-### Monolith-First Bukanlah Kompromi — Ini Adalah Strategi
+### Monolith-First Bukanlah Kompromi: Ini Adalah Strategi
 
 Engineer startup sering merasa tertekan untuk merancang arsitektur microservices karena "itulah yang dilakukan perusahaan besar." Tetapi perusahaan yang berhasil menggunakan microservices tidak memulai dengan itu. **Amazon dimulai sebagai monolith. eBay dimulai sebagai monolith. Twitter dimulai sebagai monolith.** Anda juga harus begitu.
 
@@ -336,7 +336,7 @@ Engineer startup sering merasa tertekan untuk merancang arsitektur microservices
 
 ### Arsitektur Berlapis untuk Startup
 
-Untuk MVP PHP, gunakan **monolith berlapis** — satu unit yang dapat di-deploy dengan pemisahan concern yang jelas **di dalam** basis kode:
+Untuk MVP PHP, gunakan **monolith berlapis**: satu unit yang dapat di-deploy dengan pemisahan concern yang jelas **di dalam** basis kode:
 
 ```
 ┌──────────────────────────────┐
@@ -350,7 +350,7 @@ Untuk MVP PHP, gunakan **monolith berlapis** — satu unit yang dapat di-deploy 
 └──────────────────────────────┘
 ```
 
-Struktur ini memberi Anda **isolasi tingkat kode** dari sistem yang dirancang dengan baik tanpa **biaya operasional** layanan terdistribusi. Ketika Anda perlu mengekstrak layanan nanti, batasan domain sudah jelas — Anda hanya memindahkan batasan dari namespace ke batasan jaringan.
+Struktur ini memberi Anda **isolasi tingkat kode** dari sistem yang dirancang dengan baik tanpa **biaya operasional** layanan terdistribusi. Ketika Anda perlu mengekstrak layanan nanti, batasan domain sudah jelas; Anda hanya memindahkan batasan dari namespace ke batasan jaringan.
 
 ### Keputusan Technology Stack untuk MVP Startup
 
@@ -385,10 +385,10 @@ Jika tidak ada yang benar dalam fase 0-hingga-1000-pengguna Anda, tetap monolith
 Let us build a practical MVP: a **Startup Idea Validation Dashboard**. This dashboard lets founders:
 
 1. **Collect wait-list sign-ups** from a landing page with email validation.
-2. **Track sign-up metrics** — total sign-ups, daily/weekly trends, source attribution.
+2. **Track sign-up metrics**: total sign-ups, daily/weekly trends, source attribution.
 3. **Serve a simple admin panel** to view the data and decide whether to persevere or pivot.
 
-We will use **plain PHP** with a lightweight structure — no framework required for the MVP. The goal is to deploy in an afternoon, not a sprint.
+We will use **plain PHP** with a lightweight structure; no framework required for the MVP. The goal is to deploy in an afternoon, not a sprint.
 
 ### Project Structure
 
@@ -467,7 +467,7 @@ class Storage
 }
 ```
 
-This abstraction is the key insight: **by coding against an interface (even an implicit one), you decouple your business logic from your infrastructure choice**. When you switch to MySQL in month 3, you only change `Storage` — not your services.
+This abstraction is the key insight: **by coding against an interface (even an implicit one), you decouple your business logic from your infrastructure choice**. When you switch to MySQL in month 3, you only change `Storage`, not your services.
 
 ### Step 2: The Wait-List Service
 
@@ -592,7 +592,7 @@ class EmailValidator
         ];
 
         if (in_array($domain, $disposableDomains)) {
-            return true; // Allow them for MVP — just flag them later
+            return true; // Allow them for MVP, just flag them later
         }
 
         return true;
@@ -681,7 +681,7 @@ echo json_encode([
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startuply — Find Your Capstone Teammates</title>
+    <title>Startuply: Find Your Capstone Teammates</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -739,7 +739,7 @@ echo json_encode([
     <div class="card">
         <h1>Startuply</h1>
         <p class="subtitle">
-            Find the perfect teammates for your final project. We are launching soon — join the wait-list to get early access.
+            Find the perfect teammates for your final project. We are launching soon, join the wait-list to get early access.
         </p>
         <form id="waitlist-form">
             <div class="form-group">
@@ -824,7 +824,7 @@ $sources = $stats['sourceBreakdown'] ?? [];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startuply — Founder Dashboard</title>
+    <title>Startuply: Founder Dashboard</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -860,7 +860,7 @@ $sources = $stats['sourceBreakdown'] ?? [];
 </head>
 <body>
     <div class="container">
-        <h1>Startuply — Founder Dashboard</h1>
+        <h1>Startuply: Founder Dashboard</h1>
 
         <div class="metric-card">
             <h2>Total Wait-List Sign-Ups</h2>
@@ -938,10 +938,10 @@ ADMIN_API_KEY="my-secret-key-2026" php -S localhost:8080 -t public/
 Mari bangun MVP praktis: **Dashboard Validasi Ide Startup**. Dashboard ini memungkinkan founder untuk:
 
 1. **Mengumpulkan pendaftaran wait-list** dari landing page dengan validasi email.
-2. **Melacak metrik pendaftaran** — total pendaftaran, tren harian/mingguan, atribusi sumber.
+2. **Melacak metrik pendaftaran**: total pendaftaran, tren harian/mingguan, atribusi sumber.
 3. **Menyajikan panel admin sederhana** untuk melihat data dan memutuskan apakah akan persevere atau pivot.
 
-Kita akan menggunakan **PHP polos** dengan struktur ringan — tidak perlu framework untuk MVP. Tujuannya adalah deploy dalam satu sore, bukan satu sprint.
+Kita akan menggunakan **PHP polos** dengan struktur ringan; tidak perlu framework untuk MVP. Tujuannya adalah deploy dalam satu sore, bukan satu sprint.
 
 ### Struktur Proyek
 
@@ -1020,7 +1020,7 @@ class Storage
 }
 ```
 
-Abstraksi ini adalah wawasan kunci: **dengan menulis kode terhadap antarmuka (bahkan yang implisit), Anda memisahkan logika bisnis dari pilihan infrastruktur**. Ketika Anda beralih ke MySQL di bulan ke-3, Anda hanya mengubah `Storage` — bukan service Anda.
+Abstraksi ini adalah wawasan kunci: **dengan menulis kode terhadap antarmuka (bahkan yang implisit), Anda memisahkan logika bisnis dari pilihan infrastruktur**. Ketika Anda beralih ke MySQL di bulan ke-3, Anda hanya mengubah `Storage`, bukan service Anda.
 
 ### Langkah 2: Service Wait-List
 
@@ -1145,7 +1145,7 @@ class EmailValidator
         ];
 
         if (in_array($domain, $disposableDomains)) {
-            return true; // Izinkan untuk MVP — tandai saja nanti
+            return true; // Izinkan untuk MVP, tandai saja nanti
         }
 
         return true;
@@ -1234,7 +1234,7 @@ echo json_encode([
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startuply — Temukan Rekan Proyek Akhir</title>
+    <title>Startuply: Temukan Rekan Proyek Akhir</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -1292,7 +1292,7 @@ echo json_encode([
     <div class="card">
         <h1>Startuply</h1>
         <p class="subtitle">
-            Temukan rekan tim yang sempurna untuk proyek akhir Anda. Kami akan segera meluncur — bergabunglah dengan wait-list untuk akses awal.
+            Temukan rekan tim yang sempurna untuk proyek akhir Anda. Kami akan segera meluncur, bergabunglah dengan wait-list untuk akses awal.
         </p>
         <form id="waitlist-form">
             <div class="form-group">
@@ -1377,7 +1377,7 @@ $sources = $stats['sourceBreakdown'] ?? [];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startuply — Dashboard Founder</title>
+    <title>Startuply: Dashboard Founder</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -1413,7 +1413,7 @@ $sources = $stats['sourceBreakdown'] ?? [];
 </head>
 <body>
     <div class="container">
-        <h1>Startuply — Dashboard Founder</h1>
+        <h1>Startuply: Dashboard Founder</h1>
 
         <div class="metric-card">
             <h2>Total Pendaftar Wait-List</h2>
@@ -1490,7 +1490,7 @@ ADMIN_API_KEY="kunci-rahasia-2026" php -S localhost:8080 -t public/
 
 ## Rapid Validation Techniques
 
-The MVP dashboard you just built collects data. But data alone does not validate a startup idea — you need techniques to **maximize learning per unit of time**.
+The MVP dashboard you just built collects data. But data alone does not validate a startup idea; you need techniques to **maximize learning per unit of time**.
 
 ### Technique 1: Fake-Door Testing
 
@@ -1500,15 +1500,15 @@ A fake-door test measures intent without building the feature. You present a but
 
 ```php
 <?php
-// Add to public/index.php — a "Pro Plan" button that does not exist yet
+// Add to public/index.php: a "Pro Plan" button that does not exist yet
 ?>
 <div class="fake-door" style="margin-top: 24px; padding: 20px; background: #f0f4ff; border-radius: 8px;">
-    <h3 style="margin-bottom: 8px;">Pro Plan — Advanced Matching</h3>
+    <h3 style="margin-bottom: 8px;">Pro Plan: Advanced Matching</h3>
     <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">
         Get AI-powered teammate recommendations based on skills, work style, and project history.
     </p>
     <button id="pro-interest-btn" style="background: #10b981;">
-        I'm Interested — $5/month
+        I'm Interested: $5/month
     </button>
     <p id="pro-feedback" style="font-size: 0.8rem; color: #888; margin-top: 8px; display: none;">
         Thanks! We will let you know when the Pro Plan is available.
@@ -1568,7 +1568,7 @@ Include the variant in the `source` field of the subscription payload so you can
 
 ### Technique 3: The "Mom Test" Implementation
 
-The Mom Test by Rob Fitzpatrick teaches that **asking people if they would use your product generates false positives**. Instead, you should talk about their past behavior and specific problems — not your solution.
+The Mom Test by Rob Fitzpatrick teaches that **asking people if they would use your product generates false positives**. Instead, you should talk about their past behavior and specific problems, not your solution.
 
 The dashboard can help you operationalize this. After a user signs up, redirect them to a **2-question survey**:
 
@@ -1583,7 +1583,7 @@ if ($result['success'] && !($result['alreadySubscribed'] ?? false)) {
 The survey asks:
 
 1. **"When was the last time you struggled to find a project teammate? What specifically happened?"** (Past behavior, not opinion)
-2. **"What did you do to solve it?"** (Reveals existing alternatives — your real competition is "doing nothing" or "asking in a WhatsApp group")
+2. **"What did you do to solve it?"** (Reveals existing alternatives: your real competition is "doing nothing" or "asking in a WhatsApp group")
 
 These qualitative answers are often more valuable than 100 sign-ups because they reveal whether the problem is **real and painful** vs. **mildly annoying**.
 
@@ -1593,7 +1593,7 @@ These qualitative answers are often more valuable than 100 sign-ups because they
 
 ## Teknik Validasi Cepat
 
-Dashboard MVP yang baru saja Anda bangun mengumpulkan data. Tetapi data saja tidak memvalidasi ide startup — Anda memerlukan teknik untuk **memaksimalkan pembelajaran per unit waktu**.
+Dashboard MVP yang baru saja Anda bangun mengumpulkan data. Tetapi data saja tidak memvalidasi ide startup; Anda memerlukan teknik untuk **memaksimalkan pembelajaran per unit waktu**.
 
 ### Teknik 1: Fake-Door Testing
 
@@ -1603,15 +1603,15 @@ Fake-door test mengukur niat tanpa membangun fitur. Anda menyajikan tombol atau 
 
 ```php
 <?php
-// Tambahkan ke public/index.php — tombol "Pro Plan" yang belum ada
+// Tambahkan ke public/index.php: tombol "Pro Plan" yang belum ada
 ?>
 <div class="fake-door" style="margin-top: 24px; padding: 20px; background: #f0f4ff; border-radius: 8px;">
-    <h3 style="margin-bottom: 8px;">Pro Plan — Pencocokan Lanjutan</h3>
+    <h3 style="margin-bottom: 8px;">Pro Plan: Pencocokan Lanjutan</h3>
     <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">
         Dapatkan rekomendasi rekan tim berbasis AI berdasarkan keterampilan, gaya kerja, dan riwayat proyek.
     </p>
     <button id="pro-interest-btn" style="background: #10b981;">
-        Saya Tertarik — Rp75.000/bulan
+        Saya Tertarik: Rp75.000/bulan
     </button>
     <p id="pro-feedback" style="font-size: 0.8rem; color: #888; margin-top: 8px; display: none;">
         Terima kasih! Kami akan memberi tahu saat Pro Plan tersedia.
@@ -1671,7 +1671,7 @@ Sertakan varian di field `source` dari payload subscription sehingga Anda dapat 
 
 ### Teknik 3: Implementasi "Mom Test"
 
-The Mom Test oleh Rob Fitzpatrick mengajarkan bahwa **bertanya kepada orang apakah mereka akan menggunakan produk Anda menghasilkan false positive**. Sebaliknya, Anda harus berbicara tentang perilaku masa lalu dan masalah spesifik mereka — bukan solusi Anda.
+The Mom Test oleh Rob Fitzpatrick mengajarkan bahwa **bertanya kepada orang apakah mereka akan menggunakan produk Anda menghasilkan false positive**. Sebaliknya, Anda harus berbicara tentang perilaku masa lalu dan masalah spesifik mereka, bukan solusi Anda.
 
 Dashboard dapat membantu Anda mengoperasionalkan ini. Setelah pengguna mendaftar, arahkan mereka ke **survei 2 pertanyaan**:
 
@@ -1686,7 +1686,7 @@ if ($result['success'] && !($result['alreadySubscribed'] ?? false)) {
 Survei menanyakan:
 
 1. **"Kapan terakhir kali Anda kesulitan menemukan rekan tim proyek? Apa yang secara spesifik terjadi?"** (Perilaku masa lalu, bukan opini)
-2. **"Apa yang Anda lakukan untuk mengatasinya?"** (Mengungkapkan alternatif yang ada — kompetisi nyata Anda adalah "tidak melakukan apa-apa" atau "bertanya di grup WhatsApp")
+2. **"Apa yang Anda lakukan untuk mengatasinya?"** (Mengungkapkan alternatif yang ada: kompetisi nyata Anda adalah "tidak melakukan apa-apa" atau "bertanya di grup WhatsApp")
 
 Jawaban kualitatif ini seringkali lebih berharga daripada 100 pendaftaran karena mengungkapkan apakah masalahnya **nyata dan menyakitkan** vs. **sedikit mengganggu**.
 
@@ -1717,7 +1717,7 @@ Health check (curl the landing page and API)
 
 ### Step 1: The VPS (Virtual Private Server)
 
-Use a $6/month VPS from DigitalOcean, Linode, or Vultr. Do not use AWS EC2 — the console complexity is not worth it for an MVP.
+Use a $6/month VPS from DigitalOcean, Linode, or Vultr. Do not use AWS EC2; the console complexity is not worth it for an MVP.
 
 ```bash
 # After SSH-ing into your VPS
@@ -1808,10 +1808,10 @@ Before sharing your MVP link publicly, verify these five things:
 | 1 | **HTTPS enabled** | `sudo certbot --nginx -d startuply.se.polinema.ac.id` |
 | 2 | **Error pages are not showing stack traces** | Set `display_errors = Off` in `php.ini` |
 | 3 | **Data files are not publicly accessible** | `curl -I https://startuply.example.com/data/waitlist.json` should return 403 |
-| 4 | **Admin panel is protected** | Visit `/admin.php` without an API key — should show 401 |
+| 4 | **Admin panel is protected** | Visit `/admin.php` without an API key: should show 401 |
 | 5 | **Sign-up flow works end-to-end** | Sign up yourself, check the dashboard, verify the data |
 
-### Staging Environment — Zero Cost
+### Staging Environment: Zero Cost
 
 Use **ngrok** to expose your local server temporarily for testing and demos:
 
@@ -1823,7 +1823,7 @@ ADMIN_API_KEY="test-key" php -S localhost:8080 -t public/
 ngrok http 8080
 ```
 
-You now have a public URL you can share with 1–2 people for feedback before deploying to the real server. This is your "staging environment" — no additional VPS needed.
+You now have a public URL you can share with 1–2 people for feedback before deploying to the real server. This is your "staging environment": no additional VPS needed.
 
 </section>
 
@@ -1850,7 +1850,7 @@ Health check (curl landing page dan API)
 
 ### Langkah 1: VPS (Virtual Private Server)
 
-Gunakan VPS seharga $6/bulan dari DigitalOcean, Linode, atau Vultr. Jangan gunakan AWS EC2 — kompleksitas konsolnya tidak sepadan untuk MVP.
+Gunakan VPS seharga $6/bulan dari DigitalOcean, Linode, atau Vultr. Jangan gunakan AWS EC2; kompleksitas konsolnya tidak sepadan untuk MVP.
 
 ```bash
 # Setelah SSH ke VPS Anda
@@ -1941,10 +1941,10 @@ Sebelum membagikan tautan MVP Anda secara publik, verifikasi lima hal ini:
 | 1 | **HTTPS aktif** | `sudo certbot --nginx -d startuply.se.polinema.ac.id` |
 | 2 | **Halaman error tidak menampilkan stack trace** | Atur `display_errors = Off` di `php.ini` |
 | 3 | **File data tidak dapat diakses publik** | `curl -I https://startuply.example.com/data/waitlist.json` harus mengembalikan 403 |
-| 4 | **Panel admin terlindungi** | Kunjungi `/admin.php` tanpa API key — harus menampilkan 401 |
+| 4 | **Panel admin terlindungi** | Kunjungi `/admin.php` tanpa API key: harus menampilkan 401 |
 | 5 | **Alur pendaftaran berfungsi end-to-end** | Daftarkan diri Anda, periksa dashboard, verifikasi data |
 
-### Staging Environment — Biaya Nol
+### Staging Environment: Biaya Nol
 
 Gunakan **ngrok** untuk mengekspos server lokal Anda sementara untuk pengujian dan demo:
 
@@ -1956,7 +1956,7 @@ ADMIN_API_KEY="test-key" php -S localhost:8080 -t public/
 ngrok http 8080
 ```
 
-Anda sekarang memiliki URL publik yang dapat dibagikan ke 1–2 orang untuk umpan balik sebelum deploy ke server nyata. Ini adalah "staging environment" Anda — tidak perlu VPS tambahan.
+Anda sekarang memiliki URL publik yang dapat dibagikan ke 1–2 orang untuk umpan balik sebelum deploy ke server nyata. Ini adalah "staging environment" Anda: tidak perlu VPS tambahan.
 
 </section>
 
@@ -1988,7 +1988,7 @@ Startups fail more often from engineering mistakes than from bad ideas. Here are
 
 **Symptom**: Your `subscribe.php` file is 800 lines long. Business logic, HTML, SQL queries, and email sending are in one file. You do not know which part to change when a bug appears.
 
-**Why it kills startups**: The opposite of over-engineering. Technical debt has interest. At first, the interest is small — a few extra minutes per change. But debt compounds. After three months of "move fast and break things," every change takes hours and introduces new bugs.
+**Why it kills startups**: The opposite of over-engineering. Technical debt has interest. At first, the interest is small: a few extra minutes per change. But debt compounds. After three months of "move fast and break things," every change takes hours and introduces new bugs.
 
 **The fix**: **Track** technical debt in your issue tracker. Every time you take a shortcut (copy-paste code, skip validation, hardcode a value), add a GitHub Issue labeled `tech-debt`. Once a week, spend one hour paying down the highest-interest debt. This keeps the debt manageable without slowing down validation.
 
@@ -2009,7 +2009,7 @@ Startups fail more often from engineering mistakes than from bad ideas. Here are
 
 **Why it kills startups**: When you build for everyone, you build for no one. Features that delight one persona annoy another. Your messaging becomes generic. Your conversion rate drops because nobody feels "this is for me."
 
-**The fix**: Pick **one** persona. Write their name on a sticky note. For the next 30 days, every product decision must start with: "Does this help [Persona Name] solve [their specific problem]?" If a feature helps another persona but not the primary one, it goes in the backlog — permanently.
+**The fix**: Pick **one** persona. Write their name on a sticky note. For the next 30 days, every product decision must start with: "Does this help [Persona Name] solve [their specific problem]?" If a feature helps another persona but not the primary one, it goes in the backlog, permanently.
 
 </section>
 
@@ -2039,7 +2039,7 @@ Startup lebih sering gagal karena kesalahan rekayasa daripada ide yang buruk. Be
 
 **Gejala**: File `subscribe.php` Anda sepanjang 800 baris. Logika bisnis, HTML, query SQL, dan pengiriman email ada dalam satu file. Anda tidak tahu bagian mana yang harus diubah saat bug muncul.
 
-**Mengapa membunuh startup**: Kebalikan dari over-engineering. Utang teknis memiliki bunga. Awalnya, bunganya kecil — beberapa menit ekstra per perubahan. Tapi utang berbunga. Setelah tiga bulan "bergerak cepat dan hancurkan berbagai hal," setiap perubahan memakan waktu berjam-jam dan memperkenalkan bug baru.
+**Mengapa membunuh startup**: Kebalikan dari over-engineering. Utang teknis memiliki bunga. Awalnya, bunganya kecil: beberapa menit ekstra per perubahan. Tapi utang berbunga. Setelah tiga bulan "bergerak cepat dan hancurkan berbagai hal," setiap perubahan memakan waktu berjam-jam dan memperkenalkan bug baru.
 
 **Solusi**: **Lacak** utang teknis di issue tracker Anda. Setiap kali Anda mengambil jalan pintas (copy-paste kode, lewati validasi, hardcode nilai), tambahkan GitHub Issue berlabel `tech-debt`. Seminggu sekali, habiskan satu jam untuk membayar utang dengan bunga tertinggi. Ini menjaga utang tetap terkendali tanpa memperlambat validasi.
 
@@ -2060,7 +2060,7 @@ Startup lebih sering gagal karena kesalahan rekayasa daripada ide yang buruk. Be
 
 **Mengapa membunuh startup**: Ketika Anda membangun untuk semua orang, Anda membangun untuk tidak seorang pun. Fitur yang menyenangkan satu persona mengganggu yang lain. Pesan Anda menjadi generik. Tingkat konversi Anda turun karena tidak ada yang merasa "ini untuk saya."
 
-**Solusi**: Pilih **satu** persona. Tulis namanya di sticky note. Selama 30 hari ke depan, setiap keputusan produk harus dimulai dengan: "Apakah ini membantu [Nama Persona] menyelesaikan [masalah spesifik mereka]?" Jika fitur membantu persona lain tetapi bukan yang utama, fitur itu masuk ke backlog — secara permanen.
+**Solusi**: Pilih **satu** persona. Tulis namanya di sticky note. Selama 30 hari ke depan, setiap keputusan produk harus dimulai dengan: "Apakah ini membantu [Nama Persona] menyelesaikan [masalah spesifik mereka]?" Jika fitur membantu persona lain tetapi bukan yang utama, fitur itu masuk ke backlog, secara permanen.
 
 </section>
 
@@ -2070,7 +2070,7 @@ Startup lebih sering gagal karena kesalahan rekayasa daripada ide yang buruk. Be
 
 ## From MVP to Product
 
-The transition from MVP to product is the most dangerous phase. The skills that helped you build an MVP fast — cutting corners, ignoring edge cases, hardcoding values — become liabilities. Here is how to navigate the transition intentionally.
+The transition from MVP to product is the most dangerous phase. The skills that helped you build an MVP fast (cutting corners, ignoring edge cases, hardcoding values) become liabilities. Here is how to navigate the transition intentionally.
 
 ### When to Stop Experimenting and Start Building
 
@@ -2086,7 +2086,7 @@ You know it is time to transition when **at least three** of these signals are t
 
 ### The Graduation Playbook
 
-Once you decide to transition, execute these steps **in order** — not all at once:
+Once you decide to transition, execute these steps **in order**, not all at once:
 
 #### Phase 1: Solidify the Foundation (Week 1–2)
 
@@ -2217,7 +2217,7 @@ Only after Phase 1 and 2 are stable, consider architectural changes:
 
 > Do not refactor code that nobody complains about. Do not scale infrastructure that is not under load. Do not add abstractions for problems you do not yet have.
 
-Every architectural evolution should be **pulled** by a real, observed problem — not **pushed** by a blog post about how companies at 1000x your scale operate.
+Every architectural evolution should be **pulled** by a real, observed problem, not **pushed** by a blog post about how companies at 1000x your scale operate.
 
 </section>
 
@@ -2225,7 +2225,7 @@ Every architectural evolution should be **pulled** by a real, observed problem �
 
 ## Dari MVP ke Produk
 
-Transisi dari MVP ke produk adalah fase paling berbahaya. Keterampilan yang membantu Anda membangun MVP dengan cepat — memotong sudut, mengabaikan edge case, hardcode nilai — menjadi liabilitas. Berikut adalah cara menavigasi transisi secara sengaja.
+Transisi dari MVP ke produk adalah fase paling berbahaya. Keterampilan yang membantu Anda membangun MVP dengan cepat (memotong sudut, mengabaikan edge case, hardcode nilai) menjadi liabilitas. Berikut adalah cara menavigasi transisi secara sengaja.
 
 ### Kapan Berhenti Bereksperimen dan Mulai Membangun
 
@@ -2241,7 +2241,7 @@ Anda tahu saatnya untuk bertransisi ketika **setidaknya tiga** dari sinyal ini b
 
 ### Playbook Kelulusan
 
-Setelah Anda memutuskan untuk bertransisi, jalankan langkah-langkah ini **secara berurutan** — bukan sekaligus:
+Setelah Anda memutuskan untuk bertransisi, jalankan langkah-langkah ini **secara berurutan**, bukan sekaligus:
 
 #### Fase 1: Perkuat Fondasi (Minggu 1–2)
 
@@ -2372,7 +2372,7 @@ Hanya setelah Fase 1 dan 2 stabil, pertimbangkan perubahan arsitektur:
 
 > Jangan refactor kode yang tidak dikeluhkan siapa pun. Jangan skalakan infrastruktur yang tidak dalam beban. Jangan tambahkan abstraksi untuk masalah yang belum Anda miliki.
 
-Setiap evolusi arsitektur harus **ditarik** oleh masalah nyata yang teramati — bukan **didorong** oleh posting blog tentang bagaimana perusahaan 1000x skala Anda beroperasi.
+Setiap evolusi arsitektur harus **ditarik** oleh masalah nyata yang teramati, bukan **didorong** oleh posting blog tentang bagaimana perusahaan 1000x skala Anda beroperasi.
 
 </section>
 
@@ -2391,7 +2391,7 @@ Setiap evolusi arsitektur harus **ditarik** oleh masalah nyata yang teramati —
 7. **Avoid the five killers:** over-engineering, premature scaling, ignored technical debt, neglected user feedback, and building for too many personas.
 8. **The transition from MVP to product should be data-driven, not calendar-driven.** Wait for repeat usage, organic growth, and willingness-to-pay signals before investing in reliability, testing, and architecture upgrades.
 
-The dashboard you built in this tutorial is a real, runnable tool. Deploy it. Share the link. Talk to the people who sign up. The best SE education for startups is not reading about MVPs — it is shipping one and learning from real users.
+The dashboard you built in this tutorial is a real, runnable tool. Deploy it. Share the link. Talk to the people who sign up. The best SE education for startups is not reading about MVPs; it is shipping one and learning from real users.
 
 </section>
 
@@ -2408,6 +2408,6 @@ The dashboard you built in this tutorial is a real, runnable tool. Deploy it. Sh
 7. **Hindari lima pembunuh:** over-engineering, premature scaling, utang teknis yang diabaikan, umpan balik pengguna yang diabaikan, dan membangun untuk terlalu banyak persona.
 8. **Transisi dari MVP ke produk harus didorong oleh data, bukan kalender.** Tunggu sinyal penggunaan berulang, pertumbuhan organik, dan kesediaan membayar sebelum berinvestasi dalam keandalan, pengujian, dan peningkatan arsitektur.
 
-Dashboard yang Anda bangun di tutorial ini adalah alat nyata yang dapat dijalankan. Deploy. Bagikan tautannya. Bicaralah dengan orang yang mendaftar. Pendidikan SE terbaik untuk startup bukanlah membaca tentang MVP — melainkan mengirimkan satu dan belajar dari pengguna nyata.
+Dashboard yang Anda bangun di tutorial ini adalah alat nyata yang dapat dijalankan. Deploy. Bagikan tautannya. Bicaralah dengan orang yang mendaftar. Pendidikan SE terbaik untuk startup bukanlah membaca tentang MVP, melainkan mengirimkan satu dan belajar dari pengguna nyata.
 
 </section>

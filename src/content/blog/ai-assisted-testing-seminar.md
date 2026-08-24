@@ -10,8 +10,8 @@ excerpt: "A seminar exploring how AI tools are transforming software testing wor
 excerptId: "Seminar yang mengeksplorasi bagaimana alat AI mentransformasikan alur kerja pengujian perangkat lunak. Pelajari tentang pembuatan tes otomatis, prediksi bug, dan analisis kualitas dari peneliti SE Lab."
 eventDate: 2026-07-15
 eventEndDate: 2026-07-15
-location: "SE Lab, JTI Polinema — Room RT-A 301"
-locationId: "SE Lab, JTI Polinema — Ruang RT-A 301"
+location: "SE Lab, JTI Polinema, Room RT-A 301"
+locationId: "SE Lab, JTI Polinema, Ruang RT-A 301"
 managed: true
 stream: emerging-technologies-se
 tags:
@@ -32,10 +32,10 @@ Artificial intelligence is rapidly reshaping how we approach software quality as
 
 We will cover:
 
-- **Automated Test Generation** — How large language models can produce meaningful unit and integration tests.
-- **Bug Prediction Models** — Using static analysis and historical commit data to flag risky code before it ships.
-- **Code Quality Analysis** — AI-powered linting, refactoring suggestions, and technical debt detection.
-- **Requirements-to-Test Automation** — Deriving test scenarios directly from user stories.
+- **Automated Test Generation**: How large language models can produce meaningful unit and integration tests.
+- **Bug Prediction Models**: Using static analysis and historical commit data to flag risky code before it ships.
+- **Code Quality Analysis**: AI-powered linting, refactoring suggestions, and technical debt detection.
+- **Requirements-to-Test Automation**: Deriving test scenarios directly from user stories.
 
 ## Who Should Attend
 

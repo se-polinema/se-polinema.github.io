@@ -1,4 +1,4 @@
-// "Suggest with AI" invoke helper for the Announcements admin tab — mirrors
+// "Suggest with AI" invoke helper for the Announcements admin tab, mirroring
 // src/lib/suggestProject.ts exactly (same edge-function-invoke +
 // error-recovery shape), scoped to announcement banner copy instead of
 // project copy.
@@ -26,7 +26,7 @@ export async function suggestAnnouncementContent(params: {
 
   if (error) {
     // functions.invoke() surfaces non-2xx responses as a generic SDK error
-    // without parsing the JSON body — recover the actual server message
+    // without parsing the JSON body, so recover the actual server message
     // (suggest-announcement-content returns { error: <code> }) from the raw
     // Response on error.context, same recovery pattern as suggestProject.ts.
     let serverMessage: string | null = null
@@ -34,7 +34,7 @@ export async function suggestAnnouncementContent(params: {
       const body = await (error as { context?: Response }).context?.json()
       serverMessage = body?.error ?? null
     } catch {
-      // ignore — fall through to the generic error below
+      // ignore, fall through to the generic error below
     }
     return { suggestion: null, error: serverMessage || 'ai_failed' }
   }

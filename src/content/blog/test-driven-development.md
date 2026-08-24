@@ -38,7 +38,7 @@ In TDD, the sequence is:
 Write a failing test → Write minimal code → Run tests (all green) → Refactor
 ```
 
-This small change in order has profound effects on how you design software. Instead of asking "What code should I write?", you ask "What behaviour do I want?" — and then you write exactly enough code to satisfy that behaviour.
+This small change in order has profound effects on how you design software. Instead of asking "What code should I write?", you ask "What behaviour do I want?", and then you write exactly enough code to satisfy that behaviour.
 
 **TDD is not a testing technique.** It is a design technique that happens to produce tests as a side effect.
 
@@ -79,7 +79,7 @@ graph TB
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: The TDD cycle — Red, Green, Refactor, repeat</span>
+  <span lang="en">Figure: The TDD cycle, Red, Green, Refactor, repeat</span>
   <span lang="id">Gambar: Siklus TDD, Red, Green, Refactor, ulangi</span>
 </figcaption>
 </figure>
@@ -90,31 +90,31 @@ graph TB
 
 Each iteration of TDD follows three strict phases. You repeat this cycle for every small piece of behaviour you add.
 
-### Phase 1: RED — Write a Failing Test
+### Phase 1: RED, Write a Failing Test
 
 Start by writing exactly **one test** that describes a behaviour you want. Run it. It must fail. If it passes immediately, you are either testing existing behaviour or the test itself is wrong.
 
 A failing test proves two things:
 1. The test actually checks something meaningful.
-2. The feature does not exist yet — so you need to build it.
+2. The feature does not exist yet, so you need to build it.
 
 **Rules for the RED phase:**
 - Write only one test at a time.
 - The test must be specific and unambiguous.
 - Run the test and watch it fail.
 
-### Phase 2: GREEN — Write Minimal Code to Pass
+### Phase 2: GREEN, Write Minimal Code to Pass
 
 Now write the **simplest possible code** that makes the test pass. Do not think about optimisation, edge cases, or elegant design. Your only goal is to turn the test from red to green as quickly as possible.
 
-This constraint forces you to write only the code you actually need — nothing more. It prevents over-engineering and keeps your codebase lean.
+This constraint forces you to write only the code you actually need, nothing more. It prevents over-engineering and keeps your codebase lean.
 
 **Rules for the GREEN phase:**
 - Write the minimum code to make the test pass.
 - Do not add extra features or handle edge cases the test does not cover.
 - Run *all* tests to confirm nothing broke.
 
-### Phase 3: REFACTOR — Improve Design Without Changing Behaviour
+### Phase 3: REFACTOR, Improve Design Without Changing Behaviour
 
 With all tests green, you have a safety net. Now you can improve the code: remove duplication, rename variables, extract methods, simplify logic. The tests guarantee you do not accidentally change behaviour.
 
@@ -180,7 +180,7 @@ You might wonder: is flipping the order really worth the effort? Here is what TD
 
 ### 1. Confidence to Change Code
 
-When you have a suite of fast, reliable tests, you can refactor aggressively. Rename classes, extract interfaces, restructure modules — if the tests still pass, the behaviour is preserved. This is the single biggest productivity boost TDD offers.
+When you have a suite of fast, reliable tests, you can refactor aggressively. Rename classes, extract interfaces, restructure modules: if the tests still pass, the behaviour is preserved. This is the single biggest productivity boost TDD offers.
 
 ### 2. Immediate Design Feedback
 
@@ -196,7 +196,7 @@ Tests describe exactly how the system should behave, in executable code that can
 
 ### 5. Smaller, More Focused Units
 
-Because TDD forces you to test one behaviour at a time, it naturally pushes you toward small, single-responsibility classes and functions. Large, tangled code is hard to test — so TDD steers you away from it.
+Because TDD forces you to test one behaviour at a time, it naturally pushes you toward small, single-responsibility classes and functions. Large, tangled code is hard to test, so TDD steers you away from it.
 
 </section>
 
@@ -262,7 +262,7 @@ project/
 
 ### Iteration 1: Reject an empty password
 
-**RED — Write a failing test** (`tests/PasswordValidatorTest.php`)
+**RED: Write a failing test** (`tests/PasswordValidatorTest.php`)
 
 ```php
 <?php
@@ -289,7 +289,7 @@ Error: Class "PasswordValidator" not found
 
 The test fails because the class does not exist yet. That counts as RED.
 
-**GREEN — Write minimal code** (`src/PasswordValidator.php`)
+**GREEN: Write minimal code** (`src/PasswordValidator.php`)
 
 ```php
 <?php
@@ -314,7 +314,7 @@ $ vendor/bin/phpunit tests/PasswordValidatorTest.php
 OK (1 test, 1 assertion)
 ```
 
-**REFACTOR — Clean up**
+**REFACTOR: Clean up**
 
 The code is already simple. Nothing to refactor yet. Move on.
 
@@ -330,7 +330,7 @@ public function testRejectShortPassword(): void
 }
 ```
 
-Run: the test fails — `Ab1` passes because our code only rejects empty strings.
+Run: the test fails; `Ab1` passes because our code only rejects empty strings.
 
 **GREEN**
 
@@ -360,7 +360,7 @@ public function isValid(string $password): bool
 }
 ```
 
-Run tests: still green. The empty-string check is naturally covered by the length check. Cleaner and more expressive. This is the power of the refactor step — we simplified the code and the tests confirm we did not break anything.
+Run tests: still green. The empty-string check is naturally covered by the length check. Cleaner and more expressive. This is the power of the refactor step: we simplified the code and the tests confirm we did not break anything.
 
 ### Iteration 3: Require at least one uppercase letter
 
@@ -374,7 +374,7 @@ public function testRejectPasswordWithoutUppercase(): void
 }
 ```
 
-Run: fails — `abcdefgh` is 8 characters long, so it passes.
+Run: fails; `abcdefgh` is 8 characters long, so it passes.
 
 **GREEN**
 
@@ -417,7 +417,7 @@ public function testRejectPasswordWithoutDigit(): void
 }
 ```
 
-Run: fails — `Abcdefgh` has an uppercase letter and is long enough.
+Run: fails; `Abcdefgh` has an uppercase letter and is long enough.
 
 **GREEN**
 
@@ -432,7 +432,7 @@ public function isValid(string $password): bool
 
 Run: all four tests pass.
 
-**REFACTOR** — Nothing to improve. The method is clear and concise.
+**REFACTOR**: Nothing to improve. The method is clear and concise.
 
 ### Iteration 5: Accept a valid password
 
@@ -448,7 +448,7 @@ public function testAcceptValidPassword(): void
 }
 ```
 
-Run: it passes immediately. This is not a RED phase — the behaviour already exists from our previous work. Move on or treat this as a documentation test.
+Run: it passes immediately. This is not a RED phase; the behaviour already exists from our previous work. Move on or treat this as a documentation test.
 
 ### Final Code
 
@@ -832,13 +832,13 @@ Perhatikan bagaimana kita tidak pernah menulis kode lebih dari yang diminta peng
 
 ### 1. Writing Too Many Tests at Once
 
-Beginners often get excited and write ten tests before running any of them. When five fail, they do not know which line of production code to write first. TDD works because the feedback loop is small — one test, one failure, one code change, one green bar.
+Beginners often get excited and write ten tests before running any of them. When five fail, they do not know which line of production code to write first. TDD works because the feedback loop is small: one test, one failure, one code change, one green bar.
 
 **Fix:** Write exactly one test. Run it. Watch it fail. Then write code.
 
 ### 2. Skipping the Refactor Step
 
-After three or four green cycles, your code accrues duplication and awkward structure. If you never refactor, the design degrades. The refactor step is not optional — it is where the "design" part of Test-Driven *Development* happens.
+After three or four green cycles, your code accrues duplication and awkward structure. If you never refactor, the design degrades. The refactor step is not optional; it is where the "design" part of Test-Driven *Development* happens.
 
 **Fix:** After every green, ask: "Can I make this code simpler without changing behaviour?" If yes, refactor.
 
@@ -908,9 +908,9 @@ Setelah membuat perubahan di fase GREEN, jalankan *semua* pengujian Anda, bukan 
 
 | Situation | Why TDD fits |
 |---|---|
-| **Business logic** | Rules, validations, calculations — these have clear inputs and outputs. |
+| **Business logic** | Rules, validations, calculations: these have clear inputs and outputs. |
 | **API endpoints** | Well-defined request/response contracts make tests easy to write. |
-| **Data transformations** | Mapping, filtering, formatting — pure functions with predictable results. |
+| **Data transformations** | Mapping, filtering, formatting: pure functions with predictable results. |
 | **Bug fixes** | Write a test that reproduces the bug, then fix it. The test stays as a regression guard. |
 | **Library or package code** | Public interfaces benefit from thorough, behaviour-driven testing. |
 
@@ -926,7 +926,7 @@ Setelah membuat perubahan di fase GREEN, jalankan *semua* pengujian Anda, bukan 
 
 ### A Pragmatic Approach
 
-You do not need to apply TDD to every line of code. The best practitioners use TDD for the parts of the system where correctness matters most — business rules, core algorithms, and public APIs — and use other techniques for the rest. The goal is confidence, not purity.
+You do not need to apply TDD to every line of code. The best practitioners use TDD for the parts of the system where correctness matters most, such as business rules, core algorithms, and public APIs, and use other techniques for the rest. The goal is confidence, not purity.
 
 </section>
 
@@ -966,14 +966,14 @@ Anda tidak perlu menerapkan TDD pada setiap baris kode. Praktisi terbaik menggun
 
 ## Summary
 
-1. **TDD is a design practice** — you write a failing test, make it pass with minimal code, then refactor.
+1. **TDD is a design practice**: you write a failing test, make it pass with minimal code, then refactor.
 2. **The cycle is strict:** RED (write a failing test) → GREEN (write minimal code) → REFACTOR (improve design).
 3. **TDD brings confidence, design feedback, regression safety, and living documentation.**
 4. **Start small:** one test, one behaviour, one code change at a time.
 5. **Avoid common pitfalls:** writing too many tests at once, skipping refactor, testing implementation details.
 6. **Be pragmatic:** use TDD where correctness matters most. Do not force it on exploratory or throwaway code.
 
-> The true value of TDD is not the tests you write — it is the thinking it forces you to do before you write code.
+> The true value of TDD is not the tests you write; it is the thinking it forces you to do before you write code.
 
 </section>
 
@@ -1042,7 +1042,7 @@ grade(-1)  → throws InvalidArgumentException
 grade(101) → throws InvalidArgumentException
 ```
 
-Try it yourself! Start with the first test, watch it fail, write the minimal code, refactor, and repeat. The goal is not just passing tests — it is experiencing how the design emerges from the TDD rhythm.
+Try it yourself! Start with the first test, watch it fail, write the minimal code, refactor, and repeat. The goal is not just passing tests; it is experiencing how the design emerges from the TDD rhythm.
 
 </section>
 

@@ -179,7 +179,7 @@ const { user, ready } = useAuth()
 
 // Unlike MemberSubmissionForm's single-row state machine (a member is one
 // identity, capped at one row), a project is an artifact a person
-// contributes — one user can submit several. So this is list-based: the
+// contributes, and one user can submit several. So this is list-based: the
 // signed-in user sees all their own submissions (each independently
 // pending/approved) plus an "Add New" action, rather than a single
 // terminal pending/approved screen.
@@ -198,7 +198,7 @@ const errorMessage = ref('')
 const turnstileToken = ref('')
 const turnstileRef = ref<InstanceType<typeof TurnstileWidget> | null>(null)
 
-// Transient — describes the project for the AI-suggest call, not itself
+// Transient: describes the project for the AI-suggest call, not itself
 // submitted.
 const brief = ref('')
 const suggesting = ref(false)
@@ -207,7 +207,7 @@ const suggestError = ref('')
 // AI Assist (default) shows the brief box; the tagline/description/tags
 // fields stay hidden until a successful generation reveals them (still
 // editable after). Manual skips the brief box and shows those fields
-// immediately. Switching modes never clears form data — both modes bind
+// immediately. Switching modes never clears form data: both modes bind
 // the same reactive `form` fields, this only toggles which input surface
 // is visible.
 const formMode = ref<'ai' | 'manual'>('ai')
@@ -338,7 +338,7 @@ async function handleSubmit() {
     turnstileRef.value?.reset()
     turnstileToken.value = ''
     // functions.invoke() surfaces non-2xx responses as a generic SDK error
-    // without parsing the JSON body — recover the actual server message
+    // without parsing the JSON body, so recover the actual server message
     // (submit-project returns { error: <postgres error message> }) from
     // the raw Response on error.context.
     let serverMessage: string | null = null
@@ -346,7 +346,7 @@ async function handleSubmit() {
       const body = await (error as { context?: Response }).context?.json()
       serverMessage = body?.error ?? null
     } catch {
-      // ignore — fall through to the generic error below
+      // ignore, fall through to the generic error below
     }
     errorMessage.value = serverMessage || t.value.showcaseSubmit.genericError
     return

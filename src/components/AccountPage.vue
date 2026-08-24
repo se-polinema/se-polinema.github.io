@@ -74,8 +74,8 @@
           <a :href="`/profile?id=${memberId}`" class="text-accent hover:text-accent/80 transition-colors font-mono">{{ t.memberSubmit.viewProfileLink }} →</a>
 
           <!-- Graduation: turns an approved student row into alumni. Alumni
-               are graduated members, not a separate signup — see
-               20260722023755_member_graduation.sql. -->
+               are graduated members, not a separate signup (see
+               20260722023755_member_graduation.sql). -->
           <div v-if="memberRowStatus === 'student'" class="mt-4 pt-4 border-t border-primary/10 dark:border-gray-700">
             <p v-if="graduated" class="text-sm text-green-700 dark:text-green-400">{{ t.account.graduatedMessage }}</p>
             <template v-else>
@@ -140,8 +140,8 @@ import { readOAuthError } from '../lib/oauthError'
 const { t } = useI18n()
 const { user, ready, signOut } = useAuth()
 
-// Supabase redirects failed OAuth attempts back here with an error param —
-// seeded empty for SSR, filled in onMounted (post-hydration reactive
+// Supabase redirects failed OAuth attempts back here with an error param.
+// Seeded empty for SSR, filled in onMounted (post-hydration reactive
 // update, not subject to Vue's production hydration-patch suppression).
 const oauthError = ref('')
 onMounted(() => {

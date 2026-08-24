@@ -29,7 +29,7 @@ const props = defineProps<{
 }>()
 
 // Falls back to a placeholder (book icon + title) whenever `src` is empty or
-// the image fails to load — e.g. the researcher-supplied cover is hosted on
+// the image fails to load, e.g. the researcher-supplied cover is hosted on
 // a host that blocks hotlinking/direct fetches. See BookCover usages across
 // Books.vue, BooksDirectoryPage.vue, BookDetailPage.vue, and
 // ResearcherProfilePage.vue.

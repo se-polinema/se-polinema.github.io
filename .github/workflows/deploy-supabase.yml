@@ -32,19 +32,19 @@ jobs:
         # This project's Supabase instance is shared with another app
         # (schema "dosen4", dosen4.makinmudah.com). Auth config is
         # project-wide, not schema-scoped, so this step used to PATCH
-        # site_url/uri_allow_list unconditionally on every deploy — the
+        # site_url/uri_allow_list unconditionally on every deploy, the
         # same class of clobbering bug already fixed below for PostgREST's
         # db_schema. Checked Supabase's own Management API schema
         # (UpdateAuthConfigBody): uri_allow_list is a mergeable comma-list
         # (same shape as db_schema) so it's merged, not overwritten, same
         # as the schema-exposure step. site_url is genuinely single-valued
-        # (the API rejects commas in it — pattern "^[^,]+$") and can't hold
+        # (the API rejects commas in it, pattern "^[^,]+$") and can't hold
         # both apps' domains at once; this site's own signInWithOAuth calls
         # always pass an explicit redirectTo (GitHubSignInButton.vue), so
-        # we don't actually depend on site_url being forced — only claim it
+        # we don't actually depend on site_url being forced; only claim it
         # if empty or already ours, never clobber an existing foreign
         # value. external_github_* is genuinely single-tenant (one GitHub
-        # OAuth app per project) — keep asserting ours, but refuse to
+        # OAuth app per project); keep asserting ours, but refuse to
         # silently overwrite a different app's client_id if one is ever set.
         run: |
           current=$(curl --fail-with-body -sS \
@@ -65,7 +65,7 @@ jobs:
           # uri_allow_list: merge our entries in, preserving whatever's
           # already there (e.g. dosen4's own entries). Includes
           # localhost:4321 alongside the production domain so GitHub OAuth
-          # redirects also work against `astro dev`/`astro preview` — same
+          # redirects also work against `astro dev`/`astro preview`, same
           # local-dev allowance already made for Turnstile's CORS origins
           # in supabase/functions/_shared/turnstile.ts.
           new_uri_allow_list=$(echo "$current" | jq -r '
@@ -84,12 +84,12 @@ jobs:
           if [ -z "$current_site_url" ] || [ "$current_site_url" = "https://se.polinema.ac.id" ]; then
             new_site_url="https://se.polinema.ac.id"
           else
-            echo "site_url is already '$current_site_url' (likely dosen4's) — leaving it alone"
+            echo "site_url is already '$current_site_url' (likely dosen4's), leaving it alone"
             new_site_url="$current_site_url"
           fi
 
           if [ -n "$current_github_client_id" ] && [ "$current_github_client_id" != "$SUPABASE_AUTH_GITHUB_CLIENT_ID" ]; then
-            echo "external_github_client_id is already set to a different value than ours — refusing to overwrite (could be another app's GitHub OAuth config)" >&2
+            echo "external_github_client_id is already set to a different value than ours, refusing to overwrite (could be another app's GitHub OAuth config)" >&2
             exit 1
           fi
 
@@ -109,7 +109,7 @@ jobs:
           # Supabase's PATCH response echoes back the ENTIRE auth config,
           # including every configured provider's secret in cleartext
           # (GitHub/Google OAuth secrets, the Turnstile CAPTCHA secret,
-          # etc.) — printing that unredirected leaked real secrets into
+          # etc.); printing that unredirected leaked real secrets into
           # this repo's (public) Action logs on every deploy. Only surface
           # the body if the request actually failed, matching what's
           # needed to debug a failure without dumping secrets on the
@@ -156,7 +156,7 @@ jobs:
             echo "se already exposed, nothing to do"
           else
             updated="${current},se"
-            # PostgREST's config response can include jwt_secret — same
+            # PostgREST's config response can include jwt_secret, same
             # reasoning as the auth-config PATCH above, suppress the body
             # unless the request actually failed.
             patch_status=$(curl -sS -o /tmp/postgrest-patch-response.json -w '%{http_code}' -X PATCH \
@@ -188,7 +188,7 @@ jobs:
         # OPENCODE_GO_API_KEY already exists as a repo secret (used by the
         # opencode/weekly-recommendation dev-tooling workflows) and is a
         # plain bearer token for OpenCode Go's OpenAI-compatible REST
-        # gateway — reused here for suggest-project-content rather than
+        # gateway; reused here for suggest-project-content rather than
         # provisioning a new AI provider.
         run: |
           supabase secrets set TURNSTILE_SECRET_KEY="$TURNSTILE_SECRET_KEY"

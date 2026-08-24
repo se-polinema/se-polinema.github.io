@@ -110,7 +110,7 @@ export function generateIcs(event: IcsEventData, baseUrl = 'https://se.polinema.
 }
 
 // Combines every event into a single feed document (one VCALENDAR wrapping
-// N VEVENTs) — used by the /events.ics subscription endpoint. Individual
+// N VEVENTs), used by the /events.ics subscription endpoint. Individual
 // VEVENT bodies are byte-identical to what generateIcs() would produce for
 // the same event.
 export function generateIcsFeed(events: IcsEventData[], baseUrl = 'https://se.polinema.ac.id'): string {

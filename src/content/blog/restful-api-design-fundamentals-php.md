@@ -16,15 +16,15 @@ tagsId:
   - REST API
   - PHP
   - Laravel
-excerpt: "A comprehensive guide to designing RESTful APIs with PHP. Learn REST constraints, resource modelling, HTTP verbs, status codes, pagination, authentication, and versioning — then build a complete course-registration API with Laravel that you can run and test today."
-excerptId: "Panduan komprehensif merancang RESTful API dengan PHP. Pelajari constraint REST, pemodelan resource, HTTP verb, status code, pagination, authentication, dan versioning — lalu bangun API registrasi mata kuliah lengkap dengan Laravel yang dapat Anda jalankan dan uji hari ini."
+excerpt: "A comprehensive guide to designing RESTful APIs with PHP. Learn REST constraints, resource modelling, HTTP verbs, status codes, pagination, authentication, and versioning, then build a complete course-registration API with Laravel that you can run and test today."
+excerptId: "Panduan komprehensif merancang RESTful API dengan PHP. Pelajari constraint REST, pemodelan resource, HTTP verb, status code, pagination, authentication, dan versioning, lalu bangun API registrasi mata kuliah lengkap dengan Laravel yang dapat Anda jalankan dan uji hari ini."
 ---
 
 <section lang="en">
 
 ## What Is an API and Why Design It First?
 
-An **Application Programming Interface (API)** is a contract between two pieces of software. It says: "If you send me this request, I will send you this response." The "RESTful" part — REpresentational State Transfer — is a set of architectural constraints that make that contract predictable, scalable, and easy to understand.
+An **Application Programming Interface (API)** is a contract between two pieces of software. It says: "If you send me this request, I will send you this response." The "RESTful" part (REpresentational State Transfer) is a set of architectural constraints that make that contract predictable, scalable, and easy to understand.
 
 **Why design the API first?** Most students build the database schema first, then the controller, and the API emerges from whatever the controller happens to return. This is **code-first** development. The alternative is **API-first**: design the contract before writing a single line of code.
 
@@ -51,7 +51,7 @@ This is the same principle behind **Design by Contract**: define the interface f
 
 ## Apa Itu API dan Mengapa Merancangnya Terlebih Dahulu?
 
-**Application Programming Interface (API)** adalah kontrak antara dua bagian perangkat lunak. Ia mengatakan: "Jika Anda mengirim saya permintaan ini, saya akan mengirim Anda respons ini." Bagian "RESTful" — REpresentational State Transfer — adalah seperangkat batasan arsitektur yang membuat kontrak tersebut dapat diprediksi, skalabel, dan mudah dipahami.
+**Application Programming Interface (API)** adalah kontrak antara dua bagian perangkat lunak. Ia mengatakan: "Jika Anda mengirim saya permintaan ini, saya akan mengirim Anda respons ini." Bagian "RESTful" (REpresentational State Transfer) adalah seperangkat batasan arsitektur yang membuat kontrak tersebut dapat diprediksi, skalabel, dan mudah dipahami.
 
 **Mengapa merancang API terlebih dahulu?** Sebagian besar mahasiswa membangun skema database terlebih dahulu, lalu controller, dan API muncul dari apa pun yang dikembalikan controller. Ini adalah pengembangan **code-first**. Alternatifnya adalah **API-first**: rancang kontrak sebelum menulis satu baris kode pun.
 
@@ -106,7 +106,7 @@ graph TB
 
 ## REST Constraints in Plain Terms
 
-Roy Fielding defined REST in his 2000 doctoral dissertation. It is not a protocol (like HTTP), not a format (like JSON), and not a standard (like SOAP). It is an **architectural style** — a set of constraints that, when followed, produce systems with specific desirable properties.
+Roy Fielding defined REST in his 2000 doctoral dissertation. It is not a protocol (like HTTP), not a format (like JSON), and not a standard (like SOAP). It is an **architectural style**: a set of constraints that, when followed, produce systems with specific desirable properties.
 
 ### 1. Client-Server
 
@@ -120,9 +120,9 @@ Each request from the client to the server must contain **all** the information 
 
 **What stateless means in practice:**
 
-- ❌ "Remember that I authenticated two requests ago." — The server must receive credentials on every request.
+- ❌ "Remember that I authenticated two requests ago." The server must receive credentials on every request.
 - ✅ Every request carries an `Authorization: Bearer <token>` header.
-- ❌ "Give me the next page — you know which one I am on." — The server must receive the page number explicitly.
+- ❌ "Give me the next page, you know which one I am on." The server must receive the page number explicitly.
 - ✅ `GET /courses?page=3&per_page=20`
 
 **Why it matters:** Stateless services scale horizontally. Any instance of your application can handle any request because there is no sticky session pinning a user to a specific server.
@@ -162,7 +162,7 @@ The client cannot tell whether it is connected directly to the application serve
 
 ## Batasan REST dalam Bahasa Sederhana
 
-Roy Fielding mendefinisikan REST dalam disertasi doktoralnya tahun 2000. REST bukanlah protokol (seperti HTTP), bukan format (seperti JSON), dan bukan standar (seperti SOAP). REST adalah **gaya arsitektur** — seperangkat batasan yang, ketika diikuti, menghasilkan sistem dengan properti spesifik yang diinginkan.
+Roy Fielding mendefinisikan REST dalam disertasi doktoralnya tahun 2000. REST bukanlah protokol (seperti HTTP), bukan format (seperti JSON), dan bukan standar (seperti SOAP). REST adalah **gaya arsitektur**: seperangkat batasan yang, ketika diikuti, menghasilkan sistem dengan properti spesifik yang diinginkan.
 
 ### 1. Client-Server
 
@@ -176,9 +176,9 @@ Setiap request dari client ke server harus berisi **semua** informasi yang dibut
 
 **Apa arti stateless dalam praktik:**
 
-- ❌ "Ingat bahwa saya sudah autentikasi dua request yang lalu." — Server harus menerima kredensial pada setiap request.
+- ❌ "Ingat bahwa saya sudah autentikasi dua request yang lalu." Server harus menerima kredensial pada setiap request.
 - ✅ Setiap request membawa header `Authorization: Bearer <token>`.
-- ❌ "Berikan saya halaman berikutnya — Anda tahu saya sedang di halaman mana." — Server harus menerima nomor halaman secara eksplisit.
+- ❌ "Berikan saya halaman berikutnya, Anda tahu saya sedang di halaman mana." Server harus menerima nomor halaman secara eksplisit.
 - ✅ `GET /courses?page=3&per_page=20`
 
 **Mengapa ini penting:** Layanan stateless dapat diskalakan secara horizontal. Instance aplikasi mana pun dapat menangani request apa pun karena tidak ada sticky session yang mengikat pengguna ke server tertentu.
@@ -240,7 +240,7 @@ graph TB
 
 ## Resource Modelling
 
-REST APIs model the application domain as a collection of **resources**. A resource is any named piece of information: a course, a student, an enrolment, a payment receipt. Resources are nouns — never verbs.
+REST APIs model the application domain as a collection of **resources**. A resource is any named piece of information: a course, a student, an enrolment, a payment receipt. Resources are nouns: never verbs.
 
 ### Nouns, Not Verbs
 
@@ -266,7 +266,7 @@ REST APIs model the application domain as a collection of **resources**. A resou
 2. **Use kebab-case for multi-word resources.** `/course-materials`, not `/courseMaterials` or `/course_materials`.
 3. **Nest resources to express ownership, but limit depth to two levels.** `/courses/42/enrolments` is fine. `/courses/42/enrolments/7/payments/3/receipts` is not.
 4. **Do not include file extensions.** `/courses/42`, not `/courses/42.json`. The `Accept` header handles format negotiation.
-5. **Do not include trailing slashes.** `/courses` and `/courses/42` — never `/courses/` or `/courses/42/`.
+5. **Do not include trailing slashes.** `/courses` and `/courses/42`: never `/courses/` or `/courses/42/`.
 
 ### Modelling a Course Registration Domain
 
@@ -283,7 +283,7 @@ Let us model the resources for a course registration system:
 | Course enrolments | `/courses/{id}/enrolments` | `GET` (list enrolees) |
 | Student enrolments | `/students/{id}/enrolments` | `GET` (student's schedule) |
 
-Both `/courses/{id}/enrolments` and `/students/{id}/enrolments` return enrolments, but filtered by a different parent. This is intentional — they represent the same data from two different perspectives, and both are valid RESTful resources.
+Both `/courses/{id}/enrolments` and `/students/{id}/enrolments` return enrolments, but filtered by a different parent. This is intentional: they represent the same data from two different perspectives, and both are valid RESTful resources.
 
 </section>
 
@@ -291,7 +291,7 @@ Both `/courses/{id}/enrolments` and `/students/{id}/enrolments` return enrolment
 
 ## Pemodelan Resource
 
-REST API memodelkan domain aplikasi sebagai kumpulan **resource**. Resource adalah setiap bagian informasi yang bernama: mata kuliah, mahasiswa, pendaftaran, tanda terima pembayaran. Resource adalah kata benda — tidak pernah kata kerja.
+REST API memodelkan domain aplikasi sebagai kumpulan **resource**. Resource adalah setiap bagian informasi yang bernama: mata kuliah, mahasiswa, pendaftaran, tanda terima pembayaran. Resource adalah kata benda: tidak pernah kata kerja.
 
 ### Kata Benda, Bukan Kata Kerja
 
@@ -317,7 +317,7 @@ REST API memodelkan domain aplikasi sebagai kumpulan **resource**. Resource adal
 2. **Gunakan kebab-case untuk resource multi-kata.** `/course-materials`, bukan `/courseMaterials` atau `/course_materials`.
 3. **Sarang resource untuk mengekspresikan kepemilikan, tetapi batasi kedalaman hingga dua level.** `/courses/42/enrolments` bagus. `/courses/42/enrolments/7/payments/3/receipts` tidak.
 4. **Jangan sertakan ekstensi file.** `/courses/42`, bukan `/courses/42.json`. Header `Accept` menangani negosiasi format.
-5. **Jangan sertakan trailing slash.** `/courses` dan `/courses/42` — jangan pernah `/courses/` atau `/courses/42/`.
+5. **Jangan sertakan trailing slash.** `/courses` dan `/courses/42`: jangan pernah `/courses/` atau `/courses/42/`.
 
 ### Memodelkan Domain Registrasi Mata Kuliah
 
@@ -334,7 +334,7 @@ Mari kita modelkan resource untuk sistem registrasi mata kuliah:
 | Pendaftaran mata kuliah | `/courses/{id}/enrolments` | `GET` (list peserta) |
 | Pendaftaran mahasiswa | `/students/{id}/enrolments` | `GET` (jadwal mahasiswa) |
 
-Baik `/courses/{id}/enrolments` maupun `/students/{id}/enrolments` mengembalikan pendaftaran, tetapi difilter berdasarkan parent yang berbeda. Ini disengaja — keduanya merepresentasikan data yang sama dari dua perspektif berbeda, dan keduanya adalah resource RESTful yang valid.
+Baik `/courses/{id}/enrolments` maupun `/students/{id}/enrolments` mengembalikan pendaftaran, tetapi difilter berdasarkan parent yang berbeda. Ini disengaja: keduanya merepresentasikan data yang sama dari dua perspektif berbeda, dan keduanya adalah resource RESTful yang valid.
 
 </section>
 
@@ -344,7 +344,7 @@ Baik `/courses/{id}/enrolments` maupun `/students/{id}/enrolments` mengembalikan
 
 ## HTTP Verbs and Idempotency
 
-REST APIs use HTTP methods (verbs) to express the intent of a request. Choosing the right method is not pedantry — it is how caches, proxies, and retry mechanisms know what they can safely do with your request.
+REST APIs use HTTP methods (verbs) to express the intent of a request. Choosing the right method is not pedantry: it is how caches, proxies, and retry mechanisms know what they can safely do with your request.
 
 ### The Primary HTTP Methods
 
@@ -358,18 +358,18 @@ REST APIs use HTTP methods (verbs) to express the intent of a request. Choosing 
 
 ### Safe vs Idempotent
 
-A **safe** method does not modify the resource. `GET` is safe — calling it 100 times produces the same server state as calling it once (assuming no other requests interleave). Safe methods can be called by crawlers, previews, and link unfurling services without side effects.
+A **safe** method does not modify the resource. `GET` is safe: calling it 100 times produces the same server state as calling it once (assuming no other requests interleave). Safe methods can be called by crawlers, previews, and link unfurling services without side effects.
 
 An **idempotent** method produces the same result whether called once or ten times. `PUT` is idempotent: sending `PUT /courses/42 {"name": "Calculus"}` ten times results in one course named "Calculus." `DELETE` is idempotent: the first call removes the resource; subsequent calls return 404 but do not change anything else.
 
-**`POST` is neither safe nor idempotent.** Two identical `POST /enrolments` requests create two enrolments. This is why browsers warn you before refreshing a page that resulted from a `POST` — refreshing re-sends the `POST` and creates a duplicate.
+**`POST` is neither safe nor idempotent.** Two identical `POST /enrolments` requests create two enrolments. This is why browsers warn you before refreshing a page that resulted from a `POST`: refreshing re-sends the `POST` and creates a duplicate.
 
 ### Why Idempotency Matters
 
 When a network timeout causes the client to retry a request, the server must handle it correctly:
 
 - **Idempotent method (`PUT`, `DELETE`):** Retrying is safe. Apply it again.
-- **Non-idempotent method (`POST`):** Retrying may create a duplicate. The client must implement an **idempotency key** — a unique value sent in a header like `Idempotency-Key: abc-123`. The server checks whether it has already processed a request with that key and returns the original result instead of creating a duplicate.
+- **Non-idempotent method (`POST`):** Retrying may create a duplicate. The client must implement an **idempotency key**: a unique value sent in a header like `Idempotency-Key: abc-123`. The server checks whether it has already processed a request with that key and returns the original result instead of creating a duplicate.
 
 ### Laravel Route Definitions
 
@@ -382,11 +382,11 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\EnrolmentController;
 use Illuminate\Support\Facades\Route;
 
-// Collection routes — no {id} parameter
+// Collection routes: no {id} parameter
 Route::get('/courses', [CourseController::class, 'index']);    // List
 Route::post('/courses', [CourseController::class, 'store']);    // Create
 
-// Singleton routes — with {id} parameter
+// Singleton routes: with {id} parameter
 Route::get('/courses/{id}', [CourseController::class, 'show']);    // Read
 Route::put('/courses/{id}', [CourseController::class, 'update']);  // Full update
 Route::patch('/courses/{id}', [CourseController::class, 'update']); // Partial update
@@ -421,7 +421,7 @@ Route::apiResource('courses.enrolments', EnrolmentController::class);
 
 ## HTTP Verb dan Idempotensi
 
-REST API menggunakan HTTP method (verb) untuk mengekspresikan maksud dari sebuah request. Memilih method yang tepat bukanlah kepedantikan — ini adalah bagaimana cache, proxy, dan mekanisme retry mengetahui apa yang dapat mereka lakukan dengan aman terhadap request Anda.
+REST API menggunakan HTTP method (verb) untuk mengekspresikan maksud dari sebuah request. Memilih method yang tepat bukanlah kepedantikan: ini adalah bagaimana cache, proxy, dan mekanisme retry mengetahui apa yang dapat mereka lakukan dengan aman terhadap request Anda.
 
 ### HTTP Method Utama
 
@@ -435,18 +435,18 @@ REST API menggunakan HTTP method (verb) untuk mengekspresikan maksud dari sebuah
 
 ### Safe vs Idempotent
 
-Method **safe** tidak memodifikasi resource. `GET` bersifat safe — memanggilnya 100 kali menghasilkan state server yang sama dengan memanggilnya sekali (dengan asumsi tidak ada request lain yang menyela). Method safe dapat dipanggil oleh crawler, preview, dan layanan link unfurling tanpa efek samping.
+Method **safe** tidak memodifikasi resource. `GET` bersifat safe: memanggilnya 100 kali menghasilkan state server yang sama dengan memanggilnya sekali (dengan asumsi tidak ada request lain yang menyela). Method safe dapat dipanggil oleh crawler, preview, dan layanan link unfurling tanpa efek samping.
 
 Method **idempotent** menghasilkan hasil yang sama baik dipanggil sekali maupun sepuluh kali. `PUT` bersifat idempotent: mengirim `PUT /courses/42 {"name": "Kalkulus"}` sepuluh kali menghasilkan satu mata kuliah bernama "Kalkulus." `DELETE` bersifat idempotent: panggilan pertama menghapus resource; panggilan berikutnya mengembalikan 404 tetapi tidak mengubah apa pun lagi.
 
-**`POST` tidak safe dan tidak idempotent.** Dua request `POST /enrolments` yang identik membuat dua pendaftaran. Inilah sebabnya browser memperingatkan Anda sebelum me-refresh halaman yang dihasilkan dari `POST` — me-refresh akan mengirim ulang `POST` dan membuat duplikat.
+**`POST` tidak safe dan tidak idempotent.** Dua request `POST /enrolments` yang identik membuat dua pendaftaran. Inilah sebabnya browser memperingatkan Anda sebelum me-refresh halaman yang dihasilkan dari `POST`: me-refresh akan mengirim ulang `POST` dan membuat duplikat.
 
 ### Mengapa Idempotensi Penting
 
 Ketika timeout jaringan menyebabkan client mencoba ulang request, server harus menanganinya dengan benar:
 
 - **Method idempotent (`PUT`, `DELETE`):** Mencoba ulang aman. Terapkan lagi.
-- **Method non-idempotent (`POST`):** Mencoba ulang dapat membuat duplikat. Client harus mengimplementasikan **idempotency key** — nilai unik yang dikirim dalam header seperti `Idempotency-Key: abc-123`. Server memeriksa apakah sudah memproses request dengan key tersebut dan mengembalikan hasil asli alih-alih membuat duplikat.
+- **Method non-idempotent (`POST`):** Mencoba ulang dapat membuat duplikat. Client harus mengimplementasikan **idempotency key**: nilai unik yang dikirim dalam header seperti `Idempotency-Key: abc-123`. Server memeriksa apakah sudah memproses request dengan key tersebut dan mengembalikan hasil asli alih-alih membuat duplikat.
 
 ### Definisi Route Laravel
 
@@ -459,11 +459,11 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\EnrolmentController;
 use Illuminate\Support\Facades\Route;
 
-// Route collection — tanpa parameter {id}
+// Route collection: tanpa parameter {id}
 Route::get('/courses', [CourseController::class, 'index']);     // List
 Route::post('/courses', [CourseController::class, 'store']);    // Buat
 
-// Route singleton — dengan parameter {id}
+// Route singleton: dengan parameter {id}
 Route::get('/courses/{id}', [CourseController::class, 'show']);    // Baca
 Route::put('/courses/{id}', [CourseController::class, 'update']);  // Update penuh
 Route::patch('/courses/{id}', [CourseController::class, 'update']); // Update sebagian
@@ -500,7 +500,7 @@ Route::apiResource('courses.enrolments', EnrolmentController::class);
 
 ## Status Codes and Error Responses
 
-HTTP status codes tell the client what happened with their request — at a glance, without parsing the body. Using the correct status code is one of the simplest and highest-impact improvements you can make to an API.
+HTTP status codes tell the client what happened with their request, at a glance, without parsing the body. Using the correct status code is one of the simplest and highest-impact improvements you can make to an API.
 
 ### The Three Families
 
@@ -524,7 +524,7 @@ You do not need to memorise all 60+ HTTP status codes. These twelve cover virtua
 | `403` | Forbidden | The credentials are valid but the user does not have access to this resource. |
 | `404` | Not Found | The requested resource does not exist. |
 | `409` | Conflict | The request conflicts with the current state (e.g., duplicate enrolment). |
-| `422` | Unprocessable Entity | Validation failed — the syntax is correct but the semantics are wrong (e.g., `age: -5`). |
+| `422` | Unprocessable Entity | Validation failed: the syntax is correct but the semantics are wrong (e.g., `age: -5`). |
 | `429` | Too Many Requests | Rate limit exceeded. Include a `Retry-After` header. |
 | `500` | Internal Server Error | Something unexpected went wrong on the server. |
 | `503` | Service Unavailable | The server is temporarily down for maintenance or overloaded. |
@@ -632,7 +632,7 @@ class Handler extends ExceptionHandler
 **Key decisions in this handler:**
 
 - `ModelNotFoundException` and `NotFoundHttpException` both produce a `404` with a consistent envelope.
-- Validation errors return `422` with field-level details — clients can highlight the specific form fields that failed.
+- Validation errors return `422` with field-level details, so clients can highlight the specific form fields that failed.
 - In production, unhandled exceptions return a generic `500` message. In development, you get the full stack trace (Laravel's default behaviour).
 - Authentication errors (`401`) are separate from authorisation errors. You would add a similar handler for `AuthorizationException` returning `403`.
 
@@ -642,7 +642,7 @@ class Handler extends ExceptionHandler
 
 ## Status Code dan Respons Error
 
-HTTP status code memberi tahu client apa yang terjadi dengan request mereka — sekilas, tanpa mengurai body. Menggunakan status code yang benar adalah salah satu peningkatan paling sederhana dan berdampak tertinggi yang dapat Anda lakukan pada sebuah API.
+HTTP status code memberi tahu client apa yang terjadi dengan request mereka, sekilas, tanpa mengurai body. Menggunakan status code yang benar adalah salah satu peningkatan paling sederhana dan berdampak tertinggi yang dapat Anda lakukan pada sebuah API.
 
 ### Tiga Keluarga
 
@@ -666,7 +666,7 @@ Anda tidak perlu menghafal semua 60+ HTTP status code. Dua belas kode ini mencak
 | `403` | Forbidden | Kredensial valid tetapi pengguna tidak memiliki akses ke resource ini. |
 | `404` | Not Found | Resource yang diminta tidak ada. |
 | `409` | Conflict | Request konflik dengan state saat ini (misalnya, pendaftaran duplikat). |
-| `422` | Unprocessable Entity | Validasi gagal — sintaks benar tetapi semantiknya salah (misalnya, `age: -5`). |
+| `422` | Unprocessable Entity | Validasi gagal: sintaks benar tetapi semantiknya salah (misalnya, `age: -5`). |
 | `429` | Too Many Requests | Rate limit terlampaui. Sertakan header `Retry-After`. |
 | `500` | Internal Server Error | Sesuatu yang tidak terduga salah di server. |
 | `503` | Service Unavailable | Server sementara tidak tersedia untuk pemeliharaan atau kelebihan beban. |
@@ -774,7 +774,7 @@ class Handler extends ExceptionHandler
 **Keputusan kunci dalam handler ini:**
 
 - `ModelNotFoundException` dan `NotFoundHttpException` keduanya menghasilkan `404` dengan amplop yang konsisten.
-- Error validasi mengembalikan `422` dengan detail tingkat field — client dapat menyorot field form spesifik yang gagal.
+- Error validasi mengembalikan `422` dengan detail tingkat field, sehingga client dapat menyorot field form spesifik yang gagal.
 - Di production, exception yang tidak tertangani mengembalikan pesan `500` generik. Di development, Anda mendapatkan stack trace lengkap (perilaku default Laravel).
 - Error autentikasi (`401`) terpisah dari error otorisasi. Anda akan menambahkan handler serupa untuk `AuthorizationException` yang mengembalikan `403`.
 
@@ -788,7 +788,7 @@ class Handler extends ExceptionHandler
 
 ### JSON Conventions
 
-REST APIs overwhelmingly use JSON. Consistency in how you name keys, format dates, and structure responses is more important than the specific convention you choose — but you must choose one and stick to it.
+REST APIs overwhelmingly use JSON. Consistency in how you name keys, format dates, and structure responses is more important than the specific convention you choose, but you must choose one and stick to it.
 
 | Convention | Recommendation | Example |
 |---|---|---|
@@ -836,17 +836,17 @@ Laravel provides expressive helpers for JSON responses. Consistent use of these 
 ```php
 use Illuminate\Http\JsonResponse;
 
-// Success — 200
+// Success: 200
 return response()->json(['data' => $course]);
 
-// Created — 201 with Location header
+// Created: 201 with Location header
 return response()->json(['data' => $course], 201)
     ->header('Location', url("/api/v1/courses/{$course->id}"));
 
-// No Content — 204 (no body)
+// No Content: 204 (no body)
 return response()->noContent();
 
-// Validation error — 422
+// Validation error: 422
 return response()->json([
     'error' => [
         'code' => 'VALIDATION_FAILED',
@@ -864,7 +864,7 @@ return response()->json([
 
 ### Konvensi JSON
 
-REST API sebagian besar menggunakan JSON. Konsistensi dalam cara Anda menamai key, memformat tanggal, dan menyusun respons lebih penting daripada konvensi spesifik yang Anda pilih — tetapi Anda harus memilih satu dan patuh padanya.
+REST API sebagian besar menggunakan JSON. Konsistensi dalam cara Anda menamai key, memformat tanggal, dan menyusun respons lebih penting daripada konvensi spesifik yang Anda pilih, tetapi Anda harus memilih satu dan patuh padanya.
 
 | Konvensi | Rekomendasi | Contoh |
 |---|---|---|
@@ -912,17 +912,17 @@ Laravel menyediakan helper ekspresif untuk response JSON. Penggunaan yang konsis
 ```php
 use Illuminate\Http\JsonResponse;
 
-// Sukses — 200
+// Sukses: 200
 return response()->json(['data' => $course]);
 
-// Created — 201 dengan Location header
+// Created: 201 dengan Location header
 return response()->json(['data' => $course], 201)
     ->header('Location', url("/api/v1/courses/{$course->id}"));
 
-// No Content — 204 (tanpa body)
+// No Content: 204 (tanpa body)
 return response()->noContent();
 
-// Error validasi — 422
+// Error validasi: 422
 return response()->json([
     'error' => [
         'code' => 'VALIDATION_FAILED',
@@ -940,7 +940,7 @@ return response()->json([
 
 ## Pagination, Filtering, and Sorting
 
-When a collection endpoint returns data, it must support pagination. Returning 10,000 records in a single response consumes memory, bandwidth, and time — on both the server and the client.
+When a collection endpoint returns data, it must support pagination. Returning 10,000 records in a single response consumes memory, bandwidth, and time, on both the server and the client.
 
 ### Offset Pagination
 
@@ -1060,7 +1060,7 @@ This reads: "Give me semester-4 courses, sorted by credits descending, first pag
 
 ## Pagination, Filtering, dan Sorting
 
-Ketika endpoint collection mengembalikan data, ia harus mendukung pagination. Mengembalikan 10.000 record dalam satu response mengonsumsi memori, bandwidth, dan waktu — baik di server maupun client.
+Ketika endpoint collection mengembalikan data, ia harus mendukung pagination. Mengembalikan 10.000 record dalam satu response mengonsumsi memori, bandwidth, dan waktu, baik di server maupun client.
 
 ### Offset Pagination
 
@@ -1182,7 +1182,7 @@ Ini berarti: "Berikan saya mata kuliah semester 4, diurutkan berdasarkan SKS men
 
 ## Authentication Basics
 
-An API that exposes private data — student records, enrolment history, grades — must authenticate every request. REST's stateless constraint means you cannot rely on server-side sessions. Every request must carry its own credentials.
+An API that exposes private data (student records, enrolment history, grades) must authenticate every request. REST's stateless constraint means you cannot rely on server-side sessions. Every request must carry its own credentials.
 
 ### API Keys vs JWT
 
@@ -1193,10 +1193,10 @@ An API that exposes private data — student records, enrolment history, grades 
 
 ### Where Tokens Live
 
-- ✅ `Authorization: Bearer <token>` header — the standard. Works with every HTTP client.
-- ❌ Query parameter (`?token=abc123`) — leaks tokens into server logs, browser history, and referrer headers.
-- ❌ Cookie — acceptable for browser-based apps but not truly RESTful (cookies are state).
-- ❌ Request body — `GET` and `DELETE` requests have no body.
+- ✅ `Authorization: Bearer <token>` header: the standard. Works with every HTTP client.
+- ❌ Query parameter (`?token=abc123`): leaks tokens into server logs, browser history, and referrer headers.
+- ❌ Cookie: acceptable for browser-based apps but not truly RESTful (cookies are state).
+- ❌ Request body: `GET` and `DELETE` requests have no body.
 
 ### Laravel Sanctum for API Tokens
 
@@ -1305,7 +1305,7 @@ This configuration:
 
 ## Dasar-Dasar Autentikasi
 
-API yang mengekspos data pribadi — catatan mahasiswa, riwayat pendaftaran, nilai — harus mengautentikasi setiap request. Batasan stateless REST berarti Anda tidak dapat mengandalkan sesi sisi server. Setiap request harus membawa kredensialnya sendiri.
+API yang mengekspos data pribadi (catatan mahasiswa, riwayat pendaftaran, nilai) harus mengautentikasi setiap request. Batasan stateless REST berarti Anda tidak dapat mengandalkan sesi sisi server. Setiap request harus membawa kredensialnya sendiri.
 
 ### API Key vs JWT
 
@@ -1316,10 +1316,10 @@ API yang mengekspos data pribadi — catatan mahasiswa, riwayat pendaftaran, nil
 
 ### Di Mana Token Berada
 
-- ✅ Header `Authorization: Bearer <token>` — standar. Bekerja dengan setiap HTTP client.
-- ❌ Query parameter (`?token=abc123`) — membocorkan token ke log server, riwayat browser, dan header referrer.
-- ❌ Cookie — dapat diterima untuk aplikasi berbasis browser tetapi tidak benar-benar RESTful (cookie adalah state).
-- ❌ Body request — request `GET` dan `DELETE` tidak memiliki body.
+- ✅ Header `Authorization: Bearer <token>`: standar. Bekerja dengan setiap HTTP client.
+- ❌ Query parameter (`?token=abc123`): membocorkan token ke log server, riwayat browser, dan header referrer.
+- ❌ Cookie: dapat diterima untuk aplikasi berbasis browser tetapi tidak benar-benar RESTful (cookie adalah state).
+- ❌ Body request: request `GET` dan `DELETE` tidak memiliki body.
 
 ### Laravel Sanctum untuk Token API
 
@@ -2486,7 +2486,7 @@ A course catalogue changes infrequently. Five minutes of caching reduces databas
 ✅ PUT /api/courses/42         Body: { "name": "..." }
 ```
 
-This is a holdover from SOAP/XML-RPC and early AJAX libraries that did not support `PUT` or `DELETE`. All modern HTTP clients support the full method set — use them.
+This is a holdover from SOAP/XML-RPC and early AJAX libraries that did not support `PUT` or `DELETE`. All modern HTTP clients support the full method set: use them.
 
 ### 7. Inconsistent Response Shapes
 
@@ -2501,7 +2501,7 @@ This is a holdover from SOAP/XML-RPC and early AJAX libraries that did not suppo
 { "error": "Not found" }
 ```
 
-A client must write three different parsers for the same API. Every response — success, list, single, error — should share the same envelope structure so the client writes one.
+A client must write three different parsers for the same API. Every response (success, list, single, error) should share the same envelope structure so the client writes one.
 
 ### 8. Embedding Secrets in Responses
 
@@ -2596,7 +2596,7 @@ Katalog mata kuliah jarang berubah. Lima menit caching mengurangi beban database
 ✅ PUT /api/courses/42         Body: { "name": "..." }
 ```
 
-Ini adalah sisa dari SOAP/XML-RPC dan library AJAX awal yang tidak mendukung `PUT` atau `DELETE`. Semua HTTP client modern mendukung set method lengkap — gunakanlah.
+Ini adalah sisa dari SOAP/XML-RPC dan library AJAX awal yang tidak mendukung `PUT` atau `DELETE`. Semua HTTP client modern mendukung set method lengkap: gunakanlah.
 
 ### 7. Bentuk Response Tidak Konsisten
 
@@ -2611,7 +2611,7 @@ Ini adalah sisa dari SOAP/XML-RPC dan library AJAX awal yang tidak mendukung `PU
 { "error": "Tidak ditemukan" }
 ```
 
-Client harus menulis tiga parser berbeda untuk API yang sama. Setiap response — sukses, daftar, tunggal, error — harus memiliki struktur amplop yang sama sehingga client menulis satu.
+Client harus menulis tiga parser berbeda untuk API yang sama. Setiap response (sukses, daftar, tunggal, error) harus memiliki struktur amplop yang sama sehingga client menulis satu.
 
 ### 8. Menyematkan Rahasia dalam Response
 
@@ -2642,14 +2642,14 @@ class User extends Authenticatable
 
 ### What We Learned
 
-1. **API-first design** creates a contract before implementation — the API reflects the domain model, not the database schema.
-2. **REST's five constraints** — client-server, stateless, cacheable, uniform interface, layered system — are not academic trivia. Each one solves a real engineering problem: scalability, reliability, evolvability.
+1. **API-first design** creates a contract before implementation: the API reflects the domain model, not the database schema.
+2. **REST's five constraints** (client-server, stateless, cacheable, uniform interface, layered system) are not academic trivia. Each one solves a real engineering problem: scalability, reliability, evolvability.
 3. **Resources are nouns, not verbs.** The URI identifies the resource. The HTTP method expresses the action. Never the other way around.
 4. **HTTP methods have defined semantics.** `GET` is safe. `PUT` and `DELETE` are idempotent. `POST` is neither. Retry logic, caching, and proxy behaviour depend on these properties.
 5. **Consistent error responses matter more than which code you pick.** Every error should have a machine-readable `code`, a human-readable `message`, and where applicable, field-level `details`.
 6. **Pagination, filtering, and sorting** make collection endpoints usable. Without them, every client that calls your API must implement its own filtering in memory.
 7. **Tokens belong in the `Authorization` header.** Never in URLs. Never in the request body. Sanctum makes this straightforward in Laravel.
-8. **Anti-patterns are predictable.** Verbs in URIs, 200 on errors, exposing internal IDs, deep nesting, and embedding secrets in responses — avoid them from the start.
+8. **Anti-patterns are predictable.** Verbs in URIs, 200 on errors, exposing internal IDs, deep nesting, and embedding secrets in responses: avoid them from the start.
 
 ### Practice Exercise: Design a Library API
 
@@ -2683,7 +2683,7 @@ Design a RESTful API for a university library system. The domain supports the fo
    - Attempt to borrow a 4th book (should fail with 409 Conflict)
    - Return a book
 
-Compare your design with a classmate's. Did you choose the same URI patterns? The same status codes? These decisions are not arbitrary — every design choice affects how easy your API is to consume, extend, and maintain.
+Compare your design with a classmate's. Did you choose the same URI patterns? The same status codes? These decisions are not arbitrary: every design choice affects how easy your API is to consume, extend, and maintain.
 
 </section>
 
@@ -2693,14 +2693,14 @@ Compare your design with a classmate's. Did you choose the same URI patterns? Th
 
 ### Apa yang Telah Kita Pelajari
 
-1. **Desain API-first** membuat kontrak sebelum implementasi — API mencerminkan domain model, bukan skema database.
-2. **Lima batasan REST** — client-server, stateless, cacheable, uniform interface, layered system — bukan trivia akademis. Masing-masing menyelesaikan masalah rekayasa nyata: skalabilitas, keandalan, kemampuan berevolusi.
+1. **Desain API-first** membuat kontrak sebelum implementasi: API mencerminkan domain model, bukan skema database.
+2. **Lima batasan REST** (client-server, stateless, cacheable, uniform interface, layered system) bukan trivia akademis. Masing-masing menyelesaikan masalah rekayasa nyata: skalabilitas, keandalan, kemampuan berevolusi.
 3. **Resource adalah kata benda, bukan kata kerja.** URI mengidentifikasi resource. HTTP method mengekspresikan tindakan. Jangan pernah sebaliknya.
 4. **HTTP method memiliki semantik yang terdefinisi.** `GET` bersifat safe. `PUT` dan `DELETE` bersifat idempotent. `POST` bukan keduanya. Logika retry, caching, dan perilaku proxy bergantung pada properti ini.
 5. **Response error yang konsisten lebih penting daripada kode mana yang Anda pilih.** Setiap error harus memiliki `code` yang dapat dibaca mesin, `message` yang dapat dibaca manusia, dan jika berlaku, `details` tingkat field.
 6. **Pagination, filtering, dan sorting** membuat endpoint collection dapat digunakan. Tanpanya, setiap client yang memanggil API Anda harus mengimplementasikan filtering sendiri di memori.
 7. **Token berada di header `Authorization`.** Jangan pernah di URL. Jangan pernah di body request. Sanctum membuat ini mudah di Laravel.
-8. **Anti-pattern dapat diprediksi.** Kata kerja di URI, 200 pada error, mengekspos ID internal, sarang terlalu dalam, dan menyematkan rahasia dalam response — hindari sejak awal.
+8. **Anti-pattern dapat diprediksi.** Kata kerja di URI, 200 pada error, mengekspos ID internal, sarang terlalu dalam, dan menyematkan rahasia dalam response: hindari sejak awal.
 
 ### Latihan Praktik: Rancang API Perpustakaan
 
@@ -2734,7 +2734,7 @@ Rancang RESTful API untuk sistem perpustakaan universitas. Domain mendukung fitu
    - Mencoba meminjam buku ke-4 (harus gagal dengan 409 Conflict)
    - Mengembalikan buku
 
-Bandingkan desain Anda dengan teman sekelas. Apakah Anda memilih pola URI yang sama? Status code yang sama? Keputusan ini tidak sembarangan — setiap pilihan desain memengaruhi seberapa mudah API Anda untuk dikonsumsi, diperluas, dan dipelihara.
+Bandingkan desain Anda dengan teman sekelas. Apakah Anda memilih pola URI yang sama? Status code yang sama? Keputusan ini tidak sembarangan: setiap pilihan desain memengaruhi seberapa mudah API Anda untuk dikonsumsi, diperluas, dan dipelihara.
 
 </section>
 
@@ -2744,11 +2744,11 @@ Bandingkan desain Anda dengan teman sekelas. Apakah Anda memilih pola URI yang s
 
 ## Related Tutorials
 
-- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** — RESTful APIs are the communication backbone of microservices. Learn how service boundaries and API design intersect.
-- **[LLM-Assisted Documentation Automation for PHP Projects](/blog/llm-assisted-documentation-automation-php)** — Once your API is designed, automate its documentation with Scribe and LLMs so consumers always have accurate specs.
-- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)** — Use DDD to identify bounded contexts and model your API resources around the domain, not the database.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — RESTful controller code should be as readable as any other part of your codebase.
-- **[Test-Driven Development with PHP](/blog/test-driven-development)** — Write tests for your API endpoints before you implement them. Your curl tests in this tutorial are the first step toward automated API testing.
+- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)**: RESTful APIs are the communication backbone of microservices. Learn how service boundaries and API design intersect.
+- **[LLM-Assisted Documentation Automation for PHP Projects](/blog/llm-assisted-documentation-automation-php)**: Once your API is designed, automate its documentation with Scribe and LLMs so consumers always have accurate specs.
+- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)**: Use DDD to identify bounded contexts and model your API resources around the domain, not the database.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: RESTful controller code should be as readable as any other part of your codebase.
+- **[Test-Driven Development with PHP](/blog/test-driven-development)**: Write tests for your API endpoints before you implement them. Your curl tests in this tutorial are the first step toward automated API testing.
 
 </section>
 
@@ -2756,10 +2756,10 @@ Bandingkan desain Anda dengan teman sekelas. Apakah Anda memilih pola URI yang s
 
 ## Tutorial Terkait
 
-- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)** — RESTful API adalah tulang punggung komunikasi microservices. Pelajari bagaimana batas layanan dan desain API saling bersinggungan.
-- **[Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP](/blog/llm-assisted-documentation-automation-php)** — Setelah API Anda dirancang, otomatisasi dokumentasinya dengan Scribe dan LLM sehingga konsumen selalu memiliki spesifikasi yang akurat.
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)** — Gunakan DDD untuk mengidentifikasi bounded context dan memodelkan resource API Anda berdasarkan domain, bukan database.
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Kode controller RESTful harus sama mudah dibacanya seperti bagian lain dari codebase Anda.
-- **[Test-Driven Development dengan PHP](/blog/test-driven-development)** — Tulis pengujian untuk endpoint API Anda sebelum mengimplementasikannya. Pengujian curl Anda di tutorial ini adalah langkah pertama menuju pengujian API otomatis.
+- **[Dasar-Dasar Arsitektur Microservices dengan PHP](/blog/microservices-architecture-fundamentals)**: RESTful API adalah tulang punggung komunikasi microservices. Pelajari bagaimana batas layanan dan desain API saling bersinggungan.
+- **[Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP](/blog/llm-assisted-documentation-automation-php)**: Setelah API Anda dirancang, otomatisasi dokumentasinya dengan Scribe dan LLM sehingga konsumen selalu memiliki spesifikasi yang akurat.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)**: Gunakan DDD untuk mengidentifikasi bounded context dan memodelkan resource API Anda berdasarkan domain, bukan database.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Kode controller RESTful harus sama mudah dibacanya seperti bagian lain dari codebase Anda.
+- **[Test-Driven Development dengan PHP](/blog/test-driven-development)**: Tulis pengujian untuk endpoint API Anda sebelum mengimplementasikannya. Pengujian curl Anda di tutorial ini adalah langkah pertama menuju pengujian API otomatis.
 
 </section>

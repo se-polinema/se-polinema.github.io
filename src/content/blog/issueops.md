@@ -6,7 +6,7 @@ category: news
 author: SE Lab
 lang: en
 featured: true
-excerpt: "Learn how the SE Laboratory uses IssueOps — a workflow where GitHub issues trigger AI-assisted planning and automated building — to manage this website without leaving GitHub."
+excerpt: "Learn how the SE Laboratory uses IssueOps, a workflow where GitHub issues trigger AI-assisted planning and automated building, to manage this website without leaving GitHub."
 excerptId: "Pelajari bagaimana SE Laboratory menggunakan IssueOps, yaitu alur kerja di mana GitHub issue memicu perencanaan berbantuan AI dan pembangunan otomatis, untuk mengelola situs web ini tanpa meninggalkan GitHub."
 tags:
   - IssueOps
@@ -22,7 +22,7 @@ tagsId:
 
 Imagine you walk into a restaurant. Instead of shouting your order to the chef, you write it down on a slip of paper. The chef reads the slip, plans the dish, prepares it, and plates it. When it is ready, the chef asks you to review the dish before it goes to the table.
 
-**IssueOps works the same way.** Instead of a kitchen, we use GitHub Issues. Instead of a chef, we use an AI agent called OpenCode. Instead of food, we produce website changes — new pages, bug fixes, or content updates. The "kitchen" is a GitHub Actions workflow that runs automatically whenever the right command appears in an issue comment.
+**IssueOps works the same way.** Instead of a kitchen, we use GitHub Issues. Instead of a chef, we use an AI agent called OpenCode. Instead of food, we produce website changes: new pages, bug fixes, or content updates. The "kitchen" is a GitHub Actions workflow that runs automatically whenever the right command appears in an issue comment.
 
 </section>
 
@@ -50,9 +50,9 @@ Bayangkan Anda masuk ke sebuah restoran. Alih-alih meneriakkan pesanan ke koki, 
 
 Here is what happens every time someone wants to change something on this website:
 
-1.  **Open an issue.** A contributor opens a GitHub Issue describing what they want — a new blog post, a layout fix, or a feature idea.
+1.  **Open an issue.** A contributor opens a GitHub Issue describing what they want: a new blog post, a layout fix, or a feature idea.
 
-2.  **Plan with `/plan`.** Any authorized member can comment `/plan` on the issue. You can also add extra context after the command, such as `/plan focus on the layout only`. This triggers a GitHub Actions job that verifies authorization — first by checking organization membership through an authenticated GitHub API, falling back to a repository-level allowlist — then runs OpenCode in **planning mode**. OpenCode reads the issue, analyzes the codebase, and replies with a concrete implementation plan — including which files to change, how to validate, and open questions.
+2.  **Plan with `/plan`.** Any authorized member can comment `/plan` on the issue. You can also add extra context after the command, such as `/plan focus on the layout only`. This triggers a GitHub Actions job that verifies authorization (first by checking organization membership through an authenticated GitHub API, falling back to a repository-level allowlist), then runs OpenCode in **planning mode**. OpenCode reads the issue, analyzes the codebase, and replies with a concrete implementation plan, including which files to change, how to validate, and open questions.
 
 3.  **Approve with `/build`.** If the plan looks good, an authorized member comments `/build` (optionally with extra context like `/build use Astro Islands for interactivity`). The workflow validates authorization, then switches OpenCode to implementation mode. It creates a new branch, writes the actual code, runs `npm run build` to verify everything compiles, captures a screenshot of updated features (stored as a workflow artifact, never committed to the repository), and opens a pull request linked to the issue. If the build fails, a new error issue is automatically created to track the failure.
 
@@ -90,9 +90,9 @@ If you are new to software engineering or open source, IssueOps lowers the barri
 
 **Transparent planning.** Before any code is written, the AI explains exactly what it will do. You can read the plan, suggest changes, and learn from the reasoning before anything gets built.
 
-**Built-in quality checks.** The workflow runs `npm run build` on every change. This acts as a safety net — if the AI makes a mistake, the build fails and the PR shows the error before anyone reviews it.
+**Built-in quality checks.** The workflow runs `npm run build` on every change. This acts as a safety net: if the AI makes a mistake, the build fails and the PR shows the error before anyone reviews it.
 
-**Learn by reading.** Every pull request is a recorded case study. You can browse past PRs to see how a feature was planned, implemented, and verified — all in one place.
+**Learn by reading.** Every pull request is a recorded case study. You can browse past PRs to see how a feature was planned, implemented, and verified, all in one place.
 
 </section>
 
@@ -118,7 +118,7 @@ Jika Anda baru mengenal rekayasa perangkat lunak atau open source, IssueOps menu
 
 You do not need to be an AI expert to set up IssueOps. The workflow used in this repository is defined in a single file: `.github/workflows/opencode.yml`. Here is how you can adapt it:
 
-1.  **Copy the workflow file.** The `opencode.yml` file contains three jobs — `check-auth`, `plan`, and `build`. Copy it to your own repository under `.github/workflows/`. Also copy `cleanup-merged-branches.yml` for automatic branch cleanup.
+1.  **Copy the workflow file.** The `opencode.yml` file contains three jobs: `check-auth`, `plan`, and `build`. Copy it to your own repository under `.github/workflows/`. Also copy `cleanup-merged-branches.yml` for automatic branch cleanup.
 
 2.  **Configure authorization.** Update the `check-auth` job to use your own GitHub organization or team. By default, it checks membership in the `se-polinema` organization through an authenticated API (requires a token with `read:org` scope), with a fallback to a repository-level allowlist file (`.github/opencode-allowlist.txt`). Add authorized users to the allowlist as a simpler alternative.
 

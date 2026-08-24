@@ -5,7 +5,7 @@
 -- committed static path under public/images/members/, or a hand-typed URL)
 -- with real uploads. Photos are resized/re-encoded client-side to ~683px
 -- JPEG before upload (src/utils/resizeImage.ts), so the stored object is
--- already optimized — no Storage Image Transformation add-on needed.
+-- already optimized: no Storage Image Transformation add-on needed.
 --
 -- Path convention: self-service uploads live under {auth.uid()}/photo.jpg
 -- (one fixed path per user, natural upsert-overwrite); admin-added entries

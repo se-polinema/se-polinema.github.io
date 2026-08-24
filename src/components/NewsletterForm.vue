@@ -230,7 +230,7 @@ async function handleSubmit() {
     if (error) {
       hadError = true
       // functions.invoke() surfaces non-2xx responses as `error` without
-      // parsing the JSON body — recover our {error: 'duplicate'} shape
+      // parsing the JSON body, so recover our {error: 'duplicate'} shape
       // from the raw Response on error.context to keep the specific
       // "already subscribed" message.
       try {

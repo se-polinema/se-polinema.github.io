@@ -8,7 +8,7 @@
 -- Turnstile is actually enforced rather than trivially bypassable via a
 -- direct .from('subscribers').insert() call from the browser.
 --
--- subscribers_select_admin / subscribers_delete_admin are untouched —
+-- subscribers_select_admin / subscribers_delete_admin are untouched;
 -- this only removes the anon INSERT path.
 -- ============================================================
 

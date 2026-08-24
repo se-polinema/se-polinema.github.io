@@ -73,13 +73,13 @@ interface Post {
 
 const props = defineProps<{
   // Pre-filtered posts, passed by the static category/tag archive routes
-  // (/blog/category/[category], /blog/tags/[tag]) — those are already
+  // (/blog/category/[category], /blog/tags/[tag]): those are already
   // small, build-time-scoped lists. Omitted by the main /blog archive,
   // which instead fetches the full index client-side (see onMounted
   // below) so that page's own HTML stays constant-size as the blog grows.
   posts?: Post[]
   activeCategory?: string
-  // Tag slug, passed by /blog/tags/[tag].astro — drives the heading below
+  // Tag slug, passed by /blog/tags/[tag].astro; drives the heading below
   // (previously only activeCategory did, leaving the tag archive page
   // stuck on the generic "Blog Archive" heading even though the posts
   // themselves were already correctly filtered).
@@ -90,8 +90,8 @@ const { lang, t } = useI18n()
 const { activeFilters } = useVSCodeLayout()
 
 const fetchedPosts = ref<Post[] | null>(null)
-// Starts true (rather than false) whenever a fetch will actually happen —
-// i.e. no `posts` prop was passed — so the SSR-rendered HTML (and the
+// Starts true (rather than false) whenever a fetch will actually happen,
+// i.e. no `posts` prop was passed, so the SSR-rendered HTML (and the
 // pre-hydration client render, which must match it) shows a loading
 // state instead of a misleading "no posts" empty state before the
 // client-side fetch resolves.
@@ -143,7 +143,7 @@ const categoryLabelForHeader = computed(() => {
 })
 
 // Tags are free-form per-post strings, not a fixed enum like categories,
-// so there's no t.value.blog.tag<X> lookup — resolve the display label
+// so there's no t.value.blog.tag<X> lookup; resolve the display label
 // from the filtered posts' own tag data instead (reactive to the active
 // language, unlike a single label baked in at build time).
 const tagLabelForHeader = computed(() => {
@@ -234,8 +234,8 @@ const paginatedPosts = computed(() => {
   return filteredPosts.value.slice(start, start + PAGE_SIZE)
 })
 
-// filteredPosts only changes when a filter or the fetched index changes —
-// never as a side effect of paging — so resetting to page 1 here can't
+// filteredPosts only changes when a filter or the fetched index changes,
+// never as a side effect of paging, so resetting to page 1 here can't
 // fight the user's own page navigation.
 watch(filteredPosts, () => {
   currentPage.value = 1

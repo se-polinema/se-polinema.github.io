@@ -6,7 +6,7 @@
 -- Default.astro at build time, so publishing urgent info required a
 -- commit + CI redeploy). This table is the single source of truth:
 -- an admin flips `active` here and every viewer sees it on their next
--- fetch, with no rebuild — and, via Realtime, even an already-open tab
+-- fetch, with no rebuild, and, via Realtime, even an already-open tab
 -- picks it up live.
 --
 -- Public read is gated to active, non-expired rows only; every write is
@@ -43,7 +43,7 @@ ALTER TABLE se.announcements ENABLE ROW LEVEL SECURITY;
 -- Public visibility gate: active, and not yet expired. start_date is
 -- deliberately NOT checked here (a "show from" row that hasn't started
 -- yet is still safe to expose the client-side isInDateRange() check hides
--- it) — the columns most sensitive to leaking early are messaging that's
+-- it); the columns most sensitive to leaking early are messaging that's
 -- already meant to go out, not scheduling metadata.
 CREATE POLICY "announcements_select_active" ON se.announcements
   FOR SELECT USING (active = true AND (end_date IS NULL OR end_date > now()));
@@ -82,7 +82,7 @@ CREATE TRIGGER announcements_set_updated_at
 
 -- Realtime: lets an already-open tab pop the banner the instant an admin
 -- activates/edits/deactivates a row, without waiting for the viewer's
--- next navigation. Respects RLS — anon subscribers only ever receive
+-- next navigation. Respects RLS: anon subscribers only ever receive
 -- change events for rows the active-select policy would let them read.
 ALTER TABLE se.announcements REPLICA IDENTITY FULL;
 ALTER PUBLICATION supabase_realtime ADD TABLE se.announcements;

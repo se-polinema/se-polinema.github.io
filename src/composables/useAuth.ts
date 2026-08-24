@@ -3,13 +3,13 @@ import type { User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 
 // Reactive Supabase auth session, shared across every independently-mounted
-// Vue island — mirrors the module-singleton pattern used by usePalette.ts /
+// Vue island, mirroring the module-singleton pattern used by usePalette.ts /
 // useTheme.ts / useVSCodeLayout.ts (module-scope ref + a one-time browser-only
 // init guarded by a plain module-level flag, since Astro components mount
 // their own instance of the composable but must all observe the same state).
 //
-// Unlike those composables there's nothing to read from localStorage — the
-// session lives in Supabase's own storage — so init just seeds from
+// Unlike those composables there's nothing to read from localStorage: the
+// session lives in Supabase's own storage, so init just seeds from
 // getSession() and then keeps in sync via onAuthStateChange for the lifetime
 // of the page (sign-in redirects always trigger a full page load, so a single
 // subscription per page load is sufficient).

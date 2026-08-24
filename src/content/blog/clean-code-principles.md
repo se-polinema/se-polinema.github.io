@@ -7,7 +7,7 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "A beginner-friendly guide to writing readable, maintainable PHP code. Learn meaningful naming, small functions, single responsibility, self-documenting code, and how to avoid magic numbers — with concrete before-and-after examples."
+excerpt: "A beginner-friendly guide to writing readable, maintainable PHP code. Learn meaningful naming, small functions, single responsibility, self-documenting code, and how to avoid magic numbers, with concrete before-and-after examples."
 excerptId: "Panduan ramah pemula untuk menulis kode PHP yang mudah dibaca dan dipelihara. Pelajari penamaan yang bermakna, fungsi kecil, tanggung jawab tunggal, kode yang mendokumentasikan diri sendiri, dan cara menghindari magic number, dengan contoh before-and-after yang konkret."
 stream: se-methodologies-architecture
 tags:
@@ -22,9 +22,9 @@ tagsId:
 
 ## What Is Clean Code and Why Should You Care?
 
-**Clean Code** is code that is easy to read, understand, and modify. It is not about writing clever one-liners or impressing your peers — it is about writing code that a tired developer (including your future self) can pick up and work with six months from now without wanting to quit.
+**Clean Code** is code that is easy to read, understand, and modify. It is not about writing clever one-liners or impressing your peers. It is about writing code that a tired developer (including your future self) can pick up and work with six months from now without wanting to quit.
 
-Think about the time you spend on a typical coding task. Studies and industry surveys consistently show that developers spend **far more time reading code than writing it** — often 70% or more. Every unclear variable name, every hundred-line function, every magic number you have to puzzle over steals minutes from your day. Those minutes compound into hours and weeks.
+Think about the time you spend on a typical coding task. Studies and industry surveys consistently show that developers spend **far more time reading code than writing it**, often 70% or more. Every unclear variable name, every hundred-line function, every magic number you have to puzzle over steals minutes from your day. Those minutes compound into hours and weeks.
 
 **Technical debt** is the term for shortcuts you take today that cost extra time tomorrow. Clean Code practices reduce technical debt from the start.
 
@@ -236,7 +236,7 @@ Sekarang nama-nama tersebut menceritakan sebuah kisah. Anda dapat membaca kode d
 
 ## Principle 2: Small Functions That Do One Thing
 
-A function should do **one thing, and do it well**. If a function is named `processOrder`, it should process the order — not validate payment, send emails, update inventory, and generate a PDF invoice all in the same 200-line body.
+A function should do **one thing, and do it well**. If a function is named `processOrder`, it should process the order, not validate payment, send emails, update inventory, and generate a PDF invoice all in the same 200-line body.
 
 ### Why Small Functions Matter
 
@@ -244,7 +244,7 @@ A function should do **one thing, and do it well**. If a function is named `proc
 |---|---|
 | **Long functions** | Hard to understand, hard to test, hard to reuse. |
 | **Multiple responsibilities** | A change to one behaviour risks breaking another. |
-| **Deep nesting** | `if` inside `for` inside `if` inside `while` — cognitive overload. |
+| **Deep nesting** | `if` inside `for` inside `if` inside `while`: cognitive overload. |
 | **Mixed abstraction levels** | Detail code next to high-level code confuses the reader. |
 
 ### Rules for Good Functions
@@ -287,7 +287,7 @@ function processOrder($orderData)
 }
 ```
 
-This function calculates totals, applies discounts and coupons, saves to the database, and sends an email — all in one place. If any single behaviour changes, you must touch this function. Testing it requires a database, a mail server, and coupon logic all at once.
+This function calculates totals, applies discounts and coupons, saves to the database, and sends an email, all in one place. If any single behaviour changes, you must touch this function. Testing it requires a database, a mail server, and coupon logic all at once.
 
 ### After: Decomposed Into Small, Single-Responsibility Functions
 
@@ -454,7 +454,7 @@ Sekarang setiap fungsi melakukan tepat satu hal. Anda dapat membaca `processOrde
 
 ## Principle 3: Single Responsibility Principle
 
-The **Single Responsibility Principle (SRP)** states that a class should have only one reason to change. If a class handles user authentication, email formatting, and database logging, it has three reasons to change — and a change to any one of them risks breaking the others.
+The **Single Responsibility Principle (SRP)** states that a class should have only one reason to change. If a class handles user authentication, email formatting, and database logging, it has three reasons to change, and a change to any one of them risks breaking the others.
 
 SRP is not just about classes. It applies to functions, modules, and even whole packages. The principle keeps your code decoupled: when one part changes, the rest stays intact.
 
@@ -486,7 +486,7 @@ class ReportGenerator
         $zip->close();
 
         $monthName = date('F');
-        $subject = "Sales Report — {$monthName}";
+        $subject = "Sales Report: {$monthName}";
         $body = "Please find the attached sales report for {$monthName}.";
         mail('admin@company.com', $subject, $body);
 
@@ -554,7 +554,7 @@ class ReportMailer
 {
     public function send(string $recipient, string $month): void
     {
-        $subject = "Sales Report — {$month}";
+        $subject = "Sales Report: {$month}";
         $body = "Please find the attached sales report for {$month}.";
         mail($recipient, $subject, $body);
     }
@@ -584,7 +584,7 @@ class ReportGenerator
 }
 ```
 
-Now each class has exactly one reason to change. You can swap the CSV format for JSON, change the email provider, or compress with a different tool — and only one class changes. The `ReportGenerator` coordinates the workflow without knowing implementation details.
+Now each class has exactly one reason to change. You can swap the CSV format for JSON, change the email provider, or compress with a different tool, and only one class changes. The `ReportGenerator` coordinates the workflow without knowing implementation details.
 
 </section>
 
@@ -624,7 +624,7 @@ class ReportGenerator
         $zip->close();
 
         $monthName = date('F');
-        $subject = "Sales Report — {$monthName}";
+        $subject = "Sales Report: {$monthName}";
         $body = "Please find the attached sales report for {$monthName}.";
         mail('admin@company.com', $subject, $body);
 
@@ -692,7 +692,7 @@ class ReportMailer
 {
     public function send(string $recipient, string $month): void
     {
-        $subject = "Sales Report — {$month}";
+        $subject = "Sales Report: {$month}";
         $body = "Please find the attached sales report for {$month}.";
         mail($recipient, $subject, $body);
     }
@@ -734,7 +734,7 @@ Sekarang setiap kelas memiliki tepat satu alasan untuk berubah. Anda dapat mengg
 
 A common misconception is that more comments equal better code. The truth is subtler: **the best comment is the one you did not need to write** because the code already says it.
 
-Comments have a maintenance cost. When code changes, comments often do not — leaving behind lies that mislead the next developer. A misleading comment is worse than no comment at all.
+Comments have a maintenance cost. When code changes, comments often do not, leaving behind lies that mislead the next developer. A misleading comment is worse than no comment at all.
 
 ### When Comments Are Useful
 
@@ -777,7 +777,7 @@ function p($usd)
 }
 ```
 
-The comments explain what the code does — but only because the code is unreadable. Every one of those comments would be unnecessary with good names.
+The comments explain what the code does, but only because the code is unreadable. Every one of those comments would be unnecessary with good names.
 
 ### After: Let the Code Speak
 
@@ -827,7 +827,7 @@ function calculateShippingCost(float $weight, string $destination): float
 }
 ```
 
-Notice the comments explain why the unusual conversions exist — not what the code does.
+Notice the comments explain why the unusual conversions exist, not what the code does.
 
 </section>
 
@@ -940,7 +940,7 @@ Perhatikan komentar menjelaskan mengapa konversi yang tidak biasa itu ada, bukan
 
 ## Principle 5: Avoid Magic Numbers and Strings
 
-A **magic number** is a literal value that appears in code without obvious meaning. `if ($status === 3)` — what is 3? Approved? Pending? Cancelled? Magic numbers force the reader to guess or search for the meaning.
+A **magic number** is a literal value that appears in code without obvious meaning. `if ($status === 3)`: what is 3? Approved? Pending? Cancelled? Magic numbers force the reader to guess or search for the meaning.
 
 Magic strings are the same problem: `$response['type'] === 'A'` is cryptic. Use descriptive constants instead.
 
@@ -1274,7 +1274,7 @@ Consistent formatting makes code scannable. Follow these rules:
 - **Indent consistently.** Use 4 spaces (or your team's agreed standard). Never mix tabs and spaces.
 - **One statement per line.** Do not chain multiple operations with `;` on the same line.
 - **Blank lines separate logical blocks.** Group related lines and separate them from other groups with one blank line.
-- **Opening braces on the same line or next line — pick one.** PSR-12 (the PHP standard) puts them on the same line for functions and the next line for classes.
+- **Opening braces on the same line or next line: pick one.** PSR-12 (the PHP standard) puts them on the same line for functions and the next line for classes.
 
 ```php
 <?php
@@ -1311,7 +1311,7 @@ class InvoiceService
 }
 ```
 
-Notice the blank lines inside `createInvoice`: they separate variable setup, object creation, and the return statement — each a logical group.
+Notice the blank lines inside `createInvoice`: they separate variable setup, object creation, and the return statement, each a logical group.
 
 </section>
 
@@ -1476,7 +1476,7 @@ Perhatikan baris kosong di dalam `createInvoice`: mereka memisahkan pengaturan v
 
 ## Before and After: Refactoring a Messy PHP Class
 
-Let us apply everything we have learned. Here is a `LibraryService` class you might find in a student project — it works, but it is messy. We will refactor it step by step.
+Let us apply everything we have learned. Here is a `LibraryService` class you might find in a student project; it works, but it is messy. We will refactor it step by step.
 
 ### Before: The Original Messy Code
 
@@ -1908,7 +1908,7 @@ class StudentEnrollment
 
 1. **Rename** `$a`, `$n`, `$em`, `$sub`, `$c`, `$e`, and the class method and variable names to reveal intent.
 2. **Replace magic numbers** (`17`, `60`, `1`, `2`, `3`, `300000`, `400000`, `500000`, `4`, `0.95`) with named constants.
-3. **Extract helper methods** — validation, cost calculation, student ID generation — so each does one thing.
+3. **Extract helper methods**: validation, cost calculation, student ID generation, so each does one thing.
 4. **Use early returns** to flatten the validation logic.
 
 ### Expected Behaviour After Refactoring
@@ -2172,14 +2172,14 @@ Bandingkan dengan yang asli: setiap bagian logika berada dalam metode bernama. S
 6. **Use early returns** to keep logic flat and readable. Deep nesting is a code smell.
 7. **Throw meaningful exceptions.** Returning `null` or `false` silently loses information.
 
-Clean Code is not about perfection on the first draft. Write code that works, then *refactor it into something you would enjoy reading six months from now*. Every refactoring pass makes the codebase a little better — and makes you a little faster on the next feature.
+Clean Code is not about perfection on the first draft. Write code that works, then *refactor it into something you would enjoy reading six months from now*. Every refactoring pass makes the codebase a little better, and makes you a little faster on the next feature.
 
-> "Any fool can write code that a computer can understand. Good programmers write code that humans can understand." — Martin Fowler
+> "Any fool can write code that a computer can understand. Good programmers write code that humans can understand." (Martin Fowler)
 
 ## What to Read Next
 
-- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)** — Apply the Red-Green-Refactor cycle to write code that is both clean and correct.
-- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)** — Learn to test software from the outside (what it does) and the inside (how it does it).
+- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)**: Apply the Red-Green-Refactor cycle to write code that is both clean and correct.
+- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)**: Learn to test software from the outside (what it does) and the inside (how it does it).
 
 </section>
 
@@ -2197,11 +2197,11 @@ Clean Code is not about perfection on the first draft. Write code that works, th
 
 Clean Code bukan tentang kesempurnaan pada draf pertama. Tulis kode yang berfungsi, lalu *refaktor menjadi sesuatu yang Anda nikmati untuk dibaca enam bulan dari sekarang*. Setiap langkah *refactoring* membuat basis kode sedikit lebih baik, dan membuat Anda sedikit lebih cepat pada fitur berikutnya.
 
-> "Siapa pun bisa menulis kode yang dimengerti komputer. Programmer yang baik menulis kode yang dimengerti manusia." — Martin Fowler
+> "Siapa pun bisa menulis kode yang dimengerti komputer. Programmer yang baik menulis kode yang dimengerti manusia." (Martin Fowler)
 
 ## Bacaan Selanjutnya
 
-- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)** — Terapkan siklus Red-Green-Refactor untuk menulis kode yang bersih dan benar.
-- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)** — Pelajari menguji perangkat lunak dari luar (apa yang dilakukannya) dan dari dalam (bagaimana ia melakukannya).
+- **[Test-Driven Development (TDD) dengan PHP](/blog/test-driven-development)**: Terapkan siklus Red-Green-Refactor untuk menulis kode yang bersih dan benar.
+- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)**: Pelajari menguji perangkat lunak dari luar (apa yang dilakukannya) dan dari dalam (bagaimana ia melakukannya).
 
 </section>

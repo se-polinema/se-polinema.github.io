@@ -27,7 +27,7 @@
   --color-vscode-panel-tab: #162032;
   /* Text/icon/hairline colors that sit ON TOP OF the chrome regions above
      (activity bar, sidebar, tab bar, panel). Compass's chrome is always
-     dark, so these match today's hardcoded white-based literals exactly —
+     dark, so these match today's hardcoded white-based literals exactly:
      zero visual change. Palettes whose chrome relaxes to a light surface
      in light mode override these to dark-based values instead (see the
      palette blocks below). Consumed by ActivityBar.vue, Sidebar.vue,
@@ -38,7 +38,7 @@
   /* Unlike chrome-fg above (which inverts light/dark-mode across ActivityBar/
      Sidebar/TabBar), the statusbar's own background stays medium-to-bright in
      every palette AND every mode (oklch L 0.62 in light-mode palette blocks,
-     0.774 in dark-mode palette blocks; Compass's fixed #F5A100 in both) — so
+     0.774 in dark-mode palette blocks; Compass's fixed #F5A100 in both), so
      one dark foreground works everywhere and this is defined once here rather
      than per-palette-block. Consumed by StatusBar.vue, AccountStatusItem.vue. */
   --color-vscode-statusbar-fg: rgba(0, 0, 0, 0.85);
@@ -57,7 +57,7 @@
   --color-editor-section-divider: #F0F2F5;
   --color-editor-hash: #9CA3AF;
 
-  /* Search overlay (Ctrl+K) and Command Palette (Ctrl+Shift+P) surface —
+  /* Search overlay (Ctrl+K) and Command Palette (Ctrl+Shift+P) surface:
      both are modal "quick input" widgets that float above the whole
      window, so unlike the chrome regions above they read their own
      light/dark surface rather than always matching Compass's dark chrome.
@@ -90,7 +90,7 @@
   --color-editor-hash: #6A6A6A;
 
   /* Brand + semantic tokens re-tinted for the dark surface. Light-mode values
-     (below, in @theme) are unchanged — this is the only place brand color
+     (below, in @theme) are unchanged: this is the only place brand color
      shifts for dark mode, so it cascades to every text-primary/bg-accent/...
      usage site-wide without touching individual components. */
   --color-primary: var(--color-primary-400);
@@ -102,7 +102,7 @@
 }
 
 @theme {
-  /* Primary — brand blue, OKLCH tonal ramp (hue ~257). primary-600 is the
+  /* Primary: brand blue, OKLCH tonal ramp (hue ~257). primary-600 is the
      original brand hex (#004EA2), so --color-primary itself is unchanged in
      light mode: every existing text-primary/bg-primary/... usage keeps its
      exact current appearance. Passes WCAG AA/AAA as text on white (~7:1). */
@@ -119,12 +119,12 @@
   --color-primary-950: oklch(0.17 0.06  257);
   --color-primary: var(--color-primary-600);
 
-  /* Accent — brand gold, OKLCH tonal ramp (hue ~71, drifting toward amber/
+  /* Accent: brand gold, OKLCH tonal ramp (hue ~71, drifting toward amber/
      brown as it darkens so it doesn't turn muddy). accent-500 is the
      original brand hex (#F5A100): --color-accent is unchanged in light mode
      for its intended use (borders, badges, active indicators, large/bold
      UI). Gold is inherently light, so it fails WCAG as body-sized text on
-     white (~1.9:1) — accent-700/800 are the safe tones for that case. */
+     white (~1.9:1); accent-700/800 are the safe tones for that case. */
   --color-accent-50:  oklch(0.97 0.025 75);
   --color-accent-100: oklch(0.94 0.05  74);
   --color-accent-200: oklch(0.89 0.09  73);
@@ -160,11 +160,11 @@
 /* ============================================================
    Live-switchable palette system (src/composables/usePalette.ts)
    ============================================================
-   'compass' (the values above) is the default and has NO attribute —
+   'compass' (the values above) is the default and has NO attribute:
    selecting it just removes data-palette entirely, so the default site
    look is untouched. Each other palette re-points the same custom
    properties the ".dark" block above already re-points, via a
-   [data-palette="x"] attribute selector instead of a class — identical
+   [data-palette="x"] attribute selector instead of a class: identical
    mechanism, same specificity, just keyed on a different attribute.
    ".dark[data-palette=x]" (specificity 0,2,0) correctly wins over both
    plain ".dark" and plain "[data-palette=x]" (each 0,1,0) when a
@@ -173,7 +173,7 @@
    Primary ramps keep the exact lightness/chroma progression already
    tuned above (only the hue angle changes per palette); accent ramps
    keep the same per-step hue *offset* from accent-500 that the drifting
-   compass ramp uses. This is a deliberate, scoped implementation — see
+   compass ramp uses. This is a deliberate, scoped implementation; see
    the "Scope boundary" section of the plan this was built from: chrome
    region colors + primary/accent ramps are palette-aware; a number of
    smaller decorative literals elsewhere in the app (search overlay
@@ -182,7 +182,7 @@
    of the selected palette. ============================================================ */
 
 [data-palette="harbor"] {
-  /* harbor — light */
+  /* harbor: light */
   --color-vscode-window: #ffffff;
   --color-vscode-workspace: #ffffff;
   --color-vscode-activitybar: #f6f8fa;
@@ -222,7 +222,7 @@
 }
 
 .dark[data-palette="harbor"] {
-  /* harbor — dark */
+  /* harbor: dark */
   --color-vscode-window: #0d1117;
   --color-vscode-workspace: #0d1117;
   --color-vscode-activitybar: #161b22;
@@ -275,7 +275,7 @@
 }
 
 [data-palette="foundry"] {
-  /* foundry — light */
+  /* foundry: light */
   --color-vscode-window: #fafafa;
   --color-vscode-workspace: #fafafa;
   --color-vscode-activitybar: #eaeaeb;
@@ -315,7 +315,7 @@
 }
 
 .dark[data-palette="foundry"] {
-  /* foundry — dark */
+  /* foundry: dark */
   --color-vscode-window: #282c34;
   --color-vscode-workspace: #282c34;
   --color-vscode-activitybar: #21252b;
@@ -368,7 +368,7 @@
 }
 
 [data-palette="aurora"] {
-  /* aurora — light */
+  /* aurora: light */
   --color-vscode-window: #FBFBFB;
   --color-vscode-workspace: #FBFBFB;
   --color-vscode-activitybar: #eeeeee;
@@ -408,7 +408,7 @@
 }
 
 .dark[data-palette="aurora"] {
-  /* aurora — dark */
+  /* aurora: dark */
   --color-vscode-window: #011627;
   --color-vscode-workspace: #011627;
   --color-vscode-activitybar: #010e1a;
@@ -461,7 +461,7 @@
 }
 
 [data-palette="glacier"] {
-  /* glacier — light */
+  /* glacier: light */
   --color-vscode-window: #eceff4;
   --color-vscode-workspace: #eceff4;
   --color-vscode-activitybar: #e5e9f0;
@@ -501,7 +501,7 @@
 }
 
 .dark[data-palette="glacier"] {
-  /* glacier — dark */
+  /* glacier: dark */
   --color-vscode-window: #2e3440;
   --color-vscode-workspace: #2e3440;
   --color-vscode-activitybar: #2e3440;
@@ -563,7 +563,7 @@
   /* Neutralizes the VS Code chrome's transitions/animations (sidebar
      width, panel height, tab/breadcrumb/overlay fades, editor smooth
      scroll, etc.) for users who've asked the OS not to animate things. A
-     blanket rule rather than annotating every transition individually —
+     blanket rule rather than annotating every transition individually:
      robust against new chrome animations added later without needing a
      matching opt-out written alongside each one. */
   @media (prefers-reduced-motion: reduce) {

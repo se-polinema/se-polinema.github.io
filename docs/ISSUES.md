@@ -1,7 +1,7 @@
 # Feature/functionality improvement proposals
 
 Generated from a `graphify` structural analysis of `src/` cross-referenced
-with direct code verification. Scoped to functionality/UX/workflow gaps —
+with direct code verification. Scoped to functionality/UX/workflow gaps;
 content and tutorial-quality improvements are explicitly out of scope.
 
 | # | Issue | Priority | Status |

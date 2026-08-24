@@ -2,13 +2,13 @@
 -- Capture the GitHub handle as its own column on se.profiles.
 --
 -- Auth is now GitHub-only site-wide, but se.profiles never stored the
--- GitHub username (user_name claim) as a first-class column — it was
+-- GitHub username (user_name claim) as a first-class column; it was
 -- only ever folded into full_name as a last-resort COALESCE fallback
 -- (se.handle_new_user(), when a GitHub account has no public display
 -- name set), and only readable for the CURRENTLY signed-in user's own
 -- session (user_metadata), never queryable for anyone else. This left
 -- the admin dashboard's "Grant Admin" flow with no reliable way to
--- identify a colleague by their GitHub account — only by exact email
+-- identify a colleague by their GitHub account, only by exact email
 -- match, which an admin may not confidently know.
 -- ============================================================
 

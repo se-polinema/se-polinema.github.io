@@ -35,13 +35,13 @@ Consider the difference between a generic web dashboard and an industrial IoT mo
 | Aspect | Generic Web Dashboard | Industrial IoT Dashboard |
 |---|---|---|
 | **Data volume** | Hundreds of rows per day | Thousands of readings per minute from dozens of sensors |
-| **Storage model** | Relational (OLTP) — rows with foreign keys | Time-series (TSDB) — timestamp-indexed measurements |
+| **Storage model** | Relational (OLTP): rows with foreign keys | Time-series (TSDB): timestamp-indexed measurements |
 | **Data integrity** | Transactions, rollbacks | At-least-once delivery, duplicate tolerance, gap detection |
 | **Latency tolerance** | Seconds to minutes | Sub-second for safety-critical alerts |
 | **Ingestion** | HTTP POST from a web form | MQTT publish from constrained edge devices |
 | **Retention** | Indefinite (users expect history) | Downsampled rollups: raw for 7 days, 1-min aggregates for 90 days, hourly for 1 year |
-| **Alerting** | Optional email notifications | Threshold-based alerts with escalation policies — missed alerts can mean equipment damage or injury |
-| **Connectivity** | Assumes stable broadband | Edge devices may be on 2G, LoRaWAN, or intermittent Wi-Fi — graceful degradation is mandatory |
+| **Alerting** | Optional email notifications | Threshold-based alerts with escalation policies: missed alerts can mean equipment damage or injury |
+| **Connectivity** | Assumes stable broadband | Edge devices may be on 2G, LoRaWAN, or intermittent Wi-Fi: graceful degradation is mandatory |
 
 These constraints mean that **generic web development patterns fail under industrial workloads.** You cannot `SELECT * FROM sensor_readings` when the table has 500 million rows. You cannot poll for alerts every 60 seconds when a motor over-temperature event needs sub-second reaction. And you cannot store sensor data in MySQL and expect reasonable query performance past the first few million rows.
 
@@ -95,8 +95,8 @@ graph TB
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: Industrial IoT monitoring system architecture — from sensor to dashboard.</span>
-  <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri — dari sensor ke dasbor.</span>
+  <span lang="en">Figure: Industrial IoT monitoring system architecture, from sensor to dashboard.</span>
+  <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri, dari sensor ke dasbor.</span>
 </figcaption>
 </figure>
 
@@ -158,7 +158,7 @@ graph TB
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: Industrial IoT monitoring system architecture — from sensor to dashboard.</span>
+  <span lang="en">Figure: Industrial IoT monitoring system architecture, from sensor to dashboard.</span>
   <span lang="id">Gambar: Arsitektur sistem pemantauan IoT industri, dari sensor ke dasbor.</span>
 </figcaption>
 </figure>
@@ -235,8 +235,8 @@ docker run -d --name influxdb \
 composer require php-mqtt/client guzzlehttp/guzzle
 ```
 
-- `php-mqtt/client` — MQTT subscriber for ingesting sensor data
-- `guzzlehttp/guzzle` — HTTP client for InfluxDB REST API
+- `php-mqtt/client`: MQTT subscriber for ingesting sensor data
+- `guzzlehttp/guzzle`: HTTP client for InfluxDB REST API
 
 ### 4. Create InfluxDB Bucket via API
 
@@ -247,7 +247,7 @@ curl -X POST "http://localhost:8086/api/v2/buckets" \
   -d '{"orgID": "<your-org-id>", "name": "sensor_data", "retentionRules": [{"type": "expire", "everySeconds": 7776000}]}'
 ```
 
-This creates a bucket with a 90-day retention policy — raw sensor data older than 90 days is automatically dropped. Downsampled aggregates should live in a separate bucket with longer retention.
+This creates a bucket with a 90-day retention policy: raw sensor data older than 90 days is automatically dropped. Downsampled aggregates should live in a separate bucket with longer retention.
 
 </section>
 
@@ -308,7 +308,7 @@ Ini membuat bucket dengan kebijakan retensi 90 hari: data sensor mentah yang leb
 
 ## Project Structure
 
-A modular monolith keeps bounded contexts separate — MQTT ingestion, time-series storage, and the dashboard API are three distinct modules that share nothing except the InfluxDB connection configuration.
+A modular monolith keeps bounded contexts separate: MQTT ingestion, time-series storage, and the dashboard API are three distinct modules that share nothing except the InfluxDB connection configuration.
 
 ```
 src/
@@ -330,7 +330,7 @@ src/
     └── influxdb.php                 # InfluxDB connection config (org, bucket, token, url)
 ```
 
-This structure follows the **ports and adapters** pattern. The domain layer knows nothing about MQTT or HTTP — it only expresses industrial IoT concepts. The infrastructure layer handles the gritty details of network I/O.
+This structure follows the **ports and adapters** pattern. The domain layer knows nothing about MQTT or HTTP: it only expresses industrial IoT concepts. The infrastructure layer handles the gritty details of network I/O.
 
 </section>
 
@@ -370,7 +370,7 @@ Struktur ini mengikuti pola **ports and adapters**. Lapisan domain tidak tahu ap
 
 ## Domain Layer: Value Objects and DTOs
 
-### SensorReading — The Core Domain Object
+### SensorReading: The Core Domain Object
 
 A sensor reading is an immutable measurement captured at a point in time. It is the atomic unit of industrial data.
 
@@ -428,11 +428,11 @@ final readonly class SensorReading
 ```
 
 **Design decisions:**
-- `fromMQTTPayload` is the single factory method — all validation happens here, not in the constructor.
+- `fromMQTTPayload` is the single factory method: all validation happens here, not in the constructor.
 - `toInfluxDBLineProtocol` produces InfluxDB line protocol format directly. This avoids intermediate serialization and lets the infrastructure layer batch-write efficiently.
-- `escapeTag` prevents injection in InfluxDB tag values — spaces, commas, and equals signs must be escaped per the line protocol spec.
+- `escapeTag` prevents injection in InfluxDB tag values: spaces, commas, and equals signs must be escaped per the line protocol spec.
 
-### AlertRule — Defining Monitoring Thresholds
+### AlertRule: Defining Monitoring Thresholds
 
 ```php
 <?php
@@ -501,7 +501,7 @@ final readonly class AlertRule
 }
 ```
 
-### AlertEvent — The Result of a Triggered Rule
+### AlertEvent: The Result of a Triggered Rule
 
 ```php
 <?php
@@ -527,7 +527,7 @@ final readonly class AlertEvent
 }
 ```
 
-### DashboardQuery — Parameter Object for API Queries
+### DashboardQuery: Parameter Object for API Queries
 
 ```php
 <?php
@@ -1248,7 +1248,7 @@ final class MQTTSubscriber
 
 ## Application Layer: Wiring Everything Together
 
-### InfluxDBRepository — Mediating Between Domain and Infrastructure
+### InfluxDBRepository: Mediating Between Domain and Infrastructure
 
 ```php
 <?php
@@ -1331,7 +1331,7 @@ FLUX;
 }
 ```
 
-### MQTTIngestionService — The Ingestion Orchestrator
+### MQTTIngestionService: The Ingestion Orchestrator
 
 ```php
 <?php
@@ -1427,7 +1427,7 @@ final class MQTTIngestionService
                 'count' => $count,
             ]);
         } catch (\Throwable $e) {
-            $this->logger?->error('Failed to flush readings — data may be lost', [
+            $this->logger?->error('Failed to flush readings, data may be lost', [
                 'count' => $count,
                 'error' => $e->getMessage(),
             ]);
@@ -1441,11 +1441,11 @@ final class MQTTIngestionService
 ```
 
 **Key design decisions in the ingestion service:**
-- **Batching** — Individual HTTP writes to InfluxDB are expensive. Accumulate readings in memory and flush every N records (default 100). This reduces HTTP round-trips by 100x.
-- **Alert evaluation is inline** — After every reading, the alert service checks registered rules. This keeps latency low and avoids a separate polling loop.
-- **Buffer is lost on crash** — If the PHP process dies before `flush()`, buffered readings are lost. This is acceptable for most monitoring use cases, but for regulatory data, write to a persistent queue (Redis Streams, Kafka) before ingesting.
+- **Batching**: Individual HTTP writes to InfluxDB are expensive. Accumulate readings in memory and flush every N records (default 100). This reduces HTTP round-trips by 100x.
+- **Alert evaluation is inline**: After every reading, the alert service checks registered rules. This keeps latency low and avoids a separate polling loop.
+- **Buffer is lost on crash**: If the PHP process dies before `flush()`, buffered readings are lost. This is acceptable for most monitoring use cases, but for regulatory data, write to a persistent queue (Redis Streams, Kafka) before ingesting.
 
-### AlertService — Evaluating Rules and Dispatching Alerts
+### AlertService: Evaluating Rules and Dispatching Alerts
 
 ```php
 <?php
@@ -1534,7 +1534,7 @@ final class AlertService
 }
 ```
 
-### DashboardService — Building Dashboard API Responses
+### DashboardService: Building Dashboard API Responses
 
 ```php
 <?php
@@ -1800,7 +1800,7 @@ final class MQTTIngestionService
                 'count' => $count,
             ]);
         } catch (\Throwable $e) {
-            $this->logger?->error('Gagal mengirim pembacaan — data mungkin hilang', [
+            $this->logger?->error('Gagal mengirim pembacaan, data mungkin hilang', [
                 'count' => $count,
                 'error' => $e->getMessage(),
             ]);
@@ -2025,10 +2025,10 @@ final class DashboardController
      * GET /api/dashboard/sensors/{sensorId}/readings
      *
      * Query parameters:
-     *   - metric   (string, optional)  — filter by metric name
-     *   - range    (string, default 1h) — time range (1h, 6h, 24h, 7d)
-     *   - window   (string, default 1m) — aggregation window
-     *   - aggregation (string, default mean) — mean, median, max, min, sum
+     *   - metric   (string, optional)  : filter by metric name
+     *   - range    (string, default 1h): time range (1h, 6h, 24h, 7d)
+     *   - window   (string, default 1m): aggregation window
+     *   - aggregation (string, default mean): mean, median, max, min, sum
      *
      * Response:
      * {
@@ -2162,7 +2162,7 @@ $alertService->registerRule(new AlertRule(
     message: 'Vibration level approaching maintenance threshold.',
 ));
 
-// Register alert handler — log to stdout
+// Register alert handler: log to stdout
 $alertService->registerHandler(function (AlertEvent $event): void {
     echo sprintf(
         "[ALERT %s] [%s] %s | value=%.2f threshold=%.2f\n",
@@ -2189,7 +2189,7 @@ $dashboard = new DashboardController($dashboardService, $ingestionService, $aler
 $mode = $argv[1] ?? 'ingest';
 
 if ($mode === 'ingest') {
-    // Start MQTT ingestion — runs indefinitely
+    // Start MQTT ingestion: runs indefinitely
     echo "Starting MQTT ingestion...\n";
     $ingestionService->start('factory/+/+');
 }
@@ -2266,10 +2266,10 @@ final class DashboardController
      * GET /api/dashboard/sensors/{sensorId}/readings
      *
      * Parameter query:
-     *   - metric      (string, opsional) — filter berdasarkan nama metrik
-     *   - range       (string, default 1h) — rentang waktu (1h, 6h, 24h, 7d)
-     *   - window      (string, default 1m) — jendela agregasi
-     *   - aggregation (string, default mean) — mean, median, max, min, sum
+     *   - metric      (string, opsional) : filter berdasarkan nama metrik
+     *   - range       (string, default 1h): rentang waktu (1h, 6h, 24h, 7d)
+     *   - window      (string, default 1m): jendela agregasi
+     *   - aggregation (string, default mean): mean, median, max, min, sum
      *
      * Respons:
      * {
@@ -2403,7 +2403,7 @@ $alertService->registerRule(new AlertRule(
     message: 'Level getaran mendekati ambang pemeliharaan.',
 ));
 
-// Daftarkan handler peringatan — log ke stdout
+// Daftarkan handler peringatan: log ke stdout
 $alertService->registerHandler(function (AlertEvent $event): void {
     echo sprintf(
         "[PERINGATAN %s] [%s] %s | nilai=%.2f ambang=%.2f\n",
@@ -2482,7 +2482,7 @@ For real-time dashboard updates, you have two paths. Both are lighter than WebSo
 The dashboard frontend polls the `/api/dashboard/sensors/{id}/status` endpoint every few seconds.
 
 ```javascript
-// dashboard.js — Minimal polling client
+// dashboard.js: Minimal polling client
 class SensorPollingClient {
     constructor(baseUrl, intervalMs = 5000) {
         this.baseUrl = baseUrl;
@@ -2525,7 +2525,7 @@ client.start('temp-001', (data) => {
 
 ### Option 2: Server-Sent Events (Efficient)
 
-SSE is a one-way stream from server to client — ideal for pushing time-series data. The server keeps a persistent HTTP connection and writes events as lines.
+SSE is a one-way stream from server to client: ideal for pushing time-series data. The server keeps a persistent HTTP connection and writes events as lines.
 
 ```php
 <?php
@@ -2579,7 +2579,7 @@ final class SSEController
 ```
 
 ```javascript
-// SSE client — browser-native, no library needed
+// SSE client: browser-native, no library needed
 const eventSource = new EventSource(
     'http://localhost:8080/api/dashboard/sensors/temp-001/stream'
 );
@@ -2616,7 +2616,7 @@ Untuk pembaruan dasbor real-time, Anda memiliki dua jalur. Keduanya lebih ringan
 Frontend dasbor melakukan polling ke endpoint `/api/dashboard/sensors/{id}/status` setiap beberapa detik.
 
 ```javascript
-// dashboard.js — Klien polling minimal
+// dashboard.js: Klien polling minimal
 class SensorPollingClient {
     constructor(baseUrl, intervalMs = 5000) {
         this.baseUrl = baseUrl;
@@ -2713,7 +2713,7 @@ final class SSEController
 ```
 
 ```javascript
-// Klien SSE — native browser, tidak perlu library
+// Klien SSE: native browser, tidak perlu library
 const eventSource = new EventSource(
     'http://localhost:8080/api/dashboard/sensors/temp-001/stream'
 );
@@ -2745,7 +2745,7 @@ eventSource.addEventListener('error', () => {
 
 ## Production Considerations
 
-The code above is a teaching aid — production IoT systems require additional hardening.
+The code above is a teaching aid: production IoT systems require additional hardening.
 
 ### 1. Buffering and Write Durability
 
@@ -2786,8 +2786,8 @@ private function writeWithRetry(string $lineProtocol, int $maxRetries = 3): void
 ### 3. Authentication and Security
 
 - **MQTT:** Enable TLS and username/password authentication. Never expose the broker on a public IP without authentication.
-- **InfluxDB:** Use API tokens with the least privilege — the ingestion client only needs write access to the `sensor_data` bucket; the dashboard client only needs read access.
-- **Dashboard API:** Add JWT-based authentication. Industrial data may reveal production rates, equipment health, and factory floor layout — all sensitive information.
+- **InfluxDB:** Use API tokens with the least privilege: the ingestion client only needs write access to the `sensor_data` bucket; the dashboard client only needs read access.
+- **Dashboard API:** Add JWT-based authentication. Industrial data may reveal production rates, equipment health, and factory floor layout, all sensitive information.
 
 ### 4. Data Retention and Downsampling
 
@@ -2811,7 +2811,7 @@ Your ingestion pipeline itself needs monitoring. Track these metrics:
 - Alert evaluation rate
 - Consumer group lag (if using Redis Streams)
 
-Export these to a separate monitoring bucket and visualise them in a system-health dashboard. A silent ingestion failure is worse than a noisy one — if your alerting system itself is broken, you need to know immediately.
+Export these to a separate monitoring bucket and visualise them in a system-health dashboard. A silent ingestion failure is worse than a noisy one: if your alerting system itself is broken, you need to know immediately.
 
 </section>
 
@@ -2898,13 +2898,13 @@ Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan 
 | Scenario | What Not to Do | What to Do Instead |
 |---|---|---|
 | **Storing sensor data in MySQL** | `INSERT INTO sensor_readings` for every MQTT message | Use a time-series database (InfluxDB, TimescaleDB) designed for sequential writes and time-range queries |
-| **Polling MQTT** | A cron job that runs `mosquitto_sub` every minute | Run a persistent subscriber process — MQTT is push-based |
+| **Polling MQTT** | A cron job that runs `mosquitto_sub` every minute | Run a persistent subscriber process: MQTT is push-based |
 | **Individual HTTP writes** | One InfluxDB API call per sensor reading | Batch up to 100–500 readings per write call |
 | **Synchronous alert dispatch** | Blocking the ingestion pipeline while sending email/SMS | Fire-and-forget: push alert events to a queue (Redis, SQS) and handle dispatch asynchronously |
 | **No timestamp validation** | Trusting the sensor's clock | Validate timestamps are within a reasonable skew (e.g., ±5 minutes from server time). Reject future timestamps. |
 | **Storing raw data forever** | 10-second-resolution data retained for 5 years | Implement retention policies and downsample tasks |
 | **No dead-letter queue** | Silently dropping malformed MQTT messages | Log invalid payloads to a `dlq` bucket or file for later inspection |
-| **Hardcoded thresholds** | `if ($temp > 80)` in the ingestion loop | Use the `AlertRule` value object and register rules dynamically — thresholds change with seasons and equipment age |
+| **Hardcoded thresholds** | `if ($temp > 80)` in the ingestion loop | Use the `AlertRule` value object and register rules dynamically: thresholds change with seasons and equipment age |
 
 </section>
 
@@ -2931,27 +2931,27 @@ Ekspor ini ke bucket pemantauan terpisah dan visualisasikan di dasbor kesehatan 
 
 ## Summary
 
-1. **Industrial IoT is a data-intensive domain** where write throughput and time-range query performance are the primary concerns — far more so than CRUD (Create, Read, Update, Delete) or relational integrity.
+1. **Industrial IoT is a data-intensive domain** where write throughput and time-range query performance are the primary concerns, far more so than CRUD (Create, Read, Update, Delete) or relational integrity.
 2. **The architecture follows a clear pipeline:** sensors → edge gateway → MQTT broker → PHP ingestion → time-series database → dashboard API. Each layer solves a specific problem and fails in specific ways.
 3. **MQTT is the lingua franca of IoT.** It is push-based, lightweight, and designed for constrained devices. Your PHP backend must be a persistent subscriber, not a polling cron job.
 4. **Time-series databases are non-negotiable** for sensor data. InfluxDB line protocol is simple, batchable, and wires straight into ingestion code. Use retention policies and downsampling tasks to manage storage growth.
-5. **Batch writes to InfluxDB** — individual HTTP calls are 100x slower than batched line protocol. Buffer readings in memory and flush every 100–500 records.
-6. **Alert evaluation must be inline and fast.** Check thresholds against every incoming reading before the write — not in a separate polling loop. Use the `AlertRule`/`AlertOperator`/`AlertSeverity` domain model to keep rules configurable.
+5. **Batch writes to InfluxDB**: individual HTTP calls are 100x slower than batched line protocol. Buffer readings in memory and flush every 100–500 records.
+6. **Alert evaluation must be inline and fast.** Check thresholds against every incoming reading before the write, not in a separate polling loop. Use the `AlertRule`/`AlertOperator`/`AlertSeverity` domain model to keep rules configurable.
 7. **SSE beats WebSockets for dashboard updates.** One-way server-to-client stream, browser-native EventSource API, automatic reconnection. Start with polling, graduate to SSE.
 8. **Production hardening requires:** persistent write-ahead buffer (Redis Streams), retry with exponential backoff, least-privilege API tokens, TLS on all connections, and a monitoring dashboard for the ingestion pipeline itself.
 
-> "In industrial automation, the code you write doesn't just move data — it protects equipment worth millions and the people operating it. Every skipped reading, every missed alert, and every second of dashboard lag has a real-world cost. Engineer accordingly."
+> "In industrial automation, the code you write doesn't just move data: it protects equipment worth millions and the people operating it. Every skipped reading, every missed alert, and every second of dashboard lag has a real-world cost. Engineer accordingly."
 
 ## What to Read Next
 
-- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)** — Learn how bounded contexts separate MQTT ingestion, dashboard querying, and alert management cleanly.
-- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)** — Build your ingestion pipeline and alert rules with confidence using the Red-Green-Refactor cycle.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Keep your sensor data pipeline readable as the number of metrics, sensors, and alert rules grows.
-- **[Design Patterns with PHP](/blog/design-patterns-with-php)** — Apply Observer (alert handlers), Strategy (aggregation functions), and Pipeline (data processing stages) patterns.
-- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)** — Understand when to extract MQTT ingestion, dashboard API, and alert dispatch into separate services.
-- **[CI/CD with GitHub Actions for PHP](/blog/ci-cd-github-actions-php)** — Automate deployment of your ingestion service and dashboard API with container-based CI/CD.
-- **[InfluxDB v2 Documentation](https://docs.influxdata.com/influxdb/v2/)** — Official docs for line protocol, Flux query language, tasks, and retention policies.
-- **[MQTT Specification (v5.0)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)** — The OASIS standard. Essential reading for understanding QoS levels, retained messages, and session persistence.
+- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)**: Learn how bounded contexts separate MQTT ingestion, dashboard querying, and alert management cleanly.
+- **[Test-Driven Development (TDD) with PHP](/blog/test-driven-development)**: Build your ingestion pipeline and alert rules with confidence using the Red-Green-Refactor cycle.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Keep your sensor data pipeline readable as the number of metrics, sensors, and alert rules grows.
+- **[Design Patterns with PHP](/blog/design-patterns-with-php)**: Apply Observer (alert handlers), Strategy (aggregation functions), and Pipeline (data processing stages) patterns.
+- **[Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals)**: Understand when to extract MQTT ingestion, dashboard API, and alert dispatch into separate services.
+- **[CI/CD with GitHub Actions for PHP](/blog/ci-cd-github-actions-php)**: Automate deployment of your ingestion service and dashboard API with container-based CI/CD.
+- **[InfluxDB v2 Documentation](https://docs.influxdata.com/influxdb/v2/)**: Official docs for line protocol, Flux query language, tasks, and retention policies.
+- **[MQTT Specification (v5.0)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)**: The OASIS standard. Essential reading for understanding QoS levels, retained messages, and session persistence.
 
 </section>
 
@@ -2993,7 +2993,7 @@ Now it is your turn. Extend the system with the following features:
 
 ### Task 1: Add a Cooldown Period to Alerts
 
-The current `AlertService` fires an alert on **every** reading that exceeds the threshold. In a real factory, a temperature spike generates tens of readings per second — you do not want to dispatch an alert for every single one.
+The current `AlertService` fires an alert on **every** reading that exceeds the threshold. In a real factory, a temperature spike generates tens of readings per second: you do not want to dispatch an alert for every single one.
 
 **Requirements:**
 - Add a `cooldownSeconds` property to `AlertRule`
@@ -3031,7 +3031,7 @@ GET /api/dashboard/sensors/{sensorId}/export?from=2026-07-01T00:00:00Z&to=2026-0
 
 **Requirements:**
 - Accept `from` and `to` ISO 8601 timestamps
-- Accept `format` parameter — `csv` or `json`
+- Accept `format` parameter: `csv` or `json`
 - For CSV: return a CSV download with columns: `timestamp, sensor_id, metric, value, unit`
 - For JSON: return an array of reading objects
 - Stream the response for large datasets instead of building the entire payload in memory
@@ -3094,10 +3094,10 @@ schema.measurementTagValues(
 
 ### What You Should Learn from This Exercise
 
-- **Rate limiting for alerts** prevents operator fatigue — too many alerts train people to ignore them.
-- **Data export** is a compliance requirement in many industries — auditors need raw data, not just charts.
+- **Rate limiting for alerts** prevents operator fatigue: too many alerts train people to ignore them.
+- **Data export** is a compliance requirement in many industries: auditors need raw data, not just charts.
 - **Multi-sensor aggregation** is what separates a dashboard from a single-sensor debug view. Real factory floors have hundreds of sensors.
-- The domain objects (`AlertRule`, `SensorReading`, `DashboardQuery`) make these extensions straightforward — you are adding behaviour to well-defined models, not hacking SQL strings together.
+- The domain objects (`AlertRule`, `SensorReading`, `DashboardQuery`) make these extensions straightforward: you are adding behaviour to well-defined models, not hacking SQL strings together.
 
 </section>
 

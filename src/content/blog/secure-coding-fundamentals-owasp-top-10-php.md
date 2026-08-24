@@ -28,7 +28,7 @@ excerptId: "Kuasai OWASP Top 10 (edisi 2021) melalui contoh PHP dan Laravel prak
 
 ## Why Secure Coding Matters for Student Projects
 
-Every semester, SE Lab students build real-world systems—fintech payment flows, healthcare patient portals, EdTech LMS platforms, and IoT dashboards. These systems process **real sensitive data**: financial transactions, medical records, personal identities, and academic credentials. A single vulnerability in any of these projects is not a hypothetical exercise. It is a breach waiting to happen.
+Every semester, SE Lab students build real-world systems: fintech payment flows, healthcare patient portals, EdTech LMS platforms, and IoT dashboards. These systems process **real sensitive data**: financial transactions, medical records, personal identities, and academic credentials. A single vulnerability in any of these projects is not a hypothetical exercise. It is a breach waiting to happen.
 
 Consider these real-world consequences of common student-project vulnerabilities:
 
@@ -40,15 +40,15 @@ Consider these real-world consequences of common student-project vulnerabilities
 | Cross-Site Scripting (XSS) | Session hijacking, credential theft | A comment field that renders unsanitised HTML steals every viewer's session cookie |
 | Security Misconfiguration | Directory listing exposes `.env` files, debug pages leak stack traces | Leaving `APP_DEBUG=true` in production reveals database credentials in error pages |
 
-Security is not a feature you bolt on at the end. It is the foundation beneath every layer of your application. This tutorial gives you the practical skills to build that foundation in PHP and Laravel—the stack used across SE Lab courses and thesis projects.
+Security is not a feature you bolt on at the end. It is the foundation beneath every layer of your application. This tutorial gives you the practical skills to build that foundation in PHP and Laravel, the stack used across SE Lab courses and thesis projects.
 
 ### Connection to SE Lab Research
 
 This tutorial serves all three SE Lab research streams:
 
-- **SE Methodologies & Architecture** — Secure SDLC practices, threat modelling, security-as-design-principle
-- **Domain-Specific SE Applications** — Domain-specific threats in fintech (PCI-DSS), healthcare (HIPAA), and EdTech (FERPA-inspired controls)
-- **Emerging Technologies in SE** — Security risks in AI-generated code, LLM prompt injection, securing AI-assisted development workflows
+- **SE Methodologies & Architecture**: Secure SDLC practices, threat modelling, security-as-design-principle
+- **Domain-Specific SE Applications**: Domain-specific threats in fintech (PCI-DSS), healthcare (HIPAA), and EdTech (FERPA-inspired controls)
+- **Emerging Technologies in SE**: Security risks in AI-generated code, LLM prompt injection, securing AI-assisted development workflows
 
 ### What You Will Learn
 
@@ -102,9 +102,9 @@ Tutorial ini melayani ketiga aliran riset SE Lab:
 
 ## Secure Software Development Lifecycle (SSDLC) in a Nutshell
 
-Traditional SDLC treats security as a final stage—penetration testing before deploy. This is expensive, slow, and ineffective. A vulnerability found at the penetration-testing stage costs **30× more** to fix than one found during requirements or design.
+Traditional SDLC treats security as a final stage: penetration testing before deploy. This is expensive, slow, and ineffective. A vulnerability found at the penetration-testing stage costs **30× more** to fix than one found during requirements or design.
 
-The Secure SDLC (SSDLC) shifts security left—into every phase of development:
+The Secure SDLC (SSDLC) shifts security left, into every phase of development:
 
 | SDLC Phase | Security Activity | Who |
 |---|---|---|
@@ -132,9 +132,9 @@ This is not an academic exercise. Every item in the STRIDE table maps to a concr
 
 ### Why Shift-Left Matters
 
-A vulnerability found during requirements costs one hour to fix. The same vulnerability found in production costs **days** of incident response, forensic analysis, customer notification, and patching—plus reputational damage that cannot be measured in hours.
+A vulnerability found during requirements costs one hour to fix. The same vulnerability found in production costs **days** of incident response, forensic analysis, customer notification, and patching, plus reputational damage that cannot be measured in hours.
 
-> "Security is not a product. It is a process." — Bruce Schneier
+> "Security is not a product. It is a process." (Bruce Schneier)
 
 </section>
 
@@ -184,7 +184,7 @@ Kerentanan yang ditemukan selama requirements membutuhkan satu jam untuk diperba
 
 ## OWASP Top 10 Overview (2021 Edition)
 
-The Open Web Application Security Project (OWASP) publishes the **Top 10 Web Application Security Risks**—the definitive reference for what to protect against. The 2021 edition reordered and renamed several categories to reflect shifts in the threat landscape.
+The Open Web Application Security Project (OWASP) publishes the **Top 10 Web Application Security Risks**, the definitive reference for what to protect against. The 2021 edition reordered and renamed several categories to reflect shifts in the threat landscape.
 
 Here is the complete 2021 list, with each risk mapped to a concrete PHP vulnerability:
 
@@ -245,7 +245,7 @@ Broken Access Control is the most common OWASP risk year after year. It occurs w
 ```php
 <?php
 
-// DANGEROUS: No ownership check — any authenticated user can view any record
+// DANGEROUS: No ownership check, any authenticated user can view any record
 public function viewStudentRecord(int $id): array
 {
     $stmt = $this->pdo->prepare(
@@ -292,7 +292,7 @@ public function viewStudentRecord(int $recordId, string $authenticatedUserId): a
 }
 ```
 
-The secure version joins against a permissions table. Even if the record exists, the query returns nothing unless the authenticated user has explicit permission. The error message is intentionally ambiguous—never confirm whether a record exists when denying access.
+The secure version joins against a permissions table. Even if the record exists, the query returns nothing unless the authenticated user has explicit permission. The error message is intentionally ambiguous: never confirm whether a record exists when denying access.
 
 ### Laravel: Policies and Gates
 
@@ -346,7 +346,7 @@ class StudentRecordController extends Controller
 }
 ```
 
-The `$this->authorize('view', $record)` call throws a `403 Forbidden` if the policy denies access—before any data is rendered.
+The `$this->authorize('view', $record)` call throws a `403 Forbidden` if the policy denies access, before any data is rendered.
 
 ### CORS Misconfiguration
 
@@ -388,7 +388,7 @@ Broken Access Control adalah risiko OWASP paling umum tahun demi tahun. Ini terj
 ```php
 <?php
 
-// BERBAHAYA: Tidak ada pemeriksaan kepemilikan — setiap pengguna terautentikasi dapat melihat catatan apa pun
+// BERBAHAYA: Tidak ada pemeriksaan kepemilikan, setiap pengguna terautentikasi dapat melihat catatan apa pun
 public function viewStudentRecord(int $id): array
 {
     $stmt = $this->pdo->prepare(
@@ -597,7 +597,7 @@ if (Hash::needsRehash($user->password)) {
 ```php
 <?php
 
-// DANGEROUS: Hardcoded in source — committed to Git, visible to everyone with repo access
+// DANGEROUS: Hardcoded in source, committed to Git, visible to everyone with repo access
 $encryptionKey = 'my-secret-key-12345';
 $apiToken = 'sk_live_9876543210abcdef';
 $dbPassword = 'admin123';
@@ -630,7 +630,7 @@ $stripeSecret = config('services.stripe.secret');
 
 **Rules for secrets:**
 - Never commit `.env` to Git (add to `.gitignore`)
-- Rotate secrets if they are accidentally committed—removing from history is not enough
+- Rotate secrets if they are accidentally committed: removing from history is not enough
 - Use Laravel's `php artisan config:cache` in production to prevent `.env` reads at runtime
 
 ### Laravel Encryption
@@ -732,7 +732,7 @@ if (Hash::needsRehash($user->password)) {
 ```php
 <?php
 
-// BERBAHAYA: Hardcode di source — di-commit ke Git, terlihat oleh semua orang dengan akses repo
+// BERBAHAYA: Hardcode di source, di-commit ke Git, terlihat oleh semua orang dengan akses repo
 $encryptionKey = 'my-secret-key-12345';
 $apiToken = 'sk_live_9876543210abcdef';
 $dbPassword = 'admin123';
@@ -805,7 +805,7 @@ Injection occurs when untrusted data is sent to an interpreter as part of a comm
 ```php
 <?php
 
-// DANGEROUS: String interpolation — attacker input becomes part of the SQL command
+// DANGEROUS: String interpolation, attacker input becomes part of the SQL command
 $username = $_POST['username'];
 $password = $_POST['password'];
 
@@ -839,7 +839,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($user && password_verify($_POST['password'], $user['password_hash'])) {
     // Authentication successful
 } else {
-    // Always use the same error message — don't reveal whether the user exists
+    // Always use the same error message: don't reveal whether the user exists
     throw new AuthenticationException('Invalid username or password.');
 }
 ```
@@ -858,7 +858,7 @@ $users = DB::select(
     ['email' => $request->email, 'status' => 'active']
 );
 
-// DANGEROUS: DB::raw() with unsanitised input — avoid unless absolutely necessary
+// DANGEROUS: DB::raw() with unsanitised input, avoid unless absolutely necessary
 $users = DB::table('users')
     ->whereRaw("email = '{$request->email}'") // SQL injection!
     ->get();
@@ -910,7 +910,7 @@ public function readReport(string $filename): string
 
 **Rules for preventing command injection:**
 - Never pass user input to `shell_exec()`, `exec()`, `system()`, or backtick operators
-- If shell execution is unavoidable, use `escapeshellarg()` and `escapeshellcmd()`—but validate first
+- If shell execution is unavoidable, use `escapeshellarg()` and `escapeshellcmd()`, but validate first
 - Prefer native PHP functions (`file_get_contents()`, `PDO`, `curl`) over shell commands
 
 ### Cross-Site Scripting (XSS)
@@ -972,7 +972,7 @@ Injeksi terjadi ketika data tidak terpercaya dikirim ke interpreter sebagai bagi
 ```php
 <?php
 
-// BERBAHAYA: Interpolasi string — input penyerang menjadi bagian dari perintah SQL
+// BERBAHAYA: Interpolasi string, input penyerang menjadi bagian dari perintah SQL
 $username = $_POST['username'];
 $password = $_POST['password'];
 
@@ -1006,7 +1006,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($user && password_verify($_POST['password'], $user['password_hash'])) {
     // Autentikasi berhasil
 } else {
-    // Selalu gunakan pesan error yang sama — jangan ungkapkan apakah pengguna ada
+    // Selalu gunakan pesan error yang sama: jangan ungkapkan apakah pengguna ada
     throw new AuthenticationException('Username atau password tidak valid.');
 }
 ```
@@ -1025,7 +1025,7 @@ $users = DB::select(
     ['email' => $request->email, 'status' => 'active']
 );
 
-// BERBAHAYA: DB::raw() dengan input tidak disanitasi — hindari kecuali benar-benar diperlukan
+// BERBAHAYA: DB::raw() dengan input tidak disanitasi, hindari kecuali benar-benar diperlukan
 $users = DB::table('users')
     ->whereRaw("email = '{$request->email}'") // SQL injection!
     ->get();
@@ -1141,7 +1141,7 @@ Insecure Design is distinct from implementation bugs. It represents missing or i
 ```php
 <?php
 
-// DANGEROUS: No rate limiting — attacker can brute-force passwords at wire speed
+// DANGEROUS: No rate limiting, attacker can brute-force passwords at wire speed
 public function login(string $email, string $password): array
 {
     $user = $this->userRepository->findByEmail($email);
@@ -1260,7 +1260,7 @@ $this->auditLogger->log($userId, 'grade.updated', "student_record:{$recordId}", 
 // DANGEROUS: unserialize() on user-controlled data allows object injection
 $data = unserialize($_COOKIE['user_data']);
 
-// SECURE: Use JSON for data interchange — never unserialize() untrusted input
+// SECURE: Use JSON for data interchange, never unserialize() untrusted input
 $data = json_decode($_COOKIE['user_data'], true, 512, JSON_THROW_ON_ERROR);
 ```
 
@@ -1281,7 +1281,7 @@ Desain Tidak Aman berbeda dari bug implementasi. Ini mewakili kontrol keamanan y
 ```php
 <?php
 
-// BERBAHAYA: Tidak ada rate limiting — penyerang dapat brute-force password dengan kecepatan penuh
+// BERBAHAYA: Tidak ada rate limiting, penyerang dapat brute-force password dengan kecepatan penuh
 public function login(string $email, string $password): array
 {
     $user = $this->userRepository->findByEmail($email);
@@ -1400,7 +1400,7 @@ $this->auditLogger->log($userId, 'grade.updated', "student_record:{$recordId}", 
 // BERBAHAYA: unserialize() pada data yang dikontrol pengguna memungkinkan object injection
 $data = unserialize($_COOKIE['user_data']);
 
-// AMAN: Gunakan JSON untuk pertukaran data — jangan pernah unserialize() input tidak terpercaya
+// AMAN: Gunakan JSON untuk pertukaran data, jangan pernah unserialize() input tidak terpercaya
 $data = json_decode($_COOKIE['user_data'], true, 512, JSON_THROW_ON_ERROR);
 ```
 
@@ -1453,7 +1453,7 @@ https://student-portal.example.com/.env
 **Prevention:**
 - Configure the web server document root to `public/`, never the project root
 - Add `.env` to `.gitignore`
-- Use `php artisan config:cache` in production — it creates a cached config that does not read `.env`
+- Use `php artisan config:cache` in production: it creates a cached config that does not read `.env`
 - Set restrictive file permissions: `chmod 600 .env`
 
 ### Default Credentials
@@ -1634,7 +1634,7 @@ class SecurityHeaders
 
 ## A06: Vulnerable and Outdated Components
 
-Using components with known vulnerabilities is the fastest path to compromise. The Equifax breach (2017)—exposing 147 million records—was caused by an unpatched Apache Struts vulnerability with a fix available for months.
+Using components with known vulnerabilities is the fastest path to compromise. The Equifax breach (2017), which exposed 147 million records, was caused by an unpatched Apache Struts vulnerability with a fix available for months.
 
 ### PHP Version Management
 
@@ -1647,7 +1647,7 @@ $ php --version
 # PHP 8.1 active support ended Nov 2024, security support ends Nov 2025
 # PHP 8.2 active support until Dec 2025, security support until Dec 2026
 # PHP 8.3 active support until Dec 2026
-# PHP 7.4 — end of life since Nov 2022. Do not use.
+# PHP 7.4: end of life since Nov 2022. Do not use.
 ```
 
 **Recommendation:** Use PHP 8.3 or newer as of 2026. Stay on a supported release line.
@@ -1731,7 +1731,7 @@ $ php --version
 # PHP 8.1 dukungan aktif berakhir Nov 2024, dukungan keamanan berakhir Nov 2025
 # PHP 8.2 dukungan aktif hingga Des 2025, dukungan keamanan hingga Des 2026
 # PHP 8.3 dukungan aktif hingga Des 2026
-# PHP 7.4 — end of life sejak Nov 2022. Jangan gunakan.
+# PHP 7.4: end of life sejak Nov 2022. Jangan gunakan.
 ```
 
 **Rekomendasi:** Gunakan PHP 8.3 atau lebih baru per 2026. Tetap di jalur rilis yang didukung.
@@ -1890,7 +1890,7 @@ The k-anonymity model: only the first 5 characters of the SHA-1 hash are sent ov
 ```php
 <?php
 
-// DANGEROUS: Session ID unchanged after login — session fixation attack
+// DANGEROUS: Session ID unchanged after login, session fixation attack
 session_start();
 $_SESSION['user_id'] = $user->id;
 
@@ -2048,7 +2048,7 @@ Model k-anonymity: hanya 5 karakter pertama dari hash SHA-1 dikirim melalui jari
 ```php
 <?php
 
-// BERBAHAYA: ID sesi tidak berubah setelah login — serangan session fixation
+// BERBAHAYA: ID sesi tidak berubah setelah login, serangan session fixation
 session_start();
 $_SESSION['user_id'] = $user->id;
 
@@ -2150,7 +2150,7 @@ Dependency confusion occurs when an attacker publishes a package with the same n
 
 - Always use `https` for Composer repositories
 - Set `secure-http: true` to block unencrypted downloads
-- Explicitly list allowed plugins — deny everything else
+- Explicitly list allowed plugins: deny everything else
 - Using a private Packagist (e.g., Private Packagist, Satis) for internal packages prevents name collisions with public packages
 
 ### Composer Lock File Integrity
@@ -2158,7 +2158,7 @@ Dependency confusion occurs when an attacker publishes a package with the same n
 The `composer.lock` file records exact versions and content hashes of every installed package:
 
 ```bash
-# Never delete composer.lock — it's your integrity record
+# Never delete composer.lock: it's your integrity record
 # Always commit it to version control
 
 $ composer install --no-dev --optimize-autoloader
@@ -2181,7 +2181,7 @@ CI/CD pipelines have access to secrets (deploy keys, API tokens). A compromised 
 Example of secure action pinning:
 
 ```yaml
-# SAFE: Pinned to exact commit SHA — immutable
+# SAFE: Pinned to exact commit SHA, immutable
 - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
 # DANGEROUS: Branch reference can be changed by repo owner, injecting malicious code
@@ -2242,7 +2242,7 @@ Kerancuan dependensi terjadi ketika penyerang mempublikasikan paket dengan nama 
 File `composer.lock` mencatat versi tepat dan hash konten dari setiap paket yang diinstal:
 
 ```bash
-# Jangan pernah menghapus composer.lock — ini adalah catatan integritas Anda
+# Jangan pernah menghapus composer.lock: ini adalah catatan integritas Anda
 # Selalu commit ke version control
 
 $ composer install --no-dev --optimize-autoloader
@@ -2265,7 +2265,7 @@ Pipeline CI/CD memiliki akses ke secrets (kunci deploy, token API). Pipeline yan
 Contoh pinning action yang aman:
 
 ```yaml
-# AMAN: Dipin ke SHA commit tepat — immutable
+# AMAN: Dipin ke SHA commit tepat, immutable
 - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
 # BERBAHAYA: Referensi branch dapat diubah oleh pemilik repo, menyuntikkan kode berbahaya
@@ -2292,7 +2292,7 @@ $ openssl dgst -sha256 -verify public_key.pem -signature tool.phar.sig tool.phar
 
 ## A09: Security Logging and Monitoring Failures
 
-Without adequate logging and monitoring, breaches go undetected for months. The average time to detect a breach is **194 days** (IBM, 2025). Security logging is not just about compliance—it is your breach detection system.
+Without adequate logging and monitoring, breaches go undetected for months. The average time to detect a breach is **194 days** (IBM, 2025). Security logging is not just about compliance: it is your breach detection system.
 
 ### What to Log
 
@@ -2590,7 +2590,7 @@ class SecurityMonitor
 
 ## A10: Server-Side Request Forgery (SSRF)
 
-SSRF occurs when an attacker tricks the server into making requests to unintended locations—internal networks, cloud metadata services, or third-party systems. SSRF is particularly dangerous in cloud environments where the metadata service (e.g., `http://169.254.169.254/latest/meta-data/` on AWS) exposes credentials.
+SSRF occurs when an attacker tricks the server into making requests to unintended locations: internal networks, cloud metadata services, or third-party systems. SSRF is particularly dangerous in cloud environments where the metadata service (e.g., `http://169.254.169.254/latest/meta-data/` on AWS) exposes credentials.
 
 ### Vulnerable URL Fetching
 
@@ -2720,7 +2720,7 @@ class SecureApiClient
 - [ ] Never accept full URLs from users; use allowlists for domains, schemes, and ports
 - [ ] Block internal IP ranges (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.0/8`, `169.254.0.0/16`)
 - [ ] Only allow HTTPS; block HTTP, FTP, file, gopher, and other schemes
-- [ ] Do not follow redirects automatically—validate the redirect target before following
+- [ ] Do not follow redirects automatically; validate the redirect target before following
 - [ ] Use a proxy or network-level egress firewall as a second layer of defense
 
 </section>
@@ -2877,7 +2877,7 @@ Now it is your turn. Below is a deliberately vulnerable PHP snippet from a stude
 ```php
 <?php
 
-// Vulnerable Student Portal — DO NOT DEPLOY
+// Vulnerable Student Portal: DO NOT DEPLOY
 include 'config.php';
 
 $id = $_GET['id'];
@@ -2906,10 +2906,10 @@ echo "<!-- Debug: " . print_r($student, true) . " -->";
 
 ### Exercise Tasks
 
-1. **Identify vulnerabilities** — Find at least 10 distinct security issues. Classify each by OWASP category.
+1. **Identify vulnerabilities**: Find at least 10 distinct security issues. Classify each by OWASP category.
 2. **Rewrite the code** using secure PHP practices: prepared statements, output escaping, input validation, proper hashing, access control, and no debug data exposure.
-3. **Add a security layer** — Add CSRF protection, a rate limiter, and an audit log entry for every grade change.
-4. **Laravel migration** — If this were a Laravel application, rewrite the vulnerable code using Eloquent, Blade, Gate policies, and the `Hash` facade.
+3. **Add a security layer**: Add CSRF protection, a rate limiter, and an audit log entry for every grade change.
+4. **Laravel migration**: If this were a Laravel application, rewrite the vulnerable code using Eloquent, Blade, Gate policies, and the `Hash` facade.
 
 ### What to Submit
 
@@ -2927,8 +2927,8 @@ For each task, provide:
 | 2 | SQL injection via `$_POST['grade']` | A03 | Lines 12, 16 |
 | 3 | XSS via unsanitised `$comment` echo | A03 | Line 19 |
 | 4 | XSS via unsanitised `$student['name']` echo | A03 | Line 24 |
-| 5 | Broken Access Control — no ownership check | A01 | Entire file |
-| 6 | Weak hashing — MD5 on SSN | A02 | Line 22 |
+| 5 | Broken Access Control: no ownership check | A01 | Entire file |
+| 6 | Weak hashing: MD5 on SSN | A02 | Line 22 |
 | 7 | Exposed `config.php` with credentials | A05 | Line 4 |
 | 8 | Debug data in HTML comments | A05 | Line 27 |
 | 9 | No CSRF protection on POST | A04/A01 | Line 11 |
@@ -2949,7 +2949,7 @@ Sekarang giliran Anda. Di bawah ini adalah potongan PHP yang sengaja dibuat rent
 ```php
 <?php
 
-// Portal Mahasiswa Rentan — JANGAN DEPLOY
+// Portal Mahasiswa Rentan: JANGAN DEPLOY
 include 'config.php';
 
 $id = $_GET['id'];
@@ -3020,7 +3020,7 @@ Use this checklist before submitting any SE Lab project, thesis, or course assig
 
 ### Input & Output
 
-- [ ] All database queries use prepared statements with parameter binding — never string interpolation
+- [ ] All database queries use prepared statements with parameter binding: never string interpolation
 - [ ] All user-supplied data rendered in HTML is escaped with `htmlspecialchars()` or Blade `{{ }}`
 - [ ] File uploads validate MIME type, file extension (allowlist), and file size before storage
 - [ ] File uploads are stored outside the webroot or in non-executable directories
@@ -3038,7 +3038,7 @@ Use this checklist before submitting any SE Lab project, thesis, or course assig
 ### Authorisation
 
 - [ ] Every data-access endpoint verifies that the authenticated user owns or is permitted to access the resource
-- [ ] Role and permission checks happen on the server — never trust client-side UI to enforce access control
+- [ ] Role and permission checks happen on the server: never trust client-side UI to enforce access control
 - [ ] Administrative endpoints are behind role-checking middleware
 - [ ] In Laravel, use policies and gates for authorisation; call `$this->authorize()` in every controller action
 
@@ -3047,14 +3047,14 @@ Use this checklist before submitting any SE Lab project, thesis, or course assig
 - [ ] Sensitive data at rest is encrypted using AES-256 (Laravel's `Crypt` facade or equivalent)
 - [ ] Personally identifiable information (PII) in logs is hashed or pseudonymised
 - [ ] Database backups are encrypted and access-restricted
-- [ ] API keys, database passwords, and other secrets are stored in environment variables — never in source code
+- [ ] API keys, database passwords, and other secrets are stored in environment variables: never in source code
 
 ### Configuration
 
 - [ ] `APP_DEBUG` is `false` and `APP_ENV` is `production` in production
 - [ ] `display_errors` is `Off`; errors are logged, not displayed
 - [ ] Security headers are set: `X-Content-Type-Options`, `X-Frame-Options`, `Strict-Transport-Security`, `Referrer-Policy`
-- [ ] CORS configuration restricts `allowed_origins` to explicit domains — no `*` with credentials
+- [ ] CORS configuration restricts `allowed_origins` to explicit domains: no `*` with credentials
 - [ ] `.env` is excluded from version control and inaccessible via the web server
 
 ### Dependencies
@@ -3075,7 +3075,7 @@ Use this checklist before submitting any SE Lab project, thesis, or course assig
 ### CI/CD & Deployment
 
 - [ ] GitHub Actions or other CI/CD workflows pin actions to full commit SHAs
-- [ ] Secrets are injected via environment or secrets manager — never in workflow files
+- [ ] Secrets are injected via environment or secrets manager: never in workflow files
 - [ ] Production deployments use `composer install --no-dev --optimize-autoloader`
 - [ ] Automated tests include security regression tests for critical flows (auth, authorisation, data access)
 
@@ -3156,33 +3156,33 @@ Gunakan checklist ini sebelum mengirimkan proyek SE Lab, tesis, atau tugas mata 
 
 ## Summary
 
-1. **Security is not optional.** Every student project that processes user data—fintech payments, healthcare records, academic credentials—is a potential breach target. The OWASP Top 10 is your minimum viable security baseline.
+1. **Security is not optional.** Every student project that processes user data (fintech payments, healthcare records, academic credentials) is a potential breach target. The OWASP Top 10 is your minimum viable security baseline.
 2. **Shift left.** Fix vulnerabilities during requirements and design, not during penetration testing. A design-level fix costs 30× less than a production hotfix. Apply STRIDE threat modelling before writing a single line of code.
-3. **A01—Broken Access Control** is the most common vulnerability. Always verify that the authenticated user owns or has permission to access the requested resource. Never rely on client-side UI to enforce authorisation.
-4. **A02—Cryptographic Failures** are trivially avoidable. Use `password_hash()` with bcrypt (cost >= 12). Never use MD5 or SHA1. Never hardcode secrets—use environment variables.
-5. **A03—Injection** is stopped by prepared statements (SQL), output escaping (XSS), and input allowlists (command). If you only fix one category in your codebase today, make it this one.
-6. **A04—Insecure Design** means missing controls: no rate limiting, no audit logs, trust-by-default assumptions. Design for zero-trust—validate, authenticate, and authorise every request.
-7. **A05—Security Misconfiguration** is "death by a thousand paper cuts." Turn off debug mode, restrict CORS origins, set security headers, and protect your `.env` file.
-8. **A06—Vulnerable and Outdated Components** are the easiest risk to fix: run `composer audit` regularly, enable Dependabot, and stay on supported PHP and Laravel versions.
-9. **A07—Authentication Failures** are prevented with strong password policies, session regeneration after login, `HttpOnly`/`Secure`/`SameSite` cookies, and MFA for sensitive accounts.
-10. **A08—Software Integrity Failures** mean verifying that your code, dependencies, and deployment artifacts have not been tampered with. Pin actions, verify hashes, sign artifacts.
-11. **A09—Logging and Monitoring** is your breach detection system. Log authentication events, authorisation failures, and suspicious patterns. Never log raw passwords or PII. Set up automated alerts.
-12. **A10—SSRF** is prevented with URL allowlists, internal IP blocks, scheme restrictions (`HTTPS` only), and redirect validation. Never accept arbitrary URLs from users.
+3. **A01: Broken Access Control** is the most common vulnerability. Always verify that the authenticated user owns or has permission to access the requested resource. Never rely on client-side UI to enforce authorisation.
+4. **A02: Cryptographic Failures** are trivially avoidable. Use `password_hash()` with bcrypt (cost >= 12). Never use MD5 or SHA1. Never hardcode secrets: use environment variables.
+5. **A03: Injection** is stopped by prepared statements (SQL), output escaping (XSS), and input allowlists (command). If you only fix one category in your codebase today, make it this one.
+6. **A04: Insecure Design** means missing controls: no rate limiting, no audit logs, trust-by-default assumptions. Design for zero-trust: validate, authenticate, and authorise every request.
+7. **A05: Security Misconfiguration** is "death by a thousand paper cuts." Turn off debug mode, restrict CORS origins, set security headers, and protect your `.env` file.
+8. **A06: Vulnerable and Outdated Components** are the easiest risk to fix: run `composer audit` regularly, enable Dependabot, and stay on supported PHP and Laravel versions.
+9. **A07: Authentication Failures** are prevented with strong password policies, session regeneration after login, `HttpOnly`/`Secure`/`SameSite` cookies, and MFA for sensitive accounts.
+10. **A08: Software Integrity Failures** mean verifying that your code, dependencies, and deployment artifacts have not been tampered with. Pin actions, verify hashes, sign artifacts.
+11. **A09: Logging and Monitoring** is your breach detection system. Log authentication events, authorisation failures, and suspicious patterns. Never log raw passwords or PII. Set up automated alerts.
+12. **A10: SSRF** is prevented with URL allowlists, internal IP blocks, scheme restrictions (`HTTPS` only), and redirect validation. Never accept arbitrary URLs from users.
 
-> "Given enough eyeballs, all bugs are shallow—but only if those eyeballs are trained to recognise them. Every developer is a security engineer. Wear that responsibility in every pull request."
+> "Given enough eyeballs, all bugs are shallow, but only if those eyeballs are trained to recognise them. Every developer is a security engineer. Wear that responsibility in every pull request."
 
 ## What to Read Next
 
-- **[Software Engineering for Fintech: Secure Payment Flow with PHP](/blog/software-engineering-for-fintech-payment-flow-php)** — Apply secure coding to payment systems: idempotency keys, double-entry ledgers, PCI-DSS considerations, and fraud detection guards.
-- **[Software Engineering for Healthcare: Patient Registration with PHP](/blog/se-engineering-for-healthcare-patient-registration-php)** — Domain-specific security for healthcare systems: HIPAA-inspired data protection, audit trails, and consent management.
-- **[Code Quality Analysis with PHP](/blog/code-quality-analysis-php)** — Automate security checks with PHPStan, PHP_CodeSniffer security rules, and PHPMD. Catch injection and configuration issues before code review.
-- **[LLM-Assisted Coding with PHP: From Prompts to Production](/blog/llm-assisted-coding-php)** — Learn the security risks of AI-generated code: prompt injection, hallucinated APIs, and how to use LLMs safely in your development workflow.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Write code that is both secure and maintainable. Clean code makes security vulnerabilities easier to spot during review.
-- **[Test-Driven Development with PHP](/blog/test-driven-development)** — Write security regression tests first. Ensure that SQL injection, XSS, and access control bugs never return.
-- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)** — Build a security testing strategy that combines penetration testing (blackbox) with static analysis (whitebox).
-- **[OWASP Top 10 (2021) — Official Documentation](https://owasp.org/www-project-top-ten/)** — The definitive reference. Bookmark this and review it before every major release.
-- **[OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)** — Practical, language-specific security guidance. The PHP and Laravel cheat sheets are especially useful.
-- **[Laravel Security Best Practices](https://laravel.com/docs/security)** — Official Laravel documentation on authentication, authorisation, encryption, and CSRF protection.
+- **[Software Engineering for Fintech: Secure Payment Flow with PHP](/blog/software-engineering-for-fintech-payment-flow-php)**: Apply secure coding to payment systems: idempotency keys, double-entry ledgers, PCI-DSS considerations, and fraud detection guards.
+- **[Software Engineering for Healthcare: Patient Registration with PHP](/blog/se-engineering-for-healthcare-patient-registration-php)**: Domain-specific security for healthcare systems: HIPAA-inspired data protection, audit trails, and consent management.
+- **[Code Quality Analysis with PHP](/blog/code-quality-analysis-php)**: Automate security checks with PHPStan, PHP_CodeSniffer security rules, and PHPMD. Catch injection and configuration issues before code review.
+- **[LLM-Assisted Coding with PHP: From Prompts to Production](/blog/llm-assisted-coding-php)**: Learn the security risks of AI-generated code: prompt injection, hallucinated APIs, and how to use LLMs safely in your development workflow.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Write code that is both secure and maintainable. Clean code makes security vulnerabilities easier to spot during review.
+- **[Test-Driven Development with PHP](/blog/test-driven-development)**: Write security regression tests first. Ensure that SQL injection, XSS, and access control bugs never return.
+- **[Blackbox and Whitebox Test](/blog/blackbox-and-whitebox-test)**: Build a security testing strategy that combines penetration testing (blackbox) with static analysis (whitebox).
+- **[OWASP Top 10 (2021): Official Documentation](https://owasp.org/www-project-top-ten/)**: The definitive reference. Bookmark this and review it before every major release.
+- **[OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)**: Practical, language-specific security guidance. The PHP and Laravel cheat sheets are especially useful.
+- **[Laravel Security Best Practices](https://laravel.com/docs/security)**: Official Laravel documentation on authentication, authorisation, encryption, and CSRF protection.
 
 </section>
 

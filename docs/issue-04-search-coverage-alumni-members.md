@@ -27,8 +27,8 @@ Two options:
 Option 1 is more consistent with how every other search-index source in
 this codebase already works (`researchers.json.ts`,
 `publications-meta.json.ts`, etc. are all build-time JSON), but "approved
-alumni changed after the last deploy" would be stale until the next build
-— acceptable given deploys already happen on every push and the current
+alumni changed after the last deploy" would be stale until the next build,
+which is acceptable given deploys already happen on every push and the current
 DB migration/data-change convention already has this same staleness
 characteristic (e.g. new alumni approvals don't appear anywhere on the
 static-rendered pages until redeploy either, since the pages are pure

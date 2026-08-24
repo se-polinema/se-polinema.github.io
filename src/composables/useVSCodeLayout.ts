@@ -6,7 +6,7 @@ const sidebarOpen = ref(false)
 const activeSection = ref('hero')
 const currentPage = ref('home')
 const panelOpen = ref(false)
-// Drives the breadcrumb bar's "Ln N" indicator — mirrors the editor
+// Drives the breadcrumb bar's "Ln N" indicator, mirroring the editor
 // gutter's line numbering (LINE_HEIGHT = 22px, VSCodeLayout.astro) so the
 // displayed line stays aligned with what's actually at the top of the
 // viewport as the user scrolls. Seeded to 1 for SSR/first-paint parity.
@@ -79,7 +79,7 @@ function clampSidebarWidth(px: number): number {
 }
 
 // Caps the panel at half the viewport height on desktop (tighter, 40%, on
-// mobile — a short phone screen can't afford as much), never more than the
+// mobile, since a short phone screen can't afford as much), never more than the
 // hard 480px ceiling, so a drag (or a persisted desktop value loaded on a
 // narrow phone) can't swallow the screen. Falls back to the hard ceiling
 // during SSR, where `window` doesn't exist.
@@ -97,7 +97,7 @@ export function useVSCodeLayout(initialPath?: string) {
   // Seeds currentPage/activeSidebarView from a server-known path (passed as
   // Astro.url.pathname down through an `initialPath` prop). Runs
   // unconditionally (including during SSR, where `window` doesn't exist)
-  // so the very first render — server and client alike — already reflects
+  // so the very first render, server and client alike, already reflects
   // the real route, instead of the 'home'/'explorer' defaults. Because
   // every island on a page passes the same initialPath, this stays
   // consistent across the shared singleton regardless of mount order.
@@ -109,7 +109,7 @@ export function useVSCodeLayout(initialPath?: string) {
 
   // sidebarOpen/layoutInitialized/panelOpen's width-based defaults are
   // deliberately NOT set here in useVSCodeLayout() itself (they used to be,
-  // synchronously, on first call — that desynced the very first client
+  // synchronously, on first call: that desynced the very first client
   // render, including the hydration pass itself, from SSR's false/false
   // defaults, producing real "check-only" Vue hydration mismatches on
   // Sidebar's width class, BottomPanel's height style, and StatusBar's
@@ -139,7 +139,7 @@ export function useVSCodeLayout(initialPath?: string) {
     if (savedPanelOpen !== null) {
       panelOpen.value = savedPanelOpen === 'true'
     } else {
-      // No stored preference yet (first-ever visit) — fall back to the
+      // No stored preference yet (first-ever visit), so fall back to the
       // same width-based default the sync init block used to apply.
       panelOpen.value = !isMobile.value
     }
@@ -165,13 +165,13 @@ export function useVSCodeLayout(initialPath?: string) {
 
   // Resolves the current route into `currentPage`/`activeSidebarView`. Must
   // be called post-hydration (e.g. from a component's onMounted) for the
-  // same reason as restorePanelState() above — mutating these during
+  // same reason as restorePanelState() above: mutating these during
   // setup() desyncs the first client render from the SSR-rendered defaults
   // ('home' / 'explorer') and can strand active-state UI (file tree,
   // activity bar icon, tab bar) on the SSR default.
   //
   // Deliberately NOT guarded behind a "restore once ever" flag like
-  // restorePanelState() — unlike the one-time localStorage restore, route
+  // restorePanelState(): unlike the one-time localStorage restore, route
   // state should always reflect window.location.pathname, so this always
   // recomputes from scratch. Safe and cheap to call from multiple islands
   // on every mount: they'll all independently arrive at the same value.
@@ -224,7 +224,7 @@ export function useVSCodeLayout(initialPath?: string) {
       return
     }
     // Clicking the already-active icon while the sidebar is open toggles
-    // it closed, matching VS Code's own Activity Bar behavior — a second
+    // it closed, matching VS Code's own Activity Bar behavior: a second
     // click on the same icon (or any icon while closed) reopens it via
     // the fallthrough below.
     if (activeSidebarView.value === view && sidebarOpen.value) {
@@ -262,7 +262,7 @@ export function useVSCodeLayout(initialPath?: string) {
   }
 
   // Live-updates during a drag (see useDragResize) without touching
-  // localStorage on every pointermove — persistSidebarWidth()/
+  // localStorage on every pointermove; persistSidebarWidth()/
   // persistPanelHeight() write the final value once the drag ends.
   function setSidebarWidth(px: number) {
     sidebarWidth.value = clampSidebarWidth(px)
@@ -289,7 +289,7 @@ export function useVSCodeLayout(initialPath?: string) {
       editor.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
     }
     // Same-page section jumps (unlike cross-page links) don't reload and
-    // so wouldn't otherwise reset sidebarOpen — close the mobile drawer
+    // so wouldn't otherwise reset sidebarOpen: close the mobile drawer
     // explicitly so it doesn't keep covering the section just jumped to.
     if (isMobile.value) {
       sidebarOpen.value = false

@@ -16,7 +16,7 @@ tagsId:
   - MVC
   - MVVM
   - PHP
-excerpt: "A hands-on introduction to Model-View-Controller (MVC) and Model-View-ViewModel (MVVM) separation patterns for PHP developers. Learn how each pattern works using a student-course enrolment domain, compare Laravel MVC with a Vue.js-backed MVVM client, understand trade-offs, avoid fat controllers and leaky ViewModels, and refactor spaghetti PHP into clean architecture — with runnable code samples throughout."
+excerpt: "A hands-on introduction to Model-View-Controller (MVC) and Model-View-ViewModel (MVVM) separation patterns for PHP developers. Learn how each pattern works using a student-course enrolment domain, compare Laravel MVC with a Vue.js-backed MVVM client, understand trade-offs, avoid fat controllers and leaky ViewModels, and refactor spaghetti PHP into clean architecture, with runnable code samples throughout."
 excerptId: "Pengenalan praktis pola pemisahan Model-View-Controller (MVC) dan Model-View-ViewModel (MVVM) untuk pengembang PHP. Pelajari cara kerja setiap pola menggunakan domain pendaftaran mata kuliah, bandingkan Laravel MVC dengan klien MVVM berbasis Vue.js, pahami trade-off, hindari fat controller dan ViewModel yang bocor, dan refactor spaghetti PHP menjadi arsitektur yang bersih, dengan contoh kode yang dapat dijalankan di seluruh tutorial."
 ---
 
@@ -35,7 +35,7 @@ Two separation patterns dominate web development today:
 | **MVC** (Model-View-Controller) | Three layers: data, presentation, request handling | Server-rendered frameworks (Laravel, Rails, Django, Spring) |
 | **MVVM** (Model-View-ViewModel) | Two active layers + a data-binding bridge | Client-side frameworks (Vue, Angular, React with hooks) and XAML platforms |
 
-This tutorial walks through both patterns using the same concrete domain — a student-course enrolment module — so you can compare them side by side and decide which fits your next project.
+This tutorial walks through both patterns using the same concrete domain, a student-course enrolment module, so you can compare them side by side and decide which fits your next project.
 
 </section>
 
@@ -91,17 +91,17 @@ graph TB
 
 ## What Is MVC? Model, View, Controller
 
-MVC divides an application into three interconnected components. The **Model** owns the data and the business rules. The **View** renders the output — HTML, JSON, or a PDF. The **Controller** receives the HTTP request, asks the Model for data, and chooses which View to render.
+MVC divides an application into three interconnected components. The **Model** owns the data and the business rules. The **View** renders the output: HTML, JSON, or a PDF. The **Controller** receives the HTTP request, asks the Model for data, and chooses which View to render.
 
 The golden rule: **the Model never knows about the View or the Controller.** It is a pure PHP object that can run from a command line, a queue worker, or a test suite with zero knowledge of HTTP.
 
 ### A Spaghetti Enrolment Page (Before MVC)
 
-Imagine `enrol.php` — a single file that does everything:
+Imagine `enrol.php`, a single file that does everything:
 
 ```php
 <?php
-// enrol.php — a single-file nightmare
+// enrol.php: a single-file nightmare
 
 $db = new PDO('mysql:host=localhost;dbname=campus', 'root', '');
 
@@ -162,7 +162,7 @@ This file mixes SQL, business rules, HTML, and routing. Adding a REST API endpoi
 
 Let us extract three layers from the spaghetti.
 
-#### Model — Pure Business Logic
+#### Model: Pure Business Logic
 
 The Model is the heart. It knows the rules: a student cannot enrol twice in the same course, and a course cannot exceed its capacity.
 
@@ -255,9 +255,9 @@ class EnrolmentResult
 }
 ```
 
-Notice: no HTML, no `$_GET`, no `echo`. The Model is a pure PHP class. You can unit-test `EnrolmentService::enrol()` without a browser — inject a SQLite in-memory PDO and assert that the second enrolment attempt returns `false`.
+Notice: no HTML, no `$_GET`, no `echo`. The Model is a pure PHP class. You can unit-test `EnrolmentService::enrol()` without a browser: inject a SQLite in-memory PDO and assert that the second enrolment attempt returns `false`.
 
-#### Controller — The Traffic Cop
+#### Controller: The Traffic Cop
 
 The Controller translates HTTP concerns into domain calls and decides what View to return.
 
@@ -345,7 +345,7 @@ class EnrolmentController
 
 The Controller's responsibilities are narrow: validate input, call the Model, pass data to the View. If the team decides to add a REST API, you write a new `ApiEnrolmentController` that reuses the same `EnrolmentService` but returns JSON instead of rendering PHP templates.
 
-#### View — Pure Presentation
+#### View: Pure Presentation
 
 ```php
 <!-- views/enrolment-confirmed.php -->
@@ -484,7 +484,7 @@ class EnrolmentService
 }
 ```
 
-**Controller (thin — delegates to the Service):**
+**Controller (thin, delegates to the Service):**
 
 ```php
 <?php
@@ -588,7 +588,7 @@ Route::post('/enrolments', [EnrolmentController::class, 'create'])->name('enrolm
 
 **What MVC gives you:**
 - The designer edits `enrolments/list.blade.php` without fear of breaking enrolment rules.
-- The back-end developer adds a `cancel()` method to `EnrolmentService` and a new Controller action — the View stays unchanged.
+- The back-end developer adds a `cancel()` method to `EnrolmentService` and a new Controller action; the View stays unchanged.
 - You write a unit test for `EnrolmentService` that runs in milliseconds, no HTTP server needed.
 
 </section>
@@ -607,7 +607,7 @@ Bayangkan `enrol.php`, satu file yang melakukan segalanya:
 
 ```php
 <?php
-// enrol.php — nightmare satu file
+// enrol.php: nightmare satu file
 
 $db = new PDO('mysql:host=localhost;dbname=campus', 'root', '');
 
@@ -1105,7 +1105,7 @@ Route::post('/enrolments', [EnrolmentController::class, 'create'])->name('enrolm
 
 ## What Is MVVM? Model, View, ViewModel
 
-MVVM was introduced by Microsoft for WPF/Silverlight and later adopted by client-side JavaScript frameworks. The key difference from MVC is the **ViewModel** — a layer that sits between the Model and the View, exposing data and commands in a way the View can bind to directly.
+MVVM was introduced by Microsoft for WPF/Silverlight and later adopted by client-side JavaScript frameworks. The key difference from MVC is the **ViewModel**: a layer that sits between the Model and the View, exposing data and commands in a way the View can bind to directly.
 
 | Role | MVC | MVVM |
 |---|---|---|
@@ -1238,8 +1238,8 @@ The Vue component acts as the ViewModel. It holds reactive state (`ref`, `reacti
           :disabled="isAlreadyEnrolled(course.id) || isCourseFull(course)"
         >
           {{ course.name }} ({{ course.code }})
-          <template v-if="isCourseFull(course)">— Full</template>
-          <template v-else-if="isAlreadyEnrolled(course.id)">— Enrolled</template>
+          <template v-if="isCourseFull(course)">: Full</template>
+          <template v-else-if="isAlreadyEnrolled(course.id)">: Enrolled</template>
         </option>
       </select>
 
@@ -1371,10 +1371,10 @@ onMounted(() => {
 
 ### How MVVM Binding Works Here
 
-1. `enrolments` is a `ref([])` — Vue tracks every change to this array.
+1. `enrolments` is a `ref([])`: Vue tracks every change to this array.
 2. The template uses `v-for="e in enrolments"`. When `enrolments.value.push(...)` runs inside `enrol()`, Vue detects the mutation and re-renders the table row **automatically**.
 3. `selectedCourseId` is bound to the `<select>` via `v-model`. When the user picks a course, Vue updates the variable and re-evaluates the `:disabled` bindings.
-4. `submitting` disables the button while the API call is in flight — set to `true`, Vue adds the `disabled` attribute; set to `false`, Vue removes it.
+4. `submitting` disables the button while the API call is in flight: set to `true`, Vue adds the `disabled` attribute; set to `false`, Vue removes it.
 
 The ViewModel never touches `document.querySelector()` or `innerHTML`. All DOM manipulation is declarative.
 
@@ -1511,7 +1511,7 @@ class EnrolmentManager extends Component
 </div>
 ```
 
-Livewire tracks `wire:model` bindings and `wire:click` handlers, re-rendering the component on the server after each interaction and sending only the changed HTML to the browser. The mental model is MVVM — but the ViewModel lives on the server, not in the browser.
+Livewire tracks `wire:model` bindings and `wire:click` handlers, re-rendering the component on the server after each interaction and sending only the changed HTML to the browser. The mental model is MVVM, but the ViewModel lives on the server, not in the browser.
 
 </section>
 
@@ -1652,8 +1652,8 @@ Komponen Vue bertindak sebagai ViewModel. Ia menyimpan *state* reaktif (`ref`, `
           :disabled="isAlreadyEnrolled(course.id) || isCourseFull(course)"
         >
           {{ course.name }} ({{ course.code }})
-          <template v-if="isCourseFull(course)">— Penuh</template>
-          <template v-else-if="isAlreadyEnrolled(course.id)">— Terdaftar</template>
+          <template v-if="isCourseFull(course)">: Penuh</template>
+          <template v-else-if="isAlreadyEnrolled(course.id)">: Terdaftar</template>
         </option>
       </select>
 
@@ -1942,12 +1942,12 @@ Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulan
 | **Where rendering happens** | Server (Blade → HTML) | Browser (Vue → DOM) | Server (Livewire → HTML diffs) |
 | **Who owns UI state** | Server; each request starts fresh | Browser; state survives between interactions | Server; persisted between Livewire round-trips |
 | **Page navigation** | Full-page reloads (or Turbo/Hotwire for partial) | Client-side routing, no full-page reloads | Server-driven but feels SPA-like |
-| **Interactivity ceiling** | Moderate — good for forms and CRUD (create, read, update, delete) | High — drag-and-drop, real-time charts, complex UIs | Moderate — good for forms, modals, data tables |
+| **Interactivity ceiling** | Moderate: good for forms and CRUD (create, read, update, delete) | High: drag-and-drop, real-time charts, complex UIs | Moderate: good for forms, modals, data tables |
 | **Data binding** | Manual: set variables in Controller, read in Blade | Automatic, two-way (`v-model`) | Automatic, server-round-trip (`wire:model`) |
-| **SEO friendliness** | Excellent — fully rendered HTML from server | Requires SSR (server-side rendering, e.g. Nuxt) or pre-rendering for SEO | Excellent — server-rendered HTML by default |
-| **Initial page load** | Fast — only the needed HTML | Slower — JS bundle must download, parse, then fetch API data | Moderate — initial HTML rendered on server |
+| **SEO friendliness** | Excellent: fully rendered HTML from server | Requires SSR (server-side rendering, e.g. Nuxt) or pre-rendering for SEO | Excellent: server-rendered HTML by default |
+| **Initial page load** | Fast: only the needed HTML | Slower: JS bundle must download, parse, then fetch API data | Moderate: initial HTML rendered on server |
 | **Testing** | HTTP feature tests + unit tests for Service classes | Component tests (Vitest) + E2E (Cypress/Playwright) | Livewire component tests + unit tests |
-| **Learning curve** | Low for PHP developers — same language everywhere | Higher — need JavaScript, Vue, state management | Low-Medium — PHP only, but learn Livewire's lifecycle |
+| **Learning curve** | Low for PHP developers: same language everywhere | Higher: need JavaScript, Vue, state management | Low-Medium: PHP only, but learn Livewire's lifecycle |
 | **Offline support** | None without Service Workers | Can work offline (PWA) | None without Service Workers |
 | **Best for** | Content-heavy sites, admin panels, SEO-critical pages | Highly interactive dashboards, real-time apps, PWAs | Interactive CRUD without a JS framework; rapid prototyping |
 
@@ -1956,11 +1956,11 @@ Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulan
 **When MVC shines:**
 - Your team is primarily PHP developers. Adding a JavaScript framework doubles the technology surface.
 - SEO matters. Server-rendered Blade templates are fully indexable without extra tooling.
-- Pages are mostly read-heavy with simple forms. The interactivity ceiling of server-rendered MVC is higher than most people think — especially with tools like Turbo Laravel or Unpoly.
+- Pages are mostly read-heavy with simple forms. The interactivity ceiling of server-rendered MVC is higher than most people think, especially with tools like Turbo Laravel or Unpoly.
 - Development speed. Blade + Livewire or Blade + Alpine.js gives you 80% of the interactivity of a SPA with 20% of the complexity.
 
 **When MVVM (Vue SPA) shines:**
-- The UI has complex client-side state — multi-step wizards, drag-and-drop scheduling, real-time dashboards.
+- The UI has complex client-side state: multi-step wizards, drag-and-drop scheduling, real-time dashboards.
 - You are building a mobile app later and want to reuse the same API.
 - The team has strong JavaScript skills and the appetite for maintaining a separate frontend codebase.
 - Offline-first or PWA requirements exist.
@@ -1968,7 +1968,7 @@ Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulan
 **When Livewire MVVM shines:**
 - You want Vue-like reactivity without leaving PHP.
 - The application is form-heavy with moderate interactivity (modals, dependent dropdowns, inline validation).
-- Prototyping speed is critical — Livewire eliminates the API layer between frontend and backend.
+- Prototyping speed is critical: Livewire eliminates the API layer between frontend and backend.
 - The team is comfortable with Blade and wants incremental adoption (add Livewire to one component at a time).
 
 ### A Practical Decision Framework
@@ -2047,11 +2047,11 @@ Livewire melacak *binding* `wire:model` dan handler `wire:click`, me-render ulan
 
 ### 1. The Fat Controller (MVC)
 
-The most common MVC anti-pattern (a common approach that looks reasonable but reliably causes problems). The controller grows until it holds business logic, validation rules, query building, email sending, and file processing — everything except the View.
+The most common MVC anti-pattern (a common approach that looks reasonable but reliably causes problems). The controller grows until it holds business logic, validation rules, query building, email sending, and file processing, everything except the View.
 
 **Symptom:** Your `EnrolmentController::create()` method is 200 lines long.
 
-**Fix — Move logic down the stack:**
+**Fix (move logic down the stack):**
 
 ```php
 // ❌ Fat controller: business rules live inside controller actions
@@ -2145,7 +2145,7 @@ const enrol = async () => {
 
 ### 4. God ViewModel (MVVM)
 
-A single Vue component / Livewire component that manages too many concerns — enrolment, course catalogue browsing, notifications, payment integration, all in one file.
+A single Vue component / Livewire component that manages too many concerns: enrolment, course catalogue browsing, notifications, payment integration, all in one file.
 
 **Fix:** Compose smaller ViewModels. An `EnrolmentManager` component should manage only enrolment. Move course browsing into `<CourseCatalog>`, notifications into `<NotificationBell>`, and have them communicate through props, events, or a shared store (Pinia for Vue):
 
@@ -2410,7 +2410,7 @@ Below is a single-file PHP script for displaying a list of enrolments. Refactor 
 
 ```php
 <?php
-// list.php — refactor this into MVC
+// list.php: refactor this into MVC
 
 $db = new PDO('mysql:host=localhost;dbname=campus', 'root', '');
 $studentId = $_GET['student_id'] ?? null;
@@ -2450,7 +2450,7 @@ $enrolments = $stmt->fetchAll();
     <?php else: ?>
         <ul>
             <?php foreach ($enrolments as $e): ?>
-                <li><?= htmlspecialchars($e['course_name']) ?> — <?= $e['status'] ?></li>
+                <li><?= htmlspecialchars($e['course_name']) ?>: <?= $e['status'] ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
@@ -2547,7 +2547,7 @@ class EnrolmentListController
     <?php else: ?>
         <ul>
             <?php foreach ($enrolments as $e): ?>
-                <li><?= htmlspecialchars($e['course_name']) ?> — <?= htmlspecialchars($e['status']) ?></li>
+                <li><?= htmlspecialchars($e['course_name']) ?>: <?= htmlspecialchars($e['status']) ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
@@ -2571,7 +2571,7 @@ Think about: where does the waitlist logic live? What invariants must hold? How 
 
 - **MVC invariant:** `if (!$course->isFull())` → enrol directly, do not allow waitlisting. `if ($course->isFull())` → allow waitlisting.
 - **MVVM reactive logic:** Create a `computed` property `showWaitlistButton(courseId)` that returns `true` when `isCourseFull(course) && !isAlreadyWaitlisted(courseId) && !isAlreadyEnrolled(courseId)`.
-- The Model (`EnrolmentService` / `WaitlistService`) should be the same class regardless of whether the Controller returns HTML or JSON. MVVM does not change the business rules — only the delivery mechanism.
+- The Model (`EnrolmentService` / `WaitlistService`) should be the same class regardless of whether the Controller returns HTML or JSON. MVVM does not change the business rules, only the delivery mechanism.
 </details>
 
 ### Exercise 4: Identify the Anti-Pattern (10 minutes)
@@ -2583,17 +2583,17 @@ Read each scenario and name the anti-pattern from this tutorial.
 | A controller's `store()` method validates input, checks capacity, sends three emails, updates an audit log, generates a PDF certificate, and finally calls `Enrolment::create()`. | ? |
 | A `Course` class has only `$fillable` and no methods. `CourseService` has 25 methods that all operate on `Course` data. | ? |
 | A Vue component imports `document.getElementById()` and directly toggles CSS classes in its `setup()` function. | ? |
-| A single `Dashboard.vue` component manages student list, course catalogue, enrolment wizard, notifications, payment history, and timetable display — all in 800 lines. | ? |
+| A single `Dashboard.vue` component manages student list, course catalogue, enrolment wizard, notifications, payment history, and timetable display, all in 800 lines. | ? |
 
 <details>
 <summary>Answers (click to reveal)</summary>
 
 | Scenario | Anti-Pattern |
 |---|---|
-| Controller does everything | **Fat Controller** — move business logic to Services, side effects to Jobs (queued email/PDF) |
-| Course class with no behaviour | **Anemic Model** — move `Course`-specific logic (capacity checks, prerequisite lookups) into the Model |
-| Direct DOM manipulation in Vue | **Leaky ViewModel** — use Vue directives (`:class`, `v-if`) and reactive state instead |
-| One component manages everything | **God ViewModel** — split into smaller composable components communicating via props/events |
+| Controller does everything | **Fat Controller**: move business logic to Services, side effects to Jobs (queued email/PDF) |
+| Course class with no behaviour | **Anemic Model**: move `Course`-specific logic (capacity checks, prerequisite lookups) into the Model |
+| Direct DOM manipulation in Vue | **Leaky ViewModel**: use Vue directives (`:class`, `v-if`) and reactive state instead |
+| One component manages everything | **God ViewModel**: split into smaller composable components communicating via props/events |
 
 </details>
 
@@ -2640,7 +2640,7 @@ Di bawah ini adalah *script* PHP file tunggal untuk menampilkan daftar pendaftar
 
 ```php
 <?php
-// list.php — refactor ini menjadi MVC
+// list.php: refactor ini menjadi MVC
 
 $db = new PDO('mysql:host=localhost;dbname=campus', 'root', '');
 $studentId = $_GET['student_id'] ?? null;
@@ -2680,7 +2680,7 @@ $enrolments = $stmt->fetchAll();
     <?php else: ?>
         <ul>
             <?php foreach ($enrolments as $e): ?>
-                <li><?= htmlspecialchars($e['course_name']) ?> — <?= htmlspecialchars($e['status']) ?></li>
+                <li><?= htmlspecialchars($e['course_name']) ?>: <?= htmlspecialchars($e['status']) ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
@@ -2777,7 +2777,7 @@ class EnrolmentListController
     <?php else: ?>
         <ul>
             <?php foreach ($enrolments as $e): ?>
-                <li><?= htmlspecialchars($e['course_name']) ?> — <?= htmlspecialchars($e['status']) ?></li>
+                <li><?= htmlspecialchars($e['course_name']) ?>: <?= htmlspecialchars($e['status']) ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
@@ -2851,7 +2851,7 @@ The SE Methodologies & Architecture stream covers several topics that build on t
 |---|---|---|
 | [Clean Code Principles with PHP](/blog/clean-code-principles) | Meaningful names, small functions, SOLID | Apply these principles inside your Models and Services to keep them maintainable. |
 | [Design Patterns with PHP](/blog/design-patterns-with-php) | Strategy, Observer, Factory Method | MVC itself is a compound of several design patterns (Observer for binding, Strategy for View resolution). |
-| [Test-Driven Development with PHP](/blog/test-driven-development) | Red-green-refactor, PHPUnit | Test your `EnrolmentService` without a browser — the Model layer is the easiest to TDD. |
+| [Test-Driven Development with PHP](/blog/test-driven-development) | Red-green-refactor, PHPUnit | Test your `EnrolmentService` without a browser: the Model layer is the easiest to TDD. |
 | [Microservices Architecture Fundamentals with PHP](/blog/microservices-architecture-fundamentals) | Service decomposition, API gateways | Each microservice internally uses MVC or MVVM. Understanding separation patterns is a prerequisite for service design. |
 | [Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php) | Ubiquitous Language, Bounded Contexts, Aggregates | DDD's tactical patterns (Entity, Repository, Domain Service) fit naturally into the Model layer of MVC/MVVM. |
 
@@ -2860,7 +2860,7 @@ The SE Methodologies & Architecture stream covers several topics that build on t
 1. **The Model is the non-negotiable centre.** Protect it from framework dependencies, HTTP concerns, and DOM manipulation.
 2. **Choose the pattern that fits the interactivity level, not the one that is trending.** A server-rendered Blade page with Alpine.js often delivers more value per hour than a full Vue SPA.
 3. **Controllers and ViewModels should be thin.** If you cannot describe what a controller action does in one sentence, it is doing too much.
-4. **Both patterns can coexist.** The best Laravel applications use Blade for public pages, Livewire for admin panels, and embedded Vue components for high-interactivity widgets — all sharing the same Model layer.
+4. **Both patterns can coexist.** The best Laravel applications use Blade for public pages, Livewire for admin panels, and embedded Vue components for high-interactivity widgets, all sharing the same Model layer.
 
 </section>
 

@@ -1,10 +1,10 @@
 // Turnstile-gated self-submission for current students. Self-registration
-// always creates a status='student' row — becoming an alumnus is a
+// always creates a status='student' row: becoming an alumnus is a
 // graduation event on an existing row (see se.graduate_member,
 // 20260722023755_member_graduation.sql), not a second registration form.
 // Forwards the caller's own JWT (not the service role) so the existing
 // members_insert_self RLS policy (auth.uid() = user_id AND approved =
-// false AND status = 'student' — 013_alumni_self_service.sql, widened
+// false AND status = 'student': 013_alumni_self_service.sql, widened
 // to include alumni in 20260722011948_widen_member_self_insert.sql,
 // then narrowed back to student-only in
 // 20260722023755_member_graduation.sql) keeps doing the real identity
@@ -72,7 +72,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'captcha_failed' }, 400, headers)
   }
 
-  // Anon key + the caller's own Authorization header — RLS runs as this
+  // Anon key + the caller's own Authorization header: RLS runs as this
   // user, exactly as it did for the client's old direct insert.
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,

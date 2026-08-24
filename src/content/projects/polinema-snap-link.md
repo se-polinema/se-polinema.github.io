@@ -135,11 +135,11 @@ Polinema SnapLink is a URL-shortening service dedicated to the academic communit
 
 Several benefits of using Polinema SnapLink include:
 
-1. **Simplifying information distribution** — Short links are easier to send through WhatsApp, email, social media, LMS platforms, or other communication channels.
-2. **Improving link professionalism** — Links use Polinema's official domain, making them appear more trustworthy.
-3. **Strengthening the campus digital identity** — Every shared link carries the institutional identity of Politeknik Negeri Malang.
-4. **Supporting communication efficiency** — Users do not need to share long URLs that are difficult to read or prone to typing errors.
-5. **Supporting academic and administrative services** — This website can be used for various academic, administrative, student affairs, and institutional service needs.
+1. **Simplifying information distribution**: Short links are easier to send through WhatsApp, email, social media, LMS platforms, or other communication channels.
+2. **Improving link professionalism**: Links use Polinema's official domain, making them appear more trustworthy.
+3. **Strengthening the campus digital identity**: Every shared link carries the institutional identity of Politeknik Negeri Malang.
+4. **Supporting communication efficiency**: Users do not need to share long URLs that are difficult to read or prone to typing errors.
+5. **Supporting academic and administrative services**: This website can be used for various academic, administrative, student affairs, and institutional service needs.
 
 ---
 
@@ -276,11 +276,11 @@ Polinema SnapLink adalah layanan pemendek URL khusus civitas akademika Politekni
 
 Beberapa manfaat dari penggunaan Polinema SnapLink adalah:
 
-1. **Memudahkan distribusi informasi** — Tautan yang pendek lebih mudah dikirim melalui WhatsApp, email, media sosial, LMS, atau media komunikasi lainnya.
-2. **Meningkatkan profesionalitas tautan** — Tautan menggunakan domain resmi Polinema sehingga terlihat lebih terpercaya.
-3. **Memperkuat identitas digital kampus** — Setiap tautan yang dibagikan membawa identitas institusi Politeknik Negeri Malang.
-4. **Mendukung efisiensi komunikasi** — Pengguna tidak perlu membagikan URL panjang yang sulit dibaca atau rawan salah ketik.
-5. **Mendukung layanan akademik dan administrasi** — Website ini dapat digunakan untuk berbagai kebutuhan kegiatan akademik, administrasi, kemahasiswaan, dan layanan institusi.
+1. **Memudahkan distribusi informasi**: Tautan yang pendek lebih mudah dikirim melalui WhatsApp, email, media sosial, LMS, atau media komunikasi lainnya.
+2. **Meningkatkan profesionalitas tautan**: Tautan menggunakan domain resmi Polinema sehingga terlihat lebih terpercaya.
+3. **Memperkuat identitas digital kampus**: Setiap tautan yang dibagikan membawa identitas institusi Politeknik Negeri Malang.
+4. **Mendukung efisiensi komunikasi**: Pengguna tidak perlu membagikan URL panjang yang sulit dibaca atau rawan salah ketik.
+5. **Mendukung layanan akademik dan administrasi**: Website ini dapat digunakan untuk berbagai kebutuhan kegiatan akademik, administrasi, kemahasiswaan, dan layanan institusi.
 
 ---
 

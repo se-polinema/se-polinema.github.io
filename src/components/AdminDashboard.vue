@@ -1104,7 +1104,7 @@ const savingAnnouncement = ref(false)
 const announcementActionError = ref('')
 let announcementFormSnapshot = ''
 
-// Transient — describes the announcement for the AI-suggest call, not
+// Transient: describes the announcement for the AI-suggest call, not
 // saved to the row itself. Same AI-Assist/Manual mode pattern as the
 // Projects tab: AI Assist (default) hides the message fields behind a
 // brief box + Generate until a successful generation reveals them; Manual
@@ -1125,7 +1125,7 @@ const savingProject = ref(false)
 const projectActionError = ref('')
 let projectFormSnapshot = ''
 
-// Transient — describes the project for the AI-suggest call, not saved to
+// Transient: describes the project for the AI-suggest call, not saved to
 // the row itself.
 const projectBrief = ref('')
 const suggestingProject = ref(false)
@@ -1139,7 +1139,7 @@ const projectFormMode = ref<'ai' | 'manual'>('ai')
 const projectHasGenerated = ref(false)
 
 // Researcher slug -> display name, for the curatorial "researchers"
-// checkbox list — same client-side resolution already used by
+// checkbox list: same client-side resolution already used by
 // Sidebar.vue for the researchers sidebar panel.
 const researcherOptions = ref<{ id: string; name: string }[]>([])
 
@@ -1215,7 +1215,7 @@ function openAddMemberForm() {
   snapshotMemberForm()
 }
 
-// The actual, unconditional close — used after a successful save, and as
+// The actual, unconditional close: used after a successful save, and as
 // the "discard" outcome of the unsaved-changes dialog. Does not itself
 // check for unsaved changes; closeMemberForm() below is the guarded
 // entry point used by the Cancel button.
@@ -1375,7 +1375,7 @@ function emptyProjectForm() {
 
 const projectForm = reactive(emptyProjectForm())
 
-// Comma-separated text UX over the underlying tags array — mirrors how
+// Comma-separated text UX over the underlying tags array: mirrors how
 // memberForm.streams is a checkbox list bound directly to an array, except
 // tags are freeform so a plain delimited text input is the natural editor.
 const projectTagsInput = computed({
@@ -1392,7 +1392,7 @@ const projectContributorsInput = computed({
   },
 })
 
-// ImageUpload writes a single {prefix}/photo.jpg — bind it to images[0]
+// ImageUpload writes a single {prefix}/photo.jpg: bind it to images[0]
 // (the cover shown on the directory card) while preserving whatever
 // gallery images[1..] already holds.
 const projectCoverImage = computed({
@@ -1403,7 +1403,7 @@ const projectCoverImage = computed({
   },
 })
 
-// Plain "one URL per line" textarea for the rest of the gallery — a rare
+// Plain "one URL per line" textarea for the rest of the gallery: a rare
 // admin action, not worth a multi-upload repeater component.
 const projectAdditionalImagesInput = computed({
   get: () => projectForm.images.slice(1).join('\n'),
@@ -1496,7 +1496,7 @@ function editProject(p: ProjectRow) {
   projectBrief.value = ''
   projectActionError.value = ''
   projectSuggestError.value = ''
-  // Existing rows already have their fields set — show them immediately
+  // Existing rows already have their fields set: show them immediately
   // rather than hiding them behind a re-generate.
   projectFormMode.value = 'manual'
   showProjectForm.value = true
@@ -1639,7 +1639,7 @@ function emptyAnnouncementForm() {
 
 const announcementForm = reactive(emptyAnnouncementForm())
 
-// An expired row still has active = true until an admin turns it off — the
+// An expired row still has active = true until an admin turns it off: the
 // badge should reflect what viewers actually see (RLS + the banner's own
 // expiry check both hide it), not the raw column value.
 function isAnnouncementExpired(a: AnnouncementRow): boolean {
@@ -1735,7 +1735,7 @@ function editAnnouncement(a: AnnouncementRow) {
   announcementBrief.value = ''
   announcementActionError.value = ''
   announcementSuggestError.value = ''
-  // Existing rows already have their message set — show it immediately
+  // Existing rows already have their message set: show it immediately
   // rather than hiding it behind a re-generate, same as editProject().
   announcementFormMode.value = 'manual'
   showAnnouncementForm.value = true
@@ -1755,7 +1755,7 @@ async function loadAnnouncements() {
 async function handleSaveAnnouncement() {
   // The message fields are gated behind AI-Assist/Manual mode, so unlike
   // the always-rendered title field on the Projects form, the browser's
-  // native `required` validation can't catch a blank message here — an
+  // native `required` validation can't catch a blank message here: an
   // admin who stays in AI mode without generating (or without switching to
   // Manual) could otherwise hit a raw NOT NULL/CHECK constraint error from
   // Postgres. Guard explicitly so the failure is a clear message instead.
@@ -1815,7 +1815,7 @@ async function deleteAnnouncement(a: AnnouncementRow) {
 }
 
 // Reactive session from the shared useAuth() composable, instead of a
-// one-time getUser() + hand-rolled state machine — covers initial load,
+// one-time getUser() + hand-rolled state machine: covers initial load,
 // sign-in, and sign-out through this single watcher, and keeps this page's
 // session in sync with the status bar's AccountStatusItem for free.
 watch(
@@ -1896,7 +1896,7 @@ async function loadEventDates() {
     for (const d of data) map[d.slug] = d
     eventDates.value = map
   } catch {
-    // Missing/unreachable events.json shouldn't break the dashboard — just
+    // Missing/unreachable events.json shouldn't break the dashboard, just
     // means no event defaults to "past" (isEventPast() below treats an
     // unknown slug as not-past, so it stays visible rather than hidden).
     eventDates.value = {}
@@ -1919,7 +1919,7 @@ async function handleGrantAdmin() {
   staffActionError.value = ''
 
   // Accepts an email, a bare GitHub username, an @-prefixed handle, or a
-  // pasted GitHub profile URL — GitHub is now the only sign-in method, so
+  // pasted GitHub profile URL. GitHub is now the only sign-in method, so
   // an admin may only know a colleague's handle, not their email.
   const identifier = grantIdentifier.value
     .trim()
@@ -2000,7 +2000,7 @@ async function deleteSubscriber(s: Subscriber) {
 async function handleSignOut() {
   await signOut()
   // The watch() above reactively resets authState/events/participants/members
-  // once user becomes null — no need to duplicate that here.
+  // once user becomes null, no need to duplicate that here.
 }
 
 async function copyCode(code: string) {

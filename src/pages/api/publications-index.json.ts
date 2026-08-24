@@ -1,13 +1,13 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
 
-// Full lightweight metadata for every publication — the same shape
+// Full lightweight metadata for every publication, the same shape
 // src/pages/publications/index.astro used to bake directly into the
 // archive page's props. Fetched client-side by PublicationsArchive.vue
 // instead, so the archive page's own HTML stays constant-size as the
 // collection grows (see the pagination plan for why this matters
 // long-term). Author/stream lookup data (researchers, streamNames) stays
-// a build-time prop on the page — it scales with researcher count, not
+// a build-time prop on the page: it scales with researcher count, not
 // publication count, so it doesn't need this treatment.
 export const GET: APIRoute = async () => {
   const allPublications = await getCollection('publications')

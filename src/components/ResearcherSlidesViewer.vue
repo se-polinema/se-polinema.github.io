@@ -1,5 +1,5 @@
 <template>
-  <!-- Hint bar — floats above the reveal deck (public, no auth gate) -->
+  <!-- Hint bar: floats above the reveal deck (public, no auth gate) -->
   <div
     class="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 py-1.5 bg-black/60 text-white text-[11px] font-mono select-none"
   >
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
-// Static imports so Vite emits these CSS files and links them in <head> —
+// Static imports so Vite emits these CSS files and links them in <head>:
 // dynamic CSS imports inside client:load islands are not reliably served by GitHub Pages.
 import 'reveal.js/reveal.css'
 import 'reveal.js/plugin/highlight/monokai.css'

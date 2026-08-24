@@ -16,7 +16,7 @@ tagsId:
   - AI
   - Dokumentasi Perangkat Lunak
   - PHP
-excerpt: "Learn how to use LLMs to generate, maintain, and validate API documentation, README files, inline comments, and changelogs for PHP/Laravel projects. Covers Scribe, PHPDoc, MkDocs, and custom LLM pipelines with a human-in-the-loop review workflow — and shows where LLMs fail and hallucinate."
+excerpt: "Learn how to use LLMs to generate, maintain, and validate API documentation, README files, inline comments, and changelogs for PHP/Laravel projects. Covers Scribe, PHPDoc, MkDocs, and custom LLM pipelines with a human-in-the-loop review workflow, and shows where LLMs fail and hallucinate."
 excerptId: "Pelajari cara menggunakan LLM untuk menghasilkan, memelihara, dan memvalidasi dokumentasi API, file README, komentar inline, dan changelog untuk proyek PHP/Laravel. Mencakup Scribe, PHPDoc, MkDocs, dan pipeline LLM kustom dengan alur kerja tinjauan human-in-the-loop, serta menunjukkan di mana LLM gagal dan berhalusinasi."
 ---
 
@@ -26,19 +26,19 @@ excerptId: "Pelajari cara menggunakan LLM untuk menghasilkan, memelihara, dan me
 
 Documentation is consistently one of the most neglected activities in software development. Students write hundreds of lines of code but skip the README. Researchers build functional prototypes but ship zero API docs. Production teams deploy endpoints that nobody outside the team can discover or consume. The result is a knowledge debt that compounds every sprint.
 
-**LLM-assisted documentation automation** uses large language models — like those powering GitHub Copilot, ChatGPT, or local models via Ollama — to draft, update, and validate documentation alongside the code itself. When done responsibly, it transforms documentation from a separate, dreaded task into something that lives adjacent to the code, always reachable and always at least a first draft.
+**LLM-assisted documentation automation** uses large language models, like those powering GitHub Copilot, ChatGPT, or local models via Ollama, to draft, update, and validate documentation alongside the code itself. When done responsibly, it transforms documentation from a separate, dreaded task into something that lives adjacent to the code, always reachable and always at least a first draft.
 
 ### Where LLMs Help
 
 | Use Case | LLM Strength |
 |---|---|
-| Generating endpoint descriptions from route definitions | High — structural patterns are easy to infer |
-| Drafting PHPDoc blocks from method signatures | High — signatures carry type information |
-| Bootstrapping README files from project structure | High — composer.json, routes, and folders tell a story |
-| Writing changelog entries from commit messages | Medium — commit context is shallow |
-| Explaining complex business logic in comments | Medium — domain nuance often lost |
-| Validating that docs match current code | Low — requires execution, not prediction |
-| Ensuring regulatory compliance | Very Low — LLMs cannot verify facts |
+| Generating endpoint descriptions from route definitions | High: structural patterns are easy to infer |
+| Drafting PHPDoc blocks from method signatures | High: signatures carry type information |
+| Bootstrapping README files from project structure | High: composer.json, routes, and folders tell a story |
+| Writing changelog entries from commit messages | Medium: commit context is shallow |
+| Explaining complex business logic in comments | Medium: domain nuance often lost |
+| Validating that docs match current code | Low: requires execution, not prediction |
+| Ensuring regulatory compliance | Very Low: LLMs cannot verify facts |
 
 ### Where LLMs Fail
 
@@ -51,7 +51,7 @@ The antidote to all four failures is the same: **a human-in-the-loop review work
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Documentation Automation** as one of the five core topics under the [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/) research stream. Related research areas include requirements traceability, doc-to-code consistency, and automated commit summarisation — all of which this tutorial connects to practical tooling.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Documentation Automation** as one of the five core topics under the [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/) research stream. Related research areas include requirements traceability, doc-to-code consistency, and automated commit summarisation, all of which this tutorial connects to practical tooling.
 
 </section>
 
@@ -106,12 +106,12 @@ These tools extract documentation from **code annotations and type hints.** They
 |---|---|---|---|
 | **Scribe** | Laravel | Generates OpenAPI docs from controller annotations and Form Requests. Excellent for API references. | Only describes what annotations exist. Cannot explain *why* an endpoint exists. |
 | **PHPDoc / phpDocumentor** | Any PHP | Standard for class/function documentation. IDEs use it for autocompletion. | Manual effort to write. No automation. |
-| **Schema.org / JSON-LD generators** | Framework-agnostic | Structured data for SEO. | Niche — only useful for web-facing content. |
+| **Schema.org / JSON-LD generators** | Framework-agnostic | Structured data for SEO. | Niche: only useful for web-facing content. |
 | **OpenAPI/Swagger generators** | REST APIs | Machine-readable spec. Many tools consume it. | Annotations are verbose. |
 
 ### LLM-Based Generators (Unstructured)
 
-These tools produce **natural-language documentation** by reasoning about code structure. They can explain purpose, write prose, and adapt tone — but they can also hallucinate.
+These tools produce **natural-language documentation** by reasoning about code structure. They can explain purpose, write prose, and adapt tone, but they can also hallucinate.
 
 | Tool | Approach | PHP Support | Cost |
 |---|---|---|---|
@@ -224,7 +224,7 @@ Untuk proyek PHP/Laravel tipikal di Politeknik Negeri Malang, stack awal yang ma
 
 ## Generating API Documentation from Laravel Code
 
-This is where documentation automation delivers its highest return on time invested. Laravel controllers declare routes, request validation, and responses — all structured data an LLM can consume. The workflow combines **Scribe** (deterministic, annotation-based) with an **LLM** (for natural-language descriptions).
+This is where documentation automation delivers its highest return on time invested. Laravel controllers declare routes, request validation, and responses: all structured data an LLM can consume. The workflow combines **Scribe** (deterministic, annotation-based) with an **LLM** (for natural-language descriptions).
 
 ### Step 1: Install Scribe
 
@@ -255,7 +255,7 @@ use Illuminate\Http\JsonResponse;
 /**
  * @group Course Management
  *
- * Endpoints for managing academic courses — creating new courses,
+ * Endpoints for managing academic courses: creating new courses,
  * retrieving course details, updating course metadata, and
  * deleting courses that are no longer offered.
  *
@@ -365,7 +365,7 @@ class CourseController extends Controller
     /**
      * Update a course
      *
-     * Modifies an existing course. You may update one or more fields —
+     * Modifies an existing course. You may update one or more fields:
      * only the provided fields will be modified.
      *
      * @urlParam id int required The course ID.
@@ -494,7 +494,7 @@ Notice what the LLM added:
 Before you paste the LLM's text into your controller, apply this checklist:
 
 1. **Does every parameter actually exist in the code?** If the LLM added a `@bodyParam prerequisities` but your `StoreCourseRequest` has no such field, delete it.
-2. **Are constraint values correct?** Your validation rules say `max_credits:6` — does the LLM say 1–6 or did it guess 1–12?
+2. **Are constraint values correct?** Your validation rules say `max_credits:6`. Does the LLM say 1–6, or did it guess 1–12?
 3. **Are example values realistic?** "John Doe" is fine for a name. But an example course code should match your institution's actual naming scheme.
 4. **Does the response structure match reality?** Run the endpoint and compare the JSON output with what the LLM wrote.
 5. **Is the business logic correctly described?** If your code checks `semester.is_active` but the LLM's description does not mention the active-semester constraint, you must add it.
@@ -567,7 +567,7 @@ use Illuminate\Http\JsonResponse;
 /**
  * @group Manajemen Mata Kuliah
  *
- * Endpoint untuk mengelola mata kuliah akademik — membuat mata kuliah baru,
+ * Endpoint untuk mengelola mata kuliah akademik: membuat mata kuliah baru,
  * mengambil detail mata kuliah, memperbarui metadata mata kuliah, dan
  * menghapus mata kuliah yang tidak lagi ditawarkan.
  *
@@ -678,7 +678,7 @@ class CourseController extends Controller
      * Memperbarui mata kuliah
      *
      * Memodifikasi mata kuliah yang sudah ada. Anda dapat memperbarui satu
-     * atau beberapa field — hanya field yang diberikan yang akan dimodifikasi.
+     * atau beberapa field: hanya field yang diberikan yang akan dimodifikasi.
      *
      * @urlParam id int required ID mata kuliah.
      * @bodyParam name string Nama mata kuliah yang diperbarui. Example: "Rekayasa Perangkat Lunak Lanjut"
@@ -975,7 +975,7 @@ Creates 3 courses, 5 lecturers, and 50 students with sample attendance records.
 
 ### Keeping Examples Runnable and Versioned
 
-The most common README failure is an installation command that no longer works. Your `composer install && npm install && php artisan migrate` works today — but what about after you add a Redis dependency? The LLM will not know about it unless you provide the updated context.
+The most common README failure is an installation command that no longer works. Your `composer install && npm install && php artisan migrate` works today, but what about after you add a Redis dependency? The LLM will not know about it unless you provide the updated context.
 
 **Mitigation strategies:**
 
@@ -1140,7 +1140,7 @@ public function enrol(int $studentId, int $courseId, ?string $enrolmentCode = nu
 }
 ```
 
-The PHPDoc block adds zero runtime behaviour — but it saves the next developer (which may be you in six months) from reading the implementation to understand what the method does and what can go wrong.
+The PHPDoc block adds zero runtime behaviour, but it saves the next developer (which may be you in six months) from reading the implementation to understand what the method does and what can go wrong.
 
 ### Commit Message Summarisation
 
@@ -1462,7 +1462,7 @@ Your responsibility:      Verify every claim, correct every error, and approve e
                            before it reaches another human being.
 ```
 
-If you skip the second half, you have not automated documentation — you have automated misinformation.
+If you skip the second half, you have not automated documentation: you have automated misinformation.
 
 </section>
 
@@ -1695,7 +1695,7 @@ Copy the `RegistrationController` code into your LLM tool (Copilot Chat, ChatGPT
 > 4. All possible `@response` codes (200, 201, 401, 409, 422) with example bodies.
 > 5. A `@authenticated` tag for the class block.
 >
-> Pay special attention to the register endpoint — it handles four distinct failure modes that must be documented."
+> Pay special attention to the register endpoint, which handles four distinct failure modes that must be documented."
 
 **Step 3: Apply the Review Checklist**
 
@@ -1924,26 +1924,26 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 
 ### SE Lab Resources
 
-- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)** — The research stream that this tutorial belongs to. Explore the other four topics: Code Quality Analysis, Bug Prediction, AI Test Generation, and Requirements Automation.
-- **[AI-Assisted Unit Test Generation with PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)** — A companion tutorial on using LLMs to generate PHPUnit tests. Many of the review and validation principles apply to both test generation and documentation.
-- **[Microservices Architecture Fundamentals](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)** — A tutorial that demonstrates how documentation becomes a critical concern in distributed systems where each service has its own API.
+- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)**: The research stream that this tutorial belongs to. Explore the other four topics: Code Quality Analysis, Bug Prediction, AI Test Generation, and Requirements Automation.
+- **[AI-Assisted Unit Test Generation with PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)**: A companion tutorial on using LLMs to generate PHPUnit tests. Many of the review and validation principles apply to both test generation and documentation.
+- **[Microservices Architecture Fundamentals](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)**: A tutorial that demonstrates how documentation becomes a critical concern in distributed systems where each service has its own API.
 
 ### Official Documentation & Tools
 
-- **[Scribe Documentation](https://scribe.knuckles.wtf/)** — Official guide for the Laravel API documentation generator used in this tutorial.
-- **[PHPDoc Reference](https://docs.phpdoc.org/)** — Complete reference for PHPDoc tags and conventions.
-- **[MkDocs Material](https://squidfunk.github.io/mkdocs-material/)** — Documentation site theme with search, navigation, and dark mode.
-- **[Conventional Commits](https://www.conventionalcommits.org/)** — Specification for structured commit messages that machines (and LLMs) can parse.
+- **[Scribe Documentation](https://scribe.knuckles.wtf/)**: Official guide for the Laravel API documentation generator used in this tutorial.
+- **[PHPDoc Reference](https://docs.phpdoc.org/)**: Complete reference for PHPDoc tags and conventions.
+- **[MkDocs Material](https://squidfunk.github.io/mkdocs-material/)**: Documentation site theme with search, navigation, and dark mode.
+- **[Conventional Commits](https://www.conventionalcommits.org/)**: Specification for structured commit messages that machines (and LLMs) can parse.
 
 ### Research Papers & Articles
 
-- **Requirements Traceability and Doc-to-Code Consistency** — Active research area within the SE Lab's Emerging Technologies stream. Automated traceability links between requirements documents, code, and tests reduce the risk of stale documentation.
-- **Commit Summarisation with LLMs** — Several recent papers (2023–2025) evaluate LLMs for generating pull request descriptions, commit messages, and release notes. The SE Lab maintains a collection of relevant publications at the [research page](https://se.polinema.ac.id/research/).
+- **Requirements Traceability and Doc-to-Code Consistency**: Active research area within the SE Lab's Emerging Technologies stream. Automated traceability links between requirements documents, code, and tests reduce the risk of stale documentation.
+- **Commit Summarisation with LLMs**: Several recent papers (2023–2025) evaluate LLMs for generating pull request descriptions, commit messages, and release notes. The SE Lab maintains a collection of relevant publications at the [research page](https://se.polinema.ac.id/research/).
 
 ### Related Tutorials
 
-- **[Domain-Driven Design Fundamentals with PHP](https://se.polinema.ac.id/blog/domain-driven-design-fundamentals-php/)** — A tutorial that connects to documentation automation through the concept of Ubiquitous Language: when code mirrors domain language, documentation becomes an extension of the model, not a separate artifact.
-- **[Clean Code Principles](https://se.polinema.ac.id/blog/clean-code-principles/)** — Clean code is its own form of documentation. Well-named methods and classes reduce the burden on external documentation — and make LLM-generated documentation more accurate by providing richer context.
+- **[Domain-Driven Design Fundamentals with PHP](https://se.polinema.ac.id/blog/domain-driven-design-fundamentals-php/)**: A tutorial that connects to documentation automation through the concept of Ubiquitous Language: when code mirrors domain language, documentation becomes an extension of the model, not a separate artifact.
+- **[Clean Code Principles](https://se.polinema.ac.id/blog/clean-code-principles/)**: Clean code is its own form of documentation. Well-named methods and classes reduce the burden on external documentation, and make LLM-generated documentation more accurate by providing richer context.
 
 </section>
 

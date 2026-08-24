@@ -56,7 +56,7 @@
 
     <!-- Center: institution -->
     <span class="hidden sm:block text-[11px] font-mono text-[color:var(--color-vscode-statusbar-fg-muted)] truncate mx-4">
-      Jurusan Teknologi Informasi — Politeknik Negeri Malang
+      Jurusan Teknologi Informasi, Politeknik Negeri Malang
     </span>
 
     <!-- Right: theme toggle + language toggle + encoding -->
@@ -75,7 +75,7 @@
           a v-if/v-else element swap here would be a structural mismatch
           for any visitor whose stored theme differs from the SSR default,
           which misaligns Vue's hydration walk for this button's later
-          siblings (language/palette toggles) too — v-show keeps both
+          siblings (language/palette toggles) too; v-show keeps both
           icons always present so only a display style toggles, never the
           element structure.
         -->

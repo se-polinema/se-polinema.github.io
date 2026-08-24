@@ -6,11 +6,11 @@
 -- dropping any of their richness: multi-image galleries, status,
 -- research-stream tagging, researcher/contributor attribution, and
 -- featured/private flags. /projects itself (the static page) is
--- untouched by this — both systems coexist permanently, this is an
+-- untouched by this: both systems coexist permanently, this is an
 -- additive copy, not a migration-and-remove.
 --
 -- techStack[] from the old schema reuses the EXISTING `tags` column
--- (same concept — technology/topic tags) rather than adding a redundant
+-- (same concept: technology/topic tags) rather than adding a redundant
 -- column. `repo` (old, bare "owner/name") maps to `repo_url` (new, full
 -- URL) in the sync script, not a schema change.
 -- ============================================================
@@ -27,20 +27,20 @@ ALTER TABLE se.projects
   ADD COLUMN slug         TEXT;
 
 -- Only synced/admin-curated rows get a slug (self-service rows keep it
--- NULL). A plain (non-partial) UNIQUE constraint — not a partial unique
--- index like members_user_id_key's — because PostgREST/supabase-js's
+-- NULL). A plain (non-partial) UNIQUE constraint, not a partial unique
+-- index like members_user_id_key's, because PostgREST/supabase-js's
 -- upsert(..., {onConflict: 'slug'}) (used by sync-static-projects.mjs)
 -- generates a bare `ON CONFLICT (slug)` with no WHERE predicate, which
 -- Postgres can only resolve against a full unique constraint/index, not
 -- a partial one (confirmed live: a partial index here raises 42P10 "no
 -- unique or exclusion constraint matching the ON CONFLICT specification").
 -- Standard SQL NULL-distinct semantics mean this still allows unlimited
--- self-service rows with slug = NULL — only real duplicate slugs conflict.
+-- self-service rows with slug = NULL; only real duplicate slugs conflict.
 ALTER TABLE se.projects ADD CONSTRAINT projects_slug_key UNIQUE (slug);
 
 -- image (singular) -> images (array): curated entries need galleries;
 -- self-service stays a single-image UX client-side, just stored as a
--- one-element array. Safe add/backfill/drop — this table has no real
+-- one-element array. Safe add/backfill/drop: this table has no real
 -- production data yet (feature shipped this session).
 ALTER TABLE se.projects ADD COLUMN images TEXT[] NOT NULL DEFAULT '{}';
 UPDATE se.projects SET images = ARRAY[image] WHERE image IS NOT NULL AND image <> '';
@@ -50,7 +50,7 @@ ALTER TABLE se.projects DROP COLUMN image;
 -- featured/private status, forge researcher/contributor attribution, or
 -- set a non-default status/stream/slug/video_url for themselves). Unlike
 -- se.members' graduate_member (an UPDATE, where OLD/NEW diffing isn't
--- expressible in RLS), this is INSERT — a WITH CHECK can validate the
+-- expressible in RLS), this is INSERT: a WITH CHECK can validate the
 -- whole new row, so no SECURITY DEFINER RPC is needed. Every clause below
 -- equals the column DEFAULT, so submit-project (which never sends these
 -- keys) passes by omission unchanged.

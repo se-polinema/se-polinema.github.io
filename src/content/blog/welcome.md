@@ -45,10 +45,10 @@ export function getFocusArea(id: string) {
 
 ## Get Involved
 
-Whether you are a student looking for research experience, a faculty member seeking collaboration, or an industry partner interested in working with us — we welcome you to reach out and be part of our journey.
+Whether you are a student looking for research experience, a faculty member seeking collaboration, or an industry partner interested in working with us, we welcome you to reach out and be part of our journey.
 
 Stay tuned for more updates!
 
 ---
 
-*Software Engineering Laboratory — Jurusan Teknologi Informasi, Politeknik Negeri Malang*
+*Software Engineering Laboratory, Jurusan Teknologi Informasi, Politeknik Negeri Malang*

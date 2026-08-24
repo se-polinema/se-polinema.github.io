@@ -7,7 +7,7 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "A foundational guide to microservices architecture for PHP developers. Learn why and when to decompose a monolith, how to design service boundaries using domain-driven design, synchronous vs asynchronous communication patterns, database-per-service, and runnable PHP examples with Lumen/Slim — complete with contract tests."
+excerpt: "A foundational guide to microservices architecture for PHP developers. Learn why and when to decompose a monolith, how to design service boundaries using domain-driven design, synchronous vs asynchronous communication patterns, database-per-service, and runnable PHP examples with Lumen/Slim, complete with contract tests."
 excerptId: "Panduan dasar arsitektur microservices untuk pengembang PHP. Pelajari mengapa dan kapan mendekomposisi monolit, cara merancang batas layanan menggunakan domain-driven design, pola komunikasi sinkron vs asinkron, database-per-service, dan contoh PHP yang dapat dijalankan dengan Lumen/Slim, lengkap dengan contract test."
 stream: se-methodologies-architecture
 tags:
@@ -22,13 +22,13 @@ tagsId:
 
 ## Why Microservices?
 
-Most web applications start as a **monolith** — a single codebase that handles HTTP requests, business logic, database access, and everything in between. For small teams and simple domains this is the right choice. But as the application grows, familiar pain points emerge:
+Most web applications start as a **monolith**, a single codebase that handles HTTP requests, business logic, database access, and everything in between. For small teams and simple domains this is the right choice. But as the application grows, familiar pain points emerge:
 
 | Monolith Pain Point | What It Feels Like |
 |---|---|
 | **Tight coupling** | Changing the billing module accidentally breaks user registration. |
 | **Slow deployments** | A one-line CSS fix must wait for the entire test suite and deployment pipeline. |
-| **Scaling friction** | One CPU-intensive endpoint forces you to scale the entire application — database included. |
+| **Scaling friction** | One CPU-intensive endpoint forces you to scale the entire application, database included. |
 | **Team coordination overhead** | Five teams work on the same codebase; merge conflicts and coordination slow everyone down. |
 | **Technology lock-in** | The whole system uses one language, one framework, one database. Experimenting is impossible without a rewrite. |
 
@@ -38,7 +38,7 @@ The three problems microservices address directly:
 
 1. **Organisational scaling.** When you have multiple teams, independent deployability means each team can ship changes without waiting for "integration week."
 2. **Technical scaling.** Services that handle high traffic or heavy computation can be scaled horizontally without scaling the entire system.
-3. **Change velocity.** Small, focused codebases are easier to understand, modify, and rewrite — which makes teams faster over time.
+3. **Change velocity.** Small, focused codebases are easier to understand, modify, and rewrite, which makes teams faster over time.
 
 </section>
 
@@ -89,7 +89,7 @@ graph LR
 
 ## Core Characteristics of Microservices
 
-A microservices architecture is defined by a handful of non-negotiable characteristics. If you violate these, you do not have microservices — you have a distributed monolith, which combines the worst of both worlds.
+A microservices architecture is defined by a handful of non-negotiable characteristics. If you violate these, you do not have microservices; you have a distributed monolith, which combines the worst of both worlds.
 
 ### 1. Independently Deployable
 
@@ -97,13 +97,13 @@ Each service can be deployed to production without coordinating with other servi
 
 ### 2. Decentralised Data Ownership
 
-Each service owns its own database (or schema / set of tables). Services do **not** share databases. If the Users Service needs payment status, it does not write a SQL JOIN against the Payments database — it calls the Payments Service API.
+Each service owns its own database (or schema / set of tables). Services do **not** share databases. If the Users Service needs payment status, it does not write a SQL JOIN against the Payments database; it calls the Payments Service API.
 
 **Why this matters:** Shared databases create a hidden coupling that is worse than code-level coupling. The Payments team cannot change their schema without coordinating with every team that queries their tables. This defeats the entire purpose of independent deployability.
 
 ### 3. Inter-Service Communication
 
-Services communicate through well-defined APIs — most commonly HTTP REST, gRPC, or asynchronous messaging (message queues, event streams). Internal implementation details are hidden behind the API contract.
+Services communicate through well-defined APIs, most commonly HTTP REST, gRPC, or asynchronous messaging (message queues, event streams). Internal implementation details are hidden behind the API contract.
 
 ### 4. Failure Isolation
 
@@ -111,7 +111,7 @@ A failure in the Recommendations Service should not take down the entire platfor
 
 ### 5. Organised Around Business Capabilities
 
-Microservices are not split by technical layer (controllers, models, views). They are split by **business capability**. A cross-functional team owns the entire service — from UI to database — for one bounded context.
+Microservices are not split by technical layer (controllers, models, views). They are split by **business capability**. A cross-functional team owns the entire service, from UI to database, for one bounded context.
 
 </section>
 
@@ -174,11 +174,11 @@ Microservices are not a silver bullet (a single solution that fixes everything, 
 
 ### The Distributed Big Ball of Mud
 
-The worst architectural outcome is not a monolith — it is a **distributed big ball of mud**: dozens of services that share databases, have no clear API contracts, and are deployed together as a single "release train." This combines the complexity of distributed systems with the inflexibility of a monolith. Avoid this at all costs.
+The worst architectural outcome is not a monolith; it is a **distributed big ball of mud**: dozens of services that share databases, have no clear API contracts, and are deployed together as a single "release train." This combines the complexity of distributed systems with the inflexibility of a monolith. Avoid this at all costs.
 
 ### Team Size and Organisational Maturity
 
-> "If you can't build a well-structured monolith, what makes you think you can build well-structured microservices?" — Simon Brown
+> "If you can't build a well-structured monolith, what makes you think you can build well-structured microservices?" (Simon Brown)
 
 The rule of thumb: **start with a monolith, split when you must.** A single team of 3-5 developers should almost certainly build a monolith first. Microservices make sense when:
 
@@ -260,7 +260,7 @@ The hardest question in microservices is: **Where do I draw the lines?** Randoml
 
 ### Example: An EdTech Campus System
 
-Imagine an EdTech platform for Politeknik Negeri Malang. A naive approach would split by entity: `UserService`, `CourseService`, `EnrollmentService`, `PaymentService`. But these entities are deeply interconnected — enrollment depends on both users and courses, payments depend on enrollment — so splitting by entity creates a chatty service mesh with no real independence.
+Imagine an EdTech platform for Politeknik Negeri Malang. A naive approach would split by entity: `UserService`, `CourseService`, `EnrollmentService`, `PaymentService`. But these entities are deeply interconnected: enrollment depends on both users and courses, and payments depend on enrollment, so splitting by entity creates a chatty service mesh with no real independence.
 
 A DDD-informed decomposition groups related behaviours into bounded contexts:
 
@@ -272,7 +272,7 @@ A DDD-informed decomposition groups related behaviours into bounded contexts:
 | **Billing & Payment** | Invoice generation, payment processing, financial reporting | `BillingService` |
 | **Notification** | Email, push, and in-app notifications triggered by events in other contexts | `NotificationService` |
 
-Each bounded context has its own ubiquitous language. In the Enrollment context, "Student" means an enrollee with academic history. In the Billing context, "Student" means a payer with an invoice history. These are different models of the same real-world entity, and they *should* be different — that is the point.
+Each bounded context has its own ubiquitous language. In the Enrollment context, "Student" means an enrollee with academic history. In the Billing context, "Student" means a payer with an invoice history. These are different models of the same real-world entity, and they *should* be different: that is the point.
 
 </section>
 
@@ -332,7 +332,7 @@ graph TB
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: Bounded contexts connected through an event bus — asynchronous, loosely coupled</span>
+  <span lang="en">Figure: Bounded contexts connected through an event bus, asynchronous and loosely coupled</span>
   <span lang="id">Gambar: Bounded contexts terhubung melalui *event bus*, asinkron dan *loosely coupled*</span>
 </figcaption>
 </figure>
@@ -351,7 +351,7 @@ Service A sends an HTTP request to Service B and waits for the response. This is
 
 **Protocols:** REST (JSON over HTTP), gRPC (Protocol Buffers over HTTP/2)
 
-**When to use:** When you need an immediate answer to continue processing — e.g., the Enrollment Service must verify that a course exists before enrolling a student.
+**When to use:** When you need an immediate answer to continue processing, e.g., the Enrollment Service must verify that a course exists before enrolling a student.
 
 **Risks:** Temporal coupling. If the Catalog Service is down, the Enrollment Service also fails. This is where **circuit breakers** and **timeouts** become essential.
 
@@ -453,7 +453,7 @@ class EnrollmentService
 | Response needed immediately | Yes | No |
 | Temporal coupling | High (caller blocks) | Low (decoupled in time) |
 | Complexity | Lower (simple HTTP) | Higher (broker, DLQ, ordering) |
-| Multiple consumers | No (1:1) | Yes (1:N — fan-out) |
+| Multiple consumers | No (1:1) | Yes (1:N, fan-out) |
 | Typical PHP libraries | Guzzle, Symfony HttpClient | php-amqplib, Enqueue, Laravel Queues |
 
 Most real-world systems use a **hybrid**: synchronous for queries that need immediate answers, asynchronous for side effects and cross-service reactions.
@@ -587,13 +587,13 @@ Sebagian besar sistem dunia nyata menggunakan **hybrid**: sinkron untuk *query* 
 
 ## A Minimal PHP Example: Splitting a Monolith
 
-Let us walk through a concrete example. We start with a small monolith that handles both student profiles and course enrollment in a single codebase, then extract them into two lightweight services using **Slim Framework** — a popular PHP micro-framework well-suited to building focused microservices.
+Let us walk through a concrete example. We start with a small monolith that handles both student profiles and course enrollment in a single codebase, then extract them into two lightweight services using **Slim Framework**, a popular PHP micro-framework well-suited to building focused microservices.
 
 ### Step 1: The Monolith (Before)
 
 ```php
 <?php
-// monolith/public/index.php — handles everything in one file
+// monolith/public/index.php: handles everything in one file
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -618,7 +618,7 @@ $app->get('/api/students/{id}', function ($request, $response, $args) use ($pdo)
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-// Enrollment endpoints — same database, same codebase
+// Enrollment endpoints: same database, same codebase
 $app->post('/api/enrollments', function ($request, $response) use ($pdo) {
     $data = json_decode($request->getBody(), true);
 
@@ -800,7 +800,7 @@ class StudentServiceContractTest extends TestCase
 }
 ```
 
-Contract tests are lightweight — they only verify the shape of the API, not internal business logic. They can run in CI without requiring the full microservice graph to be deployed.
+Contract tests are lightweight: they only verify the shape of the API, not internal business logic. They can run in CI without requiring the full microservice graph to be deployed.
 
 </section>
 
@@ -814,7 +814,7 @@ Mari kita telusuri contoh konkret. Kita mulai dengan monolit kecil yang menangan
 
 ```php
 <?php
-// monolith/public/index.php — menangani semuanya dalam satu file
+// monolith/public/index.php: menangani semuanya dalam satu file
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -839,7 +839,7 @@ $app->get('/api/students/{id}', function ($request, $response, $args) use ($pdo)
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-// Endpoint enrollment — database sama, basis kode sama
+// Endpoint enrollment: database sama, basis kode sama
 $app->post('/api/enrollments', function ($request, $response) use ($pdo) {
     $data = json_decode($request->getBody(), true);
 
@@ -1042,7 +1042,7 @@ FROM enrollments e
 JOIN students.student_db.students s ON e.student_id = s.id;
 ```
 
-This query creates an invisible, unversioned dependency between the Enrollment Service and the Student Service's *internal schema*. If the Student Service team renames the `students` table or changes a column type, the Enrollment Service breaks silently — and the Student Service team has no way to know.
+This query creates an invisible, unversioned dependency between the Enrollment Service and the Student Service's *internal schema*. If the Student Service team renames the `students` table or changes a column type, the Enrollment Service breaks silently, and the Student Service team has no way to know.
 
 ### How to Handle Cross-Service Queries
 
@@ -1072,7 +1072,7 @@ class EnrollmentController
         $studentIds = array_unique(array_column($enrollments, 'student_id'));
         $students = $this->fetchStudents($studentIds);
 
-        // Compose locally — no cross-service DB JOIN
+        // Compose locally: no cross-service DB JOIN
         $result = [];
         foreach ($enrollments as $enrollment) {
             $result[] = [
@@ -1108,7 +1108,7 @@ class EnrollmentController
 
 ### Principle
 
-> **Each service is the sole owner of its data.** Any other service that needs that data must ask — through the API, not through the database.
+> **Each service is the sole owner of its data.** Any other service that needs that data must ask for it through the API, not through the database.
 
 </section>
 
@@ -1157,7 +1157,7 @@ class EnrollmentController
         $studentIds = array_unique(array_column($enrollments, 'student_id'));
         $students = $this->fetchStudents($studentIds);
 
-        // Komposisi secara lokal — tidak ada JOIN DB lintas layanan
+        // Komposisi secara lokal: tidak ada JOIN DB lintas layanan
         $result = [];
         foreach ($enrollments as $enrollment) {
             $result[] = [
@@ -1567,21 +1567,21 @@ Prometheus mengambil data `/metrics` dari setiap layanan dan Grafana merender *d
 2. **Do not start with microservices.** Build a well-structured monolith first and extract services when team size, scaling needs, or deployment friction demand it.
 3. **Domain-Driven Design** provides a structured way to identify service boundaries. Split by bounded context, not by entity.
 4. **Communication** can be synchronous (REST/gRPC) for queries that need immediate answers, or asynchronous (events/messaging) for side effects and cross-service reactions.
-5. **Each service owns its database.** No shared databases. Cross-service data access happens through API composition, materialised views, or CQRS — never through cross-database JOINs.
+5. **Each service owns its database.** No shared databases. Cross-service data access happens through API composition, materialised views, or CQRS, never through cross-database JOINs.
 6. **Contract tests** verify that API contracts hold between services without requiring the full system to be deployed.
 7. **Operational maturity is a prerequisite.** Containers, health checks, centralised logging, and metrics are not optional in a microservice environment.
 
-> "Microservices are not a technology choice. They are an organisational choice. If your organisation cannot handle independent teams shipping independently, microservices will not help you." — Sam Newman
+> "Microservices are not a technology choice. They are an organisational choice. If your organisation cannot handle independent teams shipping independently, microservices will not help you." (Sam Newman)
 
 ## Further Reading
 
-- **[Building Microservices (2nd Edition)](https://samnewman.io/books/building_microservices_2nd_edition/)** by Sam Newman — The canonical book on microservice architecture.
-- **[Domain-Driven Design](https://www.domainlanguage.com/ddd/)** by Eric Evans — The foundational text on DDD and bounded contexts.
-- **[Monolith to Microservices](https://samnewman.io/books/monolith-to-microservices/)** by Sam Newman — Practical patterns for extracting services from an existing monolith.
-- **[Microservices Patterns](https://microservices.io/patterns/)** by Chris Richardson — A comprehensive pattern catalogue with code examples.
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Write maintainable PHP code before worrying about architecture.
-- **[Test-Driven Development with PHP](/blog/test-driven-development)** — Ensure your microservices remain testable from day one.
-- **[PHP: The Right Way](https://phptherightway.com/)** — PHP best practices, including dependency injection and HTTP clients.
+- **[Building Microservices (2nd Edition)](https://samnewman.io/books/building_microservices_2nd_edition/)** by Sam Newman: the canonical book on microservice architecture.
+- **[Domain-Driven Design](https://www.domainlanguage.com/ddd/)** by Eric Evans: the foundational text on DDD and bounded contexts.
+- **[Monolith to Microservices](https://samnewman.io/books/monolith-to-microservices/)** by Sam Newman: practical patterns for extracting services from an existing monolith.
+- **[Microservices Patterns](https://microservices.io/patterns/)** by Chris Richardson: a comprehensive pattern catalogue with code examples.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: write maintainable PHP code before worrying about architecture.
+- **[Test-Driven Development with PHP](/blog/test-driven-development)**: ensure your microservices remain testable from day one.
+- **[PHP: The Right Way](https://phptherightway.com/)**: PHP best practices, including dependency injection and HTTP clients.
 
 </section>
 

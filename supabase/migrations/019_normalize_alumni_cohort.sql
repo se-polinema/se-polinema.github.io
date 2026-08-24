@@ -2,7 +2,7 @@
 -- Normalize cohort_year for the five seeded alumni (008/009/011) from
 -- their placeholder value to a real enrollment year.
 --
--- cohort_year is meant to be the academic enrollment year ("Angkatan" —
+-- cohort_year is meant to be the academic enrollment year ("Angkatan";
 -- see cohortLabel in src/i18n/*.json and the Period display in
 -- MemberProfilePage.vue), but every seeded alumnus was transcribed with
 -- cohort_year = exit_year = 2026, i.e. the graduation year copied into

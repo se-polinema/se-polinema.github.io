@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
 
 // Build-time event dates for AdminDashboard.vue, joined client-side by slug
-// against se.events (which has no date column of its own — see
+// against se.events (which has no date column of its own; see
 // supabase/migrations/001_initial_schema.sql). Same category/managed filter
 // as scripts/sync-events.mjs, so slugs here line up 1:1 with se.events rows.
 export const GET: APIRoute = async () => {

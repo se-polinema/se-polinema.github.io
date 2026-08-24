@@ -1,8 +1,8 @@
 // Client-side image resize/re-encode before upload to Supabase Storage.
 // Matches the site's existing manual convention for member photos (~683px
-// wide JPEG, quality ~82) — see the provenance comments in
+// wide JPEG, quality ~82), see the provenance comments in
 // supabase/migrations/009_add_alumni_solikhin.sql /
-// 011_add_alumni_batch.sql — but performed automatically in the browser
+// 011_add_alumni_batch.sql, but performed automatically in the browser
 // instead of by hand before each commit. Re-encoding through <canvas>
 // strips EXIF metadata as a side effect, matching that same convention.
 //

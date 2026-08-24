@@ -3,7 +3,7 @@
 --
 -- members_insert_self (013_alumni_self_service.sql) hardcoded
 -- `AND status = 'alumni'`, so a signed-in student had no way to add
--- themselves to the /members directory — only an admin could create a
+-- themselves to the /members directory; only an admin could create a
 -- student row. The admin form, the /members directory, and /profile
 -- already fully support status='student' end-to-end; the only gap was
 -- this policy blocking self-service. Widen it to allow either status.

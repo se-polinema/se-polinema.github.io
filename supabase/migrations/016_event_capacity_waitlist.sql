@@ -1,7 +1,7 @@
 -- ============================================================
 -- Event capacity + waitlist.
 --
--- se.events previously had no seat-limit concept at all —
+-- se.events previously had no seat-limit concept at all:
 -- registration_open was fully open/closed with nothing in between.
 -- capacity is nullable (NULL = uncapped, preserves every existing event's
 -- current behavior unchanged).
@@ -15,7 +15,7 @@
 -- the check-then-insert, serializing concurrent registrations for the same
 -- event. The old direct-insert policy (participants_insert_self) is
 -- dropped so this is actually enforced rather than an easily-bypassed UI
--- nicety — confirmed EventRegistrationForm.vue is the only place that ever
+-- nicety: confirmed EventRegistrationForm.vue is the only place that ever
 -- inserted into se.participants, so nothing else depends on that policy.
 -- ============================================================
 

@@ -1,4 +1,4 @@
-// Shared "Suggest with AI" invoke helper for the Showcase feature — used by
+// Shared "Suggest with AI" invoke helper for the Showcase feature, used by
 // both AdminDashboard.vue's Projects tab and ShowcaseSubmissionForm.vue, so
 // the edge-function-invoke + error-recovery logic exists in exactly one
 // place instead of being duplicated per caller.
@@ -33,7 +33,7 @@ export async function suggestProjectContent(params: {
 
   if (error) {
     // functions.invoke() surfaces non-2xx responses as a generic SDK error
-    // without parsing the JSON body — recover the actual server message
+    // without parsing the JSON body, so recover the actual server message
     // (suggest-project-content returns { error: <code> }) from the raw
     // Response on error.context, same recovery pattern as submit-member.
     let serverMessage: string | null = null
@@ -41,7 +41,7 @@ export async function suggestProjectContent(params: {
       const body = await (error as { context?: Response }).context?.json()
       serverMessage = body?.error ?? null
     } catch {
-      // ignore — fall through to the generic error below
+      // ignore, fall through to the generic error below
     }
     return { suggestion: null, error: serverMessage || 'ai_failed' }
   }

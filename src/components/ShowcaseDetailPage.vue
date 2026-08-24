@@ -216,7 +216,7 @@ const streamName = computed(() => {
   return lang.value === 'id' ? stream.name.id : stream.name.en
 })
 
-// Resolve researcher slug ids to display names — same client-side
+// Resolve researcher slug ids to display names: same client-side
 // resolution already used by Sidebar.vue, avoids denormalizing names
 // into the DB (researchers live in the content collection, not a table).
 const resolvedResearchers = computed(() => {

@@ -227,7 +227,7 @@ const groupedCommands = computed<CommandGroup[]>(() => {
 
 // Keeps the first result highlighted whenever the filtered set changes, so
 // Enter runs the top match immediately without requiring an explicit
-// arrow-down first — matches real command palettes' default behavior.
+// arrow-down first, matching real command palettes' default behavior.
 function syncActiveToFirst() {
   const flat = getFlatResults()
   const stillValid = flat.some((f) => f.group === activeGroup.value && f.index === activeIndex.value)

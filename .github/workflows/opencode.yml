@@ -250,8 +250,8 @@ jobs:
 
           This run is for planning only.
 
-          Before drafting the plan, read graphify-out/GRAPH_REPORT.md — the
-          repository knowledge-graph report — to understand module structure and
+          Before drafting the plan, read graphify-out/GRAPH_REPORT.md, the
+          repository knowledge-graph report, to understand module structure and
           file relationships, and consult graphify-out/graph.json when you need
           exact dependency edges. If these files are absent, proceed without them.
 
@@ -482,12 +482,12 @@ jobs:
           BRANCH="opencode/issue-${ISSUE_NUMBER}"
           git fetch origin main
           if git ls-remote --exit-code origin "refs/heads/${BRANCH}" >/dev/null 2>&1; then
-            echo "Branch ${BRANCH} exists — rebasing on origin/main"
+            echo "Branch ${BRANCH} exists, rebasing on origin/main"
             git fetch origin "${BRANCH}"
             git checkout -B "${BRANCH}" "origin/${BRANCH}"
             git rebase origin/main
           else
-            echo "Branch ${BRANCH} not found — creating from origin/main"
+            echo "Branch ${BRANCH} not found, creating from origin/main"
             git checkout -B "${BRANCH}" origin/main
           fi
 
@@ -500,7 +500,7 @@ jobs:
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           MODEL: ${{ vars.OPENCODE_BUILD_MODEL || 'opencode-go/deepseek-v4-pro' }}
 
-      # Verify the build passes BEFORE committing/pushing — no broken-build PRs.
+      # Verify the build passes BEFORE committing/pushing: no broken-build PRs.
       - name: Verify build
         run: npm run build
 

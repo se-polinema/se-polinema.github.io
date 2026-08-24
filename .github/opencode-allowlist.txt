@@ -1,4 +1,4 @@
-# OpenCode authorized users — fallback allowlist
+# OpenCode authorized users: fallback allowlist
 # One GitHub username per line. Users listed here can trigger /plan and /build
 # even if the authenticated org membership API check is unavailable or fails.
 # Lines starting with # are ignored.

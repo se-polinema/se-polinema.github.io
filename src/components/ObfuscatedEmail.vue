@@ -11,7 +11,7 @@ const props = defineProps<{
   subject?: string
 }>()
 
-// Empty at SSR/initial render — nothing scrapeable in static HTML.
+// Empty at SSR/initial render: nothing scrapeable in static HTML.
 // Filled client-side after mount so hydration never mismatches.
 const email = ref('')
 

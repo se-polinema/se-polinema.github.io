@@ -258,7 +258,7 @@ watch(query, (val) => {
   // Quick Open convention (typing ">" in Ctrl+P switches to Ctrl+Shift+P).
   // Handled by the parent (a plain v-if/v-else-if mode swap within the
   // one shared Teleport) rather than by tearing down this overlay's own
-  // Teleport and standing up a separate one — see QuickInputOverlays.vue
+  // Teleport and standing up a separate one; see QuickInputOverlays.vue
   // for why that split caused Vue's Teleport patching to crash.
   if (val.startsWith('>')) {
     emit('handoff', val.slice(1))

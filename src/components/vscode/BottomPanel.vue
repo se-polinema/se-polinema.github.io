@@ -275,14 +275,14 @@ onMounted(async () => {
       }
     }
   } catch {
-    // silently ignore — panel degrades gracefully
+    // silently ignore; panel degrades gracefully
   }
 })
 </script>
 
 <style scoped>
 .panel-resize-handle {
-  /* Flush with the inner edge (not overflowing outside it) — the panel
+  /* Flush with the inner edge (not overflowing outside it): the panel
      container clips overflow, which would silently eat pointer events on
      any sliver positioned outside its own bounds. */
   position: absolute;

@@ -26,25 +26,25 @@ tagsId:
 
 ## What Is SOLID and Why It Matters
 
-Every codebase starts clean. A student project, a company internal tool, a startup MVP — they all begin with simple classes that do exactly what you expect. Then requirements change. A new payment method appears. A lecturer asks for a different grade calculation. The customer wants a discount applied before tax instead of after.
+Every codebase starts clean. A student project, a company internal tool, a startup MVP: they all begin with simple classes that do exactly what you expect. Then requirements change. A new payment method appears. A lecturer asks for a different grade calculation. The customer wants a discount applied before tax instead of after.
 
 In rigid code, each of those changes forces you to touch classes that should have nothing to do with the change. You edit a controller to add a payment method and accidentally break the email notification. You fix the email and break the report. The cost of every change grows until the team is afraid to touch anything.
 
-**SOLID** is a set of five object-oriented design principles that, applied together, keep that cost flat. They were collected by Robert C. Martin ("Uncle Bob") in the early 2000s and have since become the shared vocabulary of professional software engineering — the same vocabulary you will meet in code reviews, technical interviews, and every serious PHP framework.
+**SOLID** is a set of five object-oriented design principles that, applied together, keep that cost flat. They were collected by Robert C. Martin ("Uncle Bob") in the early 2000s and have since become the shared vocabulary of professional software engineering, the same vocabulary you will meet in code reviews, technical interviews, and every serious PHP framework.
 
 SOLID reduces **coupling** (how much one piece of code depends on another) and increases **cohesion** (how focused a single piece of code is). Low coupling plus high cohesion is the definition of maintainable code.
 
 | Principle | One-Line Summary |
 |---|---|
-| **S** — Single Responsibility | A class has one reason to change. |
-| **O** — Open/Closed | Open for extension, closed for modification. |
-| **L** — Liskov Substitution | Subtypes must be replaceable for their base types. |
-| **I** — Interface Segregation | Prefer many small interfaces over one fat interface. |
-| **D** — Dependency Inversion | Depend on abstractions, not on concrete implementations. |
+| **S**: Single Responsibility | A class has one reason to change. |
+| **O**: Open/Closed | Open for extension, closed for modification. |
+| **L**: Liskov Substitution | Subtypes must be replaceable for their base types. |
+| **I**: Interface Segregation | Prefer many small interfaces over one fat interface. |
+| **D**: Dependency Inversion | Depend on abstractions, not on concrete implementations. |
 
 This tutorial covers all five principles with a consistent template: a **definition**, a **before** snippet that violates the principle, an **after** snippet that fixes it, and a **smell checklist** to spot the violation in your own code. We close with a combined Laravel example that applies several principles at once.
 
-> If you are new to writing readable PHP, start with [Clean Code Principles with PHP](/blog/clean-code-principles) first — SOLID builds directly on it.
+> If you are new to writing readable PHP, start with [Clean Code Principles with PHP](/blog/clean-code-principles) first. SOLID builds directly on it.
 
 </section>
 
@@ -52,25 +52,25 @@ This tutorial covers all five principles with a consistent template: a **definit
 
 ## Apa Itu SOLID dan Mengapa Itu Penting
 
-Setiap codebase dimulai dengan bersih. Proyek mahasiswa, alat internal perusahaan, MVP startup — semuanya dimulai dengan kelas-kelas sederhana yang melakukan persis seperti yang Anda harapkan. Lalu kebutuhan berubah. Metode pembayaran baru muncul. Dosen meminta perhitungan nilai yang berbeda. Pelanggan ingin diskon diterapkan sebelum pajak, bukan sesudahnya.
+Setiap codebase dimulai dengan bersih. Proyek mahasiswa, alat internal perusahaan, MVP startup: semuanya dimulai dengan kelas-kelas sederhana yang melakukan persis seperti yang Anda harapkan. Lalu kebutuhan berubah. Metode pembayaran baru muncul. Dosen meminta perhitungan nilai yang berbeda. Pelanggan ingin diskon diterapkan sebelum pajak, bukan sesudahnya.
 
 Pada kode yang kaku, setiap perubahan itu memaksa Anda menyentuh kelas-kelas yang seharusnya tidak ada hubungannya dengan perubahan tersebut. Anda mengedit sebuah controller untuk menambahkan metode pembayaran dan tanpa sengaja merusak notifikasi email. Anda memperbaiki email dan merusak laporan. Biaya setiap perubahan terus membesar sampai tim takut menyentuh apa pun.
 
-**SOLID** adalah sekumpulan lima prinsip desain berorientasi objek yang, bila diterapkan bersama-sama, menjaga biaya itu tetap datar. Prinsip-prinsip ini dikumpulkan oleh Robert C. Martin ("Uncle Bob") pada awal 2000-an dan sejak itu menjadi kosakata bersama rekayasa perangkat lunak profesional — kosakata yang sama yang akan Anda temui dalam code review, wawancara teknis, dan setiap framework PHP yang serius.
+**SOLID** adalah sekumpulan lima prinsip desain berorientasi objek yang, bila diterapkan bersama-sama, menjaga biaya itu tetap datar. Prinsip-prinsip ini dikumpulkan oleh Robert C. Martin ("Uncle Bob") pada awal 2000-an dan sejak itu menjadi kosakata bersama rekayasa perangkat lunak profesional, kosakata yang sama yang akan Anda temui dalam code review, wawancara teknis, dan setiap framework PHP yang serius.
 
 SOLID mengurangi **coupling** (seberapa besar satu bagian kode bergantung pada bagian lain) dan meningkatkan **cohesion** (seberapa fokus satu bagian kode). Coupling rendah ditambah cohesion tinggi adalah definisi kode yang mudah dipelihara.
 
 | Prinsip | Ringkasan Satu Kalimat |
 |---|---|
-| **S** — Single Responsibility | Sebuah kelas memiliki satu alasan untuk berubah. |
-| **O** — Open/Closed | Terbuka untuk ekstensi, tertutup untuk modifikasi. |
-| **L** — Liskov Substitution | Subtype harus dapat menggantikan tipe dasarnya. |
-| **I** — Interface Segregation | Lebih baik banyak antarmuka kecil daripada satu antarmuka gemuk. |
-| **D** — Dependency Inversion | Bergantung pada abstraksi, bukan pada implementasi konkret. |
+| **S**: Single Responsibility | Sebuah kelas memiliki satu alasan untuk berubah. |
+| **O**: Open/Closed | Terbuka untuk ekstensi, tertutup untuk modifikasi. |
+| **L**: Liskov Substitution | Subtype harus dapat menggantikan tipe dasarnya. |
+| **I**: Interface Segregation | Lebih baik banyak antarmuka kecil daripada satu antarmuka gemuk. |
+| **D**: Dependency Inversion | Bergantung pada abstraksi, bukan pada implementasi konkret. |
 
 Tutorial ini membahas kelima prinsip dengan template yang konsisten: **definisi**, cuplikan **before** yang melanggar prinsip, cuplikan **after** yang memperbaikinya, dan **daftar periksa smell** untuk mengenali pelanggaran dalam kode Anda sendiri. Kita tutup dengan contoh Laravel gabungan yang menerapkan beberapa prinsip sekaligus.
 
-> Jika Anda baru dalam menulis PHP yang mudah dibaca, mulai dari [Prinsip Clean Code dengan PHP](/blog/clean-code-principles) terlebih dahulu — SOLID dibangun langsung di atasnya.
+> Jika Anda baru dalam menulis PHP yang mudah dibaca, mulai dari [Prinsip Clean Code dengan PHP](/blog/clean-code-principles) terlebih dahulu. SOLID dibangun langsung di atasnya.
 
 </section>
 
@@ -98,11 +98,11 @@ graph TB
 
 <section lang="en">
 
-## S — Single Responsibility Principle (SRP)
+## S: Single Responsibility Principle (SRP)
 
-**A class should have only one reason to change.** Every class has a set of stakeholders — the people and requirements that demand changes from it. A class that formats CSV *and* writes files *and* sends emails has three reasons to change: the report format may change, the storage location may change, and the email template may change. Each of those changes risks breaking the other responsibilities.
+**A class should have only one reason to change.** Every class has a set of stakeholders: the people and requirements that demand changes from it. A class that formats CSV *and* writes files *and* sends emails has three reasons to change: the report format may change, the storage location may change, and the email template may change. Each of those changes risks breaking the other responsibilities.
 
-Notice the phrase "reason to change" rather than "one job". A class can have several methods as long as they all serve the same responsibility. `InvoiceRepository` may have `find`, `save`, and `delete` — one responsibility: persisting invoices.
+Notice the phrase "reason to change" rather than "one job". A class can have several methods as long as they all serve the same responsibility. `InvoiceRepository` may have `find`, `save`, and `delete`, one responsibility: persisting invoices.
 
 ### Before: A Controller Doing Everything
 
@@ -207,11 +207,11 @@ Now the controller only translates HTTP into a domain call. `OrderService` orche
 
 <section lang="id">
 
-## S — Single Responsibility Principle (SRP)
+## S: Single Responsibility Principle (SRP)
 
-**Sebuah kelas seharusnya hanya memiliki satu alasan untuk berubah.** Setiap kelas memiliki sekumpulan *stakeholder* — orang dan kebutuhan yang menuntut perubahan darinya. Kelas yang memformat CSV *dan* menulis file *dan* mengirim email memiliki tiga alasan untuk berubah: format laporan dapat berubah, lokasi penyimpanan dapat berubah, dan template email dapat berubah. Masing-masing perubahan itu berisiko merusak tanggung jawab lainnya.
+**Sebuah kelas seharusnya hanya memiliki satu alasan untuk berubah.** Setiap kelas memiliki sekumpulan *stakeholder*: orang dan kebutuhan yang menuntut perubahan darinya. Kelas yang memformat CSV *dan* menulis file *dan* mengirim email memiliki tiga alasan untuk berubah: format laporan dapat berubah, lokasi penyimpanan dapat berubah, dan template email dapat berubah. Masing-masing perubahan itu berisiko merusak tanggung jawab lainnya.
 
-Perhatikan frasa "alasan untuk berubah" daripada "satu pekerjaan". Sebuah kelas boleh memiliki beberapa metode selama semuanya melayani tanggung jawab yang sama. `InvoiceRepository` boleh memiliki `find`, `save`, dan `delete` — satu tanggung jawab: menyimpan faktur.
+Perhatikan frasa "alasan untuk berubah" daripada "satu pekerjaan". Sebuah kelas boleh memiliki beberapa metode selama semuanya melayani tanggung jawab yang sama. `InvoiceRepository` boleh memiliki `find`, `save`, dan `delete`, satu tanggung jawab: menyimpan faktur.
 
 ### Before: Controller yang Melakukan Segalanya
 
@@ -318,7 +318,7 @@ Sekarang controller hanya menerjemahkan HTTP menjadi panggilan domain. `OrderSer
 
 <section lang="en">
 
-## O — Open/Closed Principle (OCP)
+## O: Open/Closed Principle (OCP)
 
 **Software entities should be open for extension, but closed for modification.** Once a class is written, tested, and shipped, you should be able to add new behaviour *without* editing its source. The classic way to achieve this in PHP is polymorphism: define an interface, let each variant implement it, and add new variants as new classes rather than new branches.
 
@@ -356,7 +356,7 @@ class PaymentProcessor
 }
 ```
 
-Adding `qris` or `paylater` means editing `charge()` — the exact method that already works and is already tested. The risk of regression grows with every payment method.
+Adding `qris` or `paylater` means editing `charge()`, the exact method that already works and is already tested. The risk of regression grows with every payment method.
 
 ### After: Strategy Behind an Interface
 
@@ -424,7 +424,7 @@ Now adding `QrisPayment` is a new class plus a one-line addition to your contain
 
 <section lang="id">
 
-## O — Open/Closed Principle (OCP)
+## O: Open/Closed Principle (OCP)
 
 **Entitas perangkat lunak harus terbuka untuk ekstensi, tetapi tertutup untuk modifikasi.** Begitu sebuah kelas ditulis, diuji, dan dirilis, Anda seharusnya dapat menambahkan perilaku baru *tanpa* mengedit kode sumbernya. Cara klasik untuk mencapai ini di PHP adalah polimorfisme: definisikan antarmuka, biarkan setiap varian mengimplementasikannya, dan tambahkan varian baru sebagai kelas baru, bukan sebagai cabang baru.
 
@@ -462,7 +462,7 @@ class PaymentProcessor
 }
 ```
 
-Menambahkan `qris` atau `paylater` berarti mengedit `charge()` — metode yang persis sedang bekerja dan sudah diuji. Risiko regresi tumbuh seiring setiap metode pembayaran baru.
+Menambahkan `qris` atau `paylater` berarti mengedit `charge()`, metode yang persis sedang bekerja dan sudah diuji. Risiko regresi tumbuh seiring setiap metode pembayaran baru.
 
 ### After: Strategy di Balik Antarmuka
 
@@ -532,9 +532,9 @@ Sekarang menambahkan `QrisPayment` adalah kelas baru plus satu baris tambahan ke
 
 <section lang="en">
 
-## L — Liskov Substitution Principle (LSP)
+## L: Liskov Substitution Principle (LSP)
 
-**Subtypes must be substitutable for their base types without breaking the program.** If a function accepts a base type (an interface or parent class), it must work correctly with *any* subtype — no surprises, no special cases. Formally, a subclass may not strengthen preconditions, weaken postconditions, or throw exceptions the caller does not expect.
+**Subtypes must be substitutable for their base types without breaking the program.** If a function accepts a base type (an interface or parent class), it must work correctly with *any* subtype: no surprises, no special cases. Formally, a subclass may not strengthen preconditions, weaken postconditions, or throw exceptions the caller does not expect.
 
 Inheritance is about an "is-a" relationship, but *is-a* must mean *behaves-like*. The classic counterexample is `Square extends Rectangle`: a square is a rectangle mathematically, but a square's `setWidth` also changes its height, which surprises any code written against `Rectangle`.
 
@@ -591,10 +591,10 @@ function resize(Rectangle $rect): void
 }
 
 resize(new Rectangle(2, 3)); // passes
-resize(new Square(2, 2));    // fails — Square is not a Rectangle
+resize(new Square(2, 2));    // fails: Square is not a Rectangle
 ```
 
-`Square` violates the contract of `Rectangle`. The caller's assumption (`area() === 20`) breaks, and the only way to fix it is `instanceof` checks — the signature of a broken hierarchy.
+`Square` violates the contract of `Rectangle`. The caller's assumption (`area() === 20`) breaks, and the only way to fix it is `instanceof` checks, the signature of a broken hierarchy.
 
 ### After: Honour the Contract, or Avoid the Hierarchy
 
@@ -653,9 +653,9 @@ Both shapes implement a truthful `Shape` contract. Neither forces the other to l
 
 <section lang="id">
 
-## L — Liskov Substitution Principle (LSP)
+## L: Liskov Substitution Principle (LSP)
 
-**Subtype harus dapat menggantikan tipe dasarnya tanpa merusak program.** Jika sebuah fungsi menerima tipe dasar (antarmuka atau kelas induk), ia harus bekerja dengan benar dengan *subtype apa pun* — tanpa kejutan, tanpa kasus khusus. Secara formal, subclass tidak boleh memperkuat prasyarat, melemahkan pasca-kondisi, atau melempar exception yang tidak diharapkan pemanggil.
+**Subtype harus dapat menggantikan tipe dasarnya tanpa merusak program.** Jika sebuah fungsi menerima tipe dasar (antarmuka atau kelas induk), ia harus bekerja dengan benar dengan *subtype apa pun*: tanpa kejutan, tanpa kasus khusus. Secara formal, subclass tidak boleh memperkuat prasyarat, melemahkan pasca-kondisi, atau melempar exception yang tidak diharapkan pemanggil.
 
 Inheritance adalah tentang relasi "adalah" (*is-a*), tetapi *is-a* harus berarti *berperilaku-seperti*. Contoh tandingan klasik adalah `Square extends Rectangle`: persegi adalah persegi panjang secara matematis, tetapi `setWidth` persegi juga mengubah tingginya, yang mengejutkan kode apa pun yang ditulis terhadap `Rectangle`.
 
@@ -712,10 +712,10 @@ function resize(Rectangle $rect): void
 }
 
 resize(new Rectangle(2, 3)); // lolos
-resize(new Square(2, 2));    // gagal — Square bukanlah Rectangle
+resize(new Square(2, 2));    // gagal: Square bukanlah Rectangle
 ```
 
-`Square` melanggar kontrak `Rectangle`. Asumsi pemanggil (`area() === 20`) rusak, dan satu-satunya cara memperbaikinya adalah pemeriksaan `instanceof` — ciri khas hierarki yang rusak.
+`Square` melanggar kontrak `Rectangle`. Asumsi pemanggil (`area() === 20`) rusak, dan satu-satunya cara memperbaikinya adalah pemeriksaan `instanceof`, ciri khas hierarki yang rusak.
 
 ### After: Hormati Kontrak, atau Hindari Hierarki
 
@@ -776,9 +776,9 @@ Kedua bentuk mengimplementasikan kontrak `Shape` yang jujur. Tidak ada yang dipa
 
 <section lang="en">
 
-## I — Interface Segregation Principle (ISP)
+## I: Interface Segregation Principle (ISP)
 
-**No client should be forced to depend on methods it does not use.** A "fat" interface — one with many methods — creates a web of unnecessary dependencies. A client that only needs `save()` must still know about `sendEmail()`, `generatePdf()`, and `reconcile()`. When the interface changes for one client, every other client is affected.
+**No client should be forced to depend on methods it does not use.** A "fat" interface, one with many methods, creates a web of unnecessary dependencies. A client that only needs `save()` must still know about `sendEmail()`, `generatePdf()`, and `reconcile()`. When the interface changes for one client, every other client is affected.
 
 In PHP, the fix is *role interfaces*: small, single-purpose interfaces that express exactly what each client needs. A class can implement several of them.
 
@@ -895,9 +895,9 @@ Each class now implements only the roles it actually plays. A payroll system dep
 
 <section lang="id">
 
-## I — Interface Segregation Principle (ISP)
+## I: Interface Segregation Principle (ISP)
 
-**Tidak ada klien yang boleh dipaksa bergantung pada metode yang tidak digunakannya.** Antarmuka "gemuk" — yang memiliki banyak metode — menciptakan jaring dependensi yang tidak perlu. Klien yang hanya butuh `save()` tetap harus tahu tentang `sendEmail()`, `generatePdf()`, dan `reconcile()`. Ketika antarmuka berubah untuk satu klien, semua klien lain ikut terdampak.
+**Tidak ada klien yang boleh dipaksa bergantung pada metode yang tidak digunakannya.** Antarmuka "gemuk", yang memiliki banyak metode, menciptakan jaring dependensi yang tidak perlu. Klien yang hanya butuh `save()` tetap harus tahu tentang `sendEmail()`, `generatePdf()`, dan `reconcile()`. Ketika antarmuka berubah untuk satu klien, semua klien lain ikut terdampak.
 
 Di PHP, perbaikannya adalah *role interface*: antarmuka kecil dan bertujuan tunggal yang mengekspresikan persis apa yang dibutuhkan setiap klien. Sebuah kelas dapat mengimplementasikan beberapa di antaranya.
 
@@ -1016,7 +1016,7 @@ Setiap kelas kini hanya mengimplementasikan peran yang benar-benar dimainkannya.
 
 <section lang="en">
 
-## D — Dependency Inversion Principle (DIP)
+## D: Dependency Inversion Principle (DIP)
 
 **High-level modules should not depend on low-level modules; both should depend on abstractions.** In other words: depend on interfaces, not on concrete classes. "High-level" means the business logic that decides *what* should happen; "low-level" means the plumbing that decides *how* (a MySQL connection, a mail server, a specific API client).
 
@@ -1089,7 +1089,7 @@ class InvoiceService
 }
 ```
 
-`InvoiceService` now depends on two interfaces. In production you inject `MysqlInvoiceRepository` and `SmtpMailer`; in tests you inject fakes. In Laravel, the service container performs this wiring automatically when you type-hint an interface that is bound to a concrete class — the framework's *constructor injection* is DIP in action.
+`InvoiceService` now depends on two interfaces. In production you inject `MysqlInvoiceRepository` and `SmtpMailer`; in tests you inject fakes. In Laravel, the service container performs this wiring automatically when you type-hint an interface that is bound to a concrete class: the framework's *constructor injection* is DIP in action.
 
 ### Smells to Spot
 
@@ -1103,7 +1103,7 @@ class InvoiceService
 
 <section lang="id">
 
-## D — Dependency Inversion Principle (DIP)
+## D: Dependency Inversion Principle (DIP)
 
 **Modul tingkat tinggi tidak boleh bergantung pada modul tingkat rendah; keduanya harus bergantung pada abstraksi.** Dengan kata lain: bergantung pada antarmuka, bukan pada kelas konkret. "Tingkat tinggi" berarti logika bisnis yang memutuskan *apa* yang harus terjadi; "tingkat rendah" berarti perpipaan yang memutuskan *bagaimana* (koneksi MySQL, server email, klien API tertentu).
 
@@ -1176,7 +1176,7 @@ class InvoiceService
 }
 ```
 
-`InvoiceService` kini bergantung pada dua antarmuka. Di produksi Anda menyuntikkan `MysqlInvoiceRepository` dan `SmtpMailer`; di pengujian Anda menyuntikkan objek palsu. Di Laravel, service container melakukan wiring ini secara otomatis ketika Anda memberi type-hint antarmuka yang terikat ke kelas konkret — *constructor injection* framework adalah DIP dalam aksi.
+`InvoiceService` kini bergantung pada dua antarmuka. Di produksi Anda menyuntikkan `MysqlInvoiceRepository` dan `SmtpMailer`; di pengujian Anda menyuntikkan objek palsu. Di Laravel, service container melakukan wiring ini secara otomatis ketika Anda memberi type-hint antarmuka yang terikat ke kelas konkret: *constructor injection* framework adalah DIP dalam aksi.
 
 ### Smell yang Harus Diperhatikan
 
@@ -1194,7 +1194,7 @@ class InvoiceService
 
 ## Putting It Together: A Laravel Invoice Module
 
-Let us apply SRP, OCP, and DIP together (with LSP and ISP in the background) to a small **invoice processing** module. The requirement: issue an invoice for an order, calculate tax and any discount, persist it, and notify the customer — while keeping the design open to new tax rules and discount rules.
+Let us apply SRP, OCP, and DIP together (with LSP and ISP in the background) to a small **invoice processing** module. The requirement: issue an invoice for an order, calculate tax and any discount, persist it, and notify the customer, while keeping the design open to new tax rules and discount rules.
 
 ### The Abstractions (DIP)
 
@@ -1231,7 +1231,7 @@ interface InvoiceNotifier
 
 ### Concrete Implementations (OCP)
 
-Each rule is its own class. Adding a new tax band or a "student discount" means adding a class — not editing existing code:
+Each rule is its own class. Adding a new tax band or a "student discount" means adding a class, not editing existing code:
 
 ```php
 <?php
@@ -1384,7 +1384,7 @@ public function register(): void
 | **OCP** | A new `FlatTaxCalculator` or `StudentDiscountCalculator` is a new class; no existing class changes. |
 | **DIP** | `InvoiceService` depends on four interfaces, never on `IndonesiaTaxCalculator` or `EloquentInvoiceRepository`. |
 | **ISP** | Four tiny interfaces instead of one fat `InvoiceCollaborator` interface. |
-| **LSP** | Any `TaxCalculator` implementation is interchangeable — the service behaves identically regardless of which one the container injects. |
+| **LSP** | Any `TaxCalculator` implementation is interchangeable; the service behaves identically regardless of which one the container injects. |
 
 The same design extends naturally to the course-enrolment and report-generation domains you have already seen in the [MVC/MVVM Architecture Fundamentals with PHP](/blog/mvc-mvvm-architecture-fundamentals-php) tutorial.
 
@@ -1394,7 +1394,7 @@ The same design extends naturally to the course-enrolment and report-generation 
 
 ## Menggabungkan Semuanya: Modul Faktur Laravel
 
-Mari terapkan SRP, OCP, dan DIP bersama-sama (dengan LSP dan ISP di latar belakang) pada modul **pemrosesan faktur** kecil. Kebutuhannya: menerbitkan faktur untuk sebuah pesanan, menghitung pajak dan diskon apa pun, menyimpannya, dan memberi tahu pelanggan — sambil menjaga desain tetap terbuka untuk aturan pajak dan diskon baru.
+Mari terapkan SRP, OCP, dan DIP bersama-sama (dengan LSP dan ISP di latar belakang) pada modul **pemrosesan faktur** kecil. Kebutuhannya: menerbitkan faktur untuk sebuah pesanan, menghitung pajak dan diskon apa pun, menyimpannya, dan memberi tahu pelanggan, sambil menjaga desain tetap terbuka untuk aturan pajak dan diskon baru.
 
 ### Abstraksi (DIP)
 
@@ -1431,7 +1431,7 @@ interface InvoiceNotifier
 
 ### Implementasi Konkret (OCP)
 
-Setiap aturan adalah kelasnya sendiri. Menambahkan golongan pajak baru atau "diskon mahasiswa" berarti menambahkan kelas — bukan mengedit kode yang sudah ada:
+Setiap aturan adalah kelasnya sendiri. Menambahkan golongan pajak baru atau "diskon mahasiswa" berarti menambahkan kelas, bukan mengedit kode yang sudah ada:
 
 ```php
 <?php
@@ -1584,7 +1584,7 @@ public function register(): void
 | **OCP** | `FlatTaxCalculator` atau `StudentDiscountCalculator` baru adalah kelas baru; tidak ada kelas lama yang berubah. |
 | **DIP** | `InvoiceService` bergantung pada empat antarmuka, tidak pernah pada `IndonesiaTaxCalculator` atau `EloquentInvoiceRepository`. |
 | **ISP** | Empat antarmuka kecil, bukan satu antarmuka `InvoiceCollaborator` yang gemuk. |
-| **LSP** | Implementasi `TaxCalculator` apa pun dapat dipertukarkan — service berperilaku identik terlepas dari mana yang disuntikkan container. |
+| **LSP** | Implementasi `TaxCalculator` apa pun dapat dipertukarkan; service berperilaku identik terlepas dari mana yang disuntikkan container. |
 
 Desain yang sama meluas secara alami ke domain pendaftaran mata kuliah dan pembuatan laporan yang telah Anda lihat di tutorial [Dasar-Dasar Arsitektur MVC/MVVM dengan PHP](/blog/mvc-mvvm-architecture-fundamentals-php).
 
@@ -1611,7 +1611,7 @@ SOLID is guidance, not law. Applied dogmatically it produces its own kind of mes
 | Situation | Pragmatic Call |
 |---|---|
 | A throwaway script or prototype | Skip the ceremony; keep it simple. |
-| A stable value object or DTO | No interfaces needed — it has no behaviour to abstract. |
+| A stable value object or DTO | No interfaces needed: it has no behaviour to abstract. |
 | Performance-critical inner loops | Avoid polymorphic dispatch if it measurably hurts. |
 | A single, stable dependency | Constructor injection of a concrete class is acceptable until a second variant exists. |
 
@@ -1638,7 +1638,7 @@ SOLID adalah panduan, bukan hukum. Diterapkan secara dogmatis, ia menghasilkan k
 | Situasi | Keputusan Pragmatis |
 |---|---|
 | Skrip sekali pakai atau prototipe | Lewati seremoni; jaga tetap sederhana. |
-| Value object atau DTO yang stabil | Tidak perlu antarmuka — ia tidak punya perilaku untuk diabstraksi. |
+| Value object atau DTO yang stabil | Tidak perlu antarmuka: ia tidak punya perilaku untuk diabstraksi. |
 | Inner loop yang kritis performa | Hindari dispatch polimorfik jika terukur menyakitkan. |
 | Satu dependensi yang stabil | Injeksi konstruktor kelas konkret dapat diterima sampai ada varian kedua. |
 
@@ -1654,11 +1654,11 @@ Uji lakmusnya selalu sama: **seberapa sulit mengubah ini nanti?** Jika menambah 
 
 | Principle | Definition | Problem It Solves | PHP Smell |
 |---|---|---|---|
-| **S** — Single Responsibility | One reason to change per class | Classes that break when unrelated features change | Fat controllers/services doing validation, business logic, and I/O |
-| **O** — Open/Closed | Open for extension, closed for modification | Every new feature reopens working code | `switch`/`if` chains on type codes |
-| **L** — Liskov Substitution | Subtypes replaceable for base types | Broken inheritance hierarchies | `instanceof` special-casing; subclasses that throw |
-| **I** — Interface Segregation | Small role interfaces, no fat interfaces | Clients coupled to methods they do not use | Interfaces with methods clients stub out or throw on |
-| **D** — Dependency Inversion | Depend on abstractions, not concretions | High-level policy welded to low-level details | `new` inside classes; static calls to concrete services |
+| **S**: Single Responsibility | One reason to change per class | Classes that break when unrelated features change | Fat controllers/services doing validation, business logic, and I/O |
+| **O**: Open/Closed | Open for extension, closed for modification | Every new feature reopens working code | `switch`/`if` chains on type codes |
+| **L**: Liskov Substitution | Subtypes replaceable for base types | Broken inheritance hierarchies | `instanceof` special-casing; subclasses that throw |
+| **I**: Interface Segregation | Small role interfaces, no fat interfaces | Clients coupled to methods they do not use | Interfaces with methods clients stub out or throw on |
+| **D**: Dependency Inversion | Depend on abstractions, not concretions | High-level policy welded to low-level details | `new` inside classes; static calls to concrete services |
 
 **Remember the order of impact:** SRP and DIP do the heaviest lifting in day-to-day PHP. OCP and ISP are natural consequences of getting SRP and DIP right. LSP is the guardrail that keeps your inheritance honest.
 
@@ -1670,11 +1670,11 @@ Uji lakmusnya selalu sama: **seberapa sulit mengubah ini nanti?** Jika menambah 
 
 | Prinsip | Definisi | Masalah yang Dipecahkan | Smell PHP |
 |---|---|---|---|
-| **S** — Single Responsibility | Satu alasan berubah per kelas | Kelas yang rusak saat fitur tak terkait berubah | Fat controller/service yang melakukan validasi, logika bisnis, dan I/O |
-| **O** — Open/Closed | Terbuka untuk ekstensi, tertutup untuk modifikasi | Setiap fitur baru membuka kembali kode yang sudah bekerja | Rantai `switch`/`if` pada kode tipe |
-| **L** — Liskov Substitution | Subtype dapat menggantikan tipe dasar | Hierarki inheritance yang rusak | Spesialisasi `instanceof`; subclass yang melempar exception |
-| **I** — Interface Segregation | Role interface kecil, tanpa antarmuka gemuk | Klien terikat pada metode yang tidak digunakan | Antarmuka dengan metode yang di-stub atau di-throw klien |
-| **D** — Dependency Inversion | Bergantung pada abstraksi, bukan konkret | Kebijakan tingkat tinggi terpaku pada detail tingkat rendah | `new` di dalam kelas; panggilan statis ke layanan konkret |
+| **S**: Single Responsibility | Satu alasan berubah per kelas | Kelas yang rusak saat fitur tak terkait berubah | Fat controller/service yang melakukan validasi, logika bisnis, dan I/O |
+| **O**: Open/Closed | Terbuka untuk ekstensi, tertutup untuk modifikasi | Setiap fitur baru membuka kembali kode yang sudah bekerja | Rantai `switch`/`if` pada kode tipe |
+| **L**: Liskov Substitution | Subtype dapat menggantikan tipe dasar | Hierarki inheritance yang rusak | Spesialisasi `instanceof`; subclass yang melempar exception |
+| **I**: Interface Segregation | Role interface kecil, tanpa antarmuka gemuk | Klien terikat pada metode yang tidak digunakan | Antarmuka dengan metode yang di-stub atau di-throw klien |
+| **D**: Dependency Inversion | Bergantung pada abstraksi, bukan konkret | Kebijakan tingkat tinggi terpaku pada detail tingkat rendah | `new` di dalam kelas; panggilan statis ke layanan konkret |
 
 **Ingat urutan dampaknya:** SRP dan DIP melakukan pekerjaan terberat dalam PHP sehari-hari. OCP dan ISP adalah konsekuensi alami dari SRP dan DIP yang benar. LSP adalah pagar pengaman yang menjaga inheritance Anda tetap jujur.
 
@@ -1688,17 +1688,17 @@ Uji lakmusnya selalu sama: **seberapa sulit mengubah ini nanti?** Jika menambah 
 
 This tutorial anchors the SOLID concepts that appear across the SE Lab curriculum. Continue with:
 
-- **[Clean Code Principles with PHP](/blog/clean-code-principles)** — Meaningful names, small functions, and the habits that make SOLID refactorings natural.
-- **[Design Patterns with PHP](/blog/design-patterns-with-php)** — Strategy, Observer, and Factory Method: the patterns you reach for when applying OCP and DIP.
-- **[MVC/MVVM Architecture Fundamentals with PHP](/blog/mvc-mvvm-architecture-fundamentals-php)** — Put your SOLID services to work inside a clean Model/Service layer.
-- **[Test-Driven Development with PHP](/blog/test-driven-development)** — Use the red-green-refactor cycle to refactor toward SOLID without breaking behaviour.
-- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)** — See SOLID applied to Entities, Repositories, and Domain Services.
+- **[Clean Code Principles with PHP](/blog/clean-code-principles)**: Meaningful names, small functions, and the habits that make SOLID refactorings natural.
+- **[Design Patterns with PHP](/blog/design-patterns-with-php)**: Strategy, Observer, and Factory Method: the patterns you reach for when applying OCP and DIP.
+- **[MVC/MVVM Architecture Fundamentals with PHP](/blog/mvc-mvvm-architecture-fundamentals-php)**: Put your SOLID services to work inside a clean Model/Service layer.
+- **[Test-Driven Development with PHP](/blog/test-driven-development)**: Use the red-green-refactor cycle to refactor toward SOLID without breaking behaviour.
+- **[Domain-Driven Design Fundamentals with PHP](/blog/domain-driven-design-fundamentals-php)**: See SOLID applied to Entities, Repositories, and Domain Services.
 
 ### External References
 
-- **[Clean Architecture](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/)** by Robert C. Martin — The book that ties SOLID, coupling, and cohesion together.
-- **[PHP: The Right Way](https://phptherightway.com/)** — Community best practices for idiomatic, modern PHP.
-- **[Laravel Service Container](https://laravel.com/docs/container)** — How Laravel implements constructor injection and binding (DIP in practice).
+- **[Clean Architecture](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/)** by Robert C. Martin: The book that ties SOLID, coupling, and cohesion together.
+- **[PHP: The Right Way](https://phptherightway.com/)**: Community best practices for idiomatic, modern PHP.
+- **[Laravel Service Container](https://laravel.com/docs/container)**: How Laravel implements constructor injection and binding (DIP in practice).
 
 </section>
 
@@ -1708,16 +1708,16 @@ This tutorial anchors the SOLID concepts that appear across the SE Lab curriculu
 
 Tutorial ini menjadi jangkar bagi konsep SOLID yang muncul di seluruh kurikulum SE Lab. Lanjutkan dengan:
 
-- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)** — Penamaan bermakna, fungsi kecil, dan kebiasaan yang membuat refactoring SOLID terasa alami.
-- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)** — Strategy, Observer, dan Factory Method: pola yang Anda raih saat menerapkan OCP dan DIP.
-- **[Dasar-Dasar Arsitektur MVC/MVVM dengan PHP](/blog/mvc-mvvm-architecture-fundamentals-php)** — Terapkan service SOLID Anda di dalam lapisan Model/Service yang bersih.
-- **[Test-Driven Development dengan PHP](/blog/test-driven-development)** — Gunakan siklus red-green-refactor untuk merefaktor menuju SOLID tanpa merusak perilaku.
-- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)** — Lihat SOLID diterapkan pada Entity, Repository, dan Domain Service.
+- **[Prinsip Clean Code dengan PHP](/blog/clean-code-principles)**: Penamaan bermakna, fungsi kecil, dan kebiasaan yang membuat refactoring SOLID terasa alami.
+- **[Design Patterns dengan PHP](/blog/design-patterns-with-php)**: Strategy, Observer, dan Factory Method: pola yang Anda raih saat menerapkan OCP dan DIP.
+- **[Dasar-Dasar Arsitektur MVC/MVVM dengan PHP](/blog/mvc-mvvm-architecture-fundamentals-php)**: Terapkan service SOLID Anda di dalam lapisan Model/Service yang bersih.
+- **[Test-Driven Development dengan PHP](/blog/test-driven-development)**: Gunakan siklus red-green-refactor untuk merefaktor menuju SOLID tanpa merusak perilaku.
+- **[Dasar-Dasar Domain-Driven Design dengan PHP](/blog/domain-driven-design-fundamentals-php)**: Lihat SOLID diterapkan pada Entity, Repository, dan Domain Service.
 
 ### Referensi Eksternal
 
-- **[Clean Architecture](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/)** oleh Robert C. Martin — Buku yang mengikat SOLID, coupling, dan cohesion bersama-sama.
-- **[PHP: The Right Way](https://phptherightway.com/)** — Praktik terbaik komunitas untuk PHP modern yang idiomatik.
-- **[Laravel Service Container](https://laravel.com/docs/container)** — Bagaimana Laravel mengimplementasikan injeksi konstruktor dan binding (DIP dalam praktik).
+- **[Clean Architecture](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/)** oleh Robert C. Martin: Buku yang mengikat SOLID, coupling, dan cohesion bersama-sama.
+- **[PHP: The Right Way](https://phptherightway.com/)**: Praktik terbaik komunitas untuk PHP modern yang idiomatik.
+- **[Laravel Service Container](https://laravel.com/docs/container)**: Bagaimana Laravel mengimplementasikan injeksi konstruktor dan binding (DIP dalam praktik).
 
 </section>

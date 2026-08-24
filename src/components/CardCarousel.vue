@@ -109,8 +109,8 @@ onMounted(() => {
   const ro = new ResizeObserver(updateState)
   ro.observe(el)
 
-  // Pause autoplay on hover, keyboard focus, or an in-flight drag/swipe —
-  // the standard accessible-carousel pattern — and resume once the user
+  // Pause autoplay on hover, keyboard focus, or an in-flight drag/swipe:
+  // the standard accessible-carousel pattern, and resume once the user
   // steps away. pointerenter/pointerleave don't bubble for child elements,
   // so moving between cards inside the track doesn't spuriously toggle this.
   el.addEventListener('pointerenter', stopAutoplay)

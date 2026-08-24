@@ -16,7 +16,7 @@ tagsId:
   - AI
   - Rekayasa Kebutuhan
   - PHP
-excerpt: "Learn how to use LLMs and AI-assisted workflows to turn vague stakeholder requests into structured user stories, SRS snippets, and acceptance criteria. Covers prompt engineering for requirements, a complete PHP helper to call LLM APIs, traceability mapping, and the limitations of AI-generated requirements — including hallucinations and bias."
+excerpt: "Learn how to use LLMs and AI-assisted workflows to turn vague stakeholder requests into structured user stories, SRS snippets, and acceptance criteria. Covers prompt engineering for requirements, a complete PHP helper to call LLM APIs, traceability mapping, and the limitations of AI-generated requirements, including hallucinations and bias."
 excerptId: "Pelajari cara menggunakan LLM dan alur kerja berbantuan AI untuk mengubah permintaan pemangku kepentingan yang samar menjadi user story terstruktur, potongan SRS, dan kriteria penerimaan. Mencakup prompt engineering untuk kebutuhan, helper PHP lengkap untuk memanggil LLM API, pemetaan ketertelusuran, dan keterbatasan kebutuhan yang dihasilkan AI, termasuk halusinasi dan bias."
 ---
 
@@ -24,11 +24,11 @@ excerptId: "Pelajari cara menggunakan LLM dan alur kerja berbantuan AI untuk men
 
 ## The Cost of Unclear Requirements
 
-Requirements engineering is where most software projects win or lose. The Standish Group's CHAOS reports have consistently shown that incomplete or ambiguous requirements are among the top three causes of project failure — right alongside poor stakeholder involvement and scope creep. Students at Politeknik Negeri Malang experience this every semester: a project brief says "build a student portal," and three weeks later the team has built completely different things because nobody defined what "portal" means.
+Requirements engineering is where most software projects win or lose. The Standish Group's CHAOS reports have consistently shown that incomplete or ambiguous requirements are among the top three causes of project failure, right alongside poor stakeholder involvement and scope creep. Students at Politeknik Negeri Malang experience this every semester: a project brief says "build a student portal," and three weeks later the team has built completely different things because nobody defined what "portal" means.
 
-Traditional requirements engineering relies on interviews, workshops, and manual documentation. It is labor-intensive, error-prone, and often skips the essential step of writing verifiable acceptance criteria. The gap between what stakeholders say and what developers build is filled with assumptions — and assumptions are the root of rework.
+Traditional requirements engineering relies on interviews, workshops, and manual documentation. It is labor-intensive, error-prone, and often skips the essential step of writing verifiable acceptance criteria. The gap between what stakeholders say and what developers build is filled with assumptions, and assumptions are the root of rework.
 
-**AI-powered requirements automation** uses large language models (LLMs) and natural-language processing (NLP) tools to bridge this gap. By feeding the LLM stakeholder language — meeting notes, feature requests, or user interviews — we can generate structured, verifiable requirements artifacts: user stories, software requirements specification (SRS) snippets, and testable acceptance criteria.
+**AI-powered requirements automation** uses large language models (LLMs) and natural-language processing (NLP) tools to bridge this gap. By feeding the LLM stakeholder language (meeting notes, feature requests, or user interviews), we can generate structured, verifiable requirements artifacts: user stories, software requirements specification (SRS) snippets, and testable acceptance criteria.
 
 This is not about replacing the business analyst or the product owner. It is about giving them a first draft that is already structured, already consistent, and already phrased in a way that developers and testers can act on. The human remains in the loop to validate, refine, and sign off.
 
@@ -42,7 +42,7 @@ By the end of this tutorial you will have:
 
 - A PHP script that sends a feature description to an LLM API (OpenAI-compatible) and receives structured user stories back.
 - A second script that validates and formats those stories into a traceability matrix.
-- A clear understanding of when LLMs help with requirements — and when they hurt.
+- A clear understanding of when LLMs help with requirements, and when they hurt.
 
 </section>
 
@@ -111,7 +111,7 @@ Acceptance criteria translate a user story into concrete, testable conditions us
 
 ### Software Requirements Specification (SRS) Snippets
 
-An SRS snippet provides a functional requirement with an identifier, priority, and verifiable description — often following IEEE 830 structure.
+An SRS snippet provides a functional requirement with an identifier, priority, and verifiable description, often following IEEE 830 structure.
 
 | ID | Requirement | Priority | Verification |
 |---|---|---|---|
@@ -132,7 +132,7 @@ The key insight is that these three formats are **complementary**. The user stor
 | Cost | Analyst salary | API costs (cents per request) |
 | Audit trail | Manual traceability matrix | Auto-generated traceability |
 
-The AI-assisted column is not unequivocally better — but it is faster for the first draft, which is the hardest and most time-consuming part.
+The AI-assisted column is not unequivocally better, but it is faster for the first draft, which is the hardest and most time-consuming part.
 
 </section>
 
@@ -254,7 +254,7 @@ For specific tasks like entity extraction from requirements documents, you may n
 | **Stanford CoreNLP** (via REST) | Java (PHP client) | Named entity recognition, constituency parsing |
 | **spaCy** (via REST or CLI) | Python | Dependency parsing, NER, rule-based matching |
 
-These are useful for post-processing LLM output — for example, extracting all `<Actor>` mentions from generated user stories or detecting inconsistent terminology across requirements.
+These are useful for post-processing LLM output: for example, extracting all `<Actor>` mentions from generated user stories or detecting inconsistent terminology across requirements.
 
 </section>
 
@@ -328,11 +328,11 @@ The quality of LLM-generated requirements depends almost entirely on the quality
 
 A strong prompt has five components:
 
-1. **Role assignment** — Tell the model who it is.
-2. **Context** — Provide domain-specific background.
-3. **Task description** — What to produce and in what format.
-4. **Output constraints** — Structure, length, identifiers.
-5. **Examples (few-shot)** — Show one ideal output so the model copies the pattern.
+1. **Role assignment**: Tell the model who it is.
+2. **Context**: Provide domain-specific background.
+3. **Task description**: What to produce and in what format.
+4. **Output constraints**: Structure, length, identifiers.
+5. **Examples (few-shot)**: Show one ideal output so the model copies the pattern.
 
 ```text
 You are a senior business analyst at a software engineering firm. You specialise
@@ -370,7 +370,7 @@ Below is a reusable PHP script that sends a prompt to any OpenAI-compatible API 
 
 ```php
 <?php
-// generate-requirements.php — Send a feature description to an LLM API
+// generate-requirements.php: Send a feature description to an LLM API
 // and receive structured requirements (user stories, acceptance criteria, SRS).
 
 function generateRequirements(string $featureDescription, string $apiKey): array
@@ -472,10 +472,10 @@ if (php_sapi_name() === 'cli') {
 
 ### Key Design Decisions
 
-- **`temperature: 0.3`** — Lower temperature means more deterministic, less creative output. Requirements should be precise, not poetic.
-- **`gpt-4o-mini`** — Cost-effective for ~5,000-token prompts. For mission-critical SRS, swap to `gpt-4o`.
-- **JSON-only output** — We explicitly ask for JSON and strip markdown fences, making the response parseable by `json_decode()`.
-- **Environment variable for API key** — Never hardcode secrets.
+- **`temperature: 0.3`**: Lower temperature means more deterministic, less creative output. Requirements should be precise, not poetic.
+- **`gpt-4o-mini`**: Cost-effective for ~5,000-token prompts. For mission-critical SRS, swap to `gpt-4o`.
+- **JSON-only output**: We explicitly ask for JSON and strip markdown fences, making the response parseable by `json_decode()`.
+- **Environment variable for API key**: Never hardcode secrets.
 
 ### Running It
 
@@ -577,7 +577,7 @@ Berikut adalah skrip PHP yang dapat digunakan kembali yang mengirim *prompt* ke 
 
 ```php
 <?php
-// generate-requirements.php — Kirim deskripsi fitur ke LLM API
+// generate-requirements.php: Kirim deskripsi fitur ke LLM API
 // dan terima kebutuhan terstruktur (user story, kriteria penerimaan, SRS).
 
 function generateRequirements(string $featureDescription, string $apiKey): array
@@ -729,7 +729,7 @@ Now we validate the output and build a traceability matrix that links each funct
 
 ```php
 <?php
-// validate-and-trace.php — Validate LLM-generated requirements
+// validate-and-trace.php: Validate LLM-generated requirements
 // and produce a traceability matrix in CSV or Markdown.
 
 function validateRequirements(array $data): array
@@ -785,16 +785,16 @@ function buildTraceabilityMatrix(array $data): string
         $usIdx = min($i, $numUSs - 1);
         $acIdx = min($i, $numACs - 1);
 
-        $us = $data['user_stories'][$usIdx] ?? '—';
-        $ac = $data['acceptance_criteria'][$acIdx] ?? '—';
+        $us = $data['user_stories'][$usIdx] ?? 'N/A';
+        $ac = $data['acceptance_criteria'][$acIdx] ?? 'N/A';
 
         $rows[] = sprintf(
             '| %s | %s | %s | %s | %s |',
             $fr['id'] ?? 'FR-???',
-            $fr['requirement'] ?? '—',
+            $fr['requirement'] ?? 'N/A',
             $us,
             $ac,
-            $fr['priority'] ?? '—'
+            $fr['priority'] ?? 'N/A'
         );
     }
 
@@ -895,7 +895,7 @@ Sekarang kita memvalidasi output dan membangun matriks ketertelusuran yang mengh
 
 ```php
 <?php
-// validate-and-trace.php — Validasi kebutuhan yang dihasilkan LLM
+// validate-and-trace.php: Validasi kebutuhan yang dihasilkan LLM
 // dan hasilkan matriks ketertelusuran dalam CSV atau Markdown.
 
 function validateRequirements(array $data): array
@@ -949,16 +949,16 @@ function buildTraceabilityMatrix(array $data): string
         $usIdx = min($i, $numUSs - 1);
         $acIdx = min($i, $numACs - 1);
 
-        $us = $data['user_stories'][$usIdx] ?? '—';
-        $ac = $data['acceptance_criteria'][$acIdx] ?? '—';
+        $us = $data['user_stories'][$usIdx] ?? 'N/A';
+        $ac = $data['acceptance_criteria'][$acIdx] ?? 'N/A';
 
         $rows[] = sprintf(
             '| %s | %s | %s | %s | %s |',
             $fr['id'] ?? 'FR-???',
-            $fr['requirement'] ?? '—',
+            $fr['requirement'] ?? 'N/A',
             $us,
             $ac,
-            $fr['priority'] ?? '—'
+            $fr['priority'] ?? 'N/A'
         );
     }
 
@@ -1032,7 +1032,7 @@ Modifikasi `generate-requirements.php` untuk:
 
 ## Traceability and Verification
 
-Generating requirements is only half the battle. The real value comes from **traceability** — the ability to link each requirement to the code that implements it and the tests that verify it.
+Generating requirements is only half the battle. The real value comes from **traceability**: the ability to link each requirement to the code that implements it and the tests that verify it.
 
 ### Why Traceability Matters
 
@@ -1246,7 +1246,7 @@ AI-powered requirements automation is powerful but far from infallible. Understa
 
 LLMs sometimes invent requirements that sound plausible but have no basis in the stakeholder input. A model might add "the system shall send an email notification" to every feature, even when nobody asked for it.
 
-**Mitigation:** Always compare the generated output against the original stakeholder text. Remove any requirement you cannot trace back to the source. Use the validation script from the exercise — it catches missing or malformed FRs but cannot catch hallucinated content; human review is the only defence.
+**Mitigation:** Always compare the generated output against the original stakeholder text. Remove any requirement you cannot trace back to the source. Use the validation script from the exercise: it catches missing or malformed FRs but cannot catch hallucinated content; human review is the only defence.
 
 ### Bias in Training Data
 
@@ -1269,7 +1269,7 @@ LLMs excel at functional requirements (what the system does) but struggle with n
 
 When you automate requirements generation, there is a risk that stakeholders disengage from the process. They may assume the AI "handled it" and skip the review step. This leads to requirements that look good on paper but do not match the real need.
 
-**Mitigation:** Treat AI-generated requirements as a discussion starter, not a deliverable. Schedule a 30-minute review session where the stakeholder reads each requirement aloud and confirms or corrects it. The AI's job is to reduce the time from blank page to draft — not to eliminate the human conversation.
+**Mitigation:** Treat AI-generated requirements as a discussion starter, not a deliverable. Schedule a 30-minute review session where the stakeholder reads each requirement aloud and confirms or corrects it. The AI's job is to reduce the time from blank page to draft, not to eliminate the human conversation.
 
 ### Best Practices Summary
 
@@ -1342,26 +1342,26 @@ Ketika Anda mengotomatiskan pembuatan kebutuhan, ada risiko bahwa pemangku kepen
 
 ## Conclusion and Further Reading
 
-AI-powered requirements automation is not a replacement for the discipline of requirements engineering — it is an accelerator. By offloading the mechanical work of formatting, structuring, and drafting to an LLM, you free up your analysts (and yourself) for the work that only humans can do: understanding the stakeholder's real problem, negotiating priorities, and making trade-off decisions.
+AI-powered requirements automation is not a replacement for the discipline of requirements engineering: it is an accelerator. By offloading the mechanical work of formatting, structuring, and drafting to an LLM, you free up your analysts (and yourself) for the work that only humans can do: understanding the stakeholder's real problem, negotiating priorities, and making trade-off decisions.
 
 ### What We Covered
 
 - The transformation from unstructured stakeholder language to user stories, acceptance criteria, and SRS snippets.
-- A tiered view of AI tools — from cloud APIs to local models to NLP libraries — with concrete setup instructions.
+- A tiered view of AI tools (from cloud APIs to local models to NLP libraries) with concrete setup instructions.
 - Prompt engineering principles for requirements, including role assignment, context injection, and output format constraints.
 - A complete two-script PHP pipeline: `generate-requirements.php` (LLM call) and `validate-and-trace.php` (validation + traceability matrix).
 - Database-backed traceability with Laravel migrations and Artisan commands.
-- The failure modes: hallucination, bias, missing NFRs, and stakeholder disengagement — with mitigations for each.
+- The failure modes: hallucination, bias, missing NFRs, and stakeholder disengagement, with mitigations for each.
 
 ### Next Steps
 
 This tutorial is part of a broader AI-assisted SE pipeline. To continue:
 
-1. **Generate tests from your requirements** — Feed the acceptance criteria from this tutorial into the workflow described in [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation).
-2. **Document your architecture** — Use the structured output from your requirements analysis to seed the documentation pipeline in [LLM-Assisted Documentation Automation for PHP Projects](/blog/llm-assisted-documentation-automation-php).
-3. **Explore the research** — Visit the [Emerging Technologies in SE research stream](https://se.polinema.ac.id/research/emerging-technologies-se/) to see how Politeknik Negeri Malang's SE Lab is advancing requirements automation, NLP for SE, and AI-assisted traceability.
+1. **Generate tests from your requirements**: Feed the acceptance criteria from this tutorial into the workflow described in [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation).
+2. **Document your architecture**: Use the structured output from your requirements analysis to seed the documentation pipeline in [LLM-Assisted Documentation Automation for PHP Projects](/blog/llm-assisted-documentation-automation-php).
+3. **Explore the research**: Visit the [Emerging Technologies in SE research stream](https://se.polinema.ac.id/research/emerging-technologies-se/) to see how Politeknik Negeri Malang's SE Lab is advancing requirements automation, NLP for SE, and AI-assisted traceability.
 
-The pipeline — requirements → tests → documentation — is now within reach of any PHP developer with an API key and a structured prompt. The machines can draft. The human must verify. That is the deal.
+The pipeline (requirements → tests → documentation) is now within reach of any PHP developer with an API key and a structured prompt. The machines can draft. The human must verify. That is the deal.
 
 </section>
 

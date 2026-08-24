@@ -12,7 +12,7 @@ const assert = {
   },
   equal(a, b, msg) {
     if (a !== b) {
-      console.error(`FAIL: ${msg} — expected "${b}", got "${a}"`)
+      console.error(`FAIL: ${msg}: expected "${b}", got "${a}"`)
       process.exitCode = 1
     } else {
       console.log(`  OK: ${msg}`)
@@ -20,7 +20,7 @@ const assert = {
   },
   contains(text, substr, msg) {
     if (!text.includes(substr)) {
-      console.error(`FAIL: ${msg} — "${substr}" not found`)
+      console.error(`FAIL: ${msg}: "${substr}" not found`)
       process.exitCode = 1
     } else {
       console.log(`  OK: ${msg}`)

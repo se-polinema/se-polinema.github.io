@@ -7,7 +7,7 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-excerpt: "Learn how to build a bug prediction classifier using PHP—from extracting code metrics (LOC, cyclomatic complexity, change churn) to training and evaluating a Naive Bayes model that identifies high-risk modules before they break."
+excerpt: "Learn how to build a bug prediction classifier using PHP, from extracting code metrics (LOC, cyclomatic complexity, change churn) to training and evaluating a Naive Bayes model that identifies high-risk modules before they break."
 excerptId: "Pelajari cara membangun classifier prediksi bug menggunakan PHP, mulai dari mengekstrak metrik kode (LOC, cyclomatic complexity, change churn) hingga melatih dan mengevaluasi model Naive Bayes yang mengidentifikasi modul berisiko tinggi sebelum rusak."
 stream: emerging-technologies-se
 tags:
@@ -42,7 +42,7 @@ Bayangkan Anda adalah pengelola proyek PHP dengan 200 modul, masing-masing dimod
 
 ## 1. What Is Bug Prediction and Why It Matters
 
-Bug prediction (or *defect prediction*) is the practice of using historical data and software metrics to estimate which parts of a codebase are most likely to contain bugs. It is not about finding bugs—it is about **prioritizing review effort**.
+Bug prediction (or *defect prediction*) is the practice of using historical data and software metrics to estimate which parts of a codebase are most likely to contain bugs. It is not about finding bugs: it is about **prioritizing review effort**.
 
 **Why it matters:**
 - **Reactive QA** waits for bugs to surface. Bug prediction lets you intervene **before** a release.
@@ -57,8 +57,8 @@ Bug prediction (or *defect prediction*) is the practice of using historical data
 <figure class="my-10 text-center" role="figure">
 <img src="/blog/bug-prediction-pipeline.svg" alt="Bug Prediction Pipeline: Data Sources → Feature Engineering → Dataset → Classifier → Evaluation → Risk Score" class="mx-auto max-w-full" />
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure 1: End-to-end bug prediction pipeline—from raw data sources to a risk-prioritized module list.</span>
-  <span lang="id">Gambar 1: Pipeline prediksi bug end-to-end—dari sumber data mentah hingga daftar modul yang diprioritaskan berdasarkan risiko.</span>
+  <span lang="en">Figure 1: End-to-end bug prediction pipeline, from raw data sources to a risk-prioritized module list.</span>
+  <span lang="id">Gambar 1: Pipeline prediksi bug end-to-end, dari sumber data mentah hingga daftar modul yang diprioritaskan berdasarkan risiko.</span>
 </figcaption>
 </figure>
 
@@ -83,7 +83,7 @@ Prediksi bug (atau *defect prediction*) adalah praktik menggunakan data historis
 <figure class="my-10 text-center" role="figure">
 <img src="/blog/bug-prediction-pipeline.svg" alt="Pipeline Prediksi Bug: Sumber Data → Feature Engineering → Dataset → Classifier → Evaluasi → Skor Risiko" class="mx-auto max-w-full" />
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure 1: End-to-end bug prediction pipeline—from raw data sources to a risk-prioritized module list.</span>
+  <span lang="en">Figure 1: End-to-end bug prediction pipeline, from raw data sources to a risk-prioritized module list.</span>
   <span lang="id">Gambar 1: Pipeline prediksi bug end-to-end, dari sumber data mentah hingga daftar modul yang diprioritaskan berdasarkan risiko.</span>
 </figcaption>
 </figure>
@@ -118,8 +118,8 @@ Bug reports link defects to source files. By mining the issue tracker you can la
 
 Static-analysis tools produce hundreds of metrics without executing code:
 
-- **Lines of Code (LOC)** — raw size.
-- **Cyclomatic Complexity** — number of independent execution paths.
+- **Lines of Code (LOC)**: raw size.
+- **Cyclomatic Complexity**: number of independent execution paths.
 - **Method Count**, **Public Method Count**, **Coupling Between Objects (CBO)**.
 - **Code Smells**: long methods, large classes, duplicate code.
 
@@ -520,7 +520,7 @@ function normalize(array $dataset): array
 
 We will implement a **Gaussian Naive Bayes** classifier in pure PHP. Naive Bayes is chosen because:
 
-- It is **interpretable**—you can inspect learned probabilities directly.
+- It is **interpretable**: you can inspect learned probabilities directly.
 - It works well with small datasets and continuous features.
 - It is simple enough to implement in ~80 lines of code.
 - It is the foundation of many more sophisticated models.
@@ -833,7 +833,7 @@ class BugPredictor
 
 ## 6. Evaluating the Model: Precision, Recall, F1, and the Confusion Matrix
 
-Accuracy alone is misleading for imbalanced datasets. If 90% of modules are bug-free, a classifier that always predicts "clean" achieves 90% accuracy—but it is useless for finding bugs.
+Accuracy alone is misleading for imbalanced datasets. If 90% of modules are bug-free, a classifier that always predicts "clean" achieves 90% accuracy, but it is useless for finding bugs.
 
 We evaluate with four metrics:
 
@@ -870,7 +870,7 @@ graph TB
 | **Precision** | TP / (TP + FP) | Of the modules we flagged as buggy, how many were actually buggy? |
 | **Recall** | TP / (TP + FN) | Of all actually buggy modules, how many did we find? |
 | **F1 Score** | 2 × (P × R) / (P + R) | Harmonic mean of precision and recall. Balances both. |
-| **Accuracy** | (TP + TN) / Total | Overall correctness—can be deceptive on imbalanced data. |
+| **Accuracy** | (TP + TN) / Total | Overall correctness: can be deceptive on imbalanced data. |
 
 ### 6.3 Evaluation Script
 
@@ -1200,7 +1200,7 @@ Our classifier uses a hard decision threshold of 0.5. If false positives are cos
 
 - **Data leakage**: If you include future data when computing historical churn, your evaluation will be artificially optimistic.
 - **Concept drift**: A model trained on last year's commits may not reflect the current codebase. Retrain periodically.
-- **Correlation is not causation**: High LOC correlates with bugs, but splitting a file does not eliminate defects—it only redistributes them.
+- **Correlation is not causation**: High LOC correlates with bugs, but splitting a file does not eliminate defects; it only redistributes them.
 - **Overfitting to a single project**: A classifier trained on a Laravel e-commerce app may not generalize to a Symfony API. Cross-project defect prediction is an open research problem.
 
 ### 7.4 Visualizing Risk Thresholds
@@ -1281,16 +1281,16 @@ graph TB
 
 The synthetic-dataset prototype is educational, but a production pipeline requires real data. Here is a roadmap:
 
-**Phase 1 — Automated Data Collection**
+**Phase 1: Automated Data Collection**
 - Run PHPStan or PHPMD with a JSON reporter on every commit.
 - Parse `git log --numstat` to compute per-file churn and revision counts.
 - Label files using commit-message heuristics (e.g., `fix:` or `bug:` prefix, or issue-tracker integration).
 
-**Phase 2 — Feature Store**
+**Phase 2: Feature Store**
 - Store features per commit in a structured format (CSV, SQLite, or a dedicated feature store).
 - Version the dataset alongside the code so that models remain reproducible.
 
-**Phase 3 — Model Serving**
+**Phase 3: Model Serving**
 - Export the trained model (weights as JSON) and expose a simple PHP endpoint.
 - Integrate with GitHub Actions or GitLab CI to annotate pull requests with risk scores for changed files.
 
@@ -1322,11 +1322,11 @@ These can feed into the feature matrix alongside churn and LOC.
 
 Bug prediction is one of six topics under the **Emerging Technologies in Software Engineering** stream at SE Lab. Active and proposed research directions include:
 
-- **Cross-project defect prediction** — can a model trained on open-source Java projects predict bugs in a private PHP codebase?
-- **Just-in-time (JIT) defect prediction** — predicting whether a single *commit* (not a file) introduces a defect, using change-level features.
-- **Explainable bug prediction** — generating natural-language explanations for why a module is flagged (e.g., "This file has high cyclomatic complexity and was modified by 4 different developers in the last 30 days").
-- **Deep learning for code** — using graph neural networks on ASTs or CodeBERT embeddings as features.
-- **Integration with requirement-traceability** — combining the AI-powered requirements automation tutorial with bug prediction to close the loop from requirements to defect risk.
+- **Cross-project defect prediction**: can a model trained on open-source Java projects predict bugs in a private PHP codebase?
+- **Just-in-time (JIT) defect prediction**: predicting whether a single *commit* (not a file) introduces a defect, using change-level features.
+- **Explainable bug prediction**: generating natural-language explanations for why a module is flagged (e.g., "This file has high cyclomatic complexity and was modified by 4 different developers in the last 30 days").
+- **Deep learning for code**: using graph neural networks on ASTs or CodeBERT embeddings as features.
+- **Integration with requirement-traceability**: combining the AI-powered requirements automation tutorial with bug prediction to close the loop from requirements to defect risk.
 
 Students interested in pursuing these topics for a thesis or lab project are encouraged to reach out to SE Lab members.
 
@@ -1401,14 +1401,14 @@ Mahasiswa yang tertarik mengejar topik ini untuk skripsi atau proyek lab didoron
 2. Three **feature categories** drive predictions: code complexity (LOC, cyclomatic complexity, nesting depth), change-history metrics (revisions, churn), and process metrics (developer count).
 3. A **synthetic dataset in PHP** gives you a reproducible starting point; the generator uses a weighted scoring function to assign bug labels.
 4. **Gaussian Naive Bayes** is an interpretable, small-data-friendly classifier that estimates per-class means and variances for each feature.
-5. Model evaluation must go beyond accuracy—**precision, recall, and F1 score** reveal whether your classifier is useful or merely lucky.
+5. Model evaluation must go beyond accuracy: **precision, recall, and F1 score** reveal whether your classifier is useful or merely lucky.
 6. Production deployment requires **real data from Git logs, static analysis, and issue trackers**, integrated into a CI/CD pipeline that annotates pull requests with risk scores.
 
 > The best time to find a bug is the moment it is written. The second-best time is before your users do.
 
 ### Practice Exercise
 
-Take the `BugPredictor` class and extend it with one additional feature of your choice—for example, **comment ratio** (comment lines / total lines) or **average method length**. Then:
+Take the `BugPredictor` class and extend it with one additional feature of your choice, for example, **comment ratio** (comment lines / total lines) or **average method length**. Then:
 
 1. Modify `generateDataset()` to include the new feature.
 2. Add the feature name to `$features` in `BugPredictor`.
@@ -1447,9 +1447,9 @@ Ambil kelas `BugPredictor` dan perluas dengan satu fitur tambahan pilihan Anda, 
 
 ### Related Tutorials
 
-- [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation) — Use AI coding assistants to generate, review, and refine PHPUnit tests that guard against regressions in high-risk modules.
-- [Test-Driven Development (TDD) with PHP](/blog/test-driven-development) — Learn the Red → Green → Refactor cycle that reduces defect density before code ever reaches a bug predictor.
-- [Clean Code Principles: A Practical Guide with PHP](/blog/clean-code-principles) — Write maintainable PHP that scores low on complexity metrics and reduces the surface area for bugs.
+- [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation): Use AI coding assistants to generate, review, and refine PHPUnit tests that guard against regressions in high-risk modules.
+- [Test-Driven Development (TDD) with PHP](/blog/test-driven-development): Learn the Red → Green → Refactor cycle that reduces defect density before code ever reaches a bug predictor.
+- [Clean Code Principles: A Practical Guide with PHP](/blog/clean-code-principles): Write maintainable PHP that scores low on complexity metrics and reduces the surface area for bugs.
 
 </section>
 

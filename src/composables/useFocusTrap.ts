@@ -1,5 +1,5 @@
 // Shared Tab-trap for modal overlays (SearchOverlay, CommandPalette).
-// Bind onKeydown directly on the modal's root element — it reads the
+// Bind onKeydown directly on the modal's root element: it reads the
 // container from the event itself (e.currentTarget), so no extra
 // template ref is needed. It only intercepts Tab, so it's safe to layer
 // over a component's own arrow-key/Enter handler. Call activate()/

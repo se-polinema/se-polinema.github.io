@@ -26,7 +26,7 @@ tagsId:
 
 ## What Is Code Quality Analysis?
 
-Code quality analysis is the systematic examination of source code to find defects, enforce standards, and measure maintainability — before human reviewers ever touch the code. If a code review is a conversation between humans, code quality analysis is the automated checklist that runs silently in the background and catches the mechanical issues so the humans can focus on logic, architecture, and intent.
+Code quality analysis is the systematic examination of source code to find defects, enforce standards, and measure maintainability, before human reviewers ever touch the code. If a code review is a conversation between humans, code quality analysis is the automated checklist that runs silently in the background and catches the mechanical issues so the humans can focus on logic, architecture, and intent.
 
 The distinction matters because human reviewers are expensive, inconsistent, and prone to fatigue. A tool like PHPStan will report the same violation on the tenth pull request of the day with the same precision as on the first. It does not get tired. It does not skip a check because the author is a friend. It does not miss a variable that can be `null` because it is in a hurry.
 
@@ -46,7 +46,7 @@ By the end of this tutorial you will be able to:
 
 - Install and configure **PHPStan** for type-aware static analysis at increasing strictness levels
 - Enforce **PSR-12 coding standards** with PHP_CodeSniffer and auto-fix violations
-- Measure and interpret **code metrics** — cyclomatic complexity, method length, and coupling — using PHPMD
+- Measure and interpret **code metrics** (cyclomatic complexity, method length, and coupling) using PHPMD
 - Wire all three tools into a **GitHub Actions workflow** that blocks pull requests when quality checks fail
 - Know when to fix a warning, when to suppress it, and when the metric itself is misleading
 
@@ -90,7 +90,7 @@ Di akhir tutorial ini Anda akan mampu:
 
 Code quality is not a single number. It is a composite view formed by looking at your code through at least three independent lenses. Each lens catches a different class of problem, and the three together provide coverage that no single tool can match.
 
-### Lens 1: Static Analysis — Finding Bugs Before They Run
+### Lens 1: Static Analysis for Finding Bugs Before They Run
 
 Static analysis examines source code without executing it. It uses type inference, data-flow analysis, and control-flow analysis to answer questions like:
 
@@ -101,7 +101,7 @@ Static analysis examines source code without executing it. It uses type inferenc
 
 Static analysis tools model the type system and execution paths of your program. PHPStan implements **rule levels** from 0 (loose) to 9 (strictest), and each level adds a new class of checks. At level 0, it checks for unknown classes and functions. By level 5, it validates that all method calls match declared parameter and return types. At level 9, it checks for impossible type constraints and exhaustive `match` arms.
 
-### Lens 2: Style Linting — Making Code Consistent
+### Lens 2: Style Linting for Making Code Consistent
 
 Style linting enforces syntactic conventions: indentation, spacing, naming, brace placement, and import ordering. These issues rarely cause bugs, but they cause something equally damaging: **cognitive friction**. When every file in the project uses the same conventions, your brain stops parsing syntax and starts parsing meaning.
 
@@ -113,9 +113,9 @@ PHP_CodeSniffer (phpcs) checks PHP files against coding standards. The **PSR-12*
 - `use` statements sorted alphabetically
 - `declare(strict_types=1)` on new lines
 
-The companion tool **phpcbf** (PHP Code Beautifier and Fixer) can automatically fix many of these violations — you do not need to fix every indentation error by hand.
+The companion tool **phpcbf** (PHP Code Beautifier and Fixer) can automatically fix many of these violations. You do not need to fix every indentation error by hand.
 
-### Lens 3: Code Metrics — Measuring Complexity
+### Lens 3: Code Metrics for Measuring Complexity
 
 Code metrics quantify structural properties of your code. They answer questions like:
 
@@ -260,7 +260,7 @@ Buat file konfigurasi minimal sekarang. Kita akan menyempurnakannya seiring berj
 
 ### Our Example: A User Registration Service
 
-Let's write a small PHP class — deliberately imperfect — that receives a user registration request (name, email, password), validates the inputs, and creates a user record. We will run PHPStan against it at each level and watch the tool catch progressively more issues.
+Let's write a small PHP class, deliberately imperfect, that receives a user registration request (name, email, password), validates the inputs, and creates a user record. We will run PHPStan against it at each level and watch the tool catch progressively more issues.
 
 Create `src/UserRegistrationService.php`:
 
@@ -362,7 +362,7 @@ $ vendor/bin/phpstan analyse --level=2
   ------ -------------------------------------------------------------------
 ```
 
-At level 1, PHPStan notices that we passed a `prepare()` result to `query()`. We mistakenly called `$this->db->query(...)` instead of `$this->db->lastInsertId()`. At level 2, it also warns that `fetch()` cannot be called on `false` — because `query()` can return `false` on failure. Both are real bugs, even though the code appears syntactically correct.
+At level 1, PHPStan notices that we passed a `prepare()` result to `query()`. We mistakenly called `$this->db->query(...)` instead of `$this->db->lastInsertId()`. At level 2, it also warns that `fetch()` cannot be called on `false`, because `query()` can return `false` on failure. Both are real bugs, even though the code appears syntactically correct.
 
 **Fix:** Replace lines 38–42 with:
 
@@ -423,7 +423,7 @@ public function findById(int|string $id): array|false
 }
 ```
 
-At level 6 and beyond, PHPStan checks for missing type hints on generic arrays (`array` vs `array<string, mixed>`), missing `mixed` on closures, and similar strictness items. For student and real-world projects, **level 5 is a pragmatic target** — it catches meaningful bugs without the noise that higher levels introduce.
+At level 6 and beyond, PHPStan checks for missing type hints on generic arrays (`array` vs `array<string, mixed>`), missing `mixed` on closures, and similar strictness items. For student and real-world projects, **level 5 is a pragmatic target**: it catches meaningful bugs without the noise that higher levels introduce.
 
 ### The Value of Level Progression
 
@@ -955,7 +955,7 @@ PHPMD ships several rule sets. The most immediately useful for code quality are:
 </ruleset>
 ```
 
-This configuration excludes rules that are too noisy for most projects (StaticAccess, TooManyPublicMethods, CouplingBetweenObjects, ShortVariable) while keeping the rules that catch real structural problems. The Cyclomatic Complexity threshold is raised from the default of 10 to 5 — methods that exceed this are flagged for review.
+This configuration excludes rules that are too noisy for most projects (StaticAccess, TooManyPublicMethods, CouplingBetweenObjects, ShortVariable) while keeping the rules that catch real structural problems. The Cyclomatic Complexity threshold is raised from the default of 10 to 5; methods that exceed this are flagged for review.
 
 ### Running PHPMD Against Real Code
 
@@ -1065,7 +1065,7 @@ Consider reducing the number of parameters to fewer than 5.
 
 PHPMD identified all three structural problems: excessive cyclomatic complexity (20 vs the threshold of 5), an over-long method (81 lines vs 60), and too many parameters (7 vs 5). These are precisely the metrics that correlate with higher defect rates.
 
-**The root problem is that `generate()` handles too many concerns.** The solution is to split it into smaller methods — one for each output format — and replace the boolean flags with a value object or strategy pattern.
+**The root problem is that `generate()` handles too many concerns.** The solution is to split it into smaller methods, one for each output format, and replace the boolean flags with a value object or strategy pattern.
 
 </section>
 
@@ -1246,7 +1246,7 @@ PHPMD mengidentifikasi ketiga masalah struktural: *cyclomatic complexity* berleb
 
 ## Quality Gates in CI/CD
 
-The tools we have configured run locally, but the real power comes from running them in CI/CD. A quality gate in your pipeline means that no pull request can merge until all three tools pass — the machine enforces the standard, and humans are freed from being the "no" person.
+The tools we have configured run locally, but the real power comes from running them in CI/CD. A quality gate in your pipeline means that no pull request can merge until all three tools pass: the machine enforces the standard, and humans are freed from being the "no" person.
 
 ### GitHub Actions Workflow
 
@@ -1336,7 +1336,7 @@ jobs:
 ### What This Workflow Does
 
 - **Triggers on pull requests** targeting `main` or `develop` that modify PHP files or Composer configuration.
-- **Runs three parallel jobs** — static analysis, style linting, and code metrics — so a failing style check does not block the PHPStan result from appearing.
+- **Runs three parallel jobs** (static analysis, style linting, and code metrics) so a failing style check does not block the PHPStan result from appearing.
 - **Uses `--error-format=github`** for PHPStan so errors are annotated directly on the PR diff view.
 - **Uses `cs2pr`** (a small tool that converts checkstyle output to GitHub annotations) so PHP_CodeSniffer results appear inline.
 - **Uses `github` output format** for PHPMD to achieve the same inline annotation behavior.
@@ -1344,7 +1344,7 @@ jobs:
 
 ### Adding a Composer Script for Local Gate
 
-Add a single command that runs all three checks locally — identical to what CI will run:
+Add a single command that runs all three checks locally, identical to what CI will run:
 
 ```json
 {
@@ -1362,7 +1362,7 @@ Add a single command that runs all three checks locally — identical to what CI
 }
 ```
 
-Now `composer qa` runs all three quality gates in sequence. If any one fails, the entire command exits with a non-zero status — the same behavior as the CI pipeline.
+Now `composer qa` runs all three quality gates in sequence. If any one fails, the entire command exits with a non-zero status, the same behavior as the CI pipeline.
 
 Run `composer qa` before pushing your branch and you will never be surprised by a red CI build on GitHub.
 
@@ -1511,11 +1511,11 @@ A tool that reports 400 warnings is not more useful than a tool that reports 0. 
 | Level 6+ error about `mixed` return type in a generic helper | **Suppress with a comment.** Add `// @phpstan-ignore-next-line` with a justification. Generic helpers that exist to handle "anything" are legitimate uses of `mixed`. |
 | Error about a dynamic property on a class you extend from a third-party library | **Stub it.** PHPStan stubs let you declare the shape of code you do not control. |
 
-The baseline is the most powerful feature for legacy projects. It says: "Here are the 1,200 errors we know about. Do not introduce any new ones." Every new pull request is checked against a moving baseline — errors shrink over time, never grow.
+The baseline is the most powerful feature for legacy projects. It says: "Here are the 1,200 errors we know about. Do not introduce any new ones." Every new pull request is checked against a moving baseline: errors shrink over time, never grow.
 
 ### PHP_CodeSniffer: Fix or Exclude
 
-Style violations are almost always worth fixing. The `[x]` marker from phpcbf makes it fast. The only time to exclude a rule is when your framework flat-out requires a different convention (e.g., Laravel sometimes encourages `snake_case` method names for route model binding — if your team is okay with that, add an exclusion in `phpcs.xml`).
+Style violations are almost always worth fixing. The `[x]` marker from phpcbf makes it fast. The only time to exclude a rule is when your framework flat-out requires a different convention (e.g., Laravel sometimes encourages `snake_case` method names for route model binding, if your team is okay with that, add an exclusion in `phpcs.xml`).
 
 **Never ignore a PSR-12 violation.** PSR-12 is the community baseline. A developer who joins your project expects PSR-12. Violating it adds unnecessary onboarding friction.
 
@@ -1529,11 +1529,11 @@ PHPMD thresholds should reflect your project's maturity, not an abstract ideal:
 | **Mid-life (active development, 6+ months)** | 10 | 60 lines |
 | **Legacy (stable, maintenance mode)** | 15 | 100 lines |
 
-Start strict and relax only when you have a specific, documented reason. If `ReportGenerator::generate()` reports a complexity of 20, the answer is not to raise the threshold to 20 — it is to split the method. But if your ORM generates 15-line methods with complexity of 12 because of dynamic query building, and there is nothing you can do about it, exclude those files and move on.
+Start strict and relax only when you have a specific, documented reason. If `ReportGenerator::generate()` reports a complexity of 20, the answer is not to raise the threshold to 20; it is to split the method. But if your ORM generates 15-line methods with complexity of 12 because of dynamic query building, and there is nothing you can do about it, exclude those files and move on.
 
 ### The Connection to Bug Prediction
 
-The metrics that PHPMD measures — cyclomatic complexity, method length, coupling — are the same features used by the classifiers in our [Bug Prediction with PHP](/blog/bug-prediction-php) tutorial. High cyclomatic complexity correlates with higher defect density because complex methods have more execution paths, and each path is an opportunity for a bug. When PHPMD flags a method, it is flagging the same code that a Naive Bayes classifier would assign a high risk score. The tools are two views of the same problem: PHPMD uses static thresholds, and bug prediction uses statistical models. Both point in the same direction.
+The metrics that PHPMD measures (cyclomatic complexity, method length, coupling) are the same features used by the classifiers in our [Bug Prediction with PHP](/blog/bug-prediction-php) tutorial. High cyclomatic complexity correlates with higher defect density because complex methods have more execution paths, and each path is an opportunity for a bug. When PHPMD flags a method, it is flagging the same code that a Naive Bayes classifier would assign a high risk score. The tools are two views of the same problem: PHPMD uses static thresholds, and bug prediction uses statistical models. Both point in the same direction.
 
 </section>
 
@@ -1586,7 +1586,7 @@ Metrik yang diukur PHPMD, yaitu *cyclomatic complexity*, panjang metode, dan *co
 
 ### Starter Code
 
-Below is a PHP class with multiple quality issues — style violations, a real bug that static analysis would catch, and structural complexity that metrics would flag. Your task is to clean it up until `composer qa` passes cleanly.
+Below is a PHP class with multiple quality issues: style violations, a real bug that static analysis would catch, and structural complexity that metrics would flag. Your task is to clean it up until `composer qa` passes cleanly.
 
 Copy this into `src/LibraryService.php`:
 
@@ -1652,7 +1652,7 @@ public function getOverdueBooks():array{
 
 2. **Run PHP_CodeSniffer** and fix all PSR-12 violations. Use `composer cs-fix` to handle fixable ones automatically, then manually fix indentation, brace placement, and spacing.
 
-3. **Run PHPMD** and address the metric warnings. The method `CheckOut` likely triggers cyclomatic complexity warnings — refactor it into smaller private methods (e.g., `fetchBook`, `decrementStock`, `createLoanRecord`).
+3. **Run PHPMD** and address the metric warnings. The method `CheckOut` likely triggers cyclomatic complexity warnings: refactor it into smaller private methods (e.g., `fetchBook`, `decrementStock`, `createLoanRecord`).
 
 4. **Verify** that `composer qa` produces zero errors.
 
@@ -1661,12 +1661,12 @@ public function getOverdueBooks():array{
 The cleaned file should:
 
 - Declare types on all properties, parameters, and return types
-- Use prepared statements with parameterized queries throughout — no string concatenation in SQL
+- Use prepared statements with parameterized queries throughout: no string concatenation in SQL
 - Follow PSR-12 conventions for spacing, braces, and indentation
 - Have methods with cyclomatic complexity under 5, each responsible for a single operation
 - Contain no unused variables or unreachable code
 
-Once your solution passes `composer qa`, compare it with a classmate's. Did you both split the methods the same way? Did you choose the same names? Code quality tools enforce consistency, but they leave room for design judgment — that is where engineering skill develops.
+Once your solution passes `composer qa`, compare it with a classmate's. Did you both split the methods the same way? Did you choose the same names? Code quality tools enforce consistency, but they leave room for design judgment: that is where engineering skill develops.
 
 </section>
 
@@ -1766,19 +1766,19 @@ Setelah solusi Anda lulus `composer qa`, bandingkan dengan teman sekelas. Apakah
 
 ## Summary
 
-Code quality analysis moves quality assurance left in the development lifecycle — from manual review at the end of a sprint to automated enforcement at the moment code is written. Here are the key takeaways:
+Code quality analysis moves quality assurance left in the development lifecycle, from manual review at the end of a sprint to automated enforcement at the moment code is written. Here are the key takeaways:
 
 1. **Three complementary lenses.** Static analysis catches type errors and data-flow bugs before they execute. Style linting eliminates cognitive friction by enforcing a consistent syntax. Code metrics quantify structural complexity and surface maintenance risks before they become production incidents.
 
-2. **PHPStan level progression is a practical adoption strategy.** Start at level 0 and raise the bar one level per sprint. Each increment catches a new class of bugs without overwhelming the team with noise. Target level 5 for active projects — it catches the bugs that matter without the pedantry of levels 6–9.
+2. **PHPStan level progression is a practical adoption strategy.** Start at level 0 and raise the bar one level per sprint. Each increment catches a new class of bugs without overwhelming the team with noise. Target level 5 for active projects: it catches the bugs that matter without the pedantry of levels 6–9.
 
 3. **PSR-12 is non-negotiable.** It is the community baseline for modern PHP. Configure phpcs once, auto-fix with phpcbf, and never think about spacing or brace placement again. Focus your code review energy on logic, not formatting.
 
-4. **PHPMD thresholds should match project maturity.** Start strict (complexity ≤ 5, method length ≤ 40) on greenfield projects and relax as the codebase stabilizes. Never raise a threshold to silence a warning on a single file — baseline or exclude that file instead.
+4. **PHPMD thresholds should match project maturity.** Start strict (complexity ≤ 5, method length ≤ 40) on greenfield projects and relax as the codebase stabilizes. Never raise a threshold to silence a warning on a single file; baseline or exclude that file instead.
 
 5. **Quality gates belong in CI/CD.** Wire PHPStan, PHP_CodeSniffer, and PHPMD into a GitHub Actions workflow that runs on every pull request. The machine enforces the standard. The humans review the design.
 
-6. **Metrics feed bug prediction.** The same features that PHPMD measures — complexity, length, coupling — are used by statistical bug-prediction models. Running code quality tools is the first step toward building a data-driven risk assessment of your codebase.
+6. **Metrics feed bug prediction.** The same features that PHPMD measures (complexity, length, coupling) are used by statistical bug-prediction models. Running code quality tools is the first step toward building a data-driven risk assessment of your codebase.
 
 </section>
 
@@ -1808,11 +1808,11 @@ Analisis kualitas kode menggeser jaminan kualitas ke kiri dalam siklus hidup pen
 
 ## Related Tutorials
 
-- [Bug Prediction with PHP: From Metrics to Models](/blog/bug-prediction-php) — how the metrics you measured in this tutorial become features in a Naive Bayes classifier
-- [Test-Driven Development with PHP](/blog/test-driven-development) — writing tests first reduces the complexity that code quality tools later flag
-- [Clean Code Principles in PHP](/blog/clean-code-principles) — the human-readable foundation that automated tools help enforce
-- [AI-Assisted Unit Test Generation](/blog/ai-assisted-unit-test-generation) — combining AI with static analysis to generate coverage for the problems PHPStan finds
-- [Microservices Architecture Fundamentals](/blog/microservices-architecture-fundamentals) — quality gates become more important as you split into independent services
+- [Bug Prediction with PHP: From Metrics to Models](/blog/bug-prediction-php): how the metrics you measured in this tutorial become features in a Naive Bayes classifier
+- [Test-Driven Development with PHP](/blog/test-driven-development): writing tests first reduces the complexity that code quality tools later flag
+- [Clean Code Principles in PHP](/blog/clean-code-principles): the human-readable foundation that automated tools help enforce
+- [AI-Assisted Unit Test Generation](/blog/ai-assisted-unit-test-generation): combining AI with static analysis to generate coverage for the problems PHPStan finds
+- [Microservices Architecture Fundamentals](/blog/microservices-architecture-fundamentals): quality gates become more important as you split into independent services
 
 </section>
 

@@ -14,9 +14,9 @@ on:
 # ─────────────────────────────────────────────────────────────────────────────
 # Analyse the site weekly and file ONE GitHub issue with the highest-value
 # improvement recommendation across three lenses:
-#   bug      — a real defect grounded in the actual build output
-#   feature  — something a research-lab site commonly has but this site lacks
-#   tutorial — a new category:tutorial blog post aligned to the lab's 3 research streams
+#   bug:      a real defect grounded in the actual build output
+#   feature:  something a research-lab site commonly has but this site lacks
+#   tutorial: a new category:tutorial blog post aligned to the lab's 3 research streams
 #
 # Issues are label-only; a se-polinema member reviews them and comments /plan
 # to start the existing OpenCode IssueOps loop.
@@ -72,7 +72,7 @@ jobs:
 
       # ── 6. Gather context and compose prompt ─────────────────────────────────
       # Writes the full prompt to /tmp/oc-prompt.txt.
-      # NOTE: all string concatenation, NO template literals / backticks —
+      # NOTE: all string concatenation, NO template literals / backticks:
       #       they get corrupted in YAML | blocks (known repo bug).
       - name: Gather context and compose prompt
         uses: actions/github-script@v7
@@ -97,7 +97,7 @@ jobs:
             const focus = process.env.FOCUS || 'auto'
 
             const focusInstruction = focus !== 'auto'
-              ? 'You MUST recommend a "' + focus + '" item — the category is forced by the caller.'
+              ? 'You MUST recommend a "' + focus + '" item; the category is forced by the caller.'
               : 'Pick whichever single category and topic will deliver the most value this week.'
 
             const prompt =
@@ -110,12 +110,12 @@ jobs:
               'YOUR TASK: recommend the SINGLE most valuable improvement to file as ONE GitHub issue this week.\n' +
               focusInstruction + '\n\n' +
               'THREE LENSES (pick one):\n' +
-              '  bug      — A real, concrete defect in the site. PREFER this if the build log ' +
-              'below shows errors or warnings. Ground the issue in actual output — no speculation.\n' +
-              '  feature  — Something a research-lab website commonly has that this site lacks ' +
+              '  bug:      A real, concrete defect in the site. PREFER this if the build log ' +
+              'below shows errors or warnings. Ground the issue in actual output, no speculation.\n' +
+              '  feature:  Something a research-lab website commonly has that this site lacks ' +
               '(e.g. search, RSS feed, sitemap, 404 page, Open Graph meta, PWA support, ' +
               'lab announcements feed, researcher contact form, etc.).\n' +
-              '  tutorial — A new blog post (category: tutorial). The site currently has only ONE ' +
+              '  tutorial: A new blog post (category: tutorial). The site currently has only ONE ' +
               'tutorial (blackbox/whitebox testing). ' +
               'Align to the 3 research streams in src/data/research.json:\n' +
               '    1. SE Methodologies & Architecture (Microservices, Clean Code, TDD, DDD, ' +
@@ -126,21 +126,21 @@ jobs:
               '  Pick a foundational or currently-trending SE topic not already covered by ' +
               'existing posts.\n\n' +
               'TO UNDERSTAND CURRENT STATE (read these files before deciding):\n' +
-              '  src/content/blog/          — existing posts (titles, categories, slugs)\n' +
-              '  src/data/research.json     — the 3 research streams in detail\n' +
-              '  src/content.config.ts      — blog frontmatter schema (title, titleId, category, etc.)\n\n' +
+              '  src/content/blog/          existing posts (titles, categories, slugs)\n' +
+              '  src/data/research.json     the 3 research streams in detail\n' +
+              '  src/content.config.ts      blog frontmatter schema (title, titleId, category, etc.)\n\n' +
               'BUILD / ASTRO CHECK OUTPUT (exit code ' + buildExitCode + '):\n' +
               '<build_log>\n' + buildLog + '\n</build_log>\n\n' +
               'EXISTING ISSUE TITLES (do NOT create a near-duplicate of any of these):\n' +
               '<existing_issues>\n' + existingTitles + '\n</existing_issues>\n\n' +
               'OUTPUT RULES (strictly follow all):\n' +
-              '  1. Output ONLY one raw JSON object — no markdown fences, no prose before or after.\n' +
+              '  1. Output ONLY one raw JSON object, no markdown fences, no prose before or after.\n' +
               '  2. Do NOT edit any files, create branches, or open pull requests.\n' +
               '  3. JSON shape:\n' +
               '     {\n' +
               '       "category": "bug" | "feature" | "tutorial",\n' +
               '       "title": "<concise issue title, no leading slash, max 80 chars>",\n' +
-              '       "body": "<markdown body — see requirements below>",\n' +
+              '       "body": "<markdown body, see requirements below>",\n' +
               '       "language": "id" | "en"\n' +
               '     }\n' +
               '  4. body requirements:\n' +
@@ -216,7 +216,7 @@ jobs:
             const normTitle = norm(title)
             const dup = listResp.data.find(function(i) { return norm(i.title) === normTitle })
             if (dup) {
-              core.info('Skipping — near-duplicate already exists: #' + String(dup.number) + ' ' + dup.title)
+              core.info('Skipping: near-duplicate already exists: #' + String(dup.number) + ' ' + dup.title)
               return
             }
 
@@ -239,7 +239,7 @@ jobs:
             const created = await github.rest.issues.create({
               owner, repo, title, body: fullBody, labels
             })
-            core.info('Issue created: #' + String(created.data.number) + ' — ' + created.data.html_url)
+            core.info('Issue created: #' + String(created.data.number) + ': ' + created.data.html_url)
 
       # ── 9. Failure handler ────────────────────────────────────────────────────
       # Mirrors the update-publications.yml pattern: file a labelled issue with the run link.

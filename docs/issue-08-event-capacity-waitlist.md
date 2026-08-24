@@ -7,7 +7,7 @@
 ## Problem
 
 `se.events` (`supabase/migrations/001_initial_schema.sql`) has
-`registration_open BOOLEAN` as the only capacity-related control — fully
+`registration_open BOOLEAN` as the only capacity-related control: fully
 open or fully closed, with no seat limit. Verified: no
 `capacity`/`max_participants`/`waitlist` column anywhere in
 `supabase/migrations/*.sql`. Fine for uncapped events; breaks down the
@@ -16,7 +16,7 @@ fixed seating).
 
 ## Proposed Solution
 
-- Add `capacity INT` (nullable — null means uncapped, preserves current
+- Add `capacity INT` (nullable; null means uncapped, preserves current
   behavior for every existing event) to `se.events`.
 - `EventRegistrationForm.vue`'s registration insert path checks the
   current participant count against `capacity` before inserting; over
@@ -49,12 +49,12 @@ to actually be enforceable.
   capacity. Added `se.register_participant(p_event_slug)`, a
   `SECURITY DEFINER` function that locks the event row
   (`SELECT ... FOR UPDATE`) for the duration of the check-then-insert,
-  serializing concurrent registrations for the same event — the same
+  serializing concurrent registrations for the same event, the same
   pattern the schema already uses for `se.check_in_self()`.
 - Because the RPC is the only place capacity is actually checked, the old
   `participants_insert_self` direct-insert RLS policy was dropped in the
   same migration (confirmed via grep that `EventRegistrationForm.vue` was
-  the only call site ever inserting into `se.participants`) — otherwise
+  the only call site ever inserting into `se.participants`); otherwise
   capacity would have been a UI nicety, trivially bypassed by inserting
   directly.
 - `EventRegistrationForm.vue`: all three registration call sites

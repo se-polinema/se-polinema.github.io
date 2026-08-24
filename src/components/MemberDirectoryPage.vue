@@ -3,7 +3,7 @@
     <h1>{{ heading }}</h1>
     <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-4">{{ description }}</p>
 
-    <!-- Self-registration only exists for current students — alumni are
+    <!-- Self-registration only exists for current students. Alumni are
          graduated members, not a separate signup (see
          20260722023755_member_graduation.sql). -->
     <div v-if="props.status === 'student'" class="mb-8">

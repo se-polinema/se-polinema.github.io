@@ -7,11 +7,11 @@ import { readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import researchData from '../../data/research.json'
 
-// Publication data is intentionally NOT fetched here — PublicationsArchive.vue
+// Publication data is intentionally NOT fetched here: PublicationsArchive.vue
 // fetches it client-side from /api/publications-index.json instead, so
 // this page's own HTML stays constant-size as the collection grows (see
 // the pagination plan). researchers/streamNames below stay build-time
-// props — they scale with researcher count, not publication count.
+// props: they scale with researcher count, not publication count.
 const researchers = (await getCollection('researchers'))
   .sort((a, b) => a.data.name.localeCompare(b.data.name))
   .map((researcher) => ({

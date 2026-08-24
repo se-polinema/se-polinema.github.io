@@ -8,7 +8,7 @@
 
       <!-- Photo grid -->
       <template v-if="gallery.length > 0">
-        <!-- NOTE: placeholder data — replace with real event photos in public/images/gallery/ -->
+        <!-- NOTE: placeholder data, replace with real event photos in public/images/gallery/ -->
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <li
             v-for="item in gallery"

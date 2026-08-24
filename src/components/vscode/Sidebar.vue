@@ -51,7 +51,7 @@
       <div class="space-y-1">
         <div class="text-[12px] font-mono text-[color:var(--color-vscode-chrome-fg)] font-medium">se-polinema</div>
         <div class="text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] leading-relaxed">
-          Software Engineering Laboratory — Politeknik Negeri Malang
+          Software Engineering Laboratory, Politeknik Negeri Malang
         </div>
       </div>
       <div class="space-y-1">
@@ -317,7 +317,7 @@
 
     </Transition>
 
-    <!-- Resize handle: flush with the inner right edge. Desktop only —
+    <!-- Resize handle: flush with the inner right edge. Desktop only:
          a fixed-max-width overlay drawer isn't a resizable surface on
          mobile the way the in-flow split panel is on desktop. -->
     <div
@@ -489,7 +489,7 @@ onMounted(async () => {
 }
 
 .sidebar-resize-handle {
-  /* Flush with the inner edge (not overflowing outside it) — the aside
+  /* Flush with the inner edge (not overflowing outside it): the aside
      clips overflow, which would silently eat pointer events on any
      sliver positioned outside its own bounds. */
   position: absolute;

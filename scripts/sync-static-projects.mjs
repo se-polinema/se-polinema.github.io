@@ -2,16 +2,16 @@
  * sync-static-projects.mjs
  *
  * Reads src/content/projects/*.md (the static, curated researcher-works
- * showcase at /projects — see src/content.config.ts's projectsCollection)
+ * showcase at /projects, see src/content.config.ts's projectsCollection)
  * and upserts a corresponding se.projects row for each, so the same
  * curated entries also appear in the self-service Showcase at /showcase.
- * /projects itself is never touched by this script — this is an additive
+ * /projects itself is never touched by this script: this is an additive
  * copy, not a migration.
  *
  * Keyed on `slug` (the markdown filename), matching se.projects' partial
  * unique index (supabase/migrations/20260722082908_projects_extend.sql).
  * Uses insert-only upsert (ignoreDuplicates: true), same as
- * sync-events.mjs — re-runs never touch an already-synced row, so if a
+ * sync-events.mjs: re-runs never touch an already-synced row, so if a
  * curated entry is later hand-edited in Supabase (e.g. an admin tweaks
  * its tagline) or in the markdown, this script won't clobber either side.
  * A newly added *.md file syncs automatically on the next run.
@@ -20,9 +20,9 @@
  * techStack[] -> tags (same concept, reuses the existing column),
  * repo ("owner/name") -> repo_url (prefixed with https://github.com/),
  * demoUrl/videoUrl -> demo_url/video_url, status/stream/researchers/
- * contributors/featured/private map 1:1. tagline_en/id are left null —
+ * contributors/featured/private map 1:1. tagline_en/id are left null:
  * the old schema has no tagline concept. The rich bilingual Markdown
- * body (sim-ta.md, polinema-snap-link.md) is deliberately NOT synced —
+ * body (sim-ta.md, polinema-snap-link.md) is deliberately NOT synced:
  * se.projects has no body column, only the short frontmatter description
  * travels; the long-form write-up stays exclusive to /projects.
  *
@@ -35,8 +35,8 @@
  * than failing the whole sync.
  *
  * Required env vars (set as GitHub Actions secrets, never in client bundles):
- *   PUBLIC_SUPABASE_URL       — Supabase project URL
- *   SUPABASE_SERVICE_ROLE_KEY — service role key (bypasses RLS for writes)
+ *   PUBLIC_SUPABASE_URL: Supabase project URL
+ *   SUPABASE_SERVICE_ROLE_KEY: service role key (bypasses RLS for writes)
  *
  * Run:
  *   PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/sync-static-projects.mjs
@@ -54,7 +54,7 @@ const IMAGES_DIR = resolve(__dirname, '../public/images/projects')
 const BUCKET = 'project-images'
 
 // migrate-member-photos.mjs hardcodes contentType: 'image/jpeg', which is
-// wrong here — public/images/projects/ has PNG and SVG files too. Derive
+// wrong here: public/images/projects/ has PNG and SVG files too. Derive
 // it from the extension instead.
 const CONTENT_TYPES = {
   '.png': 'image/png',
@@ -85,7 +85,7 @@ const entries = readdirSync(PROJECTS_DIR)
   }))
 
 if (entries.length === 0) {
-  console.log('No static projects found — nothing to sync.')
+  console.log('No static projects found, nothing to sync.')
   process.exit(0)
 }
 
@@ -103,7 +103,7 @@ const existingSlugs = new Set((existingRows ?? []).map((r) => r.slug))
 const toSync = entries.filter((e) => !existingSlugs.has(e.slug))
 
 if (toSync.length === 0) {
-  console.log('All static projects already synced — nothing to do.')
+  console.log('All static projects already synced, nothing to do.')
   process.exit(0)
 }
 
@@ -167,7 +167,7 @@ for (const entry of toSync) {
   })
 }
 
-// ignoreDuplicates: true — insert new rows only; an already-synced entry
+// ignoreDuplicates: true, insert new rows only; an already-synced entry
 // is never touched by a later run, matching sync-events.mjs's convention.
 const { error: upsertError } = await supabase
   .from('projects')

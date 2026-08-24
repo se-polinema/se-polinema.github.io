@@ -10,12 +10,12 @@
  *
  * Self-limiting by construction: only rows still matching the legacy
  * `/images/members/%` path are touched, so once every such row has been
- * migrated this becomes a permanent no-op — safe to leave wired into CI
+ * migrated this becomes a permanent no-op, safe to leave wired into CI
  * indefinitely, no manual removal needed after the first successful run.
  *
  * Required env vars (set as GitHub Actions secrets, never in client bundles):
- *   PUBLIC_SUPABASE_URL       — Supabase project URL
- *   SUPABASE_SERVICE_ROLE_KEY — service role key (bypasses RLS for writes)
+ *   PUBLIC_SUPABASE_URL: Supabase project URL
+ *   SUPABASE_SERVICE_ROLE_KEY: service role key (bypasses RLS for writes)
  *
  * Run:
  *   PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/migrate-member-photos.mjs
@@ -55,7 +55,7 @@ if (selectError) {
 }
 
 if (!rows || rows.length === 0) {
-  console.log('No legacy-path member photos found — nothing to migrate.')
+  console.log('No legacy-path member photos found, nothing to migrate.')
   process.exit(0)
 }
 

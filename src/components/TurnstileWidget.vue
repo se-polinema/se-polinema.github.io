@@ -5,14 +5,14 @@
 <script setup lang="ts">
 // Thin wrapper around Cloudflare Turnstile's explicit-render API. Shared by
 // NewsletterForm/MemberSubmissionForm (verified server-side by the
-// subscribe-newsletter/submit-member Edge Functions) — see
+// subscribe-newsletter/submit-member Edge Functions); see
 // docs/issue-10-form-abuse-protection.md.
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const props = withDefaults(defineProps<{
   size?: 'normal' | 'compact'
   // 'interaction-only' keeps the widget invisible unless Cloudflare flags
-  // something — used by NewsletterForm's cramped "minimal" footer variant,
+  // something; used by NewsletterForm's cramped "minimal" footer variant,
   // where a normal always-visible widget doesn't fit.
   appearance?: 'always' | 'interaction-only'
 }>(), {
@@ -56,7 +56,7 @@ function loadTurnstileScript(): Promise<void> {
 onMounted(async () => {
   const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined
   // No-ops without a configured site key (mirrors src/lib/supabase.ts's
-  // placeholder-fallback philosophy) — local dev without Turnstile
+  // placeholder-fallback philosophy): local dev without Turnstile
   // provisioned just never emits a token, so gated submit buttons stay
   // disabled rather than throwing.
   if (!siteKey || !containerEl.value) return

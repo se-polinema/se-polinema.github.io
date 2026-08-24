@@ -35,7 +35,7 @@ Note: Estimated 45 minutes. Keep 15 minutes for Q&A.
 - **Consistency**: Machines don't get tired; coverage doesn't regress on Friday afternoon
 - **Speed**: AI-assisted test generation cuts authoring time by 60–80% in our studies
 
-> "Testing is not about finding bugs — it's about building confidence."
+> "Testing is not about finding bugs; it's about building confidence."
 
 Note: Cite the 2025 Polinema pilot study here.
 
@@ -71,7 +71,7 @@ Note: Show the Copilot demo here. Time box to 5 minutes.
 
 Our lab's fine-tuned model: **0.87** on JTI internal repos.
 
-Note: Dataset is not public yet — mention the IRB submission.
+Note: Dataset is not public yet; mention the IRB submission.
 
 ---
 
@@ -99,4 +99,4 @@ Thank you!
 📧 se-lab@polinema.ac.id
 🌐 se.polinema.ac.id
 
-Note: Stay for coffee — informal discussions welcome.
+Note: Stay for coffee; informal discussions welcome.

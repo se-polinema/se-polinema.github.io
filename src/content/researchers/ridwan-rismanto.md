@@ -49,5 +49,5 @@ books:
     year: 2019
     isbn: "978-623-7408-74-1"
     description: "An inviting introduction to 3D animation using Blender, starting from workspace orientation through practical projects: modeling a simple cart, a teddy bear character, a dancing can, and a traffic light scene. Uses storytelling to teach form, texture, and motion with an intuitive, creative approach suitable for readers of all backgrounds."
-    descriptionId: "Buku Animasi Blender: Sebuah Pengantar mengajak pembaca masuk ke dunia animasi 3D dengan cara yang bersahabat. Pembahasan dimulai dari perkenalan Blender, kemudian berkembang melalui objek yang dekat dengan keseharian—sebuah gerobak sederhana, karakter boneka teddy, kaleng joget, hingga lampu lalu lintas. Konsep modeling, tekstur, dan animasi dirangkai sebagai satu kesatuan proses kreatif, bukan potongan teori yang terpisah."
+    descriptionId: "Buku Animasi Blender: Sebuah Pengantar mengajak pembaca masuk ke dunia animasi 3D dengan cara yang bersahabat. Pembahasan dimulai dari perkenalan Blender, kemudian berkembang melalui objek yang dekat dengan keseharian: sebuah gerobak sederhana, karakter boneka teddy, kaleng joget, hingga lampu lalu lintas. Konsep modeling, tekstur, dan animasi dirangkai sebagai satu kesatuan proses kreatif, bukan potongan teori yang terpisah."
 ---

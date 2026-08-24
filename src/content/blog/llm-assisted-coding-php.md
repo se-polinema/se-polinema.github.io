@@ -26,15 +26,15 @@ excerptId: "Pelajari cara menggunakan LLM seperti Claude, Gemini, dan model loka
 
 ## Introduction
 
-**LLM-assisted coding** is the practice of using large language models (LLMs) — like Anthropic's Claude, Google's Gemini, or locally hosted models via Ollama — to help you write, understand, refactor, and extend source code during the implementation phase of the software development lifecycle (SDLC). Unlike AI-assisted *testing* or *documentation*, which operate on the outputs of development, LLM-assisted coding is embedded directly in the act of writing software.
+**LLM-assisted coding** is the practice of using large language models (LLMs), like Anthropic's Claude, Google's Gemini, or locally hosted models via Ollama, to help you write, understand, refactor, and extend source code during the implementation phase of the software development lifecycle (SDLC). Unlike AI-assisted *testing* or *documentation*, which operate on the outputs of development, LLM-assisted coding is embedded directly in the act of writing software.
 
-This tutorial bridges a gap in our Emerging Technologies in SE series. We already cover [AI-Assisted Unit Test Generation](/blog/ai-assisted-unit-test-generation), [AI-Powered Requirements Automation](/blog/ai-powered-requirements-automation-php), and [LLM-Assisted Documentation Automation](/blog/llm-assisted-documentation-automation-php). The missing piece — the one students at Politeknik Negeri Malang ask about most — is how to use AI during the coding phase itself.
+This tutorial bridges a gap in our Emerging Technologies in SE series. We already cover [AI-Assisted Unit Test Generation](/blog/ai-assisted-unit-test-generation), [AI-Powered Requirements Automation](/blog/ai-powered-requirements-automation-php), and [LLM-Assisted Documentation Automation](/blog/llm-assisted-documentation-automation-php). The missing piece, the one students at Politeknik Negeri Malang ask about most, is how to use AI during the coding phase itself.
 
-LLMs do not *understand* your code. They predict the next token based on patterns learned from billions of lines of open-source code. When you ask them to write a PHP service, they produce a statistically plausible answer — not a verified, correct one. This distinction is the foundation of responsible AI-assisted coding: **use the LLM as an accelerator, not as an authority.**
+LLMs do not *understand* your code. They predict the next token based on patterns learned from billions of lines of open-source code. When you ask them to write a PHP service, they produce a statistically plausible answer, not a verified, correct one. This distinction is the foundation of responsible AI-assisted coding: **use the LLM as an accelerator, not as an authority.**
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** and **Requirements Automation** as core topics under the [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/) research stream. LLM-assisted coding sits at the intersection of these areas — it automates code production from natural-language requirements while demanding rigorous quality analysis of the generated output.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** and **Requirements Automation** as core topics under the [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/) research stream. LLM-assisted coding sits at the intersection of these areas: it automates code production from natural-language requirements while demanding rigorous quality analysis of the generated output.
 
 </section>
 
@@ -84,7 +84,7 @@ order-discount/
 
 ## Proyek Mini: Layanan Diskon Pesanan
 
-Sepanjang tutorial ini kita akan bekerja dengan satu proyek mini PHP yang dapat dijalankan: sebuah `OrderDiscountService` yang menghitung diskon untuk pesanan e-commerce berdasarkan tingkat keanggotaan pelanggan, total pesanan, dan kode kupon. Menggunakan basis kode yang sama di ketiga alur kerja memungkinkan Anda melihat bagaimana LLM membantu di setiap tahap — dari pembuatan baru hingga pemeliharaan.
+Sepanjang tutorial ini kita akan bekerja dengan satu proyek mini PHP yang dapat dijalankan: sebuah `OrderDiscountService` yang menghitung diskon untuk pesanan e-commerce berdasarkan tingkat keanggotaan pelanggan, total pesanan, dan kode kupon. Menggunakan basis kode yang sama di ketiga alur kerja memungkinkan Anda melihat bagaimana LLM membantu di setiap tahap, dari pembuatan baru hingga pemeliharaan.
 
 ### Struktur Proyek
 
@@ -116,11 +116,11 @@ The LLM coding ecosystem has matured rapidly. Here are the tools most relevant t
 
 | Tool | Provider | PHP Support | Cost |
 |------|----------|-------------|------|
-| **Claude Code / Claude for Code** | Anthropic | Excellent — strong reasoning for complex PHP refactors and type-safe code generation | Claude Pro (\$20/month) or API pay-per-use |
-| **Gemini Code Assist** | Google | Very good — deep GCP integration, strong on PHP 8.x features | Free tier available; Enterprise plans |
-| **GitHub Copilot** | Microsoft/GitHub | Excellent — native VS Code and JetBrains integration | \$10/month (free for students) |
-| **Codeium** | Exafunction | Good — fast autocomplete, chat feature | Freemium |
-| **JetBrains AI Assistant** | JetBrains | Excellent for PhpStorm users — context-aware of project structure, Composer, and PHPUnit | \$10/month or bundled with All Products Pack |
+| **Claude Code / Claude for Code** | Anthropic | Excellent: strong reasoning for complex PHP refactors and type-safe code generation | Claude Pro (\$20/month) or API pay-per-use |
+| **Gemini Code Assist** | Google | Very good: deep GCP integration, strong on PHP 8.x features | Free tier available; Enterprise plans |
+| **GitHub Copilot** | Microsoft/GitHub | Excellent: native VS Code and JetBrains integration | \$10/month (free for students) |
+| **Codeium** | Exafunction | Good: fast autocomplete, chat feature | Freemium |
+| **JetBrains AI Assistant** | JetBrains | Excellent for PhpStorm users: context-aware of project structure, Composer, and PHPUnit | \$10/month or bundled with All Products Pack |
 
 **Recommendation for students:** Start with **Claude Code** (strongest reasoning for learning) or **Gemini Code Assist** (generous free tier). Both produce well-structured PHP with `declare(strict_types=1)`, typed properties, and PSR-12 formatting by default when prompted correctly.
 
@@ -141,7 +141,7 @@ ollama pull qwen2.5-coder:7b
 # Install Continue extension in VS Code, then configure ~/.continue/config.json
 ```
 
-For this tutorial, we assume a cloud assistant (Claude or Gemini), but every prompt and workflow works with local models too — just expect slightly lower fidelity on edge cases.
+For this tutorial, we assume a cloud assistant (Claude or Gemini), but every prompt and workflow works with local models too, just expect slightly lower fidelity on edge cases.
 
 </section>
 
@@ -197,7 +197,7 @@ The quality of AI-generated code depends heavily on the quality of your prompt. 
 **Vague prompt:**
 > "Write a PHP discount service."
 
-The LLM will produce *something* — a class, maybe with a method or two — but it will guess at your requirements, skip error handling, and likely produce inconsistent types.
+The LLM will produce *something* (a class, maybe with a method or two), but it will guess at your requirements, skip error handling, and likely produce inconsistent types.
 
 **Specific prompt:**
 > "Write a PHP 8.3 class `OrderDiscountService` with `declare(strict_types=1)`. Include typed properties and return types. The class should have a `calculateFinalPrice(float $subtotal, string $memberLevel, ?string $couponCode): array` method that returns `['original' => float, 'discount' => float, 'final' => float, 'breakdown' => array]`. Follow PSR-12."
@@ -233,7 +233,7 @@ Explain this PHP code in detail. Cover: (1) what each method does, (2) potential
 
 **Feature Extension:**
 ```
-Given this existing class, add a new method called [methodName] that [describe new behaviour]. Maintain existing code style, typing, and error handling patterns. Update only the class — do not rewrite unrelated methods.
+Given this existing class, add a new method called [methodName] that [describe new behaviour]. Maintain existing code style, typing, and error handling patterns. Update only the class, do not rewrite unrelated methods.
 [ paste existing class ]
 ```
 
@@ -286,7 +286,7 @@ Jelaskan kode PHP ini secara detail. Cakup: (1) apa yang dilakukan setiap metode
 
 **Ekstensi Fitur:**
 ```
-Dengan kelas yang ada ini, tambahkan metode baru bernama [methodName] yang [deskripsikan perilaku baru]. Pertahankan gaya kode, pengetikan, dan pola penanganan error yang ada. Perbarui hanya kelas — jangan tulis ulang metode yang tidak terkait.
+Dengan kelas yang ada ini, tambahkan metode baru bernama [methodName] yang [deskripsikan perilaku baru]. Pertahankan gaya kode, pengetikan, dan pola penanganan error yang ada. Perbarui hanya kelas, jangan tulis ulang metode yang tidak terkait.
 [ tempel kelas yang ada ]
 ```
 
@@ -436,13 +436,13 @@ class OrderDiscountService
 
 Before running any code, perform a **cold review** of what the LLM produced:
 
-1. **Are types correct?** All parameters have type declarations. Return type `array` is correct (though an array shape in PHPDoc would be better — the LLM added that too).
+1. **Are types correct?** All parameters have type declarations. Return type `array` is correct (though an array shape in PHPDoc would be better; the LLM added that too).
 
 2. **Is error handling present?** The class validates negative subtotal, zero subtotal, and unknown membership levels. Good.
 
-3. **Are edge cases covered?** Check: the coupon code is case-insensitive (`strtoupper`), whitespace-trimmed, and only applied if it exists in the map. Unknown coupon codes are silently ignored — is that the right behaviour? We will discuss this in the Trust but Verify section.
+3. **Are edge cases covered?** Check: the coupon code is case-insensitive (`strtoupper`), whitespace-trimmed, and only applied if it exists in the map. Unknown coupon codes are silently ignored: is that the right behaviour? We will discuss this in the Trust but Verify section.
 
-4. **Are there bugs?** The LLM applied discounts sequentially on the *remaining* amount after each discount. This matches the spec. But note: the coupon discount is capped at Rp 100,000 regardless of the coupon rate — this matches our spec too.
+4. **Are there bugs?** The LLM applied discounts sequentially on the *remaining* amount after each discount. This matches the spec. But note: the coupon discount is capped at Rp 100,000 regardless of the coupon rate; this matches our spec too.
 
 5. **Is the code PSR-12 compliant?** Four-space indentation, opening brace on same line as class/method, no trailing whitespace. Yes.
 
@@ -490,7 +490,7 @@ Output:
 }
 ```
 
-The numbers check out. The LLM-generated class is correct and production-ready — because we gave it a precise prompt with examples.
+The numbers check out. The LLM-generated class is correct and production-ready, because we gave it a precise prompt with examples.
 
 </section>
 
@@ -710,7 +710,7 @@ graph TB
 ```
 
 <figcaption class="mt-3 text-sm text-neutral-500">
-  <span lang="en">Figure: The LLM-assisted coding workflow — AI drafts from spec, human reviews critically, tests validate the result</span>
+  <span lang="en">Figure: The LLM-assisted coding workflow, AI drafts from spec, human reviews critically, tests validate the result</span>
   <span lang="id">Gambar: Alur kerja coding berbantuan LLM, AI membuat draf dari spesifikasi, manusia meninjau secara kritis, pengujian memvalidasi hasilnya</span>
 </figcaption>
 </figure>
@@ -721,7 +721,7 @@ graph TB
 
 ## Workflow 2: Explaining and Refactoring Existing Code
 
-The second essential LLM coding workflow is **understanding and improving code that already exists** — whether it is your own from last semester, a teammate's contribution, or legacy code from an open-source project.
+The second essential LLM coding workflow is **understanding and improving code that already exists**, whether it is your own from last semester, a teammate's contribution, or legacy code from an open-source project.
 
 ### Scenario
 
@@ -782,16 +782,16 @@ The LLM responds with something like:
 >
 > **Potential bugs:**
 > - No input validation: negative `$p` is accepted silently.
-> - Unknown membership levels (e.g. 'platinum') produce `$disc = 0` with no warning — same as 'none'. The caller cannot distinguish "no discount" from "invalid level."
+> - Unknown membership levels (e.g. 'platinum') produce `$disc = 0` with no warning, same as 'none'. The caller cannot distinguish "no discount" from "invalid level."
 > - Unknown coupon codes produce `$disc3 = 0` silently.
-> - The `$c == 'WELCOME10'` comparison is case-sensitive — 'welcome10' gets zero discount.
+> - The `$c == 'WELCOME10'` comparison is case-sensitive: 'welcome10' gets zero discount.
 > - No handling of zero-price orders.
 > - Floating-point accumulation without `round()` can produce values like 416800.0000000001.
 >
 > **PSR-12 violations:**
 > - Class opening brace should be on its own line (PSR-12 §4.1).
 > - Method name `calc` should be `camelCase` with descriptive name.
-> - Missing visibility keyword on `function calc` — should be `public function`.
+> - Missing visibility keyword on `function calc`: should be `public function`.
 > - Missing `declare(strict_types=1)`.
 > - Properties `$disc`, `$p2` should use meaningful names.
 > - `else if` should be `elseif` per PSR-12.
@@ -814,7 +814,7 @@ Refactor this discount calculator class to be production-ready:
 - Use class constants for magic numbers
 ```
 
-The LLM produces essentially the same `OrderDiscountService` class we saw in Workflow 1 — clean, typed, and production-ready.
+The LLM produces essentially the same `OrderDiscountService` class we saw in Workflow 1, clean, typed, and production-ready.
 
 ### Step 3: What the LLM Cannot Do
 
@@ -970,7 +970,7 @@ This method should:
 - Return the same array structure plus a 'tax' key with 'rate' and 'amount'
 - The final price in the returned array should include tax
 - Round all amounts to 2 decimal places
-- Reuse existing constants and error handling — do not duplicate validation logic
+- Reuse existing constants and error handling, do not duplicate validation logic
 
 Maintain the existing code style. Do not modify any existing method behavior.
 ```
@@ -1170,7 +1170,7 @@ PHPUnit 11.0.0 by Sebastian Bergmann and contributors.
 OK (14 tests, 24 assertions)
 ```
 
-All green. The AI generated both the feature code and the tests in under two minutes — but you verified every line.
+All green. The AI generated both the feature code and the tests in under two minutes, but you verified every line.
 
 </section>
 
@@ -1205,7 +1205,7 @@ Metode ini harus:
 - Mengembalikan struktur array yang sama ditambah kunci 'tax' dengan 'rate' dan 'amount'
 - Harga final dalam array yang dikembalikan harus sudah termasuk pajak
 - Bulatkan semua jumlah ke 2 tempat desimal
-- Gunakan kembali konstanta dan penanganan error yang ada — jangan duplikasi logika validasi
+- Gunakan kembali konstanta dan penanganan error yang ada, jangan duplikasi logika validasi
 
 Pertahankan gaya kode yang ada. Jangan ubah perilaku metode yang sudah ada.
 ```
@@ -1424,13 +1424,13 @@ LLMs invent API methods, framework features, and even entire libraries that do n
 **Red flags to watch for:**
 - A method being called that does not exist in the PHP standard library or your composer.json
 - A Composer package being referenced that you cannot find on Packagist
-- Configuration values or constants that look plausible but are fabricated (e.g. `PHPUnit\Framework\Assert::assertBetween()` — this does not exist in PHPUnit)
+- Configuration values or constants that look plausible but are fabricated (e.g. `PHPUnit\Framework\Assert::assertBetween()`, which does not exist in PHPUnit)
 - PHP function signatures with wrong parameter counts or types
 
 **How to catch them:**
 - Run `php -l` (lint) on every generated file
-- Run your test suite — hallucinated methods throw `Error: Call to undefined method`
-- Use an IDE with static analysis (PhpStorm, PHPStan, Psalm) — they catch undefined symbols
+- Run your test suite: hallucinated methods throw `Error: Call to undefined method`
+- Use an IDE with static analysis (PhpStorm, PHPStan, Psalm): they catch undefined symbols
 
 ### 2. Security Review
 
@@ -1470,7 +1470,7 @@ vendor/bin/phpunit
 vendor/bin/phpstan analyse src/
 ```
 
-A common anti-pattern: the AI generates class `A` and test `ATest`, but `ATest` only tests the happy path and asserts values the AI *predicted*, not values you manually verified. Always compare test expectations against your specification — do not assume the test values are correct just because they are present.
+A common anti-pattern: the AI generates class `A` and test `ATest`, but `ATest` only tests the happy path and asserts values the AI *predicted*, not values you manually verified. Always compare test expectations against your specification; do not assume the test values are correct just because they are present.
 
 ### 4. License Compatibility
 
@@ -1627,7 +1627,7 @@ Add a new feature to the service: **a time-based promotional discount**.
    - Order placed exactly at 17:00 (boundary)
    - Null order date (no promo applied)
 
-4. **Run:** `vendor/bin/phpunit` — all tests must pass.
+4. **Run:** `vendor/bin/phpunit`; all tests must pass.
 
 5. **Reflect:** Write down one thing the LLM did correctly and one thing you had to fix or add yourself.
 
@@ -1753,7 +1753,7 @@ calculateFinalPriceWithPromo(100000, 'gold', 'WELCOME10', DateTimeImmutable('202
 // gold(20%)=80000 → promo(5%)=4000 → coupon(10% of 76000)=7600 → final=68400
 ```
 
-Share your solution and compare with classmates. Different LLMs (Claude vs Gemini vs local models) will produce different implementations — which one handles the timezone correctly? Which one adds proper `DateTimeImmutable` null checks?
+Share your solution and compare with classmates. Different LLMs (Claude vs Gemini vs local models) will produce different implementations: which one handles the timezone correctly? Which one adds proper `DateTimeImmutable` null checks?
 
 </section>
 
@@ -1927,7 +1927,7 @@ Bagikan solusi Anda dan bandingkan dengan teman sekelas. LLM yang berbeda (Claud
 
 ## Summary
 
-1. **LLM-assisted coding** embeds AI into the implementation phase of the SDLC — generating, explaining, refactoring, and extending PHP code. It is the missing piece between AI-assisted testing and documentation.
+1. **LLM-assisted coding** embeds AI into the implementation phase of the SDLC, generating, explaining, refactoring, and extending PHP code. It is the missing piece between AI-assisted testing and documentation.
 
 2. **Prompt quality determines code quality.** Use the CICE framework (Context, Intent, Constraints, Examples). A vague prompt produces brittle, untyped code. A structured prompt with PHP version, typing rules, and examples produces production-ready output.
 
@@ -1944,17 +1944,17 @@ Bagikan solusi Anda dan bandingkan dengan teman sekelas. LLM yang berbeda (Claud
 | Scenario | Recommendation |
 |----------|----------------|
 | You are learning a new concept (e.g., recursion, design patterns) | Write code yourself first, then ask AI to explain or suggest improvements |
-| The specification is ambiguous or incomplete | Clarify requirements with stakeholders before prompting — AI amplifies ambiguity |
+| The specification is ambiguous or incomplete | Clarify requirements with stakeholders before prompting; AI amplifies ambiguity |
 | The domain involves safety, finance, or legal compliance | AI can draft boilerplate, but all logic must be verified by a domain expert |
-| You are in a proctored exam | Follow your institution's academic integrity policy — most exams prohibit AI tools |
+| You are in a proctored exam | Follow your institution's academic integrity policy; most exams prohibit AI tools |
 | The code handles personally identifiable information (PII) | Do not paste real PII into cloud AI services. Use local models or synthetic data |
 | You do not understand the code the AI produced | Stop. Read the code line by line until you understand it. Never commit code you cannot explain |
 
 ### Related Tutorials
 
-- [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation) — Generate, review, and refine PHPUnit tests with AI assistance.
-- [AI-Powered Requirements Automation with PHP](/blog/ai-powered-requirements-automation-php) — Turn natural-language requirements into structured specs, wireframes, and user stories.
-- [LLM-Assisted Documentation Automation for PHP Projects](/blog/llm-assisted-documentation-automation-php) — Generate and maintain API docs, README files, and changelogs with LLMs.
+- [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation): Generate, review, and refine PHPUnit tests with AI assistance.
+- [AI-Powered Requirements Automation with PHP](/blog/ai-powered-requirements-automation-php): Turn natural-language requirements into structured specs, wireframes, and user stories.
+- [LLM-Assisted Documentation Automation for PHP Projects](/blog/llm-assisted-documentation-automation-php): Generate and maintain API docs, README files, and changelogs with LLMs.
 
 </section>
 
