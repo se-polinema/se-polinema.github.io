@@ -47,7 +47,7 @@ certifications:
 projects:
   - name: "PakAI"
     repo: "dhanifudin/pakai"
-    description: "Unified AI subscription usage tracker. Surfaces Claude, OpenAI Codex, and OpenCode Go usage — per provider, per window (5h / weekly / monthly) — directly in your tmux status bar, Waybar panel, CLI, or a TUI dashboard."
+    description: "Unified AI subscription usage tracker. Surfaces Claude, OpenAI Codex, and OpenCode Go usage, per provider, per window (5h / weekly / monthly), directly in your tmux status bar, Waybar panel, CLI, or a TUI dashboard."
 books:
   - title: "Penuntun Praktikum Struktur Data"
     url: "https://polinemapress21.com/produk/penuntun-praktikum-struktur-data/"

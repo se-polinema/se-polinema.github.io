@@ -1,7 +1,7 @@
 ---
 researcher: dian-hanifudin-subhi
-title: "Dian Hanifudin Subhi — Profile"
-titleId: "Dian Hanifudin Subhi — Profil"
+title: "Dian Hanifudin Subhi: Profile"
+titleId: "Dian Hanifudin Subhi: Profil"
 description: "Lecturer profile covering biodata, course rules, and common teaching information."
 descriptionId: "Profil dosen yang mencakup biodata, aturan perkuliahan, dan informasi umum perkuliahan."
 theme: auto
@@ -26,6 +26,21 @@ Software Engineering Laboratory · JTI Polinema
 
 ---
 
+## Research Interests
+
+- Adaptive publish-subscribe models
+- Automated web-programming assessment
+
+---
+
+## Selected Publications
+
+- **Semantic Automated Assessment of Student Flowcharts via Graph Neural Networks and Symbolic Execution** (2026, MULTITEK Indonesia)
+- **Evaluasi Penilaian Otomatis Pemrograman Web Laravel pada Platform LAIBA** (2025, Jurnal Minfo Polgan)
+- **Efisiensi Tracking Multi Target dengan Model Interaksi Publish-Subscribe Adaptif pada Lingkungan Bergerak** (2016, JUTI)
+
+---
+
 ## Books
 
 - **Penuntun Praktikum Struktur Data** (2020)
@@ -37,9 +52,9 @@ Software Engineering Laboratory · JTI Polinema
 
 ## Certifications
 
-- Software Engineer — Certiport
-- Associate Cloud Engineer — Google Cloud
-- Cloud Digital Leader — Google Cloud
+- Software Engineer, Certiport
+- Associate Cloud Engineer, Google Cloud
+- Cloud Digital Leader, Google Cloud
 
 ---
 
@@ -47,7 +62,7 @@ Software Engineering Laboratory · JTI Polinema
 
 - **Email (primary):** [dhanifudin@polinema.ac.id](mailto:dhanifudin@polinema.ac.id)
 - **WhatsApp (urgent only):** +62 851-6373-6894
-- **Google Scholar:** [scholar.google.com](https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en)
+- **Room:** Lecturer Room 4
 
 ---
 
@@ -55,7 +70,7 @@ Software Engineering Laboratory · JTI Polinema
 
 1. Attend every scheduled session on time.
 2. Submit assignments before the deadline; late submissions are penalized.
-3. Academic integrity is required — plagiarism results in a zero.
+3. Academic integrity is required; plagiarism results in a zero.
 4. Active participation in practical sessions is expected.
 5. Ask questions early; do not wait until the exam week.
 
