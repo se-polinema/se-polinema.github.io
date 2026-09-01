@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-17T00:25:05.761Z",
+  "lastUpdated": "2026-09-01T02:43:56.991Z",
   "labMetrics": {
     "totalCitations": 1348,
     "totalCitations5y": 1081,
@@ -17,7 +17,8 @@
       "hindex": 4,
       "hindex5y": 3,
       "i10index": 1,
-      "i10index5y": 0
+      "i10index5y": 0,
+      "_error": "Cannot fetch from Google Scholar."
     },
     {
       "researcher": "dian-hanifudin-subhi",
@@ -28,7 +29,8 @@
       "hindex": 4,
       "hindex5y": 3,
       "i10index": 1,
-      "i10index5y": 1
+      "i10index5y": 1,
+      "_error": "Cannot fetch from Google Scholar."
     },
     {
       "researcher": "elok-nur-hamdana",
@@ -39,7 +41,8 @@
       "hindex": 8,
       "hindex5y": 8,
       "i10index": 6,
-      "i10index5y": 6
+      "i10index5y": 6,
+      "_error": "Cannot fetch from Google Scholar."
     },
     {
       "researcher": "imam-fahrur-rozi",
@@ -50,7 +53,8 @@
       "hindex": 10,
       "hindex5y": 9,
       "i10index": 11,
-      "i10index5y": 8
+      "i10index5y": 8,
+      "_error": "Cannot fetch from Google Scholar."
     },
     {
       "researcher": "moch-zawaruddin-abdullah",
@@ -61,7 +65,8 @@
       "hindex": 7,
       "hindex5y": 7,
       "i10index": 3,
-      "i10index5y": 3
+      "i10index5y": 3,
+      "_error": "Cannot fetch from Google Scholar."
     },
     {
       "researcher": "ridwan-rismanto",
@@ -72,9 +77,18 @@
       "hindex": 8,
       "hindex5y": 7,
       "i10index": 5,
-      "i10index5y": 4
+      "i10index5y": 4,
+      "_error": "Cannot fetch from Google Scholar."
     }
   ],
   "publicationCitations": {},
-  "mostCitedPublications": []
+  "mostCitedPublications": [],
+  "errors": [
+    "Ariadi Retno Tri Hayati Ririd: Cannot fetch from Google Scholar.",
+    "Dian Hanifudin Subhi: Cannot fetch from Google Scholar.",
+    "Elok Nur Hamdana: Cannot fetch from Google Scholar.",
+    "Imam Fahrur Rozi: Cannot fetch from Google Scholar.",
+    "Moch. Zawaruddin Abdullah: Cannot fetch from Google Scholar.",
+    "Ridwan Rismanto: Cannot fetch from Google Scholar."
+  ]
 }
