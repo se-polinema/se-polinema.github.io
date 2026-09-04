@@ -32,7 +32,6 @@
     >
       <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-[color:var(--color-vscode-chrome-fg-muted)] select-none">
         {{ activeSidebarView === 'github' ? 'Source Control'
-          : activeSidebarView === 'researchers' ? 'Researchers'
           : activeSidebarView === 'publications' ? 'Publications'
           : activeSidebarView === 'decks' ? 'Decks'
           : activeSidebarView === 'blog' ? 'Blog'
@@ -142,13 +141,46 @@
       </nav>
     </div>
 
-    <!-- Researchers panel -->
-    <nav v-else-if="activeSidebarView === 'researchers'" key="researchers" class="flex-1 overflow-y-auto pb-4" aria-label="Researchers">
+    <!-- Members panel -->
+    <nav v-else-if="activeSidebarView === 'members'" key="members" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Members">
+      <div class="filter-header">Members</div>
+      <div class="mt-3 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] space-y-2">
+        <a
+          href="/members"
+          class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
+        >
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[color:var(--color-vscode-chrome-fg-muted)]" />
+          All
+        </a>
+        <a
+          href="/members?filter=researchers"
+          class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
+        >
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-blue-400" />
+          Researchers
+        </a>
+        <a
+          href="/members?filter=students"
+          class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
+        >
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-green-400" />
+          Students
+        </a>
+        <a
+          href="/members?filter=alumni"
+          class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
+        >
+          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-purple-400" />
+          Alumni
+        </a>
+      </div>
+
+      <div class="filter-header mt-5">Researchers</div>
       <a
         v-for="r in researcherList"
         :key="r.id"
         :href="`/researchers/${r.id}`"
-        class="flex items-center gap-2 py-[5px] px-4 text-[12px] font-mono transition-colors duration-100"
+        class="flex items-center gap-2 py-[5px] mt-1 text-[12px] font-mono transition-colors duration-100"
         :class="currentPath.endsWith(r.id)
           ? 'bg-[color:var(--color-vscode-chrome-border)] text-[color:var(--color-vscode-chrome-fg)]'
           : 'text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] hover:bg-[color:var(--color-vscode-chrome-border)]'"
@@ -247,29 +279,6 @@
         <a href="/events" class="flex items-center gap-2 text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1">
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[color:var(--color-vscode-chrome-fg-muted)]" />
           Past Events
-        </a>
-      </div>
-    </nav>
-
-    <!-- Members sidebar -->
-    <nav v-else-if="activeSidebarView === 'members'" key="members" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Members">
-      <div class="filter-header">Members</div>
-      <div class="mt-3 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] space-y-2">
-        <a
-          href="/members"
-          class="flex items-center gap-2 py-1 transition-colors"
-          :class="currentPage === 'members' ? 'text-[color:var(--color-vscode-chrome-fg)]' : 'text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]'"
-        >
-          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'members' ? 'bg-accent' : 'bg-[color:var(--color-vscode-chrome-fg-muted)]'" />
-          Student Members
-        </a>
-        <a
-          href="/alumni"
-          class="flex items-center gap-2 py-1 transition-colors"
-          :class="currentPage === 'alumni' ? 'text-[color:var(--color-vscode-chrome-fg)]' : 'text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]'"
-        >
-          <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="currentPage === 'alumni' ? 'bg-accent' : 'bg-[color:var(--color-vscode-chrome-fg-muted)]'" />
-          Alumni
         </a>
       </div>
     </nav>
@@ -389,7 +398,7 @@ const fileTree: FileItem[] = [
   { id: 'showcase',        name: 'showcase.json',    ext: 'json', type: 'file',   sectionId: '',             pageId: 'showcase',     indent: 2, href: '/showcase' },
   { id: 'books',           name: 'books.md',         ext: 'md',   type: 'file',   sectionId: 'books',        pageId: 'books',        indent: 2, href: '/books' },
   { id: 'researchers-dir', name: 'researchers/',     ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
-  { id: 'members',         name: 'members.md',       ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'researchers',  indent: 3, href: '/researchers' },
+  { id: 'members',         name: 'members.md',       ext: 'md',   type: 'file',   sectionId: 'team',         pageId: 'members',     indent: 3, href: '/members' },
   { id: 'pubs',            name: 'publications.bib', ext: 'bib',  type: 'file',   sectionId: 'publications', pageId: 'publications', indent: 2, href: '/publications' },
   { id: 'events-dir',     name: 'events/',         ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 2, href: '' },
   { id: 'upcoming',       name: 'upcoming.ics',     ext: 'ics',  type: 'file',   sectionId: 'events',       pageId: 'events',       indent: 3, href: '/events' },
@@ -459,7 +468,7 @@ onMounted(async () => {
 
   currentPath.value = window.location.pathname
 
-  if (currentPage.value === 'researchers') {
+  if (currentPage.value === 'members') {
     researcherList.value = await fetch('/api/researchers.json').then(r => r.json())
   } else if (currentPage.value === 'publications') {
     const meta = await fetch('/api/publications-meta.json').then(r => r.json())

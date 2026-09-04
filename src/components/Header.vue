@@ -123,9 +123,7 @@ const mobileOpen = ref(false)
 const navItems = computed(() => [
   { id: 'about', href: '/#about', label: t.value.nav.about },
   { id: 'research', href: '/#research', label: t.value.nav.research },
-  { id: 'researchers', href: '/researchers', label: t.value.nav.researchers },
   { id: 'members', href: '/members', label: t.value.nav.members },
-  { id: 'alumni', href: '/alumni', label: t.value.nav.alumni },
   { id: 'projects', href: '/projects', label: t.value.nav.projects },
   { id: 'partners', href: '/partners', label: t.value.nav.partners },
   { id: 'books', href: '/books', label: t.value.nav.books },

@@ -18,6 +18,7 @@
     "faq": "FAQ",
     "alumni": "Alumni",
     "members": "Anggota",
+    "students": "Mahasiswa",
     "showcase": "Etalase",
     "resources": "Sumber Belajar",
     "tools": "Alat",
@@ -591,7 +592,7 @@
   "memberSubmit": {
     "addCta": "+ Tambahkan Profil Anda",
     "heading": "Tambahkan Profil Anda",
-    "description": "Kirimkan data Anda untuk direktori anggota. Data akan ditinjau oleh admin sebelum tampil secara publik.",
+    "description": "Kirimkan data Anda untuk direktori mahasiswa. Data akan ditinjau oleh admin sebelum tampil secara publik.",
     "signInPrompt": "Masuk untuk mengirimkan profil Anda.",
     "backToLogin": "Masuk di halaman login",
     "alreadyListedNote": "Sudah ditambahkan oleh admin dari kiriman sebelumnya? Hubungi kami untuk menautkan akun Anda daripada mengirim ulang.",
@@ -606,10 +607,17 @@
     "genericError": "Terjadi kesalahan. Silakan coba lagi."
   },
   "members": {
-    "heading": "Anggota Mahasiswa",
-    "description": "Anggota mahasiswa aktif Software Engineering Laboratory dan apa yang sedang mereka kerjakan.",
+    "heading": "Mahasiswa",
+    "description": "Mahasiswa aktif Software Engineering Laboratory dan apa yang sedang mereka kerjakan.",
     "navLabel": "Anggota",
-    "empty": "Belum ada anggota mahasiswa."
+    "empty": "Belum ada mahasiswa.",
+    "emptyResearchers": "Belum ada peneliti.",
+    "directoryHeading": "Anggota Lab",
+    "directoryDescription": "Peneliti, mahasiswa, dan alumni Software Engineering Laboratory. Filter berdasarkan peran untuk menjelajahi seluruh direktori.",
+    "filterAll": "Semua",
+    "filterResearchers": "Peneliti",
+    "filterStudents": "Mahasiswa",
+    "filterAlumni": "Alumni"
   },
   "memberProfile": {
     "loading": "Memuat profil...",
@@ -617,7 +625,7 @@
     "streamsLabel": "Stream Riset",
     "researchTopicsLabel": "Topik Riset",
     "careerUpdateLabel": "Pembaruan Karier Terbaru",
-    "backToMembers": "Kembali ke Anggota Mahasiswa",
+    "backToMembers": "Kembali ke Anggota",
     "backToAlumni": "Kembali ke Alumni"
   },
   "showcase": {

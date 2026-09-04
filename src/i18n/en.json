@@ -18,6 +18,7 @@
     "faq": "FAQ",
     "alumni": "Alumni",
     "members": "Members",
+    "students": "Students",
     "showcase": "Showcase",
     "resources": "Resources",
     "tools": "Tools",
@@ -591,7 +592,7 @@
   "memberSubmit": {
     "addCta": "+ Add Your Profile",
     "heading": "Add Your Profile",
-    "description": "Submit your own entry for the member directory. It will be reviewed by an admin before it appears publicly.",
+    "description": "Submit your own entry for the student directory. It will be reviewed by an admin before it appears publicly.",
     "signInPrompt": "Sign in to submit your profile.",
     "backToLogin": "Sign in on the login page",
     "alreadyListedNote": "Already added by an admin from a previous submission? Contact us to link your account instead of submitting again.",
@@ -606,10 +607,17 @@
     "genericError": "Something went wrong. Please try again."
   },
   "members": {
-    "heading": "Student Members",
-    "description": "Current student members of the Software Engineering Laboratory and what they're working on.",
+    "heading": "Students",
+    "description": "Current students of the Software Engineering Laboratory and what they're working on.",
     "navLabel": "Members",
-    "empty": "No student members yet."
+    "empty": "No students yet.",
+    "emptyResearchers": "No researchers yet.",
+    "directoryHeading": "Lab Members",
+    "directoryDescription": "Researchers, students, and alumni of the Software Engineering Laboratory. Filter by role to explore the full directory.",
+    "filterAll": "All",
+    "filterResearchers": "Researchers",
+    "filterStudents": "Students",
+    "filterAlumni": "Alumni"
   },
   "memberProfile": {
     "loading": "Loading profile...",
@@ -617,7 +625,7 @@
     "streamsLabel": "Research Streams",
     "researchTopicsLabel": "Research Topics",
     "careerUpdateLabel": "Latest Career Update",
-    "backToMembers": "Back to Student Members",
+    "backToMembers": "Back to Members",
     "backToAlumni": "Back to Alumni"
   },
   "showcase": {

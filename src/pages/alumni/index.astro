@@ -1,8 +1,13 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
-import MemberDirectoryPage from '../../components/MemberDirectoryPage.vue'
 ---
 
 <VSCodeLayout title="Alumni">
-  <MemberDirectoryPage client:load status="alumni" />
+  <meta slot="head" http-equiv="refresh" content="0; url=/members?filter=alumni" />
+  <link slot="head" rel="canonical" href="/members?filter=alumni" />
+  <div class="px-8 py-5">
+    <p class="text-neutral-500 dark:text-gray-400 text-sm">
+      Redirecting to <a class="text-accent" href="/members?filter=alumni">Members</a>...
+    </p>
+  </div>
 </VSCodeLayout>
