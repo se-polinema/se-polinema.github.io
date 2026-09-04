@@ -1,12 +1,26 @@
 <template>
   <div class="px-8 py-5">
-    <h1>{{ heading }}</h1>
-    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-4">{{ description }}</p>
+    <h1>{{ t.members.directoryHeading }}</h1>
+    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-4">{{ t.members.directoryDescription }}</p>
+
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button
+        v-for="filter in filters"
+        :key="filter.value"
+        @click="setFilter(filter.value)"
+        class="px-4 py-2 text-sm font-mono font-semibold transition-colors border"
+        :class="activeFilter === filter.value
+          ? 'bg-accent text-white border-accent'
+          : 'text-primary/60 dark:text-gray-400 border-primary/10 dark:border-gray-600 hover:text-primary dark:hover:text-gray-100'"
+      >
+        {{ filter.label }}
+      </button>
+    </div>
 
     <!-- Self-registration only exists for current students. Alumni are
          graduated members, not a separate signup (see
          20260722023755_member_graduation.sql). -->
-    <div v-if="props.status === 'student'" class="mb-8">
+    <div v-if="activeFilter === 'students' || activeFilter === 'all'" class="mb-8">
       <a
         href="/members/submit"
         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
@@ -20,90 +34,99 @@
     </div>
 
     <template v-else>
-      <div v-for="cohort in groupedByCohort" :key="cohort.year">
-        <h2 class="font-mono text-sm uppercase tracking-wider text-primary/50 dark:text-gray-400 mt-8 mb-4 border-b border-primary/10 dark:border-gray-600 pb-2">
-          {{ t.alumni.cohortLabel }} {{ cohort.year }}
-        </h2>
-
-        <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-          <article
-            v-for="member in cohort.members"
-            :key="member.id"
-            class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors"
-          >
-            <a :href="`/profile?id=${member.id}`" class="flex items-start gap-3 md:gap-4 mb-5 no-underline">
-              <div
-                v-if="member.photo"
-                class="relative h-20 w-16 md:h-24 md:w-[4.5rem] shrink-0 bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden"
-              >
-                <img
-                  :src="member.photo"
-                  :alt="member.name"
-                  class="h-full w-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-              <div
-                v-else
-                class="relative h-20 w-16 md:h-24 md:w-[4.5rem] shrink-0 bg-primary/5 dark:bg-gray-700 border border-neutral-200 dark:border-gray-600 flex items-center justify-center"
-              >
-                <span class="font-serif text-xl text-primary/30 dark:text-gray-500">{{ member.name.charAt(0) }}</span>
-              </div>
-              <div class="min-w-0">
-                <h3 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
-                  {{ member.name }}
-                </h3>
-              </div>
-            </a>
-
-            <div class="space-y-2 text-sm text-neutral-600 dark:text-gray-300">
-              <div v-if="hasCurrentInfo(member)" class="space-y-0.5">
-                <div>
-                  <span class="text-xs font-mono uppercase tracking-wide text-primary/40 dark:text-gray-500">{{ t.alumni.now }} </span>
-                  <span class="font-medium">{{ lang === 'id' ? member.current_role_id : member.current_role_en }}</span>
-                </div>
-                <div class="text-primary/40 dark:text-gray-500">
-                  {{ t.alumni.at }} <span class="font-medium text-neutral-600 dark:text-gray-300">{{ lang === 'id' ? member.current_organization_id : member.current_organization_en }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-4 mt-5">
-              <a
-                v-if="member.linkedin_url"
-                :href="member.linkedin_url"
-                target="_blank"
-                rel="noopener"
-                class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
-              >
-                LinkedIn ↗
-              </a>
-              <a
-                v-if="member.profile_url"
-                :href="member.profile_url"
-                target="_blank"
-                rel="noopener"
-                class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
-              >
-                {{ t.alumni.profile }} ↗
-              </a>
-              <a
-                v-if="member.github_url"
-                :href="member.github_url"
-                target="_blank"
-                rel="noopener"
-                class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
-              >
-                GitHub ↗
-              </a>
-            </div>
-          </article>
+      <template v-if="showResearchers">
+        <ResearchersDirectoryPage :researchers="researchers" />
+        <div v-if="researchers.length === 0" class="text-center py-12 text-neutral-500 dark:text-gray-400">
+          {{ t.members.emptyResearchers }}
         </div>
-      </div>
+      </template>
 
-      <div v-if="members.length === 0" class="text-center py-12 text-neutral-500 dark:text-gray-400">
-        {{ emptyText }}
-      </div>
+      <template v-if="showMembers">
+        <div v-for="cohort in groupedByCohort" :key="cohort.year">
+          <h2 class="font-mono text-sm uppercase tracking-wider text-primary/50 dark:text-gray-400 mt-8 mb-4 border-b border-primary/10 dark:border-gray-600 pb-2">
+            {{ t.alumni.cohortLabel }} {{ cohort.year }}
+          </h2>
+
+          <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+            <article
+              v-for="member in cohort.members"
+              :key="member.id"
+              class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors"
+            >
+              <a :href="`/profile?id=${member.id}`" class="flex items-start gap-3 md:gap-4 mb-5 no-underline">
+                <div
+                  v-if="member.photo"
+                  class="relative h-20 w-16 md:h-24 md:w-[4.5rem] shrink-0 bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden"
+                >
+                  <img
+                    :src="member.photo"
+                    :alt="member.name"
+                    class="h-full w-full object-cover object-top"
+                    loading="lazy"
+                  />
+                </div>
+                <div
+                  v-else
+                  class="relative h-20 w-16 md:h-24 md:w-[4.5rem] shrink-0 bg-primary/5 dark:bg-gray-700 border border-neutral-200 dark:border-gray-600 flex items-center justify-center"
+                >
+                  <span class="font-serif text-xl text-primary/30 dark:text-gray-500">{{ member.name.charAt(0) }}</span>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
+                    {{ member.name }}
+                  </h3>
+                </div>
+              </a>
+
+              <div class="space-y-2 text-sm text-neutral-600 dark:text-gray-300">
+                <div v-if="hasCurrentInfo(member)" class="space-y-0.5">
+                  <div>
+                    <span class="text-xs font-mono uppercase tracking-wide text-primary/40 dark:text-gray-500">{{ t.alumni.now }} </span>
+                    <span class="font-medium">{{ lang === 'id' ? member.current_role_id : member.current_role_en }}</span>
+                  </div>
+                  <div class="text-primary/40 dark:text-gray-500">
+                    {{ t.alumni.at }} <span class="font-medium text-neutral-600 dark:text-gray-300">{{ lang === 'id' ? member.current_organization_id : member.current_organization_en }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 mt-5">
+                <a
+                  v-if="member.linkedin_url"
+                  :href="member.linkedin_url"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
+                >
+                  LinkedIn ↗
+                </a>
+                <a
+                  v-if="member.profile_url"
+                  :href="member.profile_url"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
+                >
+                  {{ t.alumni.profile }} ↗
+                </a>
+                <a
+                  v-if="member.github_url"
+                  :href="member.github_url"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
+                >
+                  GitHub ↗
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div v-if="filteredMembers.length === 0" class="text-center py-12 text-neutral-500 dark:text-gray-400">
+          {{ emptyText }}
+        </div>
+      </template>
     </template>
   </div>
 </template>
@@ -111,6 +134,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import ResearchersDirectoryPage from './ResearchersDirectoryPage.vue'
 
 interface MemberRow {
   id: string
@@ -131,18 +155,47 @@ interface MemberRow {
   streams: string[] | null
 }
 
-const props = defineProps<{
-  status: 'alumni' | 'student'
+interface Researcher {
+  id: string
+  name: string
+  photo: string
+  photoPosition: string
+  title: { id: string; en: string }
+  shortBio: { id: string; en: string }
+  expertise: string[]
+  googleScholarUrl: string
+}
+
+type Filter = 'all' | 'researchers' | 'students' | 'alumni'
+
+defineProps<{
+  researchers: Researcher[]
 }>()
 
 const { lang, t } = useI18n()
 
 const members = ref<MemberRow[]>([])
 const loading = ref(true)
+const activeFilter = ref<Filter>('all')
 
-const heading = computed(() => (props.status === 'alumni' ? t.value.alumni.heading : t.value.members.heading))
-const description = computed(() => (props.status === 'alumni' ? t.value.alumni.description : t.value.members.description))
-const emptyText = computed(() => (props.status === 'alumni' ? t.value.alumni.empty : t.value.members.empty))
+const filters = computed<{ value: Filter; label: string }[]>(() => [
+  { value: 'all', label: t.value.members.filterAll },
+  { value: 'researchers', label: t.value.members.filterResearchers },
+  { value: 'students', label: t.value.members.filterStudents },
+  { value: 'alumni', label: t.value.members.filterAlumni },
+])
+
+const showResearchers = computed(() => activeFilter.value === 'all' || activeFilter.value === 'researchers')
+
+const showMembers = computed(() => activeFilter.value === 'all' || activeFilter.value === 'students' || activeFilter.value === 'alumni')
+
+const filteredMembers = computed(() => {
+  if (activeFilter.value === 'students') return members.value.filter((m) => m.status === 'student')
+  if (activeFilter.value === 'alumni') return members.value.filter((m) => m.status === 'alumni')
+  return members.value
+})
+
+const emptyText = computed(() => (activeFilter.value === 'alumni' ? t.value.alumni.empty : t.value.members.empty))
 
 function hasCurrentInfo(member: MemberRow): boolean {
   return !!(member.current_role_id || member.current_role_en)
@@ -150,7 +203,7 @@ function hasCurrentInfo(member: MemberRow): boolean {
 
 const groupedByCohort = computed(() => {
   const groups = new Map<number, MemberRow[]>()
-  for (const member of members.value) {
+  for (const member of filteredMembers.value) {
     const year = member.cohort_year
     if (!groups.has(year)) {
       groups.set(year, [])
@@ -162,13 +215,28 @@ const groupedByCohort = computed(() => {
     .map(([year, list]) => ({ year, members: list }))
 })
 
+function readFilter(): Filter {
+  const raw = new URLSearchParams(window.location.search).get('filter')
+  if (raw === 'researchers' || raw === 'students' || raw === 'alumni' || raw === 'all') return raw
+  return 'all'
+}
+
+function setFilter(filter: Filter) {
+  activeFilter.value = filter
+  const url = new URL(window.location.href)
+  if (filter === 'all') url.searchParams.delete('filter')
+  else url.searchParams.set('filter', filter)
+  window.history.replaceState(null, '', url.toString())
+}
+
 onMounted(async () => {
+  activeFilter.value = readFilter()
+
   const { supabase } = await import('../lib/supabase')
   const { data } = await supabase
     .schema('se')
     .from('members')
     .select('*')
-    .eq('status', props.status)
     .order('cohort_year', { ascending: false })
 
   members.value = data ?? []

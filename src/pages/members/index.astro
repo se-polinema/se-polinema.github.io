@@ -1,8 +1,22 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import MemberDirectoryPage from '../../components/MemberDirectoryPage.vue'
+import { getCollection } from 'astro:content'
+
+const researchers = (await getCollection('researchers'))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))
+  .map((researcher) => ({
+    id: researcher.id,
+    name: researcher.data.name,
+    photo: researcher.data.photo,
+    photoPosition: researcher.data.photoPosition,
+    title: researcher.data.title,
+    shortBio: researcher.data.shortBio,
+    expertise: researcher.data.expertise,
+    googleScholarUrl: researcher.data.googleScholarUrl,
+  }))
 ---
 
-<VSCodeLayout title="Student Members">
-  <MemberDirectoryPage client:load status="student" />
+<VSCodeLayout title="Members">
+  <MemberDirectoryPage client:load researchers={researchers} />
 </VSCodeLayout>

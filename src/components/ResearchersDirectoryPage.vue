@@ -1,9 +1,5 @@
 <template>
-  <div class="px-8 py-5">
-    <h1>{{ t.team.directoryHeading }}</h1>
-    <p class="text-neutral-500 dark:text-gray-400 text-sm mt-1 mb-8">{{ t.team.directoryDescription }}</p>
-
-    <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mt-6">
+  <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mt-6">
       <article v-for="researcher in researchers" :key="researcher.id" class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors">
         <div class="flex items-start gap-3 md:gap-4 mb-5">
           <div class="relative h-16 w-16 md:h-20 md:w-20 shrink-0 rounded-full overflow-hidden bg-neutral-100 dark:bg-gray-700 ring-1 ring-neutral-200 dark:ring-gray-600 group-hover:ring-primary/30 transition-colors">
@@ -44,7 +40,6 @@
           </a>
         </div>
       </article>
-    </div>
   </div>
 </template>
 

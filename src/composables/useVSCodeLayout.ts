@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
 
-type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'researchers' | 'publications' | 'decks' | 'achievements' | 'members'
+type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'publications' | 'decks' | 'achievements' | 'members'
 
 const sidebarOpen = ref(false)
 const activeSection = ref('hero')
@@ -47,7 +47,7 @@ export function resolveRoute(pathname: string): { page: string; view: SidebarVie
   if (pathname.startsWith('/events')) return { page: 'events', view: 'events' }
   if (pathname.startsWith('/blog')) return { page: 'blog', view: 'blog' }
   if (pathname.startsWith('/publications')) return { page: 'publications', view: 'publications' }
-  if (pathname.startsWith('/researchers')) return { page: 'researchers', view: 'researchers' }
+  if (pathname.startsWith('/researchers')) return { page: 'members', view: 'members' }
   if (pathname.startsWith('/projects')) return { page: 'projects', view: 'explorer' }
   if (pathname.startsWith('/showcase')) return { page: 'showcase', view: 'explorer' }
   if (pathname.startsWith('/books')) return { page: 'books', view: 'explorer' }
@@ -56,7 +56,7 @@ export function resolveRoute(pathname: string): { page: string; view: SidebarVie
   if (pathname.startsWith('/impact')) return { page: 'impact', view: 'explorer' }
   if (pathname.startsWith('/learning-paths')) return { page: 'learning-paths', view: 'explorer' }
   if (pathname.startsWith('/tools')) return { page: 'tools', view: 'explorer' }
-  if (pathname.startsWith('/alumni')) return { page: 'alumni', view: 'members' }
+  if (pathname.startsWith('/alumni')) return { page: 'members', view: 'members' }
   if (pathname.startsWith('/members') || pathname.startsWith('/profile')) return { page: 'members', view: 'members' }
   if (pathname.startsWith('/research/')) return { page: 'research', view: 'explorer' }
   if (pathname.startsWith('/contact')) return { page: 'contact', view: 'explorer' }
@@ -208,7 +208,6 @@ export function useVSCodeLayout(initialPath?: string) {
     explorer:     { href: '/',             page: 'home'         },
     blog:         { href: '/blog',         page: 'blog'         },
     events:       { href: '/events',       page: 'events'       },
-    researchers:  { href: '/researchers',  page: 'researchers'  },
     publications: { href: '/publications', page: 'publications' },
     decks:        { href: '/decks',        page: 'decks'        },
     achievements: { href: '/achievements', page: 'achievements' },

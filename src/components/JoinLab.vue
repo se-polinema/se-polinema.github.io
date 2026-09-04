@@ -29,7 +29,7 @@
           class="inline-flex items-center gap-2 px-6 py-3 font-mono text-[13px] font-medium text-primary transition-colors bg-accent"
         >{{ t.join.emailCta }} ↗</ObfuscatedEmail>
         <a
-          href="/researchers"
+          href="/members?filter=researchers"
           class="inline-flex items-center gap-2 px-6 py-3 font-mono text-[13px] font-medium text-primary/70 dark:text-gray-300 hover:text-primary dark:hover:text-gray-100 transition-colors border border-primary/20 dark:border-gray-500 hover:border-primary/40 dark:hover:border-gray-400 bg-white dark:bg-gray-800"
         >
           {{ t.join.browseCta }}

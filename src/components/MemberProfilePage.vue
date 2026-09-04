@@ -10,10 +10,10 @@
 
     <template v-else>
       <a
-        :href="member.status === 'alumni' ? '/alumni' : '/members'"
+        :href="member.status === 'alumni' ? '/members?filter=alumni' : '/members?filter=students'"
         class="inline-flex items-center gap-1 text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
       >
-        ← {{ member.status === 'alumni' ? t.memberProfile.backToAlumni : t.memberProfile.backToMembers }}
+        ← {{ t.memberProfile.backToMembers }}
       </a>
 
       <div class="flex items-start gap-4 md:gap-6 mb-8">

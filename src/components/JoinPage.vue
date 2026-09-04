@@ -121,7 +121,7 @@
         <div class="font-mono text-5xl text-primary/10 dark:text-gray-600 mb-4 select-none">&#123;&nbsp;&#125;</div>
         <p class="text-neutral-400 dark:text-gray-500 text-sm max-w-sm mx-auto mb-6">{{ t.join.page.empty }}</p>
         <a
-          href="/researchers"
+          href="/members?filter=researchers"
           class="inline-flex items-center gap-2 px-5 py-2 font-mono text-[12px] font-medium text-primary/70 dark:text-gray-300 hover:text-primary dark:hover:text-gray-100 transition-colors border border-primary/20 dark:border-gray-500 hover:border-primary/40 dark:hover:border-gray-400 bg-white dark:bg-gray-800"
         >
           {{ t.join.page.browseResearchers }}

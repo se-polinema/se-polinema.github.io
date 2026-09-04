@@ -244,7 +244,6 @@ const quickLinks = computed(() => [
   { href: '/faq', label: t.value.nav.faq },
   { href: '/learning-paths', label: t.value.learningPaths?.label || 'Learning Paths' },
   { href: '/members', label: t.value.nav.members },
-  { href: '/alumni', label: t.value.nav.alumni },
   { href: '/books', label: t.value.nav.books },
   { href: '/#research', label: t.value.nav.research },
   { href: '/contact', label: t.value.nav.contact },
