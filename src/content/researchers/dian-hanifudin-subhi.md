@@ -6,7 +6,7 @@ title:
 role:
   id: "Peneliti"
   en: "Researcher"
-photo: "/images/team/dian-hanifudin-subhi.jpg"
+photo: "src/assets/researchers/dian-hanifudin-subhi.jpg"
 photoPosition: "50% 22%"
 shortBio:
   id: "Peneliti dengan fokus pada sistem terdistribusi, chatbot, dan evaluasi pembelajaran pemrograman web."

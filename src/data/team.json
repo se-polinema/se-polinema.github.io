@@ -2,61 +2,79 @@
   {
     "id": "imam-fahrur-rozi",
     "name": "Imam Fahrur Rozi",
-    "role": { "en": "Researcher", "id": "Peneliti" },
+    "role": {
+      "en": "Researcher",
+      "id": "Peneliti"
+    },
     "interests": {
       "en": [],
       "id": []
     },
-    "photo": "/images/team/imam-fahrur-rozi.jpg"
+    "photo": "src/assets/researchers/imam-fahrur-rozi.jpg"
   },
   {
     "id": "ridwan-rismanto",
     "name": "Ridwan Rismanto",
-    "role": { "en": "Researcher", "id": "Peneliti" },
+    "role": {
+      "en": "Researcher",
+      "id": "Peneliti"
+    },
     "interests": {
       "en": [],
       "id": []
     },
-    "photo": "/images/team/ridwan-rismanto.jpg"
+    "photo": "src/assets/researchers/ridwan-rismanto.jpg"
   },
   {
     "id": "elok-hamdana",
     "name": "Elok Hamdana",
-    "role": { "en": "Researcher", "id": "Peneliti" },
+    "role": {
+      "en": "Researcher",
+      "id": "Peneliti"
+    },
     "interests": {
       "en": [],
       "id": []
     },
-    "photo": "/images/team/elok-nur-hamdana.jpg"
+    "photo": "src/assets/researchers/elok-nur-hamdana.jpg"
   },
   {
     "id": "dian-hanifudin-subhi",
     "name": "Dian Hanifudin Subhi",
-    "role": { "en": "Researcher", "id": "Peneliti" },
+    "role": {
+      "en": "Researcher",
+      "id": "Peneliti"
+    },
     "interests": {
       "en": [],
       "id": []
     },
-    "photo": "/images/team/dian-hanifudin-subhi.jpg"
+    "photo": "src/assets/researchers/dian-hanifudin-subhi.jpg"
   },
   {
     "id": "moch-zawaruddin-abdullah",
     "name": "Moch. Zawaruddin Abdullah",
-    "role": { "en": "Researcher", "id": "Peneliti" },
+    "role": {
+      "en": "Researcher",
+      "id": "Peneliti"
+    },
     "interests": {
       "en": [],
       "id": []
     },
-    "photo": "/images/team/moch-zawaruddin-abdullah.jpg"
+    "photo": "src/assets/researchers/moch-zawaruddin-abdullah.jpg"
   },
   {
     "id": "ariadi-retno-tri-hayati-ririd",
     "name": "Ariadi Retno Tri Hayati Ririd",
-    "role": { "en": "Researcher", "id": "Peneliti" },
+    "role": {
+      "en": "Researcher",
+      "id": "Peneliti"
+    },
     "interests": {
       "en": [],
       "id": []
     },
-    "photo": "/images/team/ariadi-retno-tri-hayati-ririd.jpg"
+    "photo": "src/assets/researchers/ariadi-retno-tri-hayati-ririd.jpg"
   }
 ]

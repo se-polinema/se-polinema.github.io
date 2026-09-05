@@ -62,7 +62,10 @@
                     :src="member.photo"
                     :alt="member.name"
                     class="h-full w-full object-cover object-top"
+                    width="72"
+                    height="96"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div

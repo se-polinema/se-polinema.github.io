@@ -4,6 +4,7 @@ import JsonLd from '../../components/JsonLd.astro'
 import { getCollection } from 'astro:content'
 import researchData from '../../data/research.json'
 import resourcesData from '../../data/resources.json'
+import { getResearcherAvatar, type ResearcherImage } from '../../lib/researcherImage'
 import { withBase } from '../../lib/paths'
 
 export function getStaticPaths() {
@@ -26,6 +27,11 @@ const allResearchers = await getCollection('researchers')
 const streamResearchers = allResearchers
   .filter((r) => r.data.streams?.includes(stream.id))
   .sort((a, b) => a.data.name.localeCompare(b.data.name))
+
+const streamResearcherImages = new Map<string, ResearcherImage | null>()
+for (const r of streamResearchers) {
+  streamResearcherImages.set(r.id, await getResearcherAvatar(r.id))
+}
 
 const researcherIds = streamResearchers.map((r) => r.id)
 
@@ -192,10 +198,16 @@ const researchProjectJsonLd = {
             <a href={withBase(`/researchers/${r.id}`)} class="stream-hub-researcher-card">
               <div class="flex items-start gap-4">
                 <img
-                  src={withBase(r.data.photo)}
+                  src={streamResearcherImages.get(r.id)?.src ?? withBase(r.data.photo)}
+                  srcset={streamResearcherImages.get(r.id)?.srcset}
+                  sizes={streamResearcherImages.get(r.id)?.sizes}
+                  width={streamResearcherImages.get(r.id)?.width}
+                  height={streamResearcherImages.get(r.id)?.height}
                   alt={r.data.name}
                   class="w-14 h-14 rounded-full object-cover shrink-0 border-2 border-white dark:border-gray-700 shadow-sm"
                   style={r.data.photoPosition ? { objectPosition: r.data.photoPosition } : undefined}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div class="min-w-0">
                   <h3 class="font-serif text-base font-semibold text-primary dark:text-gray-100 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors leading-snug">

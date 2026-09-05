@@ -6,7 +6,7 @@ title:
 role:
   id: "Peneliti"
   en: "Researcher"
-photo: "/images/team/imam-fahrur-rozi.jpg"
+photo: "src/assets/researchers/imam-fahrur-rozi.jpg"
 photoPosition: "50% 18%"
 shortBio:
   id: "Peneliti yang berfokus pada analisis sentimen, pemrosesan bahasa alami, dan sistem rekomendasi lintas domain."

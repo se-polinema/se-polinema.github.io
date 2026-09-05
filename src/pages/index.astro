@@ -19,6 +19,7 @@ import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import achievementsData from '../data/achievements.json'
 import type { Achievement } from '../types/achievement'
+import { getResearcherAvatar, toOptimizedImageProps } from '../lib/researcherImage'
 
 const labStats = await getLabStats()
 
@@ -36,19 +37,22 @@ const sortedPosts = posts
     excerptId: post.data.excerptId,
   }))
 
-const featuredResearchers = (await getCollection('researchers'))
-  .sort((a, b) => a.data.name.localeCompare(b.data.name))
-  .filter((researcher) => researcher.data.featured)
-  .slice(0, 6)
-  .map((researcher) => ({
-    id: researcher.id,
-    name: researcher.data.name,
-    photo: researcher.data.photo,
-    photoPosition: researcher.data.photoPosition,
-    title: researcher.data.title,
-    shortBio: researcher.data.shortBio,
-    expertise: researcher.data.expertise,
-  }))
+const featuredResearchers = await Promise.all(
+  (await getCollection('researchers'))
+    .sort((a, b) => a.data.name.localeCompare(b.data.name))
+    .filter((researcher) => researcher.data.featured)
+    .slice(0, 6)
+    .map(async (researcher) => ({
+      id: researcher.id,
+      name: researcher.data.name,
+      photo: researcher.data.photo,
+      photoPosition: researcher.data.photoPosition,
+      image: toOptimizedImageProps(await getResearcherAvatar(researcher.id)),
+      title: researcher.data.title,
+      shortBio: researcher.data.shortBio,
+      expertise: researcher.data.expertise,
+    })),
+)
 
 const featuredPublications = (await getCollection('publications'))
   .sort((a, b) => b.data.year - a.data.year)

@@ -6,7 +6,7 @@ title:
 role:
   id: "Peneliti"
   en: "Researcher"
-photo: "/images/team/moch-zawaruddin-abdullah.jpg"
+photo: "src/assets/researchers/moch-zawaruddin-abdullah.jpg"
 photoPosition: "50% 18%"
 shortBio:
   id: "Peneliti di area NLP, machine learning, sistem informasi berbasis web, dan infrastruktur publikasi ilmiah."

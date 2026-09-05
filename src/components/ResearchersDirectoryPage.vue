@@ -4,11 +4,16 @@
         <div class="flex items-start gap-3 md:gap-4 mb-5">
           <div class="relative h-16 w-16 md:h-20 md:w-20 shrink-0 rounded-full overflow-hidden bg-neutral-100 dark:bg-gray-700 ring-1 ring-neutral-200 dark:ring-gray-600 group-hover:ring-primary/30 transition-colors">
             <img
-              :src="withBase(researcher.photo)"
+              :src="researcher.image?.src ?? withBase(researcher.photo)"
+              :srcset="researcher.image?.srcset"
+              :sizes="researcher.image?.sizes"
+              :width="researcher.image?.width"
+              :height="researcher.image?.height"
               :alt="researcher.name"
               class="h-full w-full object-cover"
               :style="{ objectPosition: researcher.photoPosition }"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="min-w-0">
@@ -53,6 +58,13 @@ defineProps<{
     name: string
     photo: string
     photoPosition: string
+    image: {
+      src: string
+      srcset: string
+      sizes: string
+      width: number
+      height: number
+    } | null
     title: { id: string; en: string }
     shortBio: { id: string; en: string }
     expertise: string[]

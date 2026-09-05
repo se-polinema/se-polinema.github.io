@@ -5,6 +5,7 @@ import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import ProjectGallery from '../../components/ProjectGallery.vue'
 import { getCollection, render } from 'astro:content'
 import researchData from '../../data/research.json'
+import { getResearcherAvatar, type ResearcherImage } from '../../lib/researcherImage'
 import { withBase } from '../../lib/paths'
 
 export async function getStaticPaths() {
@@ -23,6 +24,11 @@ const allResearchers = await getCollection('researchers')
 const teamResearchers = allResearchers
   .filter((r) => researchers.includes(r.id))
   .sort((a, b) => a.data.name.localeCompare(b.data.name))
+
+const teamResearcherImages = new Map<string, ResearcherImage | null>()
+for (const r of teamResearchers) {
+  teamResearcherImages.set(r.id, await getResearcherAvatar(r.id))
+}
 
 const streamData = stream ? researchData.find((s: { id: string }) => s.id === stream) : null
 const streamName = streamData
@@ -275,10 +281,16 @@ const statusColor = {
                   {teamResearchers.map((r) => (
                     <a href={withBase(`/researchers/${r.id}`)} class="group flex items-center gap-2" title={r.data.name}>
                       <img
-                        src={withBase(r.data.photo)}
+                        src={teamResearcherImages.get(r.id)?.src ?? withBase(r.data.photo)}
+                        srcset={teamResearcherImages.get(r.id)?.srcset}
+                        sizes={teamResearcherImages.get(r.id)?.sizes}
+                        width={teamResearcherImages.get(r.id)?.width}
+                        height={teamResearcherImages.get(r.id)?.height}
                         alt={r.data.name}
                         class="w-8 h-8 rounded-full object-cover border border-primary/10 dark:border-gray-600 shrink-0"
                         style={r.data.photoPosition ? { objectPosition: r.data.photoPosition } : undefined}
+                        loading="lazy"
+                        decoding="async"
                       />
                       <span class="text-xs text-neutral-500 dark:text-gray-400 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors truncate max-w-[140px]">{r.data.name}</span>
                     </a>
@@ -345,10 +357,16 @@ const statusColor = {
               <a href={withBase(`/researchers/${r.id}`)} class="stream-hub-researcher-card">
                 <div class="flex items-start gap-4">
                   <img
-                    src={withBase(r.data.photo)}
+                    src={teamResearcherImages.get(r.id)?.src ?? withBase(r.data.photo)}
+                    srcset={teamResearcherImages.get(r.id)?.srcset}
+                    sizes={teamResearcherImages.get(r.id)?.sizes}
+                    width={teamResearcherImages.get(r.id)?.width}
+                    height={teamResearcherImages.get(r.id)?.height}
                     alt={r.data.name}
                     class="w-14 h-14 rounded-full object-cover shrink-0 border-2 border-white dark:border-gray-700 shadow-sm"
                     style={r.data.photoPosition ? { objectPosition: r.data.photoPosition } : undefined}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div class="min-w-0">
                     <h3 class="font-serif text-base font-semibold text-primary dark:text-gray-100 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors leading-snug">

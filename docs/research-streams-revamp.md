@@ -122,78 +122,131 @@ migration.
 
 **Structure.** Move from a flat `topics: string[]` per stream to two tiers:
 each Area has a set of evidence-based **Topics**, and researchers are tagged
-by specific topic (rolling up to areas) instead of by area alone. This is
-what fixes the "everyone has the same two badges" problem: topic-level
-tagging differentiates researchers who share an area (e.g., Elok and Imam
-both touch AI-Driven Text Intelligence, but Elok's topics lean
-decision-support and Imam's lean text/document processing).
+by specific topic (rolling up to areas) instead of by area alone. Topic-level
+tagging differentiates researchers who share an area rather than repeating
+the same one or two badges across the whole team.
 
-### Area 1: AI-Driven Text & Data Intelligence
+### Revision note: leading with Software Engineering, not with technique
 
-Tagline: Natural language processing, sentiment analysis, and predictive
-modeling applied to real-world Indonesian-language and institutional data.
+An earlier draft of this structure organized areas around AI/data-science
+techniques first (an "AI-Driven Text & Data Intelligence" area, an
+"Intelligent Decision & Recommendation Systems" area). That undersold the
+lab's identity as a Software Engineering lab: the areas read like a data
+science group's portfolio rather than an SE group's.
 
-Topics: Sentiment Analysis & Opinion Mining, NLP & Text Processing (OCR,
-summarization, typo correction), Conversational AI & Chatbots, Predictive
-Modeling & Forecasting.
+This revision reorganizes the same evidence around Software Engineering
+knowledge areas instead, following the structure used by Universitas
+Brawijaya FILKOM's RPL (Software Engineering) Laboratory
+(https://filkom.ub.ac.id/lab-rpl/penelitian-dan-publikasi/), which groups
+research by SE process, quality, architecture, and a standalone Software
+Engineering Education category rather than by application domain or AI
+method. The flagship area is now process/architecture/quality, and the
+lab's dominant AI/NLP publication cluster is reframed as **engineering** of
+AI-based software systems (SE4AI: system architecture, data pipelines, and
+evaluation methodology for ML-driven applications) rather than as AI
+research for its own sake. No new research was done for this revision; every
+researcher and publication below is the same one already documented in the
+per-researcher dossiers above.
 
-Researchers: Imam Fahrur Rozi (Sentiment Analysis, NLP & Text Processing),
-Elok Nur Hamdana (Sentiment Analysis), Moch. Zawaruddin Abdullah (NLP & Text
-Processing, Predictive Modeling), Dian Hanifudin Subhi (Sentiment Analysis,
-Conversational AI), Ariadi Retno Tri Hayati Ririd (Predictive Modeling,
-Sentiment Analysis).
+Two categories from the UB FILKOM reference are deliberately **not**
+adopted: Service-Oriented Computing and Embedded/Real-Time Software Systems.
+Neither has any publication backing anywhere in the 80-entry corpus, and
+importing them would reintroduce the exact problem this revamp exists to
+fix (aspirational categories with zero researchers behind them).
 
-### Area 2: Intelligent Decision & Recommendation Systems
+### Area 1: Software Engineering Process, Architecture & Quality (flagship)
 
-Tagline: Multi-criteria decision methods and recommender systems built for
-academic and institutional decision-making.
+Tagline: Architecture, testing, process methodology, and AI-assisted
+automation for building and assessing software systems.
 
-Topics: Multi-Criteria Decision Support (AHP, WASPAS, ELECTRE, MOORA,
-PROMETHEE), Recommender Systems, Academic & Learning Recommendation.
+Topics: Software Architecture & Distributed Systems, Software Testing &
+Quality Assurance, Software Process & Methodology, AI-Assisted SE
+Automation.
 
-Researchers: Elok Nur Hamdana (Multi-Criteria Decision Support), Ridwan
-Rismanto (Academic & Learning Recommendation), Moch. Zawaruddin Abdullah
-(Recommender Systems, via SIM-TA's supervisor-matching engine), Ariadi Retno
-Tri Hayati Ririd (Multi-Criteria Decision Support).
+Researchers: Dian Hanifudin Subhi (Software Architecture & Distributed
+Systems, via Clean Architecture and distributed publish-subscribe work;
+AI-Assisted SE Automation, via the LAIBA automated web-programming
+assessment platform and GNN-based flowchart grading), Elok Nur Hamdana
+(Software Testing & Quality Assurance, via JMeter performance testing;
+Software Process & Methodology, via her Extreme Programming case study),
+Ariadi Retno Tri Hayati Ririd (Software Testing & Quality Assurance, via her
+2009 ISO 9126 software-quality-model paper, the lab's earliest and only
+direct quality-model work).
 
-### Area 3: Software Engineering Practice, Quality & Automation
+### Area 2: Requirements & Decision-Support Systems Engineering
 
-Tagline: Architecture, testing, and AI-assisted automation for building and
-assessing software systems.
+Tagline: Software that operationalizes institutional decision-making and
+requirements analysis through decision-support and recommendation logic.
 
-Topics: Software Architecture & Distributed Systems, Software Quality &
-Usability Testing, AI-Assisted Assessment & Automation (AI4SE).
+Topics: Multi-Criteria Decision Support Engineering (AHP, WASPAS, ELECTRE,
+MOORA, PROMETHEE), Recommender Systems Engineering, Requirements-Driven
+Institutional Software.
 
-Researchers: Dian Hanifudin Subhi (all three topics; strongest fit in the
-lab), Elok Nur Hamdana (Software Quality & Usability Testing, via JMeter
-testing and the Extreme Programming case study), Ariadi Retno Tri Hayati
-Ririd (Software Quality & Usability Testing, historical ISO 9126 paper).
+Researchers: Elok Nur Hamdana (Multi-Criteria Decision Support Engineering,
+her most prolific line of work), Ridwan Rismanto (Requirements-Driven
+Institutional Software, via his academic-supervisor recommendation system),
+Moch. Zawaruddin Abdullah (Recommender Systems Engineering, via SIM-TA's
+supervisor-matching engine), Ariadi Retno Tri Hayati Ririd (Multi-Criteria
+Decision Support Engineering).
 
-### Area 4: Domain-Specific & Educational Software Systems
+### Area 3: Engineering of AI-Based & Intelligent Software Systems
 
-Tagline: Purpose-built systems for education, scholarly infrastructure, and
-community/public-sector use.
+Tagline: System architecture, data pipelines, and evaluation methodology for
+software that embeds NLP, conversational, and predictive AI components.
 
-Topics: Educational Technology & Learning Analytics, Scholarly & Academic
-Information Systems, Community & Public-Sector Software, Computer Vision &
-Domain-Specific Applications.
+Topics: NLP & Text-Processing Systems (sentiment analysis, OCR, document
+processing, summarization), Conversational AI Systems (chatbots),
+Predictive & Forecasting Software.
 
-Researchers: Ridwan Rismanto (Educational Technology & Learning Analytics),
-Moch. Zawaruddin Abdullah (Scholarly & Academic Information Systems, via
-SIM-TA and the OJS metadata plugin), Elok Nur Hamdana (Community &
-Public-Sector Software), Ariadi Retno Tri Hayati Ririd (Computer Vision &
-Domain-Specific Applications, plus UMKM web systems).
+Researchers: Imam Fahrur Rozi (NLP & Text-Processing Systems, via sentiment
+analysis, fake-news detection, and OCR/document analysis), Moch. Zawaruddin
+Abdullah (NLP & Text-Processing Systems, via multi-document summarization;
+Predictive & Forecasting Software, via ML-based stock-market prediction),
+Dian Hanifudin Subhi (Conversational AI Systems, via his chatbot-based
+server-monitoring system), Ariadi Retno Tri Hayati Ririd (Predictive &
+Forecasting Software, via Holt-Winters car-sales forecasting).
+
+### Area 4: Software Engineering Education & Learning Technology
+
+Tagline: Tools, evaluation methods, and teaching materials for software
+engineering and programming education.
+
+Topics: Automated Programming Assessment, Concept-Mapping & Learning
+Evaluation Tools, CS/Programming Education Materials.
+
+Researchers: Dian Hanifudin Subhi (Automated Programming Assessment, via
+LAIBA and GNN-based flowchart grading, both used in his own teaching),
+Ridwan Rismanto (Concept-Mapping & Learning Evaluation Tools, his strongest
+and most sustained research line, via a multi-year collaboration with
+Hiroshima University on kit-build concept mapping), Imam Fahrur Rozi
+(CS/Programming Education Materials, via four published textbooks on data
+structures, algorithms, and Java programming).
+
+### Area 5: Software Engineering for Community & Institutional Systems
+
+Tagline: Applied software delivery for scholarly infrastructure,
+public-sector, and community organizations.
+
+Topics: Scholarly & Academic Infrastructure, Community & Public-Sector
+Software, Computer Vision & Domain-Specific Applications.
+
+Researchers: Moch. Zawaruddin Abdullah (Scholarly & Academic Infrastructure,
+via SIM-TA's thesis-management system and the Open Journal System metadata
+extractor plugin), Elok Nur Hamdana (Community & Public-Sector Software, via
+her applied delivery work for institutional and community systems), Ariadi
+Retno Tri Hayati Ririd (Computer Vision & Domain-Specific Applications, via
+micro-expression facial detection, game AI, and UMKM web systems).
 
 ### Researcher-to-topic mapping table
 
-| Researcher | Area 1 | Area 2 | Area 3 | Area 4 |
-|---|---|---|---|---|
-| Imam Fahrur Rozi | Sentiment Analysis; NLP & Text Processing | | | |
-| Ridwan Rismanto | | Academic & Learning Recommendation | | Educational Technology & Learning Analytics |
-| Elok Nur Hamdana | Sentiment Analysis | Multi-Criteria Decision Support | Software Quality & Usability Testing | Community & Public-Sector Software |
-| Dian Hanifudin Subhi | Sentiment Analysis; Conversational AI | | Software Architecture & Distributed Systems; Software Quality & Usability Testing; AI-Assisted Assessment & Automation | |
-| Moch. Zawaruddin Abdullah | NLP & Text Processing; Predictive Modeling | Recommender Systems | | Scholarly & Academic Information Systems |
-| Ariadi Retno Tri Hayati Ririd | Predictive Modeling; Sentiment Analysis | Multi-Criteria Decision Support | Software Quality & Usability Testing | Computer Vision & Domain-Specific Applications |
+| Researcher | Area 1: Process, Architecture & Quality | Area 2: Requirements & Decision-Support | Area 3: AI-Based Software Systems | Area 4: SE Education | Area 5: Community & Institutional Systems |
+|---|---|---|---|---|---|
+| Imam Fahrur Rozi | | | NLP & Text-Processing Systems | CS/Programming Education Materials | |
+| Ridwan Rismanto | | Requirements-Driven Institutional Software | | Concept-Mapping & Learning Evaluation Tools | |
+| Elok Nur Hamdana | Software Testing & Quality Assurance; Software Process & Methodology | Multi-Criteria Decision Support Engineering | | | Community & Public-Sector Software |
+| Dian Hanifudin Subhi | Software Architecture & Distributed Systems; AI-Assisted SE Automation | | Conversational AI Systems | Automated Programming Assessment | |
+| Moch. Zawaruddin Abdullah | | Recommender Systems Engineering | NLP & Text-Processing Systems; Predictive & Forecasting Software | | Scholarly & Academic Infrastructure |
+| Ariadi Retno Tri Hayati Ririd | Software Testing & Quality Assurance | Multi-Criteria Decision Support Engineering | Predictive & Forecasting Software | | Computer Vision & Domain-Specific Applications |
 
 ## Gap analysis vs. the current 3-stream model
 
@@ -207,20 +260,26 @@ Domain-Specific Applications, plus UMKM web systems).
   unbacked. The one topic with real evidence, AI-assisted test/assessment
   generation, is backed by exactly one researcher's 2025-2026 work (Dian's
   LAIBA and flowchart-GNN papers) and deserves to be named precisely
-  (AI-Assisted Assessment & Automation) rather than left as a generic
-  aspirational label.
+  (AI-Assisted SE Automation) rather than left as a generic aspirational
+  label.
 - `domain-specific-se-applications`'s topics (Fintech, Healthcare Software,
   Startup Tools, Industrial Automation) do not match the lab's actual domain
   work, which is concentrated in education, scholarly/academic
   infrastructure, and community/public-sector systems instead.
-- The dominant real cluster, applied AI/NLP (sentiment analysis, NLP, ML
-  forecasting), touching five of six researchers, had no dedicated stream at
-  all under the old model; it was scattered across `domain-specific-se-applications`
-  and `emerging-technologies-se` by default.
+- A first attempt at fixing the above (the earlier 4-area draft) overcorrected
+  in the other direction: it led with AI/data-science technique labels
+  ("AI-Driven Text & Data Intelligence", "Intelligent Decision &
+  Recommendation Systems"), which is accurate to the publication record but
+  reads as a data science group's structure, not a Software Engineering
+  lab's. The 5-area structure above keeps the same evidence but puts SE
+  process, architecture, and quality first, reframes the AI/NLP cluster as
+  software-engineering-of-AI-systems rather than AI research, and gives
+  software engineering education its own visible area, matching how peer SE
+  labs (e.g. UB FILKOM's RPL lab) present their research identity.
 
 ## Recommended follow-up (not done in this pass)
 
-1. Replace the contents of `src/data/research.json` with the four areas
+1. Replace the contents of `src/data/research.json` with the five areas
    above (id, `name: {en, id}`, `tagline: {en, id}`, and a `topics` array
    per area).
 2. Add a `topics: string[]` field to each researcher's `streams` entry (or a
@@ -234,8 +293,89 @@ Domain-Specific Applications, plus UMKM web systems).
    `Sidebar.vue`, `TabBar.vue`), without renaming the underlying `streams`
    identifiers or routes.
 5. Add a `/research` index page (only `/research/[streamId]` exists today)
-   that lists all four areas with tagline, topic chips, and linked
+   that lists all five areas with tagline, topic chips, and linked
    researchers, giving the areas a landing page they currently lack.
 6. Re-run `src/lib/labStats.ts` and any stream-derived counts once the new
    topics are in place, since per-topic tagging will change how researchers
    are counted per area.
+
+## Trends & Future Directions
+
+Beyond describing where the lab's research already sits, it is worth naming
+where it could grow next. The two tiers below are deliberately kept apart:
+the first only names directions the portfolio is already moving toward
+(citing a specific publication sequence as evidence), the second names
+directions that fit current field momentum but have no publication behind
+them yet in this lab. Collapsing that distinction is exactly the mistake the
+first draft of this revamp made by presenting unbacked categories as if they
+were real specializations, so this section is explicit about which is which.
+
+### Evidenced trajectories: already in motion
+
+**Area 1 -> Automated Software Engineering (AI4SE).** Dian Hanifudin Subhi's
+two most recent papers form an accelerating, two-year research program
+rather than two unrelated projects: "Evaluasi Penilaian Otomatis Pemrograman
+Web Laravel pada Platform LAIBA" (2025) built an automated grading platform
+for a web-programming course, and "Semantic Automated Assessment Of Student
+Flowcharts Via Graph Neural Networks And Symbolic Execution" (2026) applied a
+materially more sophisticated technique (GNN plus symbolic execution) to the
+same problem class. That trajectory now lines up closely with where the
+field is moving: AI4SE has grown into a named, tracked research program (the
+JetBrains 2025 AI4SE retrospective), a dedicated LLM4SE workshop runs at
+STAF 2026, and ICSE 2026 is running its first AI-SQE workshop specifically
+on using AI/LLMs as evaluators of software artifacts ("judgment, metrics,
+benchmarks"), which is close to a direct description of what LAIBA and the
+GNN-flowchart work already do. This is the strongest candidate for
+eventually becoming a named flagship direction in its own right, the same
+way Software Engineering Education was promoted out of a topic into its own
+area in the prior revision once the evidence justified it.
+
+**Area 4 -> LLM-based automated feedback for SE education.** Ridwan
+Rismanto's multi-year concept-mapping evaluation research (with Hiroshima
+University) and Dian's automated assessment tooling are both, at their core,
+learning-evaluation systems. The 2026 literature on SE education is
+converging on pairing automated evaluation with generative feedback rather
+than a bare pass/fail signal: work on autonomous LLM-generated feedback for
+introductory SE course exercises, LLM-based automated grading in programming
+education, and ACM's own framing that SE education must adapt for an
+LLM-saturated environment. Extending LAIBA or a concept-mapping tool with
+generated, explanatory feedback would be a believable near-term step, not a
+speculative leap.
+
+### Aspirational directions: plausible, not yet backed
+
+**Area 3 -> MLOps / engineering discipline for the lab's AI-based systems.**
+Imam's, Zawaruddin's, and Ariadi's NLP and forecasting work (sentiment
+analysis, summarization, stock-market prediction) is built on classical ML
+methods (Naive Bayes, SVM) evaluated as one-off research results. The
+field's 2025-2026 center of gravity for ML-based software has moved toward
+operational maturity: versioning, drift monitoring, reproducibility, and
+governance of AI-assisted software evolution (an emerging sub-field, AI4RSE,
+names this concern directly for research-software contexts, which fits this
+lab's academic setting). No publication in the corpus currently addresses
+deployment, monitoring, or maintenance of these models, so this is a
+plausible next step given field direction, not a trend the lab is already
+riding.
+
+**Area 2 -> AI-augmented or explainable decision support.** The MCDM
+publication record (AHP, WASPAS, ELECTRE, MOORA, PROMETHEE) is
+methodologically classical and has shown no movement toward LLM-augmented
+requirements elicitation or explainable decision support in any of the
+dated publications reviewed. Worth naming as a stretch goal if the team
+wants to modernize this line, but it should not be presented as an emerging
+trend already underway.
+
+**Area 5 has no clear trend vector.** Scholarly infrastructure and
+community/public-sector delivery work (SIM-TA, the OJS plugin, UMKM systems)
+reads as a steady applied-delivery area rather than one with a visible
+research-trend arc; there is no obvious "what's next" to name here beyond
+continuing to build and publish on deployed systems as they mature.
+
+Sources for the field-trend claims above:
+- [The Impact and Achievements of AI4SE in 2025 (JetBrains)](https://blog.jetbrains.com/research/2026/03/ai4se-in-2025/)
+- [LLM4SE 2026, STAF 2026](https://conf.researchr.org/home/staf-2026/llm4se-2026)
+- [AI-SQE 2026, ICSE 2026](https://conf.researchr.org/home/icse-2026/ai-sqe-2026)
+- [Advancing research software engineering with AI: a research framework, Automated Software Engineering (Springer)](https://link.springer.com/article/10.1007/s10515-026-00621-0)
+- [Autonomous LLM-generated Feedback for Student Exercises in Introductory Software Engineering Courses](https://arxiv.org/pdf/2604.20803)
+- [A comparative analytical study of LLM-based automated grading in programming education (ScienceDirect)](https://www.sciencedirect.com/science/article/pii/S2590291126007096)
+- [Software Engineering Education Must Adapt and Evolve for an LLM Environment (ACM)](https://dl.acm.org/doi/10.1145/3626252.3630927)

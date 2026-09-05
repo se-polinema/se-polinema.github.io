@@ -6,7 +6,7 @@ title:
 role:
   id: "Peneliti"
   en: "Researcher"
-photo: "/images/team/elok-nur-hamdana.jpg"
+photo: "src/assets/researchers/elok-nur-hamdana.jpg"
 photoPosition: "50% 22%"
 shortBio:
   id: "Peneliti yang bergerak pada sistem pendukung keputusan, analisis sentimen, dan rekayasa perangkat lunak terapan."

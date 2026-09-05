@@ -2,19 +2,23 @@
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
 import MemberDirectoryPage from '../../components/MemberDirectoryPage.vue'
 import { getCollection } from 'astro:content'
+import { getResearcherAvatar, toOptimizedImageProps } from '../../lib/researcherImage'
 
-const researchers = (await getCollection('researchers'))
-  .sort((a, b) => a.data.name.localeCompare(b.data.name))
-  .map((researcher) => ({
-    id: researcher.id,
-    name: researcher.data.name,
-    photo: researcher.data.photo,
-    photoPosition: researcher.data.photoPosition,
-    title: researcher.data.title,
-    shortBio: researcher.data.shortBio,
-    expertise: researcher.data.expertise,
-    googleScholarUrl: researcher.data.googleScholarUrl,
-  }))
+const researchers = await Promise.all(
+  (await getCollection('researchers'))
+    .sort((a, b) => a.data.name.localeCompare(b.data.name))
+    .map(async (researcher) => ({
+      id: researcher.id,
+      name: researcher.data.name,
+      photo: researcher.data.photo,
+      photoPosition: researcher.data.photoPosition,
+      image: toOptimizedImageProps(await getResearcherAvatar(researcher.id)),
+      title: researcher.data.title,
+      shortBio: researcher.data.shortBio,
+      expertise: researcher.data.expertise,
+      googleScholarUrl: researcher.data.googleScholarUrl,
+    })),
+)
 ---
 
 <VSCodeLayout title="Members">

@@ -6,7 +6,7 @@ title:
 role:
   id: "Peneliti"
   en: "Researcher"
-photo: "/images/team/ariadi-retno-tri-hayati-ririd.jpg"
+photo: "src/assets/researchers/ariadi-retno-tri-hayati-ririd.jpg"
 photoPosition: "50% 14%"
 shortBio:
   id: "Peneliti yang berfokus pada machine learning, computer vision, forecasting, dan game AI."
