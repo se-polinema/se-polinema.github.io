@@ -255,14 +255,30 @@ jobs:
           file relationships, and consult graphify-out/graph.json when you need
           exact dependency edges. If these files are absent, proceed without them.
 
+          Release flow: /build implements this on a branch from main and opens
+          a pull request into develop, which deploys the change to beta
+          (https://se.polinema.ac.id/beta/) for validation. Promotion to
+          production (main) is a separate, manually opened pull request after
+          beta validation, not part of this automation. The validation section
+          of the plan should mention checking the beta URL.
+
+          Base-path convention: this repo serves production at / and beta at
+          /beta/ from the same codebase. Never hardcode a root-absolute path
+          (href=\"/members\", fetch('/api/...'), string-concatenated paths).
+          Use withBase()/stripBase() from src/lib/paths.ts instead, per
+          AGENTS.md's \"Deployment & Base-Path Convention\" section. If the plan
+          touches any href, src, or fetch URL, call this out explicitly.
+
           Reply in issue #${ISSUE_NUMBER} with a comment that:
           1. Begins with exactly this HTML comment on its own line: <!-- opencode-plan -->
           2. Summarises the request in 2-3 sentences.
           3. Lists the concrete implementation steps and files to change.
-          4. Describes how to validate, including npm run build.
+          4. Describes how to validate, including npm run build and checking
+             the change on the beta URL after /build merges into develop.
           5. For UI changes, ends with a machine-readable line:
                Screenshot routes: /route1, /route2
              (For non-UI issues use: Screenshot routes: /)
+             Routes are base-free; the build job's local preview runs at base /.
           6. Notes any assumptions or open questions.
 
           Rules:
@@ -501,8 +517,12 @@ jobs:
           MODEL: ${{ vars.OPENCODE_BUILD_MODEL || 'opencode-go/deepseek-v4-pro' }}
 
       # Verify the build passes BEFORE committing/pushing: no broken-build PRs.
+      # Checks both deploy targets: production build (base "/") and the beta
+      # build (base "/beta/", what this PR's merge target actually deploys).
       - name: Verify build
-        run: npm run build
+        run: |
+          npm run build
+          BASE_PATH=/beta/ npx astro build
 
       # Commit whatever OpenCode changed, push, and ensure one PR exists.
       - name: Commit, push, and ensure PR
@@ -514,22 +534,24 @@ jobs:
             echo "No file changes produced by OpenCode"
           else
             TITLE=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE_NUMBER}" --jq '.title')
-            git commit -m "${TITLE} (closes #${ISSUE_NUMBER})"
+            git commit -m "${TITLE} (implements #${ISSUE_NUMBER})"
           fi
           # --force-with-lease is correct post-rebase; guards concurrent pushes
           git push --force-with-lease -u origin "${BRANCH}"
-          # Find open PR for this branch, or create one
+          # Find open PR for this branch, or create one. Targets develop (beta)
+          # first; promotion to main is a separate, manual PR after beta
+          # validation, matching the repo's release flow (see README.md).
           NUM=$(gh pr list \
-                  --head "${BRANCH}" --base main --state open \
+                  --head "${BRANCH}" --base develop --state open \
                   --repo "${GITHUB_REPOSITORY}" \
                   --json number --jq '.[0].number // empty' 2>/dev/null)
           if [ -z "$NUM" ]; then
             TITLE=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE_NUMBER}" --jq '.title')
             PR_URL=$(gh pr create \
               --head "${BRANCH}" \
-              --base main \
+              --base develop \
               --title "${TITLE}" \
-              --body "Closes #${ISSUE_NUMBER}" \
+              --body "Implements #${ISSUE_NUMBER}. Merging deploys this change to beta (https://se.polinema.ac.id/beta/). After beta validation, open a PR from \`${BRANCH}\` into \`main\` to ship it to production; that PR should close #${ISSUE_NUMBER}." \
               --repo "${GITHUB_REPOSITORY}")
             NUM=$(echo "$PR_URL" | grep -oE '[0-9]+$')
           fi
@@ -618,7 +640,7 @@ jobs:
               return '**`' + r + '`**\n![' + r + '](' + url + ')'
             }).join('\n\n')
             const marker = '<!-- opencode-issue-summary -->'
-            const summary = marker + '\n## OpenCode Automation\n- Approved by: @' + context.actor + '\n- Issue: #' + issueNum + '\n- Build: `npm run build` passed\n- Screenshot artifacts: [View `' + artifactName + '`](' + runUrl + ')\n\n### Screenshots\n' + screenshotLines
+            const summary = marker + '\n## OpenCode Automation\n- Approved by: @' + context.actor + '\n- Issue: #' + issueNum + '\n- Build: `npm run build` passed (production and beta base paths)\n- Screenshot artifacts: [View `' + artifactName + '`](' + runUrl + ')\n- Deployment: merging this PR ships to beta (https://se.polinema.ac.id/beta/); promotion to production requires a separate, manually opened PR into `main`\n\n### Screenshots\n' + screenshotLines
             const body = pr.body && pr.body.includes(marker)
               ? pr.body.replace(new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s\\S]*$'), summary)
               : ((pr.body || '') + '\n\n' + summary).trim()
