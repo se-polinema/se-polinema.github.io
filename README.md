@@ -32,14 +32,15 @@ If you override the workflow variables, use model IDs returned by `https://openc
 Use these commands to trigger the workflows on issues and pull requests:
 
 - `/plan`: OpenCode reads the full issue discussion and replies with an implementation plan. Also triggered automatically when a se-polinema organization member opens a new issue with a title or body starting with `/plan`.
-- `/build`: OpenCode implements the approved plan, runs `npm run build`, captures a screenshot, and opens or updates a pull request.
+- `/build`: OpenCode implements the approved plan, runs `npm run build` against both the production and beta base paths, captures a screenshot, and opens or updates a pull request **into `develop`**.
 
 Notes:
 
 - These commands work on new comments and edited comments, both on issues and pull requests.
 - They also work in pull request review comments and pull request review submissions.
 - `/plan` and `/build` may include extra text after the command.
-- The implementation branch uses the exact pattern `opencode/issue-{number}`.
+- The implementation branch uses the exact pattern `opencode/issue-{number}`, created from `main`.
+- Merging the `/build` PR deploys the change to beta (`https://se.polinema.ac.id/beta/`) for validation; it does **not** close the original issue, since GitHub only auto-closes issues on merges to the default branch (`main`). Promotion to production is a separate, manually opened PR from the same `opencode/issue-{number}` branch into `main`; that PR's `Closes #{number}` is what finishes the issue. See "Release Flow" below.
 
 ### PR Feedback Loop (Agentic Revision)
 
@@ -95,6 +96,8 @@ Rule for shipping a change:
 3. Once validated on beta, open a second PR from the same `feature-branch` into `main`. Merging deploys it to production.
 
 Do not merge `develop` into `main` wholesale — each change ships to production through its own PR against `main`, after being validated on beta. Both `main` and `develop` are protected branches (PRs required, no direct pushes, no force pushes).
+
+OpenCode `/build` PRs follow this same flow automatically: the `opencode/issue-{number}` branch targets `develop` first, and promotion to `main` is the same manual step 3 above.
 
 ### Base-path convention
 
