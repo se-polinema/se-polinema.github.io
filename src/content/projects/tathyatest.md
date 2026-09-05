@@ -14,7 +14,7 @@ contributors: []
 researchers:
   - "dian-hanifudin-subhi"
   - "ridwan-rismanto"
-stream: "emerging-technologies-se"
+stream: "se-methodologies-architecture"
 repo: "dhanifudin/tathyatest"
 featured: false
 ---

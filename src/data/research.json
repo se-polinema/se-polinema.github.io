@@ -2,37 +2,130 @@
   {
     "id": "se-methodologies-architecture",
     "name": {
-      "en": "Software Engineering Methodologies & Architecture",
-      "id": "Metodologi dan Arsitektur Rekayasa Perangkat Lunak"
+      "en": "Software Engineering Process, Architecture & Quality",
+      "id": "Proses, Arsitektur, dan Kualitas Rekayasa Perangkat Lunak"
     },
     "tagline": {
-      "en": "Methods and patterns for building efficient, scalable, and maintainable software systems.",
-      "id": "Metode dan pola untuk membangun sistem perangkat lunak yang efisien, skalabel, dan mudah dipelihara."
+      "en": "Architecture, testing, process methodology, and AI-assisted automation for building and assessing software systems.",
+      "id": "Arsitektur, pengujian, metodologi proses, dan otomasi berbasis AI untuk membangun dan menilai sistem perangkat lunak."
     },
-    "topics": ["Microservices", "Clean Code", "MVC / MVVM", "TDD", "DDD", "Design Patterns"]
+    "topics": [
+      {
+        "id": "software-architecture",
+        "name": { "en": "Software Architecture & Distributed Systems", "id": "Arsitektur Perangkat Lunak & Sistem Terdistribusi" }
+      },
+      {
+        "id": "software-testing-qa",
+        "name": { "en": "Software Testing & Quality Assurance", "id": "Pengujian Perangkat Lunak & Penjaminan Mutu" }
+      },
+      {
+        "id": "se-process-methodology",
+        "name": { "en": "Software Process & Methodology", "id": "Proses & Metodologi Perangkat Lunak" }
+      },
+      {
+        "id": "ai-assisted-se-automation",
+        "name": { "en": "AI-Assisted SE Automation", "id": "Otomasi RPL Berbasis AI" }
+      }
+    ]
+  },
+  {
+    "id": "requirements-decision-support",
+    "name": {
+      "en": "Requirements & Decision-Support Systems Engineering",
+      "id": "Rekayasa Sistem Kebutuhan & Pendukung Keputusan"
+    },
+    "tagline": {
+      "en": "Software that operationalizes institutional decision-making and requirements analysis through decision-support and recommendation logic.",
+      "id": "Perangkat lunak yang mewujudkan pengambilan keputusan institusional dan analisis kebutuhan melalui logika pendukung keputusan dan rekomendasi."
+    },
+    "topics": [
+      {
+        "id": "mcdm-engineering",
+        "name": { "en": "Multi-Criteria Decision Support Engineering", "id": "Rekayasa Sistem Pendukung Keputusan Multi-Kriteria" }
+      },
+      {
+        "id": "recommender-systems-engineering",
+        "name": { "en": "Recommender Systems Engineering", "id": "Rekayasa Sistem Rekomendasi" }
+      },
+      {
+        "id": "requirements-driven-institutional-software",
+        "name": { "en": "Requirements-Driven Institutional Software", "id": "Perangkat Lunak Institusional Berbasis Kebutuhan" }
+      }
+    ]
+  },
+  {
+    "id": "ai-based-intelligent-systems",
+    "name": {
+      "en": "Engineering of AI-Based & Intelligent Software Systems",
+      "id": "Rekayasa Sistem Perangkat Lunak Cerdas Berbasis AI"
+    },
+    "tagline": {
+      "en": "System architecture, data pipelines, and evaluation methodology for software that embeds NLP, conversational, and predictive AI components.",
+      "id": "Arsitektur sistem, alur data, dan metodologi evaluasi untuk perangkat lunak yang menyematkan komponen AI NLP, percakapan, dan prediktif."
+    },
+    "topics": [
+      {
+        "id": "nlp-text-processing",
+        "name": { "en": "NLP & Text-Processing Systems", "id": "Sistem NLP & Pemrosesan Teks" }
+      },
+      {
+        "id": "conversational-ai",
+        "name": { "en": "Conversational AI Systems", "id": "Sistem AI Percakapan" }
+      },
+      {
+        "id": "predictive-forecasting",
+        "name": { "en": "Predictive & Forecasting Software", "id": "Perangkat Lunak Prediktif & Peramalan" }
+      }
+    ]
+  },
+  {
+    "id": "se-education-learning-technology",
+    "name": {
+      "en": "Software Engineering Education & Learning Technology",
+      "id": "Pendidikan Rekayasa Perangkat Lunak & Teknologi Pembelajaran"
+    },
+    "tagline": {
+      "en": "Tools, evaluation methods, and teaching materials for software engineering and programming education.",
+      "id": "Alat, metode evaluasi, dan materi ajar untuk pendidikan rekayasa perangkat lunak dan pemrograman."
+    },
+    "topics": [
+      {
+        "id": "automated-programming-assessment",
+        "name": { "en": "Automated Programming Assessment", "id": "Penilaian Pemrograman Otomatis" }
+      },
+      {
+        "id": "concept-mapping-learning-evaluation",
+        "name": { "en": "Concept-Mapping & Learning Evaluation Tools", "id": "Alat Concept-Mapping & Evaluasi Pembelajaran" }
+      },
+      {
+        "id": "cs-programming-education-materials",
+        "name": { "en": "CS/Programming Education Materials", "id": "Materi Pendidikan Ilmu Komputer/Pemrograman" }
+      }
+    ]
   },
   {
     "id": "domain-specific-se-applications",
     "name": {
-      "en": "Domain-Specific Software Engineering Applications",
-      "id": "Aplikasi Rekayasa Perangkat Lunak Berbasis Domain"
+      "en": "Software Engineering for Community & Institutional Systems",
+      "id": "Rekayasa Perangkat Lunak untuk Sistem Komunitas & Institusi"
     },
     "tagline": {
-      "en": "Purpose-built software solutions for education, healthcare, finance, and industry.",
-      "id": "Solusi perangkat lunak khusus untuk pendidikan, kesehatan, keuangan, dan industri."
+      "en": "Applied software delivery for scholarly infrastructure, public-sector, and community organizations.",
+      "id": "Penerapan perangkat lunak untuk infrastruktur akademik, sektor publik, dan organisasi komunitas."
     },
-    "topics": ["EdTech", "Fintech", "Healthcare Software", "Startup Tools", "Industrial Automation"]
-  },
-  {
-    "id": "emerging-technologies-se",
-    "name": {
-      "en": "Emerging Technologies in Software Engineering",
-      "id": "Teknologi Berkembang dalam Rekayasa Perangkat Lunak"
-    },
-    "tagline": {
-      "en": "AI-assisted tools and automation to accelerate software development and improve quality.",
-      "id": "Alat berbasis AI dan otomatisasi untuk mempercepat pengembangan dan meningkatkan kualitas perangkat lunak."
-    },
-    "topics": ["Code Quality Analysis", "Bug Prediction", "AI Test Generation", "Requirements Automation", "Documentation Automation", "LLM-Assisted Coding"]
+    "topics": [
+      {
+        "id": "scholarly-academic-infrastructure",
+        "name": { "en": "Scholarly & Academic Infrastructure", "id": "Infrastruktur Akademik & Ilmiah" }
+      },
+      {
+        "id": "community-public-sector-software",
+        "name": { "en": "Community & Public-Sector Software", "id": "Perangkat Lunak Komunitas & Sektor Publik" }
+      },
+      {
+        "id": "computer-vision-domain-applications",
+        "name": { "en": "Computer Vision & Domain-Specific Applications", "id": "Computer Vision & Aplikasi Spesifik Domain" }
+      }
+    ]
   }
 ]

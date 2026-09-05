@@ -97,7 +97,7 @@
     "definition": "A method of debugging and evaluating software by examining the source code without executing the program. Static analysis tools automatically scan code for potential bugs, security vulnerabilities, style violations, and code smells before runtime.",
     "definitionId": "Metode debugging dan evaluasi perangkat lunak dengan memeriksa kode sumber tanpa mengeksekusi program. Alat analisis statis secara otomatis memindai kode untuk potensi bug, kerentanan keamanan, pelanggaran gaya, dan code smell sebelum runtime.",
     "slug": "static-analysis",
-    "stream": "emerging-technologies-se",
+    "stream": "se-methodologies-architecture",
     "relatedTerms": ["clean-code", "technical-debt", "ai-test-generation"]
   },
   {
@@ -106,7 +106,7 @@
     "definition": "The use of artificial intelligence and machine learning techniques to automatically generate software test cases, test data, and test scripts. AI test generation tools analyze source code, requirements, and historical test data to produce comprehensive test suites that improve coverage and reduce manual testing effort.",
     "definitionId": "Penggunaan teknik kecerdasan buatan dan machine learning untuk secara otomatis menghasilkan kasus uji, data uji, dan skrip uji perangkat lunak. Alat pembuatan pengujian AI menganalisis kode sumber, persyaratan, dan data pengujian historis untuk menghasilkan rangkaian pengujian komprehensif yang meningkatkan cakupan dan mengurangi upaya pengujian manual.",
     "slug": "ai-test-generation",
-    "stream": "emerging-technologies-se",
+    "stream": "se-methodologies-architecture",
     "relatedTerms": ["tdd", "static-analysis", "clean-code"]
   }
 ]

@@ -33,6 +33,13 @@ googleScholarUrl: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 featured: true
 order: 6
 streams:
-  - "emerging-technologies-se"
+  - "se-methodologies-architecture"
+  - "requirements-decision-support"
+  - "ai-based-intelligent-systems"
   - "domain-specific-se-applications"
+topicTags:
+  - "software-testing-qa"
+  - "mcdm-engineering"
+  - "predictive-forecasting"
+  - "computer-vision-domain-applications"
 ---
