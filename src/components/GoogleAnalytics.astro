@@ -1,0 +1,33 @@
+---
+const gaId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID as string | undefined
+
+const shouldRender = import.meta.env.PROD && Boolean(gaId)
+
+const script = `(function () {
+  function load() {
+    if (window.__seLabAnalyticsLoaded) return;
+    window.__seLabAnalyticsLoaded = true;
+
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=${gaId}';
+    document.head.appendChild(s);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', '${gaId}');
+  }
+
+  window.__seLabLoadAnalytics = load;
+
+  try {
+    if (localStorage.getItem('se-lab-consent') === 'granted') {
+      load();
+    }
+  } catch (e) {}
+})();`
+---
+
+{shouldRender && <script is:inline set:html={script}></script>}
