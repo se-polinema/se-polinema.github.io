@@ -21,6 +21,15 @@ export function useConsent() {
     try {
       localStorage.setItem(STORAGE_KEY, 'granted')
     } catch {}
+
+    if (typeof window !== 'undefined') {
+      const loadAnalytics = (window as any).__seLabLoadAnalytics
+      if (typeof loadAnalytics === 'function') {
+        try {
+          loadAnalytics()
+        } catch {}
+      }
+    }
   }
 
   function deny() {

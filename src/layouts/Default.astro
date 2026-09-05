@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import JsonLd from '../components/JsonLd.astro'
+import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 import CookieConsent from '../components/CookieConsent.vue'
 import AnnouncementBanner from '../components/AnnouncementBanner.vue'
 
@@ -83,6 +84,8 @@ const shouldRegisterServiceWorker = import.meta.env.PROD
     <link rel="manifest" href="/manifest.webmanifest" />
 
     <JsonLd data={websiteJsonLd} />
+
+    <GoogleAnalytics />
 
     <slot name="head" />
 
