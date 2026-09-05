@@ -1,4 +1,4 @@
-const CACHE_NAME = 'se-lab-v3'
+const CACHE_NAME = 'se-lab-v4'
 
 const PRECACHE_URLS = [
   '/',
@@ -61,6 +61,11 @@ function shouldBypass(request, url) {
   if (url.pathname.startsWith('/node_modules/')) return true
   if (url.pathname.includes('__vite')) return true
   if (request.headers.get('accept')?.includes('text/event-stream')) return true
+  // This service worker is registered at scope '/' by the production build
+  // only (see Default.astro), but a visitor who registered it on a prior
+  // prod visit still has it controlling navigation everywhere on this
+  // origin, including /beta/. Never let it cache or serve beta responses.
+  if (url.pathname.startsWith('/beta/') || url.pathname === '/beta') return true
 
   return false
 }
