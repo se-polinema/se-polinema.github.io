@@ -3,6 +3,7 @@ import PresentationLayout from '../../../layouts/PresentationLayout.astro'
 import ResearcherSlidesViewer from '../../../components/ResearcherSlidesViewer.vue'
 import EditOnGitHub from '../../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
+import { getResearcherImage } from '../../../lib/researcherImage'
 import { withBase, BASE } from '../../../lib/paths'
 
 export async function getStaticPaths() {
@@ -38,7 +39,15 @@ const { title, theme } = deck.data
 // Astro's own markdown/rehype pipeline, so rehypeBasePaths never sees it.
 // Root-absolute asset references embedded in deck content (e.g. a title
 // slide's `<img src="/images/team/...">`) need the same base rewrite here.
+// This must run BEFORE the researcher-image substitution below: getImage()'s
+// output is already base-aware, so prefixing the raw markdown first (and
+// searching for the now-prefixed old reference) avoids double-prefixing it.
 const raw = BASE === '/' ? (deck.body ?? '') : (deck.body ?? '').replace(/(src|href)="\/(?!\/)/g, `$1="${BASE}`)
+
+const deckImage = await getResearcherImage(researcher.id, { defaultWidth: 320 })
+const resolvedRaw = deckImage
+  ? raw.replaceAll(withBase(`/images/team/${researcher.id}.jpg`), deckImage.src)
+  : raw
 
 // Static page: use English title by default (language switch is client-side via useI18n)
 const displayTitle = title
@@ -69,7 +78,7 @@ const backUrl = withBase(`/researchers/${researcher.id}`)
         data-separator-vertical="^\r?\n--\r?\n$"
         data-separator-notes="^Note:"
       >
-        <script type="text/template" set:html={raw} is:inline></script>
+        <script type="text/template" set:html={resolvedRaw} is:inline></script>
       </section>
     </div>
   </div>

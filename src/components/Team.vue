@@ -21,11 +21,16 @@
             class="block mx-auto mb-4 w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-1 ring-neutral-200 dark:ring-gray-600 group-hover:ring-primary/30 transition-colors"
           >
             <img
-              :src="withBase(member.photo)"
+              :src="member.image?.src ?? withBase(member.photo)"
+              :srcset="member.image?.srcset"
+              :sizes="member.image?.sizes"
+              :width="member.image?.width"
+              :height="member.image?.height"
               :alt="member.name"
               class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
               :style="{ objectPosition: member.photoPosition }"
               loading="lazy"
+              decoding="async"
             />
           </a>
 
@@ -72,6 +77,13 @@ defineProps<{
     name: string
     photo: string
     photoPosition: string
+    image: {
+      src: string
+      srcset: string
+      sizes: string
+      width: number
+      height: number
+    } | null
     title: { id: string; en: string }
     shortBio: { id: string; en: string }
     expertise: string[]

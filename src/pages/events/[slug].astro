@@ -8,6 +8,7 @@ import EventPresentationButton from '../../components/EventPresentationButton.vu
 import JsonLd from '../../components/JsonLd.astro'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import { getCollection, render } from 'astro:content'
+import { getResearcherAvatar, toOptimizedImageProps } from '../../lib/researcherImage'
 import { withBase } from '../../lib/paths'
 
 export async function getStaticPaths() {
@@ -33,6 +34,9 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200))
 
 const researchers = await getCollection('researchers')
 const matchedResearcher = researchers.find((r) => r.data.name === author)
+const matchedResearcherImage = matchedResearcher
+  ? toOptimizedImageProps(await getResearcherAvatar(matchedResearcher.id, '16px'))
+  : null
 
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const postUrl = new URL(Astro.url.pathname, origin).href
@@ -97,7 +101,7 @@ const linkedPresentation = allPresentations.find((p) => p.data.event === post.id
       author={author}
       readingTime={readingTime}
       matchedResearcher={matchedResearcher
-        ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo }
+        ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo, image: matchedResearcherImage }
         : undefined}
     />
 

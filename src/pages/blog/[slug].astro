@@ -14,6 +14,7 @@ import { getRelatedItems } from '../../utils/relatedContent'
 import type { CurrentItem, CandidateItem } from '../../utils/relatedContent'
 import type { RelatedContentItem } from '../../components/RelatedContent.vue'
 import resourcesData from '../../data/resources.json'
+import { getResearcherAvatar, toOptimizedImageProps } from '../../lib/researcherImage'
 import { withBase } from '../../lib/paths'
 
 export async function getStaticPaths() {
@@ -38,6 +39,9 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200))
 
 const researchers = await getCollection('researchers')
 const matchedResearcher = researchers.find((r) => r.data.name === author)
+const matchedResearcherImage = matchedResearcher
+  ? toOptimizedImageProps(await getResearcherAvatar(matchedResearcher.id, '16px'))
+  : null
 
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const postUrl = new URL(Astro.url.pathname, origin).href
@@ -189,7 +193,7 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
         reviewed={reviewed}
         outdated={outdated}
         matchedResearcher={matchedResearcher
-          ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo }
+          ? { id: matchedResearcher.id, name: matchedResearcher.data.name, photo: matchedResearcher.data.photo, image: matchedResearcherImage }
           : undefined}
       />
       <SeriesNav

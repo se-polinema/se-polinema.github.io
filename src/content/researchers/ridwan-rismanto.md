@@ -6,7 +6,7 @@ title:
 role:
   id: "Peneliti"
   en: "Researcher"
-photo: "/images/team/ridwan-rismanto.jpg"
+photo: "src/assets/researchers/ridwan-rismanto.jpg"
 photoPosition: "50% 16%"
 shortBio:
   id: "Peneliti di bidang teknologi pendidikan, concept mapping, sistem rekomendasi, dan digitalisasi dokumen."

@@ -39,6 +39,7 @@
     "@types/node": "^26.0.0",
     "@types/plantuml-encoder": "^1.4.2",
     "gray-matter": "^4.0.3",
-    "node-scholarly": "^1.3.0"
+    "node-scholarly": "^1.3.0",
+    "sharp": "^0.34.0"
   }
 }
