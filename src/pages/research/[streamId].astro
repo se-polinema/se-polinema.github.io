@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content'
 import researchData from '../../data/research.json'
 import resourcesData from '../../data/resources.json'
 import { getResearcherAvatar, type ResearcherImage } from '../../lib/researcherImage'
+import { withBase } from '../../lib/paths'
 
 export function getStaticPaths() {
   return researchData.map((stream) => ({
@@ -161,7 +162,7 @@ const researchProjectJsonLd = {
   <JsonLd slot="head" data={researchProjectJsonLd} />
   <div class="px-8 py-8 max-w-4xl bilingual-post">
     <a
-      href="/"
+      href={withBase('/')}
       class="inline-flex items-center gap-1 text-xs font-mono text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-accent transition-colors mb-8"
     >
       <span lang="en">&larr; Back to Home</span>
@@ -194,10 +195,10 @@ const researchProjectJsonLd = {
       streamResearchers.length > 0 ? (
         <div class="grid sm:grid-cols-2 gap-3 mb-10">
           {streamResearchers.map((r) => (
-            <a href={`/researchers/${r.id}`} class="stream-hub-researcher-card">
+            <a href={withBase(`/researchers/${r.id}`)} class="stream-hub-researcher-card">
               <div class="flex items-start gap-4">
                 <img
-                  src={streamResearcherImages.get(r.id)?.src ?? r.data.photo}
+                  src={streamResearcherImages.get(r.id)?.src ?? withBase(r.data.photo)}
                   srcset={streamResearcherImages.get(r.id)?.srcset}
                   sizes={streamResearcherImages.get(r.id)?.sizes}
                   width={streamResearcherImages.get(r.id)?.width}
@@ -252,7 +253,7 @@ const researchProjectJsonLd = {
         <div class="grid sm:grid-cols-2 gap-3 mb-10">
           {streamProjects.map((p: any) => (
             <a
-              href={p.slug ? `/projects/${p.slug}` : `https://github.com/${p.repo}`}
+              href={p.slug ? withBase(`/projects/${p.slug}`) : `https://github.com/${p.repo}`}
               target={p.slug ? undefined : '_blank'}
               rel={p.slug ? undefined : 'noopener'}
               class="stream-hub-researcher-card"
@@ -302,7 +303,7 @@ const researchProjectJsonLd = {
         <div class="grid sm:grid-cols-2 gap-3 mb-10">
           {tutorialResources.map((item) => (
             <a
-              href={item.url}
+              href={withBase(item.url)}
               target={item.url.startsWith('http') ? '_blank' : undefined}
               rel={item.url.startsWith('http') ? 'noopener' : undefined}
               class="stream-hub-researcher-card"

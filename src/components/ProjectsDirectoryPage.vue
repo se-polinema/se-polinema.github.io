@@ -57,7 +57,7 @@
         >
           <!-- Thumbnail / Placeholder -->
           <a
-            :href="project.slug ? `/projects/${project.slug}` : `https://github.com/${project.repo}`"
+            :href="project.slug ? withBase(`/projects/${project.slug}`) : `https://github.com/${project.repo}`"
             :target="project.slug ? undefined : '_blank'"
             :rel="project.slug ? undefined : 'noopener'"
             class="block aspect-video bg-neutral-100 dark:bg-gray-800 overflow-hidden border-b border-primary/5 dark:border-gray-700"
@@ -83,7 +83,7 @@
           <div class="p-5 flex flex-col gap-3 flex-1">
             <div class="flex items-start justify-between gap-2">
               <a
-                :href="project.slug ? `/projects/${project.slug}` : `https://github.com/${project.repo}`"
+                :href="project.slug ? withBase(`/projects/${project.slug}`) : `https://github.com/${project.repo}`"
                 :target="project.slug ? undefined : '_blank'"
                 :rel="project.slug ? undefined : 'noopener'"
                 class="font-mono text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors break-all leading-snug"
@@ -108,7 +108,7 @@
             <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5 dark:border-gray-600">
               <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.projects.by }}</span>
               <a
-                :href="`/researchers/${project.researcherId}`"
+                :href="withBase(`/researchers/${project.researcherId}`)"
                 class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
               >{{ project.researcherName }}</a>
               <template v-if="project.slug">
@@ -139,6 +139,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 interface MemberProject {
   name?: string
@@ -188,7 +189,7 @@ const filtered = computed(() => {
 })
 
 function projectImage(project: MemberProject): string | undefined {
-  if (project.images && project.images.length > 0) return project.images[0]
+  if (project.images && project.images.length > 0) return withBase(project.images[0])
   if (project.demoUrl) return `https://image.thum.io/get/maxAge/12/width/400/crop/300/${encodeURIComponent(project.demoUrl)}`
   return undefined
 }

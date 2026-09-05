@@ -4,6 +4,7 @@ import JsonLd from '../components/JsonLd.astro'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 import CookieConsent from '../components/CookieConsent.vue'
 import AnnouncementBanner from '../components/AnnouncementBanner.vue'
+import { withBase, IS_BASE_DEPLOY } from '../lib/paths'
 
 export interface Props {
   title?: string
@@ -27,7 +28,7 @@ const ogLocale = lang === 'id' ? 'id_ID' : 'en_US'
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const canonical = new URL(Astro.url.pathname, origin).href
 const ogImage = image ?? '/og-default.svg'
-const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, origin).href
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(withBase(ogImage), origin).href
 const twitterCard = image ? 'summary_large_image' : 'summary'
 
 const websiteJsonLd = {
@@ -38,7 +39,9 @@ const websiteJsonLd = {
   inLanguage: lang,
 }
 
-const shouldRegisterServiceWorker = import.meta.env.PROD
+// Service worker registration is production-only: a root-scoped worker would
+// intercept and mis-cache /beta/* navigations too, so beta never registers one.
+const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
 ---
 
 <!doctype html>
@@ -71,17 +74,19 @@ const shouldRegisterServiceWorker = import.meta.env.PROD
 
     <title>{fullTitle}</title>
 
-    <link rel="alternate" type="application/rss+xml" title="SE Lab Blog" href="/rss.xml" />
-    <link rel="alternate" type="application/rss+xml" title="SE Lab Publications" href="/publications.xml" />
+    {IS_BASE_DEPLOY && <meta name="robots" content="noindex, nofollow" />}
 
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="alternate" type="application/rss+xml" title="SE Lab Blog" href={withBase('/rss.xml')} />
+    <link rel="alternate" type="application/rss+xml" title="SE Lab Publications" href={withBase('/publications.xml')} />
 
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    {!IS_BASE_DEPLOY && <link rel="sitemap" type="application/xml" href="/sitemap.xml" />}
+
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon.png')} />
 
     <meta name="theme-color" content="#004EA2" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href={withBase('/icons/apple-touch-icon.png')} />
+    {!IS_BASE_DEPLOY && <link rel="manifest" href="/manifest.webmanifest" />}
 
     <JsonLd data={websiteJsonLd} />
 

@@ -8,6 +8,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { encodeEmail } from '../../utils/email'
 import { getResearcherImage } from '../../lib/researcherImage'
+import { withBase } from '../../lib/paths'
 
 export async function getStaticPaths() {
   const researchers = await getCollection('researchers')
@@ -102,7 +103,7 @@ const photoUrl = researcherImage?.srcLarge
   ? new URL(researcherImage.srcLarge, origin).href
   : researcher.data.photo.startsWith('http')
     ? researcher.data.photo
-    : new URL(researcher.data.photo, origin).href
+    : new URL(withBase(researcher.data.photo), origin).href
 
 const sameAsUrls: string[] = []
 if (researcher.data.googleScholarUrl) sameAsUrls.push(researcher.data.googleScholarUrl.toString())

@@ -6,6 +6,7 @@ import ProjectGallery from '../../components/ProjectGallery.vue'
 import { getCollection, render } from 'astro:content'
 import researchData from '../../data/research.json'
 import { getResearcherAvatar, type ResearcherImage } from '../../lib/researcherImage'
+import { withBase } from '../../lib/paths'
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects')
@@ -40,9 +41,9 @@ const pageUrl = new URL(Astro.url.pathname, origin).href
 const placeholderImage = '/images/projects/placeholder.svg'
 
 function getHeroImage(): string {
-  if (images.length > 0) return images[0]
+  if (images.length > 0) return withBase(images[0])
   if (demoUrl) return `https://image.thum.io/get/maxAge/12/width/1200/crop/800/${encodeURIComponent(demoUrl)}`
-  return placeholderImage
+  return withBase(placeholderImage)
 }
 
 const heroImage = getHeroImage()
@@ -94,7 +95,7 @@ const statusColor = {
 
     <!-- Back link -->
     <a
-      href="/projects"
+      href={withBase('/projects')}
       class="inline-flex items-center gap-1 text-xs font-mono text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-accent transition-colors mb-8"
     >
       <span lang="en">&larr; Back to Projects</span>
@@ -118,7 +119,7 @@ const statusColor = {
                 alt={title}
                 class="w-full h-full object-cover"
                 loading="lazy"
-                onerror={"this.onerror=null;this.src='" + placeholderImage + "'"}
+                onerror={"this.onerror=null;this.src='" + withBase(placeholderImage) + "'"}
               />
             </div>
           )
@@ -186,7 +187,7 @@ const statusColor = {
                     <span lang="en">Research Stream</span>
                     <span lang="id">Stream Riset</span>
                   </div>
-                  <a href={`/research/${stream}`} class="text-sm text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono">
+                  <a href={withBase(`/research/${stream}`)} class="text-sm text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono">
                     <span lang="en">{streamName.en}</span>
                     <span lang="id">{streamName.id}</span>
                   </a>
@@ -278,9 +279,9 @@ const statusColor = {
                 </div>
                 <div class="flex flex-wrap gap-2">
                   {teamResearchers.map((r) => (
-                    <a href={`/researchers/${r.id}`} class="group flex items-center gap-2" title={r.data.name}>
+                    <a href={withBase(`/researchers/${r.id}`)} class="group flex items-center gap-2" title={r.data.name}>
                       <img
-                        src={teamResearcherImages.get(r.id)?.src ?? r.data.photo}
+                        src={teamResearcherImages.get(r.id)?.src ?? withBase(r.data.photo)}
                         srcset={teamResearcherImages.get(r.id)?.srcset}
                         sizes={teamResearcherImages.get(r.id)?.sizes}
                         width={teamResearcherImages.get(r.id)?.width}
@@ -330,7 +331,7 @@ const statusColor = {
       <h2 lang="id" class="font-serif text-xl font-bold text-primary dark:text-gray-100 mb-3">Stream Riset</h2>
       {streamName ? (
         <a
-          href={`/research/${stream}`}
+          href={withBase(`/research/${stream}`)}
           class="inline-flex items-center gap-1 text-sm text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono"
         >
           <span lang="en">{streamName.en}</span>
@@ -353,10 +354,10 @@ const statusColor = {
           <h2 lang="id" class="font-serif text-xl font-bold text-primary dark:text-gray-100 mb-3">Tim Riset</h2>
           <div class="grid sm:grid-cols-2 gap-3">
             {teamResearchers.map((r) => (
-              <a href={`/researchers/${r.id}`} class="stream-hub-researcher-card">
+              <a href={withBase(`/researchers/${r.id}`)} class="stream-hub-researcher-card">
                 <div class="flex items-start gap-4">
                   <img
-                    src={teamResearcherImages.get(r.id)?.src ?? r.data.photo}
+                    src={teamResearcherImages.get(r.id)?.src ?? withBase(r.data.photo)}
                     srcset={teamResearcherImages.get(r.id)?.srcset}
                     sizes={teamResearcherImages.get(r.id)?.sizes}
                     width={teamResearcherImages.get(r.id)?.width}

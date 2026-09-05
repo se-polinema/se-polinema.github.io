@@ -7,7 +7,7 @@
       <nav class="flex items-center justify-between h-16 md:h-20">
         <a href="#" class="flex items-center gap-3 group" @click.prevent="scrollTo('hero')">
           <img
-            src="/images/logo-polinema.png"
+            :src="withBase('/images/logo-polinema.png')"
             alt="Polinema"
             class="h-8 md:h-10 w-auto shrink-0"
           />
@@ -28,7 +28,7 @@
           <a
             v-for="item in navItems"
             :key="item.id"
-            :href="item.href"
+            :href="withBase(item.href)"
             class="text-sm text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-medium"
             @click="handleNavClick($event, item)"
           >
@@ -89,7 +89,7 @@
           <a
             v-for="item in navItems"
             :key="item.id"
-            :href="item.href"
+            :href="withBase(item.href)"
             class="text-xl font-medium py-4 border-b transition-colors"
             style="color: #ffffff; border-color: rgba(255,255,255,0.12);"
             @click="handleNavClick($event, item); mobileOpen = false"
@@ -115,6 +115,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase, stripBase } from '../lib/paths'
 
 const { lang, t, toggleLang } = useI18n()
 const scrolled = ref(false)
@@ -149,7 +150,7 @@ function scrollTo(id: string) {
 }
 
 function handleNavClick(event: MouseEvent, item: { href: string; id: string }) {
-  if (item.href.startsWith('/#') && window.location.pathname === '/') {
+  if (item.href.startsWith('/#') && stripBase(window.location.pathname) === '/') {
     event.preventDefault()
     scrollTo(item.id)
   }

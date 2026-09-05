@@ -74,7 +74,7 @@
           <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5 dark:border-gray-600">
             <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.decks.by }}</span>
             <a
-              :href="`/researchers/${deck.researcherId}`"
+              :href="withBase(`/researchers/${deck.researcherId}`)"
               class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >{{ deck.researcherName }}</a>
           </div>
@@ -94,6 +94,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 interface MemberDeck {
   title: string

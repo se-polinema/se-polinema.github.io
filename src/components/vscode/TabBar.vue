@@ -38,7 +38,7 @@
       <div v-else key="inner" class="flex w-full items-end min-w-0">
         <a
           v-if="innerTab"
-          :href="isDetailPage ? undefined : innerTab.href"
+          :href="isDetailPage ? undefined : withBase(innerTab.href)"
           role="tab"
           aria-selected="true"
           class="flex items-center gap-2 pl-4 pr-1 py-2 text-[12px] font-mono min-w-0 border-t-2 border-t-accent whitespace-nowrap h-full bg-white dark:bg-gray-900 text-primary dark:text-blue-300"
@@ -93,7 +93,7 @@
           <span v-if="i > 0" class="text-[color:var(--color-vscode-chrome-fg-muted)] mx-1 flex-shrink-0">›</span>
           <a
             v-if="isDetailPage && i === currentBreadcrumb.path.length - 2 && parentHref"
-            :href="parentHref"
+            :href="withBase(parentHref)"
             class="text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors truncate max-w-[200px] inline-block"
           >
             {{ part }}
@@ -122,6 +122,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import { useVSCodeLayout } from "../../composables/useVSCodeLayout";
+import { withBase, stripBase } from "../../lib/paths";
 
 const props = defineProps<{ initialPath?: string }>();
 
@@ -138,7 +139,7 @@ function splitDetailPath(pathname: string): { isDetailPage: boolean; slug: strin
   return { isDetailPage: true, slug: parts[parts.length - 1] ?? "" };
 }
 
-const initialDetail = props.initialPath ? splitDetailPath(props.initialPath) : { isDetailPage: false, slug: "" };
+const initialDetail = props.initialPath ? splitDetailPath(stripBase(props.initialPath)) : { isDetailPage: false, slug: "" };
 const isDetailPage = ref(initialDetail.isDetailPage);
 const slug = ref(initialDetail.slug);
 
@@ -246,9 +247,9 @@ const parentHref = computed(() => {
 // same relationship as closing a file back to the folder that contains it.
 function closeTab() {
   if (isDetailPage.value && parentHref.value) {
-    window.location.href = parentHref.value;
+    window.location.href = withBase(parentHref.value);
   } else {
-    window.location.href = "/";
+    window.location.href = withBase("/");
   }
 }
 
@@ -318,7 +319,7 @@ function handleTab(tab: (typeof tabs)[0]) {
   if (currentPage.value === "home") {
     scrollTo(tab.id);
   } else {
-    window.location.href = tab.href;
+    window.location.href = withBase(tab.href);
   }
 }
 
@@ -343,7 +344,7 @@ onMounted(() => {
   // Re-confirms the initialPath seed above from window.location: a
   // no-op when initialPath was provided (same value), and the sole source
   // of truth when it wasn't.
-  const detail = splitDetailPath(window.location.pathname);
+  const detail = splitDetailPath(stripBase(window.location.pathname));
   isDetailPage.value = detail.isDetailPage;
   slug.value = detail.slug;
 });

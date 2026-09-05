@@ -1,8 +1,13 @@
 name: Deploy to GitHub Pages
 
+# Production builds from main and serves at the site root. Beta builds from
+# develop and serves under /beta/ on the same Pages site (see BASE_PATH in
+# astro.config.mjs and src/lib/paths.ts). Every push to either branch rebuilds
+# both, so the merged artifact is always current for both environments.
+
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   workflow_dispatch:
 
 permissions:
@@ -15,10 +20,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-prod:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -30,16 +37,59 @@ jobs:
           PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
           PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
           PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.PUBLIC_GOOGLE_ANALYTICS_ID }}
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
+          name: dist-prod
           path: dist
+          retention-days: 1
+
+  # Non-blocking: a broken or missing develop branch must never stop the
+  # production deploy triggered by a push to main.
+  build-beta:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        # No PUBLIC_GOOGLE_ANALYTICS_ID here: beta traffic (already noindexed,
+        # sitemap-less) shouldn't mix into production analytics.
+        env:
+          BASE_PATH: /beta/
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-beta
+          path: dist
+          retention-days: 1
 
   deploy:
-    needs: build
+    needs: [build-prod, build-beta]
+    if: always() && needs.build-prod.result == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist-prod
+          path: site
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: dist-beta
+          path: site/beta
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
       - uses: actions/deploy-pages@v4
         id: deployment

@@ -29,13 +29,13 @@
               <span
                 aria-hidden="true"
                 class="inline-block w-7 h-7 flex-shrink-0 bg-[#051C38] dark:bg-gray-100"
-                style="-webkit-mask-image: url('/images/logo-se-hexagon.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('/images/logo-se-hexagon.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"
+                :style="`-webkit-mask-image: url('${withBase('/images/logo-se-hexagon.png')}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('${withBase('/images/logo-se-hexagon.png')}'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;`"
               ></span>
               <span class="font-serif text-lg font-semibold text-primary dark:text-gray-100 tracking-tight">SE Laboratory</span>
             </div>
             <div class="flex items-center gap-2 border-l border-primary/15 dark:border-gray-600 pl-6">
               <img
-                src="/images/logo-polinema.png"
+                :src="withBase('/images/logo-polinema.png')"
                 alt="Politeknik Negeri Malang"
                 class="h-6 w-auto opacity-70"
               />
@@ -68,13 +68,13 @@
               <span aria-hidden="true">→</span>
             </a>
             <a
-              href="/members?filter=researchers"
+              :href="withBase('/members?filter=researchers')"
               class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary dark:text-blue-300 border border-primary/20 dark:border-gray-500 hover:border-primary/50 dark:hover:border-gray-400 transition-colors"
             >
               {{ t.hero.researchersCta }}
             </a>
             <a
-              href="/publications"
+              :href="withBase('/publications')"
               class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary/70 dark:text-gray-300 hover:text-primary dark:hover:text-blue-200 border border-transparent hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
             >
               {{ t.hero.publicationsCta }}
@@ -165,6 +165,7 @@
 
 <script setup lang="ts">
 import { useI18n } from "../composables/useI18n";
+import { withBase } from "../lib/paths";
 
 defineProps<{
   researchers: number;

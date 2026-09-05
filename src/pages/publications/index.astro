@@ -6,6 +6,7 @@ import { getCollection } from 'astro:content'
 import { readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import researchData from '../../data/research.json'
+import { withBase } from '../../lib/paths'
 
 // Publication data is intentionally NOT fetched here: PublicationsArchive.vue
 // fetches it client-side from /api/publications-index.json instead, so
@@ -42,7 +43,7 @@ if (existsSync(syncMetaPath)) {
     <PublicationsPageIntro client:load lastUpdated={lastUpdated} />
     <div class="mb-10">
       <a
-        href="/publications.xml"
+        href={withBase('/publications.xml')}
         class="inline-flex items-center gap-2 text-sm font-medium text-primary dark:text-primary/80 hover:underline"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

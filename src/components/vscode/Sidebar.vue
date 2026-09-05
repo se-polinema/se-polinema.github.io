@@ -146,28 +146,28 @@
       <div class="filter-header">Members</div>
       <div class="mt-3 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] space-y-2">
         <a
-          href="/members"
+          :href="withBase('/members')"
           class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
         >
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[color:var(--color-vscode-chrome-fg-muted)]" />
           All
         </a>
         <a
-          href="/members?filter=researchers"
+          :href="withBase('/members?filter=researchers')"
           class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
         >
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-blue-400" />
           Researchers
         </a>
         <a
-          href="/members?filter=students"
+          :href="withBase('/members?filter=students')"
           class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
         >
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-green-400" />
           Students
         </a>
         <a
-          href="/members?filter=alumni"
+          :href="withBase('/members?filter=alumni')"
           class="flex items-center gap-2 py-1 transition-colors text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)]"
         >
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-purple-400" />
@@ -179,7 +179,7 @@
       <a
         v-for="r in researcherList"
         :key="r.id"
-        :href="`/researchers/${r.id}`"
+        :href="withBase(`/researchers/${r.id}`)"
         class="flex items-center gap-2 py-[5px] mt-1 text-[12px] font-mono transition-colors duration-100"
         :class="currentPath.endsWith(r.id)
           ? 'bg-[color:var(--color-vscode-chrome-border)] text-[color:var(--color-vscode-chrome-fg)]'
@@ -272,11 +272,11 @@
     <nav v-else-if="activeSidebarView === 'events'" key="events" class="flex-1 overflow-y-auto pb-4 px-4 pt-3" aria-label="Events">
       <div class="filter-header">Events</div>
       <div class="mt-3 text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg-muted)] space-y-2">
-        <a href="/events" class="flex items-center gap-2 text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1">
+        <a :href="withBase('/events')" class="flex items-center gap-2 text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1">
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-purple-400" />
           Upcoming Events
         </a>
-        <a href="/events" class="flex items-center gap-2 text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1">
+        <a :href="withBase('/events')" class="flex items-center gap-2 text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] transition-colors py-1">
           <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[color:var(--color-vscode-chrome-fg-muted)]" />
           Past Events
         </a>
@@ -291,7 +291,7 @@
           <a
             v-for="m in deckMembers"
             :key="m.id"
-            :href="`/decks`"
+            :href="withBase('/decks')"
             class="filter-chip chip-inactive"
           >{{ m.name }}</a>
         </div>
@@ -349,6 +349,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
+import { withBase, stripBase } from '../../lib/paths'
 import { useDragResize } from '../../composables/useDragResize'
 
 const props = defineProps<{ initialPath?: string }>()
@@ -447,7 +448,7 @@ function navigate(item: FileItem) {
     scrollTo(item.sectionId)
     return
   }
-  if (item.href) window.location.href = item.href
+  if (item.href) window.location.href = withBase(item.href)
 }
 
 function toggleFilter(key: 'year' | 'type' | 'category' | 'tag' | 'stream', value: number | string) {
@@ -466,21 +467,21 @@ onMounted(async () => {
   const editor = document.getElementById('editor')
   if (editor) initObserver(editor)
 
-  currentPath.value = window.location.pathname
+  currentPath.value = stripBase(window.location.pathname)
 
   if (currentPage.value === 'members') {
-    researcherList.value = await fetch('/api/researchers.json').then(r => r.json())
+    researcherList.value = await fetch(withBase('/api/researchers.json')).then(r => r.json())
   } else if (currentPage.value === 'publications') {
-    const meta = await fetch('/api/publications-meta.json').then(r => r.json())
+    const meta = await fetch(withBase('/api/publications-meta.json')).then(r => r.json())
     pubYears.value = meta.years
     pubTypes.value = meta.types
     pubStreams.value = meta.streams ?? []
   } else if (currentPage.value === 'blog') {
-    const meta = await fetch('/api/posts-meta.json').then(r => r.json())
+    const meta = await fetch(withBase('/api/posts-meta.json')).then(r => r.json())
     blogCategories.value = meta.categories
     blogTagsByLang.value = meta.tags || { en: [], id: [] }
   } else if (currentPage.value === 'decks') {
-    const meta = await fetch('/api/decks-meta.json').then(r => r.json())
+    const meta = await fetch(withBase('/api/decks-meta.json')).then(r => r.json())
     deckMembers.value = meta.members
     deckTypes.value = meta.types
   }

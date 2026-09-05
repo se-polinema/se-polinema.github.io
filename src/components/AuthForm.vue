@@ -19,6 +19,7 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import { readOAuthError } from '../lib/oauthError'
+import { BASE } from '../lib/paths'
 
 // Sign-in and sign-up are the same action with GitHub OAuth (it creates
 // the account on first use), so there's only one entry point left:
@@ -39,7 +40,7 @@ onMounted(() => {
 const oauthRedirectTo = typeof window !== 'undefined'
   ? (() => {
       const redirect = new URLSearchParams(window.location.search).get('redirect')
-      return redirect ? new URL(redirect, window.location.origin).toString() : window.location.origin + '/'
+      return redirect ? new URL(redirect, window.location.origin).toString() : window.location.origin + BASE
     })()
   : undefined
 </script>

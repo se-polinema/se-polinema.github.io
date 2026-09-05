@@ -5,7 +5,7 @@
       <a
         v-for="item in displayItems"
         :key="item.id"
-        :href="item.url"
+        :href="withBase(item.url)"
         class="block p-4 rounded-lg border border-neutral-200 dark:border-gray-700 bg-neutral-50/50 dark:bg-gray-800/50 hover:bg-neutral-100 dark:hover:bg-gray-700/70 hover:border-primary/30 dark:hover:border-primary/40 transition-colors group"
       >
         <div class="flex items-start gap-1.5 mb-1.5">
@@ -36,6 +36,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 export interface RelatedContentItem {
   id: string

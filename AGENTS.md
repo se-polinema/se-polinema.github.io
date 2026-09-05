@@ -12,6 +12,32 @@ strings, or any prose. Use a comma, period, colon, or restructure the sentence
 instead. (This rule doesn't apply to UI-symbol uses like a table's empty-cell
 placeholder or a CSS class name that happens to contain the character.)
 
+## Deployment & Base-Path Convention
+
+Two environments deploy from one GitHub Pages site: production from `main`
+at `/`, beta from `develop` at `/beta/` (see README.md's "Release Flow"
+section for the branch/PR sequence and `.github/workflows/deploy.yml` for the
+build). The beta build sets `BASE_PATH=/beta/`, read by `astro.config.mjs`.
+
+Because of this, **never hardcode a root-absolute path** in `src/`
+(`href="/members"`, `fetch('/api/...')`, `src="/images/..."`, string
+concatenation like `'/blog/' + slug`, or a ternary branch producing one).
+Import from `src/lib/paths.ts` instead:
+
+- `withBase(path)`: prefixes a base-free path. Use for hrefs, `src`
+  attributes, `fetch()` URLs, and redirects. Safe on external URLs (passes
+  them through unchanged), so wrap even fields that might sometimes be
+  external.
+- `stripBase(pathname)`: inverse, for comparing against
+  `window.location.pathname` (active-nav state, route resolution).
+
+Store paths base-free in data/constants and call `withBase()` once, at the
+render or navigation edge, not at the point of definition. Content collection
+frontmatter (e.g. a researcher's `photo` field) stays base-free; wrap it at
+whatever component renders it as an `<img src>`. Markdown/raw-HTML content
+embedding root-absolute asset paths is handled separately by the
+`rehypeBasePaths` plugin in `astro.config.mjs`, not by editing content files.
+
 ## Getting Started
 
 ```bash

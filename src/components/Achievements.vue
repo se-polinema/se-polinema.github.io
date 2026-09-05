@@ -11,7 +11,7 @@
         </div>
         <a
           v-if="achievements.length > 0"
-          href="/achievements"
+          :href="withBase('/achievements')"
           class="inline-flex items-center gap-2 text-sm text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
         >
           {{ t.achievements.viewAll }}
@@ -43,7 +43,7 @@
             <h3 class="font-serif text-base font-semibold text-primary dark:text-gray-100 mb-1 group-hover:text-primary/80 dark:group-hover:text-gray-300 transition-colors">
               <a
                 v-if="item.url"
-                :href="item.url"
+                :href="withBase(item.url)"
                 target="_blank"
                 rel="noopener"
                 class="hover:underline decoration-primary/20 underline-offset-4"
@@ -65,7 +65,7 @@
               <a
                 v-for="(memberId, idx) in item.members"
                 :key="memberId"
-                :href="`/researchers/${memberId}`"
+                :href="withBase(`/researchers/${memberId}`)"
                 class="text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-200"
               >
                 {{ memberNameMap[memberId] || memberId }}<span v-if="idx < item.members.length - 1">, </span>
@@ -88,6 +88,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import teamData from '../data/team.json'
 
 defineProps<{

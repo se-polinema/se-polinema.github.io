@@ -19,7 +19,7 @@
             <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
               <div class="flex-1 min-w-0">
                 <h3 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 leading-snug mb-1">
-                  <a :href="`/events/${event.id}`" class="hover:underline decoration-primary/20 underline-offset-4">
+                  <a :href="withBase(`/events/${event.id}`)" class="hover:underline decoration-primary/20 underline-offset-4">
                     {{ lang === 'id' && event.titleId ? event.titleId : event.title }}
                   </a>
                 </h3>
@@ -43,7 +43,7 @@
               </div>
               <div class="flex items-center gap-2 shrink-0">
                 <a
-                  :href="`/events/${event.id}.ics`"
+                  :href="withBase(`/events/${event.id}.ics`)"
                   class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
                   :title="t.events.addToCalendar"
                 >
@@ -70,7 +70,7 @@
                   {{ t.events.streamCta }}
                 </a>
                 <a
-                  :href="`/events/${event.id}`"
+                  :href="withBase(`/events/${event.id}`)"
                   class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors"
                 >
                   {{ t.news.readMore }} →
@@ -96,7 +96,7 @@
               </time>
               <div class="flex-1 min-w-0">
                 <h4 class="font-serif text-sm font-semibold text-primary dark:text-gray-100 leading-snug">
-                  <a :href="`/events/${event.id}`" class="hover:underline decoration-primary/20 underline-offset-4">
+                  <a :href="withBase(`/events/${event.id}`)" class="hover:underline decoration-primary/20 underline-offset-4">
                     {{ lang === 'id' && event.titleId ? event.titleId : event.title }}
                   </a>
                 </h4>
@@ -115,6 +115,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 interface EventItem {
   id: string

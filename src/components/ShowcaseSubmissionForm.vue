@@ -5,7 +5,7 @@
       <p class="text-sm text-neutral-600 dark:text-gray-300 mb-4">{{ t.showcaseSubmit.signInPrompt }}</p>
       <GitHubSignInButton :redirect-to="redirectTo" />
       <a
-        :href="`/login?redirect=${encodeURIComponent('/showcase/submit')}`"
+        :href="withBase(`/login?redirect=${encodeURIComponent(withBase('/showcase/submit'))}`)"
         class="block mt-3 text-sm font-mono text-accent hover:text-accent/80 transition-colors"
       >
         {{ t.memberSubmit.backToLogin }}
@@ -42,7 +42,7 @@
             </span>
             <a
               v-if="p.approved"
-              :href="`/showcase/detail?id=${p.id}`"
+              :href="withBase(`/showcase/detail?id=${p.id}`)"
               class="text-xs font-mono text-accent hover:text-accent/80 transition-colors"
             >
               {{ t.showcaseSubmit.viewLink }} →
@@ -169,6 +169,7 @@
 import { reactive, ref, computed, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
+import { withBase } from '../lib/paths'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import ImageUpload from './ImageUpload.vue'
 import TurnstileWidget from './TurnstileWidget.vue'

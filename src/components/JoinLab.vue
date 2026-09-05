@@ -29,7 +29,7 @@
           class="inline-flex items-center gap-2 px-6 py-3 font-mono text-[13px] font-medium text-primary transition-colors bg-accent"
         >{{ t.join.emailCta }} ↗</ObfuscatedEmail>
         <a
-          href="/members?filter=researchers"
+          :href="withBase('/members?filter=researchers')"
           class="inline-flex items-center gap-2 px-6 py-3 font-mono text-[13px] font-medium text-primary/70 dark:text-gray-300 hover:text-primary dark:hover:text-gray-100 transition-colors border border-primary/20 dark:border-gray-500 hover:border-primary/40 dark:hover:border-gray-400 bg-white dark:bg-gray-800"
         >
           {{ t.join.browseCta }}
@@ -42,6 +42,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import { LAB_EMAIL_ENCODED } from '../utils/email'
 import ObfuscatedEmail from './ObfuscatedEmail.vue'
 

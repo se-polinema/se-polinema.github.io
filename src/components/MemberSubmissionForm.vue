@@ -5,7 +5,7 @@
       <p class="text-sm text-neutral-600 dark:text-gray-300 mb-4">{{ t.memberSubmit.signInPrompt }}</p>
       <GitHubSignInButton :redirect-to="redirectTo" />
       <a
-        :href="`/login?redirect=${encodeURIComponent(submitPath)}`"
+        :href="withBase(`/login?redirect=${encodeURIComponent(withBase(submitPath))}`)"
         class="block mt-3 text-sm font-mono text-accent hover:text-accent/80 transition-colors"
       >
         {{ t.memberSubmit.backToLogin }}
@@ -24,7 +24,7 @@
       <p class="text-sm text-neutral-600 dark:text-gray-300 mb-3">{{ t.memberSubmit.approvedMessage }}</p>
       <a
         v-if="existingMemberId"
-        :href="`/profile?id=${existingMemberId}`"
+        :href="withBase(`/profile?id=${existingMemberId}`)"
         class="text-sm font-mono text-accent hover:text-accent/80 transition-colors"
       >
         {{ t.memberSubmit.viewProfileLink }} →
@@ -139,6 +139,7 @@
 import { reactive, ref, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
+import { withBase } from '../lib/paths'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import ImageUpload from './ImageUpload.vue'
 import TurnstileWidget from './TurnstileWidget.vue'

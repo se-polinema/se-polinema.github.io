@@ -59,6 +59,7 @@ import { useTheme } from '../../composables/useTheme'
 import { useI18n } from '../../composables/useI18n'
 import { usePalette, PALETTES } from '../../composables/usePalette'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
+import { withBase } from '../../lib/paths'
 
 const props = defineProps<{ prefillQuery?: string }>()
 const emit = defineEmits<{ close: [] }>()
@@ -195,7 +196,7 @@ const commands = computed<Command[]>(() => [
     keywords: '',
     section: 'Go to',
     run: () => {
-      window.location.href = p.href
+      window.location.href = withBase(p.href)
     },
   })),
 ])

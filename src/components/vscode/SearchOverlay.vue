@@ -105,6 +105,7 @@
 // naturally starts clean without needing an explicit show()/reset step.
 import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useI18n } from '../../composables/useI18n'
+import { withBase } from '../../lib/paths'
 
 const emit = defineEmits<{ close: []; handoff: [query: string] }>()
 
@@ -244,7 +245,7 @@ function navigateTo(href: string) {
 async function loadIndex() {
   if (indexLoaded.value) return
   try {
-    const res = await fetch('/api/search-index.json')
+    const res = await fetch(withBase('/api/search-index.json'))
     searchIndex.value = await res.json()
     indexLoaded.value = true
   } catch {

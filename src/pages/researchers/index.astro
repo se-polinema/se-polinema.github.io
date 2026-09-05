@@ -1,13 +1,14 @@
 ---
 import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import { withBase } from '../../lib/paths'
 ---
 
 <VSCodeLayout title="Researchers">
-  <meta slot="head" http-equiv="refresh" content="0; url=/members?filter=researchers" />
-  <link slot="head" rel="canonical" href="/members?filter=researchers" />
+  <meta slot="head" http-equiv="refresh" content={`0; url=${withBase('/members?filter=researchers')}`} />
+  <link slot="head" rel="canonical" href={withBase('/members?filter=researchers')} />
   <div class="px-8 py-5">
     <p class="text-neutral-500 dark:text-gray-400 text-sm">
-      Redirecting to <a class="text-accent" href="/members?filter=researchers">Members</a>...
+      Redirecting to <a class="text-accent" href={withBase('/members?filter=researchers')}>Members</a>...
     </p>
   </div>
 </VSCodeLayout>

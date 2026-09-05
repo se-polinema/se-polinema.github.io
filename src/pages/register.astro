@@ -6,6 +6,7 @@
 // fixed target path, so it can't forward an incoming query string.
 // This small client-side redirect can.
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import { withBase } from '../lib/paths'
 ---
 
 <VSCodeLayout
@@ -14,10 +15,11 @@ import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 >
   <div class="px-8 py-5">
     <p class="text-sm font-mono text-neutral-500 dark:text-gray-400">
-      Redirecting to <a href="/login" class="text-accent hover:text-accent/80 transition-colors">sign in</a>…
+      Redirecting to <a href={withBase('/login')} class="text-accent hover:text-accent/80 transition-colors">sign in</a>…
     </p>
   </div>
   <script>
-    window.location.replace('/login' + window.location.search)
+    import { withBase } from '../lib/paths'
+    window.location.replace(withBase('/login') + window.location.search)
   </script>
 </VSCodeLayout>

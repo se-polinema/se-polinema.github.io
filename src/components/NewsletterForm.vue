@@ -143,7 +143,7 @@
 
             <a
               v-if="compact"
-              href="/newsletter"
+              :href="withBase('/newsletter')"
               class="text-[11px] font-mono text-white/50 hover:text-white/80 transition-colors underline"
             >
               {{ t.newsletter.pageHeading }}
@@ -153,7 +153,7 @@
           <p class="text-[10px] leading-relaxed" :class="compact ? 'text-white/40' : 'text-neutral-400 dark:text-gray-500'">
             {{ t.newsletter.privacyNote }}
             <a
-              href="/privacy"
+              :href="withBase('/privacy')"
               class="underline underline-offset-2 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >{{ t.privacy.navLabel }}</a>
           </p>
@@ -166,6 +166,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import TurnstileWidget from './TurnstileWidget.vue'
 
 const props = withDefaults(defineProps<{

@@ -57,7 +57,7 @@
                 {{ lang === 'en' ? 'Load Map' : 'Muat Peta' }}
               </button>
               <a
-                href="/privacy"
+                :href="withBase('/privacy')"
                 class="text-[11px] text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 underline underline-offset-2 transition-colors"
               >
                 {{ lang === 'en' ? 'Privacy Policy' : 'Kebijakan Privasi' }}
@@ -165,6 +165,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import { useConsent } from '../composables/useConsent'
 import { decodeEmail, LAB_EMAIL_ENCODED } from '../utils/email'
 import ObfuscatedEmail from './ObfuscatedEmail.vue'

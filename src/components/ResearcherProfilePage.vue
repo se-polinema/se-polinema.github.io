@@ -10,7 +10,7 @@
           <div class="w-36 shrink-0 space-y-3 text-[13px] text-neutral-600 dark:text-gray-300">
             <div class="relative aspect-[4/5] w-full bg-neutral-50 dark:bg-gray-800 ring-1 ring-neutral-200 dark:ring-gray-600 overflow-hidden">
               <img
-                :src="researcher.image?.src ?? researcher.photo"
+                :src="researcher.image?.src ?? withBase(researcher.photo)"
                 :srcset="researcher.image?.srcset"
                 :sizes="researcher.image?.sizes"
                 :width="researcher.image?.width"
@@ -138,7 +138,7 @@
             <div class="flex flex-col gap-3">
               <div v-for="deck in props.slides" :key="deck.id">
                 <a
-                  :href="deck.url"
+                  :href="withBase(deck.url)"
                   class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors no-underline"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -180,7 +180,7 @@
                   <div
                     class="w-28 shrink-0 aspect-[3/4] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/10 dark:border-gray-600"
                   >
-                    <BookCover :src="book.coverImage" :title="book.title" fit="cover" />
+                    <BookCover :src="book.coverImage ? withBase(book.coverImage) : undefined" :title="book.title" fit="cover" />
                   </div>
                   <div class="min-w-0">
                     <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">{{ lang === 'id' && book.titleId ? book.titleId : book.title }}</div>
@@ -243,7 +243,7 @@
           <section>
             <div class="flex items-baseline justify-between gap-4 mb-3">
               <h2>{{ t.team.publicationsHeading }}</h2>
-              <a href="/publications" class="text-[13px] text-primary/55 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors whitespace-nowrap">{{ t.team.viewPublicationArchive }}</a>
+              <a :href="withBase('/publications')" class="text-[13px] text-primary/55 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors whitespace-nowrap">{{ t.team.viewPublicationArchive }}</a>
             </div>
             <div class="space-y-6">
               <div v-for="group in groupedEntries" :key="group.year">
@@ -255,7 +255,7 @@
                       <span v-if="publication.citedByCount > 0" class="font-mono text-[10px] text-primary/45 dark:text-gray-400">{{ t.team.citedLabel.replace('{n}', String(publication.citedByCount)) }}</span>
                     </div>
                     <h3 class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug">
-                      <a :href="`/publications/${publication.id}`" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
+                      <a :href="withBase(`/publications/${publication.id}`)" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
                     </h3>
                     <p class="mt-1 text-[13px] text-neutral-600 dark:text-gray-300">{{ publication.authors.join(', ') }}</p>
                     <p class="mt-0.5 text-[13px] text-neutral-400 dark:text-gray-500 italic">{{ publication.venue }}</p>
@@ -275,6 +275,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import researchData from '../data/research.json'
 import ResearcherContactForm from './ResearcherContactForm.vue'
 import BookCover from './BookCover.vue'

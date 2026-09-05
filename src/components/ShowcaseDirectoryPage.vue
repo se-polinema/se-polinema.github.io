@@ -5,7 +5,7 @@
 
     <div class="mb-8">
       <a
-        href="/showcase/submit"
+        :href="withBase('/showcase/submit')"
         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
       >
         {{ t.showcase.addCta }}
@@ -23,7 +23,7 @@
           :key="p.id"
           class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors"
         >
-          <a :href="`/showcase/detail?id=${p.id}`" class="block no-underline relative">
+          <a :href="withBase(`/showcase/detail?id=${p.id}`)" class="block no-underline relative">
             <span
               v-if="p.featured"
               class="absolute top-2 right-2 z-10 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-accent text-white"
@@ -73,6 +73,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 interface ProjectRow {
   id: string

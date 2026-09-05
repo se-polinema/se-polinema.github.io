@@ -2,17 +2,17 @@
   <h1>{{ displayTitle }}</h1>
 
   <p class="font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 mt-1 mb-2 italic">
-    {{ displayDate }} &middot; <a :href="`/blog/category/${category}`" class="text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 transition-colors no-underline hover:underline">{{ category }}</a> &middot; {{ readingTimeLabel }}
+    {{ displayDate }} &middot; <a :href="withBase(`/blog/category/${category}`)" class="text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 transition-colors no-underline hover:underline">{{ category }}</a> &middot; {{ readingTimeLabel }}
   </p>
   <p class="flex items-center gap-1.5 font-mono text-[11.5px] text-neutral-400 dark:text-gray-500 italic mb-3">
     <span>{{ t.blog.authorBy }}</span>
     <template v-if="props.matchedResearcher">
       <a
-        :href="`/researchers/${props.matchedResearcher.id}`"
+        :href="withBase(`/researchers/${props.matchedResearcher.id}`)"
         class="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline hover:underline"
       >
         <img
-          :src="props.matchedResearcher.image?.src ?? props.matchedResearcher.photo"
+          :src="props.matchedResearcher.image?.src ?? withBase(props.matchedResearcher.photo)"
           :srcset="props.matchedResearcher.image?.srcset"
           :sizes="props.matchedResearcher.image?.sizes"
           :alt="props.matchedResearcher.name"
@@ -38,7 +38,7 @@
     <a
       v-for="tag in displayTags"
       :key="tag.slug"
-      :href="`/blog/tags/${tag.slug}`"
+      :href="withBase(`/blog/tags/${tag.slug}`)"
       class="inline-block px-2 py-0.5 rounded border border-neutral-200 dark:border-gray-600 text-neutral-500 dark:text-gray-400 hover:text-primary dark:hover:text-gray-200 hover:border-primary/30 dark:hover:border-gray-400 transition-colors no-underline"
     >{{ tag.label }}</a>
   </p>
@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 const STALE_THRESHOLD_MS = 18 * 30.44 * 24 * 60 * 60 * 1000
 

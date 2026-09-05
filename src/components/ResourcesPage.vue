@@ -10,7 +10,7 @@
 
     <div class="mb-8">
       <a
-        href="/learning-paths"
+        :href="withBase('/learning-paths')"
         class="inline-flex items-center gap-1.5 text-[13px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors"
       >
         {{ t.learningPaths?.viewLearningPaths || 'View Learning Paths' }}
@@ -90,7 +90,7 @@
             </p>
 
             <a
-              :href="resource.url"
+              :href="withBase(resource.url)"
               :target="resource.internal ? undefined : '_blank'"
               :rel="resource.internal ? undefined : 'noopener'"
               class="inline-flex items-center gap-1.5 text-[13px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors mt-1 self-start"
@@ -115,6 +115,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import type { Resource } from '../types/resource'
 
 interface StreamOption {

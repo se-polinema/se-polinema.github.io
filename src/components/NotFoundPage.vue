@@ -12,16 +12,16 @@
       </p>
 
       <nav class="flex flex-wrap items-center justify-center gap-4 mt-8" aria-label="404 navigation">
-        <a href="/" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
+        <a :href="withBase('/')" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.home }}
         </a>
-        <a href="/blog" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
+        <a :href="withBase('/blog')" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.blog }}
         </a>
-        <a href="/members?filter=researchers" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
+        <a :href="withBase('/members?filter=researchers')" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.researchers }}
         </a>
-        <a href="/publications" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
+        <a :href="withBase('/publications')" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">
           {{ t.notFound.publications }}
         </a>
       </nav>
@@ -31,6 +31,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 const { t } = useI18n()
 </script>

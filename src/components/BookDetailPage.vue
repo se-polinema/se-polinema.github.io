@@ -1,7 +1,7 @@
 <template>
   <div class="px-8 py-8 max-w-4xl bilingual-post">
     <a
-      href="/books"
+      :href="withBase('/books')"
       class="inline-flex items-center gap-1 text-xs font-mono text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-accent transition-colors mb-8"
     >
       <span lang="en">&larr; {{ t.books.backToBooks }}</span>
@@ -12,7 +12,7 @@
       <div
         class="w-48 sm:w-56 flex-shrink-0 border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 mx-auto md:mx-0"
       >
-        <BookCover :src="book.coverImage" :title="book.title" fit="contain" />
+        <BookCover :src="book.coverImage ? withBase(book.coverImage) : undefined" :title="book.title" fit="contain" />
       </div>
 
       <div class="flex-1 min-w-0">
@@ -28,7 +28,7 @@
             <a
               v-for="author in book.authors"
               :key="author.id"
-              :href="`/researchers/${author.id}`"
+              :href="withBase(`/researchers/${author.id}`)"
               class="text-sm text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors font-mono"
             >{{ author.name }}</a>
           </div>
@@ -129,6 +129,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import BookCover from './BookCover.vue'
 
 interface MemberBook {

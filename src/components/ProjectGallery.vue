@@ -49,7 +49,7 @@
         class="shrink-0 w-20 h-14 rounded-md overflow-hidden border-2 transition-colors"
         :class="i === currentIndex ? 'border-primary dark:border-blue-500' : 'border-primary/10 dark:border-gray-700 opacity-70 hover:opacity-100'"
       >
-        <img :src="img" :alt="`${alt} ${i + 1}`" class="w-full h-full object-cover" loading="lazy" />
+        <img :src="withBase(img)" :alt="`${alt} ${i + 1}`" class="w-full h-full object-cover" loading="lazy" />
       </button>
     </div>
   </div>
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 const props = defineProps<{
   images: string[]
@@ -69,7 +70,7 @@ const { t } = useI18n()
 const currentIndex = ref(0)
 
 const currentImage = computed(() =>
-  props.images.length > 0 ? props.images[currentIndex.value] : props.placeholder,
+  withBase(props.images.length > 0 ? props.images[currentIndex.value] : props.placeholder),
 )
 
 function prev() {
