@@ -13,7 +13,7 @@
         <a
           v-for="(area, index) in research"
           :key="area.id"
-          :href="`/research/${area.id}`"
+          :href="withBase(`/research/${area.id}`)"
           class="group bg-neutral-50 dark:bg-gray-800 border border-neutral-100 dark:border-gray-700 hover:border-accent/30 transition-all duration-300 p-6 relative overflow-hidden block"
           :class="{ 'sm:col-span-2 sm:max-w-[calc(50%-0.5rem)]': index === research.length - 1 && research.length % 2 !== 0 }"
         >
@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import researchData from '../data/research.json'
 
 const { lang, t } = useI18n()

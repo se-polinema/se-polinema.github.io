@@ -18,7 +18,7 @@
             <a
               v-for="link in allLinks"
               :key="link.href"
-              :href="link.href"
+              :href="link.external ? link.href : withBase(link.href)"
               :target="link.external ? '_blank' : undefined"
               :rel="link.external ? 'noopener' : undefined"
               class="text-xs text-white/60 hover:text-white transition-colors py-0.5"
@@ -48,6 +48,7 @@
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import NewsletterForm from './NewsletterForm.vue'
+import { withBase } from '../lib/paths'
 
 const { t } = useI18n()
 

@@ -9,7 +9,7 @@
             {{ t.publications.heading }}
           </h2>
         </div>
-        <a href="/publications" class="hidden sm:inline-flex items-center gap-2 text-sm text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
+        <a :href="withBase('/publications')" class="hidden sm:inline-flex items-center gap-2 text-sm text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
           {{ t.publications.viewAll }}
           <span aria-hidden="true">&rarr;</span>
         </a>
@@ -26,7 +26,7 @@
           </div>
           <div>
             <h3 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug">
-              <a :href="`/publications/${publication.id}`" class="hover:underline decoration-primary/20 underline-offset-4">
+              <a :href="withBase(`/publications/${publication.id}`)" class="hover:underline decoration-primary/20 underline-offset-4">
                 {{ publication.title }}
               </a>
             </h3>
@@ -51,6 +51,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 defineProps<{
   publications: Array<{

@@ -78,3 +78,29 @@ The implementation workflow requires these permissions:
 - `contents: write`
 - `pull-requests: write`
 - `issues: write`
+
+## Release Flow
+
+The site deploys two environments from one GitHub Pages site (`.github/workflows/deploy.yml`):
+
+- **Production**: builds from `main`, served at the site root (`https://se.polinema.ac.id/`).
+- **Beta**: builds from `develop`, served under `https://se.polinema.ac.id/beta/`.
+
+Every push to either branch rebuilds both and redeploys the merged artifact, so the two environments are always in sync with their respective branch tips. A missing or broken `develop` branch never blocks the production deploy (the beta build job is non-blocking).
+
+Rule for shipping a change:
+
+1. Branch from `main` for a feature/fix (`feature-branch`).
+2. Open a PR from `feature-branch` into `develop`. Merging deploys it to beta for validation.
+3. Once validated on beta, open a second PR from the same `feature-branch` into `main`. Merging deploys it to production.
+
+Do not merge `develop` into `main` wholesale — each change ships to production through its own PR against `main`, after being validated on beta. Both `main` and `develop` are protected branches (PRs required, no direct pushes, no force pushes).
+
+### Base-path convention
+
+The beta build sets `BASE_PATH=/beta/` (read by `astro.config.mjs`); production leaves it unset and serves from `/`. Because of this, source code must never hardcode a root-absolute path (`href="/members"`, `fetch('/api/...')`, `src="/images/..."`). Use the helpers in `src/lib/paths.ts` instead:
+
+- `withBase(path)`: prefixes a base-free path for hrefs, `src` attributes, `fetch()` calls, and redirects. Safe to call on external URLs (passes them through unchanged).
+- `stripBase(pathname)`: inverse, for comparing against `window.location.pathname`.
+
+Store paths base-free and call `withBase()` once, at the render or navigation edge.

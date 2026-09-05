@@ -5,7 +5,7 @@
     <template v-if="status === 'before'">
       <a
         v-if="isAdmin"
-        :href="`/present/${presentationSlug}`"
+        :href="withBase(`/present/${presentationSlug}`)"
         class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors no-underline"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -25,7 +25,7 @@
     <!-- Live: prominent accent button for everyone -->
     <a
       v-else-if="status === 'live'"
-      :href="`/present/${presentationSlug}`"
+      :href="withBase(`/present/${presentationSlug}`)"
       class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors no-underline"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -37,7 +37,7 @@
     <!-- Past: muted secondary link -->
     <a
       v-else-if="status === 'after'"
-      :href="`/present/${presentationSlug}`"
+      :href="withBase(`/present/${presentationSlug}`)"
       class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-mono text-primary dark:text-gray-100 border border-primary/20 dark:border-gray-600 hover:bg-primary/5 dark:hover:bg-gray-700 transition-colors no-underline"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -51,6 +51,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import { supabase } from '../lib/supabase'
 
 const props = defineProps<{

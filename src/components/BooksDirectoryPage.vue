@@ -35,13 +35,13 @@
           class="border border-primary/10 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col hover:border-primary/20 dark:hover:border-gray-500 transition-colors"
         >
           <a
-            :href="`/books/${book.slug}`"
+            :href="withBase(`/books/${book.slug}`)"
             class="flex gap-4 p-4"
           >
             <div
               class="w-24 sm:w-28 flex-shrink-0 bg-neutral-100 dark:bg-gray-700 border border-primary/5 dark:border-gray-600 overflow-hidden"
             >
-              <BookCover :src="book.coverImage" :title="book.title" fit="contain" />
+              <BookCover :src="book.coverImage ? withBase(book.coverImage) : undefined" :title="book.title" fit="contain" />
             </div>
             <div class="flex flex-col gap-2 min-w-0 flex-1">
               <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug line-clamp-2">
@@ -57,7 +57,7 @@
             <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.books.by }}</span>
             <template v-for="(author, idx) in book.authors" :key="author.id">
               <a
-                :href="`/researchers/${author.id}`"
+                :href="withBase(`/researchers/${author.id}`)"
                 class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
               >{{ author.name }}</a>
               <span v-if="idx < book.authors.length - 1" class="text-[12px] text-neutral-400 dark:text-gray-500">,</span>
@@ -80,6 +80,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import BookCover from './BookCover.vue'
 
 interface MemberBook {

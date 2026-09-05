@@ -15,7 +15,7 @@
       <article v-for="post in paginatedPosts" :key="post.id" class="group border-t border-primary/10 dark:border-gray-700 pt-5 grid sm:grid-cols-[8rem_minmax(0,1fr)] gap-4">
         <div class="text-xs text-neutral-400 dark:text-gray-500 space-y-1 pt-0.5">
           <a
-            :href="`/blog/category/${post.category}`"
+            :href="withBase(`/blog/category/${post.category}`)"
             class="block font-mono uppercase tracking-wider no-underline hover:underline"
             :class="categoryStyle(post.category)"
           >
@@ -27,7 +27,7 @@
         </div>
         <div>
           <h2 class="font-serif text-base font-semibold text-primary dark:text-gray-100 leading-snug mb-1 group-hover:text-primary/80 dark:group-hover:text-gray-300 transition-colors">
-            <a :href="`/blog/${post.id}`" class="hover:underline decoration-primary/20 underline-offset-4">
+            <a :href="withBase(`/blog/${post.id}`)" class="hover:underline decoration-primary/20 underline-offset-4">
               {{ lang === 'id' && post.titleId ? post.titleId : post.title }}
             </a>
           </h2>
@@ -38,11 +38,11 @@
             <a
               v-for="tag in displayTags(post)"
               :key="tag.slug"
-              :href="`/blog/tags/${tag.slug}`"
+              :href="withBase(`/blog/tags/${tag.slug}`)"
               class="inline-block px-1.5 py-px text-[10px] font-mono rounded border border-neutral-200 dark:border-gray-600 text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300 hover:border-primary/30 dark:hover:border-gray-400 transition-colors no-underline"
             >{{ tag.label }}</a>
           </div>
-          <a :href="`/blog/${post.id}`" class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors">
+          <a :href="withBase(`/blog/${post.id}`)" class="text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors">
             {{ t.news.readMore }} →
           </a>
         </div>
@@ -57,6 +57,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useVSCodeLayout } from '../composables/useVSCodeLayout'
+import { withBase } from '../lib/paths'
 import Pagination from './Pagination.vue'
 
 interface Post {
@@ -103,7 +104,7 @@ onMounted(async () => {
   if (props.posts) return
   isLoading.value = true
   try {
-    const res = await fetch('/api/blog-index.json')
+    const res = await fetch(withBase('/api/blog-index.json'))
     fetchedPosts.value = await res.json()
   } catch {
     fetchedPosts.value = []

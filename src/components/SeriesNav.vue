@@ -17,7 +17,7 @@
           <template v-if="part.slug === currentSlug">
             {{ partTitle(part) }} &larr; {{ t.blog.series.youAreHere }}
           </template>
-          <a v-else :href="`/blog/${part.slug}`">{{ partTitle(part) }}</a>
+          <a v-else :href="withBase(`/blog/${part.slug}`)">{{ partTitle(part) }}</a>
         </li>
       </ol>
     </nav>
@@ -35,20 +35,20 @@
       </div>
       <div v-else-if="isFirst" class="text-sm">
         <strong>{{ t.blog.series.next }}:</strong>
-        <a :href="`/blog/${next!.slug}`">{{ partTitle(next!) }} &rarr;</a>
+        <a :href="withBase(`/blog/${next!.slug}`)">{{ partTitle(next!) }} &rarr;</a>
       </div>
       <div v-else class="text-sm flex justify-between">
         <span>
           <strong>{{ t.blog.series.previous }}:</strong>
-          <a :href="`/blog/${prev!.slug}`">&larr; {{ partTitle(prev!) }}</a>
+          <a :href="withBase(`/blog/${prev!.slug}`)">&larr; {{ partTitle(prev!) }}</a>
         </span>
         <span v-if="next">
           <strong>{{ t.blog.series.next }}:</strong>
-          <a :href="`/blog/${next.slug}`">{{ partTitle(next) }} &rarr;</a>
+          <a :href="withBase(`/blog/${next.slug}`)">{{ partTitle(next) }} &rarr;</a>
         </span>
         <span v-else>
           <strong>{{ t.blog.series.seriesStart }}:</strong>
-          <a :href="`/blog/${parts[0].slug}`">{{ partTitle(parts[0]) }}</a>
+          <a :href="withBase(`/blog/${parts[0].slug}`)">{{ partTitle(parts[0]) }}</a>
         </span>
       </div>
     </nav>
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 export interface SeriesPart {
   slug: string

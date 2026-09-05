@@ -124,13 +124,13 @@
                 <a
                   v-for="rid in tool.researchers"
                   :key="rid"
-                  :href="`/researchers/${rid}`"
+                  :href="withBase(`/researchers/${rid}`)"
                   class="text-accent-700 dark:text-accent-400 hover:underline"
                 >{{ researcherName(rid) }}</a>
               </div>
               <a
                 v-if="tool.publicationSlug"
-                :href="`/publications/${tool.publicationSlug}`"
+                :href="withBase(`/publications/${tool.publicationSlug}`)"
                 class="inline-flex items-center gap-1 text-[11px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors"
               >{{ t.tools.publication }} <span class="text-[10px]">→</span></a>
             </div>
@@ -151,6 +151,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import type { Tool } from '../types/tool'
 
 interface StreamOption {

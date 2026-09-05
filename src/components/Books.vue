@@ -5,7 +5,7 @@
         <div class="section-label">{{ t.books.label }}</div>
         <a
           v-if="books.length > 0"
-          href="/books"
+          :href="withBase('/books')"
           class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors hidden sm:block"
         >{{ t.books.viewAll }} →</a>
       </div>
@@ -25,7 +25,7 @@
           >
             <!-- Cover image (thumbnail) -->
             <div class="w-full aspect-[2/3] bg-neutral-100 dark:bg-gray-700 overflow-hidden border border-primary/5 dark:border-gray-600">
-              <BookCover :src="book.coverImage" :title="book.title" fit="cover" />
+              <BookCover :src="book.coverImage ? withBase(book.coverImage) : undefined" :title="book.title" fit="cover" />
             </div>
             <div class="font-serif text-[1rem] font-semibold text-primary dark:text-gray-100 leading-snug line-clamp-2">
               {{ lang === 'id' && book.titleId ? book.titleId : book.title }}
@@ -53,7 +53,7 @@
               <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.books.by }}</span>
               <template v-for="(author, idx) in book.authors" :key="author.id">
                 <a
-                  :href="`/researchers/${author.id}`"
+                  :href="withBase(`/researchers/${author.id}`)"
                   class="text-[12px] text-primary/70 dark:text-gray-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
                 >{{ author.name }}</a>
                 <span v-if="idx < book.authors.length - 1" class="text-[12px] text-neutral-400 dark:text-gray-500">,</span>
@@ -62,7 +62,7 @@
           </div>
         </CardCarousel>
         <div class="mt-6 sm:hidden">
-          <a href="/books" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.books.viewAll }} →</a>
+          <a :href="withBase('/books')" class="text-[13px] font-mono text-primary/60 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.books.viewAll }} →</a>
         </div>
       </template>
 
@@ -81,6 +81,7 @@
 import CardCarousel from './CardCarousel.vue'
 import BookCover from './BookCover.vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 export interface MemberBook {
   title: string

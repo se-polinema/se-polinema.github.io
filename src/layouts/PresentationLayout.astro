@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import { withBase } from '../lib/paths'
 
 export interface Props {
   title: string
@@ -16,8 +17,8 @@ const { title, lang = 'en' } = Astro.props as Props
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <title>{title} | SE Lab Presentation</title>
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon.png')} />
 
     <!-- Apply dark mode before paint (mirrors Default.astro) -->
     <script is:inline>

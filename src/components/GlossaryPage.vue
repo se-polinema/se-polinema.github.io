@@ -84,7 +84,7 @@
     <div class="border-t border-primary/10 dark:border-gray-700 pt-6 mt-6">
       <p class="text-sm text-neutral-500 dark:text-gray-400">
         {{ t.glossary.suggestionText }}
-        <a href="/contact" class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors">{{ t.glossary.suggestionLink }}</a>
+        <a :href="withBase('/contact')" class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors">{{ t.glossary.suggestionLink }}</a>
       </p>
     </div>
   </div>
@@ -93,6 +93,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 interface GlossaryTerm {
   term: string

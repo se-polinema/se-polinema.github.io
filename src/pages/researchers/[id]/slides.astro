@@ -3,6 +3,7 @@ import PresentationLayout from '../../../layouts/PresentationLayout.astro'
 import ResearcherSlidesViewer from '../../../components/ResearcherSlidesViewer.vue'
 import EditOnGitHub from '../../../components/EditOnGitHub.astro'
 import { getCollection } from 'astro:content'
+import { withBase, BASE } from '../../../lib/paths'
 
 export async function getStaticPaths() {
   const researchers = await getCollection('researchers')
@@ -32,11 +33,16 @@ if (!deck) {
 }
 
 const { title, theme } = deck.data
-const raw = deck.body ?? ''
+// The deck body is raw markdown/HTML handed to reveal.js's client-side
+// Markdown plugin (see the template block below), not routed through
+// Astro's own markdown/rehype pipeline, so rehypeBasePaths never sees it.
+// Root-absolute asset references embedded in deck content (e.g. a title
+// slide's `<img src="/images/team/...">`) need the same base rewrite here.
+const raw = BASE === '/' ? (deck.body ?? '') : (deck.body ?? '').replace(/(src|href)="\/(?!\/)/g, `$1="${BASE}`)
 
 // Static page: use English title by default (language switch is client-side via useI18n)
 const displayTitle = title
-const backUrl = `/researchers/${researcher.id}`
+const backUrl = withBase(`/researchers/${researcher.id}`)
 ---
 
 <PresentationLayout title={displayTitle}>

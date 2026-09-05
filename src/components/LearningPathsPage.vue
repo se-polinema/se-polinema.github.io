@@ -106,7 +106,7 @@
                     </p>
 
                     <a
-                      :href="step.url"
+                      :href="withBase(step.url)"
                       :target="step.internal ? undefined : '_blank'"
                       :rel="step.internal ? undefined : 'noopener'"
                       class="inline-flex items-center gap-1 text-[12px] font-mono text-accent-700 dark:text-accent-400 hover:underline transition-colors"
@@ -137,6 +137,7 @@ import { ref, computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import type { LearningTrack, LearningTrackStep } from '../types/learning-track'
 import researchData from '../data/research.json'
+import { withBase } from '../lib/paths'
 
 const props = defineProps<{
   tracks: LearningTrack[]

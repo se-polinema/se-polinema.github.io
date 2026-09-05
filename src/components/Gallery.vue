@@ -16,7 +16,7 @@
             class="relative group overflow-hidden"
           >
             <img
-              :src="item.image"
+              :src="withBase(item.image)"
               :alt="caption(item)"
               class="w-full h-56 object-cover object-center transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
@@ -43,6 +43,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import rawGallery from '../data/gallery.json'
 
 const { lang, t } = useI18n()

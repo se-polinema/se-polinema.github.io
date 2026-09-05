@@ -4,7 +4,7 @@
         <div class="flex items-start gap-3 md:gap-4 mb-5">
           <div class="relative h-16 w-16 md:h-20 md:w-20 shrink-0 rounded-full overflow-hidden bg-neutral-100 dark:bg-gray-700 ring-1 ring-neutral-200 dark:ring-gray-600 group-hover:ring-primary/30 transition-colors">
             <img
-              :src="researcher.photo"
+              :src="withBase(researcher.photo)"
               :alt="researcher.name"
               class="h-full w-full object-cover"
               :style="{ objectPosition: researcher.photoPosition }"
@@ -13,7 +13,7 @@
           </div>
           <div class="min-w-0">
             <h2 class="font-serif text-lg md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug">
-              <a :href="`/researchers/${researcher.id}`" class="hover:underline decoration-primary/20 underline-offset-4">
+              <a :href="withBase(`/researchers/${researcher.id}`)" class="hover:underline decoration-primary/20 underline-offset-4">
                 {{ researcher.name }}
               </a>
             </h2>
@@ -32,7 +32,7 @@
         </p>
 
         <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-          <a :href="`/researchers/${researcher.id}`" class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
+          <a :href="withBase(`/researchers/${researcher.id}`)" class="text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors">
             {{ t.team.viewProfile }} →
           </a>
           <a :href="researcher.googleScholarUrl" target="_blank" rel="noopener" class="text-sm text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors">
@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 defineProps<{
   researchers: Array<{

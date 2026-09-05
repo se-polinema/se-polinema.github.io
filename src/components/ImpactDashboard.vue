@@ -201,7 +201,7 @@
               <td class="font-mono">{{ r.hindex }}</td>
               <td class="text-neutral-500 dark:text-gray-400 text-sm">{{ primaryStreamLabel(r) }}</td>
               <td class="hidden sm:table-cell">
-                <a :href="`/researchers/${r.id}`" class="text-accent-700 dark:text-accent-400 hover:underline text-sm font-mono">
+                <a :href="withBase(`/researchers/${r.id}`)" class="text-accent-700 dark:text-accent-400 hover:underline text-sm font-mono">
                   {{ tr('viewProfile') }}
                 </a>
               </td>
@@ -240,6 +240,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import { useTheme } from '../composables/useTheme'
 import en from '../i18n/en.json'
 import id from '../i18n/id.json'

@@ -17,11 +17,11 @@
         >
           <!-- Photo (small circular avatar, links to profile) -->
           <a
-            :href="`/researchers/${member.id}`"
+            :href="withBase(`/researchers/${member.id}`)"
             class="block mx-auto mb-4 w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-1 ring-neutral-200 dark:ring-gray-600 group-hover:ring-primary/30 transition-colors"
           >
             <img
-              :src="member.photo"
+              :src="withBase(member.photo)"
               :alt="member.name"
               class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
               :style="{ objectPosition: member.photoPosition }"
@@ -50,7 +50,7 @@
               </span>
             </div>
             <a
-              :href="`/researchers/${member.id}`"
+              :href="withBase(`/researchers/${member.id}`)"
               class="inline-flex items-center gap-1.5 text-xs font-medium text-primary/50 dark:text-gray-400 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
             >
               {{ t.team.viewProfile }} →
@@ -64,6 +64,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 defineProps<{
   researchers: Array<{

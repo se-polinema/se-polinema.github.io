@@ -189,6 +189,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import { useAuth } from '../../composables/useAuth'
+import { withBase, stripBase } from '../../lib/paths'
 
 const props = defineProps<{ initialPath?: string }>()
 
@@ -212,8 +213,8 @@ const { user } = useAuth()
 const redirectPath = ref('')
 
 const accountHref = computed(() => {
-  if (user.value) return '/account'
-  return redirectPath.value ? `/login?redirect=${encodeURIComponent(redirectPath.value)}` : '/login'
+  if (user.value) return withBase('/account')
+  return withBase(redirectPath.value ? `/login?redirect=${encodeURIComponent(redirectPath.value)}` : '/login')
 })
 
 const accountTitle = computed(() =>
@@ -230,6 +231,10 @@ function openCommandPalette() {
 
 onMounted(() => {
   restoreRouteState()
+  // Not stripBase()'d: this becomes the `redirect` query value that
+  // AuthForm.vue resolves directly against window.location.origin after
+  // sign-in, so it must already carry the deploy's base prefix (e.g.
+  // /beta/...) to land back on the right build.
   redirectPath.value = window.location.pathname + window.location.search
 })
 </script>

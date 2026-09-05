@@ -1,6 +1,6 @@
 <template>
   <div class="px-8 py-5">
-    <a :href="`/events`" class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6">
+    <a :href="withBase(`/events`)" class="inline-flex items-center gap-1 text-xs font-mono text-primary/40 dark:text-gray-500 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6">
       ← {{ t.events.backToEvents }}
     </a>
 
@@ -13,11 +13,11 @@
       <span>{{ t.blog.authorBy }}</span>
       <template v-if="props.matchedResearcher">
         <a
-          :href="`/researchers/${props.matchedResearcher.id}`"
+          :href="withBase(`/researchers/${props.matchedResearcher.id}`)"
           class="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline hover:underline"
         >
           <img
-            :src="props.matchedResearcher.photo"
+            :src="withBase(props.matchedResearcher.photo)"
             :alt="props.matchedResearcher.name"
             class="w-4 h-4 rounded-full object-cover"
             width="16"
@@ -89,6 +89,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 const props = defineProps<{
   title: string

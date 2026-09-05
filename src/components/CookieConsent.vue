@@ -12,7 +12,7 @@
         <p class="text-xs md:text-sm text-neutral-600 dark:text-gray-300 leading-relaxed flex-1">
           {{ t.cookieConsent.message }}
           <a
-            href="/privacy"
+            :href="withBase('/privacy')"
             class="text-primary dark:text-gray-200 hover:text-accent-700 dark:hover:text-accent-400 underline underline-offset-2 transition-colors"
           >{{ t.cookieConsent.learnMore }}</a>
         </p>
@@ -39,6 +39,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import { useConsent } from '../composables/useConsent'
 
 const { t } = useI18n()

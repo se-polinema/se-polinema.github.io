@@ -948,6 +948,7 @@ import { useI18n } from '../composables/useI18n'
 import { useConfirmDialog } from '../composables/useConfirmDialog'
 import { useAuth } from '../composables/useAuth'
 import { supabase } from '../lib/supabase'
+import { withBase } from '../lib/paths'
 import ImageUpload from './ImageUpload.vue'
 import AdminEventSection from './AdminEventSection.vue'
 import GitHubSignInButton from './GitHubSignInButton.vue'
@@ -1145,7 +1146,7 @@ const researcherOptions = ref<{ id: string; name: string }[]>([])
 
 onMounted(async () => {
   try {
-    researcherOptions.value = await (await fetch('/api/researchers.json')).json()
+    researcherOptions.value = await (await fetch(withBase('/api/researchers.json'))).json()
   } catch {
     researcherOptions.value = []
   }
@@ -1890,7 +1891,7 @@ async function loadData() {
 
 async function loadEventDates() {
   try {
-    const res = await fetch('/api/events.json')
+    const res = await fetch(withBase('/api/events.json'))
     const data: EventDateInfo[] = await res.json()
     const map: Record<string, EventDateInfo> = {}
     for (const d of data) map[d.slug] = d

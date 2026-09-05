@@ -1,4 +1,5 @@
 import { ref, reactive } from 'vue'
+import { withBase, stripBase } from '../lib/paths'
 
 type SidebarView = 'explorer' | 'blog' | 'events' | 'github' | 'publications' | 'decks' | 'achievements' | 'members'
 
@@ -102,7 +103,7 @@ export function useVSCodeLayout(initialPath?: string) {
   // every island on a page passes the same initialPath, this stays
   // consistent across the shared singleton regardless of mount order.
   if (initialPath) {
-    const resolved = resolveRoute(initialPath)
+    const resolved = resolveRoute(stripBase(initialPath))
     currentPage.value = resolved.page
     activeSidebarView.value = resolved.view
   }
@@ -178,7 +179,7 @@ export function useVSCodeLayout(initialPath?: string) {
   function restoreRouteState() {
     if (typeof window === 'undefined') return
 
-    const resolved = resolveRoute(window.location.pathname)
+    const resolved = resolveRoute(stripBase(window.location.pathname))
     currentPage.value = resolved.page
     activeSidebarView.value = resolved.view
   }
@@ -219,7 +220,7 @@ export function useVSCodeLayout(initialPath?: string) {
   function setView(view: SidebarView) {
     const nav = viewNav[view]
     if (nav && currentPage.value !== nav.page) {
-      window.location.href = nav.href
+      window.location.href = withBase(nav.href)
       return
     }
     // Clicking the already-active icon while the sidebar is open toggles

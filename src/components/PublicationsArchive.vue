@@ -23,7 +23,7 @@
             </div>
             <div>
               <h2 class="font-serif text-base md:text-xl font-semibold text-primary dark:text-gray-100 leading-snug">
-                <a :href="`/publications/${publication.id}`" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
+                <a :href="withBase(`/publications/${publication.id}`)" class="hover:underline decoration-primary/20 underline-offset-4">{{ publication.title }}</a>
               </h2>
               <p class="mt-2 text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">{{ publication.authors.join(', ') }}</p>
               <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-500 dark:text-gray-400">
@@ -48,6 +48,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { useVSCodeLayout } from '../composables/useVSCodeLayout'
+import { withBase } from '../lib/paths'
 import Pagination from './Pagination.vue'
 
 type Publication = {
@@ -95,7 +96,7 @@ onMounted(async () => {
   if (props.publications) return
   isLoading.value = true
   try {
-    const res = await fetch('/api/publications-index.json')
+    const res = await fetch(withBase('/api/publications-index.json'))
     fetchedPublications.value = await res.json()
   } catch {
     fetchedPublications.value = []

@@ -159,7 +159,7 @@
           <a
             v-for="link in quickLinks"
             :key="link.href"
-            :href="link.href"
+            :href="withBase(link.href)"
             class="flex items-center gap-2 px-2 py-1.5 rounded text-[11.5px] text-[color:var(--color-vscode-chrome-fg-muted)] hover:text-[color:var(--color-vscode-chrome-fg)] hover:bg-[color:var(--color-vscode-chrome-border)] transition-colors leading-relaxed"
           >
             <svg
@@ -196,6 +196,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import { useDragResize } from '../../composables/useDragResize'
+import { withBase } from '../../lib/paths'
 import NewsletterForm from '../NewsletterForm.vue'
 import ObfuscatedEmail from '../ObfuscatedEmail.vue'
 import { LAB_EMAIL_ENCODED } from '../../utils/email'
@@ -265,7 +266,7 @@ onMounted(async () => {
   restorePanelState()
 
   try {
-    const res = await fetch('/api/lab-stats.json')
+    const res = await fetch(withBase('/api/lab-stats.json'))
     if (res.ok) {
       const data = await res.json()
       stats.value = data

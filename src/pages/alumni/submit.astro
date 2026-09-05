@@ -1,6 +1,8 @@
 ---
+import { withBase } from '../../lib/paths'
+
 // Self-registration is student-only now (see 20260722023755_member_graduation.sql:
 // becoming an alumnus is a graduation event on an existing member row, not a
 // second registration form). Redirect any lingering links/bookmarks here.
-return Astro.redirect('/members/submit')
+return Astro.redirect(withBase('/members/submit'))
 ---

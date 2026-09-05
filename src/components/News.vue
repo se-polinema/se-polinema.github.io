@@ -11,7 +11,7 @@
         </div>
         <a
           v-if="posts.length > 0"
-          href="/blog"
+          :href="withBase('/blog')"
           class="inline-flex items-center gap-2 text-sm text-primary/60 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
         >
           {{ t.news.viewAll }}
@@ -27,7 +27,7 @@
         >
           <div class="flex items-center gap-3 mb-4">
             <a
-              :href="`/blog/category/${post.category}`"
+              :href="withBase(`/blog/category/${post.category}`)"
               class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 no-underline hover:underline"
               :class="categoryStyle(post.category)"
             >
@@ -42,7 +42,7 @@
           </div>
 
           <h3 class="font-serif text-lg font-semibold text-primary dark:text-gray-100 mb-2 group-hover:text-primary/80 dark:group-hover:text-gray-300 transition-colors">
-            <a :href="'/blog/' + post.slug" class="hover:underline decoration-primary/20 underline-offset-4">
+            <a :href="withBase('/blog/' + post.slug)" class="hover:underline decoration-primary/20 underline-offset-4">
               {{ lang === 'id' && post.titleId ? post.titleId : post.title }}
             </a>
           </h3>
@@ -52,7 +52,7 @@
           </p>
 
           <a
-            :href="'/blog/' + post.slug"
+            :href="withBase('/blog/' + post.slug)"
             class="text-xs font-medium text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors"
           >
             {{ t.news.readMore }} &rarr;
@@ -69,6 +69,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 defineProps<{
   posts: Array<{

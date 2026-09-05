@@ -11,7 +11,7 @@
       <a
         v-for="tag in tags"
         :key="tag.slug"
-        :href="`/blog/tags/${tag.slug}`"
+        :href="withBase(`/blog/tags/${tag.slug}`)"
         class="group flex flex-col items-center justify-center p-4 rounded-lg border border-neutral-200 dark:border-gray-700 hover:border-primary/40 dark:hover:border-gray-500 hover:bg-neutral-50 dark:hover:bg-gray-800/50 transition-colors no-underline"
       >
         <span class="text-sm font-mono font-semibold text-primary dark:text-gray-100 group-hover:text-primary/80 group-hover:underline">{{ lang === 'id' && tag.id ? tag.id : tag.en }}</span>
@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 
 const props = defineProps<{
   tags: Array<{ slug: string; en: string; id: string; count: number }>

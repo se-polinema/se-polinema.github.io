@@ -20,7 +20,7 @@
               :title="`${t.partners.visit} ${partner.name}`"
             >
               <img
-                :src="partner.logoUrl"
+                :src="withBase(partner.logoUrl)"
                 :alt="partner.name"
                 class="h-10 w-auto object-contain"
                 loading="lazy"
@@ -28,7 +28,7 @@
             </a>
             <div v-else class="grayscale opacity-60">
               <img
-                :src="partner.logoUrl"
+                :src="withBase(partner.logoUrl)"
                 :alt="partner.name"
                 class="h-10 w-auto object-contain"
                 loading="lazy"
@@ -52,6 +52,7 @@
 <script setup lang="ts">
 import { useI18n } from '../composables/useI18n'
 import rawPartners from '../data/partners.json'
+import { withBase } from '../lib/paths'
 
 const { t } = useI18n()
 

@@ -67,7 +67,7 @@
       <GitHubSignInButton />
       <p class="text-[10px] text-neutral-400 dark:text-gray-500 mt-3 leading-relaxed">
         {{ lang === 'en' ? 'Your data is stored securely in Supabase. Read our' : 'Data Anda disimpan dengan aman di Supabase. Baca' }}
-        <a href="/privacy" class="underline underline-offset-2 hover:text-primary dark:hover:text-gray-200 transition-colors">{{ t.privacy.navLabel }}</a>
+        <a :href="withBase('/privacy')" class="underline underline-offset-2 hover:text-primary dark:hover:text-gray-200 transition-colors">{{ t.privacy.navLabel }}</a>
       </p>
     </div>
 
@@ -81,6 +81,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import { supabase } from '../lib/supabase'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 

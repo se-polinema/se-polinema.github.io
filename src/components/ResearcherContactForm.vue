@@ -140,7 +140,7 @@
         <label for="rcf-consent" class="text-[9px] leading-relaxed text-neutral-500 dark:text-gray-400">
           {{ t.researcherContact.formPrivacyConsent }}
           <a
-            href="/privacy"
+            :href="withBase('/privacy')"
             target="_blank"
             class="underline underline-offset-2 hover:text-primary dark:hover:text-gray-200 transition-colors"
           >{{ lang === 'en' ? 'Privacy Policy' : 'Kebijakan Privasi' }}</a>.
@@ -160,7 +160,7 @@
       <p class="text-[9px] leading-relaxed text-neutral-400 dark:text-gray-500">
         {{ t.newsletter.privacyNote }}
         <a
-          href="/privacy"
+          :href="withBase('/privacy')"
           target="_blank"
           class="underline underline-offset-2 hover:text-primary dark:hover:text-gray-200 transition-colors"
         >{{ t.privacy.navLabel }}</a>
@@ -172,6 +172,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import { decodeEmail } from '../utils/email'
 
 const props = withDefaults(defineProps<{

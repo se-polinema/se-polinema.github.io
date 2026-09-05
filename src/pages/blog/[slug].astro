@@ -14,6 +14,7 @@ import { getRelatedItems } from '../../utils/relatedContent'
 import type { CurrentItem, CandidateItem } from '../../utils/relatedContent'
 import type { RelatedContentItem } from '../../components/RelatedContent.vue'
 import resourcesData from '../../data/resources.json'
+import { withBase } from '../../lib/paths'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -41,8 +42,8 @@ const matchedResearcher = researchers.find((r) => r.data.name === author)
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const postUrl = new URL(Astro.url.pathname, origin).href
 const imageUrl = post.data.image
-  ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, origin).href)
-  : new URL(`/og/blog/${post.id}.png`, origin).href
+  ? (post.data.image.startsWith('http') ? post.data.image : new URL(withBase(post.data.image), origin).href)
+  : new URL(withBase(`/og/blog/${post.id}.png`), origin).href
 
 const blogPostingJsonLd = {
   '@context': 'https://schema.org',

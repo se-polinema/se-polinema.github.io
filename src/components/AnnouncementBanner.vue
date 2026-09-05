@@ -41,7 +41,7 @@
             </button>
             <a
               v-if="bannerLink && bannerLinkText"
-              :href="bannerLink"
+              :href="withBase(bannerLink)"
               class="vscode-dialog-btn vscode-dialog-btn-primary"
             >
               {{ bannerLinkText }}
@@ -56,6 +56,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { withBase } from '../lib/paths'
 import { useI18n } from '../composables/useI18n'
 import '../styles/vscode-dialog.css'
 

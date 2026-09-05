@@ -13,7 +13,7 @@
       </p>
       <GitHubSignInButton :redirect-to="redirectTo" />
       <a
-        :href="`/login?redirect=${encodeURIComponent('/account')}`"
+        :href="withBase(`/login?redirect=${encodeURIComponent(withBase('/account'))}`)"
         class="block mt-3 text-sm font-mono text-accent hover:text-accent/80 transition-colors"
       >
         {{ t.memberSubmit.backToLogin }}
@@ -37,7 +37,7 @@
           <li v-for="r in registrations" :key="r.event_slug" class="flex items-center justify-between gap-3 px-4 py-3">
             <div class="min-w-0">
               <a
-                :href="`/events/${r.event_slug}`"
+                :href="withBase(`/events/${r.event_slug}`)"
                 class="text-sm font-medium text-primary dark:text-gray-100 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
               >
                 {{ r.events?.title ?? r.event_slug }}
@@ -71,7 +71,7 @@
           class="border border-primary/10 dark:border-gray-700 p-4 text-sm text-neutral-700 dark:text-gray-300"
         >
           {{ t.memberSubmit.approvedMessage }}
-          <a :href="`/profile?id=${memberId}`" class="text-accent hover:text-accent/80 transition-colors font-mono">{{ t.memberSubmit.viewProfileLink }} →</a>
+          <a :href="withBase(`/profile?id=${memberId}`)" class="text-accent hover:text-accent/80 transition-colors font-mono">{{ t.memberSubmit.viewProfileLink }} →</a>
 
           <!-- Graduation: turns an approved student row into alumni. Alumni
                are graduated members, not a separate signup (see
@@ -136,6 +136,7 @@ import { useI18n } from '../composables/useI18n'
 import { useAuth } from '../composables/useAuth'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import { readOAuthError } from '../lib/oauthError'
+import { withBase } from '../lib/paths'
 
 const { t } = useI18n()
 const { user, ready, signOut } = useAuth()

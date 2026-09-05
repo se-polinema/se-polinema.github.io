@@ -17,7 +17,7 @@
 
     <div v-else class="flex items-center h-6 flex-shrink-0">
       <a
-        href="/account"
+        :href="withBase('/account')"
         class="flex items-center gap-1 h-6 px-1.5 text-[11px] font-mono text-[color:var(--color-vscode-statusbar-fg)] font-semibold hover:bg-[color:var(--color-vscode-statusbar-border)] transition-colors"
         :title="t.account.accountLabel"
       >
@@ -48,6 +48,7 @@
 import { computed, ref } from 'vue'
 import { useAuth } from '../../composables/useAuth'
 import { useI18n } from '../../composables/useI18n'
+import { withBase } from '../../lib/paths'
 
 const { user, ready, signOut } = useAuth()
 const { t } = useI18n()
@@ -59,8 +60,8 @@ const signingOut = ref(false)
 // StatusBar (this component's parent) is client:load, so this setup() also
 // runs server-side during SSR, where `window` doesn't exist.
 const signInHref = typeof window !== 'undefined'
-  ? `/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`
-  : '/login'
+  ? withBase(`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`)
+  : withBase('/login')
 
 const displayName = computed(() => {
   const meta = user.value?.user_metadata as Record<string, string> | undefined

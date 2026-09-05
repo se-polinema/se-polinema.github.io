@@ -22,7 +22,7 @@
          20260722023755_member_graduation.sql). -->
     <div v-if="activeFilter === 'students' || activeFilter === 'all'" class="mb-8">
       <a
-        href="/members/submit"
+        :href="withBase('/members/submit')"
         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-mono font-semibold text-white bg-accent hover:bg-accent/90 transition-colors"
       >
         {{ t.memberSubmit.addCta }}
@@ -53,7 +53,7 @@
               :key="member.id"
               class="group border border-primary/10 dark:border-gray-600 bg-neutral-50 dark:bg-gray-800 p-5 md:p-6 hover:border-primary/25 dark:hover:border-gray-500 transition-colors"
             >
-              <a :href="`/profile?id=${member.id}`" class="flex items-start gap-3 md:gap-4 mb-5 no-underline">
+              <a :href="withBase(`/profile?id=${member.id}`)" class="flex items-start gap-3 md:gap-4 mb-5 no-underline">
                 <div
                   v-if="member.photo"
                   class="relative h-20 w-16 md:h-24 md:w-[4.5rem] shrink-0 bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden"
@@ -134,6 +134,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import ResearchersDirectoryPage from './ResearchersDirectoryPage.vue'
 
 interface MemberRow {

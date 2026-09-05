@@ -10,7 +10,7 @@
 
     <template v-else>
       <a
-        href="/showcase"
+        :href="withBase('/showcase')"
         class="inline-flex items-center gap-1 text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
       >
         ← {{ t.showcaseDetail.back }}
@@ -95,7 +95,7 @@
         <h2 class="text-xs font-mono uppercase tracking-wider text-primary/40 dark:text-gray-500 mb-2">
           {{ t.showcaseDetail.streamLabel }}
         </h2>
-        <a :href="`/research/${project.stream}`" class="text-sm text-accent hover:text-accent/80 transition-colors">
+        <a :href="withBase(`/research/${project.stream}`)" class="text-sm text-accent hover:text-accent/80 transition-colors">
           {{ streamName }}
         </a>
       </div>
@@ -108,7 +108,7 @@
           <a
             v-for="r in resolvedResearchers"
             :key="r.id"
-            :href="`/researchers/${r.id}`"
+            :href="withBase(`/researchers/${r.id}`)"
             class="text-sm text-accent hover:text-accent/80 transition-colors"
           >
             {{ r.name }}
@@ -159,6 +159,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import research from '../data/research.json'
 
 interface ProjectRow {
@@ -227,7 +228,7 @@ const resolvedResearchers = computed(() => {
 })
 
 onMounted(async () => {
-  fetch('/api/researchers.json')
+  fetch(withBase('/api/researchers.json'))
     .then((r) => r.json())
     .then((data) => { researcherOptions.value = data })
     .catch(() => { researcherOptions.value = [] })
