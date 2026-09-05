@@ -7,7 +7,7 @@ category: tutorial
 author: SE Lab
 lang: en
 featured: false
-stream: emerging-technologies-se
+stream: se-methodologies-architecture
 tags:
   - AI
   - Software Documentation
@@ -51,7 +51,7 @@ The antidote to all four failures is the same: **a human-in-the-loop review work
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Documentation Automation** as one of the five core topics under the [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/) research stream. Related research areas include requirements traceability, doc-to-code consistency, and automated commit summarisation, all of which this tutorial connects to practical tooling.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Documentation Automation** as one of the five core topics under the [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. Related research areas include requirements traceability, doc-to-code consistency, and automated commit summarisation, all of which this tutorial connects to practical tooling.
 
 </section>
 
@@ -86,7 +86,7 @@ Penangkal keempat kegagalan itu sama: **alur kerja tinjauan human-in-the-loop.**
 
 ### Koneksi dengan Riset SE Lab
 
-Software Engineering Lab di Politeknik Negeri Malang menempatkan **Documentation Automation** sebagai salah satu dari lima topik inti dalam alur riset [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/). Area riset terkait mencakup ketertelusuran kebutuhan, konsistensi *doc-to-code*, dan peringkasan commit otomatis, yang semuanya dihubungkan oleh tutorial ini ke perangkat praktis.
+Software Engineering Lab di Politeknik Negeri Malang menempatkan **Documentation Automation** sebagai salah satu dari lima topik inti dalam alur riset [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/). Area riset terkait mencakup ketertelusuran kebutuhan, konsistensi *doc-to-code*, dan peringkasan commit otomatis, yang semuanya dihubungkan oleh tutorial ini ke perangkat praktis.
 
 </section>
 
@@ -1924,7 +1924,7 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 
 ### SE Lab Resources
 
-- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)**: The research stream that this tutorial belongs to. Explore the other four topics: Code Quality Analysis, Bug Prediction, AI Test Generation, and Requirements Automation.
+- **[Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/)**: The research stream that this tutorial belongs to. Explore the other four topics: Code Quality Analysis, Bug Prediction, AI Test Generation, and Requirements Automation.
 - **[AI-Assisted Unit Test Generation with PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)**: A companion tutorial on using LLMs to generate PHPUnit tests. Many of the review and validation principles apply to both test generation and documentation.
 - **[Microservices Architecture Fundamentals](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)**: A tutorial that demonstrates how documentation becomes a critical concern in distributed systems where each service has its own API.
 
@@ -1953,7 +1953,7 @@ Diskusikan pengalaman Anda dengan teman sekelas. Bandingkan alat LLM mana yang A
 
 ### Sumber Daya SE Lab
 
-- **[Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/)**: Alur riset tempat tutorial ini bernaung. Jelajahi empat topik lainnya: Analisis Kualitas Kode, Prediksi Bug, Generasi Test AI, dan Otomatisasi Kebutuhan.
+- **[Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/)**: Alur riset tempat tutorial ini bernaung. Jelajahi empat topik lainnya: Analisis Kualitas Kode, Prediksi Bug, Generasi Test AI, dan Otomatisasi Kebutuhan.
 - **[Pembuatan Unit Test Berbantuan AI dengan PHP](https://se.polinema.ac.id/blog/ai-assisted-unit-test-generation/)**: Tutorial pendamping tentang penggunaan LLM untuk menghasilkan pengujian PHPUnit. Banyak prinsip tinjauan dan validasi berlaku untuk generasi pengujian dan dokumentasi.
 - **[Dasar-Dasar Arsitektur Microservices](https://se.polinema.ac.id/blog/microservices-architecture-fundamentals/)**: Tutorial yang mendemonstrasikan bagaimana dokumentasi menjadi perhatian kritis dalam sistem terdistribusi di mana setiap layanan memiliki API-nya sendiri.
 

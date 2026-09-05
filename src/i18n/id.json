@@ -1,7 +1,7 @@
 {
   "nav": {
     "about": "Tentang",
-    "research": "Penelitian",
+    "research": "Bidang Riset",
     "team": "Peneliti",
     "researchers": "Peneliti",
     "projects": "Proyek",
@@ -53,7 +53,9 @@
   },
   "research": {
     "label": "Fokus Riset",
-    "heading": "Tiga stream riset rekayasa perangkat lunak"
+    "heading": "Lima bidang riset rekayasa perangkat lunak",
+    "topicsLabel": "topik",
+    "viewAllCta": "Lihat Semua Bidang Riset"
   },
   "team": {
     "label": "Peneliti",

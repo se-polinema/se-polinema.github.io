@@ -13,7 +13,7 @@ eventEndDate: 2026-07-15
 location: "SE Lab, JTI Polinema, Room RT-A 301"
 locationId: "SE Lab, JTI Polinema, Ruang RT-A 301"
 managed: true
-stream: emerging-technologies-se
+stream: se-methodologies-architecture
 tags:
   - AI
   - AI-Assisted Testing

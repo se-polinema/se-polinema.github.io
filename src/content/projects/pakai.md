@@ -17,7 +17,7 @@ contributors:
   - "Student Contributor B"
 researchers:
   - "dian-hanifudin-subhi"
-stream: "emerging-technologies-se"
+stream: "se-methodologies-architecture"
 demoUrl: "https://github.com/dhanifudin/pakai"
 repo: "dhanifudin/pakai"
 featured: true

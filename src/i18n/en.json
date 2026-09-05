@@ -1,7 +1,7 @@
 {
   "nav": {
     "about": "About",
-    "research": "Research",
+    "research": "Research Areas",
     "team": "Researchers",
     "researchers": "Researchers",
     "projects": "Projects",
@@ -53,7 +53,9 @@
   },
   "research": {
     "label": "Research Focus",
-    "heading": "Three streams of software engineering research"
+    "heading": "Five areas of software engineering research",
+    "topicsLabel": "topics",
+    "viewAllCta": "View All Research Areas"
   },
   "team": {
     "label": "Researchers",

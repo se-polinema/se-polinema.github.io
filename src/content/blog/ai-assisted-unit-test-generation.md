@@ -9,7 +9,7 @@ lang: en
 featured: false
 excerpt: "Learn how to use AI coding assistants to generate, review, and refine PHPUnit tests. Covers practical workflows with PHP examples, common AI pitfalls (hallucinations, brittle tests, missing edge cases), and when AI-assisted test generation helps, and when it fails."
 excerptId: "Pelajari cara menggunakan asisten coding AI untuk menghasilkan, meninjau, dan menyempurnakan pengujian PHPUnit. Mencakup alur kerja praktis dengan contoh PHP, jebakan umum AI (halusinasi, pengujian rapuh, kasus tepi yang hilang), serta kapan pembuatan pengujian berbantuan AI membantu, dan kapan ia gagal."
-stream: emerging-technologies-se
+stream: se-methodologies-architecture
 tags:
   - AI
   - AI-Assisted Testing

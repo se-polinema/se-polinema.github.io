@@ -33,8 +33,14 @@ googleScholarUrl: "https://scholar.google.com/citations?user=0uPC_KcAAAAJ&hl=en"
 featured: true
 order: 5
 streams:
+  - "requirements-decision-support"
+  - "ai-based-intelligent-systems"
   - "domain-specific-se-applications"
-  - "emerging-technologies-se"
+topicTags:
+  - "recommender-systems-engineering"
+  - "nlp-text-processing"
+  - "predictive-forecasting"
+  - "scholarly-academic-infrastructure"
 projects:
   - name: "SIM-TA - Sistem Informasi Manajemen Tugas Akhir"
     nameId: "SIM-TA - Sistem Informasi Manajemen Tugas Akhir"
