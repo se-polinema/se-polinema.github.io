@@ -10,11 +10,16 @@
           <div class="w-36 shrink-0 space-y-3 text-[13px] text-neutral-600 dark:text-gray-300">
             <div class="relative aspect-[4/5] w-full bg-neutral-50 dark:bg-gray-800 ring-1 ring-neutral-200 dark:ring-gray-600 overflow-hidden">
               <img
-                :src="researcher.photo"
+                :src="researcher.image?.src ?? researcher.photo"
+                :srcset="researcher.image?.srcset"
+                :sizes="researcher.image?.sizes"
+                :width="researcher.image?.width"
+                :height="researcher.image?.height"
                 :alt="researcher.name"
                 class="h-full w-full object-cover"
                 :style="{ objectPosition: researcher.photoPosition }"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div>
@@ -283,6 +288,13 @@ const props = defineProps<{
     name: string
     photo: string
     photoPosition: string
+    image: {
+      src: string
+      srcset: string
+      sizes: string
+      width: number
+      height: number
+    } | null
     title: Localized
     shortBio: Localized
     profileBody: Localized

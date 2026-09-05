@@ -21,7 +21,7 @@
           v-if="member.photo"
           class="relative h-28 w-24 md:h-36 md:w-28 shrink-0 bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-600 overflow-hidden"
         >
-          <img :src="member.photo" :alt="member.name" class="h-full w-full object-cover object-top" loading="lazy" />
+          <img :src="member.photo" :alt="member.name" class="h-full w-full object-cover object-top" width="112" height="144" loading="lazy" decoding="async" />
         </div>
         <div
           v-else

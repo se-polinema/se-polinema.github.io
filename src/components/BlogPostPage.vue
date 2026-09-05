@@ -12,11 +12,15 @@
         class="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline hover:underline"
       >
         <img
-          :src="props.matchedResearcher.photo"
+          :src="props.matchedResearcher.image?.src ?? props.matchedResearcher.photo"
+          :srcset="props.matchedResearcher.image?.srcset"
+          :sizes="props.matchedResearcher.image?.sizes"
           :alt="props.matchedResearcher.name"
           class="w-4 h-4 rounded-full object-cover"
           width="16"
           height="16"
+          loading="lazy"
+          decoding="async"
         />
         <span>{{ props.matchedResearcher.name }}</span>
       </a>
@@ -53,7 +57,18 @@ const props = defineProps<{
   date: Date | string
   author: string
   readingTime?: number
-  matchedResearcher?: { id: string; name: string; photo: string }
+  matchedResearcher?: {
+    id: string
+    name: string
+    photo: string
+    image: {
+      src: string
+      srcset: string
+      sizes: string
+      width: number
+      height: number
+    } | null
+  }
   tags?: string[]
   tagsId?: string[]
   updated?: Date | string

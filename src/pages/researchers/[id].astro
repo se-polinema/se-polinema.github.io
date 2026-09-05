@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content'
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { encodeEmail } from '../../utils/email'
+import { getResearcherImage } from '../../lib/researcherImage'
 
 export async function getStaticPaths() {
   const researchers = await getCollection('researchers')
@@ -17,6 +18,8 @@ export async function getStaticPaths() {
 }
 
 const { researcher } = Astro.props
+
+const researcherImage = await getResearcherImage(researcher.id, { largeWidth: 800 })
 
 const publications = (await getCollection('publications', ({ data }) =>
   data.researchers.includes(researcher.id),
@@ -66,6 +69,15 @@ const researcherProfile = {
   name: researcher.data.name,
   photo: researcher.data.photo,
   photoPosition: researcher.data.photoPosition,
+  image: researcherImage
+    ? {
+        src: researcherImage.src,
+        srcset: researcherImage.srcset,
+        sizes: researcherImage.sizes,
+        width: researcherImage.width,
+        height: researcherImage.height,
+      }
+    : null,
   title: researcher.data.title,
   shortBio: researcher.data.shortBio,
   profileBody: researcher.data.profileBody,
@@ -86,9 +98,11 @@ const researcherProfile = {
 
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const profileUrl = new URL(Astro.url.pathname, origin).href
-const photoUrl = researcher.data.photo.startsWith('http')
-  ? researcher.data.photo
-  : new URL(researcher.data.photo, origin).href
+const photoUrl = researcherImage?.srcLarge
+  ? new URL(researcherImage.srcLarge, origin).href
+  : researcher.data.photo.startsWith('http')
+    ? researcher.data.photo
+    : new URL(researcher.data.photo, origin).href
 
 const sameAsUrls: string[] = []
 if (researcher.data.googleScholarUrl) sameAsUrls.push(researcher.data.googleScholarUrl.toString())
@@ -125,7 +139,7 @@ const personJsonLd = {
 <VSCodeLayout
   title={researcher.data.name}
   type="profile"
-  image={researcher.data.photo}
+  image={photoUrl}
 >
   <JsonLd slot="head" data={personJsonLd} />
   <ResearcherProfilePage client:load researcher={researcherProfile} publications={publications} slides={slides} />
