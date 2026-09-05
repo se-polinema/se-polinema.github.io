@@ -298,3 +298,84 @@ micro-expression facial detection, game AI, and UMKM web systems).
 6. Re-run `src/lib/labStats.ts` and any stream-derived counts once the new
    topics are in place, since per-topic tagging will change how researchers
    are counted per area.
+
+## Trends & Future Directions
+
+Beyond describing where the lab's research already sits, it is worth naming
+where it could grow next. The two tiers below are deliberately kept apart:
+the first only names directions the portfolio is already moving toward
+(citing a specific publication sequence as evidence), the second names
+directions that fit current field momentum but have no publication behind
+them yet in this lab. Collapsing that distinction is exactly the mistake the
+first draft of this revamp made by presenting unbacked categories as if they
+were real specializations, so this section is explicit about which is which.
+
+### Evidenced trajectories: already in motion
+
+**Area 1 -> Automated Software Engineering (AI4SE).** Dian Hanifudin Subhi's
+two most recent papers form an accelerating, two-year research program
+rather than two unrelated projects: "Evaluasi Penilaian Otomatis Pemrograman
+Web Laravel pada Platform LAIBA" (2025) built an automated grading platform
+for a web-programming course, and "Semantic Automated Assessment Of Student
+Flowcharts Via Graph Neural Networks And Symbolic Execution" (2026) applied a
+materially more sophisticated technique (GNN plus symbolic execution) to the
+same problem class. That trajectory now lines up closely with where the
+field is moving: AI4SE has grown into a named, tracked research program (the
+JetBrains 2025 AI4SE retrospective), a dedicated LLM4SE workshop runs at
+STAF 2026, and ICSE 2026 is running its first AI-SQE workshop specifically
+on using AI/LLMs as evaluators of software artifacts ("judgment, metrics,
+benchmarks"), which is close to a direct description of what LAIBA and the
+GNN-flowchart work already do. This is the strongest candidate for
+eventually becoming a named flagship direction in its own right, the same
+way Software Engineering Education was promoted out of a topic into its own
+area in the prior revision once the evidence justified it.
+
+**Area 4 -> LLM-based automated feedback for SE education.** Ridwan
+Rismanto's multi-year concept-mapping evaluation research (with Hiroshima
+University) and Dian's automated assessment tooling are both, at their core,
+learning-evaluation systems. The 2026 literature on SE education is
+converging on pairing automated evaluation with generative feedback rather
+than a bare pass/fail signal: work on autonomous LLM-generated feedback for
+introductory SE course exercises, LLM-based automated grading in programming
+education, and ACM's own framing that SE education must adapt for an
+LLM-saturated environment. Extending LAIBA or a concept-mapping tool with
+generated, explanatory feedback would be a believable near-term step, not a
+speculative leap.
+
+### Aspirational directions: plausible, not yet backed
+
+**Area 3 -> MLOps / engineering discipline for the lab's AI-based systems.**
+Imam's, Zawaruddin's, and Ariadi's NLP and forecasting work (sentiment
+analysis, summarization, stock-market prediction) is built on classical ML
+methods (Naive Bayes, SVM) evaluated as one-off research results. The
+field's 2025-2026 center of gravity for ML-based software has moved toward
+operational maturity: versioning, drift monitoring, reproducibility, and
+governance of AI-assisted software evolution (an emerging sub-field, AI4RSE,
+names this concern directly for research-software contexts, which fits this
+lab's academic setting). No publication in the corpus currently addresses
+deployment, monitoring, or maintenance of these models, so this is a
+plausible next step given field direction, not a trend the lab is already
+riding.
+
+**Area 2 -> AI-augmented or explainable decision support.** The MCDM
+publication record (AHP, WASPAS, ELECTRE, MOORA, PROMETHEE) is
+methodologically classical and has shown no movement toward LLM-augmented
+requirements elicitation or explainable decision support in any of the
+dated publications reviewed. Worth naming as a stretch goal if the team
+wants to modernize this line, but it should not be presented as an emerging
+trend already underway.
+
+**Area 5 has no clear trend vector.** Scholarly infrastructure and
+community/public-sector delivery work (SIM-TA, the OJS plugin, UMKM systems)
+reads as a steady applied-delivery area rather than one with a visible
+research-trend arc; there is no obvious "what's next" to name here beyond
+continuing to build and publish on deployed systems as they mature.
+
+Sources for the field-trend claims above:
+- [The Impact and Achievements of AI4SE in 2025 (JetBrains)](https://blog.jetbrains.com/research/2026/03/ai4se-in-2025/)
+- [LLM4SE 2026, STAF 2026](https://conf.researchr.org/home/staf-2026/llm4se-2026)
+- [AI-SQE 2026, ICSE 2026](https://conf.researchr.org/home/icse-2026/ai-sqe-2026)
+- [Advancing research software engineering with AI: a research framework, Automated Software Engineering (Springer)](https://link.springer.com/article/10.1007/s10515-026-00621-0)
+- [Autonomous LLM-generated Feedback for Student Exercises in Introductory Software Engineering Courses](https://arxiv.org/pdf/2604.20803)
+- [A comparative analytical study of LLM-based automated grading in programming education (ScienceDirect)](https://www.sciencedirect.com/science/article/pii/S2590291126007096)
+- [Software Engineering Education Must Adapt and Evolve for an LLM Environment (ACM)](https://dl.acm.org/doi/10.1145/3626252.3630927)
