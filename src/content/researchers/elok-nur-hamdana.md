@@ -33,8 +33,14 @@ googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 featured: true
 order: 3
 streams:
+  - "se-methodologies-architecture"
+  - "requirements-decision-support"
   - "domain-specific-se-applications"
-  - "emerging-technologies-se"
+topicTags:
+  - "software-testing-qa"
+  - "se-process-methodology"
+  - "mcdm-engineering"
+  - "community-public-sector-software"
 books:
   - title: "Pengenalan Sistem Informasi"
     url: "https://polinemapress21.com/produk/pengenalan-sistem-informasi/"

@@ -33,8 +33,11 @@ googleScholarUrl: "https://scholar.google.com/citations?user=WwrDWnEAAAAJ&hl=en"
 featured: true
 order: 1
 streams:
-  - "emerging-technologies-se"
-  - "domain-specific-se-applications"
+  - "ai-based-intelligent-systems"
+  - "se-education-learning-technology"
+topicTags:
+  - "nlp-text-processing"
+  - "cs-programming-education-materials"
 books:
   - title: "Penuntun Praktikum Struktur Data"
     url: "https://polinemapress21.com/produk/penuntun-praktikum-struktur-data/"

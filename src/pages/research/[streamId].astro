@@ -6,6 +6,7 @@ import researchData from '../../data/research.json'
 import resourcesData from '../../data/resources.json'
 import { getResearcherAvatar, type ResearcherImage } from '../../lib/researcherImage'
 import { withBase } from '../../lib/paths'
+import ResearchAreaTree from '../../components/ResearchAreaTree.astro'
 
 export function getStaticPaths() {
   return researchData.map((stream) => ({
@@ -18,7 +19,7 @@ interface Stream {
   id: string
   name: { en: string; id: string }
   tagline: { en: string; id: string }
-  topics: string[]
+  topics: Array<{ id: string; name: { en: string; id: string } }>
 }
 
 const { stream } = Astro.props as { stream: Stream }
@@ -147,7 +148,7 @@ const researchProjectJsonLd = {
   alternateName: stream.name.id,
   description: stream.tagline.en,
   url: pageUrl,
-  keywords: stream.topics.join(', '),
+  keywords: stream.topics.map((t) => t.name.en).join(', '),
   ...(streamResearchers.length > 0 ? {
     member: streamResearchers.map((r) => ({
       '@type': 'Person',
@@ -181,12 +182,8 @@ const researchProjectJsonLd = {
 
     <h2 lang="en">Topics</h2>
     <h2 lang="id">Topik</h2>
-    <div class="flex flex-wrap gap-2 mb-10">
-      {stream.topics.map((topic) => (
-        <span class="inline-block text-xs font-mono px-2.5 py-1 rounded bg-primary/[0.06] dark:bg-gray-800 text-primary/70 dark:text-gray-300 border border-primary/10 dark:border-gray-700">
-          {topic}
-        </span>
-      ))}
+    <div class="mb-10 not-prose">
+      <ResearchAreaTree areas={[stream]} researchers={streamResearchers} mode="single" />
     </div>
 
     <h2 lang="en">Researchers</h2>

@@ -33,8 +33,11 @@ googleScholarUrl: "https://scholar.google.com/citations?user=fJc_GegAAAAJ&hl=en"
 featured: true
 order: 2
 streams:
-  - "domain-specific-se-applications"
-  - "emerging-technologies-se"
+  - "requirements-decision-support"
+  - "se-education-learning-technology"
+topicTags:
+  - "requirements-driven-institutional-software"
+  - "concept-mapping-learning-evaluation"
 books:
   - title: "Penuntun Praktikum Struktur Data"
     url: "https://polinemapress21.com/produk/penuntun-praktikum-struktur-data/"

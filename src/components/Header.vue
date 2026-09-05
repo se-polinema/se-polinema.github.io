@@ -123,7 +123,7 @@ const mobileOpen = ref(false)
 
 const navItems = computed(() => [
   { id: 'about', href: '/#about', label: t.value.nav.about },
-  { id: 'research', href: '/#research', label: t.value.nav.research },
+  { id: 'research', href: '/research', label: t.value.nav.research },
   { id: 'members', href: '/members', label: t.value.nav.members },
   { id: 'projects', href: '/projects', label: t.value.nav.projects },
   { id: 'partners', href: '/partners', label: t.value.nav.partners },

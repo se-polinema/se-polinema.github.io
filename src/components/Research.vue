@@ -31,17 +31,21 @@
               <p class="text-sm text-neutral-500 dark:text-gray-400 leading-relaxed mb-3">
                 {{ lang === 'id' ? area.tagline.id : area.tagline.en }}
               </p>
-              <div class="flex flex-wrap gap-1.5">
-                <span
-                  v-for="topic in area.topics"
-                  :key="topic"
-                  class="inline-block text-xs font-mono px-2 py-0.5 rounded bg-primary/[0.06] dark:bg-gray-700 text-primary/60 dark:text-gray-400 border border-primary/10 dark:border-gray-600"
-                >
-                  {{ topic }}
-                </span>
-              </div>
+              <span class="inline-block text-xs font-mono px-2 py-0.5 rounded bg-primary/[0.06] dark:bg-gray-700 text-primary/60 dark:text-gray-400 border border-primary/10 dark:border-gray-600">
+                {{ area.topics.length }} {{ t.research.topicsLabel }}
+              </span>
             </div>
           </div>
+        </a>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a
+          :href="withBase('/research')"
+          class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-primary dark:text-blue-300 border border-primary/20 dark:border-gray-500 hover:border-primary/50 dark:hover:border-gray-400 transition-colors"
+        >
+          {{ t.research.viewAllCta }}
+          <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>
