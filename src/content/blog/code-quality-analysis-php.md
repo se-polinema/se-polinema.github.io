@@ -9,7 +9,7 @@ lang: en
 featured: false
 excerpt: "Learn how to automate code quality checks with PHPStan, PHP_CodeSniffer, and PHPMD. Covers static analysis, PSR-12 style linting, code metrics, and a GitHub Actions CI/CD pipeline that blocks poor-quality code from reaching production."
 excerptId: "Pelajari cara mengotomatiskan pemeriksaan kualitas kode dengan PHPStan, PHP_CodeSniffer, dan PHPMD. Mencakup static analysis, linting gaya PSR-12, metrik kode, dan pipeline CI/CD GitHub Actions yang memblokir kode berkualitas buruk mencapai production."
-stream: emerging-technologies-se
+stream: se-methodologies-architecture
 tags:
   - Code Quality
   - Static Analysis
@@ -38,7 +38,7 @@ Automated quality analysis complements manual code review in three ways:
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** as one of its five core topics under the [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/) research stream. This tutorial connects that research direction to practical, runnable tools you can use today.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** as one of its five core topics under the [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. This tutorial connects that research direction to practical, runnable tools you can use today.
 
 ### What You Will Learn
 
@@ -68,7 +68,7 @@ Analisis kualitas otomatis melengkapi *code review* manual dalam tiga cara:
 
 ### Koneksi ke Riset SE Lab
 
-Software Engineering Lab Politeknik Negeri Malang mencantumkan **Code Quality Analysis** sebagai salah satu dari lima topik inti di bawah alur riset [Emerging Technologies in Software Engineering](https://se.polinema.ac.id/research/emerging-technologies-se/). Tutorial ini menghubungkan arah riset tersebut ke alat praktis yang dapat Anda jalankan hari ini.
+Software Engineering Lab Politeknik Negeri Malang mencantumkan **Code Quality Analysis** sebagai salah satu dari lima topik inti di bawah alur riset [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/). Tutorial ini menghubungkan arah riset tersebut ke alat praktis yang dapat Anda jalankan hari ini.
 
 ### Apa yang Akan Anda Pelajari
 

@@ -37,7 +37,7 @@ const current: CurrentItem = {
 const candidates: CandidateItem[] = [
   { id: 'post-2', title: 'Clean Code PHP', stream: 'se-methodologies-architecture', category: 'tutorial' },
   { id: 'post-3', title: 'EdTech LMS PHP', stream: 'domain-specific-se-applications', category: 'tutorial' },
-  { id: 'post-4', title: 'AI Testing', stream: 'emerging-technologies-se', category: 'tutorial' },
+  { id: 'post-4', title: 'AI Testing', stream: 'se-methodologies-architecture', category: 'tutorial' },
   { id: 'post-5', title: 'Design Patterns PHP', stream: 'se-methodologies-architecture', category: 'tutorial' },
 ]
 
@@ -60,8 +60,8 @@ assert(tutorialFirst, 'Test 2: Same stream + category beats same stream only')
 
 // ── Test 3: Shared author adds score ───────────────────
 const candidates3: CandidateItem[] = [
-  { id: 'post-2', title: 'Clean Code PHP', stream: 'emerging-technologies-se', category: 'news', author: 'SE Lab' },
-  { id: 'post-8', title: 'TDD Advanced', stream: 'emerging-technologies-se', category: 'news', author: 'Dian Hanifudin Subhi' },
+  { id: 'post-2', title: 'Clean Code PHP', stream: 'se-methodologies-architecture', category: 'news', author: 'SE Lab' },
+  { id: 'post-8', title: 'TDD Advanced', stream: 'se-methodologies-architecture', category: 'news', author: 'Dian Hanifudin Subhi' },
 ]
 
 const result3 = getRelatedItems(current, candidates3, 5)

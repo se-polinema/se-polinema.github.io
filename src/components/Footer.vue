@@ -71,7 +71,7 @@ const allLinks = computed<LinkItem[]>(() => [
   { href: '/publications', label: t.value.nav.publications, external: false },
   { href: '/achievements', label: t.value.achievements?.navLabel || 'Achievements', external: false },
   { href: '/impact', label: t.value.nav.impact, external: false },
-  { href: '/#research', label: t.value.nav.research, external: false },
+  { href: '/research', label: t.value.nav.research, external: false },
   { href: '/contact', label: t.value.nav.contact, external: false },
   { href: '/privacy', label: t.value.privacy.navLabel, external: false },
   { href: 'https://polinema.ac.id', label: 'Polinema', external: true },

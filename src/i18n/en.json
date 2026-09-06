@@ -1,7 +1,7 @@
 {
   "nav": {
     "about": "About",
-    "research": "Research",
+    "research": "Research Areas",
     "team": "Researchers",
     "researchers": "Researchers",
     "projects": "Projects",
@@ -23,13 +23,20 @@
     "resources": "Resources",
     "tools": "Tools",
     "newsletter": "Newsletter",
-    "impact": "Impact & Stats"
+    "impact": "Impact & Stats",
+    "privacy": "Privacy",
+    "login": "Login",
+    "register": "Register",
+    "admin": "Admin",
+    "checkin": "Check-in",
+    "menuLabel": "Menu"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
     "subtitle": "Jurusan Teknologi Informasi",
     "tagline": "An academic unit for applied software engineering, intelligent systems, and scholarly software development at Politeknik Negeri Malang.",
     "cta": "Explore Research",
+    "aboutCta": "About the Lab",
     "researchersCta": "Browse Researchers",
     "publicationsCta": "View Publications",
     "focusLabel": "Focus",
@@ -53,7 +60,8 @@
   },
   "research": {
     "label": "Research Focus",
-    "heading": "Three streams of software engineering research"
+    "heading": "Five areas of software engineering research",
+    "viewAllCta": "View All Research Areas"
   },
   "team": {
     "label": "Researchers",

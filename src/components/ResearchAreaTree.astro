@@ -1,0 +1,325 @@
+---
+// Renders the Research Area -> Topic -> Researcher hierarchy as a static,
+// zero-JS CSS tree (build-time only, no client hydration). Two modes:
+// - "all": every area as a branch under a "Research Areas" root label (used
+//   on the /research index page).
+// - "single": one area rendered as the entry point, no root label (used on
+//   /research/[streamId], where the area itself is already the page's H1).
+//
+// Connector lines use the classic org-chart/file-tree CSS trick: a
+// `border-left` on the children container acts as the vertical trunk, and
+// each child gets a short `::before` horizontal stub to "attach" to it. No
+// SVG, no coordinate math, no library - just nested divs.
+import type { CollectionEntry } from 'astro:content'
+import { getResearcherAvatar, type ResearcherImage } from '../lib/researcherImage'
+import { withBase } from '../lib/paths'
+
+interface Topic {
+  id: string
+  name: { en: string; id: string }
+}
+
+interface Area {
+  id: string
+  name: { en: string; id: string }
+  tagline?: { en: string; id: string }
+  topics: Topic[]
+}
+
+interface Props {
+  areas: Area[]
+  researchers: CollectionEntry<'researchers'>[]
+  mode?: 'all' | 'single'
+}
+
+const { areas, researchers, mode = 'all' } = Astro.props as Props
+
+// One avatar fetch per unique researcher, even if they appear under several
+// topics/areas.
+const avatarById = new Map<string, ResearcherImage | null>()
+for (const r of researchers) {
+  if (!avatarById.has(r.id)) {
+    avatarById.set(r.id, await getResearcherAvatar(r.id, '32px'))
+  }
+}
+
+function researchersForTopic(topicId: string) {
+  return researchers.filter((r) => r.data.topicTags?.includes(topicId))
+}
+---
+
+<div class="raet" class:list={[mode === 'all' && 'raet-with-root']}>
+  {mode === 'all' && (
+    <div class="raet-root">
+      <span lang="en">Research Areas</span>
+      <span lang="id">Bidang Riset</span>
+    </div>
+  )}
+  <div class="raet-areas">
+    {areas.map((area) => (
+      <div class="raet-area-branch">
+        {mode === 'all' ? (
+          <a href={withBase(`/research/${area.id}`)} class="raet-area-node raet-area-node-link">
+            <h3 lang="en">{area.name.en}</h3>
+            <h3 lang="id">{area.name.id}</h3>
+            {area.tagline && (
+              <p class="raet-tagline">
+                <span lang="en">{area.tagline.en}</span>
+                <span lang="id">{area.tagline.id}</span>
+              </p>
+            )}
+          </a>
+        ) : (
+          <div class="raet-area-node">
+            <h3 lang="en">{area.name.en}</h3>
+            <h3 lang="id">{area.name.id}</h3>
+            {area.tagline && (
+              <p class="raet-tagline">
+                <span lang="en">{area.tagline.en}</span>
+                <span lang="id">{area.tagline.id}</span>
+              </p>
+            )}
+          </div>
+        )}
+        <div class="raet-topics">
+          {area.topics.map((topic) => {
+            const topicResearchers = researchersForTopic(topic.id)
+            return (
+              <div class="raet-topic-branch">
+                <div class="raet-topic-node">
+                  <span class="raet-topic-name">
+                    <span lang="en">{topic.name.en}</span>
+                    <span lang="id">{topic.name.id}</span>
+                  </span>
+                  {topicResearchers.length > 0 && (
+                    <div class="raet-avatars">
+                      {topicResearchers.map((r) => {
+                        const avatar = avatarById.get(r.id)
+                        return (
+                          <a
+                            href={withBase(`/researchers/${r.id}`)}
+                            class="raet-avatar"
+                            title={r.data.name}
+                          >
+                            <img
+                              src={avatar?.src ?? withBase(r.data.photo)}
+                              srcset={avatar?.srcset}
+                              sizes={avatar?.sizes}
+                              alt={r.data.name}
+                              style={r.data.photoPosition ? { objectPosition: r.data.photoPosition } : undefined}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </a>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .raet {
+    --raet-line: color-mix(in srgb, var(--color-primary, #29156a) 15%, transparent);
+    font-size: 0.9rem;
+  }
+
+  :global(.dark) .raet {
+    --raet-line: rgba(255, 255, 255, 0.14);
+  }
+
+  .raet-root {
+    display: inline-block;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-primary, #29156a) 8%, transparent);
+    color: var(--color-primary, #29156a);
+    margin-bottom: 0.75rem;
+  }
+
+  :global(.dark) .raet-root {
+    background: rgba(255, 255, 255, 0.06);
+    color: #e5e7eb;
+  }
+
+  .raet-with-root > .raet-areas {
+    margin-left: 0.6rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--raet-line);
+  }
+
+  .raet-areas {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .raet-area-branch {
+    position: relative;
+  }
+
+  .raet-with-root .raet-area-branch::before {
+    content: '';
+    position: absolute;
+    left: -1.25rem;
+    top: 1.1rem;
+    width: 1.25rem;
+    height: 2px;
+    background: var(--raet-line);
+  }
+
+  .raet-area-node {
+    display: block;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--raet-line);
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--color-primary, #29156a) 4%, transparent);
+  }
+
+  :global(.dark) .raet-area-node {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .raet-area-node-link {
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .raet-area-node-link:hover {
+    border-color: var(--color-accent, #ff5248);
+    background: color-mix(in srgb, var(--color-primary, #29156a) 7%, transparent);
+  }
+
+  :global(.dark) .raet-area-node-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .raet-area-node h3 {
+    font-family: var(--font-serif, serif);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-primary, #29156a);
+    margin: 0;
+  }
+
+  :global(.dark) .raet-area-node h3 {
+    color: #f3f4f6;
+  }
+
+  .raet-tagline {
+    margin: 0.25rem 0 0;
+    font-size: 0.8rem;
+    color: rgb(115 115 115);
+    line-height: 1.4;
+  }
+
+  :global(.dark) .raet-tagline {
+    color: rgb(156 163 175);
+  }
+
+  .raet-topics {
+    margin: 0.75rem 0 0 1.1rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--raet-line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .raet-topic-branch {
+    position: relative;
+  }
+
+  .raet-topic-branch::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 0.85rem;
+    width: 1.5rem;
+    height: 2px;
+    background: var(--raet-line);
+  }
+
+  .raet-topic-node {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--raet-line);
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--color-primary, #29156a) 2%, transparent);
+  }
+
+  :global(.dark) .raet-topic-node {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .raet-topic-name {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    color: rgb(64 64 64);
+  }
+
+  :global(.dark) .raet-topic-name {
+    color: rgb(209 213 219);
+  }
+
+  .raet-avatars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: -0.35rem;
+    margin-left: auto;
+  }
+
+  .raet-avatar {
+    display: block;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    border: 2px solid white;
+    margin-left: -0.35rem;
+    transition: transform 0.15s ease, z-index 0s;
+    flex-shrink: 0;
+  }
+
+  :global(.dark) .raet-avatar {
+    border-color: rgb(31 41 55);
+  }
+
+  .raet-avatar:first-child {
+    margin-left: 0;
+  }
+
+  .raet-avatar:hover {
+    transform: translateY(-2px) scale(1.08);
+    z-index: 1;
+    position: relative;
+  }
+
+  .raet-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 480px) {
+    .raet-with-root > .raet-areas,
+    .raet-topics {
+      padding-left: 1rem;
+    }
+  }
+</style>
