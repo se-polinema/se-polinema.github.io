@@ -1081,5 +1081,42 @@
     "empty": "Tidak ada istilah yang cocok dengan pencarian Anda. Coba kata kunci lain atau hapus filter.",
     "suggestionText": "Ingin menyarankan istilah?",
     "suggestionLink": "Hubungi kami"
+  },
+  "pageFeedback": {
+    "question": "Apakah halaman ini membantu?",
+    "helpful": "Ya",
+    "notHelpful": "Tidak",
+    "commentLabel": "Apa yang bisa diperbaiki? (opsional)",
+    "commentHelpfulLabel": "Apa yang menurut Anda membantu? (opsional)",
+    "commentPlaceholder": "Ceritakan lebih lanjut...",
+    "submit": "Kirim masukan",
+    "submitting": "Mengirim...",
+    "thankYou": "Terima kasih atas masukan Anda!",
+    "thankYouDetail": "Tanggapan Anda membantu kami memperbaiki halaman ini.",
+    "errorGeneric": "Tidak dapat mengirim masukan Anda. Silakan coba lagi.",
+    "errorOffline": "Anda tampaknya sedang offline. Masukan Anda akan disimpan dan dikirim saat halaman berikutnya dimuat.",
+    "queued": "Masukan tersimpan. Akan dikirim otomatis."
+  },
+  "pageComments": {
+    "heading": "Komentar",
+    "loadError": "Komentar tidak dapat dimuat.",
+    "signIn": "Masuk dengan GitHub untuk berkomentar."
+  },
+  "feedbackAdmin": {
+    "tabLabel": "Umpan Balik",
+    "noEntries": "Belum ada masukan.",
+    "pageTypeCol": "Tipe",
+    "slugCol": "Slug",
+    "langCol": "Bahasa",
+    "voteCol": "Suara",
+    "commentCol": "Komentar",
+    "createdCol": "Dikirim",
+    "filterPageType": "Tipe",
+    "filterLang": "Bahasa",
+    "filterVote": "Suara",
+    "filterAll": "Semua",
+    "exportCsv": "Ekspor CSV",
+    "voteHelpful": "Membantu",
+    "voteNotHelpful": "Tidak membantu"
   }
 }
