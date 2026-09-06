@@ -60,6 +60,7 @@ export function resolveRoute(pathname: string): { page: string; view: SidebarVie
   if (pathname.startsWith('/alumni')) return { page: 'members', view: 'members' }
   if (pathname.startsWith('/members') || pathname.startsWith('/profile')) return { page: 'members', view: 'members' }
   if (pathname.startsWith('/research')) return { page: 'research', view: 'explorer' }
+  if (pathname.startsWith('/about')) return { page: 'about', view: 'explorer' }
   if (pathname.startsWith('/contact')) return { page: 'contact', view: 'explorer' }
   if (pathname.startsWith('/faq')) return { page: 'faq', view: 'explorer' }
   if (pathname.startsWith('/glossary')) return { page: 'glossary', view: 'explorer' }

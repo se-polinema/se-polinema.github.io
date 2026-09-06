@@ -68,6 +68,12 @@
               <span aria-hidden="true">→</span>
             </a>
             <a
+              :href="withBase('/about')"
+              class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary dark:text-blue-300 border border-primary/20 dark:border-gray-500 hover:border-primary/50 dark:hover:border-gray-400 transition-colors"
+            >
+              {{ t.hero.aboutCta }}
+            </a>
+            <a
               :href="withBase('/members?filter=researchers')"
               class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary dark:text-blue-300 border border-primary/20 dark:border-gray-500 hover:border-primary/50 dark:hover:border-gray-400 transition-colors"
             >
