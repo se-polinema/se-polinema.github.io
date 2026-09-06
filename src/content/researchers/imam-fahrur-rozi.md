@@ -28,7 +28,7 @@ researchInterests:
     - "Indonesian-language sentiment analysis"
     - "Fake news detection"
     - "OCR and document analysis"
-email: "imam.fahrur@polinema.ac.id"
+email: "imam.rozi@polinema.ac.id"
 googleScholarUrl: "https://scholar.google.com/citations?user=WwrDWnEAAAAJ&hl=en"
 featured: true
 order: 1

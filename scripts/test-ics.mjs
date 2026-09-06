@@ -94,7 +94,7 @@ function generateIcs(event, baseUrl = 'https://se.polinema.ac.id') {
 
   lines.push(
     `URL:${url}`,
-    'ORGANIZER;CN=Software Engineering Laboratory:mailto:imam.fahrur@polinema.ac.id',
+    'ORGANIZER;CN=Software Engineering Laboratory:mailto:imam.rozi@polinema.ac.id',
     'END:VEVENT',
     'END:VCALENDAR',
   )
