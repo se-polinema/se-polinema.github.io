@@ -393,7 +393,7 @@ interface FileItem {
 const fileTree: FileItem[] = [
   { id: 'index',           name: 'index.html',      ext: 'html', type: 'file',   sectionId: 'hero',         pageId: 'home',         indent: 1, href: '/' },
   { id: 'src',             name: 'src/',             ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 1, href: '' },
-  { id: 'about',           name: 'about.md',         ext: 'md',   type: 'file',   sectionId: 'about',        pageId: 'home',         indent: 2, href: '/#about' },
+  { id: 'about',           name: 'about.md',         ext: 'md',   type: 'file',   sectionId: '',             pageId: 'about',        indent: 2, href: '/about' },
   { id: 'research',        name: 'research.json',    ext: 'json', type: 'file',   sectionId: '',             pageId: 'research',     indent: 2, href: '/research' },
   { id: 'projects',        name: 'projects.json',    ext: 'json', type: 'file',   sectionId: 'projects',     pageId: 'projects',     indent: 2, href: '/projects' },
   { id: 'showcase',        name: 'showcase.json',    ext: 'json', type: 'file',   sectionId: '',             pageId: 'showcase',     indent: 2, href: '/showcase' },

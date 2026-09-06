@@ -1,0 +1,21 @@
+---
+import VSCodeLayout from '../layouts/VSCodeLayout.astro'
+import AboutPage from '../components/AboutPage.vue'
+import EditOnGitHub from '../components/EditOnGitHub.astro'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About the Software Engineering Laboratory',
+  description: 'The Software Engineering Laboratory is an academic facility under the Department of Information Technology at Politeknik Negeri Malang, focused on software engineering research, education, and community service.',
+}
+---
+
+<VSCodeLayout title="About — SE Lab" description="About the Software Engineering Laboratory: our mission, vision, and role under the Department of Information Technology at Politeknik Negeri Malang.">
+  <AboutPage client:load />
+  <div class="px-8">
+    <EditOnGitHub filePath="src/pages/about.astro" />
+  </div>
+</VSCodeLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
