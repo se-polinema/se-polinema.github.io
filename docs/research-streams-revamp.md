@@ -47,6 +47,7 @@ collection, and the SE-context research areas the evidence supports.
   - "Comparison of feature extraction in SVM-based sentiment analysis system" (2025)
 - Also produced 4 books on data structures, algorithms, and Java programming fundamentals (2020-2025), indicating a CS-education pedagogy thread alongside the research output.
 - SE-context research areas: applied NLP for information systems (sentiment analysis, misinformation detection), OCR/document processing pipelines, and a supporting decision-support paper. His book output ties him into programming/CS education materials.
+- Updated declared focus (2026): Recommender Systems, Text-Based Recommender Systems, Text Mining, Opinion Mining/Sentiment Analysis, Conversational AI/Chatbot Systems, NLP for Software Engineering, Agentic Workflow Automation. Publication-backed: Text Mining and Opinion Mining/Sentiment Analysis (continuous line from the 2012 opinion-mining paper through the 2025 SVM sentiment-analysis paper); Conversational AI/Chatbot Systems (his 2023 "Natural language processing based chatbot for customer support system on higher education institution" paper); Recommender Systems (declared interest, not yet backed by a tagged local publication). Pre-publication, forward-looking: NLP for Software Engineering and Agentic Workflow Automation, both new topics with no publication behind them yet, added on the strength of his declared commitment.
 
 ### Ridwan Rismanto
 
@@ -154,14 +155,14 @@ Neither has any publication backing anywhere in the 80-entry corpus, and
 importing them would reintroduce the exact problem this revamp exists to
 fix (aspirational categories with zero researchers behind them).
 
-### Area 1: Software Engineering Process, Architecture & Quality (flagship)
+### Area 1: Software Engineering Methodology (flagship)
 
 Tagline: Architecture, testing, process methodology, and AI-assisted
 automation for building and assessing software systems.
 
 Topics: Software Architecture & Distributed Systems, Software Testing &
 Quality Assurance, Software Process & Methodology, AI-Assisted SE
-Automation.
+Automation, NLP for Software Engineering, Agentic Workflow Automation.
 
 Researchers: Dian Hanifudin Subhi (Software Architecture & Distributed
 Systems, via Clean Architecture and distributed publish-subscribe work;
@@ -171,9 +172,11 @@ assessment platform and GNN-based flowchart grading), Elok Nur Hamdana
 Software Process & Methodology, via her Extreme Programming case study),
 Ariadi Retno Tri Hayati Ririd (Software Testing & Quality Assurance, via her
 2009 ISO 9126 software-quality-model paper, the lab's earliest and only
-direct quality-model work).
+direct quality-model work), Imam Fahrur Rozi (NLP for Software Engineering;
+Agentic Workflow Automation, both his declared next research direction as of
+2026, not yet backed by a publication in this area).
 
-### Area 2: Requirements & Decision-Support Systems Engineering
+### Area 2: Requirements Engineering & Decision Support
 
 Tagline: Software that operationalizes institutional decision-making and
 requirements analysis through decision-support and recommendation logic.
@@ -187,9 +190,11 @@ her most prolific line of work), Ridwan Rismanto (Requirements-Driven
 Institutional Software, via his academic-supervisor recommendation system),
 Moch. Zawaruddin Abdullah (Recommender Systems Engineering, via SIM-TA's
 supervisor-matching engine), Ariadi Retno Tri Hayati Ririd (Multi-Criteria
-Decision Support Engineering).
+Decision Support Engineering), Imam Fahrur Rozi (Recommender Systems
+Engineering, a declared focus area alongside his existing NLP work, not yet
+backed by a tagged local publication).
 
-### Area 3: Engineering of AI-Based & Intelligent Software Systems
+### Area 3: Software Engineering for AI Systems
 
 Tagline: System architecture, data pipelines, and evaluation methodology for
 software that embeds NLP, conversational, and predictive AI components.
@@ -199,14 +204,16 @@ processing, summarization), Conversational AI Systems (chatbots),
 Predictive & Forecasting Software.
 
 Researchers: Imam Fahrur Rozi (NLP & Text-Processing Systems, via sentiment
-analysis, fake-news detection, and OCR/document analysis), Moch. Zawaruddin
-Abdullah (NLP & Text-Processing Systems, via multi-document summarization;
-Predictive & Forecasting Software, via ML-based stock-market prediction),
-Dian Hanifudin Subhi (Conversational AI Systems, via his chatbot-based
-server-monitoring system), Ariadi Retno Tri Hayati Ririd (Predictive &
-Forecasting Software, via Holt-Winters car-sales forecasting).
+analysis, fake-news detection, and OCR/document analysis; Conversational AI
+Systems, via his 2023 NLP-based chatbot for higher-education customer
+support), Moch. Zawaruddin Abdullah (NLP & Text-Processing Systems, via
+multi-document summarization; Predictive & Forecasting Software, via
+ML-based stock-market prediction), Dian Hanifudin Subhi (Conversational AI
+Systems, via his chatbot-based server-monitoring system), Ariadi Retno Tri
+Hayati Ririd (Predictive & Forecasting Software, via Holt-Winters car-sales
+forecasting).
 
-### Area 4: Software Engineering Education & Learning Technology
+### Area 4: Software Engineering Education
 
 Tagline: Tools, evaluation methods, and teaching materials for software
 engineering and programming education.
@@ -222,7 +229,7 @@ Hiroshima University on kit-build concept mapping), Imam Fahrur Rozi
 (CS/Programming Education Materials, via four published textbooks on data
 structures, algorithms, and Java programming).
 
-### Area 5: Software Engineering for Community & Institutional Systems
+### Area 5: Software Engineering for Social Good
 
 Tagline: Applied software delivery for scholarly infrastructure,
 public-sector, and community organizations.
@@ -239,9 +246,9 @@ micro-expression facial detection, game AI, and UMKM web systems).
 
 ### Researcher-to-topic mapping table
 
-| Researcher | Area 1: Process, Architecture & Quality | Area 2: Requirements & Decision-Support | Area 3: AI-Based Software Systems | Area 4: SE Education | Area 5: Community & Institutional Systems |
+| Researcher | Area 1: SE Methodology | Area 2: Requirements Engineering & Decision Support | Area 3: SE for AI Systems | Area 4: SE Education | Area 5: SE for Social Good |
 |---|---|---|---|---|---|
-| Imam Fahrur Rozi | | | NLP & Text-Processing Systems | CS/Programming Education Materials | |
+| Imam Fahrur Rozi | NLP for Software Engineering; Agentic Workflow Automation | Recommender Systems Engineering | NLP & Text-Processing Systems; Conversational AI Systems | CS/Programming Education Materials | |
 | Ridwan Rismanto | | Requirements-Driven Institutional Software | | Concept-Mapping & Learning Evaluation Tools | |
 | Elok Nur Hamdana | Software Testing & Quality Assurance; Software Process & Methodology | Multi-Criteria Decision Support Engineering | | | Community & Public-Sector Software |
 | Dian Hanifudin Subhi | Software Architecture & Distributed Systems; AI-Assisted SE Automation | | Conversational AI Systems | Automated Programming Assessment | |
@@ -341,6 +348,26 @@ education, and ACM's own framing that SE education must adapt for an
 LLM-saturated environment. Extending LAIBA or a concept-mapping tool with
 generated, explanatory feedback would be a believable near-term step, not a
 speculative leap.
+
+### Committed but not yet published: Imam Fahrur Rozi's 2026 focus expansion
+
+Imam declared 7 new focus areas in 2026: Recommender Systems, Text-Based
+Recommender Systems, Text Mining, Opinion Mining/Sentiment Analysis,
+Conversational AI/Chatbot Systems, NLP for Software Engineering, and Agentic
+Workflow Automation. Five of these already had a home in the taxonomy (Text
+Mining and Opinion Mining/Sentiment Analysis fold into the existing NLP &
+Text-Processing Systems topic he already carries; Recommender Systems and
+Text-Based Recommender Systems map onto the existing Recommender Systems
+Engineering topic in Area 2; Conversational AI/Chatbot Systems maps onto
+Area 3's existing Conversational AI Systems topic, backed by his 2023
+chatbot publication). NLP for Software Engineering and Agentic Workflow
+Automation had no match anywhere in the 16 existing topics, so both were
+added as new Area 1 topics on the strength of his declared commitment. This
+is a different kind of forward-looking entry than the purely field-momentum
+guesses below: it is a named researcher's stated research direction, not a
+speculative extrapolation from where the field is heading with no one in
+the lab pursuing it yet. Still worth tracking as pre-publication until his
+output in these two areas catches up.
 
 ### Aspirational directions: plausible, not yet backed
 

@@ -28,13 +28,13 @@ excerptId: "Pelajari cara menggunakan LLM seperti Claude, Gemini, dan model loka
 
 **LLM-assisted coding** is the practice of using large language models (LLMs), like Anthropic's Claude, Google's Gemini, or locally hosted models via Ollama, to help you write, understand, refactor, and extend source code during the implementation phase of the software development lifecycle (SDLC). Unlike AI-assisted *testing* or *documentation*, which operate on the outputs of development, LLM-assisted coding is embedded directly in the act of writing software.
 
-This tutorial bridges a gap in our Software Engineering Process, Architecture & Quality series. We already cover [AI-Assisted Unit Test Generation](/blog/ai-assisted-unit-test-generation), [AI-Powered Requirements Automation](/blog/ai-powered-requirements-automation-php), and [LLM-Assisted Documentation Automation](/blog/llm-assisted-documentation-automation-php). The missing piece, the one students at Politeknik Negeri Malang ask about most, is how to use AI during the coding phase itself.
+This tutorial bridges a gap in our Software Engineering Methodology series. We already cover [AI-Assisted Unit Test Generation](/blog/ai-assisted-unit-test-generation), [AI-Powered Requirements Automation](/blog/ai-powered-requirements-automation-php), and [LLM-Assisted Documentation Automation](/blog/llm-assisted-documentation-automation-php). The missing piece, the one students at Politeknik Negeri Malang ask about most, is how to use AI during the coding phase itself.
 
 LLMs do not *understand* your code. They predict the next token based on patterns learned from billions of lines of open-source code. When you ask them to write a PHP service, they produce a statistically plausible answer, not a verified, correct one. This distinction is the foundation of responsible AI-assisted coding: **use the LLM as an accelerator, not as an authority.**
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** and **Requirements Automation** as core topics under the [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. LLM-assisted coding sits at the intersection of these areas: it automates code production from natural-language requirements while demanding rigorous quality analysis of the generated output.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** and **Requirements Automation** as core topics under the [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. LLM-assisted coding sits at the intersection of these areas: it automates code production from natural-language requirements while demanding rigorous quality analysis of the generated output.
 
 </section>
 
@@ -44,13 +44,13 @@ The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality An
 
 **Coding berbantuan LLM** adalah praktik menggunakan model bahasa besar (LLM), seperti Claude dari Anthropic, Gemini dari Google, atau model yang dihosting secara lokal melalui Ollama, untuk membantu Anda menulis, memahami, merefaktor, dan memperluas kode sumber selama fase implementasi dari siklus hidup pengembangan perangkat lunak (SDLC). Berbeda dengan *pengujian* atau *dokumentasi* berbantuan AI, yang beroperasi pada output pengembangan, coding berbantuan LLM tertanam langsung dalam aktivitas menulis perangkat lunak.
 
-Tutorial ini menjembatani kesenjangan dalam seri Software Engineering Process, Architecture & Quality kami. Kami sudah membahas [Pembuatan Unit Test Berbantuan AI](/blog/ai-assisted-unit-test-generation), [Otomatisasi Kebutuhan Berbasis AI](/blog/ai-powered-requirements-automation-php), dan [Otomatisasi Dokumentasi Berbantuan LLM](/blog/llm-assisted-documentation-automation-php). Bagian yang hilang, yang paling sering ditanyakan oleh mahasiswa Politeknik Negeri Malang, adalah cara menggunakan AI selama fase coding itu sendiri.
+Tutorial ini menjembatani kesenjangan dalam seri Software Engineering Methodology kami. Kami sudah membahas [Pembuatan Unit Test Berbantuan AI](/blog/ai-assisted-unit-test-generation), [Otomatisasi Kebutuhan Berbasis AI](/blog/ai-powered-requirements-automation-php), dan [Otomatisasi Dokumentasi Berbantuan LLM](/blog/llm-assisted-documentation-automation-php). Bagian yang hilang, yang paling sering ditanyakan oleh mahasiswa Politeknik Negeri Malang, adalah cara menggunakan AI selama fase coding itu sendiri.
 
 LLM tidak *memahami* kode Anda. Mereka memprediksi token berikutnya berdasarkan pola yang dipelajari dari miliaran baris kode *open-source*. Ketika Anda meminta mereka menulis layanan PHP, mereka menghasilkan jawaban yang masuk akal secara statistik, bukan jawaban yang terverifikasi dan benar. Perbedaan ini adalah fondasi dari coding berbantuan AI yang bertanggung jawab: **gunakan LLM sebagai akselerator, bukan sebagai otoritas.**
 
 ### Koneksi dengan Riset SE Lab
 
-Software Engineering Lab di Politeknik Negeri Malang menempatkan **Code Quality Analysis** dan **Requirements Automation** sebagai topik inti dalam alur riset [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/). Coding berbantuan LLM berada di persimpangan area ini: ia mengotomatiskan produksi kode dari kebutuhan berbahasa alami sambil menuntut analisis kualitas yang ketat dari output yang dihasilkan.
+Software Engineering Lab di Politeknik Negeri Malang menempatkan **Code Quality Analysis** dan **Requirements Automation** sebagai topik inti dalam alur riset [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/). Coding berbantuan LLM berada di persimpangan area ini: ia mengotomatiskan produksi kode dari kebutuhan berbahasa alami sambil menuntut analisis kualitas yang ketat dari output yang dihasilkan.
 
 </section>
 
