@@ -178,28 +178,15 @@ import { decodeEmail } from '../utils/email'
 const props = withDefaults(defineProps<{
   researcherName: string
   researcherEmailEncoded: string
-  researcherStreams?: string[]
-}>(), {
-  researcherStreams: () => [],
-})
+}>(), {})
 
 const { lang, t } = useI18n()
-
-function getDefaultTopic(): string {
-  if (props.researcherStreams.includes('se-methodologies-architecture')) {
-    return 'thesisSupervision'
-  }
-  if (props.researcherStreams.includes('domain-specific-se-applications')) {
-    return 'researchCollaboration'
-  }
-  return ''
-}
 
 const form = reactive({
   name: '',
   email: '',
   affiliation: '',
-  topic: getDefaultTopic(),
+  topic: '',
   message: '',
   consent: false,
 })

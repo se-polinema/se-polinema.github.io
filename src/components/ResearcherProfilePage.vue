@@ -83,20 +83,6 @@
               </ul>
             </div>
 
-            <!-- Research Themes (lab stream mapping) -->
-            <div v-if="researcher.streams?.length" class="border-t border-primary/10 dark:border-gray-600 pt-2.5">
-              <div class="font-mono text-[9px] uppercase tracking-widest text-primary/35 dark:text-gray-500 mb-1.5">{{ t.team.researchThemes }}</div>
-              <div class="flex flex-col gap-1">
-                <span
-                  v-for="streamId in researcher.streams"
-                  :key="streamId"
-                  class="text-[11px] font-mono px-1.5 py-1 rounded bg-primary/[0.06] dark:bg-gray-700 text-primary/70 dark:text-gray-300 border border-primary/10 dark:border-gray-600 leading-snug"
-                >
-                  {{ getStreamName(streamId) }}
-                </span>
-              </div>
-            </div>
-
             <!-- Expertise pills -->
             <div class="border-t border-primary/10 dark:border-gray-600 pt-2.5 flex flex-wrap gap-1">
               <span
@@ -106,12 +92,11 @@
               >{{ item }}</span>
             </div>
 
-            <!-- Contact Form -->
-            <ResearcherContactForm
-              :researcher-name="researcher.name"
-              :researcher-email-encoded="researcher.emailEncoded"
-              :researcher-streams="researcher.streams || []"
-            />
+          <!-- Contact Form -->
+          <ResearcherContactForm
+            :researcher-name="researcher.name"
+            :researcher-email-encoded="researcher.emailEncoded"
+          />
           </div>
 
         </div>
@@ -276,7 +261,6 @@
 import { computed } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { withBase } from '../lib/paths'
-import researchData from '../data/research.json'
 import ResearcherContactForm from './ResearcherContactForm.vue'
 import BookCover from './BookCover.vue'
 import ObfuscatedEmail from './ObfuscatedEmail.vue'
@@ -345,11 +329,6 @@ const groupedEntries = computed(() => {
 })
 
 const interests = computed(() => lang.value === 'id' ? props.researcher.researchInterests.id : props.researcher.researchInterests.en)
-
-function getStreamName(id: string) {
-  const stream = researchData.find(r => r.id === id)
-  return stream ? (lang.value === 'id' ? stream.name.id : stream.name.en) : id
-}
 </script>
 
 <style scoped>
