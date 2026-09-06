@@ -1073,5 +1073,42 @@
     "empty": "No terms match your search. Try different keywords or clear the filters.",
     "suggestionText": "Want to suggest a term?",
     "suggestionLink": "Contact us"
+  },
+  "pageFeedback": {
+    "question": "Was this page helpful?",
+    "helpful": "Yes",
+    "notHelpful": "No",
+    "commentLabel": "What could be better? (optional)",
+    "commentHelpfulLabel": "What did you find helpful? (optional)",
+    "commentPlaceholder": "Tell us more...",
+    "submit": "Send feedback",
+    "submitting": "Sending...",
+    "thankYou": "Thank you for your feedback!",
+    "thankYouDetail": "Your response helps us improve this page.",
+    "errorGeneric": "Unable to submit your feedback. Please try again.",
+    "errorOffline": "You appear to be offline. Your feedback will be saved and sent the next time you load a page.",
+    "queued": "Feedback saved. It will be sent automatically."
+  },
+  "pageComments": {
+    "heading": "Comments",
+    "loadError": "Comments could not be loaded.",
+    "signIn": "Sign in with GitHub to comment."
+  },
+  "feedbackAdmin": {
+    "tabLabel": "Feedback",
+    "noEntries": "No feedback yet.",
+    "pageTypeCol": "Type",
+    "slugCol": "Slug",
+    "langCol": "Language",
+    "voteCol": "Vote",
+    "commentCol": "Comment",
+    "createdCol": "Submitted",
+    "filterPageType": "Type",
+    "filterLang": "Language",
+    "filterVote": "Vote",
+    "filterAll": "All",
+    "exportCsv": "Export CSV",
+    "voteHelpful": "Helpful",
+    "voteNotHelpful": "Not helpful"
   }
 }

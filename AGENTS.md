@@ -150,6 +150,34 @@ npm run sync:events
 Requires `SUPABASE_SERVICE_ROLE_KEY` environment variable.
 Insert-only: never clobbers existing check-in codes.
 
+## Page Feedback & Comments
+
+Blog posts, tutorials, and publication pages carry two reader-facing features:
+
+- **Feedback widget** (`src/components/PageFeedback.vue`): a bilingual
+  "Was this page helpful?" thumbs-up/down plus optional comment. It is
+  Turnstile-gated and writes a row to `se.page_feedback` via the
+  `page-feedback` Edge Function (`supabase/functions/page-feedback/index.ts`),
+  the only insert path (there is intentionally no anon INSERT policy so the
+  client anon key cannot write directly and bypass Turnstile). Admins read,
+  filter, and CSV-export votes in the admin dashboard's "Feedback" tab
+  (`src/components/AdminFeedbackSection.vue`).
+- **Comments** (`src/components/PageComments.vue`): a Giscus iframe backed by
+  GitHub Discussions. Moderation happens in GitHub, not in Supabase or the
+  admin dashboard.
+
+**Environment variables** (safe to expose; add to repo secrets for CI):
+
+- `PUBLIC_GISCUS_REPO_ID` and `PUBLIC_GISCUS_CATEGORY_ID`, obtained from
+  [giscus.app](https://giscus.app) after installing the Giscus app on
+  `se-polinema/se-polinema.github.io` and creating a "Page Comments" category.
+  The `PageComments.vue` term is base-free (`comments/blog/{slug}/{lang}`), so
+  production and beta share one discussion per page/language.
+
+No new Supabase secrets or npm scripts were introduced; the feedback write
+reuses the existing `TURNSTILE_SECRET_KEY` Edge Function secret and the
+`PUBLIC_SUPABASE_*` keys.
+
 ## Adding a Research Tool / Artifact
 
 To list a new lab-developed software tool, framework, library, dataset, or prototype on the Research Software & Tools catalog (`/tools`):

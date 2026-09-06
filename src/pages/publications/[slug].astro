@@ -5,6 +5,7 @@ import CitationExport from '../../components/CitationExport.vue'
 import ShareButtons from '../../components/ShareButtons.vue'
 import RelatedContent from '../../components/RelatedContent.vue'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
+import PageFeedback from '../../components/PageFeedback.vue'
 import { getCollection } from 'astro:content'
 import { getRelatedItems } from '../../utils/relatedContent'
 import type { CurrentItem, CandidateItem } from '../../utils/relatedContent'
@@ -222,6 +223,7 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
       <ShareButtons client:load url={pubUrl} title={title} description={venue} lang={language as 'en' | 'id'} />
       <EditOnGitHub filePath={`src/content/publications/${publication.id}.md`} />
       <RelatedContent client:load items={relatedItems} context="publication" />
+      <PageFeedback client:load pageType="publication" slug={publication.id} contentLang={language as 'en' | 'id'} />
     </article>
   </div>
 </VSCodeLayout>

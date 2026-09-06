@@ -128,6 +128,15 @@
         >
           {{ t.subscribersAdmin.tabLabel }}
         </button>
+        <button
+          @click="adminTab = 'feedback'"
+          class="px-4 py-2 text-sm font-mono border-b-2 -mb-px transition-colors"
+          :class="adminTab === 'feedback'
+            ? 'border-accent text-primary dark:text-gray-100'
+            : 'border-transparent text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-gray-300'"
+        >
+          {{ t.feedbackAdmin.tabLabel }}
+        </button>
       </div>
 
       <!-- EVENTS TAB -->
@@ -893,7 +902,7 @@
       </template>
 
       <!-- SUBSCRIBERS TAB -->
-      <template v-else>
+      <template v-else-if="adminTab === 'subscribers'">
         <div v-if="loadingData" class="py-10 text-center">
           <p class="text-sm font-mono text-neutral-400 dark:text-gray-500">{{ t.events.admin.loading }}</p>
         </div>
@@ -938,6 +947,11 @@
           </div>
         </div>
       </template>
+
+      <!-- FEEDBACK TAB -->
+      <template v-else>
+        <AdminFeedbackSection />
+      </template>
     </div>
   </div>
 </template>
@@ -951,6 +965,7 @@ import { supabase } from '../lib/supabase'
 import { withBase } from '../lib/paths'
 import ImageUpload from './ImageUpload.vue'
 import AdminEventSection from './AdminEventSection.vue'
+import AdminFeedbackSection from './AdminFeedbackSection.vue'
 import GitHubSignInButton from './GitHubSignInButton.vue'
 import research from '../data/research.json'
 import { suggestProjectContent } from '../lib/suggestProject'
@@ -1020,7 +1035,7 @@ interface MemberRow {
   created_at: string
 }
 
-const adminTab = ref<'events' | 'members' | 'projects' | 'announcements' | 'staff' | 'subscribers'>('events')
+const adminTab = ref<'events' | 'members' | 'projects' | 'announcements' | 'staff' | 'subscribers' | 'feedback'>('events')
 const members = ref<MemberRow[]>([])
 const memberFilterOptions = ['all', 'student', 'alumni', 'pending'] as const
 const memberFilter = ref<typeof memberFilterOptions[number]>('all')
