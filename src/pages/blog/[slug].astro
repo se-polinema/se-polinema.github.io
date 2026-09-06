@@ -9,6 +9,8 @@ import RelatedContent from '../../components/RelatedContent.vue'
 import JsonLd from '../../components/JsonLd.astro'
 import EditOnGitHub from '../../components/EditOnGitHub.astro'
 import SeriesNav from '../../components/SeriesNav.vue'
+import PageComments from '../../components/PageComments.vue'
+import PageFeedback from '../../components/PageFeedback.vue'
 import { getCollection, render } from 'astro:content'
 import { getRelatedItems } from '../../utils/relatedContent'
 import type { CurrentItem, CandidateItem } from '../../utils/relatedContent'
@@ -219,6 +221,8 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
       <ShareButtons client:load url={postUrl} title={title} description={post.data.excerpt} lang={post.data.lang as 'en' | 'id'} />
       <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
       <RelatedContent client:load items={relatedItems} context="blog" />
+      <PageComments client:load slug={post.id} contentLang={post.data.lang as 'en' | 'id'} />
+      <PageFeedback client:load pageType={category === 'tutorial' ? 'tutorial' : 'blog'} slug={post.id} contentLang={post.data.lang as 'en' | 'id'} />
       <script>
         // ── PlantUML diagram viewer ───────────────────────────────────────
         // Diagrams are rendered as inline SVG at build time by the rehype-plantuml
