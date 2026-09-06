@@ -34,7 +34,7 @@ This is not about replacing the business analyst or the product owner. It is abo
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Requirements Automation** as one of its five core topics under the [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. This tutorial connects that research direction to practical, runnable tools you can use today.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Requirements Automation** as one of its five core topics under the [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. This tutorial connects that research direction to practical, runnable tools you can use today.
 
 ### What You Will Build
 
@@ -60,7 +60,7 @@ Ini bukan tentang menggantikan *business analyst* atau *product owner*. Ini tent
 
 ### Koneksi dengan Riset SE Lab
 
-Software Engineering Lab di Politeknik Negeri Malang menempatkan **Requirements Automation** sebagai salah satu dari lima topik inti dalam alur riset [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/). Tutorial ini menghubungkan arah riset tersebut ke alat praktis yang dapat dijalankan hari ini.
+Software Engineering Lab di Politeknik Negeri Malang menempatkan **Requirements Automation** sebagai salah satu dari lima topik inti dalam alur riset [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/). Tutorial ini menghubungkan arah riset tersebut ke alat praktis yang dapat dijalankan hari ini.
 
 ### Apa yang Akan Anda Bangun
 
@@ -1359,7 +1359,7 @@ This tutorial is part of a broader AI-assisted SE pipeline. To continue:
 
 1. **Generate tests from your requirements**: Feed the acceptance criteria from this tutorial into the workflow described in [AI-Assisted Unit Test Generation with PHP](/blog/ai-assisted-unit-test-generation).
 2. **Document your architecture**: Use the structured output from your requirements analysis to seed the documentation pipeline in [LLM-Assisted Documentation Automation for PHP Projects](/blog/llm-assisted-documentation-automation-php).
-3. **Explore the research**: Visit the [Software Engineering Process, Architecture & Quality research stream](https://se.polinema.ac.id/research/se-methodologies-architecture/) to see how Politeknik Negeri Malang's SE Lab is advancing requirements automation, NLP for SE, and AI-assisted traceability.
+3. **Explore the research**: Visit the [Software Engineering Methodology research stream](https://se.polinema.ac.id/research/se-methodologies-architecture/) to see how Politeknik Negeri Malang's SE Lab is advancing requirements automation, NLP for SE, and AI-assisted traceability.
 
 The pipeline (requirements → tests → documentation) is now within reach of any PHP developer with an API key and a structured prompt. The machines can draft. The human must verify. That is the deal.
 
@@ -1386,7 +1386,7 @@ Tutorial ini adalah bagian dari pipeline SE berbantuan AI yang lebih luas. Untuk
 
 1. **Hasilkan pengujian dari kebutuhan Anda**: masukkan kriteria penerimaan dari tutorial ini ke dalam alur kerja yang dijelaskan di [Pembuatan Unit Test Berbantuan AI dengan PHP](/blog/ai-assisted-unit-test-generation).
 2. **Dokumentasikan arsitektur Anda**: gunakan output terstruktur dari analisis kebutuhan Anda untuk memulai *pipeline* dokumentasi di [Otomatisasi Dokumentasi Berbantuan LLM untuk Proyek PHP](/blog/llm-assisted-documentation-automation-php).
-3. **Jelajahi riset**: kunjungi [alur riset Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/) untuk melihat bagaimana SE Lab Politeknik Negeri Malang memajukan otomatisasi kebutuhan, NLP untuk SE, dan ketertelusuran berbantuan AI.
+3. **Jelajahi riset**: kunjungi [alur riset Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/) untuk melihat bagaimana SE Lab Politeknik Negeri Malang memajukan otomatisasi kebutuhan, NLP untuk SE, dan ketertelusuran berbantuan AI.
 
 *Pipeline* (kebutuhan → pengujian → dokumentasi) sekarang dalam jangkauan setiap pengembang PHP dengan kunci API dan *prompt* terstruktur. Mesin dapat membuat draf. Manusia harus memverifikasi. Itulah kesepakatannya.
 

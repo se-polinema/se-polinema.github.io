@@ -38,7 +38,7 @@ Automated quality analysis complements manual code review in three ways:
 
 ### Connection to SE Lab Research
 
-The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** as one of its five core topics under the [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. This tutorial connects that research direction to practical, runnable tools you can use today.
+The Software Engineering Lab at Politeknik Negeri Malang lists **Code Quality Analysis** as one of its five core topics under the [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/) research stream. This tutorial connects that research direction to practical, runnable tools you can use today.
 
 ### What You Will Learn
 
@@ -68,7 +68,7 @@ Analisis kualitas otomatis melengkapi *code review* manual dalam tiga cara:
 
 ### Koneksi ke Riset SE Lab
 
-Software Engineering Lab Politeknik Negeri Malang mencantumkan **Code Quality Analysis** sebagai salah satu dari lima topik inti di bawah alur riset [Software Engineering Process, Architecture & Quality](https://se.polinema.ac.id/research/se-methodologies-architecture/). Tutorial ini menghubungkan arah riset tersebut ke alat praktis yang dapat Anda jalankan hari ini.
+Software Engineering Lab Politeknik Negeri Malang mencantumkan **Code Quality Analysis** sebagai salah satu dari lima topik inti di bawah alur riset [Software Engineering Methodology](https://se.polinema.ac.id/research/se-methodologies-architecture/). Tutorial ini menghubungkan arah riset tersebut ke alat praktis yang dapat Anda jalankan hari ini.
 
 ### Apa yang Akan Anda Pelajari
 

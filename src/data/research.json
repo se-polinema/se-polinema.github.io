@@ -2,8 +2,8 @@
   {
     "id": "se-methodologies-architecture",
     "name": {
-      "en": "Software Engineering Process, Architecture & Quality",
-      "id": "Proses, Arsitektur, dan Kualitas Rekayasa Perangkat Lunak"
+      "en": "Software Engineering Methodology",
+      "id": "Metodologi Rekayasa Perangkat Lunak"
     },
     "tagline": {
       "en": "Architecture, testing, process methodology, and AI-assisted automation for building and assessing software systems.",
@@ -25,14 +25,22 @@
       {
         "id": "ai-assisted-se-automation",
         "name": { "en": "AI-Assisted SE Automation", "id": "Otomasi RPL Berbasis AI" }
+      },
+      {
+        "id": "nlp-for-software-engineering",
+        "name": { "en": "NLP for Software Engineering", "id": "NLP untuk Rekayasa Perangkat Lunak" }
+      },
+      {
+        "id": "agentic-workflow-automation",
+        "name": { "en": "Agentic Workflow Automation", "id": "Otomasi Alur Kerja Agentic" }
       }
     ]
   },
   {
     "id": "requirements-decision-support",
     "name": {
-      "en": "Requirements & Decision-Support Systems Engineering",
-      "id": "Rekayasa Sistem Kebutuhan & Pendukung Keputusan"
+      "en": "Requirements Engineering & Decision Support",
+      "id": "Rekayasa Kebutuhan & Pendukung Keputusan"
     },
     "tagline": {
       "en": "Software that operationalizes institutional decision-making and requirements analysis through decision-support and recommendation logic.",
@@ -56,8 +64,8 @@
   {
     "id": "ai-based-intelligent-systems",
     "name": {
-      "en": "Engineering of AI-Based & Intelligent Software Systems",
-      "id": "Rekayasa Sistem Perangkat Lunak Cerdas Berbasis AI"
+      "en": "Software Engineering for AI Systems",
+      "id": "Rekayasa Perangkat Lunak untuk Sistem AI"
     },
     "tagline": {
       "en": "System architecture, data pipelines, and evaluation methodology for software that embeds NLP, conversational, and predictive AI components.",
@@ -81,8 +89,8 @@
   {
     "id": "se-education-learning-technology",
     "name": {
-      "en": "Software Engineering Education & Learning Technology",
-      "id": "Pendidikan Rekayasa Perangkat Lunak & Teknologi Pembelajaran"
+      "en": "Software Engineering Education",
+      "id": "Pendidikan Rekayasa Perangkat Lunak"
     },
     "tagline": {
       "en": "Tools, evaluation methods, and teaching materials for software engineering and programming education.",
@@ -106,8 +114,8 @@
   {
     "id": "domain-specific-se-applications",
     "name": {
-      "en": "Software Engineering for Community & Institutional Systems",
-      "id": "Rekayasa Perangkat Lunak untuk Sistem Komunitas & Institusi"
+      "en": "Software Engineering for Social Good",
+      "id": "Rekayasa Perangkat Lunak untuk Kebaikan Sosial"
     },
     "tagline": {
       "en": "Applied software delivery for scholarly infrastructure, public-sector, and community organizations.",
