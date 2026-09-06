@@ -30,11 +30,11 @@
           "key": "how-to-join",
           "en": {
             "question": "How do I apply to join the lab?",
-            "answer": "Visit the /join page to browse open opportunities. Each listing includes requirements, supervisor contact, and application instructions. You can also reach out directly to a researcher whose work interests you. See the /researchers page for profiles and contact information. For general inquiries, email imam.fahrur@polinema.ac.id."
+            "answer": "Visit the /join page to browse open opportunities. Each listing includes requirements, supervisor contact, and application instructions. You can also reach out directly to a researcher whose work interests you. See the /researchers page for profiles and contact information. For general inquiries, email imam.rozi@polinema.ac.id."
           },
           "id": {
             "question": "Bagaimana cara mendaftar untuk bergabung dengan lab?",
-            "answer": "Kunjungi halaman /join untuk melihat peluang yang terbuka. Setiap daftar mencakup persyaratan, kontak pembimbing, dan instruksi pendaftaran. Anda juga dapat menghubungi langsung peneliti yang karyanya menarik minat Anda. Lihat halaman /researchers untuk profil dan informasi kontak. Untuk pertanyaan umum, kirim email ke imam.fahrur@polinema.ac.id."
+            "answer": "Kunjungi halaman /join untuk melihat peluang yang terbuka. Setiap daftar mencakup persyaratan, kontak pembimbing, dan instruksi pendaftaran. Anda juga dapat menghubungi langsung peneliti yang karyanya menarik minat Anda. Lihat halaman /researchers untuk profil dan informasi kontak. Untuk pertanyaan umum, kirim email ke imam.rozi@polinema.ac.id."
           }
         },
         {
@@ -97,22 +97,22 @@
           "key": "industry-collab",
           "en": {
             "question": "Does the lab accept industry collaboration or student thesis co-supervision?",
-            "answer": "Yes. We actively collaborate with industry partners, government agencies, other academic institutions, and community organizations. Collaboration can take the form of joint research projects, student thesis co-supervision, guest lectures, or sponsored development. Reach out to imam.fahrur@polinema.ac.id with a brief proposal or introduction to start the conversation."
+            "answer": "Yes. We actively collaborate with industry partners, government agencies, other academic institutions, and community organizations. Collaboration can take the form of joint research projects, student thesis co-supervision, guest lectures, or sponsored development. Reach out to imam.rozi@polinema.ac.id with a brief proposal or introduction to start the conversation."
           },
           "id": {
             "question": "Apakah lab menerima kolaborasi industri atau co-supervision tugas akhir mahasiswa?",
-            "answer": "Ya. Kami secara aktif berkolaborasi dengan mitra industri, instansi pemerintah, institusi akademik lain, dan organisasi masyarakat. Kolaborasi dapat berupa proyek riset bersama, co-supervision tugas akhir mahasiswa, kuliah tamu, atau pengembangan bersponsor. Hubungi imam.fahrur@polinema.ac.id dengan proposal singkat atau perkenalan untuk memulai diskusi."
+            "answer": "Ya. Kami secara aktif berkolaborasi dengan mitra industri, instansi pemerintah, institusi akademik lain, dan organisasi masyarakat. Kolaborasi dapat berupa proyek riset bersama, co-supervision tugas akhir mahasiswa, kuliah tamu, atau pengembangan bersponsor. Hubungi imam.rozi@polinema.ac.id dengan proposal singkat atau perkenalan untuk memulai diskusi."
           }
         },
         {
           "key": "external-researchers",
           "en": {
             "question": "Can researchers from other institutions collaborate with SE Lab?",
-            "answer": "Absolutely. We welcome visiting researchers, joint supervision arrangements, and multi-institutional research proposals. Please contact a lab researcher in your area of interest or email imam.fahrur@polinema.ac.id to discuss potential collaboration."
+            "answer": "Absolutely. We welcome visiting researchers, joint supervision arrangements, and multi-institutional research proposals. Please contact a lab researcher in your area of interest or email imam.rozi@polinema.ac.id to discuss potential collaboration."
           },
           "id": {
             "question": "Apakah peneliti dari institusi lain dapat berkolaborasi dengan SE Lab?",
-            "answer": "Tentu. Kami menyambut peneliti tamu, pengaturan pembimbingan bersama, dan proposal riset multi-institusi. Silakan hubungi peneliti lab di bidang minat Anda atau kirim email ke imam.fahrur@polinema.ac.id untuk mendiskusikan potensi kolaborasi."
+            "answer": "Tentu. Kami menyambut peneliti tamu, pengaturan pembimbingan bersama, dan proposal riset multi-institusi. Silakan hubungi peneliti lab di bidang minat Anda atau kirim email ke imam.rozi@polinema.ac.id untuk mendiskusikan potensi kolaborasi."
           }
         }
       ]
