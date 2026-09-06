@@ -36,7 +36,13 @@ featured: true
 order: 4
 streams:
   - "se-methodologies-architecture"
-  - "emerging-technologies-se"
+  - "ai-based-intelligent-systems"
+  - "se-education-learning-technology"
+topicTags:
+  - "software-architecture"
+  - "ai-assisted-se-automation"
+  - "conversational-ai"
+  - "automated-programming-assessment"
 certifications:
   - name: "Software Engineer"
     issuer: "Certiport"

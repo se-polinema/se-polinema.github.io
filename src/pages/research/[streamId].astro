@@ -6,6 +6,9 @@ import researchData from '../../data/research.json'
 import resourcesData from '../../data/resources.json'
 import { getResearcherAvatar, type ResearcherImage } from '../../lib/researcherImage'
 import { withBase } from '../../lib/paths'
+import ResearchAreaTree from '../../components/ResearchAreaTree.astro'
+import StreamPublicationsList from '../../components/StreamPublicationsList.vue'
+import StreamTutorialsList from '../../components/StreamTutorialsList.vue'
 
 export function getStaticPaths() {
   return researchData.map((stream) => ({
@@ -18,7 +21,7 @@ interface Stream {
   id: string
   name: { en: string; id: string }
   tagline: { en: string; id: string }
-  topics: string[]
+  topics: Array<{ id: string; name: { en: string; id: string } }>
 }
 
 const { stream } = Astro.props as { stream: Stream }
@@ -99,7 +102,7 @@ interface UnifiedTutorialResource {
   description: string
   descriptionId: string
   url: string
-  date?: Date
+  date?: string
   level?: string
   type?: string
 }
@@ -111,7 +114,7 @@ const tutorialResources: UnifiedTutorialResource[] = [
     description: t.data.excerpt || '',
     descriptionId: t.data.excerptId || t.data.excerpt || '',
     url: `/blog/${t.id}`,
-    date: t.data.date,
+    date: t.data.date.toISOString(),
   })),
   ...streamResources.map((r) => ({
     title: r.title,
@@ -124,18 +127,23 @@ const tutorialResources: UnifiedTutorialResource[] = [
   })),
 ]
 
-function levelBadgeClass(level: string): string {
-  switch (level) {
-    case 'beginner':
-      return 'bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/20 dark:border-green-500/30'
-    case 'intermediate':
-      return 'bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/20 dark:border-amber-500/30'
-    case 'advanced':
-      return 'bg-red-500/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/20 dark:border-red-500/30'
-    default:
-      return 'bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400 border border-neutral-200 dark:border-gray-600'
-  }
+interface StreamPublicationForList {
+  title: string
+  year: number
+  type: string
+  venue: string
+  authors: string[]
+  url: string
 }
+
+const streamPublicationsForList: StreamPublicationForList[] = streamPublications.map((pub) => ({
+  title: pub.data.title,
+  year: pub.data.year,
+  type: pub.data.type,
+  venue: pub.data.venue,
+  authors: pub.data.authors,
+  url: pub.data.url.toString(),
+}))
 
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const pageUrl = new URL(Astro.url.pathname, origin).href
@@ -147,7 +155,7 @@ const researchProjectJsonLd = {
   alternateName: stream.name.id,
   description: stream.tagline.en,
   url: pageUrl,
-  keywords: stream.topics.join(', '),
+  keywords: stream.topics.map((t) => t.name.en).join(', '),
   ...(streamResearchers.length > 0 ? {
     member: streamResearchers.map((r) => ({
       '@type': 'Person',
@@ -181,12 +189,8 @@ const researchProjectJsonLd = {
 
     <h2 lang="en">Topics</h2>
     <h2 lang="id">Topik</h2>
-    <div class="flex flex-wrap gap-2 mb-10">
-      {stream.topics.map((topic) => (
-        <span class="inline-block text-xs font-mono px-2.5 py-1 rounded bg-primary/[0.06] dark:bg-gray-800 text-primary/70 dark:text-gray-300 border border-primary/10 dark:border-gray-700">
-          {topic}
-        </span>
-      ))}
+    <div class="mb-10 not-prose">
+      <ResearchAreaTree areas={[stream]} researchers={streamResearchers} mode="single" />
     </div>
 
     <h2 lang="en">Researchers</h2>
@@ -296,120 +300,12 @@ const researchProjectJsonLd = {
       )
     }
 
-    <h2 lang="en">Tutorials &amp; Resources</h2>
-    <h2 lang="id">Tutorial &amp; Sumber Daya</h2>
-    {
-      tutorialResources.length > 0 ? (
-        <div class="grid sm:grid-cols-2 gap-3 mb-10">
-          {tutorialResources.map((item) => (
-            <a
-              href={withBase(item.url)}
-              target={item.url.startsWith('http') ? '_blank' : undefined}
-              rel={item.url.startsWith('http') ? 'noopener' : undefined}
-              class="stream-hub-researcher-card"
-            >
-              <div class="flex items-start gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary/60 shrink-0 mt-0.5">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <div class="min-w-0 flex-1">
-                  <h4 class="font-semibold text-sm text-primary dark:text-gray-100 mb-1">
-                    <span lang="en">{item.title}</span>
-                    <span lang="id">{item.titleId}</span>
-                  </h4>
-                  {item.description && (
-                    <p lang="en" class="text-xs text-neutral-500 dark:text-gray-400 line-clamp-2">
-                      {item.description}
-                    </p>
-                  )}
-                  {item.descriptionId && (
-                    <p lang="id" class="text-xs text-neutral-500 dark:text-gray-400 line-clamp-2">
-                      {item.descriptionId}
-                    </p>
-                  )}
-                  <div class="flex flex-wrap items-center gap-1.5 mt-2">
-                    {item.date && (
-                      <span class="text-[10px] font-mono text-neutral-400 dark:text-gray-500">
-                        {item.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                      </span>
-                    )}
-                    {item.type && (
-                      <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400 capitalize">
-                        {item.type}
-                      </span>
-                    )}
-                    {item.level && (
-                      <span class={`text-[10px] font-mono px-1.5 py-0.5 rounded ${levelBadgeClass(item.level)} capitalize`}>
-                        {item.level}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div class="mb-10">
-          <p lang="en" class="text-sm text-neutral-400 dark:text-gray-500 italic py-4 border border-dashed border-neutral-200 dark:border-gray-700 px-4 text-center">
-            No tutorials or resources are currently associated with this stream.
-          </p>
-          <p lang="id" class="text-sm text-neutral-400 dark:text-gray-500 italic py-4 border border-dashed border-neutral-200 dark:border-gray-700 px-4 text-center">
-            Belum ada tutorial atau sumber daya yang terkait dengan stream ini.
-          </p>
-        </div>
-      )
-    }
-
     <h2 lang="en">Publications</h2>
     <h2 lang="id">Publikasi</h2>
-    {
-      streamPublications.length > 0 ? (
-        <div class="mb-10">
-          {streamPublications.slice(0, 20).map((pub) => (
-            <a
-              href={pub.data.url.toString()}
-              target="_blank"
-              rel="noopener"
-              class="stream-hub-pub-item"
-            >
-              <div class="flex flex-wrap items-start gap-x-3 gap-y-1">
-                <span class="text-xs font-mono font-medium px-1.5 py-0.5 rounded bg-accent/10 dark:bg-accent/20 text-accent-700 dark:text-accent-400 shrink-0">
-                  {pub.data.year}
-                </span>
-                <span class="text-xs font-mono px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-gray-700 text-neutral-500 dark:text-gray-400 shrink-0 capitalize">
-                  {pub.data.type}
-                </span>
-                <h4 class="text-sm font-medium text-primary dark:text-gray-200 leading-snug flex-1 min-w-0">
-                  {pub.data.title}
-                </h4>
-              </div>
-              <div class="mt-1 ml-0">
-                <span class="text-xs text-neutral-400 dark:text-gray-500">{pub.data.venue}</span>
-                {pub.data.authors.length > 0 && (
-                  <span class="text-xs text-neutral-400 dark:text-gray-500"> &middot; {pub.data.authors.join(', ')}</span>
-                )}
-              </div>
-            </a>
-          ))}
-          {streamPublications.length > 20 && (
-            <p class="text-xs text-neutral-400 dark:text-gray-500 mt-3 text-center">
-              <span lang="en">Showing 20 of {streamPublications.length} publications.</span>
-              <span lang="id">Menampilkan 20 dari {streamPublications.length} publikasi.</span>
-            </p>
-          )}
-        </div>
-      ) : (
-        <div class="mb-10">
-          <p lang="en" class="text-sm text-neutral-400 dark:text-gray-500 italic py-4 border border-dashed border-neutral-200 dark:border-gray-700 px-4 text-center">
-            No publications are currently associated with this stream.
-          </p>
-          <p lang="id" class="text-sm text-neutral-400 dark:text-gray-500 italic py-4 border border-dashed border-neutral-200 dark:border-gray-700 px-4 text-center">
-            Belum ada publikasi yang terkait dengan stream ini.
-          </p>
-        </div>
-      )
-    }
+    <StreamPublicationsList client:load publications={streamPublicationsForList} />
+
+    <h2 lang="en">Tutorials &amp; Resources</h2>
+    <h2 lang="id">Tutorial &amp; Sumber Daya</h2>
+    <StreamTutorialsList client:load items={tutorialResources} />
   </div>
 </VSCodeLayout>

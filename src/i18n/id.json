@@ -1,7 +1,7 @@
 {
   "nav": {
     "about": "Tentang",
-    "research": "Penelitian",
+    "research": "Bidang Riset",
     "team": "Peneliti",
     "researchers": "Peneliti",
     "projects": "Proyek",
@@ -23,13 +23,20 @@
     "resources": "Sumber Belajar",
     "tools": "Alat",
     "newsletter": "Buletin",
-    "impact": "Dampak & Statistik"
+    "impact": "Dampak & Statistik",
+    "privacy": "Privasi",
+    "login": "Masuk",
+    "register": "Daftar",
+    "admin": "Admin",
+    "checkin": "Check-in",
+    "menuLabel": "Menu"
   },
   "hero": {
     "title": "Software Engineering Laboratory",
     "subtitle": "Jurusan Teknologi Informasi",
     "tagline": "Unit akademik untuk rekayasa perangkat lunak terapan, sistem cerdas, dan pengembangan perangkat lunak ilmiah di Politeknik Negeri Malang.",
     "cta": "Jelajahi Riset",
+    "aboutCta": "Tentang Lab",
     "researchersCta": "Lihat Peneliti",
     "publicationsCta": "Lihat Publikasi",
     "focusLabel": "Fokus",
@@ -53,7 +60,8 @@
   },
   "research": {
     "label": "Fokus Riset",
-    "heading": "Tiga stream riset rekayasa perangkat lunak"
+    "heading": "Lima bidang riset rekayasa perangkat lunak",
+    "viewAllCta": "Lihat Semua Bidang Riset"
   },
   "team": {
     "label": "Peneliti",

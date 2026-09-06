@@ -149,8 +149,8 @@ const tabs = [
     id: "about",
     label: "about.md",
     ext: "md",
-    pageId: "home",
-    href: "/#about",
+    pageId: "about",
+    href: "/about",
   },
   {
     id: "research",
@@ -192,6 +192,7 @@ const tabs = [
 ];
 
 const innerPageTabMap: Record<string, { label: string; ext: string; href: string }> = {
+  about:        { label: "about.md",         ext: "md",   href: "/about" },
   events:       { label: "upcoming.ics",     ext: "ics",  href: "/events" },
   blog:         { label: "blog.md",          ext: "md",   href: "/blog" },
   publications: { label: "publications.bib", ext: "bib",  href: "/publications" },
@@ -255,7 +256,6 @@ function closeTab() {
 
 const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
   hero: { path: ["se-lab", "index.html"], lang: "HTML" },
-  about: { path: ["se-lab", "src", "about.md"], lang: "Markdown" },
   research: { path: ["se-lab", "src", "research.json"], lang: "JSON" },
   projects: { path: ["se-lab", "src", "projects", "index.json"], lang: "JSON" },
   books: { path: ["se-lab", "src", "books", "index.md"], lang: "Markdown" },
@@ -267,6 +267,7 @@ const breadcrumbMap: Record<string, { path: string[]; lang: string }> = {
 };
 
 const pageBreadcrumbMap: Record<string, { path: string[]; lang: string }> = {
+  about:        { path: ["se-lab", "src", "about.md"],                     lang: "Markdown" },
   events:       { path: ["se-lab", "src", "events", "upcoming.ics"],       lang: "Calendar" },
   blog:         { path: ["se-lab", "src", "blog", "index.md"],             lang: "Markdown" },
   publications: { path: ["se-lab", "src", "publications", "index.bib"],    lang: "BibTeX" },

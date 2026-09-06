@@ -90,6 +90,7 @@ const activeIndex = ref(-1)
 
 const goToPages: { label: string; href: string }[] = [
   { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
   { label: 'Publications', href: '/publications' },
   { label: 'Events', href: '/events' },
   { label: 'Blog', href: '/blog' },

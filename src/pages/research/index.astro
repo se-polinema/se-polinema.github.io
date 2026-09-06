@@ -1,0 +1,69 @@
+---
+import VSCodeLayout from '../../layouts/VSCodeLayout.astro'
+import JsonLd from '../../components/JsonLd.astro'
+import ResearchAreaTree from '../../components/ResearchAreaTree.astro'
+import { getCollection } from 'astro:content'
+import researchData from '../../data/research.json'
+import { withBase } from '../../lib/paths'
+
+const allResearchers = await getCollection('researchers')
+
+const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
+const pageUrl = new URL(Astro.url.pathname, origin).href
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Research Areas',
+  url: pageUrl,
+  itemListElement: researchData.map((area, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'ResearchProject',
+      name: area.name.en,
+      alternateName: area.name.id,
+      description: area.tagline.en,
+      url: new URL(`/research/${area.id}`, origin).href,
+      keywords: area.topics.map((t) => t.name.en).join(', '),
+    },
+  })),
+}
+---
+
+<VSCodeLayout
+  title="Research Areas — SE Lab"
+  description="How the Software Engineering Laboratory's research is organized: five areas, each with a set of topics and the researchers working on them."
+>
+  <JsonLd slot="head" data={jsonLd} />
+  <div class="px-8 py-8 max-w-4xl bilingual-post">
+    <a
+      href={withBase('/')}
+      class="inline-flex items-center gap-1 text-xs font-mono text-neutral-400 dark:text-gray-500 hover:text-primary dark:hover:text-accent transition-colors mb-8"
+    >
+      <span lang="en">&larr; Back to Home</span>
+      <span lang="id">&larr; Kembali ke Beranda</span>
+    </a>
+
+    <h1 lang="en">Research Areas</h1>
+    <h1 lang="id">Bidang Riset</h1>
+
+    <p lang="en" class="text-lg text-neutral-600 dark:text-gray-300 leading-relaxed mb-6 mt-2">
+      Five areas, organized around Software Engineering knowledge areas rather than by
+      technique or domain. Each area branches into specific topics, and each topic shows
+      the researchers actively working on it. Click an area to see its full researcher,
+      publication, and project list.
+    </p>
+    <p lang="id" class="text-lg text-neutral-600 dark:text-gray-300 leading-relaxed mb-6 mt-2">
+      Lima bidang riset yang disusun berdasarkan bidang ilmu Rekayasa Perangkat Lunak,
+      bukan berdasarkan teknik atau domain aplikasi. Setiap bidang bercabang menjadi
+      topik spesifik, dan setiap topik menampilkan peneliti yang aktif mengerjakannya.
+      Klik salah satu bidang untuk melihat daftar lengkap peneliti, publikasi, dan
+      proyek terkait.
+    </p>
+
+    <div class="mb-10 not-prose">
+      <ResearchAreaTree areas={researchData} researchers={allResearchers} mode="all" />
+    </div>
+  </div>
+</VSCodeLayout>

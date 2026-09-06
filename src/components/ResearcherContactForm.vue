@@ -189,7 +189,7 @@ function getDefaultTopic(): string {
   if (props.researcherStreams.includes('se-methodologies-architecture')) {
     return 'thesisSupervision'
   }
-  if (props.researcherStreams.includes('domain-specific-se-applications') || props.researcherStreams.includes('emerging-technologies-se')) {
+  if (props.researcherStreams.includes('domain-specific-se-applications')) {
     return 'researchCollaboration'
   }
   return ''

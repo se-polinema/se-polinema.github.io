@@ -46,7 +46,7 @@
     </div>
 
     <template v-if="filteredTracks.length > 0">
-      <div v-for="track in filteredTracks" :key="track.id" class="mb-12">
+      <div v-for="(track, trackIndex) in filteredTracks" :key="`${track.id}-${trackIndex}`" class="mb-12">
         <div class="border border-primary/10 dark:border-gray-600 bg-white dark:bg-gray-800">
           <div class="p-5 border-b border-primary/10 dark:border-gray-600">
             <h2 class="font-serif text-xl font-semibold text-primary dark:text-gray-100 mb-2">
