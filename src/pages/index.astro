@@ -1,7 +1,6 @@
 ---
 import VSCodeLayout from '../layouts/VSCodeLayout.astro'
 import Hero from '../components/Hero.vue'
-import About from '../components/About.vue'
 import Research from '../components/Research.vue'
 import Projects from '../components/Projects.vue'
 import Books from '../components/Books.vue'
@@ -135,7 +134,6 @@ const organizationJsonLd = {
 <VSCodeLayout title="Software Engineering Laboratory">
   <JsonLd slot="head" data={organizationJsonLd} />
   <Hero client:load researchers={labStats.researchers} focusAreas={labStats.focusAreas} publications={labStats.publications} />
-  <About client:load />
   <Research client:load />
   <Projects client:load projects={projects} />
   <Books client:load books={books} />

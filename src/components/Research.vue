@@ -2,7 +2,7 @@
   <section id="research" class="py-20 md:py-32 bg-white dark:bg-gray-900">
     <div class="section-container">
       <div class="relative overflow-hidden mb-16">
-        <span class="absolute -top-4 right-0 font-mono text-[8rem] font-bold text-primary/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">02</span>
+        <span class="absolute -top-4 right-0 font-mono text-[8rem] font-bold text-primary/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">01</span>
         <div class="section-label">{{ t.research.label }}</div>
         <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-primary dark:text-gray-100 leading-tight">
           {{ t.research.heading }}

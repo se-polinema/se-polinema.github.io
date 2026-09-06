@@ -264,4 +264,25 @@ onMounted(() => {
 .activity-inactive:hover {
   color: var(--color-vscode-chrome-fg);
 }
+
+/* Shrink icon buttons on short desktop viewports so all 12 fit without
+   the nav group falling back to its internal scrollbar. */
+@media (max-height: 850px) {
+  .activity-btn {
+    height: 40px;
+  }
+  .activity-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+@media (max-height: 640px) {
+  .activity-btn {
+    height: 34px;
+  }
+  .activity-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
 </style>
