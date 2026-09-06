@@ -1,6 +1,6 @@
 ---
-// Renders the Research Area -> Topic -> Researcher hierarchy as a static,
-// zero-JS CSS tree (build-time only, no client hydration). Two modes:
+// Renders the Research Area -> Topic hierarchy as a static, zero-JS CSS tree
+// (build-time only, no client hydration). Two modes:
 // - "all": every area as a branch under a "Research Areas" root label (used
 //   on the /research index page).
 // - "single": one area rendered as the entry point, no root label (used on
@@ -10,8 +10,6 @@
 // `border-left` on the children container acts as the vertical trunk, and
 // each child gets a short `::before` horizontal stub to "attach" to it. No
 // SVG, no coordinate math, no library - just nested divs.
-import type { CollectionEntry } from 'astro:content'
-import { getResearcherAvatar, type ResearcherImage } from '../lib/researcherImage'
 import { withBase } from '../lib/paths'
 
 interface Topic {
@@ -28,24 +26,10 @@ interface Area {
 
 interface Props {
   areas: Area[]
-  researchers: CollectionEntry<'researchers'>[]
   mode?: 'all' | 'single'
 }
 
-const { areas, researchers, mode = 'all' } = Astro.props as Props
-
-// One avatar fetch per unique researcher, even if they appear under several
-// topics/areas.
-const avatarById = new Map<string, ResearcherImage | null>()
-for (const r of researchers) {
-  if (!avatarById.has(r.id)) {
-    avatarById.set(r.id, await getResearcherAvatar(r.id, '32px'))
-  }
-}
-
-function researchersForTopic(topicId: string) {
-  return researchers.filter((r) => r.data.topicTags?.includes(topicId))
-}
+const { areas, mode = 'all' } = Astro.props as Props
 ---
 
 <div class="raet" class:list={[mode === 'all' && 'raet-with-root']}>
@@ -82,43 +66,16 @@ function researchersForTopic(topicId: string) {
           </div>
         )}
         <div class="raet-topics">
-          {area.topics.map((topic) => {
-            const topicResearchers = researchersForTopic(topic.id)
-            return (
-              <div class="raet-topic-branch">
-                <div class="raet-topic-node">
-                  <span class="raet-topic-name">
-                    <span lang="en">{topic.name.en}</span>
-                    <span lang="id">{topic.name.id}</span>
-                  </span>
-                  {topicResearchers.length > 0 && (
-                    <div class="raet-avatars">
-                      {topicResearchers.map((r) => {
-                        const avatar = avatarById.get(r.id)
-                        return (
-                          <a
-                            href={withBase(`/researchers/${r.id}`)}
-                            class="raet-avatar"
-                            title={r.data.name}
-                          >
-                            <img
-                              src={avatar?.src ?? withBase(r.data.photo)}
-                              srcset={avatar?.srcset}
-                              sizes={avatar?.sizes}
-                              alt={r.data.name}
-                              style={r.data.photoPosition ? { objectPosition: r.data.photoPosition } : undefined}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </a>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
+          {area.topics.map((topic) => (
+            <div class="raet-topic-branch">
+              <div class="raet-topic-node">
+                <span class="raet-topic-name">
+                  <span lang="en">{topic.name.en}</span>
+                  <span lang="id">{topic.name.id}</span>
+                </span>
               </div>
-            )
-          })}
+            </div>
+          ))}
         </div>
       </div>
     ))}
@@ -274,46 +231,6 @@ function researchersForTopic(topicId: string) {
 
   :global(.dark) .raet-topic-name {
     color: rgb(209 213 219);
-  }
-
-  .raet-avatars {
-    display: flex;
-    flex-wrap: wrap;
-    gap: -0.35rem;
-    margin-left: auto;
-  }
-
-  .raet-avatar {
-    display: block;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 9999px;
-    overflow: hidden;
-    border: 2px solid white;
-    margin-left: -0.35rem;
-    transition: transform 0.15s ease, z-index 0s;
-    flex-shrink: 0;
-  }
-
-  :global(.dark) .raet-avatar {
-    border-color: rgb(31 41 55);
-  }
-
-  .raet-avatar:first-child {
-    margin-left: 0;
-  }
-
-  .raet-avatar:hover {
-    transform: translateY(-2px) scale(1.08);
-    z-index: 1;
-    position: relative;
-  }
-
-  .raet-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
   }
 
   @media (max-width: 480px) {
