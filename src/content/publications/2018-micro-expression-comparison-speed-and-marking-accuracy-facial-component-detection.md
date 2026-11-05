@@ -6,6 +6,7 @@ venue: "International Conference Proceedings"
 authors:
   - "Ariadi Retno Tri Hayati Ririd"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=qoWiXaQAAAAJ"
+doi: "10.1109/cenim.2018.8711313"
 researchers:
   - "ariadi-retno-tri-hayati-ririd"
 featured: true

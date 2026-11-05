@@ -4,8 +4,11 @@ year: 2019
 type: "journal"
 venue: "Jurnal Teknologi Informasi dan Terapan"
 authors:
-  - "Indra Dharma Wisjaya and Nindy Alvi Fajarina and Dian Hanifudin Subhi"
+  - "Indra Dharma Wisjaya"
+  - "Nindy Alvi Fajarina"
+  - "Dian Hanifudin Subhi"
 url: "https://jtit.polije.ac.id/index.php/jtit/article/view/103"
+doi: "10.25047/jtit.v6i1.103"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=3415121306774068181"
 citedByCount: 4
 researchers:

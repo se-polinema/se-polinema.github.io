@@ -4,8 +4,11 @@ year: 2023
 type: "journal"
 venue: "Sinkron: jurnal dan penelitian teknik informatika"
 authors:
-  - "Meyti Eka Apriyani and Budi Harijanto and Elok Nur Hamdana"
+  - "Meyti Eka Apriyani"
+  - "Budi Harijanto"
+  - "Elok Nur Hamdana"
 url: "https://www.jurnal.polgan.ac.id/index.php/sinkron/article/view/13055"
+doi: "10.33395/sinkron.v8i4.13055"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=1651436247728770160"
 citedByCount: 3
 researchers:

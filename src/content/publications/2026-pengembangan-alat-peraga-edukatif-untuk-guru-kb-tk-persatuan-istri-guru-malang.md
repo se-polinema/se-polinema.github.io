@@ -4,7 +4,11 @@ year: 2026
 type: "journal"
 venue: "Journal of Applied Community Engagement"
 authors:
-  - "Indra Dharma Wijaya and Elok Nur Hamdana and Pramana Yoga Saputra and M Afif Hendrawan and Dodit Suprianto"
+  - "Indra Dharma Wijaya"
+  - "Elok Nur Hamdana"
+  - "Pramana Yoga Saputra"
+  - "M Afif Hendrawan"
+  - "Dodit Suprianto"
 url: "https://journal.isas.or.id/index.php/JACE/article/view/1425"
 googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 citedByCount: 0

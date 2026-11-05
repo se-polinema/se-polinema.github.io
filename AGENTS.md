@@ -74,6 +74,17 @@ can also be run manually.
 node scripts/update-publications.mjs
 ```
 
+- Runs on the organization's **self-hosted runner** (`runs-on: self-hosted`):
+  Google Scholar blocks GitHub-hosted runner IPs, which left the metrics stale.
+  The workflow checks out `develop` and opens its PR against `develop`.
+- After the sync, the workflow runs `scripts/normalize-publication-authors.mjs`
+  (one list item per author) and `scripts/enrich-dois.mjs` (Crossref lookup,
+  accepted only on an exact normalized-title match within one year). Both are
+  safe to run by hand (`--dry-run` is supported); the DOI script also prints
+  venue/type entries that need a manual look. Set the optional repository
+  variable `CROSSREF_MAILTO` to use Crossref's polite pool.
+- Per-publication citation counts are recorded from the search result itself,
+  so they survive Scholar blocking the per-publication `fill()` requests.
 - Reads all researchers from `src/content/researchers/*.md`
 - Extracts Google Scholar user IDs from `googleScholarUrl`
 - For each researcher, calls `node-scholarly`'s `searchAuthorId()` once:
@@ -81,7 +92,8 @@ node scripts/update-publications.mjs
   researcher) and author-level metrics, so nothing is fetched twice
 - Deduplicates new publications against existing ones (by normalized title + year)
 - Generates Markdown frontmatter with `title`, `year`, `type`, `venue`, `authors`,
-  `url`, `doi` (if available), `googleScholarUrl`, `citedByCount` (if available),
+  `url`, `doi` (if available), optional `abstract` and `pdfUrl` (edited by
+  hand, never overwritten by the sync), `googleScholarUrl`, `citedByCount` (if available),
   `researchers[]`, `featured`, `language`
 - Writes `src/data/_sync-meta.json` with `lastUpdated` timestamp and publication counts
 - Writes `src/data/_scholar-metrics.json` with h-index/i10-index/citation data

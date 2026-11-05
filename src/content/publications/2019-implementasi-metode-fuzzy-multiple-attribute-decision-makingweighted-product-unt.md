@@ -4,7 +4,8 @@ year: 2019
 type: "journal"
 venue: "Seminar Informatika Aplikatif Polinema"
 authors:
-  - "Dian Hanifudin Subhi and Mochammad Kurnia Sandi"
+  - "Dian Hanifudin Subhi"
+  - "Mochammad Kurnia Sandi"
 url: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 googleScholarUrl: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 citedByCount: 0

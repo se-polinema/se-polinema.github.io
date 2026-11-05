@@ -4,8 +4,11 @@ year: 2024
 type: "journal"
 venue: "JATI (JURNAL MAHASISWA TEKNIK INFORMATIKA) Учредители: LPPM ITN Malang"
 authors:
-  - "VISTA C BELLA and ELYZABETH ISLAMI R VERONICA and HAMDANA E NUR"
+  - "VISTA C BELLA"
+  - "ELYZABETH ISLAMI R VERONICA"
+  - "HAMDANA E NUR"
 url: "https://elibrary.ru/item.asp?id=81176392"
+doi: "10.36040/jati.v9i1.12323"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=17028813949927656944"
 citedByCount: 3
 researchers:

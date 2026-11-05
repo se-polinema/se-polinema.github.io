@@ -6,6 +6,7 @@ venue: "Conference on Electrical and Information Technology"
 authors:
   - "Imam Fahrur Rozi"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=WwrDWnEAAAAJ"
+doi: "10.1109/ieit64341.2024.10763129"
 researchers:
   - "imam-fahrur-rozi"
 featured: true

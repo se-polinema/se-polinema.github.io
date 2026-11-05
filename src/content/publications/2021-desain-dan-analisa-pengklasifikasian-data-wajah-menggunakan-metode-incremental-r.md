@@ -6,6 +6,7 @@ venue: "Proceedings Series on Physical & Formal Sciences"
 authors:
   - "Ariadi Retno"
 url: "https://conferenceproceedings.ump.ac.id/pspfs/article/download/143/125"
+doi: "10.30595/pspfs.v1i.143"
 googleScholarUrl: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 citedByCount: 0
 researchers:
