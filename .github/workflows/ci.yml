@@ -1,0 +1,52 @@
+name: CI
+
+# Runs on every pull request into develop or main (deploy.yml only builds
+# after a push, so problems used to surface after merge).
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Base-path guard
+        run: npm run check:base-paths
+
+      # validate-publications + astro check + astro build
+      - name: Build (production base)
+        run: npm run build
+
+      - name: Build (beta base)
+        run: npx astro build --outDir dist-beta
+        env:
+          BASE_PATH: /beta/
+
+      # Internal links only (--offline): external sites would make the check flaky.
+      # Non-blocking until the existing baseline of broken links is cleaned up.
+      - name: Link check (internal)
+        uses: lycheeverse/lychee-action@v2
+        continue-on-error: true
+        with:
+          args: --offline --no-progress --root-dir "${{ github.workspace }}/dist" 'dist/**/*.html'
+          fail: true
