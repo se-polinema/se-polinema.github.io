@@ -1,19 +1,21 @@
 // AI-drafts a bilingual announcement banner message from a short brief.
-// Auth-required (a valid signed-in caller JWT) but, unlike submit-project,
-// NOT Turnstile-gated, same reasoning as suggest-project-content: this is
-// an authenticated-admin-surface endpoint (the Announcements tab in
-// AdminDashboard.vue), not a public one, and the RLS-enforced write it
-// feeds into is already admin-only.
+// Admin-only (valid signed-in caller JWT whose se.profiles.role is 'admin')
+// and NOT Turnstile-gated: this is the authenticated Announcements tab in
+// AdminDashboard.vue, not a public surface, and the RLS-enforced write it
+// feeds into is already admin-only. Input is size-capped and calls are
+// limited per user per hour (see _shared/suggestGuard.ts).
 //
 // Mirrors suggest-project-content/index.ts's OpenCode Go gateway call,
 // secret, model id, and JSON-recovery strategy exactly; see that file's
 // comments for the rationale. Only the prompt and response shape differ:
 // an announcement is a single bilingual message pair, not five fields.
-import { createClient } from 'npm:@supabase/supabase-js@2'
 import { corsHeaders, jsonResponse } from '../_shared/turnstile.ts'
+import { guardSuggestCall } from '../_shared/suggestGuard.ts'
 
 const OPENCODE_GO_ENDPOINT = 'https://opencode.ai/zen/go/v1/chat/completions'
 const MODEL = 'kimi-k2.7-code'
+
+const MAX_BRIEF = 2000
 
 const SYSTEM_PROMPT = `You are drafting a short, urgent site-wide announcement banner message for a university software engineering lab website. Given a brief description of what should be announced, produce concise banner copy in BOTH English and Indonesian.
 
@@ -43,11 +45,6 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'method_not_allowed' }, 405, headers)
   }
 
-  const authHeader = req.headers.get('Authorization')
-  if (!authHeader) {
-    return jsonResponse({ error: 'not_authenticated' }, 401, headers)
-  }
-
   let payload: SuggestPayload
   try {
     payload = await req.json()
@@ -55,22 +52,18 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'bad_request' }, 400, headers)
   }
 
-  if (!payload.brief?.trim()) {
+  const brief = typeof payload.brief === 'string' ? payload.brief.trim() : ''
+  if (!brief || brief.length > MAX_BRIEF) {
     return jsonResponse({ error: 'invalid_request' }, 400, headers)
   }
 
-  // Anon key + the caller's own Authorization header: this is the auth
-  // gate. We don't need the user's role, just proof of a real session.
-  const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_ANON_KEY')!,
-    { global: { headers: { Authorization: authHeader } } }
-  )
-
-  const { data: { user }, error: userError } = await supabase.auth.getUser()
-  if (userError || !user) {
-    return jsonResponse({ error: 'not_authenticated' }, 401, headers)
-  }
+  // Admin-only: this serves the Announcements tab in AdminDashboard.vue.
+  const guard = await guardSuggestCall(req, headers, {
+    fn: 'suggest-announcement-content',
+    hourlyLimit: 30,
+    adminOnly: true,
+  })
+  if ('response' in guard) return guard.response
 
   const apiKey = Deno.env.get('OPENCODE_GO_API_KEY')
   if (!apiKey) {
@@ -78,7 +71,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'ai_unavailable' }, 500, headers)
   }
 
-  const userPrompt = `Brief: ${payload.brief.trim()}`
+  const userPrompt = `Brief: ${brief}`
 
   let content: string | undefined
   try {

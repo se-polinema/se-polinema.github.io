@@ -19,11 +19,15 @@
 // parsed with the exact fence-strip + first-{...}-regex + JSON.parse
 // strategy already used in weekly-recommendation.yml's "Create issue"
 // step; a bare JSON.parse on the raw content is not safe here.
-import { createClient } from 'npm:@supabase/supabase-js@2'
 import { corsHeaders, jsonResponse } from '../_shared/turnstile.ts'
+import { guardSuggestCall } from '../_shared/suggestGuard.ts'
 
 const OPENCODE_GO_ENDPOINT = 'https://opencode.ai/zen/go/v1/chat/completions'
 const MODEL = 'kimi-k2.7-code'
+
+const MAX_TITLE = 200
+const MAX_BRIEF = 2000
+const MAX_URL = 500
 
 const SYSTEM_PROMPT = `You are a technical writer for a university software-engineering lab's project showcase. Given a project title, a short brief, and optionally a repo URL, produce concise marketing-quality copy in BOTH English and Indonesian.
 
@@ -61,11 +65,6 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'method_not_allowed' }, 405, headers)
   }
 
-  const authHeader = req.headers.get('Authorization')
-  if (!authHeader) {
-    return jsonResponse({ error: 'not_authenticated' }, 401, headers)
-  }
-
   let payload: SuggestPayload
   try {
     payload = await req.json()
@@ -73,22 +72,23 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'bad_request' }, 400, headers)
   }
 
-  if (!payload.title?.trim() || !payload.brief?.trim()) {
+  const title = typeof payload.title === 'string' ? payload.title.trim() : ''
+  const brief = typeof payload.brief === 'string' ? payload.brief.trim() : ''
+  const repoUrl = typeof payload.repo_url === 'string' ? payload.repo_url.trim() : ''
+  if (
+    !title || !brief ||
+    title.length > MAX_TITLE || brief.length > MAX_BRIEF ||
+    (repoUrl && (repoUrl.length > MAX_URL || !/^https?:\/\//i.test(repoUrl)))
+  ) {
     return jsonResponse({ error: 'invalid_request' }, 400, headers)
   }
 
-  // Anon key + the caller's own Authorization header: this is the auth
-  // gate. We don't need the user's role, just proof of a real session.
-  const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_ANON_KEY')!,
-    { global: { headers: { Authorization: authHeader } } }
-  )
-
-  const { data: { user }, error: userError } = await supabase.auth.getUser()
-  if (userError || !user) {
-    return jsonResponse({ error: 'not_authenticated' }, 401, headers)
-  }
+  const guard = await guardSuggestCall(req, headers, {
+    fn: 'suggest-project-content',
+    hourlyLimit: 20,
+    adminOnly: false,
+  })
+  if ('response' in guard) return guard.response
 
   const apiKey = Deno.env.get('OPENCODE_GO_API_KEY')
   if (!apiKey) {
@@ -96,7 +96,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'ai_unavailable' }, 500, headers)
   }
 
-  const userPrompt = `Title: ${payload.title.trim()}\nBrief: ${payload.brief.trim()}\nRepo: ${payload.repo_url?.trim() || 'n/a'}`
+  const userPrompt = `Title: ${title}\nBrief: ${brief}\nRepo: ${repoUrl || 'n/a'}`
 
   let content: string | undefined
   try {
