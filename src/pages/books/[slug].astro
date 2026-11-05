@@ -17,6 +17,6 @@ const { book } = Astro.props
 const desc = book.description ?? ''
 ---
 
-<VSCodeLayout title={`${book.title} — SE Lab Books`} description={desc} type="article">
+<VSCodeLayout title={book.title} description={desc} type="article">
   <BookDetailPage client:load book={book} />
 </VSCodeLayout>

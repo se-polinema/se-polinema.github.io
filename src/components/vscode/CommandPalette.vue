@@ -60,6 +60,7 @@ import { useI18n } from '../../composables/useI18n'
 import { usePalette, PALETTES } from '../../composables/usePalette'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { withBase } from '../../lib/paths'
+import { HAS_ACHIEVEMENTS } from '../../lib/emptySections'
 
 const props = defineProps<{ prefillQuery?: string }>()
 const emit = defineEmits<{ close: [] }>()
@@ -88,7 +89,7 @@ const resultRefs: Record<string, HTMLElement> = {}
 const activeGroup = ref('')
 const activeIndex = ref(-1)
 
-const goToPages: { label: string; href: string }[] = [
+const allGoToPages: { label: string; href: string }[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Publications', href: '/publications' },
@@ -101,8 +102,9 @@ const goToPages: { label: string; href: string }[] = [
   { label: 'Decks', href: '/decks' },
   { label: 'Achievements', href: '/achievements' },
 ]
+const goToPages = allGoToPages.filter((p) => p.href !== '/achievements' || HAS_ACHIEVEMENTS)
 
-const sidebarViews: { view: Parameters<typeof setView>[0]; label: string }[] = [
+const allSidebarViews: { view: Parameters<typeof setView>[0]; label: string }[] = [
   { view: 'explorer', label: 'Explorer' },
   { view: 'blog', label: 'Blog' },
   { view: 'events', label: 'Events' },
@@ -112,6 +114,7 @@ const sidebarViews: { view: Parameters<typeof setView>[0]; label: string }[] = [
   { view: 'achievements', label: 'Achievements' },
   { view: 'members', label: 'Members' },
 ]
+const sidebarViews = allSidebarViews.filter((v) => v.view !== 'achievements' || HAS_ACHIEVEMENTS)
 
 const panelTabs: { id: 'contact' | 'output' | 'quickLinks' | 'newsletter'; label: string }[] = [
   { id: 'contact', label: 'Contact' },
@@ -130,35 +133,35 @@ const commands = computed<Command[]>(() => [
   },
   {
     id: 'theme-light',
-    title: 'Preferences: Color Theme — Light',
+    title: 'Preferences: Color Theme: Light',
     keywords: 'terang',
     section: 'Preferences',
     run: () => setTheme('light'),
   },
   {
     id: 'theme-dark',
-    title: 'Preferences: Color Theme — Dark',
+    title: 'Preferences: Color Theme: Dark',
     keywords: 'gelap',
     section: 'Preferences',
     run: () => setTheme('dark'),
   },
   {
     id: 'lang-en',
-    title: 'Preferences: Display Language — English',
+    title: 'Preferences: Display Language: English',
     keywords: 'inggris bahasa',
     section: 'Preferences',
     run: () => setLang('en'),
   },
   {
     id: 'lang-id',
-    title: 'Preferences: Display Language — Bahasa Indonesia',
+    title: 'Preferences: Display Language: Bahasa Indonesia',
     keywords: 'indonesian bahasa',
     section: 'Preferences',
     run: () => setLang('id'),
   },
   ...PALETTES.map((p) => ({
     id: `palette-${p}`,
-    title: `Preferences: Color Palette — ${p}`,
+    title: `Preferences: Color Palette: ${p}`,
     keywords: 'colour color scheme',
     section: 'Preferences',
     run: () => setPalette(p),
@@ -172,7 +175,7 @@ const commands = computed<Command[]>(() => [
   },
   ...panelTabs.map((t) => ({
     id: `panel-open-${t.id}`,
-    title: `View: Open Panel — ${t.label}`,
+    title: `View: Open Panel: ${t.label}`,
     keywords: '',
     section: 'View',
     run: () => openPanel(t.id),

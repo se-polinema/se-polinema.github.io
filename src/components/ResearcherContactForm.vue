@@ -267,7 +267,7 @@ function handleSubmit() {
   const body = encodeURIComponent(
     `${form.message.trim()}\n\n---\nName: ${form.name.trim()}\nEmail: ${form.email.trim()}\n${affiliationLine}Topic: ${topicLabel}`
   )
-  const subject = encodeURIComponent(`[SE Lab Inquiry] ${topicLabel} — ${props.researcherName}`)
+  const subject = encodeURIComponent(`[SE Lab Inquiry] ${topicLabel}: ${props.researcherName}`)
   mailtoHref.value = `mailto:${decodeEmail(props.researcherEmailEncoded)}?subject=${subject}&body=${body}`
   submitted.value = true
 

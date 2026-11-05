@@ -18,7 +18,7 @@ const opportunities = opportunitiesData.map(({ supervisorEmail, ...opp }) => ({
 }))
 ---
 
-<VSCodeLayout title="Join — SE Lab">
+<VSCodeLayout title="Join">
   <JoinPage client:load opportunities={opportunities} streams={streams} />
   <div class="px-8">
     <EditOnGitHub filePath="src/pages/join.astro" />

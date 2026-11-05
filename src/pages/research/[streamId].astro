@@ -160,7 +160,7 @@ const researchProjectJsonLd = {
     member: streamResearchers.map((r) => ({
       '@type': 'Person',
       name: r.data.name,
-      url: new URL(`/researchers/${r.id}`, origin).href,
+      url: new URL(withBase(`/researchers/${r.id}`), origin).href,
     })),
   } : {}),
 }

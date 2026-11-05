@@ -63,7 +63,7 @@ const softwareSourceCodeJsonLd = {
     ? teamResearchers.map((r) => ({
         '@type': 'Person',
         name: r.data.name,
-        url: new URL(`/researchers/${r.id}`, origin).href,
+        url: new URL(withBase(`/researchers/${r.id}`), origin).href,
       }))
     : {
         '@type': 'Organization',

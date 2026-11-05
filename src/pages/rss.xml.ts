@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { withBase } from '../lib/paths'
 
 export const prerender = true
 
@@ -21,7 +22,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const items = posts
     .map((post) => {
-      const url = new URL(`/blog/${post.id}`, siteUrl).toString()
+      const url = new URL(withBase(`/blog/${post.id}`), siteUrl).toString()
       const title =
         post.data.lang === 'id' && post.data.titleId
           ? post.data.titleId
@@ -33,7 +34,7 @@ export const GET: APIRoute = async ({ site }) => {
       let descriptionHtml = ''
       descriptionHtml += `<p>${escapeXml(excerpt)}</p>`
       if (titleId) {
-        descriptionHtml += `<p lang="id"><em>${escapeXml(titleId)}</em> — ${escapeXml(excerptId)}</p>`
+        descriptionHtml += `<p lang="id"><em>${escapeXml(titleId)}</em>: ${escapeXml(excerptId)}</p>`
       }
 
       return `    <item>
@@ -51,12 +52,12 @@ export const GET: APIRoute = async ({ site }) => {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>SE Lab Blog — JTI Polinema</title>
+    <title>SE Lab Blog, JTI Polinema</title>
     <link>${escapeXml(siteUrl)}</link>
-    <description>Software Engineering Laboratory at Politeknik Negeri Malang — announcements, news, and tutorials.</description>
+    <description>Software Engineering Laboratory at Politeknik Negeri Malang: announcements, news, and tutorials.</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <atom:link href="${escapeXml(new URL('/rss.xml', siteUrl).toString())}" rel="self" type="application/rss+xml"/>
+    <atom:link href="${escapeXml(new URL(withBase('/rss.xml'), siteUrl).toString())}" rel="self" type="application/rss+xml"/>
 ${items}
   </channel>
 </rss>`

@@ -6,12 +6,12 @@ import EditOnGitHub from '../components/EditOnGitHub.astro'
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
-  'name': 'Contact — SE Lab',
+  'name': 'Contact',
   'description': 'Get in touch with the Software Engineering Laboratory at Politeknik Negeri Malang.',
 }
 ---
 
-<VSCodeLayout title="Contact — SE Lab" description="Get in touch with the Software Engineering Laboratory at Politeknik Negeri Malang. Send us a message or find us on the map.">
+<VSCodeLayout title="Contact" description="Get in touch with the Software Engineering Laboratory at Politeknik Negeri Malang. Send us a message or find us on the map.">
   <Contact client:load />
   <div class="px-8">
     <EditOnGitHub filePath="src/pages/contact.astro" />

@@ -115,6 +115,7 @@
 
       <!-- Achievements -->
       <button
+        v-if="HAS_ACHIEVEMENTS"
         @click="setView('achievements')"
         class="activity-btn"
         :class="activeSidebarView === 'achievements' ? 'activity-active' : 'activity-inactive'"
@@ -190,6 +191,7 @@ import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import { useAuth } from '../../composables/useAuth'
 import { withBase, stripBase } from '../../lib/paths'
+import { HAS_ACHIEVEMENTS } from '../../lib/emptySections'
 
 const props = defineProps<{ initialPath?: string }>()
 

@@ -33,7 +33,7 @@ const SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 let scriptLoadingPromise: Promise<void> | null = null
 
 // Module-level singleton so multiple widget instances on one page (e.g.
-// NewsletterForm rendered in both Footer.vue and BottomPanel.vue) share a
+// NewsletterForm rendered in both BottomPanel.vue and elsewhere) share a
 // single script load instead of racing to inject it twice.
 function loadTurnstileScript(): Promise<void> {
   if (typeof window === 'undefined') return Promise.resolve()

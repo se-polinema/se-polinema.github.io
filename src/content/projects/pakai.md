@@ -11,10 +11,8 @@ techStack:
   - "tmux"
   - "Waybar"
 images:
-  - "/images/projects/pakai-dashboard.png"
-contributors:
-  - "Student Contributor A"
-  - "Student Contributor B"
+  - "/images/projects/placeholder.svg"
+contributors: []
 researchers:
   - "dian-hanifudin-subhi"
 stream: "se-methodologies-architecture"

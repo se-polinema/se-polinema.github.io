@@ -16,14 +16,15 @@ export interface Props {
   image?: string
   type?: 'website' | 'article' | 'profile'
   lang?: 'en' | 'id'
+  noindex?: boolean
 }
 
-const { title, description, image, type, lang } = Astro.props
+const { title, description, image, type, lang, noindex } = Astro.props
 
 // Line numbers are generated client-side based on actual content height
 ---
 
-<Default title={title} description={description} image={image} type={type} lang={lang}>
+<Default title={title} description={description} image={image} type={type} lang={lang} noindex={noindex}>
   <slot slot="head" name="head" />
   <div
     id="vscode-window"

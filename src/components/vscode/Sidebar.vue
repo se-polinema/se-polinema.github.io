@@ -350,6 +350,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useVSCodeLayout } from '../../composables/useVSCodeLayout'
 import { useI18n } from '../../composables/useI18n'
 import { withBase, stripBase } from '../../lib/paths'
+import { HAS_ACHIEVEMENTS, HAS_TOOLS } from '../../lib/emptySections'
 import { useDragResize } from '../../composables/useDragResize'
 
 const props = defineProps<{ initialPath?: string }>()
@@ -390,7 +391,7 @@ interface FileItem {
   href: string
 }
 
-const fileTree: FileItem[] = [
+const allFileTree: FileItem[] = [
   { id: 'index',           name: 'index.html',      ext: 'html', type: 'file',   sectionId: 'hero',         pageId: 'home',         indent: 1, href: '/' },
   { id: 'src',             name: 'src/',             ext: '',     type: 'folder', sectionId: '',             pageId: '',             indent: 1, href: '' },
   { id: 'about',           name: 'about.md',         ext: 'md',   type: 'file',   sectionId: '',             pageId: 'about',        indent: 2, href: '/about' },
@@ -409,6 +410,10 @@ const fileTree: FileItem[] = [
   { id: 'tools',         name: 'tools.json',        ext: 'json',  type: 'file',   sectionId: '',             pageId: 'tools',          indent: 2, href: '/tools' },
   { id: 'blog',            name: 'blog.md',          ext: 'md',   type: 'file',   sectionId: 'blog',         pageId: 'blog',         indent: 2, href: '/blog' },
 ]
+
+const fileTree: FileItem[] = allFileTree.filter(
+  (f) => (f.id !== 'achievements' || HAS_ACHIEVEMENTS) && (f.id !== 'tools' || HAS_TOOLS)
+)
 
 // Panel data (lazily fetched)
 const researcherList = ref<{ id: string; name: string }[]>([])

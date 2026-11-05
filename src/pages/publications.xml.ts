@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { withBase } from '../lib/paths'
 
 export const prerender = true
 
@@ -21,7 +22,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const items = publications
     .map((pub) => {
-      const url = new URL(`/publications/${pub.id}`, siteUrl).toString()
+      const url = new URL(withBase(`/publications/${pub.id}`), siteUrl).toString()
       const title = pub.data.title
       const authors = pub.data.authors.join(', ')
       const venue = pub.data.venue
@@ -32,7 +33,7 @@ export const GET: APIRoute = async ({ site }) => {
 
       let descriptionHtml = ''
       descriptionHtml += `<p>${escapeXml(authors)}</p>`
-      descriptionHtml += `<p><em>${escapeXml(venue)}</em> (${year}) — ${escapeXml(pubType)}</p>`
+      descriptionHtml += `<p><em>${escapeXml(venue)}</em> (${year}), ${escapeXml(pubType)}</p>`
       if (doi) {
         descriptionHtml += `<p>DOI: <a href="https://doi.org/${escapeXml(doi)}">${escapeXml(doi)}</a></p>`
       }
@@ -55,12 +56,12 @@ export const GET: APIRoute = async ({ site }) => {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>SE Lab Publications — JTI Polinema | Publikasi SE Lab — JTI Polinema</title>
+    <title>SE Lab Publications | Publikasi SE Lab</title>
     <link>${escapeXml(siteUrl)}</link>
     <description>Scholarly publications from the Software Engineering Laboratory at Politeknik Negeri Malang. | Publikasi ilmiah dari Software Engineering Laboratory, Politeknik Negeri Malang.</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <atom:link href="${escapeXml(new URL('/publications.xml', siteUrl).toString())}" rel="self" type="application/rss+xml"/>
+    <atom:link href="${escapeXml(new URL(withBase('/publications.xml'), siteUrl).toString())}" rel="self" type="application/rss+xml"/>
 ${items}
   </channel>
 </rss>`

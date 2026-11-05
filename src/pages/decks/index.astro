@@ -11,6 +11,6 @@ const members = (await getCollection('researchers'))
   .map((r) => ({ id: r.id, name: r.data.name }))
 ---
 
-<VSCodeLayout title="Decks — SE Lab">
+<VSCodeLayout title="Decks">
   <DecksDirectoryPage client:load decks={decks} members={members} />
 </VSCodeLayout>

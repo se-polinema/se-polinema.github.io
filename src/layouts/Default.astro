@@ -12,6 +12,7 @@ export interface Props {
   image?: string
   type?: 'website' | 'article' | 'profile'
   lang?: 'en' | 'id'
+  noindex?: boolean
 }
 
 const {
@@ -20,14 +21,15 @@ const {
   image,
   type = 'website',
   lang = 'en',
+  noindex = false,
 } = Astro.props as Props
 
-const fullTitle = `${title} | SE Lab — JTI Polinema`
-const siteName = 'SE Lab — JTI Polinema'
+const fullTitle = `${title} | SE Lab, JTI Polinema`
+const siteName = 'SE Lab, JTI Polinema'
 const ogLocale = lang === 'id' ? 'id_ID' : 'en_US'
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const canonical = new URL(Astro.url.pathname, origin).href
-const ogImage = image ?? '/og-default.svg'
+const ogImage = image ?? '/og-default.png'
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(withBase(ogImage), origin).href
 const twitterCard = image ? 'summary_large_image' : 'summary'
 
@@ -74,7 +76,7 @@ const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
 
     <title>{fullTitle}</title>
 
-    {IS_BASE_DEPLOY && <meta name="robots" content="noindex, nofollow" />}
+    {(IS_BASE_DEPLOY || noindex) && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="alternate" type="application/rss+xml" title="SE Lab Blog" href={withBase('/rss.xml')} />
     <link rel="alternate" type="application/rss+xml" title="SE Lab Publications" href={withBase('/publications.xml')} />
@@ -179,7 +181,7 @@ const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
     </script>
   </head>
   <body>
-    <a href="#hero" class="skip-to-content">Skip to content</a>
+    <a href="#editor" class="skip-to-content">Skip to content</a>
     <AnnouncementBanner client:load />
     <slot />
     <CookieConsent client:load />
