@@ -79,14 +79,14 @@ const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
     <link rel="alternate" type="application/rss+xml" title="SE Lab Blog" href={withBase('/rss.xml')} />
     <link rel="alternate" type="application/rss+xml" title="SE Lab Publications" href={withBase('/publications.xml')} />
 
-    {!IS_BASE_DEPLOY && <link rel="sitemap" type="application/xml" href="/sitemap.xml" />}
+    {!IS_BASE_DEPLOY && <link rel="sitemap" type="application/xml" href="/sitemap.xml" /> /* base-path-ok: production-only, served at site root */}
 
     <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon.png')} />
 
     <meta name="theme-color" content="#004EA2" />
     <link rel="apple-touch-icon" href={withBase('/icons/apple-touch-icon.png')} />
-    {!IS_BASE_DEPLOY && <link rel="manifest" href="/manifest.webmanifest" />}
+    {!IS_BASE_DEPLOY && <link rel="manifest" href="/manifest.webmanifest" /> /* base-path-ok: production-only, served at site root */}
 
     <JsonLd data={websiteJsonLd} />
 

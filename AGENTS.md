@@ -45,7 +45,12 @@ npm install        # install dependencies
 npm run dev        # start dev server (astro dev)
 npm run build      # build + typecheck (astro check && astro build)
 npm run preview    # preview production build (astro preview)
+npm test           # unit tests (vitest)
+npm run check:base-paths   # fail on hardcoded root-absolute paths in src/
 ```
+
+Pull requests into `develop` and `main` run `.github/workflows/ci.yml` (tests,
+base-path guard, production and beta builds, internal link check).
 
 ## Knowledge Graph (graphify)
 
