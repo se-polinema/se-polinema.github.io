@@ -4,7 +4,10 @@ year: 2009
 type: "journal"
 venue: "Semin. Nas. Electr. Inform. It’s Educ"
 authors:
-  - "A Hidayati and S Kom and A Retno and T Hayati"
+  - "A Hidayati"
+  - "S Kom"
+  - "A Retno"
+  - "T Hayati"
 url: "https://scholar.google.com/scholar?cluster=13941717739875936108&hl=en&oi=scholarr"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=13941717739875936108"
 citedByCount: 4

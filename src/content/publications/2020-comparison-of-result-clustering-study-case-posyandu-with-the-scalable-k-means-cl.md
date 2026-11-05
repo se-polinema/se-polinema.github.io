@@ -6,6 +6,7 @@ venue: "https://senatik.itda.ac.id/index.php/senatik/article/view/408"
 authors:
   - "ariadi retno tri hayati"
 url: "https://pdfs.semanticscholar.org/3a08/8b4016e09876967836af9df156b14fe6217b.pdf"
+doi: "10.28989/senatik.v6i0.408"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=11223690864067900792"
 citedByCount: 2
 researchers:

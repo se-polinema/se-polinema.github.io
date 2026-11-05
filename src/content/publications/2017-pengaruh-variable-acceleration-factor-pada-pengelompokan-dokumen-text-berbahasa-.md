@@ -4,7 +4,9 @@ year: 2017
 type: "journal"
 venue: "Jurnal Simantec"
 authors:
-  - "Ariadi Retno and Ely Setyo Astuti and Indra Dharma Wijaya"
+  - "Ariadi Retno"
+  - "Ely Setyo Astuti"
+  - "Indra Dharma Wijaya"
 url: "https://journal.trunojoyo.ac.id/simantec/article/view/3704"
 googleScholarUrl: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 citedByCount: 0

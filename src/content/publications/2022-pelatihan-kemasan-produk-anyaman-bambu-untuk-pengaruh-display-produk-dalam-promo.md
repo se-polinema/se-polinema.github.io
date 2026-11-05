@@ -4,8 +4,14 @@ year: 2022
 type: "journal"
 venue: "Jurnal Pengabdian Polinema Kepada Masyarakat"
 authors:
-  - "Putra Prima Arhandi and Annisa Taufika Firdausi and Kadek Suarjuna Batubulan and Rosa Andrie Asmara and Banni Satria Andoko and Dian Hanifudin Subhi"
+  - "Putra Prima Arhandi"
+  - "Annisa Taufika Firdausi"
+  - "Kadek Suarjuna Batubulan"
+  - "Rosa Andrie Asmara"
+  - "Banni Satria Andoko"
+  - "Dian Hanifudin Subhi"
 url: "https://www.academia.edu/download/107872052/129.pdf"
+doi: "10.33795/jppkm.v9i2.176"
 googleScholarUrl: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 citedByCount: 0
 researchers:

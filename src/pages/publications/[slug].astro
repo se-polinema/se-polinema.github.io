@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { publication } = Astro.props
-const { title, year, type, venue, authors, url, doi, googleScholarUrl, language } = publication.data
+const { title, year, type, venue, authors, url, doi, abstract, pdfUrl, googleScholarUrl, language } = publication.data
 
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const pubUrl = new URL(Astro.url.pathname, origin).href
@@ -41,6 +41,7 @@ const scholarlyArticleJsonLd = {
   url: pubUrl,
   sameAs: url,
   ...(doi ? { identifier: { '@type': 'PropertyValue', propertyID: 'doi', value: doi } } : {}),
+  ...(abstract ? { abstract } : {}),
   inLanguage: language,
 }
 
@@ -177,6 +178,16 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
           </p>
         )
       }
+      {
+        abstract && (
+          <section class="mb-6" aria-labelledby="abstract-heading">
+            <h2 id="abstract-heading" class="text-sm font-mono font-semibold uppercase tracking-wide text-neutral-500 dark:text-gray-400 mb-2">
+              Abstract
+            </h2>
+            <p class="text-neutral-700 dark:text-gray-300 leading-relaxed">{abstract}</p>
+          </section>
+        )
+      }
       <div class="flex flex-wrap gap-3">
         <a
           href={url}
@@ -197,6 +208,16 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
             class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-neutral-300 dark:border-gray-600 text-neutral-700 dark:text-gray-300 hover:bg-neutral-50 dark:hover:bg-gray-800 transition-colors"
           >
             DOI: {doi}
+          </a>
+        )}
+        {pdfUrl && (
+          <a
+            href={pdfUrl}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-neutral-300 dark:border-gray-600 text-neutral-700 dark:text-gray-300 hover:bg-neutral-50 dark:hover:bg-gray-800 transition-colors"
+          >
+            PDF
           </a>
         )}
         {googleScholarUrl && (

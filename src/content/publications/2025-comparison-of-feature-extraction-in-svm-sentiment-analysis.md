@@ -6,6 +6,7 @@ venue: "Jurnal Ilmiah"
 authors:
   - "Imam Fahrur Rozi"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=WwrDWnEAAAAJ"
+doi: "10.21107/kursor.v13i1.417"
 researchers:
   - "imam-fahrur-rozi"
 featured: true

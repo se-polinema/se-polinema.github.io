@@ -4,8 +4,11 @@ year: 2024
 type: "journal"
 venue: "JURNAL TEKNIK INFORMATIKA UNIS"
 authors:
-  - "Ade Ismail and Vipkas Al Hadid Firdaus and Elok Nur Hamdana"
+  - "Ade Ismail"
+  - "Vipkas Al Hadid Firdaus"
+  - "Elok Nur Hamdana"
 url: "http://www.ejournal.unis.ac.id/index.php/jutis/article/view/5514"
+doi: "10.33592/jutis.v12i2.5514"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=3073634534263262412"
 citedByCount: 1
 researchers:

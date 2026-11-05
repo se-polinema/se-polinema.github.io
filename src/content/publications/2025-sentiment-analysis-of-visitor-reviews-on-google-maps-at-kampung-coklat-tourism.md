@@ -4,8 +4,11 @@ year: 2025
 type: "journal"
 venue: "Journal of Artificial Intelligence and Software Engineering (J-AISE)"
 authors:
-  - "EN Hamdana and AO Nur Wardani and AR Tri Hayati Ririd"
+  - "EN Hamdana"
+  - "AO Nur Wardani"
+  - "AR Tri Hayati Ririd"
 url: "https://elibrary.ru/item.asp?id=81880675"
+doi: "10.30811/jaise.v5i1.6488"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=15402339130345969639"
 citedByCount: 5
 researchers:

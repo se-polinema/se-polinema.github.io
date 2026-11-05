@@ -6,6 +6,7 @@ venue: "International Journal"
 authors:
   - "Ridwan Rismanto"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=fJc_GegAAAAJ"
+doi: "10.5815/ijmecs.2020.01.04"
 researchers:
   - "ridwan-rismanto"
 featured: false
