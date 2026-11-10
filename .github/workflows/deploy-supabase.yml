@@ -225,8 +225,8 @@ jobs:
         # gateway; reused here for suggest-project-content rather than
         # provisioning a new AI provider.
         run: |
-          supabase secrets set TURNSTILE_SECRET_KEY="$TURNSTILE_SECRET_KEY"
-          supabase secrets set OPENCODE_GO_API_KEY="$OPENCODE_GO_API_KEY"
+          supabase secrets set --yes TURNSTILE_SECRET_KEY="$TURNSTILE_SECRET_KEY"
+          supabase secrets set --yes OPENCODE_GO_API_KEY="$OPENCODE_GO_API_KEY"
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
@@ -234,7 +234,7 @@ jobs:
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
 
       - name: Deploy Edge Functions
-        run: supabase functions deploy
+        run: supabase functions deploy --yes
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
