@@ -178,6 +178,28 @@ No new Supabase secrets or npm scripts were introduced; the feedback write
 reuses the existing `TURNSTILE_SECRET_KEY` Edge Function secret and the
 `PUBLIC_SUPABASE_*` keys.
 
+## Live Voting Decks
+
+Presentations with live audience voting (a second engine next to the
+Markdown/reveal.js decks under `/present/`). A deck is TypeScript, not Markdown:
+
+- `src/decks/<slug>/` exports a `Deck` (slides plus polls, types in
+  `src/lib/live/types.ts`); register it in `src/decks/index.ts`. The slug is
+  the DB question prefix (`<slug>.<key>`) and must not contain `.`.
+- `/live/<slug>` is the admin-gated presenter (`LivePresenter.vue`): scaled
+  1920x1080 stage, arrow keys to move, `V` open or close voting, `R` reveal,
+  `H` hide the bar, `F` fullscreen. Entering a slide with a `question` opens
+  voting on it. `/vote/?code=ABCDE` is the participant page (`LiveVoter.vue`),
+  reached by the QR code on the presenter screen.
+- Backend is the `monev` schema (`supabase/migrations/2026111*`). Participants
+  are anonymous: one device token per vote, no direct table reads. Results come
+  from the `monev.get_results` RPC, to non-admins only after reveal. All
+  Supabase calls go through `src/lib/live/session.ts`.
+- Deck data is public. `npm run sync:monev-data` copies the survey aggregates
+  through an allowlist (`scripts/sanitize-monev-data.mjs`) that drops student
+  quote excerpts and free-text fields; never commit raw survey exports.
+- `npm run smoke:decks` renders every slide and validates question keys.
+
 ## Adding a Research Tool / Artifact
 
 To list a new lab-developed software tool, framework, library, dataset, or prototype on the Research Software & Tools catalog (`/tools`):

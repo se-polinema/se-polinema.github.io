@@ -1,0 +1,9 @@
+---
+import Default from '../../layouts/Default.astro'
+import LiveVoter from '../../components/live/LiveVoter.vue'
+---
+
+<Default title="Live Poll" description="Join a live poll from your phone." lang="id">
+  <!-- The join code comes from ?code= in the URL (QR on the presenter screen), read client-side. -->
+  <LiveVoter client:only="vue" />
+</Default>
