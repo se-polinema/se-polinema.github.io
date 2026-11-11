@@ -11,6 +11,11 @@ on:
       - 'scripts/sync-static-projects.mjs'
       - 'src/content/projects/**'
   workflow_dispatch:
+    inputs:
+      reload_postgrest:
+        description: 'Re-save PostgREST db_schema (monev moved to 2nd place) to force PostgREST to reload its exposed schemas'
+        type: boolean
+        default: false
 
 jobs:
   deploy:
@@ -191,10 +196,19 @@ jobs:
             echo "Could not read current db_schema config, refusing to guess and overwrite it" >&2
             exit 1
           fi
-          if echo ",$current," | grep -q ',monev,'; then
+          if echo ",$current," | grep -q ',monev,' && [ "$FORCE_RELOAD" != "true" ]; then
             echo "monev already exposed, nothing to do"
           else
-            updated="${current},monev"
+            if echo ",$current," | grep -q ',monev,'; then
+              # Forced reload: the config already lists monev but PostgREST did
+              # not pick it up (it was saved before the schema existed). Saving
+              # an identical value is a no-op, so reorder: monev goes 2nd, the
+              # first schema stays first because it is PostgREST's default.
+              base=$(echo "$current" | tr ',' '\n' | grep -vx 'monev' | paste -sd, -)
+              updated=$(echo "$base" | awk -F, '{ printf "%s,monev", $1; for (i = 2; i <= NF; i++) printf ",%s", $i; print "" }')
+            else
+              updated="${current},monev"
+            fi
             patch_status=$(curl -sS -o /tmp/postgrest-patch-response.json -w '%{http_code}' -X PATCH \
               "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/postgrest" \
               -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
@@ -208,6 +222,7 @@ jobs:
             echo "Updated db_schema to: $updated (HTTP $patch_status)"
           fi
         env:
+          FORCE_RELOAD: ${{ inputs.reload_postgrest }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
 
