@@ -65,12 +65,17 @@
           <template v-else>
             <button v-for="o in question.options" :key="o.key" class="lv-vopt" :class="{ 'is-on': chosen.includes(o.key) }" :disabled="!session.voting_open" @click="toggle(o.key)">
               <span class="lv-box">{{ chosen.includes(o.key) ? '✓' : '' }}</span>
-              <span>{{ o.label }}</span>
+              <span>{{ o.label }}<small v-if="o.note" class="lv-vnote">{{ o.note }}</small></span>
             </button>
           </template>
         </div>
 
-        <button v-if="session.voting_open && !session.reveal" class="lv-btn is-primary is-big" :disabled="busy || !chosen.length || !changed" @click="send">
+        <div v-if="question.allow_other && !(session.reveal && results)" class="lv-other-box">
+          <label>{{ t.live.voter.otherLabel }}</label>
+          <textarea v-model="otherText" class="lv-input" rows="3" maxlength="300" :placeholder="t.live.voter.otherPlaceholder" :disabled="!session.voting_open"></textarea>
+        </div>
+
+        <button v-if="session.voting_open && !session.reveal" class="lv-btn is-primary is-big" :disabled="busy || (!chosen.length && !otherText.trim()) || !changed" @click="send">
           {{ sent ? t.live.voter.change : t.live.voter.submit }}
         </button>
         <p :class="flash ? 'lv-error' : 'lv-muted'">{{ flash || status }}</p>
@@ -91,6 +96,7 @@ import {
   getResults,
   getSession,
   mySuggestionCount,
+  myOther,
   myVote,
   submitSuggestion,
   watchSession,
@@ -108,6 +114,8 @@ const question = ref<QuestionRow | null>(null)
 const results = ref<Results | null>(null)
 const sel = ref<Record<string, string[]>>({})
 const sentMap = ref<Record<string, string[] | null>>({})
+const otherMap = ref<Record<string, string>>({})
+const sentOtherMap = ref<Record<string, string>>({})
 const draft = ref('')
 const mySug = ref(0)
 const flash = ref('')
@@ -124,7 +132,16 @@ const maxChoices = computed(() => (question.value?.kind === 'single' ? 1 : quest
 const chosen = computed(() => sel.value[qkey.value] ?? [])
 const sent = computed(() => sentMap.value[qkey.value] ?? null)
 const mine = computed(() => sent.value ?? [])
-const changed = computed(() => !sent.value || [...sent.value].sort().join() !== [...chosen.value].sort().join())
+const otherText = computed({
+  get: () => otherMap.value[qkey.value] ?? '',
+  set: (v: string) => (otherMap.value = { ...otherMap.value, [qkey.value]: v }),
+})
+const changed = computed(
+  () =>
+    !sent.value ||
+    [...sent.value].sort().join() !== [...chosen.value].sort().join() ||
+    (sentOtherMap.value[qkey.value] ?? '') !== otherText.value.trim(),
+)
 const status = computed(() => {
   const s = session.value
   if (!s) return ''
@@ -154,7 +171,12 @@ async function apply(next: Session) {
     else if (sentMap.value[q.key] === undefined) {
       const m = await myVote(next.id, q.key)
       sentMap.value = { ...sentMap.value, [q.key]: m }
-      if (m) sel.value = { ...sel.value, [q.key]: [...m] }
+      if (m) {
+        sel.value = { ...sel.value, [q.key]: [...m] }
+        const o = await myOther(next.id, q.key)
+        sentOtherMap.value = { ...sentOtherMap.value, [q.key]: o }
+        if (o && otherMap.value[q.key] === undefined) otherMap.value = { ...otherMap.value, [q.key]: o }
+      }
     }
   }
   results.value = null
@@ -186,8 +208,10 @@ async function send() {
   busy.value = true
   flash.value = ''
   try {
-    await castVote(session.value.id, qkey.value, chosen.value)
+    const other = otherText.value.trim()
+    await castVote(session.value.id, qkey.value, chosen.value, other)
     sentMap.value = { ...sentMap.value, [qkey.value]: [...chosen.value] }
+    sentOtherMap.value = { ...sentOtherMap.value, [qkey.value]: other }
   } catch (e) {
     flash.value = t.value.live.errors[errCode(e)]
   } finally {

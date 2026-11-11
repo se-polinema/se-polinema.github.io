@@ -19,9 +19,21 @@ export function paintOptions(el: HTMLElement, q: Question, res: Results | null, 
         </div>`
       })
       .join('') +
+    (revealed && q.other ? paintOthers(res) : '') +
     (revealed
       ? `<p class="lv-note">${n} pemilih. Persentase dari jumlah pemilih${q.max > 1 ? '; satu pemilih boleh memilih lebih dari satu' : ''}.</p>`
       : '')
+}
+
+/** The optional "Lainnya" answers, shown on the projected slide only after reveal. */
+function paintOthers(res: Results | null): string {
+  const texts = res?.others ?? []
+  const count = res?.n_other ?? texts.length
+  if (!count) return '<p class="lv-note">Belum ada usulan lain.</p>'
+  return `<div class="lv-others"><h4>Usulan lain dari dosen (${count})</h4>${texts
+    .slice(0, 4)
+    .map((t) => `<div class="lv-sug">${esc(t)}</div>`)
+    .join('')}${texts.length > 4 ? `<p class="lv-note">dan ${texts.length - 4} lainnya (ada di berkas CSV)</p>` : ''}</div>`
 }
 
 /** Escaped list of free-text suggestions for the projected slide. */
