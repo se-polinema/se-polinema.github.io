@@ -66,6 +66,7 @@ export async function createSession(deck: Deck): Promise<Session> {
     area: q.area,
     max_choices: q.max,
     options: q.options,
+    allow_other: Boolean(q.other),
     ord: i,
   }))
   const up = await db().from('questions').upsert(rows, { onConflict: 'key' })
@@ -102,7 +103,7 @@ const questionCache = new Map<string, QuestionRow>()
 export async function getQuestion(id: string): Promise<QuestionRow | null> {
   const hit = questionCache.get(id)
   if (hit) return hit
-  const { data } = await db().from('questions').select('key,kind,max_choices,area,prompt,options').eq('key', id).maybeSingle()
+  const { data } = await db().from('questions').select('key,kind,max_choices,area,prompt,options,allow_other').eq('key', id).maybeSingle()
   if (data) questionCache.set(id, data as QuestionRow)
   return (data as QuestionRow) ?? null
 }
@@ -113,12 +114,13 @@ export async function getResults(session: string, question: string): Promise<Res
   return data as Results
 }
 
-export async function castVote(session: string, question: string, choices: string[]) {
+export async function castVote(session: string, question: string, choices: string[], other?: string) {
   const { error } = await db().rpc('cast_vote', {
     p_session: session,
     p_voter: voterId(),
     p_question: question,
     p_choices: choices,
+    p_other: other?.trim() || null,
   })
   if (error) throw error
 }
@@ -126,6 +128,11 @@ export async function castVote(session: string, question: string, choices: strin
 export async function myVote(session: string, question: string): Promise<string[] | null> {
   const { data } = await db().rpc('my_vote', { p_session: session, p_voter: voterId(), p_question: question })
   return (data as string[] | null) ?? null
+}
+
+export async function myOther(session: string, question: string): Promise<string> {
+  const { data } = await db().rpc('my_other', { p_session: session, p_voter: voterId(), p_question: question })
+  return (data as string | null) ?? ''
 }
 
 export async function submitSuggestion(session: string, body: string): Promise<number> {
@@ -150,12 +157,15 @@ export async function listSuggestions(session: string, question?: string): Promi
 /** CSV with no device identifiers. */
 export async function exportCsv(session: string): Promise<string> {
   const [v, s] = await Promise.all([
-    db().from('votes').select('question_key,choices,created_at').eq('session_id', session),
+    db().from('votes').select('question_key,choices,other_text,created_at').eq('session_id', session),
     db().from('suggestions').select('question_key,body,created_at').eq('session_id', session),
   ])
   const cell = (x: string) => `"${String(x).replace(/"/g, '""')}"`
   const lines = ['jenis,pertanyaan,isi,waktu']
-  for (const r of (v.data ?? []) as any[]) lines.push(['suara', r.question_key, r.choices.join('|'), r.created_at].map(cell).join(','))
+  for (const r of (v.data ?? []) as any[]) {
+    lines.push(['suara', r.question_key, r.choices.join('|'), r.created_at].map(cell).join(','))
+    if (r.other_text) lines.push(['lainnya', r.question_key, r.other_text, r.created_at].map(cell).join(','))
+  }
   for (const r of (s.data ?? []) as any[]) lines.push(['saran', r.question_key ?? '', r.body, r.created_at].map(cell).join(','))
   return lines.join('\n')
 }

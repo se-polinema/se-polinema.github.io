@@ -1,5 +1,6 @@
 import type { Deck } from '../../lib/live/types'
-import { paintRecap, questions, slides } from './slides'
+import { questions } from './questions'
+import { paintRecap, slides } from './slides'
 
 // Slug is the DB prefix of every question id (`monev-pbl-2026.beban`), so it must not contain '.'.
 export const deck: Deck = {
