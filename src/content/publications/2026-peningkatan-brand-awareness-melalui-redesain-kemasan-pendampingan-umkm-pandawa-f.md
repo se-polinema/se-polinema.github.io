@@ -4,7 +4,12 @@ year: 2026
 type: "journal"
 venue: "Jurnal Pengabdian kepada Masyarakat"
 authors:
-  - "Elok Nur Hamdana and Meyti Eka Apriyani and M Unggul Pamenang and Agung Nugroho Pramudhita and Deddy Kusbianto Purwoko Aji and Dimas Wahyu Wibowo"
+  - "Elok Nur Hamdana"
+  - "Meyti Eka Apriyani"
+  - "M Unggul Pamenang"
+  - "Agung Nugroho Pramudhita"
+  - "Deddy Kusbianto Purwoko Aji"
+  - "Dimas Wahyu Wibowo"
 url: "http://jurnal.polinema.ac.id/index.php/abdimas/article/view/9244"
 googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 citedByCount: 0

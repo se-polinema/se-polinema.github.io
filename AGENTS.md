@@ -74,6 +74,17 @@ can also be run manually.
 node scripts/update-publications.mjs
 ```
 
+- Runs on the organization's **self-hosted runner** (`runs-on: self-hosted`):
+  Google Scholar blocks GitHub-hosted runner IPs, which left the metrics stale.
+  The workflow checks out `develop` and opens its PR against `develop`.
+- After the sync, the workflow runs `scripts/normalize-publication-authors.mjs`
+  (one list item per author) and `scripts/enrich-dois.mjs` (Crossref lookup,
+  accepted only on an exact normalized-title match within one year). Both are
+  safe to run by hand (`--dry-run` is supported); the DOI script also prints
+  venue/type entries that need a manual look. Set the optional repository
+  variable `CROSSREF_MAILTO` to use Crossref's polite pool.
+- Per-publication citation counts are recorded from the search result itself,
+  so they survive Scholar blocking the per-publication `fill()` requests.
 - Reads all researchers from `src/content/researchers/*.md`
 - Extracts Google Scholar user IDs from `googleScholarUrl`
 - For each researcher, calls `node-scholarly`'s `searchAuthorId()` once:
@@ -81,7 +92,8 @@ node scripts/update-publications.mjs
   researcher) and author-level metrics, so nothing is fetched twice
 - Deduplicates new publications against existing ones (by normalized title + year)
 - Generates Markdown frontmatter with `title`, `year`, `type`, `venue`, `authors`,
-  `url`, `doi` (if available), `googleScholarUrl`, `citedByCount` (if available),
+  `url`, `doi` (if available), optional `abstract` and `pdfUrl` (edited by
+  hand, never overwritten by the sync), `googleScholarUrl`, `citedByCount` (if available),
   `researchers[]`, `featured`, `language`
 - Writes `src/data/_sync-meta.json` with `lastUpdated` timestamp and publication counts
 - Writes `src/data/_scholar-metrics.json` with h-index/i10-index/citation data
@@ -177,6 +189,28 @@ Blog posts, tutorials, and publication pages carry two reader-facing features:
 No new Supabase secrets or npm scripts were introduced; the feedback write
 reuses the existing `TURNSTILE_SECRET_KEY` Edge Function secret and the
 `PUBLIC_SUPABASE_*` keys.
+
+## Live Voting Decks
+
+Presentations with live audience voting (a second engine next to the
+Markdown/reveal.js decks under `/present/`). A deck is TypeScript, not Markdown:
+
+- `src/decks/<slug>/` exports a `Deck` (slides plus polls, types in
+  `src/lib/live/types.ts`); register it in `src/decks/index.ts`. The slug is
+  the DB question prefix (`<slug>.<key>`) and must not contain `.`.
+- `/live/<slug>` is the admin-gated presenter (`LivePresenter.vue`): scaled
+  1920x1080 stage, arrow keys to move, `V` open or close voting, `R` reveal,
+  `H` hide the bar, `F` fullscreen. Entering a slide with a `question` opens
+  voting on it. `/vote/?code=ABCDE` is the participant page (`LiveVoter.vue`),
+  reached by the QR code on the presenter screen.
+- Backend is the `monev` schema (`supabase/migrations/2026111*`). Participants
+  are anonymous: one device token per vote, no direct table reads. Results come
+  from the `monev.get_results` RPC, to non-admins only after reveal. All
+  Supabase calls go through `src/lib/live/session.ts`.
+- Deck data is public. `npm run sync:monev-data` copies the survey aggregates
+  through an allowlist (`scripts/sanitize-monev-data.mjs`) that drops student
+  quote excerpts and free-text fields; never commit raw survey exports.
+- `npm run smoke:decks` renders every slide and validates question keys.
 
 ## Adding a Research Tool / Artifact
 

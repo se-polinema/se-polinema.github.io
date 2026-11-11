@@ -3,6 +3,7 @@ import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { scholarly } from 'node-scholarly'
 import matter from 'gray-matter'
+import { normalizeTitle, splitAuthors } from './lib/publications.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
@@ -37,14 +38,6 @@ function slugify(text) {
 function getGoogleScholarUserId(url) {
   const match = url.match(/user=([^&]+)/)
   return match ? match[1] : null
-}
-
-function normalizeTitle(title) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
 }
 
 function detectLanguage(title, authors) {
@@ -114,6 +107,16 @@ function loadPreviousResearcherMetrics() {
   } catch (err) {
     console.warn(`  Warning: could not read previous ${SCHOLAR_METRICS_FILE}: ${err.message}`)
     return new Map()
+  }
+}
+
+function loadPreviousPublicationCitations() {
+  if (!existsSync(SCHOLAR_METRICS_FILE)) return {}
+  try {
+    return JSON.parse(readFileSync(SCHOLAR_METRICS_FILE, 'utf-8')).publicationCitations || {}
+  } catch (err) {
+    console.warn(`  Warning: could not read previous publication citations: ${err.message}`)
+    return {}
   }
 }
 
@@ -221,6 +224,7 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
     console.log(`  Found ${publications.length} publications in profile.`)
 
     const results = []
+    const citations = []
     for (const pub of publications) {
       // fill() is required before bib.author (and pub_url/eprint_url) are
       // populated at all: the unfilled publication object from
@@ -244,15 +248,22 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
 
       if (!title || !pubYear) continue
 
+      // Record the citation count BEFORE the author/venue check below. The
+      // count is already on the unfilled search result, so it must not depend
+      // on fill() succeeding: when Scholar blocks the per-publication requests
+      // (every fill() fails, so every publication is skipped for "missing
+      // authors"), the old code recorded no citations at all and
+      // publicationCitations / mostCitedPublications silently went empty.
+      const citedByCount = filled.num_citations ?? pub.num_citations ?? null
+      if (citedByCount != null) {
+        citations.push({ key: `${normalizeTitle(title)}-${pubYear}`, title, year: pubYear, citedByCount })
+      }
+
       const venue = bib.venue || bib.journal || bib.conference || ''
       const hasVenue = venue.trim().length > 0
 
-      let authors = []
-      if (Array.isArray(bib.author)) {
-        authors = bib.author.map(a => a.trim()).filter(Boolean)
-      } else if (typeof bib.author === 'string') {
-        authors = bib.author.split(',').map(a => a.trim()).filter(Boolean)
-      }
+      // Scholar's author field is either an array or one "A and B and C" string.
+      const authors = splitAuthors(bib.author)
 
       if (authors.length === 0 || !hasVenue) {
         console.warn(`  Skipping "${title}" (${pubYear}): missing ${authors.length === 0 ? 'authors' : 'venue'}`)
@@ -288,8 +299,6 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
       // expose either.
       const publisherUrl = filled.pub_url || filled.eprint_url || null
 
-      const citedByCount = filled.num_citations ?? pub.num_citations ?? null
-
       results.push({
         title,
         year: pubYear,
@@ -306,11 +315,12 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
       })
     }
 
-    return { publications: results, metrics }
+    return { publications: results, metrics, citations }
   } catch (err) {
     console.error(`  Error fetching for ${researcher.name}:`, err.message)
     return {
       publications: [],
+      citations: [],
       metrics: {
         researcher: researcher.slug,
         name: researcher.name,
@@ -354,7 +364,7 @@ async function main() {
   const allPublicationCitations = {}
 
   for (const researcher of researchers) {
-    const { publications: pubs, metrics } = await fetchPublicationsForResearcher(researcher, researchers)
+    const { publications: pubs, metrics, citations } = await fetchPublicationsForResearcher(researcher, researchers)
     totalFetched += pubs.length
     researcherMetrics.push(metrics)
 
@@ -378,22 +388,32 @@ async function main() {
           totalPatched++
         }
       }
+    }
 
-      if (pub.citedByCount != null) {
-        const citation = { title: pub.title, year: pub.year, citedByCount: pub.citedByCount }
-        if (originalExistingKeys.has(pub.key)) {
-          allPublicationCitations[pub.key] = citation
-        } else if (allPublicationCitations[pub.key]) {
-          if (citation.citedByCount > allPublicationCitations[pub.key].citedByCount) {
-            allPublicationCitations[pub.key] = citation
-          }
-        } else {
-          allPublicationCitations[pub.key] = citation
-        }
+    // Keep the highest count seen for a publication across researchers.
+    for (const c of citations) {
+      const prev = allPublicationCitations[c.key]
+      if (!prev || c.citedByCount > prev.citedByCount) {
+        allPublicationCitations[c.key] = { title: c.title, year: c.year, citedByCount: c.citedByCount }
       }
     }
 
     await new Promise(resolve => setTimeout(resolve, REQUEST_DELAY_MS))
+  }
+
+  // Only publications that exist on the site (already on disk or about to be
+  // created) belong in the citation map.
+  for (const key of Object.keys(allPublicationCitations)) {
+    if (!existingKeys.has(key)) delete allPublicationCitations[key]
+  }
+  // If this run produced no citation data at all (e.g. every request failed),
+  // keep the last known values instead of wiping them.
+  if (Object.keys(allPublicationCitations).length === 0) {
+    const previousCitations = loadPreviousPublicationCitations()
+    if (Object.keys(previousCitations).length > 0) {
+      Object.assign(allPublicationCitations, previousCitations)
+      console.warn('  No citation data this run; preserved previous publicationCitations.')
+    }
   }
 
   console.log(`\nTotal fetched: ${totalFetched} publications across all researchers`)

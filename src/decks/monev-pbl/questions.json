@@ -1,0 +1,88 @@
+[
+  {
+    "key": "respons", "kind": "multi", "max": 2, "area": "Respons survei",
+    "prompt": "Bagaimana agar pengisian survei semester depan lebih tinggi?",
+    "options": [
+      { "key": "sesi", "label": "Sesi pengisian 10 menit di kelas lewat kode QR", "note": "Satu sesi bersama, ketua kelas ikut memantau" },
+      { "key": "singkat", "label": "Formulir mahasiswa dipersingkat", "note": "Pertanyaan inti saja" },
+      { "key": "pantau", "label": "Dosen pengampu memantau pengisian di kelasnya", "note": "Seperti pada kelas yang dipantau semester ini" },
+      { "key": "pengingat", "label": "Pengingat berkala di grup kelas", "note": "Oleh ketua kelas dan dosen pengampu" }
+    ]
+  },
+  {
+    "key": "beban", "kind": "multi", "max": 2, "area": "Beban",
+    "prompt": "Langkah mana yang paling perlu untuk mengurangi beban mahasiswa?",
+    "options": [
+      { "key": "pekan", "label": "Tidak ada tugas baru di luar proyek selama pekan Milestone 2", "note": "Berlaku mulai minggu ini" },
+      { "key": "bertahap", "label": "Tenggat bertahap antar mata kuliah", "note": "Tidak ada tenggat yang bertabrakan dalam satu pekan" },
+      { "key": "batas", "label": "Batas dua hasil kerja per pekan untuk tiap mahasiswa", "note": "Di luar hasil kerja proyek" },
+      { "key": "gabung", "label": "Tugas praktikum dan jobsheet digabung ke hasil kerja proyek", "note": "Satu hasil kerja dinilai oleh beberapa mata kuliah" }
+    ]
+  },
+  {
+    "key": "selaras", "kind": "multi", "max": 2, "area": "Keselarasan tugas",
+    "prompt": "Langkah mana yang paling perlu agar tugas mata kuliah sejalan dengan proyek?",
+    "options": [
+      { "key": "peta", "label": "Peta keterkaitan mata kuliah dan milestone", "note": "Tiap dosen melengkapi bagian mata kuliahnya" },
+      { "key": "rubrik", "label": "Rubrik berbasis PBL beserta contoh", "note": "Dipakai bersama oleh dosen pengampu" },
+      { "key": "bobot", "label": "Bobot PBL minimal 51% di RPS semua mata kuliah", "note": "Batas IKU 7, mulai semester depan" },
+      { "key": "ulang", "label": "Bobot nilai dan ketentuan milestone dijelaskan ulang di kelas", "note": "Oleh dosen pengampu, minggu ini" }
+    ]
+  },
+  {
+    "key": "koordinasi", "kind": "multi", "max": 2, "area": "Koordinasi antar dosen",
+    "prompt": "Langkah mana yang paling perlu untuk memperbaiki koordinasi antar dosen?",
+    "options": [
+      { "key": "pic", "label": "Dosen rujukan (PIC) tiap kelas diumumkan ke mahasiswa", "note": "Satu pintu untuk pertanyaan tim" },
+      { "key": "wa", "label": "Catatan milestone di WhatsApp dengan konfirmasi singkat", "note": "Tanpa rapat tambahan" },
+      { "key": "rapat", "label": "Rapat koordinasi singkat tiap milestone", "note": "Terjadwal dan rutin" },
+      { "key": "peran", "label": "Pembagian peran dosen ditulis di juknis PBL Jurusan", "note": "Disusun setelah Milestone 2" }
+    ]
+  },
+  {
+    "key": "nilai", "kind": "multi", "max": 2, "area": "Penilaian dan kontribusi",
+    "prompt": "Langkah mana yang paling perlu agar penilaian lebih adil dan kontribusi terlihat?",
+    "options": [
+      { "key": "n360", "label": "Penilaian 360 dengan bukti yang objektif", "note": "Kontribusi anggota tim terlihat" },
+      { "key": "contoh", "label": "Rubrik beserta contoh penilaian", "note": "Mahasiswa tahu nilai tinggi itu seperti apa" },
+      { "key": "lms", "label": "Progres dan milestone tim dipantau lewat LMS", "note": "Jejak kerja tim tercatat" },
+      { "key": "halaman", "label": "Halaman informasi resmi per program studi", "note": "Template dan jadwal TI dan SIB terpisah" }
+    ]
+  },
+  {
+    "key": "fasilitas", "kind": "multi", "max": 2, "area": "Fasilitas dan bimbingan",
+    "prompt": "Langkah mana yang paling perlu untuk bimbingan dan fasilitas?",
+    "options": [
+      { "key": "materi", "label": "Materi diberikan dua pekan sebelum milestone", "note": "Sesuai kebutuhan tiap milestone" },
+      { "key": "konsul", "label": "Sesi konsultasi terbuka terjadwal", "note": "Terutama untuk tim yang belum pernah dibimbing" },
+      { "key": "cloud", "label": "Panduan deployment dengan kredit cloud dulu", "note": "Solusi cepat sambil menunggu server" },
+      { "key": "server", "label": "Server kampus bersama dan perbaikan jaringan", "note": "Perlu keputusan di luar kelas" }
+    ]
+  },
+  {
+    "key": "prioritas", "kind": "multi", "max": 2, "area": "Prioritas",
+    "prompt": "Dari enam masalah tadi, mana yang paling perlu didahulukan?",
+    "options": [
+      { "key": "beban", "label": "Beban mahasiswa", "note": "" },
+      { "key": "selaras", "label": "Keselarasan tugas dan proyek", "note": "" },
+      { "key": "koordinasi", "label": "Koordinasi antar dosen", "note": "" },
+      { "key": "nilai", "label": "Penilaian dan kontribusi", "note": "" },
+      { "key": "fasilitas", "label": "Fasilitas dan bimbingan", "note": "" },
+      { "key": "respons", "label": "Respons survei", "note": "" }
+    ]
+  },
+  {
+    "key": "komitmen", "kind": "multi", "max": 3, "area": "Kesediaan dosen",
+    "prompt": "Saya bersedia (boleh pilih lebih dari satu):",
+    "options": [
+      { "key": "pic", "label": "Menjadi dosen rujukan (PIC) untuk kelas yang saya ampu", "note": "" },
+      { "key": "notask", "label": "Tidak menambah tugas baru di luar proyek selama pekan Milestone 2", "note": "" },
+      { "key": "wa", "label": "Mengonfirmasi catatan milestone di WhatsApp dengan satu kata atau reaksi", "note": "" }
+    ]
+  },
+  {
+    "key": "saran", "kind": "text", "max": 1, "area": "Saran",
+    "prompt": "Tuliskan saran Bapak/Ibu untuk PBL semester depan.",
+    "options": []
+  }
+]

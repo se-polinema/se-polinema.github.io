@@ -6,6 +6,7 @@ venue: "Research & Practice in Technology Enhanced Learning"
 authors:
   - "Ridwan Rismanto"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=fJc_GegAAAAJ"
+doi: "10.58459/rptel.2026.21032"
 researchers:
   - "ridwan-rismanto"
 featured: true

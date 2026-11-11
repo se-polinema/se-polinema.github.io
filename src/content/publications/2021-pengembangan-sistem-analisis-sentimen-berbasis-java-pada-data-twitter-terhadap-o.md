@@ -4,8 +4,10 @@ year: 2021
 type: "journal"
 venue: "Jurnal Informatika Polinema"
 authors:
-  - "Elok Nur Hamdana and Muhammad Balya Iqbal Alfahmi"
+  - "Elok Nur Hamdana"
+  - "Muhammad Balya Iqbal Alfahmi"
 url: "https://scholar.archive.org/work/4kqyjuvlqnb5lparsx7ghl4ec4/access/wayback/http://jip.polinema.ac.id/ojs3/index.php/jip/article/download/688/295"
+doi: "10.33795/jip.v7i2.688"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=1650294288630555546"
 citedByCount: 12
 researchers:

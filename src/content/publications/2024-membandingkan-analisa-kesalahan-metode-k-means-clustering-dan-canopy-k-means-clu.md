@@ -4,8 +4,11 @@ year: 2024
 type: "journal"
 venue: "https://jurnal.unimed.ac.id/2012//index.php/cess/index"
 authors:
-  - "Vit Zuraida Ariadi Retno and Wilda Imama and Puspa Kirana"
+  - "Vit Zuraida Ariadi Retno"
+  - "Wilda Imama"
+  - "Puspa Kirana"
 url: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
+doi: "10.24114/cess.v9i1.50978"
 googleScholarUrl: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 citedByCount: 0
 researchers:

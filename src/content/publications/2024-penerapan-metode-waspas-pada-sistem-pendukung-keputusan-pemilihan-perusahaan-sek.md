@@ -4,7 +4,9 @@ year: 2024
 type: "journal"
 venue: "Journal of Multidisciplinary Inquiry in Science, Technology and Educational Research"
 authors:
-  - "Kevin Aldyansyah and Agung Nugroho Pramudhita and Dian Hanifudin Subhi"
+  - "Kevin Aldyansyah"
+  - "Agung Nugroho Pramudhita"
+  - "Dian Hanifudin Subhi"
 url: "https://scholar.google.com/scholar?cluster=3850953042018435292&hl=en&oi=scholarr"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=3850953042018435292"
 citedByCount: 1

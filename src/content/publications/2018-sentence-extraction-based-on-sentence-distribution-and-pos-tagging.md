@@ -6,6 +6,7 @@ venue: "TELKOMNIKA"
 authors:
   - "Moch. Zawaruddin Abdullah"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uPC_KcAAAAJ"
+doi: "10.12928/telkomnika.v16i3.8431"
 researchers:
   - "moch-zawaruddin-abdullah"
 featured: false

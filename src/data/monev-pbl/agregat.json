@@ -1,0 +1,8958 @@
+{
+ "meta": {
+  "mahasiswa_n": 177,
+  "dosen_n": 22,
+  "roster_n": 806,
+  "min_group": 5,
+  "dosen_ti": 17,
+  "dosen_sib": 11,
+  "dosen_both": 6,
+  "dosen_roster": {
+   "all": 34,
+   "ti": 25,
+   "sib": 16,
+   "both": 7
+  },
+  "dosen_sem": [
+   {
+    "label": "TI Semester 3",
+    "count": 6,
+    "pct": 27.3
+   },
+   {
+    "label": "TI Semester 5",
+    "count": 5,
+    "pct": 22.7
+   },
+   {
+    "label": "SIB Semester 3",
+    "count": 3,
+    "pct": 13.6
+   },
+   {
+    "label": "SIB Semester 3, TI Semester 3",
+    "count": 3,
+    "pct": 13.6
+   },
+   {
+    "label": "SIB Semester 5",
+    "count": 2,
+    "pct": 9.1
+   },
+   {
+    "label": "SIB Semester 5, TI Semester 5",
+    "count": 1,
+    "pct": 4.5
+   },
+   {
+    "label": "SIB Semester 5, TI Semester 3",
+    "count": 1,
+    "pct": 4.5
+   },
+   {
+    "label": "SIB Semester 5, TI Semester 3, TI Semester 5",
+    "count": 1,
+    "pct": 4.5
+   }
+  ]
+ },
+ "all": {
+  "mhs": {
+   "n": 177,
+   "response": {
+    "sems": [
+     {
+      "label": "TI Semester 3",
+      "n": 44,
+      "roster": 248,
+      "rate": 17.7,
+      "classes": 9
+     },
+     {
+      "label": "TI Semester 5",
+      "n": 25,
+      "roster": 230,
+      "rate": 10.9,
+      "classes": 9
+     },
+     {
+      "label": "SIB Semester 3",
+      "n": 21,
+      "roster": 173,
+      "rate": 12.1,
+      "classes": 7
+     },
+     {
+      "label": "SIB Semester 5",
+      "n": 87,
+      "roster": 155,
+      "rate": 56.1,
+      "classes": 7
+     }
+    ],
+    "classes": [
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2A",
+      "n": 1,
+      "roster": 28,
+      "rate": 3.6
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2B",
+      "n": 26,
+      "roster": 28,
+      "rate": 92.9
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2C",
+      "n": 4,
+      "roster": 27,
+      "rate": 14.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2D",
+      "n": 0,
+      "roster": 27,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2E",
+      "n": 0,
+      "roster": 27,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2F",
+      "n": 3,
+      "roster": 27,
+      "rate": 11.1
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2G",
+      "n": 3,
+      "roster": 30,
+      "rate": 10
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2H",
+      "n": 3,
+      "roster": 27,
+      "rate": 11.1
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2I",
+      "n": 4,
+      "roster": 27,
+      "rate": 14.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3A",
+      "n": 0,
+      "roster": 26,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3B",
+      "n": 0,
+      "roster": 26,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3C",
+      "n": 8,
+      "roster": 26,
+      "rate": 30.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3D",
+      "n": 0,
+      "roster": 25,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3E",
+      "n": 1,
+      "roster": 26,
+      "rate": 3.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3F",
+      "n": 5,
+      "roster": 26,
+      "rate": 19.2
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3G",
+      "n": 2,
+      "roster": 25,
+      "rate": 8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3H",
+      "n": 4,
+      "roster": 26,
+      "rate": 15.4
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3I",
+      "n": 5,
+      "roster": 24,
+      "rate": 20.8
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2A",
+      "n": 0,
+      "roster": 26,
+      "rate": 0
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2B",
+      "n": 0,
+      "roster": 25,
+      "rate": 0
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2C",
+      "n": 6,
+      "roster": 25,
+      "rate": 24
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2D",
+      "n": 0,
+      "roster": 25,
+      "rate": 0
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2E",
+      "n": 1,
+      "roster": 25,
+      "rate": 4
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2F",
+      "n": 11,
+      "roster": 25,
+      "rate": 44
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2G",
+      "n": 3,
+      "roster": 22,
+      "rate": 13.6
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3A",
+      "n": 19,
+      "roster": 24,
+      "rate": 79.2
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3B",
+      "n": 20,
+      "roster": 24,
+      "rate": 83.3
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3C",
+      "n": 19,
+      "roster": 21,
+      "rate": 90.5
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3D",
+      "n": 13,
+      "roster": 22,
+      "rate": 59.1
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3E",
+      "n": 5,
+      "roster": 21,
+      "rate": 23.8
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3F",
+      "n": 2,
+      "roster": 22,
+      "rate": 9.1
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3G",
+      "n": 9,
+      "roster": 21,
+      "rate": 42.9
+     }
+    ],
+    "roster": 806,
+    "rate": 22
+   },
+   "ops": [
+    {
+     "label": "Alur dan target milestone dijelaskan jelas",
+     "n": 174,
+     "n_all": 177,
+     "mean": 3.66,
+     "pct_agree": 63.8,
+     "dist": [
+      5,
+      13,
+      45,
+      85,
+      26
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "n": 177,
+     "n_all": 177,
+     "mean": 3.94,
+     "pct_agree": 76.8,
+     "dist": [
+      7,
+      7,
+      27,
+      85,
+      51
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Jadwal dan tenggat milestone realistis",
+     "n": 172,
+     "n_all": 177,
+     "mean": 3.72,
+     "pct_agree": 64.5,
+     "dist": [
+      4,
+      11,
+      46,
+      79,
+      32
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Bimbingan dosen memadai",
+     "n": 177,
+     "n_all": 177,
+     "mean": 3.77,
+     "pct_agree": 68.9,
+     "dist": [
+      4,
+      11,
+      40,
+      89,
+      33
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Tugas dan penilaian antar-mata kuliah selaras",
+     "n": 165,
+     "n_all": 177,
+     "mean": 3.57,
+     "pct_agree": 55.8,
+     "dist": [
+      2,
+      13,
+      58,
+      73,
+      19
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik dan kriteria penilaian jelas",
+     "n": 171,
+     "n_all": 177,
+     "mean": 3.67,
+     "pct_agree": 58.5,
+     "dist": [
+      1,
+      12,
+      58,
+      72,
+      28
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Penilaian adil terhadap kontribusi anggota",
+     "n": 168,
+     "n_all": 177,
+     "mean": 3.65,
+     "pct_agree": 57.1,
+     "dist": [
+      3,
+      14,
+      55,
+      62,
+      34
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Fasilitas dan sumber daya memadai",
+     "n": 172,
+     "n_all": 177,
+     "mean": 3.44,
+     "pct_agree": 52.3,
+     "dist": [
+      8,
+      18,
+      56,
+      70,
+      20
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ben": [
+    {
+     "label": "Meningkatkan keterampilan teknis",
+     "n": 175,
+     "n_all": 177,
+     "mean": 4.19,
+     "pct_agree": 85.1,
+     "dist": [
+      2,
+      2,
+      22,
+      83,
+      66
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Meningkatkan kerja sama dan komunikasi",
+     "n": 174,
+     "n_all": 177,
+     "mean": 4.11,
+     "pct_agree": 79.9,
+     "dist": [
+      3,
+      1,
+      31,
+      77,
+      62
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Lebih siap menghadapi dunia kerja",
+     "n": 173,
+     "n_all": 177,
+     "mean": 4.05,
+     "pct_agree": 78,
+     "dist": [
+      3,
+      4,
+      31,
+      78,
+      57
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Puas dengan pelaksanaan PBL",
+     "n": 175,
+     "n_all": 177,
+     "mean": 3.48,
+     "pct_agree": 48.6,
+     "dist": [
+      5,
+      18,
+      67,
+      58,
+      27
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Setuju PBL dilanjutkan",
+     "n": 170,
+     "n_all": 177,
+     "mean": 3.39,
+     "pct_agree": 46.5,
+     "dist": [
+      18,
+      10,
+      63,
+      45,
+      34
+     ],
+     "cat": "Cukup"
+    }
+   ],
+   "ops_mean": 3.68,
+   "ops_cat": "Baik",
+   "k1": {
+    "n": 177,
+    "items": [
+     {
+      "label": "2 Kurang paham",
+      "count": 9,
+      "pct": 5.1
+     },
+     {
+      "label": "3 Cukup paham",
+      "count": 53,
+      "pct": 29.9
+     },
+     {
+      "label": "4 Paham",
+      "count": 90,
+      "pct": 50.8
+     },
+     {
+      "label": "5 Sangat paham",
+      "count": 24,
+      "pct": 13.6
+     }
+    ]
+   },
+   "k1_mean": 3.72,
+   "k2_correct": 93.2,
+   "k3": {
+    "n": 177,
+    "items": [
+     {
+      "label": "Belum pernah",
+      "count": 61,
+      "pct": 34.5
+     },
+     {
+      "label": "1 semester",
+      "count": 4,
+      "pct": 2.3
+     },
+     {
+      "label": "2 semester",
+      "count": 68,
+      "pct": 38.4
+     },
+     {
+      "label": "3 semester atau lebih",
+      "count": 44,
+      "pct": 24.9
+     }
+    ]
+   },
+   "by_experience": [
+    {
+     "group": "Belum pernah",
+     "n": 61,
+     "ops_mean": 3.64,
+     "sat_mean": 3.48,
+     "sat_agree": 49.2,
+     "cont_mean": 3.35,
+     "cont_agree": 45,
+     "berat_pct": 41
+    },
+    {
+     "group": "Pernah",
+     "n": 116,
+     "ops_mean": 3.7,
+     "sat_mean": 3.48,
+     "sat_agree": 48.2,
+     "cont_mean": 3.42,
+     "cont_agree": 47.3,
+     "berat_pct": 40.5
+    }
+   ],
+   "consult_freq": {
+    "n": 177,
+    "items": [
+     {
+      "label": "0 kali",
+      "count": 41,
+      "pct": 23.2
+     },
+     {
+      "label": "1-2 kali",
+      "count": 81,
+      "pct": 45.8
+     },
+     {
+      "label": "3-5 kali",
+      "count": 49,
+      "pct": 27.7
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 6,
+      "pct": 3.4
+     }
+    ]
+   },
+   "consult_resp": {
+    "n": 177,
+    "items": [
+     {
+      "label": "Kurang dari 1 hari",
+      "count": 94,
+      "pct": 53.1
+     },
+     {
+      "label": "1-2 hari",
+      "count": 53,
+      "pct": 29.9
+     },
+     {
+      "label": "Belum pernah bertanya",
+      "count": 18,
+      "pct": 10.2
+     },
+     {
+      "label": "3-7 hari",
+      "count": 5,
+      "pct": 2.8
+     },
+     {
+      "label": "Lebih dari 1 minggu",
+      "count": 4,
+      "pct": 2.3
+     },
+     {
+      "label": "Tidak ditanggapi",
+      "count": 3,
+      "pct": 1.7
+     }
+    ]
+   },
+   "consult_init": {
+    "n": 177,
+    "items": [
+     {
+      "label": "Keduanya",
+      "count": 119,
+      "pct": 67.2
+     },
+     {
+      "label": "Dosen",
+      "count": 26,
+      "pct": 14.7
+     },
+     {
+      "label": "Mahasiswa",
+      "count": 24,
+      "pct": 13.6
+     },
+     {
+      "label": "Belum pernah ada konsultasi",
+      "count": 8,
+      "pct": 4.5
+     }
+    ]
+   },
+   "coord": [
+    {
+     "label": "Dosen antar mata kuliah mengetahui progres proyek",
+     "kind": "yn",
+     "n": 177,
+     "ya": 45.2,
+     "sebagian": 46.3,
+     "tidak": 5.6,
+     "tidak_tahu": 2.8
+    },
+    {
+     "label": "Arahan dosen antar mata kuliah konsisten",
+     "kind": "yn",
+     "n": 177,
+     "ya": 31.6,
+     "sebagian": 53.7,
+     "tidak": 12.4,
+     "tidak_tahu": 2.3
+    },
+    {
+     "label": "Tim tahu harus menghubungi dosen siapa",
+     "kind": "yn",
+     "n": 177,
+     "ya": 69.5,
+     "sebagian": 20.9,
+     "tidak": 6.8,
+     "tidak_tahu": 2.8
+    },
+    {
+     "label": "Tenggat antar mata kuliah bertabrakan",
+     "kind": "lk",
+     "pct_oa": 40.1,
+     "n": 177
+    },
+    {
+     "label": "Kendala tim baru diketahui dosen saat review",
+     "kind": "lk",
+     "pct_oa": 32.2,
+     "n": 177
+    }
+   ],
+   "best": [
+    {
+     "label": "Pengalaman dan keterampilan baru yang saya peroleh",
+     "count": 107,
+     "pct": 60.5
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "count": 69,
+     "pct": 39
+    },
+    {
+     "label": "Kerja sama tim",
+     "count": 68,
+     "pct": 38.4
+    },
+    {
+     "label": "Bimbingan dosen",
+     "count": 55,
+     "pct": 31.1
+    },
+    {
+     "label": "Alur dan target milestone jelas",
+     "count": 55,
+     "pct": 31.1
+    },
+    {
+     "label": "Umpan balik dosen",
+     "count": 47,
+     "pct": 26.6
+    },
+    {
+     "label": "Materi kelas mendukung proyek",
+     "count": 40,
+     "pct": 22.6
+    },
+    {
+     "label": "Belum ada yang menonjol",
+     "count": 16,
+     "pct": 9
+    },
+    {
+     "label": "Rubrik dan penilaian jelas dan adil",
+     "count": 14,
+     "pct": 7.9
+    },
+    {
+     "label": "Koordinasi antar dosen",
+     "count": 12,
+     "pct": 6.8
+    },
+    {
+     "label": "Keterlibatan mitra atau calon pengguna",
+     "count": 8,
+     "pct": 4.5
+    },
+    {
+     "label": "Fasilitas dan sumber daya",
+     "count": 5,
+     "pct": 2.8
+    }
+   ],
+   "improve": [
+    {
+     "label": "Waktu dan beban kerja",
+     "count": 72,
+     "pct": 40.7
+    },
+    {
+     "label": "Kontribusi anggota tim tidak seimbang",
+     "count": 58,
+     "pct": 32.8
+    },
+    {
+     "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+     "count": 53,
+     "pct": 29.9
+    },
+    {
+     "label": "Koordinasi tim",
+     "count": 49,
+     "pct": 27.7
+    },
+    {
+     "label": "Kejelasan ketentuan (SOP dan rubrik)",
+     "count": 40,
+     "pct": 22.6
+    },
+    {
+     "label": "Keselarasan tugas antar-mata kuliah",
+     "count": 36,
+     "pct": 20.3
+    },
+    {
+     "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+     "count": 35,
+     "pct": 19.8
+    },
+    {
+     "label": "Pemahaman materi",
+     "count": 33,
+     "pct": 18.6
+    },
+    {
+     "label": "Kendala teknis (teknologi, kode, bug)",
+     "count": 30,
+     "pct": 16.9
+    },
+    {
+     "label": "Mitra atau calon pengguna",
+     "count": 19,
+     "pct": 10.7
+    },
+    {
+     "label": "Tidak ada masalah berarti",
+     "count": 16,
+     "pct": 9
+    },
+    {
+     "label": "Bimbingan atau umpan balik dosen",
+     "count": 13,
+     "pct": 7.3
+    },
+    {
+     "label": "Penggunaan AI",
+     "count": 12,
+     "pct": 6.8
+    },
+    {
+     "label": "Tidak jelas dosen yang menjadi rujukan tim",
+     "count": 9,
+     "pct": 5.1
+    },
+    {
+     "label": "Lainnya",
+     "count": 2,
+     "pct": 1.1
+    }
+   ],
+   "material": [
+    {
+     "label": "Tugas mata kuliah menambah beban di luar proyek",
+     "count": 117,
+     "pct": 66.1
+    },
+    {
+     "label": "Materi pendukung kurang",
+     "count": 46,
+     "pct": 26
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 42,
+     "pct": 23.7
+    },
+    {
+     "label": "Materi terlambat dibanding kebutuhan milestone",
+     "count": 35,
+     "pct": 19.8
+    },
+    {
+     "label": "Materi kurang relevan dengan proyek",
+     "count": 15,
+     "pct": 8.5
+    },
+    {
+     "label": "Lainnya",
+     "count": 2,
+     "pct": 1.1
+    }
+   ],
+   "workload": {
+    "n": 177,
+    "items": [
+     {
+      "label": "2 Ringan",
+      "count": 5,
+      "pct": 2.8
+     },
+     {
+      "label": "3 Sesuai",
+      "count": 100,
+      "pct": 56.5
+     },
+     {
+      "label": "4 Berat",
+      "count": 60,
+      "pct": 33.9
+     },
+     {
+      "label": "5 Sangat berat",
+      "count": 12,
+      "pct": 6.8
+     }
+    ]
+   },
+   "workload_heavy_pct": 40.7,
+   "courses": [
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Manajemen Proyek",
+     "n": 44,
+     "acts": [
+      79.5,
+      52.3,
+      54.5,
+      56.8,
+      52.3
+     ],
+     "acts_mean": 59.1,
+     "bc_ya": [
+      70.5,
+      54.5,
+      72.7,
+      72.7,
+      81.8,
+      52.3,
+      50,
+      65.9,
+      86.4
+     ],
+     "bc_ya_mean": 67.4,
+     "bc_tidak_mean": 5.5,
+     "att_all": 63.6,
+     "att_n": 44,
+     "expl_ya": 93.2,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 31,
+       "pct": 70.5
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 7,
+       "pct": 15.9
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 9.1
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      }
+     ],
+     "share_not_stated": 20.5,
+     "share_over50": 34.1
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Desain dan Pemrograman Web",
+     "n": 44,
+     "acts": [
+      75,
+      79.5,
+      86.4,
+      81.8,
+      79.5
+     ],
+     "acts_mean": 80.4,
+     "bc_ya": [
+      68.2,
+      72.7,
+      45.5,
+      40.9,
+      59.1,
+      52.3,
+      36.4,
+      61.4,
+      79.5
+     ],
+     "bc_ya_mean": 57.3,
+     "bc_tidak_mean": 7.1,
+     "att_all": 81.8,
+     "att_n": 44,
+     "expl_ya": 95.5,
+     "type": [
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 18,
+       "pct": 40.9
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 13,
+       "pct": 29.5
+      },
+      {
+       "label": "Latihan umum",
+       "count": 10,
+       "pct": 22.7
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 2.3
+      }
+     ],
+     "share_not_stated": 18.2,
+     "share_over50": 22.7
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Basis Data Lanjut",
+     "n": 44,
+     "acts": [
+      79.5,
+      59.1,
+      65.9,
+      68.2,
+      59.1
+     ],
+     "acts_mean": 66.4,
+     "bc_ya": [
+      75,
+      68.2,
+      65.9,
+      45.5,
+      61.4,
+      65.9,
+      52.3,
+      70.5,
+      77.3
+     ],
+     "bc_ya_mean": 64.7,
+     "bc_tidak_mean": 8.1,
+     "att_all": 68.2,
+     "att_n": 44,
+     "expl_ya": 90.9,
+     "type": [
+      {
+       "label": "Latihan umum",
+       "count": 16,
+       "pct": 36.4
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 12,
+       "pct": 27.3
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 8,
+       "pct": 18.2
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 6,
+       "pct": 13.6
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      }
+     ],
+     "share_not_stated": 15.9,
+     "share_over50": 34.1
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Sistem Informasi Manajemen",
+     "n": 44,
+     "acts": [
+      65.9,
+      56.8,
+      61.4,
+      59.1,
+      59.1
+     ],
+     "acts_mean": 60.5,
+     "bc_ya": [
+      65.9,
+      50,
+      50,
+      56.8,
+      63.6,
+      43.2,
+      52.3,
+      68.2,
+      81.8
+     ],
+     "bc_ya_mean": 59.1,
+     "bc_tidak_mean": 10.6,
+     "att_all": 68.2,
+     "att_n": 44,
+     "expl_ya": 81.8,
+     "type": [
+      {
+       "label": "Latihan umum",
+       "count": 16,
+       "pct": 36.4
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 14,
+       "pct": 31.8
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 8,
+       "pct": 18.2
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 4,
+       "pct": 9.1
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      }
+     ],
+     "share_not_stated": 18.2,
+     "share_over50": 27.3
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pemrograman Mobile",
+     "n": 25,
+     "acts": [
+      80,
+      68,
+      76,
+      76,
+      68
+     ],
+     "acts_mean": 73.6,
+     "bc_ya": [
+      80,
+      48,
+      36,
+      32,
+      48,
+      52,
+      40,
+      44,
+      92
+     ],
+     "bc_ya_mean": 52.4,
+     "bc_tidak_mean": 9.8,
+     "att_all": 76,
+     "att_n": 25,
+     "expl_ya": 100,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 11,
+       "pct": 44
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 9,
+       "pct": 36
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 16
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 4
+      }
+     ],
+     "share_not_stated": 20,
+     "share_over50": 48
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pembelajaran Mesin",
+     "n": 25,
+     "acts": [
+      80,
+      80,
+      76,
+      76,
+      76
+     ],
+     "acts_mean": 77.6,
+     "bc_ya": [
+      72,
+      64,
+      64,
+      48,
+      60,
+      76,
+      68,
+      68,
+      88
+     ],
+     "bc_ya_mean": 67.6,
+     "bc_tidak_mean": 7.6,
+     "att_all": 80,
+     "att_n": 25,
+     "expl_ya": 96,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 12,
+       "pct": 48
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 9,
+       "pct": 36
+      },
+      {
+       "label": "Latihan umum",
+       "count": 3,
+       "pct": 12
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 4
+      }
+     ],
+     "share_not_stated": 24,
+     "share_over50": 32
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak",
+     "n": 25,
+     "acts": [
+      32,
+      32,
+      24,
+      20,
+      20
+     ],
+     "acts_mean": 25.6,
+     "bc_ya": [
+      48,
+      20,
+      36,
+      44,
+      40,
+      20,
+      16,
+      32,
+      48
+     ],
+     "bc_ya_mean": 33.8,
+     "bc_tidak_mean": 12,
+     "att_all": 40,
+     "att_n": 25,
+     "expl_ya": 84,
+     "type": [
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 10,
+       "pct": 40
+      },
+      {
+       "label": "Latihan umum",
+       "count": 7,
+       "pct": 28
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 4,
+       "pct": 16
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 3,
+       "pct": 12
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 4
+      }
+     ],
+     "share_not_stated": 28,
+     "share_over50": 20
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Pemrograman Web",
+     "n": 21,
+     "acts": [
+      85.7,
+      95.2,
+      95.2,
+      85.7,
+      81
+     ],
+     "acts_mean": 88.6,
+     "bc_ya": [
+      76.2,
+      61.9,
+      76.2,
+      52.4,
+      61.9,
+      66.7,
+      71.4,
+      66.7,
+      90.5
+     ],
+     "bc_ya_mean": 69.3,
+     "bc_tidak_mean": 8.5,
+     "att_all": 85.7,
+     "att_n": 21,
+     "expl_ya": 81,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 10,
+       "pct": 47.6
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 7,
+       "pct": 33.3
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 19
+      }
+     ],
+     "share_not_stated": 52.4,
+     "share_over50": 38.1
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Basis Data Lanjut",
+     "n": 21,
+     "acts": [
+      38.1,
+      42.9,
+      23.8,
+      38.1,
+      33.3
+     ],
+     "acts_mean": 35.2,
+     "bc_ya": [
+      42.9,
+      42.9,
+      38.1,
+      28.6,
+      52.4,
+      38.1,
+      23.8,
+      38.1,
+      66.7
+     ],
+     "bc_ya_mean": 41.3,
+     "bc_tidak_mean": 14.8,
+     "att_all": 52.4,
+     "att_n": 21,
+     "expl_ya": 47.6,
+     "type": [
+      {
+       "label": "Latihan umum",
+       "count": 9,
+       "pct": 42.9
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 5,
+       "pct": 23.8
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 4,
+       "pct": 19
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 2,
+       "pct": 9.5
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 4.8
+      }
+     ],
+     "share_not_stated": 52.4,
+     "share_over50": 28.6
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Desain UI/UX",
+     "n": 21,
+     "acts": [
+      71.4,
+      76.2,
+      76.2,
+      76.2,
+      76.2
+     ],
+     "acts_mean": 75.2,
+     "bc_ya": [
+      66.7,
+      66.7,
+      52.4,
+      66.7,
+      52.4,
+      61.9,
+      57.1,
+      66.7,
+      81
+     ],
+     "bc_ya_mean": 63.5,
+     "bc_tidak_mean": 5.3,
+     "att_all": 76.2,
+     "att_n": 21,
+     "expl_ya": 85.7,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 9,
+       "pct": 42.9
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 6,
+       "pct": 28.6
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 19
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 4.8
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 4.8
+      }
+     ],
+     "share_not_stated": 52.4,
+     "share_over50": 38.1
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Pemrograman Web Lanjut",
+     "n": 87,
+     "acts": [
+      94.3,
+      85.1,
+      87.4,
+      89.7,
+      86.2
+     ],
+     "acts_mean": 88.5,
+     "bc_ya": [
+      85.1,
+      69,
+      62.1,
+      35.6,
+      60.9,
+      64.4,
+      57.5,
+      63.2,
+      95.4
+     ],
+     "bc_ya_mean": 65.9,
+     "bc_tidak_mean": 6.2,
+     "att_all": 94.3,
+     "att_n": 87,
+     "expl_ya": 100,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 42,
+       "pct": 48.3
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 38,
+       "pct": 43.7
+      },
+      {
+       "label": "Latihan umum",
+       "count": 7,
+       "pct": 8
+      }
+     ],
+     "share_not_stated": 14.9,
+     "share_over50": 65.5
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Manajemen Proyek Sistem Informasi",
+     "n": 87,
+     "acts": [
+      74.7,
+      65.5,
+      56.3,
+      57.5,
+      48.3
+     ],
+     "acts_mean": 60.5,
+     "bc_ya": [
+      66.7,
+      49.4,
+      49.4,
+      62.1,
+      65.5,
+      42.5,
+      34.5,
+      57.5,
+      72.4
+     ],
+     "bc_ya_mean": 55.6,
+     "bc_tidak_mean": 10.7,
+     "att_all": 60.9,
+     "att_n": 87,
+     "expl_ya": 82.8,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 44,
+       "pct": 50.6
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 30,
+       "pct": 34.5
+      },
+      {
+       "label": "Latihan umum",
+       "count": 10,
+       "pct": 11.5
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 3,
+       "pct": 3.4
+      }
+     ],
+     "share_not_stated": 32.2,
+     "share_over50": 39.1
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak",
+     "n": 87,
+     "acts": [
+      71.3,
+      71.3,
+      66.7,
+      70.1,
+      65.5
+     ],
+     "acts_mean": 69,
+     "bc_ya": [
+      78.2,
+      56.3,
+      49.4,
+      52.9,
+      54,
+      44.8,
+      49.4,
+      64.4,
+      69
+     ],
+     "bc_ya_mean": 57.6,
+     "bc_tidak_mean": 9.1,
+     "att_all": 63.2,
+     "att_n": 87,
+     "expl_ya": 93.1,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 38,
+       "pct": 43.7
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 26,
+       "pct": 29.9
+      },
+      {
+       "label": "Latihan umum",
+       "count": 21,
+       "pct": 24.1
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 1.1
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 1.1
+      }
+     ],
+     "share_not_stated": 28.7,
+     "share_over50": 40.2
+    }
+   ],
+   "act_labels": [
+    "Mengaitkan materi dengan proyek",
+    "Menyediakan waktu diskusi proyek",
+    "Memeriksa progres proyek tim",
+    "Memberi umpan balik proyek",
+    "Membahas kendala teknis"
+   ],
+   "bc_labels": [
+    "Kontrak kuliah memuat kaitan dengan proyek",
+    "Materi diberikan sebelum dibutuhkan milestone",
+    "Contoh dan studi kasus berkaitan dengan proyek",
+    "Tugas bagian dari proyek, bukan tugas tambahan",
+    "Kriteria penilaian tugas sejalan dengan proyek",
+    "Materi pendukung tersedia di LMS",
+    "Materi disesuaikan saat tim mengalami kendala",
+    "Materi terhubung dengan mata kuliah lain",
+    "Dosen mengetahui topik proyek tim"
+   ],
+   "monitored": {
+    "classes": [
+     "SIB-3A",
+     "SIB-3B",
+     "SIB-3C",
+     "SIB-3D",
+     "TI-2B"
+    ],
+    "enf": {
+     "n": 97,
+     "roster": 119,
+     "rate": 81.5,
+     "n_classes": 5,
+     "stats": {
+      "n": 97,
+      "ops_mean": 3.74,
+      "puas": 3.48,
+      "lanjut": 3.35,
+      "adil": 3.7,
+      "fasilitas": 3.43,
+      "berat": 40.2,
+      "konsisten": 29.9,
+      "top": [
+       {
+        "label": "Waktu dan beban kerja",
+        "pct": 38.1
+       },
+       {
+        "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+        "pct": 36.1
+       },
+       {
+        "label": "Kontribusi anggota tim tidak seimbang",
+        "pct": 29.9
+       }
+      ]
+     }
+    },
+    "oth": {
+     "n": 80,
+     "roster": 687,
+     "rate": 11.6,
+     "n_classes": 27,
+     "stats": {
+      "n": 80,
+      "ops_mean": 3.6,
+      "puas": 3.48,
+      "lanjut": 3.44,
+      "adil": 3.61,
+      "fasilitas": 3.46,
+      "berat": 41.2,
+      "konsisten": 33.8,
+      "top": [
+       {
+        "label": "Waktu dan beban kerja",
+        "pct": 43.8
+       },
+       {
+        "label": "Kontribusi anggota tim tidak seimbang",
+        "pct": 36.2
+       },
+       {
+        "label": "Koordinasi tim",
+        "pct": 28.8
+       }
+      ]
+     }
+    },
+    "share_enf": 54.8
+   },
+   "aspek": [
+    {
+     "code": "A",
+     "name": "Pelaksanaan PBL",
+     "items": [
+      "Alur dan target milestone dijelaskan jelas",
+      "SOP dan template laporan membantu",
+      "Jadwal dan tenggat milestone realistis",
+      "Bimbingan dosen memadai"
+     ],
+     "mhs_mean": 3.77,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4.26,
+     "dosen_cat": "Sangat baik",
+     "problem_pct": 26.6,
+     "problems": [
+      {
+       "label": "Kendala teknis (teknologi, kode, bug)",
+       "pct": 16.9
+      },
+      {
+       "label": "Mitra atau calon pengguna",
+       "pct": 10.7
+      }
+     ]
+    },
+    {
+     "code": "B",
+     "name": "Integrasi antar-mata kuliah",
+     "items": [
+      "Tugas dan penilaian antar-mata kuliah selaras"
+     ],
+     "mhs_mean": 3.57,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4,
+     "dosen_cat": "Baik",
+     "problem_pct": 58.8,
+     "problems": [
+      {
+       "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+       "pct": 29.9
+      },
+      {
+       "label": "Keselarasan tugas antar-mata kuliah",
+       "pct": 20.3
+      },
+      {
+       "label": "Pemahaman materi",
+       "pct": 18.6
+      },
+      {
+       "label": "Tidak jelas dosen yang menjadi rujukan tim",
+       "pct": 5.1
+      }
+     ]
+    },
+    {
+     "code": "C",
+     "name": "Penilaian dan umpan balik",
+     "items": [
+      "Rubrik dan kriteria penilaian jelas",
+      "Penilaian adil terhadap kontribusi anggota"
+     ],
+     "mhs_mean": 3.66,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4.18,
+     "dosen_cat": "Baik",
+     "problem_pct": 27.7,
+     "problems": [
+      {
+       "label": "Kejelasan ketentuan (SOP dan rubrik)",
+       "pct": 22.6
+      },
+      {
+       "label": "Bimbingan atau umpan balik dosen",
+       "pct": 7.3
+      }
+     ]
+    },
+    {
+     "code": "D",
+     "name": "Kolaborasi, beban, dan dukungan",
+     "items": [
+      "Fasilitas dan sumber daya memadai"
+     ],
+     "mhs_mean": 3.44,
+     "mhs_cat": "Baik",
+     "dosen_mean": 3.77,
+     "dosen_cat": "Baik",
+     "problem_pct": 78,
+     "problems": [
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 40.7
+      },
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 32.8
+      },
+      {
+       "label": "Koordinasi tim",
+       "pct": 27.7
+      },
+      {
+       "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+       "pct": 19.8
+      },
+      {
+       "label": "Penggunaan AI",
+       "pct": 6.8
+      }
+     ]
+    }
+   ],
+   "dua_sisi": [
+    {
+     "aspek": "SOP dan template",
+     "baik": 39,
+     "masalah": 22.6,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Rubrik dan penilaian",
+     "baik": 7.9,
+     "masalah": 22.6,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Bimbingan dosen",
+     "baik": 31.1,
+     "masalah": 7.3,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Umpan balik dosen",
+     "baik": 26.6,
+     "masalah": 7.3,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Materi dan tugas",
+     "baik": 22.6,
+     "masalah": 20.3,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Kerja sama tim",
+     "baik": 38.4,
+     "masalah": 32.8,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Fasilitas",
+     "baik": 2.8,
+     "masalah": 19.8,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Mitra atau calon pengguna",
+     "baik": 4.5,
+     "masalah": 10.7,
+     "dua_sisi": false
+    }
+   ],
+   "drivers": {
+    "corr": [
+     {
+      "label": "Fasilitas dan sumber daya memadai",
+      "r_puas": 0.48,
+      "r_lanjut": 0.33
+     },
+     {
+      "label": "Rubrik dan kriteria penilaian jelas",
+      "r_puas": 0.45,
+      "r_lanjut": 0.31
+     },
+     {
+      "label": "Penilaian adil terhadap kontribusi anggota",
+      "r_puas": 0.44,
+      "r_lanjut": 0.2
+     },
+     {
+      "label": "Jadwal dan tenggat milestone realistis",
+      "r_puas": 0.39,
+      "r_lanjut": 0.33
+     },
+     {
+      "label": "Bimbingan dosen memadai",
+      "r_puas": 0.39,
+      "r_lanjut": 0.19
+     },
+     {
+      "label": "Tugas dan penilaian antar-mata kuliah selaras",
+      "r_puas": 0.38,
+      "r_lanjut": 0.26
+     },
+     {
+      "label": "Alur dan target milestone dijelaskan jelas",
+      "r_puas": 0.32,
+      "r_lanjut": 0.19
+     },
+     {
+      "label": "SOP dan template laporan membantu",
+      "r_puas": 0.2,
+      "r_lanjut": 0.13
+     }
+    ],
+    "cross": [
+     {
+      "factor": "Beban PBL dibanding waktu tersedia",
+      "groups": [
+       {
+        "label": "Berat atau sangat berat",
+        "n": 72,
+        "puas": 3.14,
+        "lanjut": 2.96
+       },
+       {
+        "label": "Ringan atau sesuai",
+        "n": 105,
+        "puas": 3.72,
+        "lanjut": 3.68
+       }
+      ]
+     },
+     {
+      "factor": "Konsultasi dengan dosen di luar jam kuliah",
+      "groups": [
+       {
+        "label": "Pernah",
+        "n": 136,
+        "puas": 3.47,
+        "lanjut": 3.28
+       },
+       {
+        "label": "Belum pernah",
+        "n": 41,
+        "puas": 3.51,
+        "lanjut": 3.77
+       }
+      ]
+     },
+     {
+      "factor": "Arahan dosen antar mata kuliah konsisten",
+      "groups": [
+       {
+        "label": "Sebagian atau tidak",
+        "n": 121,
+        "puas": 3.41,
+        "lanjut": 3.38
+       },
+       {
+        "label": "Ya",
+        "n": 56,
+        "puas": 3.64,
+        "lanjut": 3.43
+       }
+      ]
+     },
+     {
+      "factor": "Tim tahu harus menghubungi dosen siapa",
+      "groups": [
+       {
+        "label": "Sebagian atau tidak",
+        "n": 54,
+        "puas": 3.21,
+        "lanjut": 3.23
+       },
+       {
+        "label": "Ya",
+        "n": 123,
+        "puas": 3.6,
+        "lanjut": 3.47
+       }
+      ]
+     },
+     {
+      "factor": "Dosen antar mata kuliah mengetahui progres proyek",
+      "groups": [
+       {
+        "label": "Sebagian atau tidak",
+        "n": 97,
+        "puas": 3.36,
+        "lanjut": 3.3
+       },
+       {
+        "label": "Ya",
+        "n": 80,
+        "puas": 3.62,
+        "lanjut": 3.51
+       }
+      ]
+     }
+    ]
+   },
+   "sem_stats": [
+    {
+     "label": "TI Semester 3",
+     "n": 44,
+     "ops_mean": 3.65,
+     "puas": 3.52,
+     "lanjut": 3.47,
+     "adil": 3.63,
+     "fasilitas": 3.42,
+     "berat": 31.8,
+     "konsisten": 45.5,
+     "top": [
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 54.5
+      },
+      {
+       "label": "Koordinasi tim",
+       "pct": 43.2
+      },
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 36.4
+      }
+     ]
+    },
+    {
+     "label": "TI Semester 5",
+     "n": 25,
+     "ops_mean": 3.73,
+     "puas": 3.4,
+     "lanjut": 3.62,
+     "adil": 3.82,
+     "fasilitas": 3.42,
+     "berat": 44,
+     "konsisten": 40,
+     "top": [
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 52
+      },
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 32
+      },
+      {
+       "label": "Keselarasan tugas antar-mata kuliah",
+       "pct": 28
+      }
+     ]
+    },
+    {
+     "label": "SIB Semester 3",
+     "n": 21,
+     "ops_mean": 3.55,
+     "puas": 3.52,
+     "lanjut": 3.29,
+     "adil": 3.65,
+     "fasilitas": 3.35,
+     "berat": 57.1,
+     "konsisten": 33.3,
+     "top": [
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 38.1
+      },
+      {
+       "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+       "pct": 28.6
+      },
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 28.6
+      }
+     ]
+    },
+    {
+     "label": "SIB Semester 5",
+     "n": 87,
+     "ops_mean": 3.71,
+     "puas": 3.47,
+     "lanjut": 3.32,
+     "adil": 3.62,
+     "fasilitas": 3.48,
+     "berat": 40.2,
+     "konsisten": 21.8,
+     "top": [
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 42.5
+      },
+      {
+       "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+       "pct": 41.4
+      },
+      {
+       "label": "Kejelasan ketentuan (SOP dan rubrik)",
+       "pct": 29.9
+      }
+     ]
+    }
+   ],
+   "pooled": {
+    "bc": [
+     {
+      "label": "Kontrak kuliah memuat kaitan dengan proyek",
+      "ya": 71.7,
+      "sebagian": 23.5,
+      "tidak": 3.3
+     },
+     {
+      "label": "Materi diberikan sebelum dibutuhkan milestone",
+      "ya": 57.2,
+      "sebagian": 35,
+      "tidak": 6.3
+     },
+     {
+      "label": "Contoh dan studi kasus berkaitan dengan proyek",
+      "ya": 54.3,
+      "sebagian": 37,
+      "tidak": 6.4
+     },
+     {
+      "label": "Tugas bagian dari proyek, bukan tugas tambahan",
+      "ya": 50.1,
+      "sebagian": 28.2,
+      "tidak": 19
+     },
+     {
+      "label": "Kriteria penilaian tugas sejalan dengan proyek",
+      "ya": 60.2,
+      "sebagian": 23.1,
+      "tidak": 7
+     },
+     {
+      "label": "Materi pendukung tersedia di LMS",
+      "ya": 51.8,
+      "sebagian": 35.5,
+      "tidak": 12
+     },
+     {
+      "label": "Materi disesuaikan saat tim mengalami kendala",
+      "ya": 47,
+      "sebagian": 36.7,
+      "tidak": 13.6
+     },
+     {
+      "label": "Materi terhubung dengan mata kuliah lain",
+      "ya": 60.9,
+      "sebagian": 29.7,
+      "tidak": 7.3
+     },
+     {
+      "label": "Dosen mengetahui topik proyek tim",
+      "ya": 79.3,
+      "sebagian": 14.3,
+      "tidak": 3.1
+     }
+    ],
+    "acts": [
+     {
+      "label": "Mengaitkan materi dengan proyek",
+      "pct_oa": 74.8
+     },
+     {
+      "label": "Menyediakan waktu diskusi proyek",
+      "pct_oa": 68.2
+     },
+     {
+      "label": "Memeriksa progres proyek tim",
+      "pct_oa": 67.1
+     },
+     {
+      "label": "Memberi umpan balik proyek",
+      "pct_oa": 68
+     },
+     {
+      "label": "Membahas kendala teknis",
+      "pct_oa": 63.5
+     }
+    ],
+    "type": [
+     {
+      "label": "Deliverable proyek",
+      "pct": 41.6
+     },
+     {
+      "label": "Latihan dengan konteks proyek",
+      "pct": 32.2
+     },
+     {
+      "label": "Latihan umum",
+      "pct": 20
+     },
+     {
+      "label": "Kuis atau ujian",
+      "pct": 3.7
+     },
+     {
+      "label": "Tidak tahu",
+      "pct": 2.6
+     }
+    ],
+    "share": [
+     {
+      "label": "> 50%",
+      "pct": 39.3
+     },
+     {
+      "label": "26-50%",
+      "pct": 29
+     },
+     {
+      "label": "Tidak disampaikan",
+      "pct": 26
+     },
+     {
+      "label": "1-25%",
+      "pct": 5.8
+     }
+    ],
+    "n": 575
+   }
+  },
+  "dosen": {
+   "n": 22,
+   "ops": [
+    {
+     "label": "Alur dan target milestone dijelaskan jelas",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.14,
+     "pct_agree": 81.8,
+     "dist": [
+      0,
+      0,
+      4,
+      11,
+      7
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.36,
+     "pct_agree": 95.5,
+     "dist": [
+      0,
+      0,
+      1,
+      12,
+      9
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Jadwal dan tenggat milestone realistis",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.27,
+     "pct_agree": 95.5,
+     "dist": [
+      0,
+      1,
+      0,
+      13,
+      8
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Bimbingan dosen memadai",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.27,
+     "pct_agree": 95.5,
+     "dist": [
+      0,
+      0,
+      1,
+      14,
+      7
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Tugas dan penilaian antar-mata kuliah selaras",
+     "n": 20,
+     "n_all": 22,
+     "mean": 4,
+     "pct_agree": 80,
+     "dist": [
+      0,
+      1,
+      3,
+      11,
+      5
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik dan kriteria penilaian jelas",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.05,
+     "pct_agree": 77.3,
+     "dist": [
+      0,
+      2,
+      3,
+      9,
+      8
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Penilaian adil terhadap kontribusi anggota",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.32,
+     "pct_agree": 95.5,
+     "dist": [
+      0,
+      0,
+      1,
+      13,
+      8
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Fasilitas dan sumber daya memadai",
+     "n": 22,
+     "n_all": 22,
+     "mean": 3.77,
+     "pct_agree": 72.7,
+     "dist": [
+      0,
+      1,
+      5,
+      14,
+      2
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ben": [
+    {
+     "label": "Meningkatkan keterampilan teknis",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.41,
+     "pct_agree": 95.5,
+     "dist": [
+      0,
+      0,
+      1,
+      11,
+      10
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Meningkatkan kerja sama dan komunikasi",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.5,
+     "pct_agree": 86.4,
+     "dist": [
+      0,
+      0,
+      3,
+      5,
+      14
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Lebih siap menghadapi dunia kerja",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.5,
+     "pct_agree": 95.5,
+     "dist": [
+      0,
+      0,
+      1,
+      9,
+      12
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Puas dengan pelaksanaan PBL",
+     "n": 22,
+     "n_all": 22,
+     "mean": 3.95,
+     "pct_agree": 72.7,
+     "dist": [
+      0,
+      1,
+      5,
+      10,
+      6
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Setuju PBL dilanjutkan",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.05,
+     "pct_agree": 68.2,
+     "dist": [
+      0,
+      1,
+      6,
+      6,
+      9
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ops_extra": [
+    {
+     "label": "Komunikasi antar dosen aktif",
+     "n": 20,
+     "n_all": 22,
+     "mean": 3,
+     "pct_agree": 25,
+     "dist": [
+      1,
+      4,
+      10,
+      4,
+      1
+     ],
+     "cat": "Cukup"
+    },
+    {
+     "label": "Grup WhatsApp dosen efektif",
+     "n": 22,
+     "n_all": 22,
+     "mean": 3.55,
+     "pct_agree": 54.5,
+     "dist": [
+      0,
+      2,
+      8,
+      10,
+      2
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Informasi koordinator jelas dan tepat waktu",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.05,
+     "pct_agree": 81.8,
+     "dist": [
+      1,
+      2,
+      1,
+      9,
+      9
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ops_mean": 4.15,
+   "ops_cat": "Baik",
+   "experience": {
+    "n": 22,
+    "items": [
+     {
+      "label": "Sudah pernah mengampu PBL sebelumnya",
+      "count": 17,
+      "pct": 77.3
+     },
+     {
+      "label": "Pertama kali mengampu PBL",
+      "count": 5,
+      "pct": 22.7
+     }
+    ]
+   },
+   "k1": {
+    "n": 22,
+    "items": [
+     {
+      "label": "2 Kurang paham",
+      "count": 1,
+      "pct": 4.5
+     },
+     {
+      "label": "3 Cukup paham",
+      "count": 6,
+      "pct": 27.3
+     },
+     {
+      "label": "4 Paham",
+      "count": 14,
+      "pct": 63.6
+     },
+     {
+      "label": "5 Sangat paham",
+      "count": 1,
+      "pct": 4.5
+     }
+    ]
+   },
+   "k2_correct": 77.3,
+   "understand": [
+    {
+     "label": "Alur dan target milestone",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.14,
+     "pct_agree": 81.8,
+     "dist": [
+      0,
+      0,
+      4,
+      11,
+      7
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "SOP dan template laporan",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4,
+     "pct_agree": 77.3,
+     "dist": [
+      0,
+      0,
+      5,
+      12,
+      5
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik penilaian dan penerapannya",
+     "n": 22,
+     "n_all": 22,
+     "mean": 3.95,
+     "pct_agree": 63.6,
+     "dist": [
+      0,
+      1,
+      7,
+      6,
+      8
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Kontribusi mata kuliah terhadap proyek",
+     "n": 22,
+     "n_all": 22,
+     "mean": 4.45,
+     "pct_agree": 86.4,
+     "dist": [
+      0,
+      0,
+      3,
+      6,
+      13
+     ],
+     "cat": "Sangat baik"
+    }
+   ],
+   "activities": [
+    {
+     "label": "Mengaitkan materi dengan proyek",
+     "pct_oa": 77.3
+    },
+    {
+     "label": "Menyediakan waktu diskusi proyek",
+     "pct_oa": 81.8
+    },
+    {
+     "label": "Memeriksa progres proyek tim",
+     "pct_oa": 68.2
+    },
+    {
+     "label": "Memberi umpan balik proyek",
+     "pct_oa": 68.2
+    },
+    {
+     "label": "Membahas kendala teknis",
+     "pct_oa": 59.1
+    }
+   ],
+   "attendance": {
+    "n": 22,
+    "items": [
+     {
+      "label": "Hadir di semua review",
+      "count": 12,
+      "pct": 54.5
+     },
+     {
+      "label": "Hadir di sebagian review",
+      "count": 9,
+      "pct": 40.9
+     },
+     {
+      "label": "Tidak hadir",
+      "count": 1,
+      "pct": 4.5
+     }
+    ]
+   },
+   "consult_freq": {
+    "n": 22,
+    "items": [
+     {
+      "label": "0 kali",
+      "count": 3,
+      "pct": 13.6
+     },
+     {
+      "label": "1-2 kali",
+      "count": 11,
+      "pct": 50
+     },
+     {
+      "label": "3-5 kali",
+      "count": 7,
+      "pct": 31.8
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 1,
+      "pct": 4.5
+     }
+    ]
+   },
+   "align": [
+    {
+     "label": "RPS disesuaikan untuk mendukung PBL",
+     "n": 22,
+     "ya": 77.3,
+     "sebagian": 13.6,
+     "tidak": 4.5,
+     "tidak_tahu": 4.5
+    },
+    {
+     "label": "Urutan materi disesuaikan dengan milestone",
+     "n": 22,
+     "ya": 63.6,
+     "sebagian": 27.3,
+     "tidak": 9.1,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Contoh dan studi kasus memakai konteks proyek",
+     "n": 22,
+     "ya": 40.9,
+     "sebagian": 45.5,
+     "tidak": 13.6,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Tugas mata kuliah bagian dari deliverable proyek",
+     "n": 22,
+     "ya": 36.4,
+     "sebagian": 54.5,
+     "tidak": 9.1,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Rubrik tugas selaras dengan rubrik PBL",
+     "n": 22,
+     "ya": 54.5,
+     "sebagian": 36.4,
+     "tidak": 4.5,
+     "tidak_tahu": 4.5
+    },
+    {
+     "label": "Materi pendukung proyek tersedia di LMS",
+     "n": 22,
+     "ya": 59.1,
+     "sebagian": 18.2,
+     "tidak": 18.2,
+     "tidak_tahu": 4.5
+    },
+    {
+     "label": "Materi disesuaikan dengan kendala tim",
+     "n": 22,
+     "ya": 27.3,
+     "sebagian": 50,
+     "tidak": 22.7,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Materi/tugas dirancang bersama dosen lain",
+     "n": 22,
+     "ya": 50,
+     "sebagian": 31.8,
+     "tidak": 13.6,
+     "tidak_tahu": 4.5
+    }
+   ],
+   "explain_start": {
+    "n": 22,
+    "ya": 95.5,
+    "sebagian": 0,
+    "tidak": 4.5,
+    "tidak_tahu": 0
+   },
+   "share": {
+    "n": 22,
+    "items": [
+     {
+      "label": "Lebih dari 50%",
+      "count": 11,
+      "pct": 50
+     },
+     {
+      "label": "26-50%",
+      "count": 8,
+      "pct": 36.4
+     },
+     {
+      "label": "1-25%",
+      "count": 3,
+      "pct": 13.6
+     }
+    ]
+   },
+   "coord_freq": {
+    "n": 22,
+    "items": [
+     {
+      "label": "Tidak pernah",
+      "count": 4,
+      "pct": 18.2
+     },
+     {
+      "label": "1-2 kali",
+      "count": 13,
+      "pct": 59.1
+     },
+     {
+      "label": "3-5 kali",
+      "count": 3,
+      "pct": 13.6
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 2,
+      "pct": 9.1
+     }
+    ]
+   },
+   "wa": {
+    "n": 22,
+    "items": [
+     {
+      "label": "Membaca tetapi jarang menanggapi",
+      "count": 14,
+      "pct": 63.6
+     },
+     {
+      "label": "Kadang menanggapi atau berbagi informasi",
+      "count": 5,
+      "pct": 22.7
+     },
+     {
+      "label": "Jarang membuka",
+      "count": 2,
+      "pct": 9.1
+     },
+     {
+      "label": "Aktif menanggapi dan berbagi informasi",
+      "count": 1,
+      "pct": 4.5
+     }
+    ]
+   },
+   "meeting": {
+    "n": 22,
+    "items": [
+     {
+      "label": "Selalu hadir",
+      "count": 5,
+      "pct": 22.7
+     },
+     {
+      "label": "Hadir sebagian",
+      "count": 12,
+      "pct": 54.5
+     },
+     {
+      "label": "Tidak pernah hadir",
+      "count": 5,
+      "pct": 22.7
+     }
+    ]
+   },
+   "coord_yn": [
+    {
+     "label": "Mengetahui topik proyek setiap tim",
+     "n": 22,
+     "ya": 95.5,
+     "sebagian": 4.5,
+     "tidak": 0,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Mengetahui dosen lain di kelas yang sama",
+     "n": 22,
+     "ya": 63.6,
+     "sebagian": 27.3,
+     "tidak": 9.1,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Ada kesepakatan pembagian peran antar dosen",
+     "n": 22,
+     "ya": 18.2,
+     "sebagian": 31.8,
+     "tidak": 50,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Jelas dosen rujukan utama tim",
+     "n": 22,
+     "ya": 36.4,
+     "sebagian": 27.3,
+     "tidak": 36.4,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Dosen saling mengetahui perkembangan tim",
+     "n": 22,
+     "ya": 36.4,
+     "sebagian": 22.7,
+     "tidak": 18.2,
+     "tidak_tahu": 22.7
+    }
+   ],
+   "coord_lk": [
+    {
+     "label": "Menyelaraskan tenggat dengan dosen lain",
+     "pct_oa": 22.7,
+     "pct_never": 50
+    },
+    {
+     "label": "Menyelaraskan rubrik/penilaian dengan dosen lain",
+     "pct_oa": 18.2,
+     "pct_never": 50
+    },
+    {
+     "label": "Berbagi progres/kendala tim dengan dosen lain",
+     "pct_oa": 18.2,
+     "pct_never": 59.1
+    },
+    {
+     "label": "Membahas tim bermasalah bersama dosen lain",
+     "pct_oa": 18.2,
+     "pct_never": 59.1
+    },
+    {
+     "label": "Baru tahu kendala tim saat review milestone",
+     "pct_oa": 18.2,
+     "pct_never": 50
+    }
+   ],
+   "barriers": [
+    {
+     "label": "Beban mengajar dan administrasi lain",
+     "count": 16,
+     "pct": 72.7
+    },
+    {
+     "label": "Tidak ada jadwal rapat rutin",
+     "count": 16,
+     "pct": 72.7
+    },
+    {
+     "label": "Tidak ada pembagian peran yang jelas antar dosen dalam satu kelas",
+     "count": 9,
+     "pct": 40.9
+    },
+    {
+     "label": "Tidak tahu dosen lain yang mengampu kelas yang sama",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Diskusi di grup WhatsApp kurang terarah",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "material_barriers": [
+    {
+     "label": "Waktu persiapan terbatas",
+     "count": 8,
+     "pct": 36.4
+    },
+    {
+     "label": "Topik proyek antar tim terlalu beragam",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Kurang informasi tentang kebutuhan setiap milestone",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Capaian pembelajaran atau RPS sulit disesuaikan",
+     "count": 4,
+     "pct": 18.2
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Belum ada panduan atau contoh",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "best": [
+    {
+     "label": "SOP dan template laporan membantu",
+     "count": 14,
+     "pct": 63.6
+    },
+    {
+     "label": "Alur dan target milestone jelas",
+     "count": 14,
+     "pct": 63.6
+    },
+    {
+     "label": "Keselarasan materi kelas dengan proyek",
+     "count": 10,
+     "pct": 45.5
+    },
+    {
+     "label": "Perkembangan keterampilan mahasiswa",
+     "count": 6,
+     "pct": 27.3
+    },
+    {
+     "label": "Kerja sama tim mahasiswa",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Rubrik dan penilaian jelas dan adil",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Proses umpan balik kepada tim mahasiswa",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Keterlibatan mitra atau calon pengguna",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Fasilitas dan sumber daya",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Koordinasi antar dosen pengampu",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "improve": [
+    {
+     "label": "Koordinasi dan komunikasi antar dosen pengampu",
+     "count": 11,
+     "pct": 50
+    },
+    {
+     "label": "Pembagian peran antar dosen dalam satu kelas",
+     "count": 11,
+     "pct": 50
+    },
+    {
+     "label": "Kontribusi anggota tim mahasiswa tidak seimbang",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Beban mengampu dan membimbing PBL",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Keselarasan tugas dan penilaian antar-mata kuliah",
+     "count": 4,
+     "pct": 18.2
+    },
+    {
+     "label": "Koordinasi tim mahasiswa",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Waktu dan beban kerja mahasiswa",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Kejelasan ketentuan (SOP dan rubrik)",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Keterbatasan waktu untuk bimbingan atau umpan balik",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Penggunaan AI oleh mahasiswa",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Pemahaman materi oleh mahasiswa",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Mitra atau calon pengguna",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "support": [
+    {
+     "label": "Rapat koordinasi dosen rutin",
+     "count": 10,
+     "pct": 45.5
+    },
+    {
+     "label": "Pembagian peran dosen yang tertulis",
+     "count": 10,
+     "pct": 45.5
+    },
+    {
+     "label": "Panduan dan contoh penilaian",
+     "count": 9,
+     "pct": 40.9
+    },
+    {
+     "label": "PIC dosen per kelas",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Pelatihan PBL",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Pembaruan progres tim terjadwal di grup WhatsApp",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Penyesuaian beban kerja",
+     "count": 4,
+     "pct": 18.2
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "workload": {
+    "n": 22,
+    "items": [
+     {
+      "label": "2 Ringan",
+      "count": 2,
+      "pct": 9.1
+     },
+     {
+      "label": "3 Sesuai",
+      "count": 16,
+      "pct": 72.7
+     },
+     {
+      "label": "4 Berat",
+      "count": 4,
+      "pct": 18.2
+     },
+     {
+      "label": "5 Sangat berat",
+      "count": 0,
+      "pct": 0
+     }
+    ]
+   },
+   "workload_heavy_pct": 18.2,
+   "consult_resp": {
+    "n": 22,
+    "items": [
+     {
+      "label": "1-2 hari",
+      "count": 12,
+      "pct": 54.5
+     },
+     {
+      "label": "Kurang dari 1 hari",
+      "count": 9,
+      "pct": 40.9
+     },
+     {
+      "label": "3-7 hari",
+      "count": 1,
+      "pct": 4.5
+     }
+    ]
+   },
+   "consult_init": {
+    "n": 22,
+    "items": [
+     {
+      "label": "Keduanya",
+      "count": 14,
+      "pct": 63.6
+     },
+     {
+      "label": "Dosen",
+      "count": 5,
+      "pct": 22.7
+     },
+     {
+      "label": "Belum pernah ada konsultasi",
+      "count": 2,
+      "pct": 9.1
+     },
+     {
+      "label": "Mahasiswa",
+      "count": 1,
+      "pct": 4.5
+     }
+    ]
+   },
+   "types": [
+    {
+     "label": "Deliverable proyek PBL",
+     "count": 18,
+     "pct": 81.8
+    },
+    {
+     "label": "Latihan dengan konteks proyek",
+     "count": 10,
+     "pct": 45.5
+    },
+    {
+     "label": "Latihan umum yang tidak terkait proyek",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Kuis atau ujian",
+     "count": 6,
+     "pct": 27.3
+    }
+   ],
+   "sosialisasi": [
+    {
+     "label": "Sosialisasi PBL jurusan semester ini",
+     "count": 17,
+     "pct": 77.3
+    },
+    {
+     "label": "Sosialisasi PBL jurusan semester sebelumnya",
+     "count": 15,
+     "pct": 68.2
+    },
+    {
+     "label": "Belum pernah",
+     "count": 3,
+     "pct": 13.6
+    }
+   ],
+   "by_experience": [
+    {
+     "group": "Pertama kali mengampu PBL",
+     "n": 5,
+     "k1": 3.4,
+     "k2_correct": 100,
+     "ops_mean": 4.18,
+     "puas": 4.2
+    },
+    {
+     "group": "Sudah pernah mengampu PBL",
+     "n": 17,
+     "k1": 3.76,
+     "k2_correct": 70.6,
+     "ops_mean": 4.14,
+     "puas": 3.88
+    }
+   ],
+   "roster": 34,
+   "rate": 64.7
+  },
+  "gap": [
+   {
+    "group": "ops",
+    "label": "Alur dan target milestone dijelaskan jelas",
+    "mhs_mean": 3.66,
+    "dosen_mean": 4.14,
+    "mhs_agree": 63.8,
+    "dosen_agree": 81.8,
+    "gap": 0.48
+   },
+   {
+    "group": "ops",
+    "label": "SOP dan template laporan membantu",
+    "mhs_mean": 3.94,
+    "dosen_mean": 4.36,
+    "mhs_agree": 76.8,
+    "dosen_agree": 95.5,
+    "gap": 0.42
+   },
+   {
+    "group": "ops",
+    "label": "Jadwal dan tenggat milestone realistis",
+    "mhs_mean": 3.72,
+    "dosen_mean": 4.27,
+    "mhs_agree": 64.5,
+    "dosen_agree": 95.5,
+    "gap": 0.55
+   },
+   {
+    "group": "ops",
+    "label": "Bimbingan dosen memadai",
+    "mhs_mean": 3.77,
+    "dosen_mean": 4.27,
+    "mhs_agree": 68.9,
+    "dosen_agree": 95.5,
+    "gap": 0.5
+   },
+   {
+    "group": "ops",
+    "label": "Tugas dan penilaian antar-mata kuliah selaras",
+    "mhs_mean": 3.57,
+    "dosen_mean": 4,
+    "mhs_agree": 55.8,
+    "dosen_agree": 80,
+    "gap": 0.43
+   },
+   {
+    "group": "ops",
+    "label": "Rubrik dan kriteria penilaian jelas",
+    "mhs_mean": 3.67,
+    "dosen_mean": 4.05,
+    "mhs_agree": 58.5,
+    "dosen_agree": 77.3,
+    "gap": 0.38
+   },
+   {
+    "group": "ops",
+    "label": "Penilaian adil terhadap kontribusi anggota",
+    "mhs_mean": 3.65,
+    "dosen_mean": 4.32,
+    "mhs_agree": 57.1,
+    "dosen_agree": 95.5,
+    "gap": 0.67
+   },
+   {
+    "group": "ops",
+    "label": "Fasilitas dan sumber daya memadai",
+    "mhs_mean": 3.44,
+    "dosen_mean": 3.77,
+    "mhs_agree": 52.3,
+    "dosen_agree": 72.7,
+    "gap": 0.33
+   },
+   {
+    "group": "ben",
+    "label": "Meningkatkan keterampilan teknis",
+    "mhs_mean": 4.19,
+    "dosen_mean": 4.41,
+    "mhs_agree": 85.1,
+    "dosen_agree": 95.5,
+    "gap": 0.22
+   },
+   {
+    "group": "ben",
+    "label": "Meningkatkan kerja sama dan komunikasi",
+    "mhs_mean": 4.11,
+    "dosen_mean": 4.5,
+    "mhs_agree": 79.9,
+    "dosen_agree": 86.4,
+    "gap": 0.39
+   },
+   {
+    "group": "ben",
+    "label": "Lebih siap menghadapi dunia kerja",
+    "mhs_mean": 4.05,
+    "dosen_mean": 4.5,
+    "mhs_agree": 78,
+    "dosen_agree": 95.5,
+    "gap": 0.45
+   },
+   {
+    "group": "ben",
+    "label": "Puas dengan pelaksanaan PBL",
+    "mhs_mean": 3.48,
+    "dosen_mean": 3.95,
+    "mhs_agree": 48.6,
+    "dosen_agree": 72.7,
+    "gap": 0.47
+   },
+   {
+    "group": "ben",
+    "label": "Setuju PBL dilanjutkan",
+    "mhs_mean": 3.39,
+    "dosen_mean": 4.05,
+    "mhs_agree": 46.5,
+    "dosen_agree": 68.2,
+    "gap": 0.66
+   }
+  ]
+ },
+ "ti": {
+  "mhs": {
+   "n": 69,
+   "response": {
+    "sems": [
+     {
+      "label": "TI Semester 3",
+      "n": 44,
+      "roster": 248,
+      "rate": 17.7,
+      "classes": 9
+     },
+     {
+      "label": "TI Semester 5",
+      "n": 25,
+      "roster": 230,
+      "rate": 10.9,
+      "classes": 9
+     }
+    ],
+    "classes": [
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2A",
+      "n": 1,
+      "roster": 28,
+      "rate": 3.6
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2B",
+      "n": 26,
+      "roster": 28,
+      "rate": 92.9
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2C",
+      "n": 4,
+      "roster": 27,
+      "rate": 14.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2D",
+      "n": 0,
+      "roster": 27,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2E",
+      "n": 0,
+      "roster": 27,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2F",
+      "n": 3,
+      "roster": 27,
+      "rate": 11.1
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2G",
+      "n": 3,
+      "roster": 30,
+      "rate": 10
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2H",
+      "n": 3,
+      "roster": 27,
+      "rate": 11.1
+     },
+     {
+      "prodi": "TI",
+      "sem": 3,
+      "label": "TI-2I",
+      "n": 4,
+      "roster": 27,
+      "rate": 14.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3A",
+      "n": 0,
+      "roster": 26,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3B",
+      "n": 0,
+      "roster": 26,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3C",
+      "n": 8,
+      "roster": 26,
+      "rate": 30.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3D",
+      "n": 0,
+      "roster": 25,
+      "rate": 0
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3E",
+      "n": 1,
+      "roster": 26,
+      "rate": 3.8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3F",
+      "n": 5,
+      "roster": 26,
+      "rate": 19.2
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3G",
+      "n": 2,
+      "roster": 25,
+      "rate": 8
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3H",
+      "n": 4,
+      "roster": 26,
+      "rate": 15.4
+     },
+     {
+      "prodi": "TI",
+      "sem": 5,
+      "label": "TI-3I",
+      "n": 5,
+      "roster": 24,
+      "rate": 20.8
+     }
+    ],
+    "roster": 478,
+    "rate": 14.4
+   },
+   "ops": [
+    {
+     "label": "Alur dan target milestone dijelaskan jelas",
+     "n": 68,
+     "n_all": 69,
+     "mean": 3.66,
+     "pct_agree": 67.6,
+     "dist": [
+      2,
+      7,
+      13,
+      36,
+      10
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "n": 69,
+     "n_all": 69,
+     "mean": 3.91,
+     "pct_agree": 79.7,
+     "dist": [
+      4,
+      3,
+      7,
+      36,
+      19
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Jadwal dan tenggat milestone realistis",
+     "n": 66,
+     "n_all": 69,
+     "mean": 3.7,
+     "pct_agree": 71.2,
+     "dist": [
+      3,
+      3,
+      13,
+      39,
+      8
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Bimbingan dosen memadai",
+     "n": 69,
+     "n_all": 69,
+     "mean": 3.68,
+     "pct_agree": 66.7,
+     "dist": [
+      3,
+      6,
+      14,
+      33,
+      13
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Tugas dan penilaian antar-mata kuliah selaras",
+     "n": 65,
+     "n_all": 69,
+     "mean": 3.55,
+     "pct_agree": 53.8,
+     "dist": [
+      1,
+      5,
+      24,
+      27,
+      8
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik dan kriteria penilaian jelas",
+     "n": 67,
+     "n_all": 69,
+     "mean": 3.81,
+     "pct_agree": 67.2,
+     "dist": [
+      1,
+      3,
+      18,
+      31,
+      14
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Penilaian adil terhadap kontribusi anggota",
+     "n": 63,
+     "n_all": 69,
+     "mean": 3.7,
+     "pct_agree": 60.3,
+     "dist": [
+      2,
+      6,
+      17,
+      22,
+      16
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Fasilitas dan sumber daya memadai",
+     "n": 67,
+     "n_all": 69,
+     "mean": 3.42,
+     "pct_agree": 52.2,
+     "dist": [
+      4,
+      8,
+      20,
+      26,
+      9
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ben": [
+    {
+     "label": "Meningkatkan keterampilan teknis",
+     "n": 68,
+     "n_all": 69,
+     "mean": 4.18,
+     "pct_agree": 86.8,
+     "dist": [
+      1,
+      0,
+      8,
+      36,
+      23
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Meningkatkan kerja sama dan komunikasi",
+     "n": 68,
+     "n_all": 69,
+     "mean": 4,
+     "pct_agree": 76.5,
+     "dist": [
+      3,
+      0,
+      13,
+      30,
+      22
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Lebih siap menghadapi dunia kerja",
+     "n": 67,
+     "n_all": 69,
+     "mean": 4.04,
+     "pct_agree": 79.1,
+     "dist": [
+      1,
+      1,
+      12,
+      33,
+      20
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Puas dengan pelaksanaan PBL",
+     "n": 69,
+     "n_all": 69,
+     "mean": 3.48,
+     "pct_agree": 52.2,
+     "dist": [
+      3,
+      7,
+      23,
+      26,
+      10
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Setuju PBL dilanjutkan",
+     "n": 67,
+     "n_all": 69,
+     "mean": 3.52,
+     "pct_agree": 53.7,
+     "dist": [
+      6,
+      5,
+      20,
+      20,
+      16
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ops_mean": 3.68,
+   "ops_cat": "Baik",
+   "k1": {
+    "n": 69,
+    "items": [
+     {
+      "label": "2 Kurang paham",
+      "count": 3,
+      "pct": 4.3
+     },
+     {
+      "label": "3 Cukup paham",
+      "count": 19,
+      "pct": 27.5
+     },
+     {
+      "label": "4 Paham",
+      "count": 39,
+      "pct": 56.5
+     },
+     {
+      "label": "5 Sangat paham",
+      "count": 7,
+      "pct": 10.1
+     }
+    ]
+   },
+   "k1_mean": 3.7,
+   "k2_correct": 92.8,
+   "k3": {
+    "n": 69,
+    "items": [
+     {
+      "label": "Belum pernah",
+      "count": 41,
+      "pct": 59.4
+     },
+     {
+      "label": "1 semester",
+      "count": 2,
+      "pct": 2.9
+     },
+     {
+      "label": "2 semester",
+      "count": 17,
+      "pct": 24.6
+     },
+     {
+      "label": "3 semester atau lebih",
+      "count": 9,
+      "pct": 13
+     }
+    ]
+   },
+   "by_experience": [
+    {
+     "group": "Belum pernah",
+     "n": 41,
+     "ops_mean": 3.67,
+     "sat_mean": 3.44,
+     "sat_agree": 46.3,
+     "cont_mean": 3.38,
+     "cont_agree": 42.5,
+     "berat_pct": 34.1
+    },
+    {
+     "group": "Pernah",
+     "n": 28,
+     "ops_mean": 3.7,
+     "sat_mean": 3.54,
+     "sat_agree": 60.7,
+     "cont_mean": 3.74,
+     "cont_agree": 70.4,
+     "berat_pct": 39.3
+    }
+   ],
+   "consult_freq": {
+    "n": 69,
+    "items": [
+     {
+      "label": "0 kali",
+      "count": 15,
+      "pct": 21.7
+     },
+     {
+      "label": "1-2 kali",
+      "count": 27,
+      "pct": 39.1
+     },
+     {
+      "label": "3-5 kali",
+      "count": 23,
+      "pct": 33.3
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 4,
+      "pct": 5.8
+     }
+    ]
+   },
+   "consult_resp": {
+    "n": 69,
+    "items": [
+     {
+      "label": "Kurang dari 1 hari",
+      "count": 39,
+      "pct": 56.5
+     },
+     {
+      "label": "1-2 hari",
+      "count": 19,
+      "pct": 27.5
+     },
+     {
+      "label": "Belum pernah bertanya",
+      "count": 5,
+      "pct": 7.2
+     },
+     {
+      "label": "3-7 hari",
+      "count": 2,
+      "pct": 2.9
+     },
+     {
+      "label": "Lebih dari 1 minggu",
+      "count": 2,
+      "pct": 2.9
+     },
+     {
+      "label": "Tidak ditanggapi",
+      "count": 2,
+      "pct": 2.9
+     }
+    ]
+   },
+   "consult_init": {
+    "n": 69,
+    "items": [
+     {
+      "label": "Keduanya",
+      "count": 49,
+      "pct": 71
+     },
+     {
+      "label": "Mahasiswa",
+      "count": 11,
+      "pct": 15.9
+     },
+     {
+      "label": "Dosen",
+      "count": 6,
+      "pct": 8.7
+     },
+     {
+      "label": "Belum pernah ada konsultasi",
+      "count": 3,
+      "pct": 4.3
+     }
+    ]
+   },
+   "coord": [
+    {
+     "label": "Dosen antar mata kuliah mengetahui progres proyek",
+     "kind": "yn",
+     "n": 69,
+     "ya": 50.7,
+     "sebagian": 43.5,
+     "tidak": 2.9,
+     "tidak_tahu": 2.9
+    },
+    {
+     "label": "Arahan dosen antar mata kuliah konsisten",
+     "kind": "yn",
+     "n": 69,
+     "ya": 43.5,
+     "sebagian": 40.6,
+     "tidak": 13,
+     "tidak_tahu": 2.9
+    },
+    {
+     "label": "Tim tahu harus menghubungi dosen siapa",
+     "kind": "yn",
+     "n": 69,
+     "ya": 68.1,
+     "sebagian": 20.3,
+     "tidak": 7.2,
+     "tidak_tahu": 4.3
+    },
+    {
+     "label": "Tenggat antar mata kuliah bertabrakan",
+     "kind": "lk",
+     "pct_oa": 42,
+     "n": 69
+    },
+    {
+     "label": "Kendala tim baru diketahui dosen saat review",
+     "kind": "lk",
+     "pct_oa": 31.9,
+     "n": 69
+    }
+   ],
+   "best": [
+    {
+     "label": "Pengalaman dan keterampilan baru yang saya peroleh",
+     "count": 42,
+     "pct": 60.9
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "count": 25,
+     "pct": 36.2
+    },
+    {
+     "label": "Alur dan target milestone jelas",
+     "count": 22,
+     "pct": 31.9
+    },
+    {
+     "label": "Kerja sama tim",
+     "count": 22,
+     "pct": 31.9
+    },
+    {
+     "label": "Bimbingan dosen",
+     "count": 21,
+     "pct": 30.4
+    },
+    {
+     "label": "Umpan balik dosen",
+     "count": 18,
+     "pct": 26.1
+    },
+    {
+     "label": "Materi kelas mendukung proyek",
+     "count": 15,
+     "pct": 21.7
+    },
+    {
+     "label": "Rubrik dan penilaian jelas dan adil",
+     "count": 9,
+     "pct": 13
+    },
+    {
+     "label": "Belum ada yang menonjol",
+     "count": 6,
+     "pct": 8.7
+    },
+    {
+     "label": "Keterlibatan mitra atau calon pengguna",
+     "count": 4,
+     "pct": 5.8
+    },
+    {
+     "label": "Koordinasi antar dosen",
+     "count": 4,
+     "pct": 5.8
+    },
+    {
+     "label": "Fasilitas dan sumber daya",
+     "count": 1,
+     "pct": 1.4
+    }
+   ],
+   "improve": [
+    {
+     "label": "Kontribusi anggota tim tidak seimbang",
+     "count": 32,
+     "pct": 46.4
+    },
+    {
+     "label": "Waktu dan beban kerja",
+     "count": 29,
+     "pct": 42
+    },
+    {
+     "label": "Koordinasi tim",
+     "count": 26,
+     "pct": 37.7
+    },
+    {
+     "label": "Kendala teknis (teknologi, kode, bug)",
+     "count": 17,
+     "pct": 24.6
+    },
+    {
+     "label": "Pemahaman materi",
+     "count": 16,
+     "pct": 23.2
+    },
+    {
+     "label": "Keselarasan tugas antar-mata kuliah",
+     "count": 13,
+     "pct": 18.8
+    },
+    {
+     "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+     "count": 13,
+     "pct": 18.8
+    },
+    {
+     "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+     "count": 11,
+     "pct": 15.9
+    },
+    {
+     "label": "Kejelasan ketentuan (SOP dan rubrik)",
+     "count": 10,
+     "pct": 14.5
+    },
+    {
+     "label": "Tidak ada masalah berarti",
+     "count": 7,
+     "pct": 10.1
+    },
+    {
+     "label": "Bimbingan atau umpan balik dosen",
+     "count": 6,
+     "pct": 8.7
+    },
+    {
+     "label": "Penggunaan AI",
+     "count": 3,
+     "pct": 4.3
+    },
+    {
+     "label": "Mitra atau calon pengguna",
+     "count": 2,
+     "pct": 2.9
+    },
+    {
+     "label": "Lainnya",
+     "count": 2,
+     "pct": 2.9
+    }
+   ],
+   "material": [
+    {
+     "label": "Tugas mata kuliah menambah beban di luar proyek",
+     "count": 50,
+     "pct": 72.5
+    },
+    {
+     "label": "Materi pendukung kurang",
+     "count": 23,
+     "pct": 33.3
+    },
+    {
+     "label": "Materi terlambat dibanding kebutuhan milestone",
+     "count": 16,
+     "pct": 23.2
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 9,
+     "pct": 13
+    },
+    {
+     "label": "Materi kurang relevan dengan proyek",
+     "count": 7,
+     "pct": 10.1
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 1.4
+    }
+   ],
+   "workload": {
+    "n": 69,
+    "items": [
+     {
+      "label": "2 Ringan",
+      "count": 0,
+      "pct": 0
+     },
+     {
+      "label": "3 Sesuai",
+      "count": 44,
+      "pct": 63.8
+     },
+     {
+      "label": "4 Berat",
+      "count": 22,
+      "pct": 31.9
+     },
+     {
+      "label": "5 Sangat berat",
+      "count": 3,
+      "pct": 4.3
+     }
+    ]
+   },
+   "workload_heavy_pct": 36.2,
+   "courses": [
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Manajemen Proyek",
+     "n": 44,
+     "acts": [
+      79.5,
+      52.3,
+      54.5,
+      56.8,
+      52.3
+     ],
+     "acts_mean": 59.1,
+     "bc_ya": [
+      70.5,
+      54.5,
+      72.7,
+      72.7,
+      81.8,
+      52.3,
+      50,
+      65.9,
+      86.4
+     ],
+     "bc_ya_mean": 67.4,
+     "bc_tidak_mean": 5.5,
+     "att_all": 63.6,
+     "att_n": 44,
+     "expl_ya": 93.2,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 31,
+       "pct": 70.5
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 7,
+       "pct": 15.9
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 9.1
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      }
+     ],
+     "share_not_stated": 20.5,
+     "share_over50": 34.1
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Desain dan Pemrograman Web",
+     "n": 44,
+     "acts": [
+      75,
+      79.5,
+      86.4,
+      81.8,
+      79.5
+     ],
+     "acts_mean": 80.4,
+     "bc_ya": [
+      68.2,
+      72.7,
+      45.5,
+      40.9,
+      59.1,
+      52.3,
+      36.4,
+      61.4,
+      79.5
+     ],
+     "bc_ya_mean": 57.3,
+     "bc_tidak_mean": 7.1,
+     "att_all": 81.8,
+     "att_n": 44,
+     "expl_ya": 95.5,
+     "type": [
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 18,
+       "pct": 40.9
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 13,
+       "pct": 29.5
+      },
+      {
+       "label": "Latihan umum",
+       "count": 10,
+       "pct": 22.7
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 2.3
+      }
+     ],
+     "share_not_stated": 18.2,
+     "share_over50": 22.7
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Basis Data Lanjut",
+     "n": 44,
+     "acts": [
+      79.5,
+      59.1,
+      65.9,
+      68.2,
+      59.1
+     ],
+     "acts_mean": 66.4,
+     "bc_ya": [
+      75,
+      68.2,
+      65.9,
+      45.5,
+      61.4,
+      65.9,
+      52.3,
+      70.5,
+      77.3
+     ],
+     "bc_ya_mean": 64.7,
+     "bc_tidak_mean": 8.1,
+     "att_all": 68.2,
+     "att_n": 44,
+     "expl_ya": 90.9,
+     "type": [
+      {
+       "label": "Latihan umum",
+       "count": 16,
+       "pct": 36.4
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 12,
+       "pct": 27.3
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 8,
+       "pct": 18.2
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 6,
+       "pct": 13.6
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      }
+     ],
+     "share_not_stated": 15.9,
+     "share_over50": 34.1
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Sistem Informasi Manajemen",
+     "n": 44,
+     "acts": [
+      65.9,
+      56.8,
+      61.4,
+      59.1,
+      59.1
+     ],
+     "acts_mean": 60.5,
+     "bc_ya": [
+      65.9,
+      50,
+      50,
+      56.8,
+      63.6,
+      43.2,
+      52.3,
+      68.2,
+      81.8
+     ],
+     "bc_ya_mean": 59.1,
+     "bc_tidak_mean": 10.6,
+     "att_all": 68.2,
+     "att_n": 44,
+     "expl_ya": 81.8,
+     "type": [
+      {
+       "label": "Latihan umum",
+       "count": 16,
+       "pct": 36.4
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 14,
+       "pct": 31.8
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 8,
+       "pct": 18.2
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 4,
+       "pct": 9.1
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 2,
+       "pct": 4.5
+      }
+     ],
+     "share_not_stated": 18.2,
+     "share_over50": 27.3
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pemrograman Mobile",
+     "n": 25,
+     "acts": [
+      80,
+      68,
+      76,
+      76,
+      68
+     ],
+     "acts_mean": 73.6,
+     "bc_ya": [
+      80,
+      48,
+      36,
+      32,
+      48,
+      52,
+      40,
+      44,
+      92
+     ],
+     "bc_ya_mean": 52.4,
+     "bc_tidak_mean": 9.8,
+     "att_all": 76,
+     "att_n": 25,
+     "expl_ya": 100,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 11,
+       "pct": 44
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 9,
+       "pct": 36
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 16
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 4
+      }
+     ],
+     "share_not_stated": 20,
+     "share_over50": 48
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pembelajaran Mesin",
+     "n": 25,
+     "acts": [
+      80,
+      80,
+      76,
+      76,
+      76
+     ],
+     "acts_mean": 77.6,
+     "bc_ya": [
+      72,
+      64,
+      64,
+      48,
+      60,
+      76,
+      68,
+      68,
+      88
+     ],
+     "bc_ya_mean": 67.6,
+     "bc_tidak_mean": 7.6,
+     "att_all": 80,
+     "att_n": 25,
+     "expl_ya": 96,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 12,
+       "pct": 48
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 9,
+       "pct": 36
+      },
+      {
+       "label": "Latihan umum",
+       "count": 3,
+       "pct": 12
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 4
+      }
+     ],
+     "share_not_stated": 24,
+     "share_over50": 32
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak",
+     "n": 25,
+     "acts": [
+      32,
+      32,
+      24,
+      20,
+      20
+     ],
+     "acts_mean": 25.6,
+     "bc_ya": [
+      48,
+      20,
+      36,
+      44,
+      40,
+      20,
+      16,
+      32,
+      48
+     ],
+     "bc_ya_mean": 33.8,
+     "bc_tidak_mean": 12,
+     "att_all": 40,
+     "att_n": 25,
+     "expl_ya": 84,
+     "type": [
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 10,
+       "pct": 40
+      },
+      {
+       "label": "Latihan umum",
+       "count": 7,
+       "pct": 28
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 4,
+       "pct": 16
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 3,
+       "pct": 12
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 4
+      }
+     ],
+     "share_not_stated": 28,
+     "share_over50": 20
+    }
+   ],
+   "act_labels": [
+    "Mengaitkan materi dengan proyek",
+    "Menyediakan waktu diskusi proyek",
+    "Memeriksa progres proyek tim",
+    "Memberi umpan balik proyek",
+    "Membahas kendala teknis"
+   ],
+   "bc_labels": [
+    "Kontrak kuliah memuat kaitan dengan proyek",
+    "Materi diberikan sebelum dibutuhkan milestone",
+    "Contoh dan studi kasus berkaitan dengan proyek",
+    "Tugas bagian dari proyek, bukan tugas tambahan",
+    "Kriteria penilaian tugas sejalan dengan proyek",
+    "Materi pendukung tersedia di LMS",
+    "Materi disesuaikan saat tim mengalami kendala",
+    "Materi terhubung dengan mata kuliah lain",
+    "Dosen mengetahui topik proyek tim"
+   ],
+   "monitored": {
+    "classes": [
+     "TI-2B"
+    ],
+    "enf": {
+     "n": 26,
+     "roster": 28,
+     "rate": 92.9,
+     "n_classes": 1,
+     "stats": {
+      "n": 26,
+      "ops_mean": 3.69,
+      "puas": 3.54,
+      "lanjut": 3.4,
+      "adil": 3.74,
+      "fasilitas": 3.28,
+      "berat": 42.3,
+      "konsisten": 46.2,
+      "top": [
+       {
+        "label": "Kontribusi anggota tim tidak seimbang",
+        "pct": 50
+       },
+       {
+        "label": "Koordinasi tim",
+        "pct": 42.3
+       },
+       {
+        "label": "Pemahaman materi",
+        "pct": 42.3
+       }
+      ]
+     }
+    },
+    "oth": {
+     "n": 43,
+     "roster": 450,
+     "rate": 9.6,
+     "n_classes": 17,
+     "stats": {
+      "n": 43,
+      "ops_mean": 3.67,
+      "puas": 3.44,
+      "lanjut": 3.6,
+      "adil": 3.67,
+      "fasilitas": 3.5,
+      "berat": 32.6,
+      "konsisten": 41.9,
+      "top": [
+       {
+        "label": "Waktu dan beban kerja",
+        "pct": 48.8
+       },
+       {
+        "label": "Kontribusi anggota tim tidak seimbang",
+        "pct": 44.2
+       },
+       {
+        "label": "Koordinasi tim",
+        "pct": 34.9
+       }
+      ]
+     }
+    },
+    "share_enf": 37.7
+   },
+   "aspek": [
+    {
+     "code": "A",
+     "name": "Pelaksanaan PBL",
+     "items": [
+      "Alur dan target milestone dijelaskan jelas",
+      "SOP dan template laporan membantu",
+      "Jadwal dan tenggat milestone realistis",
+      "Bimbingan dosen memadai"
+     ],
+     "mhs_mean": 3.74,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4.35,
+     "dosen_cat": "Sangat baik",
+     "problem_pct": 24.6,
+     "problems": [
+      {
+       "label": "Kendala teknis (teknologi, kode, bug)",
+       "pct": 24.6
+      },
+      {
+       "label": "Mitra atau calon pengguna",
+       "pct": 2.9
+      }
+     ]
+    },
+    {
+     "code": "B",
+     "name": "Integrasi antar-mata kuliah",
+     "items": [
+      "Tugas dan penilaian antar-mata kuliah selaras"
+     ],
+     "mhs_mean": 3.55,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4.12,
+     "dosen_cat": "Baik",
+     "problem_pct": 53.6,
+     "problems": [
+      {
+       "label": "Pemahaman materi",
+       "pct": 23.2
+      },
+      {
+       "label": "Keselarasan tugas antar-mata kuliah",
+       "pct": 18.8
+      },
+      {
+       "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+       "pct": 18.8
+      },
+      {
+       "label": "Tidak jelas dosen yang menjadi rujukan tim",
+       "pct": 0
+      }
+     ]
+    },
+    {
+     "code": "C",
+     "name": "Penilaian dan umpan balik",
+     "items": [
+      "Rubrik dan kriteria penilaian jelas",
+      "Penilaian adil terhadap kontribusi anggota"
+     ],
+     "mhs_mean": 3.75,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4.29,
+     "dosen_cat": "Sangat baik",
+     "problem_pct": 20.3,
+     "problems": [
+      {
+       "label": "Kejelasan ketentuan (SOP dan rubrik)",
+       "pct": 14.5
+      },
+      {
+       "label": "Bimbingan atau umpan balik dosen",
+       "pct": 8.7
+      }
+     ]
+    },
+    {
+     "code": "D",
+     "name": "Kolaborasi, beban, dan dukungan",
+     "items": [
+      "Fasilitas dan sumber daya memadai"
+     ],
+     "mhs_mean": 3.42,
+     "mhs_cat": "Baik",
+     "dosen_mean": 3.88,
+     "dosen_cat": "Baik",
+     "problem_pct": 79.7,
+     "problems": [
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 46.4
+      },
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 42
+      },
+      {
+       "label": "Koordinasi tim",
+       "pct": 37.7
+      },
+      {
+       "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+       "pct": 15.9
+      },
+      {
+       "label": "Penggunaan AI",
+       "pct": 4.3
+      }
+     ]
+    }
+   ],
+   "dua_sisi": [
+    {
+     "aspek": "SOP dan template",
+     "baik": 36.2,
+     "masalah": 14.5,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Rubrik dan penilaian",
+     "baik": 13,
+     "masalah": 14.5,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Bimbingan dosen",
+     "baik": 30.4,
+     "masalah": 8.7,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Umpan balik dosen",
+     "baik": 26.1,
+     "masalah": 8.7,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Materi dan tugas",
+     "baik": 21.7,
+     "masalah": 18.8,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Kerja sama tim",
+     "baik": 31.9,
+     "masalah": 46.4,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Fasilitas",
+     "baik": 1.4,
+     "masalah": 15.9,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Mitra atau calon pengguna",
+     "baik": 5.8,
+     "masalah": 2.9,
+     "dua_sisi": false
+    }
+   ],
+   "drivers": {
+    "corr": [
+     {
+      "label": "Rubrik dan kriteria penilaian jelas",
+      "r_puas": 0.53,
+      "r_lanjut": 0.52
+     },
+     {
+      "label": "Penilaian adil terhadap kontribusi anggota",
+      "r_puas": 0.53,
+      "r_lanjut": 0.31
+     },
+     {
+      "label": "Fasilitas dan sumber daya memadai",
+      "r_puas": 0.51,
+      "r_lanjut": 0.51
+     },
+     {
+      "label": "Tugas dan penilaian antar-mata kuliah selaras",
+      "r_puas": 0.44,
+      "r_lanjut": 0.4
+     },
+     {
+      "label": "Jadwal dan tenggat milestone realistis",
+      "r_puas": 0.37,
+      "r_lanjut": 0.37
+     },
+     {
+      "label": "Bimbingan dosen memadai",
+      "r_puas": 0.36,
+      "r_lanjut": 0.14
+     },
+     {
+      "label": "Alur dan target milestone dijelaskan jelas",
+      "r_puas": 0.34,
+      "r_lanjut": 0.23
+     },
+     {
+      "label": "SOP dan template laporan membantu",
+      "r_puas": 0.15,
+      "r_lanjut": 0.01
+     }
+    ],
+    "cross": [
+     {
+      "factor": "Beban PBL dibanding waktu tersedia",
+      "groups": [
+       {
+        "label": "Berat atau sangat berat",
+        "n": 25,
+        "puas": 3,
+        "lanjut": 2.87
+       },
+       {
+        "label": "Ringan atau sesuai",
+        "n": 44,
+        "puas": 3.75,
+        "lanjut": 3.86
+       }
+      ]
+     },
+     {
+      "factor": "Konsultasi dengan dosen di luar jam kuliah",
+      "groups": [
+       {
+        "label": "Pernah",
+        "n": 54,
+        "puas": 3.39,
+        "lanjut": 3.38
+       },
+       {
+        "label": "Belum pernah",
+        "n": 15,
+        "puas": 3.8,
+        "lanjut": 4
+       }
+      ]
+     },
+     {
+      "factor": "Arahan dosen antar mata kuliah konsisten",
+      "groups": [
+       {
+        "label": "Ya",
+        "n": 30,
+        "puas": 3.57,
+        "lanjut": 3.72
+       },
+       {
+        "label": "Sebagian atau tidak",
+        "n": 39,
+        "puas": 3.41,
+        "lanjut": 3.37
+       }
+      ]
+     },
+     {
+      "factor": "Tim tahu harus menghubungi dosen siapa",
+      "groups": [
+       {
+        "label": "Ya",
+        "n": 47,
+        "puas": 3.53,
+        "lanjut": 3.64
+       },
+       {
+        "label": "Sebagian atau tidak",
+        "n": 22,
+        "puas": 3.36,
+        "lanjut": 3.27
+       }
+      ]
+     },
+     {
+      "factor": "Dosen antar mata kuliah mengetahui progres proyek",
+      "groups": [
+       {
+        "label": "Sebagian atau tidak",
+        "n": 34,
+        "puas": 3.35,
+        "lanjut": 3.27
+       },
+       {
+        "label": "Ya",
+        "n": 35,
+        "puas": 3.6,
+        "lanjut": 3.76
+       }
+      ]
+     }
+    ]
+   },
+   "sem_stats": [
+    {
+     "label": "TI Semester 3",
+     "n": 44,
+     "ops_mean": 3.65,
+     "puas": 3.52,
+     "lanjut": 3.47,
+     "adil": 3.63,
+     "fasilitas": 3.42,
+     "berat": 31.8,
+     "konsisten": 45.5,
+     "top": [
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 54.5
+      },
+      {
+       "label": "Koordinasi tim",
+       "pct": 43.2
+      },
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 36.4
+      }
+     ]
+    },
+    {
+     "label": "TI Semester 5",
+     "n": 25,
+     "ops_mean": 3.73,
+     "puas": 3.4,
+     "lanjut": 3.62,
+     "adil": 3.82,
+     "fasilitas": 3.42,
+     "berat": 44,
+     "konsisten": 40,
+     "top": [
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 52
+      },
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 32
+      },
+      {
+       "label": "Keselarasan tugas antar-mata kuliah",
+       "pct": 28
+      }
+     ]
+    }
+   ],
+   "pooled": {
+    "bc": [
+     {
+      "label": "Kontrak kuliah memuat kaitan dengan proyek",
+      "ya": 68.9,
+      "sebagian": 28.7,
+      "tidak": 2.4
+     },
+     {
+      "label": "Materi diberikan sebelum dibutuhkan milestone",
+      "ya": 56.2,
+      "sebagian": 36.3,
+      "tidak": 6.8
+     },
+     {
+      "label": "Contoh dan studi kasus berkaitan dengan proyek",
+      "ya": 54.6,
+      "sebagian": 37.5,
+      "tidak": 6.4
+     },
+     {
+      "label": "Tugas bagian dari proyek, bukan tugas tambahan",
+      "ya": 50.2,
+      "sebagian": 30.3,
+      "tidak": 17.1
+     },
+     {
+      "label": "Kriteria penilaian tugas sejalan dengan proyek",
+      "ya": 61.4,
+      "sebagian": 25.1,
+      "tidak": 6.8
+     },
+     {
+      "label": "Materi pendukung tersedia di LMS",
+      "ya": 52.2,
+      "sebagian": 35.9,
+      "tidak": 12
+     },
+     {
+      "label": "Materi disesuaikan saat tim mengalami kendala",
+      "ya": 45.8,
+      "sebagian": 39.4,
+      "tidak": 13.9
+     },
+     {
+      "label": "Materi terhubung dengan mata kuliah lain",
+      "ya": 61,
+      "sebagian": 29.9,
+      "tidak": 8
+     },
+     {
+      "label": "Dosen mengetahui topik proyek tim",
+      "ya": 79.7,
+      "sebagian": 14.3,
+      "tidak": 2.4
+     }
+    ],
+    "acts": [
+     {
+      "label": "Mengaitkan materi dengan proyek",
+      "pct_oa": 71.7
+     },
+     {
+      "label": "Menyediakan waktu diskusi proyek",
+      "pct_oa": 61.4
+     },
+     {
+      "label": "Memeriksa progres proyek tim",
+      "pct_oa": 64.5
+     },
+     {
+      "label": "Memberi umpan balik proyek",
+      "pct_oa": 63.7
+     },
+     {
+      "label": "Membahas kendala teknis",
+      "pct_oa": 60.2
+     }
+    ],
+    "type": [
+     {
+      "label": "Deliverable proyek",
+      "pct": 36.7
+     },
+     {
+      "label": "Latihan dengan konteks proyek",
+      "pct": 29.1
+     },
+     {
+      "label": "Latihan umum",
+      "pct": 23.9
+     },
+     {
+      "label": "Kuis atau ujian",
+      "pct": 6.8
+     },
+     {
+      "label": "Tidak tahu",
+      "pct": 3.6
+     }
+    ],
+    "share": [
+     {
+      "label": "26-50%",
+      "pct": 41.2
+     },
+     {
+      "label": "> 50%",
+      "pct": 30.8
+     },
+     {
+      "label": "Tidak disampaikan",
+      "pct": 20
+     },
+     {
+      "label": "1-25%",
+      "pct": 8
+     }
+    ],
+    "n": 251
+   }
+  },
+  "dosen": {
+   "n": 17,
+   "ops": [
+    {
+     "label": "Alur dan target milestone dijelaskan jelas",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.29,
+     "pct_agree": 94.1,
+     "dist": [
+      0,
+      0,
+      1,
+      10,
+      6
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.41,
+     "pct_agree": 100,
+     "dist": [
+      0,
+      0,
+      0,
+      10,
+      7
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Jadwal dan tenggat milestone realistis",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.41,
+     "pct_agree": 100,
+     "dist": [
+      0,
+      0,
+      0,
+      10,
+      7
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Bimbingan dosen memadai",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.29,
+     "pct_agree": 94.1,
+     "dist": [
+      0,
+      0,
+      1,
+      10,
+      6
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Tugas dan penilaian antar-mata kuliah selaras",
+     "n": 16,
+     "n_all": 17,
+     "mean": 4.12,
+     "pct_agree": 87.5,
+     "dist": [
+      0,
+      0,
+      2,
+      10,
+      4
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik dan kriteria penilaian jelas",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.29,
+     "pct_agree": 88.2,
+     "dist": [
+      0,
+      0,
+      2,
+      8,
+      7
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Penilaian adil terhadap kontribusi anggota",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.29,
+     "pct_agree": 94.1,
+     "dist": [
+      0,
+      0,
+      1,
+      10,
+      6
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Fasilitas dan sumber daya memadai",
+     "n": 17,
+     "n_all": 17,
+     "mean": 3.88,
+     "pct_agree": 76.5,
+     "dist": [
+      0,
+      0,
+      4,
+      11,
+      2
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ben": [
+    {
+     "label": "Meningkatkan keterampilan teknis",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.41,
+     "pct_agree": 94.1,
+     "dist": [
+      0,
+      0,
+      1,
+      8,
+      8
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Meningkatkan kerja sama dan komunikasi",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.47,
+     "pct_agree": 88.2,
+     "dist": [
+      0,
+      0,
+      2,
+      5,
+      10
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Lebih siap menghadapi dunia kerja",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.53,
+     "pct_agree": 94.1,
+     "dist": [
+      0,
+      0,
+      1,
+      6,
+      10
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Puas dengan pelaksanaan PBL",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.06,
+     "pct_agree": 76.5,
+     "dist": [
+      0,
+      1,
+      3,
+      7,
+      6
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Setuju PBL dilanjutkan",
+     "n": 17,
+     "n_all": 17,
+     "mean": 3.94,
+     "pct_agree": 64.7,
+     "dist": [
+      0,
+      1,
+      5,
+      5,
+      6
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ops_extra": [
+    {
+     "label": "Komunikasi antar dosen aktif",
+     "n": 15,
+     "n_all": 17,
+     "mean": 3.13,
+     "pct_agree": 26.7,
+     "dist": [
+      0,
+      3,
+      8,
+      3,
+      1
+     ],
+     "cat": "Cukup"
+    },
+    {
+     "label": "Grup WhatsApp dosen efektif",
+     "n": 17,
+     "n_all": 17,
+     "mean": 3.59,
+     "pct_agree": 58.8,
+     "dist": [
+      0,
+      2,
+      5,
+      8,
+      2
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Informasi koordinator jelas dan tepat waktu",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.35,
+     "pct_agree": 88.2,
+     "dist": [
+      0,
+      1,
+      1,
+      6,
+      9
+     ],
+     "cat": "Sangat baik"
+    }
+   ],
+   "ops_mean": 4.25,
+   "ops_cat": "Sangat baik",
+   "experience": {
+    "n": 17,
+    "items": [
+     {
+      "label": "Sudah pernah mengampu PBL sebelumnya",
+      "count": 13,
+      "pct": 76.5
+     },
+     {
+      "label": "Pertama kali mengampu PBL",
+      "count": 4,
+      "pct": 23.5
+     }
+    ]
+   },
+   "k1": {
+    "n": 17,
+    "items": [
+     {
+      "label": "2 Kurang paham",
+      "count": 0,
+      "pct": 0
+     },
+     {
+      "label": "3 Cukup paham",
+      "count": 5,
+      "pct": 29.4
+     },
+     {
+      "label": "4 Paham",
+      "count": 11,
+      "pct": 64.7
+     },
+     {
+      "label": "5 Sangat paham",
+      "count": 1,
+      "pct": 5.9
+     }
+    ]
+   },
+   "k2_correct": 82.4,
+   "understand": [
+    {
+     "label": "Alur dan target milestone",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.29,
+     "pct_agree": 88.2,
+     "dist": [
+      0,
+      0,
+      2,
+      8,
+      7
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "SOP dan template laporan",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.12,
+     "pct_agree": 82.4,
+     "dist": [
+      0,
+      0,
+      3,
+      9,
+      5
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik penilaian dan penerapannya",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.06,
+     "pct_agree": 64.7,
+     "dist": [
+      0,
+      1,
+      5,
+      3,
+      8
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Kontribusi mata kuliah terhadap proyek",
+     "n": 17,
+     "n_all": 17,
+     "mean": 4.47,
+     "pct_agree": 88.2,
+     "dist": [
+      0,
+      0,
+      2,
+      5,
+      10
+     ],
+     "cat": "Sangat baik"
+    }
+   ],
+   "activities": [
+    {
+     "label": "Mengaitkan materi dengan proyek",
+     "pct_oa": 82.4
+    },
+    {
+     "label": "Menyediakan waktu diskusi proyek",
+     "pct_oa": 82.4
+    },
+    {
+     "label": "Memeriksa progres proyek tim",
+     "pct_oa": 70.6
+    },
+    {
+     "label": "Memberi umpan balik proyek",
+     "pct_oa": 70.6
+    },
+    {
+     "label": "Membahas kendala teknis",
+     "pct_oa": 52.9
+    }
+   ],
+   "attendance": {
+    "n": 17,
+    "items": [
+     {
+      "label": "Hadir di sebagian review",
+      "count": 8,
+      "pct": 47.1
+     },
+     {
+      "label": "Hadir di semua review",
+      "count": 8,
+      "pct": 47.1
+     },
+     {
+      "label": "Tidak hadir",
+      "count": 1,
+      "pct": 5.9
+     }
+    ]
+   },
+   "consult_freq": {
+    "n": 17,
+    "items": [
+     {
+      "label": "0 kali",
+      "count": 3,
+      "pct": 17.6
+     },
+     {
+      "label": "1-2 kali",
+      "count": 8,
+      "pct": 47.1
+     },
+     {
+      "label": "3-5 kali",
+      "count": 6,
+      "pct": 35.3
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 0,
+      "pct": 0
+     }
+    ]
+   },
+   "align": [
+    {
+     "label": "RPS disesuaikan untuk mendukung PBL",
+     "n": 17,
+     "ya": 76.5,
+     "sebagian": 11.8,
+     "tidak": 5.9,
+     "tidak_tahu": 5.9
+    },
+    {
+     "label": "Urutan materi disesuaikan dengan milestone",
+     "n": 17,
+     "ya": 64.7,
+     "sebagian": 29.4,
+     "tidak": 5.9,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Contoh dan studi kasus memakai konteks proyek",
+     "n": 17,
+     "ya": 52.9,
+     "sebagian": 35.3,
+     "tidak": 11.8,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Tugas mata kuliah bagian dari deliverable proyek",
+     "n": 17,
+     "ya": 35.3,
+     "sebagian": 58.8,
+     "tidak": 5.9,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Rubrik tugas selaras dengan rubrik PBL",
+     "n": 17,
+     "ya": 47.1,
+     "sebagian": 41.2,
+     "tidak": 5.9,
+     "tidak_tahu": 5.9
+    },
+    {
+     "label": "Materi pendukung proyek tersedia di LMS",
+     "n": 17,
+     "ya": 64.7,
+     "sebagian": 11.8,
+     "tidak": 17.6,
+     "tidak_tahu": 5.9
+    },
+    {
+     "label": "Materi disesuaikan dengan kendala tim",
+     "n": 17,
+     "ya": 23.5,
+     "sebagian": 47.1,
+     "tidak": 29.4,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Materi/tugas dirancang bersama dosen lain",
+     "n": 17,
+     "ya": 47.1,
+     "sebagian": 35.3,
+     "tidak": 11.8,
+     "tidak_tahu": 5.9
+    }
+   ],
+   "explain_start": {
+    "n": 17,
+    "ya": 94.1,
+    "sebagian": 0,
+    "tidak": 5.9,
+    "tidak_tahu": 0
+   },
+   "share": {
+    "n": 17,
+    "items": [
+     {
+      "label": "Lebih dari 50%",
+      "count": 9,
+      "pct": 52.9
+     },
+     {
+      "label": "26-50%",
+      "count": 5,
+      "pct": 29.4
+     },
+     {
+      "label": "1-25%",
+      "count": 3,
+      "pct": 17.6
+     }
+    ]
+   },
+   "coord_freq": {
+    "n": 17,
+    "items": [
+     {
+      "label": "Tidak pernah",
+      "count": 2,
+      "pct": 11.8
+     },
+     {
+      "label": "1-2 kali",
+      "count": 10,
+      "pct": 58.8
+     },
+     {
+      "label": "3-5 kali",
+      "count": 3,
+      "pct": 17.6
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 2,
+      "pct": 11.8
+     }
+    ]
+   },
+   "wa": {
+    "n": 17,
+    "items": [
+     {
+      "label": "Membaca tetapi jarang menanggapi",
+      "count": 9,
+      "pct": 52.9
+     },
+     {
+      "label": "Kadang menanggapi atau berbagi informasi",
+      "count": 5,
+      "pct": 29.4
+     },
+     {
+      "label": "Jarang membuka",
+      "count": 2,
+      "pct": 11.8
+     },
+     {
+      "label": "Aktif menanggapi dan berbagi informasi",
+      "count": 1,
+      "pct": 5.9
+     }
+    ]
+   },
+   "meeting": {
+    "n": 17,
+    "items": [
+     {
+      "label": "Selalu hadir",
+      "count": 3,
+      "pct": 17.6
+     },
+     {
+      "label": "Hadir sebagian",
+      "count": 10,
+      "pct": 58.8
+     },
+     {
+      "label": "Tidak pernah hadir",
+      "count": 4,
+      "pct": 23.5
+     }
+    ]
+   },
+   "coord_yn": [
+    {
+     "label": "Mengetahui topik proyek setiap tim",
+     "n": 17,
+     "ya": 94.1,
+     "sebagian": 5.9,
+     "tidak": 0,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Mengetahui dosen lain di kelas yang sama",
+     "n": 17,
+     "ya": 70.6,
+     "sebagian": 23.5,
+     "tidak": 5.9,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Ada kesepakatan pembagian peran antar dosen",
+     "n": 17,
+     "ya": 23.5,
+     "sebagian": 29.4,
+     "tidak": 47.1,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Jelas dosen rujukan utama tim",
+     "n": 17,
+     "ya": 47.1,
+     "sebagian": 29.4,
+     "tidak": 23.5,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Dosen saling mengetahui perkembangan tim",
+     "n": 17,
+     "ya": 41.2,
+     "sebagian": 23.5,
+     "tidak": 17.6,
+     "tidak_tahu": 17.6
+    }
+   ],
+   "coord_lk": [
+    {
+     "label": "Menyelaraskan tenggat dengan dosen lain",
+     "pct_oa": 23.5,
+     "pct_never": 52.9
+    },
+    {
+     "label": "Menyelaraskan rubrik/penilaian dengan dosen lain",
+     "pct_oa": 17.6,
+     "pct_never": 58.8
+    },
+    {
+     "label": "Berbagi progres/kendala tim dengan dosen lain",
+     "pct_oa": 23.5,
+     "pct_never": 64.7
+    },
+    {
+     "label": "Membahas tim bermasalah bersama dosen lain",
+     "pct_oa": 23.5,
+     "pct_never": 58.8
+    },
+    {
+     "label": "Baru tahu kendala tim saat review milestone",
+     "pct_oa": 11.8,
+     "pct_never": 52.9
+    }
+   ],
+   "barriers": [
+    {
+     "label": "Beban mengajar dan administrasi lain",
+     "count": 13,
+     "pct": 76.5
+    },
+    {
+     "label": "Tidak ada jadwal rapat rutin",
+     "count": 12,
+     "pct": 70.6
+    },
+    {
+     "label": "Tidak ada pembagian peran yang jelas antar dosen dalam satu kelas",
+     "count": 5,
+     "pct": 29.4
+    },
+    {
+     "label": "Tidak tahu dosen lain yang mengampu kelas yang sama",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Diskusi di grup WhatsApp kurang terarah",
+     "count": 1,
+     "pct": 5.9
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 1,
+     "pct": 5.9
+    }
+   ],
+   "material_barriers": [
+    {
+     "label": "Topik proyek antar tim terlalu beragam",
+     "count": 6,
+     "pct": 35.3
+    },
+    {
+     "label": "Waktu persiapan terbatas",
+     "count": 5,
+     "pct": 29.4
+    },
+    {
+     "label": "Capaian pembelajaran atau RPS sulit disesuaikan",
+     "count": 3,
+     "pct": 17.6
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 3,
+     "pct": 17.6
+    },
+    {
+     "label": "Belum ada panduan atau contoh",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Kurang informasi tentang kebutuhan setiap milestone",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 5.9
+    }
+   ],
+   "best": [
+    {
+     "label": "SOP dan template laporan membantu",
+     "count": 11,
+     "pct": 64.7
+    },
+    {
+     "label": "Alur dan target milestone jelas",
+     "count": 11,
+     "pct": 64.7
+    },
+    {
+     "label": "Keselarasan materi kelas dengan proyek",
+     "count": 7,
+     "pct": 41.2
+    },
+    {
+     "label": "Perkembangan keterampilan mahasiswa",
+     "count": 6,
+     "pct": 35.3
+    },
+    {
+     "label": "Kerja sama tim mahasiswa",
+     "count": 4,
+     "pct": 23.5
+    },
+    {
+     "label": "Rubrik dan penilaian jelas dan adil",
+     "count": 4,
+     "pct": 23.5
+    },
+    {
+     "label": "Proses umpan balik kepada tim mahasiswa",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Keterlibatan mitra atau calon pengguna",
+     "count": 1,
+     "pct": 5.9
+    },
+    {
+     "label": "Fasilitas dan sumber daya",
+     "count": 1,
+     "pct": 5.9
+    }
+   ],
+   "improve": [
+    {
+     "label": "Koordinasi dan komunikasi antar dosen pengampu",
+     "count": 8,
+     "pct": 47.1
+    },
+    {
+     "label": "Pembagian peran antar dosen dalam satu kelas",
+     "count": 7,
+     "pct": 41.2
+    },
+    {
+     "label": "Kontribusi anggota tim mahasiswa tidak seimbang",
+     "count": 5,
+     "pct": 29.4
+    },
+    {
+     "label": "Beban mengampu dan membimbing PBL",
+     "count": 5,
+     "pct": 29.4
+    },
+    {
+     "label": "Keselarasan tugas dan penilaian antar-mata kuliah",
+     "count": 4,
+     "pct": 23.5
+    },
+    {
+     "label": "Koordinasi tim mahasiswa",
+     "count": 3,
+     "pct": 17.6
+    },
+    {
+     "label": "Waktu dan beban kerja mahasiswa",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Keterbatasan waktu untuk bimbingan atau umpan balik",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Kejelasan ketentuan (SOP dan rubrik)",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Pemahaman materi oleh mahasiswa",
+     "count": 2,
+     "pct": 11.8
+    },
+    {
+     "label": "Penggunaan AI oleh mahasiswa",
+     "count": 1,
+     "pct": 5.9
+    },
+    {
+     "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+     "count": 1,
+     "pct": 5.9
+    },
+    {
+     "label": "Mitra atau calon pengguna",
+     "count": 1,
+     "pct": 5.9
+    }
+   ],
+   "support": [
+    {
+     "label": "Pembagian peran dosen yang tertulis",
+     "count": 7,
+     "pct": 41.2
+    },
+    {
+     "label": "Panduan dan contoh penilaian",
+     "count": 7,
+     "pct": 41.2
+    },
+    {
+     "label": "Rapat koordinasi dosen rutin",
+     "count": 6,
+     "pct": 35.3
+    },
+    {
+     "label": "Pelatihan PBL",
+     "count": 6,
+     "pct": 35.3
+    },
+    {
+     "label": "PIC dosen per kelas",
+     "count": 4,
+     "pct": 23.5
+    },
+    {
+     "label": "Pembaruan progres tim terjadwal di grup WhatsApp",
+     "count": 4,
+     "pct": 23.5
+    },
+    {
+     "label": "Penyesuaian beban kerja",
+     "count": 4,
+     "pct": 23.5
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 5.9
+    }
+   ],
+   "workload": {
+    "n": 17,
+    "items": [
+     {
+      "label": "2 Ringan",
+      "count": 2,
+      "pct": 11.8
+     },
+     {
+      "label": "3 Sesuai",
+      "count": 12,
+      "pct": 70.6
+     },
+     {
+      "label": "4 Berat",
+      "count": 3,
+      "pct": 17.6
+     },
+     {
+      "label": "5 Sangat berat",
+      "count": 0,
+      "pct": 0
+     }
+    ]
+   },
+   "workload_heavy_pct": 17.6,
+   "consult_resp": {
+    "n": 17,
+    "items": [
+     {
+      "label": "1-2 hari",
+      "count": 9,
+      "pct": 52.9
+     },
+     {
+      "label": "Kurang dari 1 hari",
+      "count": 7,
+      "pct": 41.2
+     },
+     {
+      "label": "3-7 hari",
+      "count": 1,
+      "pct": 5.9
+     }
+    ]
+   },
+   "consult_init": {
+    "n": 17,
+    "items": [
+     {
+      "label": "Keduanya",
+      "count": 9,
+      "pct": 52.9
+     },
+     {
+      "label": "Dosen",
+      "count": 5,
+      "pct": 29.4
+     },
+     {
+      "label": "Belum pernah ada konsultasi",
+      "count": 2,
+      "pct": 11.8
+     },
+     {
+      "label": "Mahasiswa",
+      "count": 1,
+      "pct": 5.9
+     }
+    ]
+   },
+   "types": [
+    {
+     "label": "Deliverable proyek PBL",
+     "count": 14,
+     "pct": 82.4
+    },
+    {
+     "label": "Latihan dengan konteks proyek",
+     "count": 8,
+     "pct": 47.1
+    },
+    {
+     "label": "Latihan umum yang tidak terkait proyek",
+     "count": 6,
+     "pct": 35.3
+    },
+    {
+     "label": "Kuis atau ujian",
+     "count": 4,
+     "pct": 23.5
+    }
+   ],
+   "sosialisasi": [
+    {
+     "label": "Sosialisasi PBL jurusan semester ini",
+     "count": 13,
+     "pct": 76.5
+    },
+    {
+     "label": "Sosialisasi PBL jurusan semester sebelumnya",
+     "count": 11,
+     "pct": 64.7
+    },
+    {
+     "label": "Belum pernah",
+     "count": 2,
+     "pct": 11.8
+    }
+   ],
+   "by_experience": [
+    {
+     "group": "Sudah pernah mengampu PBL",
+     "n": 13,
+     "k1": 3.85,
+     "k2_correct": 76.9,
+     "ops_mean": 4.18,
+     "puas": 3.92
+    }
+   ],
+   "roster": 25,
+   "rate": 68
+  },
+  "gap": [
+   {
+    "group": "ops",
+    "label": "Alur dan target milestone dijelaskan jelas",
+    "mhs_mean": 3.66,
+    "dosen_mean": 4.29,
+    "mhs_agree": 67.6,
+    "dosen_agree": 94.1,
+    "gap": 0.63
+   },
+   {
+    "group": "ops",
+    "label": "SOP dan template laporan membantu",
+    "mhs_mean": 3.91,
+    "dosen_mean": 4.41,
+    "mhs_agree": 79.7,
+    "dosen_agree": 100,
+    "gap": 0.5
+   },
+   {
+    "group": "ops",
+    "label": "Jadwal dan tenggat milestone realistis",
+    "mhs_mean": 3.7,
+    "dosen_mean": 4.41,
+    "mhs_agree": 71.2,
+    "dosen_agree": 100,
+    "gap": 0.71
+   },
+   {
+    "group": "ops",
+    "label": "Bimbingan dosen memadai",
+    "mhs_mean": 3.68,
+    "dosen_mean": 4.29,
+    "mhs_agree": 66.7,
+    "dosen_agree": 94.1,
+    "gap": 0.61
+   },
+   {
+    "group": "ops",
+    "label": "Tugas dan penilaian antar-mata kuliah selaras",
+    "mhs_mean": 3.55,
+    "dosen_mean": 4.12,
+    "mhs_agree": 53.8,
+    "dosen_agree": 87.5,
+    "gap": 0.57
+   },
+   {
+    "group": "ops",
+    "label": "Rubrik dan kriteria penilaian jelas",
+    "mhs_mean": 3.81,
+    "dosen_mean": 4.29,
+    "mhs_agree": 67.2,
+    "dosen_agree": 88.2,
+    "gap": 0.48
+   },
+   {
+    "group": "ops",
+    "label": "Penilaian adil terhadap kontribusi anggota",
+    "mhs_mean": 3.7,
+    "dosen_mean": 4.29,
+    "mhs_agree": 60.3,
+    "dosen_agree": 94.1,
+    "gap": 0.59
+   },
+   {
+    "group": "ops",
+    "label": "Fasilitas dan sumber daya memadai",
+    "mhs_mean": 3.42,
+    "dosen_mean": 3.88,
+    "mhs_agree": 52.2,
+    "dosen_agree": 76.5,
+    "gap": 0.46
+   },
+   {
+    "group": "ben",
+    "label": "Meningkatkan keterampilan teknis",
+    "mhs_mean": 4.18,
+    "dosen_mean": 4.41,
+    "mhs_agree": 86.8,
+    "dosen_agree": 94.1,
+    "gap": 0.23
+   },
+   {
+    "group": "ben",
+    "label": "Meningkatkan kerja sama dan komunikasi",
+    "mhs_mean": 4,
+    "dosen_mean": 4.47,
+    "mhs_agree": 76.5,
+    "dosen_agree": 88.2,
+    "gap": 0.47
+   },
+   {
+    "group": "ben",
+    "label": "Lebih siap menghadapi dunia kerja",
+    "mhs_mean": 4.04,
+    "dosen_mean": 4.53,
+    "mhs_agree": 79.1,
+    "dosen_agree": 94.1,
+    "gap": 0.49
+   },
+   {
+    "group": "ben",
+    "label": "Puas dengan pelaksanaan PBL",
+    "mhs_mean": 3.48,
+    "dosen_mean": 4.06,
+    "mhs_agree": 52.2,
+    "dosen_agree": 76.5,
+    "gap": 0.58
+   },
+   {
+    "group": "ben",
+    "label": "Setuju PBL dilanjutkan",
+    "mhs_mean": 3.52,
+    "dosen_mean": 3.94,
+    "mhs_agree": 53.7,
+    "dosen_agree": 64.7,
+    "gap": 0.42
+   }
+  ]
+ },
+ "sib": {
+  "mhs": {
+   "n": 108,
+   "response": {
+    "sems": [
+     {
+      "label": "SIB Semester 3",
+      "n": 21,
+      "roster": 173,
+      "rate": 12.1,
+      "classes": 7
+     },
+     {
+      "label": "SIB Semester 5",
+      "n": 87,
+      "roster": 155,
+      "rate": 56.1,
+      "classes": 7
+     }
+    ],
+    "classes": [
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2A",
+      "n": 0,
+      "roster": 26,
+      "rate": 0
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2B",
+      "n": 0,
+      "roster": 25,
+      "rate": 0
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2C",
+      "n": 6,
+      "roster": 25,
+      "rate": 24
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2D",
+      "n": 0,
+      "roster": 25,
+      "rate": 0
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2E",
+      "n": 1,
+      "roster": 25,
+      "rate": 4
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2F",
+      "n": 11,
+      "roster": 25,
+      "rate": 44
+     },
+     {
+      "prodi": "SIB",
+      "sem": 3,
+      "label": "SIB-2G",
+      "n": 3,
+      "roster": 22,
+      "rate": 13.6
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3A",
+      "n": 19,
+      "roster": 24,
+      "rate": 79.2
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3B",
+      "n": 20,
+      "roster": 24,
+      "rate": 83.3
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3C",
+      "n": 19,
+      "roster": 21,
+      "rate": 90.5
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3D",
+      "n": 13,
+      "roster": 22,
+      "rate": 59.1
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3E",
+      "n": 5,
+      "roster": 21,
+      "rate": 23.8
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3F",
+      "n": 2,
+      "roster": 22,
+      "rate": 9.1
+     },
+     {
+      "prodi": "SIB",
+      "sem": 5,
+      "label": "SIB-3G",
+      "n": 9,
+      "roster": 21,
+      "rate": 42.9
+     }
+    ],
+    "roster": 328,
+    "rate": 32.9
+   },
+   "ops": [
+    {
+     "label": "Alur dan target milestone dijelaskan jelas",
+     "n": 106,
+     "n_all": 108,
+     "mean": 3.65,
+     "pct_agree": 61.3,
+     "dist": [
+      3,
+      6,
+      32,
+      49,
+      16
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "n": 108,
+     "n_all": 108,
+     "mean": 3.95,
+     "pct_agree": 75,
+     "dist": [
+      3,
+      4,
+      20,
+      49,
+      32
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Jadwal dan tenggat milestone realistis",
+     "n": 106,
+     "n_all": 108,
+     "mean": 3.74,
+     "pct_agree": 60.4,
+     "dist": [
+      1,
+      8,
+      33,
+      40,
+      24
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Bimbingan dosen memadai",
+     "n": 108,
+     "n_all": 108,
+     "mean": 3.82,
+     "pct_agree": 70.4,
+     "dist": [
+      1,
+      5,
+      26,
+      56,
+      20
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Tugas dan penilaian antar-mata kuliah selaras",
+     "n": 100,
+     "n_all": 108,
+     "mean": 3.58,
+     "pct_agree": 57,
+     "dist": [
+      1,
+      8,
+      34,
+      46,
+      11
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik dan kriteria penilaian jelas",
+     "n": 104,
+     "n_all": 108,
+     "mean": 3.58,
+     "pct_agree": 52.9,
+     "dist": [
+      0,
+      9,
+      40,
+      41,
+      14
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Penilaian adil terhadap kontribusi anggota",
+     "n": 105,
+     "n_all": 108,
+     "mean": 3.63,
+     "pct_agree": 55.2,
+     "dist": [
+      1,
+      8,
+      38,
+      40,
+      18
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Fasilitas dan sumber daya memadai",
+     "n": 105,
+     "n_all": 108,
+     "mean": 3.46,
+     "pct_agree": 52.4,
+     "dist": [
+      4,
+      10,
+      36,
+      44,
+      11
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ben": [
+    {
+     "label": "Meningkatkan keterampilan teknis",
+     "n": 107,
+     "n_all": 108,
+     "mean": 4.21,
+     "pct_agree": 84.1,
+     "dist": [
+      1,
+      2,
+      14,
+      47,
+      43
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Meningkatkan kerja sama dan komunikasi",
+     "n": 106,
+     "n_all": 108,
+     "mean": 4.19,
+     "pct_agree": 82.1,
+     "dist": [
+      0,
+      1,
+      18,
+      47,
+      40
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Lebih siap menghadapi dunia kerja",
+     "n": 106,
+     "n_all": 108,
+     "mean": 4.06,
+     "pct_agree": 77.4,
+     "dist": [
+      2,
+      3,
+      19,
+      45,
+      37
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Puas dengan pelaksanaan PBL",
+     "n": 106,
+     "n_all": 108,
+     "mean": 3.48,
+     "pct_agree": 46.2,
+     "dist": [
+      2,
+      11,
+      44,
+      32,
+      17
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Setuju PBL dilanjutkan",
+     "n": 103,
+     "n_all": 108,
+     "mean": 3.31,
+     "pct_agree": 41.7,
+     "dist": [
+      12,
+      5,
+      43,
+      25,
+      18
+     ],
+     "cat": "Cukup"
+    }
+   ],
+   "ops_mean": 3.68,
+   "ops_cat": "Baik",
+   "k1": {
+    "n": 108,
+    "items": [
+     {
+      "label": "2 Kurang paham",
+      "count": 6,
+      "pct": 5.6
+     },
+     {
+      "label": "3 Cukup paham",
+      "count": 34,
+      "pct": 31.5
+     },
+     {
+      "label": "4 Paham",
+      "count": 51,
+      "pct": 47.2
+     },
+     {
+      "label": "5 Sangat paham",
+      "count": 17,
+      "pct": 15.7
+     }
+    ]
+   },
+   "k1_mean": 3.73,
+   "k2_correct": 93.5,
+   "k3": {
+    "n": 108,
+    "items": [
+     {
+      "label": "Belum pernah",
+      "count": 20,
+      "pct": 18.5
+     },
+     {
+      "label": "1 semester",
+      "count": 2,
+      "pct": 1.9
+     },
+     {
+      "label": "2 semester",
+      "count": 51,
+      "pct": 47.2
+     },
+     {
+      "label": "3 semester atau lebih",
+      "count": 35,
+      "pct": 32.4
+     }
+    ]
+   },
+   "by_experience": [
+    {
+     "group": "Belum pernah",
+     "n": 20,
+     "ops_mean": 3.57,
+     "sat_mean": 3.55,
+     "sat_agree": 55,
+     "cont_mean": 3.3,
+     "cont_agree": 50,
+     "berat_pct": 55
+    },
+    {
+     "group": "Pernah",
+     "n": 88,
+     "ops_mean": 3.7,
+     "sat_mean": 3.47,
+     "sat_agree": 44.2,
+     "cont_mean": 3.31,
+     "cont_agree": 39.8,
+     "berat_pct": 40.9
+    }
+   ],
+   "consult_freq": {
+    "n": 108,
+    "items": [
+     {
+      "label": "0 kali",
+      "count": 26,
+      "pct": 24.1
+     },
+     {
+      "label": "1-2 kali",
+      "count": 54,
+      "pct": 50
+     },
+     {
+      "label": "3-5 kali",
+      "count": 26,
+      "pct": 24.1
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 2,
+      "pct": 1.9
+     }
+    ]
+   },
+   "consult_resp": {
+    "n": 108,
+    "items": [
+     {
+      "label": "Kurang dari 1 hari",
+      "count": 55,
+      "pct": 50.9
+     },
+     {
+      "label": "1-2 hari",
+      "count": 34,
+      "pct": 31.5
+     },
+     {
+      "label": "Belum pernah bertanya",
+      "count": 13,
+      "pct": 12
+     },
+     {
+      "label": "3-7 hari",
+      "count": 3,
+      "pct": 2.8
+     },
+     {
+      "label": "Lebih dari 1 minggu",
+      "count": 2,
+      "pct": 1.9
+     },
+     {
+      "label": "Tidak ditanggapi",
+      "count": 1,
+      "pct": 0.9
+     }
+    ]
+   },
+   "consult_init": {
+    "n": 108,
+    "items": [
+     {
+      "label": "Keduanya",
+      "count": 70,
+      "pct": 64.8
+     },
+     {
+      "label": "Dosen",
+      "count": 20,
+      "pct": 18.5
+     },
+     {
+      "label": "Mahasiswa",
+      "count": 13,
+      "pct": 12
+     },
+     {
+      "label": "Belum pernah ada konsultasi",
+      "count": 5,
+      "pct": 4.6
+     }
+    ]
+   },
+   "coord": [
+    {
+     "label": "Dosen antar mata kuliah mengetahui progres proyek",
+     "kind": "yn",
+     "n": 108,
+     "ya": 41.7,
+     "sebagian": 48.1,
+     "tidak": 7.4,
+     "tidak_tahu": 2.8
+    },
+    {
+     "label": "Arahan dosen antar mata kuliah konsisten",
+     "kind": "yn",
+     "n": 108,
+     "ya": 24.1,
+     "sebagian": 62,
+     "tidak": 12,
+     "tidak_tahu": 1.9
+    },
+    {
+     "label": "Tim tahu harus menghubungi dosen siapa",
+     "kind": "yn",
+     "n": 108,
+     "ya": 70.4,
+     "sebagian": 21.3,
+     "tidak": 6.5,
+     "tidak_tahu": 1.9
+    },
+    {
+     "label": "Tenggat antar mata kuliah bertabrakan",
+     "kind": "lk",
+     "pct_oa": 38.9,
+     "n": 108
+    },
+    {
+     "label": "Kendala tim baru diketahui dosen saat review",
+     "kind": "lk",
+     "pct_oa": 32.4,
+     "n": 108
+    }
+   ],
+   "best": [
+    {
+     "label": "Pengalaman dan keterampilan baru yang saya peroleh",
+     "count": 65,
+     "pct": 60.2
+    },
+    {
+     "label": "Kerja sama tim",
+     "count": 46,
+     "pct": 42.6
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "count": 44,
+     "pct": 40.7
+    },
+    {
+     "label": "Bimbingan dosen",
+     "count": 34,
+     "pct": 31.5
+    },
+    {
+     "label": "Alur dan target milestone jelas",
+     "count": 33,
+     "pct": 30.6
+    },
+    {
+     "label": "Umpan balik dosen",
+     "count": 29,
+     "pct": 26.9
+    },
+    {
+     "label": "Materi kelas mendukung proyek",
+     "count": 25,
+     "pct": 23.1
+    },
+    {
+     "label": "Belum ada yang menonjol",
+     "count": 10,
+     "pct": 9.3
+    },
+    {
+     "label": "Koordinasi antar dosen",
+     "count": 8,
+     "pct": 7.4
+    },
+    {
+     "label": "Rubrik dan penilaian jelas dan adil",
+     "count": 5,
+     "pct": 4.6
+    },
+    {
+     "label": "Keterlibatan mitra atau calon pengguna",
+     "count": 4,
+     "pct": 3.7
+    },
+    {
+     "label": "Fasilitas dan sumber daya",
+     "count": 4,
+     "pct": 3.7
+    }
+   ],
+   "improve": [
+    {
+     "label": "Waktu dan beban kerja",
+     "count": 43,
+     "pct": 39.8
+    },
+    {
+     "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+     "count": 40,
+     "pct": 37
+    },
+    {
+     "label": "Kejelasan ketentuan (SOP dan rubrik)",
+     "count": 30,
+     "pct": 27.8
+    },
+    {
+     "label": "Kontribusi anggota tim tidak seimbang",
+     "count": 26,
+     "pct": 24.1
+    },
+    {
+     "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+     "count": 24,
+     "pct": 22.2
+    },
+    {
+     "label": "Koordinasi tim",
+     "count": 23,
+     "pct": 21.3
+    },
+    {
+     "label": "Keselarasan tugas antar-mata kuliah",
+     "count": 23,
+     "pct": 21.3
+    },
+    {
+     "label": "Mitra atau calon pengguna",
+     "count": 17,
+     "pct": 15.7
+    },
+    {
+     "label": "Pemahaman materi",
+     "count": 17,
+     "pct": 15.7
+    },
+    {
+     "label": "Kendala teknis (teknologi, kode, bug)",
+     "count": 13,
+     "pct": 12
+    },
+    {
+     "label": "Tidak jelas dosen yang menjadi rujukan tim",
+     "count": 9,
+     "pct": 8.3
+    },
+    {
+     "label": "Penggunaan AI",
+     "count": 9,
+     "pct": 8.3
+    },
+    {
+     "label": "Tidak ada masalah berarti",
+     "count": 9,
+     "pct": 8.3
+    },
+    {
+     "label": "Bimbingan atau umpan balik dosen",
+     "count": 7,
+     "pct": 6.5
+    }
+   ],
+   "material": [
+    {
+     "label": "Tugas mata kuliah menambah beban di luar proyek",
+     "count": 67,
+     "pct": 62
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 33,
+     "pct": 30.6
+    },
+    {
+     "label": "Materi pendukung kurang",
+     "count": 23,
+     "pct": 21.3
+    },
+    {
+     "label": "Materi terlambat dibanding kebutuhan milestone",
+     "count": 19,
+     "pct": 17.6
+    },
+    {
+     "label": "Materi kurang relevan dengan proyek",
+     "count": 8,
+     "pct": 7.4
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 0.9
+    }
+   ],
+   "workload": {
+    "n": 108,
+    "items": [
+     {
+      "label": "2 Ringan",
+      "count": 5,
+      "pct": 4.6
+     },
+     {
+      "label": "3 Sesuai",
+      "count": 56,
+      "pct": 51.9
+     },
+     {
+      "label": "4 Berat",
+      "count": 38,
+      "pct": 35.2
+     },
+     {
+      "label": "5 Sangat berat",
+      "count": 9,
+      "pct": 8.3
+     }
+    ]
+   },
+   "workload_heavy_pct": 43.5,
+   "courses": [
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Pemrograman Web",
+     "n": 21,
+     "acts": [
+      85.7,
+      95.2,
+      95.2,
+      85.7,
+      81
+     ],
+     "acts_mean": 88.6,
+     "bc_ya": [
+      76.2,
+      61.9,
+      76.2,
+      52.4,
+      61.9,
+      66.7,
+      71.4,
+      66.7,
+      90.5
+     ],
+     "bc_ya_mean": 69.3,
+     "bc_tidak_mean": 8.5,
+     "att_all": 85.7,
+     "att_n": 21,
+     "expl_ya": 81,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 10,
+       "pct": 47.6
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 7,
+       "pct": 33.3
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 19
+      }
+     ],
+     "share_not_stated": 52.4,
+     "share_over50": 38.1
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Basis Data Lanjut",
+     "n": 21,
+     "acts": [
+      38.1,
+      42.9,
+      23.8,
+      38.1,
+      33.3
+     ],
+     "acts_mean": 35.2,
+     "bc_ya": [
+      42.9,
+      42.9,
+      38.1,
+      28.6,
+      52.4,
+      38.1,
+      23.8,
+      38.1,
+      66.7
+     ],
+     "bc_ya_mean": 41.3,
+     "bc_tidak_mean": 14.8,
+     "att_all": 52.4,
+     "att_n": 21,
+     "expl_ya": 47.6,
+     "type": [
+      {
+       "label": "Latihan umum",
+       "count": 9,
+       "pct": 42.9
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 5,
+       "pct": 23.8
+      },
+      {
+       "label": "Deliverable proyek",
+       "count": 4,
+       "pct": 19
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 2,
+       "pct": 9.5
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 4.8
+      }
+     ],
+     "share_not_stated": 52.4,
+     "share_over50": 28.6
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Desain UI/UX",
+     "n": 21,
+     "acts": [
+      71.4,
+      76.2,
+      76.2,
+      76.2,
+      76.2
+     ],
+     "acts_mean": 75.2,
+     "bc_ya": [
+      66.7,
+      66.7,
+      52.4,
+      66.7,
+      52.4,
+      61.9,
+      57.1,
+      66.7,
+      81
+     ],
+     "bc_ya_mean": 63.5,
+     "bc_tidak_mean": 5.3,
+     "att_all": 76.2,
+     "att_n": 21,
+     "expl_ya": 85.7,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 9,
+       "pct": 42.9
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 6,
+       "pct": 28.6
+      },
+      {
+       "label": "Latihan umum",
+       "count": 4,
+       "pct": 19
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 4.8
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 4.8
+      }
+     ],
+     "share_not_stated": 52.4,
+     "share_over50": 38.1
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Pemrograman Web Lanjut",
+     "n": 87,
+     "acts": [
+      94.3,
+      85.1,
+      87.4,
+      89.7,
+      86.2
+     ],
+     "acts_mean": 88.5,
+     "bc_ya": [
+      85.1,
+      69,
+      62.1,
+      35.6,
+      60.9,
+      64.4,
+      57.5,
+      63.2,
+      95.4
+     ],
+     "bc_ya_mean": 65.9,
+     "bc_tidak_mean": 6.2,
+     "att_all": 94.3,
+     "att_n": 87,
+     "expl_ya": 100,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 42,
+       "pct": 48.3
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 38,
+       "pct": 43.7
+      },
+      {
+       "label": "Latihan umum",
+       "count": 7,
+       "pct": 8
+      }
+     ],
+     "share_not_stated": 14.9,
+     "share_over50": 65.5
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Manajemen Proyek Sistem Informasi",
+     "n": 87,
+     "acts": [
+      74.7,
+      65.5,
+      56.3,
+      57.5,
+      48.3
+     ],
+     "acts_mean": 60.5,
+     "bc_ya": [
+      66.7,
+      49.4,
+      49.4,
+      62.1,
+      65.5,
+      42.5,
+      34.5,
+      57.5,
+      72.4
+     ],
+     "bc_ya_mean": 55.6,
+     "bc_tidak_mean": 10.7,
+     "att_all": 60.9,
+     "att_n": 87,
+     "expl_ya": 82.8,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 44,
+       "pct": 50.6
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 30,
+       "pct": 34.5
+      },
+      {
+       "label": "Latihan umum",
+       "count": 10,
+       "pct": 11.5
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 3,
+       "pct": 3.4
+      }
+     ],
+     "share_not_stated": 32.2,
+     "share_over50": 39.1
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak",
+     "n": 87,
+     "acts": [
+      71.3,
+      71.3,
+      66.7,
+      70.1,
+      65.5
+     ],
+     "acts_mean": 69,
+     "bc_ya": [
+      78.2,
+      56.3,
+      49.4,
+      52.9,
+      54,
+      44.8,
+      49.4,
+      64.4,
+      69
+     ],
+     "bc_ya_mean": 57.6,
+     "bc_tidak_mean": 9.1,
+     "att_all": 63.2,
+     "att_n": 87,
+     "expl_ya": 93.1,
+     "type": [
+      {
+       "label": "Deliverable proyek",
+       "count": 38,
+       "pct": 43.7
+      },
+      {
+       "label": "Latihan dengan konteks proyek",
+       "count": 26,
+       "pct": 29.9
+      },
+      {
+       "label": "Latihan umum",
+       "count": 21,
+       "pct": 24.1
+      },
+      {
+       "label": "Kuis atau ujian",
+       "count": 1,
+       "pct": 1.1
+      },
+      {
+       "label": "Tidak tahu",
+       "count": 1,
+       "pct": 1.1
+      }
+     ],
+     "share_not_stated": 28.7,
+     "share_over50": 40.2
+    }
+   ],
+   "act_labels": [
+    "Mengaitkan materi dengan proyek",
+    "Menyediakan waktu diskusi proyek",
+    "Memeriksa progres proyek tim",
+    "Memberi umpan balik proyek",
+    "Membahas kendala teknis"
+   ],
+   "bc_labels": [
+    "Kontrak kuliah memuat kaitan dengan proyek",
+    "Materi diberikan sebelum dibutuhkan milestone",
+    "Contoh dan studi kasus berkaitan dengan proyek",
+    "Tugas bagian dari proyek, bukan tugas tambahan",
+    "Kriteria penilaian tugas sejalan dengan proyek",
+    "Materi pendukung tersedia di LMS",
+    "Materi disesuaikan saat tim mengalami kendala",
+    "Materi terhubung dengan mata kuliah lain",
+    "Dosen mengetahui topik proyek tim"
+   ],
+   "monitored": {
+    "classes": [
+     "SIB-3A",
+     "SIB-3B",
+     "SIB-3C",
+     "SIB-3D"
+    ],
+    "enf": {
+     "n": 71,
+     "roster": 91,
+     "rate": 78,
+     "n_classes": 4,
+     "stats": {
+      "n": 71,
+      "ops_mean": 3.76,
+      "puas": 3.46,
+      "lanjut": 3.34,
+      "adil": 3.68,
+      "fasilitas": 3.48,
+      "berat": 39.4,
+      "konsisten": 23.9,
+      "top": [
+       {
+        "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+        "pct": 43.7
+       },
+       {
+        "label": "Waktu dan beban kerja",
+        "pct": 40.8
+       },
+       {
+        "label": "Kejelasan ketentuan (SOP dan rubrik)",
+        "pct": 29.6
+       }
+      ]
+     }
+    },
+    "oth": {
+     "n": 37,
+     "roster": 237,
+     "rate": 15.6,
+     "n_classes": 10,
+     "stats": {
+      "n": 37,
+      "ops_mean": 3.52,
+      "puas": 3.51,
+      "lanjut": 3.26,
+      "adil": 3.53,
+      "fasilitas": 3.42,
+      "berat": 51.4,
+      "konsisten": 24.3,
+      "top": [
+       {
+        "label": "Waktu dan beban kerja",
+        "pct": 37.8
+       },
+       {
+        "label": "Kontribusi anggota tim tidak seimbang",
+        "pct": 27
+       },
+       {
+        "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+        "pct": 24.3
+       }
+      ]
+     }
+    },
+    "share_enf": 65.7
+   },
+   "aspek": [
+    {
+     "code": "A",
+     "name": "Pelaksanaan PBL",
+     "items": [
+      "Alur dan target milestone dijelaskan jelas",
+      "SOP dan template laporan membantu",
+      "Jadwal dan tenggat milestone realistis",
+      "Bimbingan dosen memadai"
+     ],
+     "mhs_mean": 3.79,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4.16,
+     "dosen_cat": "Baik",
+     "problem_pct": 27.8,
+     "problems": [
+      {
+       "label": "Mitra atau calon pengguna",
+       "pct": 15.7
+      },
+      {
+       "label": "Kendala teknis (teknologi, kode, bug)",
+       "pct": 12
+      }
+     ]
+    },
+    {
+     "code": "B",
+     "name": "Integrasi antar-mata kuliah",
+     "items": [
+      "Tugas dan penilaian antar-mata kuliah selaras"
+     ],
+     "mhs_mean": 3.58,
+     "mhs_cat": "Baik",
+     "dosen_mean": 3.56,
+     "dosen_cat": "Baik",
+     "problem_pct": 62,
+     "problems": [
+      {
+       "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+       "pct": 37
+      },
+      {
+       "label": "Keselarasan tugas antar-mata kuliah",
+       "pct": 21.3
+      },
+      {
+       "label": "Pemahaman materi",
+       "pct": 15.7
+      },
+      {
+       "label": "Tidak jelas dosen yang menjadi rujukan tim",
+       "pct": 8.3
+      }
+     ]
+    },
+    {
+     "code": "C",
+     "name": "Penilaian dan umpan balik",
+     "items": [
+      "Rubrik dan kriteria penilaian jelas",
+      "Penilaian adil terhadap kontribusi anggota"
+     ],
+     "mhs_mean": 3.6,
+     "mhs_cat": "Baik",
+     "dosen_mean": 4,
+     "dosen_cat": "Baik",
+     "problem_pct": 32.4,
+     "problems": [
+      {
+       "label": "Kejelasan ketentuan (SOP dan rubrik)",
+       "pct": 27.8
+      },
+      {
+       "label": "Bimbingan atau umpan balik dosen",
+       "pct": 6.5
+      }
+     ]
+    },
+    {
+     "code": "D",
+     "name": "Kolaborasi, beban, dan dukungan",
+     "items": [
+      "Fasilitas dan sumber daya memadai"
+     ],
+     "mhs_mean": 3.46,
+     "mhs_cat": "Baik",
+     "dosen_mean": 3.55,
+     "dosen_cat": "Baik",
+     "problem_pct": 76.9,
+     "problems": [
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 39.8
+      },
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 24.1
+      },
+      {
+       "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+       "pct": 22.2
+      },
+      {
+       "label": "Koordinasi tim",
+       "pct": 21.3
+      },
+      {
+       "label": "Penggunaan AI",
+       "pct": 8.3
+      }
+     ]
+    }
+   ],
+   "dua_sisi": [
+    {
+     "aspek": "SOP dan template",
+     "baik": 40.7,
+     "masalah": 27.8,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Rubrik dan penilaian",
+     "baik": 4.6,
+     "masalah": 27.8,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Bimbingan dosen",
+     "baik": 31.5,
+     "masalah": 6.5,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Umpan balik dosen",
+     "baik": 26.9,
+     "masalah": 6.5,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Materi dan tugas",
+     "baik": 23.1,
+     "masalah": 21.3,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Kerja sama tim",
+     "baik": 42.6,
+     "masalah": 24.1,
+     "dua_sisi": true
+    },
+    {
+     "aspek": "Fasilitas",
+     "baik": 3.7,
+     "masalah": 22.2,
+     "dua_sisi": false
+    },
+    {
+     "aspek": "Mitra atau calon pengguna",
+     "baik": 3.7,
+     "masalah": 15.7,
+     "dua_sisi": false
+    }
+   ],
+   "drivers": {
+    "corr": [
+     {
+      "label": "Fasilitas dan sumber daya memadai",
+      "r_puas": 0.47,
+      "r_lanjut": 0.2
+     },
+     {
+      "label": "Bimbingan dosen memadai",
+      "r_puas": 0.41,
+      "r_lanjut": 0.25
+     },
+     {
+      "label": "Jadwal dan tenggat milestone realistis",
+      "r_puas": 0.4,
+      "r_lanjut": 0.31
+     },
+     {
+      "label": "Rubrik dan kriteria penilaian jelas",
+      "r_puas": 0.39,
+      "r_lanjut": 0.16
+     },
+     {
+      "label": "Penilaian adil terhadap kontribusi anggota",
+      "r_puas": 0.38,
+      "r_lanjut": 0.11
+     },
+     {
+      "label": "Tugas dan penilaian antar-mata kuliah selaras",
+      "r_puas": 0.33,
+      "r_lanjut": 0.16
+     },
+     {
+      "label": "Alur dan target milestone dijelaskan jelas",
+      "r_puas": 0.3,
+      "r_lanjut": 0.16
+     },
+     {
+      "label": "SOP dan template laporan membantu",
+      "r_puas": 0.24,
+      "r_lanjut": 0.21
+     }
+    ],
+    "cross": [
+     {
+      "factor": "Beban PBL dibanding waktu tersedia",
+      "groups": [
+       {
+        "label": "Berat atau sangat berat",
+        "n": 47,
+        "puas": 3.21,
+        "lanjut": 3
+       },
+       {
+        "label": "Ringan atau sesuai",
+        "n": 61,
+        "puas": 3.69,
+        "lanjut": 3.54
+       }
+      ]
+     },
+     {
+      "factor": "Konsultasi dengan dosen di luar jam kuliah",
+      "groups": [
+       {
+        "label": "Pernah",
+        "n": 82,
+        "puas": 3.52,
+        "lanjut": 3.21
+       },
+       {
+        "label": "Belum pernah",
+        "n": 26,
+        "puas": 3.35,
+        "lanjut": 3.64
+       }
+      ]
+     },
+     {
+      "factor": "Arahan dosen antar mata kuliah konsisten",
+      "groups": [
+       {
+        "label": "Sebagian atau tidak",
+        "n": 82,
+        "puas": 3.41,
+        "lanjut": 3.38
+       },
+       {
+        "label": "Ya",
+        "n": 26,
+        "puas": 3.72,
+        "lanjut": 3.08
+       }
+      ]
+     },
+     {
+      "factor": "Tim tahu harus menghubungi dosen siapa",
+      "groups": [
+       {
+        "label": "Sebagian atau tidak",
+        "n": 32,
+        "puas": 3.1,
+        "lanjut": 3.2
+       },
+       {
+        "label": "Ya",
+        "n": 76,
+        "puas": 3.64,
+        "lanjut": 3.36
+       }
+      ]
+     },
+     {
+      "factor": "Dosen antar mata kuliah mengetahui progres proyek",
+      "groups": [
+       {
+        "label": "Sebagian atau tidak",
+        "n": 63,
+        "puas": 3.37,
+        "lanjut": 3.32
+       },
+       {
+        "label": "Ya",
+        "n": 45,
+        "puas": 3.64,
+        "lanjut": 3.3
+       }
+      ]
+     }
+    ]
+   },
+   "sem_stats": [
+    {
+     "label": "SIB Semester 3",
+     "n": 21,
+     "ops_mean": 3.55,
+     "puas": 3.52,
+     "lanjut": 3.29,
+     "adil": 3.65,
+     "fasilitas": 3.35,
+     "berat": 57.1,
+     "konsisten": 33.3,
+     "top": [
+      {
+       "label": "Kontribusi anggota tim tidak seimbang",
+       "pct": 38.1
+      },
+      {
+       "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+       "pct": 28.6
+      },
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 28.6
+      }
+     ]
+    },
+    {
+     "label": "SIB Semester 5",
+     "n": 87,
+     "ops_mean": 3.71,
+     "puas": 3.47,
+     "lanjut": 3.32,
+     "adil": 3.62,
+     "fasilitas": 3.48,
+     "berat": 40.2,
+     "konsisten": 21.8,
+     "top": [
+      {
+       "label": "Waktu dan beban kerja",
+       "pct": 42.5
+      },
+      {
+       "label": "Arahan dan tugas antar dosen tidak terkoordinasi",
+       "pct": 41.4
+      },
+      {
+       "label": "Kejelasan ketentuan (SOP dan rubrik)",
+       "pct": 29.9
+      }
+     ]
+    }
+   ],
+   "pooled": {
+    "bc": [
+     {
+      "label": "Kontrak kuliah memuat kaitan dengan proyek",
+      "ya": 73.8,
+      "sebagian": 19.4,
+      "tidak": 4
+     },
+     {
+      "label": "Materi diberikan sebelum dibutuhkan milestone",
+      "ya": 58,
+      "sebagian": 34,
+      "tidak": 5.9
+     },
+     {
+      "label": "Contoh dan studi kasus berkaitan dengan proyek",
+      "ya": 54,
+      "sebagian": 36.7,
+      "tidak": 6.5
+     },
+     {
+      "label": "Tugas bagian dari proyek, bukan tugas tambahan",
+      "ya": 50,
+      "sebagian": 26.5,
+      "tidak": 20.4
+     },
+     {
+      "label": "Kriteria penilaian tugas sejalan dengan proyek",
+      "ya": 59.3,
+      "sebagian": 21.6,
+      "tidak": 7.1
+     },
+     {
+      "label": "Materi pendukung tersedia di LMS",
+      "ya": 51.5,
+      "sebagian": 35.2,
+      "tidak": 12
+     },
+     {
+      "label": "Materi disesuaikan saat tim mengalami kendala",
+      "ya": 47.8,
+      "sebagian": 34.6,
+      "tidak": 13.3
+     },
+     {
+      "label": "Materi terhubung dengan mata kuliah lain",
+      "ya": 60.8,
+      "sebagian": 29.6,
+      "tidak": 6.8
+     },
+     {
+      "label": "Dosen mengetahui topik proyek tim",
+      "ya": 79,
+      "sebagian": 14.2,
+      "tidak": 3.7
+     }
+    ],
+    "acts": [
+     {
+      "label": "Mengaitkan materi dengan proyek",
+      "pct_oa": 77.2
+     },
+     {
+      "label": "Menyediakan waktu diskusi proyek",
+      "pct_oa": 73.5
+     },
+     {
+      "label": "Memeriksa progres proyek tim",
+      "pct_oa": 69.1
+     },
+     {
+      "label": "Memberi umpan balik proyek",
+      "pct_oa": 71.3
+     },
+     {
+      "label": "Membahas kendala teknis",
+      "pct_oa": 66
+     }
+    ],
+    "type": [
+     {
+      "label": "Deliverable proyek",
+      "pct": 45.4
+     },
+     {
+      "label": "Latihan dengan konteks proyek",
+      "pct": 34.6
+     },
+     {
+      "label": "Latihan umum",
+      "pct": 17
+     },
+     {
+      "label": "Tidak tahu",
+      "pct": 1.9
+     },
+     {
+      "label": "Kuis atau ujian",
+      "pct": 1.2
+     }
+    ],
+    "share": [
+     {
+      "label": "> 50%",
+      "pct": 45.8
+     },
+     {
+      "label": "Tidak disampaikan",
+      "pct": 30.7
+     },
+     {
+      "label": "26-50%",
+      "pct": 19.5
+     },
+     {
+      "label": "1-25%",
+      "pct": 4
+     }
+    ],
+    "n": 324
+   }
+  },
+  "dosen": {
+   "n": 11,
+   "ops": [
+    {
+     "label": "Alur dan target milestone dijelaskan jelas",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4,
+     "pct_agree": 72.7,
+     "dist": [
+      0,
+      0,
+      3,
+      5,
+      3
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.27,
+     "pct_agree": 90.9,
+     "dist": [
+      0,
+      0,
+      1,
+      6,
+      4
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Jadwal dan tenggat milestone realistis",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.18,
+     "pct_agree": 90.9,
+     "dist": [
+      0,
+      1,
+      0,
+      6,
+      4
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Bimbingan dosen memadai",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.18,
+     "pct_agree": 90.9,
+     "dist": [
+      0,
+      0,
+      1,
+      7,
+      3
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Tugas dan penilaian antar-mata kuliah selaras",
+     "n": 9,
+     "n_all": 11,
+     "mean": 3.56,
+     "pct_agree": 55.6,
+     "dist": [
+      0,
+      1,
+      3,
+      4,
+      1
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik dan kriteria penilaian jelas",
+     "n": 11,
+     "n_all": 11,
+     "mean": 3.55,
+     "pct_agree": 54.5,
+     "dist": [
+      0,
+      2,
+      3,
+      4,
+      2
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Penilaian adil terhadap kontribusi anggota",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.45,
+     "pct_agree": 100,
+     "dist": [
+      0,
+      0,
+      0,
+      6,
+      5
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Fasilitas dan sumber daya memadai",
+     "n": 11,
+     "n_all": 11,
+     "mean": 3.55,
+     "pct_agree": 63.6,
+     "dist": [
+      0,
+      1,
+      3,
+      7,
+      0
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ben": [
+    {
+     "label": "Meningkatkan keterampilan teknis",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.27,
+     "pct_agree": 90.9,
+     "dist": [
+      0,
+      0,
+      1,
+      6,
+      4
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Meningkatkan kerja sama dan komunikasi",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.45,
+     "pct_agree": 81.8,
+     "dist": [
+      0,
+      0,
+      2,
+      2,
+      7
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Lebih siap menghadapi dunia kerja",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.45,
+     "pct_agree": 100,
+     "dist": [
+      0,
+      0,
+      0,
+      6,
+      5
+     ],
+     "cat": "Sangat baik"
+    },
+    {
+     "label": "Puas dengan pelaksanaan PBL",
+     "n": 11,
+     "n_all": 11,
+     "mean": 3.64,
+     "pct_agree": 63.6,
+     "dist": [
+      0,
+      1,
+      3,
+      6,
+      1
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Setuju PBL dilanjutkan",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4,
+     "pct_agree": 63.6,
+     "dist": [
+      0,
+      0,
+      4,
+      3,
+      4
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ops_extra": [
+    {
+     "label": "Komunikasi antar dosen aktif",
+     "n": 10,
+     "n_all": 11,
+     "mean": 2.8,
+     "pct_agree": 20,
+     "dist": [
+      1,
+      2,
+      5,
+      2,
+      0
+     ],
+     "cat": "Cukup"
+    },
+    {
+     "label": "Grup WhatsApp dosen efektif",
+     "n": 11,
+     "n_all": 11,
+     "mean": 3.27,
+     "pct_agree": 36.4,
+     "dist": [
+      0,
+      1,
+      6,
+      4,
+      0
+     ],
+     "cat": "Cukup"
+    },
+    {
+     "label": "Informasi koordinator jelas dan tepat waktu",
+     "n": 11,
+     "n_all": 11,
+     "mean": 3.55,
+     "pct_agree": 63.6,
+     "dist": [
+      1,
+      2,
+      1,
+      4,
+      3
+     ],
+     "cat": "Baik"
+    }
+   ],
+   "ops_mean": 3.98,
+   "ops_cat": "Baik",
+   "experience": {
+    "n": 11,
+    "items": [
+     {
+      "label": "Sudah pernah mengampu PBL sebelumnya",
+      "count": 9,
+      "pct": 81.8
+     },
+     {
+      "label": "Pertama kali mengampu PBL",
+      "count": 2,
+      "pct": 18.2
+     }
+    ]
+   },
+   "k1": {
+    "n": 11,
+    "items": [
+     {
+      "label": "2 Kurang paham",
+      "count": 1,
+      "pct": 9.1
+     },
+     {
+      "label": "3 Cukup paham",
+      "count": 3,
+      "pct": 27.3
+     },
+     {
+      "label": "4 Paham",
+      "count": 7,
+      "pct": 63.6
+     },
+     {
+      "label": "5 Sangat paham",
+      "count": 0,
+      "pct": 0
+     }
+    ]
+   },
+   "k2_correct": 72.7,
+   "understand": [
+    {
+     "label": "Alur dan target milestone",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4,
+     "pct_agree": 81.8,
+     "dist": [
+      0,
+      0,
+      2,
+      7,
+      2
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "SOP dan template laporan",
+     "n": 11,
+     "n_all": 11,
+     "mean": 3.82,
+     "pct_agree": 72.7,
+     "dist": [
+      0,
+      0,
+      3,
+      7,
+      1
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Rubrik penilaian dan penerapannya",
+     "n": 11,
+     "n_all": 11,
+     "mean": 3.73,
+     "pct_agree": 63.6,
+     "dist": [
+      0,
+      1,
+      3,
+      5,
+      2
+     ],
+     "cat": "Baik"
+    },
+    {
+     "label": "Kontribusi mata kuliah terhadap proyek",
+     "n": 11,
+     "n_all": 11,
+     "mean": 4.36,
+     "pct_agree": 81.8,
+     "dist": [
+      0,
+      0,
+      2,
+      3,
+      6
+     ],
+     "cat": "Sangat baik"
+    }
+   ],
+   "activities": [
+    {
+     "label": "Mengaitkan materi dengan proyek",
+     "pct_oa": 72.7
+    },
+    {
+     "label": "Menyediakan waktu diskusi proyek",
+     "pct_oa": 72.7
+    },
+    {
+     "label": "Memeriksa progres proyek tim",
+     "pct_oa": 54.5
+    },
+    {
+     "label": "Memberi umpan balik proyek",
+     "pct_oa": 54.5
+    },
+    {
+     "label": "Membahas kendala teknis",
+     "pct_oa": 54.5
+    }
+   ],
+   "attendance": {
+    "n": 11,
+    "items": [
+     {
+      "label": "Hadir di semua review",
+      "count": 7,
+      "pct": 63.6
+     },
+     {
+      "label": "Hadir di sebagian review",
+      "count": 3,
+      "pct": 27.3
+     },
+     {
+      "label": "Tidak hadir",
+      "count": 1,
+      "pct": 9.1
+     }
+    ]
+   },
+   "consult_freq": {
+    "n": 11,
+    "items": [
+     {
+      "label": "0 kali",
+      "count": 0,
+      "pct": 0
+     },
+     {
+      "label": "1-2 kali",
+      "count": 7,
+      "pct": 63.6
+     },
+     {
+      "label": "3-5 kali",
+      "count": 3,
+      "pct": 27.3
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 1,
+      "pct": 9.1
+     }
+    ]
+   },
+   "align": [
+    {
+     "label": "RPS disesuaikan untuk mendukung PBL",
+     "n": 11,
+     "ya": 81.8,
+     "sebagian": 18.2,
+     "tidak": 0,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Urutan materi disesuaikan dengan milestone",
+     "n": 11,
+     "ya": 54.5,
+     "sebagian": 36.4,
+     "tidak": 9.1,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Contoh dan studi kasus memakai konteks proyek",
+     "n": 11,
+     "ya": 27.3,
+     "sebagian": 54.5,
+     "tidak": 18.2,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Tugas mata kuliah bagian dari deliverable proyek",
+     "n": 11,
+     "ya": 36.4,
+     "sebagian": 54.5,
+     "tidak": 9.1,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Rubrik tugas selaras dengan rubrik PBL",
+     "n": 11,
+     "ya": 54.5,
+     "sebagian": 45.5,
+     "tidak": 0,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Materi pendukung proyek tersedia di LMS",
+     "n": 11,
+     "ya": 54.5,
+     "sebagian": 18.2,
+     "tidak": 27.3,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Materi disesuaikan dengan kendala tim",
+     "n": 11,
+     "ya": 27.3,
+     "sebagian": 45.5,
+     "tidak": 27.3,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Materi/tugas dirancang bersama dosen lain",
+     "n": 11,
+     "ya": 54.5,
+     "sebagian": 18.2,
+     "tidak": 27.3,
+     "tidak_tahu": 0
+    }
+   ],
+   "explain_start": {
+    "n": 11,
+    "ya": 100,
+    "sebagian": 0,
+    "tidak": 0,
+    "tidak_tahu": 0
+   },
+   "share": {
+    "n": 11,
+    "items": [
+     {
+      "label": "26-50%",
+      "count": 6,
+      "pct": 54.5
+     },
+     {
+      "label": "Lebih dari 50%",
+      "count": 5,
+      "pct": 45.5
+     }
+    ]
+   },
+   "coord_freq": {
+    "n": 11,
+    "items": [
+     {
+      "label": "Tidak pernah",
+      "count": 3,
+      "pct": 27.3
+     },
+     {
+      "label": "1-2 kali",
+      "count": 6,
+      "pct": 54.5
+     },
+     {
+      "label": "3-5 kali",
+      "count": 1,
+      "pct": 9.1
+     },
+     {
+      "label": "Lebih dari 5 kali",
+      "count": 1,
+      "pct": 9.1
+     }
+    ]
+   },
+   "wa": {
+    "n": 11,
+    "items": [
+     {
+      "label": "Membaca tetapi jarang menanggapi",
+      "count": 8,
+      "pct": 72.7
+     },
+     {
+      "label": "Jarang membuka",
+      "count": 2,
+      "pct": 18.2
+     },
+     {
+      "label": "Kadang menanggapi atau berbagi informasi",
+      "count": 1,
+      "pct": 9.1
+     }
+    ]
+   },
+   "meeting": {
+    "n": 11,
+    "items": [
+     {
+      "label": "Selalu hadir",
+      "count": 4,
+      "pct": 36.4
+     },
+     {
+      "label": "Hadir sebagian",
+      "count": 5,
+      "pct": 45.5
+     },
+     {
+      "label": "Tidak pernah hadir",
+      "count": 2,
+      "pct": 18.2
+     }
+    ]
+   },
+   "coord_yn": [
+    {
+     "label": "Mengetahui topik proyek setiap tim",
+     "n": 11,
+     "ya": 90.9,
+     "sebagian": 9.1,
+     "tidak": 0,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Mengetahui dosen lain di kelas yang sama",
+     "n": 11,
+     "ya": 63.6,
+     "sebagian": 18.2,
+     "tidak": 18.2,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Ada kesepakatan pembagian peran antar dosen",
+     "n": 11,
+     "ya": 9.1,
+     "sebagian": 27.3,
+     "tidak": 63.6,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Jelas dosen rujukan utama tim",
+     "n": 11,
+     "ya": 18.2,
+     "sebagian": 27.3,
+     "tidak": 54.5,
+     "tidak_tahu": 0
+    },
+    {
+     "label": "Dosen saling mengetahui perkembangan tim",
+     "n": 11,
+     "ya": 18.2,
+     "sebagian": 9.1,
+     "tidak": 36.4,
+     "tidak_tahu": 36.4
+    }
+   ],
+   "coord_lk": [
+    {
+     "label": "Menyelaraskan tenggat dengan dosen lain",
+     "pct_oa": 18.2,
+     "pct_never": 45.5
+    },
+    {
+     "label": "Menyelaraskan rubrik/penilaian dengan dosen lain",
+     "pct_oa": 9.1,
+     "pct_never": 45.5
+    },
+    {
+     "label": "Berbagi progres/kendala tim dengan dosen lain",
+     "pct_oa": 9.1,
+     "pct_never": 54.5
+    },
+    {
+     "label": "Membahas tim bermasalah bersama dosen lain",
+     "pct_oa": 9.1,
+     "pct_never": 63.6
+    },
+    {
+     "label": "Baru tahu kendala tim saat review milestone",
+     "pct_oa": 18.2,
+     "pct_never": 54.5
+    }
+   ],
+   "barriers": [
+    {
+     "label": "Beban mengajar dan administrasi lain",
+     "count": 9,
+     "pct": 81.8
+    },
+    {
+     "label": "Tidak ada jadwal rapat rutin",
+     "count": 8,
+     "pct": 72.7
+    },
+    {
+     "label": "Tidak ada pembagian peran yang jelas antar dosen dalam satu kelas",
+     "count": 6,
+     "pct": 54.5
+    },
+    {
+     "label": "Tidak tahu dosen lain yang mengampu kelas yang sama",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Diskusi di grup WhatsApp kurang terarah",
+     "count": 1,
+     "pct": 9.1
+    }
+   ],
+   "material_barriers": [
+    {
+     "label": "Waktu persiapan terbatas",
+     "count": 5,
+     "pct": 45.5
+    },
+    {
+     "label": "Topik proyek antar tim terlalu beragam",
+     "count": 3,
+     "pct": 27.3
+    },
+    {
+     "label": "Kurang informasi tentang kebutuhan setiap milestone",
+     "count": 3,
+     "pct": 27.3
+    },
+    {
+     "label": "Belum ada panduan atau contoh",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Capaian pembelajaran atau RPS sulit disesuaikan",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 9.1
+    }
+   ],
+   "best": [
+    {
+     "label": "Keselarasan materi kelas dengan proyek",
+     "count": 7,
+     "pct": 63.6
+    },
+    {
+     "label": "Alur dan target milestone jelas",
+     "count": 5,
+     "pct": 45.5
+    },
+    {
+     "label": "SOP dan template laporan membantu",
+     "count": 5,
+     "pct": 45.5
+    },
+    {
+     "label": "Kerja sama tim mahasiswa",
+     "count": 3,
+     "pct": 27.3
+    },
+    {
+     "label": "Perkembangan keterampilan mahasiswa",
+     "count": 3,
+     "pct": 27.3
+    },
+    {
+     "label": "Rubrik dan penilaian jelas dan adil",
+     "count": 3,
+     "pct": 27.3
+    },
+    {
+     "label": "Keterlibatan mitra atau calon pengguna",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Fasilitas dan sumber daya",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Proses umpan balik kepada tim mahasiswa",
+     "count": 1,
+     "pct": 9.1
+    },
+    {
+     "label": "Koordinasi antar dosen pengampu",
+     "count": 1,
+     "pct": 9.1
+    }
+   ],
+   "improve": [
+    {
+     "label": "Pembagian peran antar dosen dalam satu kelas",
+     "count": 7,
+     "pct": 63.6
+    },
+    {
+     "label": "Koordinasi dan komunikasi antar dosen pengampu",
+     "count": 6,
+     "pct": 54.5
+    },
+    {
+     "label": "Beban mengampu dan membimbing PBL",
+     "count": 4,
+     "pct": 36.4
+    },
+    {
+     "label": "Kontribusi anggota tim mahasiswa tidak seimbang",
+     "count": 3,
+     "pct": 27.3
+    },
+    {
+     "label": "Keselarasan tugas dan penilaian antar-mata kuliah",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Kejelasan ketentuan (SOP dan rubrik)",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Waktu dan beban kerja mahasiswa",
+     "count": 1,
+     "pct": 9.1
+    },
+    {
+     "label": "Pemahaman materi oleh mahasiswa",
+     "count": 1,
+     "pct": 9.1
+    },
+    {
+     "label": "Keterbatasan waktu untuk bimbingan atau umpan balik",
+     "count": 1,
+     "pct": 9.1
+    },
+    {
+     "label": "Fasilitas dan sumber daya (server, data, perangkat)",
+     "count": 1,
+     "pct": 9.1
+    },
+    {
+     "label": "Penggunaan AI oleh mahasiswa",
+     "count": 1,
+     "pct": 9.1
+    }
+   ],
+   "support": [
+    {
+     "label": "Rapat koordinasi dosen rutin",
+     "count": 7,
+     "pct": 63.6
+    },
+    {
+     "label": "Pembagian peran dosen yang tertulis",
+     "count": 7,
+     "pct": 63.6
+    },
+    {
+     "label": "Panduan dan contoh penilaian",
+     "count": 4,
+     "pct": 36.4
+    },
+    {
+     "label": "PIC dosen per kelas",
+     "count": 4,
+     "pct": 36.4
+    },
+    {
+     "label": "Pelatihan PBL",
+     "count": 3,
+     "pct": 27.3
+    },
+    {
+     "label": "Pembaruan progres tim terjadwal di grup WhatsApp",
+     "count": 2,
+     "pct": 18.2
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 9.1
+    },
+    {
+     "label": "Penyesuaian beban kerja",
+     "count": 1,
+     "pct": 9.1
+    }
+   ],
+   "workload": {
+    "n": 11,
+    "items": [
+     {
+      "label": "2 Ringan",
+      "count": 0,
+      "pct": 0
+     },
+     {
+      "label": "3 Sesuai",
+      "count": 7,
+      "pct": 63.6
+     },
+     {
+      "label": "4 Berat",
+      "count": 4,
+      "pct": 36.4
+     },
+     {
+      "label": "5 Sangat berat",
+      "count": 0,
+      "pct": 0
+     }
+    ]
+   },
+   "workload_heavy_pct": 36.4,
+   "consult_resp": {
+    "n": 11,
+    "items": [
+     {
+      "label": "1-2 hari",
+      "count": 7,
+      "pct": 63.6
+     },
+     {
+      "label": "Kurang dari 1 hari",
+      "count": 4,
+      "pct": 36.4
+     }
+    ]
+   },
+   "consult_init": {
+    "n": 11,
+    "items": [
+     {
+      "label": "Keduanya",
+      "count": 8,
+      "pct": 72.7
+     },
+     {
+      "label": "Dosen",
+      "count": 2,
+      "pct": 18.2
+     },
+     {
+      "label": "Belum pernah ada konsultasi",
+      "count": 1,
+      "pct": 9.1
+     }
+    ]
+   },
+   "types": [
+    {
+     "label": "Deliverable proyek PBL",
+     "count": 8,
+     "pct": 72.7
+    },
+    {
+     "label": "Latihan dengan konteks proyek",
+     "count": 5,
+     "pct": 45.5
+    },
+    {
+     "label": "Kuis atau ujian",
+     "count": 4,
+     "pct": 36.4
+    },
+    {
+     "label": "Latihan umum yang tidak terkait proyek",
+     "count": 3,
+     "pct": 27.3
+    }
+   ],
+   "sosialisasi": [
+    {
+     "label": "Sosialisasi PBL jurusan semester ini",
+     "count": 9,
+     "pct": 81.8
+    },
+    {
+     "label": "Sosialisasi PBL jurusan semester sebelumnya",
+     "count": 6,
+     "pct": 54.5
+    },
+    {
+     "label": "Belum pernah",
+     "count": 2,
+     "pct": 18.2
+    }
+   ],
+   "by_experience": [
+    {
+     "group": "Sudah pernah mengampu PBL",
+     "n": 9,
+     "k1": 3.67,
+     "k2_correct": 66.7,
+     "ops_mean": 4.07,
+     "puas": 3.67
+    }
+   ],
+   "roster": 16,
+   "rate": 68.8
+  },
+  "gap": [
+   {
+    "group": "ops",
+    "label": "Alur dan target milestone dijelaskan jelas",
+    "mhs_mean": 3.65,
+    "dosen_mean": 4,
+    "mhs_agree": 61.3,
+    "dosen_agree": 72.7,
+    "gap": 0.35
+   },
+   {
+    "group": "ops",
+    "label": "SOP dan template laporan membantu",
+    "mhs_mean": 3.95,
+    "dosen_mean": 4.27,
+    "mhs_agree": 75,
+    "dosen_agree": 90.9,
+    "gap": 0.32
+   },
+   {
+    "group": "ops",
+    "label": "Jadwal dan tenggat milestone realistis",
+    "mhs_mean": 3.74,
+    "dosen_mean": 4.18,
+    "mhs_agree": 60.4,
+    "dosen_agree": 90.9,
+    "gap": 0.44
+   },
+   {
+    "group": "ops",
+    "label": "Bimbingan dosen memadai",
+    "mhs_mean": 3.82,
+    "dosen_mean": 4.18,
+    "mhs_agree": 70.4,
+    "dosen_agree": 90.9,
+    "gap": 0.36
+   },
+   {
+    "group": "ops",
+    "label": "Tugas dan penilaian antar-mata kuliah selaras",
+    "mhs_mean": 3.58,
+    "dosen_mean": 3.56,
+    "mhs_agree": 57,
+    "dosen_agree": 55.6,
+    "gap": -0.02
+   },
+   {
+    "group": "ops",
+    "label": "Rubrik dan kriteria penilaian jelas",
+    "mhs_mean": 3.58,
+    "dosen_mean": 3.55,
+    "mhs_agree": 52.9,
+    "dosen_agree": 54.5,
+    "gap": -0.03
+   },
+   {
+    "group": "ops",
+    "label": "Penilaian adil terhadap kontribusi anggota",
+    "mhs_mean": 3.63,
+    "dosen_mean": 4.45,
+    "mhs_agree": 55.2,
+    "dosen_agree": 100,
+    "gap": 0.82
+   },
+   {
+    "group": "ops",
+    "label": "Fasilitas dan sumber daya memadai",
+    "mhs_mean": 3.46,
+    "dosen_mean": 3.55,
+    "mhs_agree": 52.4,
+    "dosen_agree": 63.6,
+    "gap": 0.09
+   },
+   {
+    "group": "ben",
+    "label": "Meningkatkan keterampilan teknis",
+    "mhs_mean": 4.21,
+    "dosen_mean": 4.27,
+    "mhs_agree": 84.1,
+    "dosen_agree": 90.9,
+    "gap": 0.06
+   },
+   {
+    "group": "ben",
+    "label": "Meningkatkan kerja sama dan komunikasi",
+    "mhs_mean": 4.19,
+    "dosen_mean": 4.45,
+    "mhs_agree": 82.1,
+    "dosen_agree": 81.8,
+    "gap": 0.26
+   },
+   {
+    "group": "ben",
+    "label": "Lebih siap menghadapi dunia kerja",
+    "mhs_mean": 4.06,
+    "dosen_mean": 4.45,
+    "mhs_agree": 77.4,
+    "dosen_agree": 100,
+    "gap": 0.39
+   },
+   {
+    "group": "ben",
+    "label": "Puas dengan pelaksanaan PBL",
+    "mhs_mean": 3.48,
+    "dosen_mean": 3.64,
+    "mhs_agree": 46.2,
+    "dosen_agree": 63.6,
+    "gap": 0.16
+   },
+   {
+    "group": "ben",
+    "label": "Setuju PBL dilanjutkan",
+    "mhs_mean": 3.31,
+    "dosen_mean": 4,
+    "mhs_agree": 41.7,
+    "dosen_agree": 63.6,
+    "gap": 0.69
+   }
+  ]
+ }
+}

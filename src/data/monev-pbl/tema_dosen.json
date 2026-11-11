@@ -1,0 +1,59 @@
+{
+ "dosen_n": 22,
+ "input": 8,
+ "penulis": {
+  "n": 7,
+  "ti": 5,
+  "sib": 4
+ },
+ "themes": [
+  {
+   "key": "apresiasi",
+   "kind": "saran",
+   "label": "Apresiasi dan penghargaan untuk pelaksanaan PBL",
+   "n": 1,
+   "ti": 1,
+   "sib": 1
+  },
+  {
+   "key": "beban",
+   "kind": "saran",
+   "label": "Beban dan pemerataan tugas dosen pengampu",
+   "n": 2,
+   "ti": 2,
+   "sib": 1
+  },
+  {
+   "key": "panduan",
+   "kind": "saran",
+   "label": "Panduan tertulis dan koordinasi sejak awal",
+   "n": 2,
+   "ti": 1,
+   "sib": 2
+  },
+  {
+   "key": "wadah",
+   "kind": "saran",
+   "label": "Wadah bersama untuk produk dan progres PBL",
+   "n": 2,
+   "ti": 2,
+   "sib": 1
+  },
+  {
+   "key": "keselarasan",
+   "kind": "saran",
+   "label": "Keselarasan mata kuliah dengan PBL",
+   "n": 2,
+   "ti": 1,
+   "sib": 2
+  },
+  {
+   "key": "baik",
+   "kind": "baik",
+   "label": "Hal baik yang ingin dipertahankan",
+   "n": 1,
+   "ti": 1,
+   "sib": 0
+  }
+ ]
+}

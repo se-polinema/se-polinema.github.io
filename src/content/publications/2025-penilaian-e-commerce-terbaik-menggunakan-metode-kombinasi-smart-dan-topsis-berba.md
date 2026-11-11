@@ -4,8 +4,11 @@ year: 2025
 type: "journal"
 venue: "JATI (Jurnal Mahasiswa Teknik Informatika)"
 authors:
-  - "Hafiz Raka Pradana and Ariadi Retno Tri Hayati Ririd and Elok Nur Hamdana"
+  - "Hafiz Raka Pradana"
+  - "Ariadi Retno Tri Hayati Ririd"
+  - "Elok Nur Hamdana"
 url: "https://www.ejournal.itn.ac.id/jati/article/view/12380"
+doi: "10.36040/jati.v9i1.12380"
 googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 citedByCount: 0
 researchers:

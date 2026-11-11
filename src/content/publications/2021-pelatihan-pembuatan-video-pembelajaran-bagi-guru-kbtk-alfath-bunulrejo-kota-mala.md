@@ -4,8 +4,13 @@ year: 2021
 type: "journal"
 venue: "Jurnal Pengabdian Polinema Kepada Masyarakat"
 authors:
-  - "Arief Prasetyo and Elok Nur Hamdana and Meyti Eka Apriyani and M Unggul Pamenang and Sofyan Noor Arief"
+  - "Arief Prasetyo"
+  - "Elok Nur Hamdana"
+  - "Meyti Eka Apriyani"
+  - "M Unggul Pamenang"
+  - "Sofyan Noor Arief"
 url: "https://www.academia.edu/download/106608780/64.pdf"
+doi: "10.33795/jppkm.v8i2.71"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=12666363839466813178"
 citedByCount: 2
 researchers:

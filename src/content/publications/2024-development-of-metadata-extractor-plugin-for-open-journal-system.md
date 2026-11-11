@@ -6,6 +6,7 @@ venue: "International Conference on Applied Science and Technology"
 authors:
   - "Moch. Zawaruddin Abdullah"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uPC_KcAAAAJ"
+doi: "10.2991/978-94-6463-364-1_90"
 researchers:
   - "moch-zawaruddin-abdullah"
 featured: true

@@ -115,6 +115,8 @@ const publicationsCollection = defineCollection({
     authors: z.array(z.string()),
     url: z.url(),
     doi: z.string().optional(),
+    abstract: z.string().optional(),
+    pdfUrl: z.url().optional(),
     googleScholarUrl: z.url().optional(),
     citedByCount: z.number().int().optional(),
     researchers: z.array(z.string()),

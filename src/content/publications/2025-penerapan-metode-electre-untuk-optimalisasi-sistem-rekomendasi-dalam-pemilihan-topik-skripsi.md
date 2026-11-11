@@ -6,6 +6,7 @@ venue: "JATI"
 authors:
   - "Elok Nur Hamdana"
 url: "https://www.ejournal.itn.ac.id/jati/article/download/13471/7699"
+doi: "10.36040/jati.v9i3.13471"
 googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 researchers:
   - "elok-nur-hamdana"

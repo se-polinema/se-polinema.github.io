@@ -6,6 +6,7 @@ venue: "Jurnal Minfo Polgan"
 authors:
   - "Elok Hamdana"
 url: "https://www.jurnal.polgan.ac.id/index.php/jmp/article/view/12351"
+doi: "10.33395/jmp.v12i1.12351"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=14894222942597324637"
 citedByCount: 8
 researchers:
