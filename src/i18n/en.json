@@ -1149,7 +1149,9 @@
       "suggestionSent": "Suggestion sent. Thank you.",
       "suggestionEmpty": "Write a suggestion first.",
       "suggestionClosed": "Suggestions are closed.",
-      "sentFromDevice": "sent from this device: {n}/5"
+      "sentFromDevice": "sent from this device: {n}/5",
+      "otherLabel": "Other (optional)",
+      "otherPlaceholder": "Write another solution here, if none of the options fits"
     },
     "presenter": {
       "loading": "Loading...",
@@ -1175,7 +1177,8 @@
       "endConfirm": "End the session? Participants will not be able to vote.",
       "ended": "Session ended",
       "hide": "Hide panel (H)",
-      "saveFailed": "Could not save the change"
+      "saveFailed": "Could not save the change",
+      "others": "{n} other"
     },
     "errors": {
       "voting_closed": "Voting for this question is closed.",
