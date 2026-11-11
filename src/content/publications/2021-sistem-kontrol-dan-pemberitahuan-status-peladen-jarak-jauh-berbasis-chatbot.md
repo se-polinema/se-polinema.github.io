@@ -6,6 +6,7 @@ venue: "Jurnal Teknik: Ilmu dan Aplikasi"
 authors:
   - "Dian Hanifudin Subhi"
 url: "https://www.academia.edu/download/87128957/51.pdf"
+doi: "10.33795/jtia.v2i1.53"
 googleScholarUrl: "https://scholar.google.com/citations?user=pR2Dn7MAAAAJ&hl=en"
 researchers:
   - "dian-hanifudin-subhi"

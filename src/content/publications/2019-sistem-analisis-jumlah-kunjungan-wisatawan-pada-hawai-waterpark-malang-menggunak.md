@@ -4,7 +4,9 @@ year: 2019
 type: "journal"
 venue: "Jurnal Informatika Polinema"
 authors:
-  - "Erfan Rohadi and Dian Hanifudin Subhi and Muhammad Zakariya Al"
+  - "Erfan Rohadi"
+  - "Dian Hanifudin Subhi"
+  - "Muhammad Zakariya Al"
 url: "https://www.academia.edu/download/92835951/216.pdf"
 googleScholarUrl: "https://scholar.google.com/scholar?hl=en&cites=15730369047177772735"
 citedByCount: 2

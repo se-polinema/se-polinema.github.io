@@ -4,7 +4,9 @@ year: 2024
 type: "journal"
 venue: "https://conference2.upgris.ac.id/index.php/icomsie/article/view/46"
 authors:
-  - "Vit Zuraida Ariadi Retno and Wilda Imama and Puspa Kirana"
+  - "Vit Zuraida Ariadi Retno"
+  - "Wilda Imama"
+  - "Puspa Kirana"
 url: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 googleScholarUrl: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 citedByCount: 0

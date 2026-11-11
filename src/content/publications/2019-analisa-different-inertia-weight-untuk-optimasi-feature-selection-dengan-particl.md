@@ -4,7 +4,8 @@ year: 2019
 type: "journal"
 venue: "SNATIF(proceding cetak)"
 authors:
-  - "Indra Dharma Wijaya Ariadi Retno and Ely Setyo Astuti"
+  - "Indra Dharma Wijaya Ariadi Retno"
+  - "Ely Setyo Astuti"
 url: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 googleScholarUrl: "https://scholar.google.com/citations?user=qoWiXaQAAAAJ&hl=en"
 citedByCount: 0

@@ -6,6 +6,7 @@ venue: "International Conference Proceedings"
 authors:
   - "Imam Fahrur Rozi"
 url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=WwrDWnEAAAAJ"
+doi: "10.1109/icamimia60881.2023.10427891"
 researchers:
   - "imam-fahrur-rozi"
 featured: false

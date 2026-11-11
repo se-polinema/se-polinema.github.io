@@ -13,6 +13,8 @@
     "sync:publications": "node scripts/update-publications.mjs",
     "sync:books": "node scripts/scrape-books.mjs",
     "validate:publications": "node scripts/validate-publications.mjs",
+    "sync:publications:authors": "node scripts/normalize-publication-authors.mjs",
+    "sync:dois": "node scripts/enrich-dois.mjs",
     "smoke:decks": "node scripts/smoke-decks.mjs",
     "sync:monev-data": "node scripts/sanitize-monev-data.mjs"
   },
