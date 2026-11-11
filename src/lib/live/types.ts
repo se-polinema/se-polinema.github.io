@@ -16,6 +16,8 @@ export interface Question {
   area: string
   prompt: string
   options: Option[]
+  /** Show an optional free-text "Lainnya" field next to the options. */
+  other?: boolean
 }
 
 /** What the voter page reads back from monev.questions (flat DB shape). */
@@ -26,11 +28,16 @@ export interface QuestionRow {
   area: string | null
   prompt: string
   options: Option[]
+  allow_other: boolean
 }
 
 export interface Results {
   n: number
   counts: Record<string, number>
+  /** Voters who wrote a "Lainnya" answer. */
+  n_other?: number
+  /** The "Lainnya" texts. Only returned to admins. */
+  others?: string[]
 }
 
 export interface Session {

@@ -1,13 +1,13 @@
 // Monev PBL slides. Every number comes from src/data/monev-pbl/*.json (sanitized aggregates of the
-// survey report), so the deck cannot drift from the report. Problem slides alternate with poll slides.
+// survey report), so the deck cannot drift from the report. Each problem slide is followed by a poll
+// slide where lecturers pick a solution or write their own under "Lainnya".
 import agregat from '../../data/monev-pbl/agregat.json'
 import temaJson from '../../data/monev-pbl/tema.json'
 import temaDosenJson from '../../data/monev-pbl/tema_dosen.json'
 import { esc, fmt, pc, pick, sgn } from '../../lib/live/format'
-import { paintOptions } from '../../lib/live/paint'
 import { withBase } from '../../lib/paths'
-import type { Question, Results, Slide, SlideCtx } from '../../lib/live/types'
-import questionsJson from './questions.json'
+import type { Results, Slide, SlideCtx } from '../../lib/live/types'
+import { questions } from './questions'
 
 const D: any = agregat
 const tema: any = temaJson
@@ -18,13 +18,12 @@ const l = A.dosen
 const mo = m.monitored
 const dr = m.drivers
 const th = (k: string) => tema.themes.find((t: any) => t.key === k)
+const us = (lab: string) => tema.usulan.find((x: any) => x.label === lab)?.n ?? 0
 const cross = (f: string) => dr.cross.find((c: any) => c.factor === f)
 const grp = (c: any, lab: string) => c.groups.find((x: any) => x.label === lab)
 const cepat = m.consult_resp.items.find((i: any) => i.label === 'Kurang dari 1 hari').pct
 const beban = cross('Beban PBL dibanding waktu tersedia')
 const imp = (lab: string) => pick(m.improve, lab)
-
-export const questions = questionsJson as Question[]
 const Q = (k: string) => questions.find((q) => q.key === k)!
 
 // ------------------------------------------------------------------ building blocks
@@ -34,10 +33,10 @@ const stat = (s: Stat) => `<div class="lv-stat is-${s.tone}"><div class="lv-num"
 const li = (xs: string[]) => `<ul>${xs.map((x) => `<li>${x}</li>`).join('')}</ul>`
 const bb = (good: string[], bad: string[]) => `
   <div class="lv-bb">
-    <div class="lv-panel is-good"><h3>Yang baik</h3>${li(good)}</div>
+    <div class="lv-panel is-good"><h3>Yang sudah berjalan</h3>${li(good)}</div>
     <div class="lv-panel is-bad"><h3>Yang bermasalah</h3>${li(bad)}</div>
   </div>`
-const arti = (t: string) => `<p class="lv-arti"><b>Artinya:</b> ${t}</p>`
+const closing = (t: string) => `<p class="lv-closing">${t}</p>`
 
 function bars(
   items: [string, number, ('good' | 'bad' | 'mute')?][],
@@ -53,12 +52,12 @@ function bars(
     .join('')}</div>`
 }
 
-function problem(o: { id: string; title: string; stats: Stat[]; good: string[]; bad: string[]; arti: string; src: string }): Slide {
+function problem(o: { id: string; title: string; stats: Stat[]; good: string[]; bad: string[]; closing: string; src: string }): Slide {
   return {
     id: o.id,
     title: o.title,
     src: o.src,
-    render: () => `<div class="lv-stats">${o.stats.map(stat).join('')}</div>${bb(o.good, o.bad)}${arti(o.arti)}`,
+    render: () => `<div class="lv-stats">${o.stats.map(stat).join('')}</div>${bb(o.good, o.bad)}${closing(o.closing)}`,
   }
 }
 
@@ -71,7 +70,8 @@ function joinPanel(c: SlideCtx, hint: string, big = false) {
   </aside>`
 }
 
-function vote(qkey: string, id: string, recapLine: string): Slide {
+/** Poll slide: one sentence that ties it to the problem, the solutions, and a pointer to "Lainnya". */
+function vote(qkey: string, id: string, lead: string): Slide {
   const q = Q(qkey)
   return {
     id,
@@ -79,7 +79,11 @@ function vote(qkey: string, id: string, recapLine: string): Slide {
     question: qkey,
     render: (c) => `
       <div class="lv-votegrid">
-        <div><p class="lv-recapline">${recapLine}</p><div class="lv-opts" data-q="${qkey}"></div></div>
+        <div>
+          <p class="lv-recapline">${lead}</p>
+          <div class="lv-opts" data-q="${qkey}"></div>
+          ${q.other ? '<p class="lv-note lv-other-hint">Tidak ada yang cocok? Tulis usulan Bapak/Ibu di kolom Lainnya pada ponsel.</p>' : ''}
+        </div>
         ${joinPanel(c, `${q.kind === 'multi' && q.max > 1 ? `Pilih maksimal ${q.max}` : 'Pilih satu'} di ponsel Anda`)}
       </div>`,
   }
@@ -100,6 +104,10 @@ function responseGrid() {
     .join('')
 }
 
+const nolKelas = m.response.classes.filter((c: any) => c.n === 0).length
+const lulusKelas = m.response.classes.filter((c: any) => c.rate >= 70).length
+const bar = (lab: string) => pick(l.barriers, lab).count
+
 // ------------------------------------------------------------------ main slides
 const main: Slide[] = [
   {
@@ -113,34 +121,52 @@ const main: Slide[] = [
           <p class="lv-kicker">Monitoring dan Evaluasi PBL · Semester Ganjil 2026/2027</p>
           <h1>Hasil Survei Monev PBL</h1>
           <p class="lv-sub">Program Studi Sarjana Terapan Teknik Informatika dan Sistem Informasi Bisnis</p>
-          <p class="lv-how">Kita bahas <b>masalah</b> dari survei, lalu <b>Bapak/Ibu memilih solusinya</b> lewat ponsel.</p>
+          <p class="lv-how">Ada tujuh masalah. Untuk tiap masalah, Bapak/Ibu memilih solusi lewat ponsel, atau menulis usulan sendiri di kolom Lainnya.</p>
         </div>
         ${joinPanel(c, `Pindai untuk ikut memilih · ${c.joinUrl}`, true)}
       </div>`,
   },
   {
     id: 'ringkasan',
-    title: 'Manfaat PBL diakui, tetapi pelaksanaannya belum memuaskan',
+    title: 'Mahasiswa menilai PBL bermanfaat, tetapi belum puas dengan pelaksanaannya',
     src: `survei mahasiswa (n = ${m.n}), persentase setuju atau sangat setuju`,
     render: () => `
       ${bars(
         [
-          ['Keterampilan teknis', m.ben[0].pct_agree],
-          ['Kerja sama', m.ben[1].pct_agree],
-          ['Kesiapan kerja', m.ben[2].pct_agree],
-          ['Puas dengan pelaksanaan', m.ben[3].pct_agree, 'bad'],
+          ['PBL meningkatkan keterampilan teknis', m.ben[0].pct_agree],
+          ['PBL melatih kerja sama', m.ben[1].pct_agree],
+          ['PBL meningkatkan kesiapan kerja', m.ben[2].pct_agree],
+          ['Puas dengan pelaksanaan PBL', m.ben[3].pct_agree, 'bad'],
           ['Setuju PBL dilanjutkan', m.ben[4].pct_agree, 'bad'],
         ],
-        { lw: 560, size: 34 },
+        { lw: 620, size: 34 },
       )}
-      <p class="lv-note">Biru: baik. Oranye: bermasalah.</p>
-      ${arti(`mahasiswa mengeluhkan cara pelaksanaan (beban, koordinasi antar dosen, fasilitas), bukan konsep PBL. Mahasiswa yang pernah ikut PBL sama puasnya dengan yang belum (${pc(m.by_experience[1].sat_agree)} dan ${pc(m.by_experience[0].sat_agree)}), jadi ini bukan masalah mahasiswa baru saja. Ada enam masalah yang dibahas satu per satu.`)}`,
+      <p class="lv-note">Biru: manfaat. Oranye: kepuasan dan keinginan melanjutkan.</p>
+      ${closing(`Keluhan mahasiswa tertuju pada cara PBL dijalankan, bukan pada konsepnya. Mahasiswa yang pernah ikut PBL sama puasnya dengan yang belum (${pc(m.by_experience[1].sat_agree)} dan ${pc(m.by_experience[0].sat_agree)}).`)}`,
+  },
+  {
+    id: 'peta',
+    title: 'Tujuh masalah yang dibahas hari ini',
+    src: `survei mahasiswa (n = ${m.n}) dan dosen (n = ${l.n}); wawancara langsung dengan mahasiswa untuk masalah jadwal`,
+    render: () => `
+      <div class="lv-stats">
+        ${stat({ num: pc(m.response.rate), label: '1. Respons: mahasiswa yang mengisi survei (target 70%)', tone: 'bad' })}
+        ${stat({ num: pc(m.workload_heavy_pct), label: '2. Beban: mahasiswa yang menilai PBL berat', tone: 'bad' })}
+        ${stat({ num: pc(m.coord[3].pct_oa), label: '3. Jadwal: sering atau selalu mengalami tenggat bertabrakan', tone: 'bad' })}
+        ${stat({ num: pc(m.pooled.bc[3].ya), label: '4. Keselarasan: menjawab tugas mata kuliah bagian dari proyek', tone: 'bad' })}
+      </div>
+      <div class="lv-stats">
+        ${stat({ num: pc(m.coord[1].ya), label: '5. Koordinasi: menilai arahan antar dosen konsisten', tone: 'bad' })}
+        ${stat({ num: pc(m.ops[6].pct_agree), label: '6. Penilaian: setuju penilaian adil', tone: 'bad' })}
+        ${stat({ num: fmt(m.ops[7].mean, 2), label: '7. Fasilitas: skor dari 5, yang terendah', tone: 'bad' })}
+      </div>
+      ${closing('Setiap masalah diikuti satu pemungutan suara. Pilihan solusi disertai data survei yang mendukung atau menyulitkannya.')}`,
   },
 
   // 1. respons
   {
     id: 'm-respons',
-    title: 'Masalah 1. Respons survei rendah, terutama di kelas yang tidak dipantau',
+    title: `Masalah 1. Hanya ${pc(m.response.rate)} mahasiswa mengisi survei`,
     src: `survei mahasiswa (n = ${m.n} dari ${m.response.roster}) dan dosen (n = ${l.n} dari ${l.roster}); target respons 70%`,
     render: () => `
       <div class="lv-stats">
@@ -151,9 +177,9 @@ const main: Slide[] = [
       </div>
       <div class="lv-grid">${responseGrid()}</div>
       <p class="lv-note">Abu-abu: tidak ada responden. Muda: di bawah 30%. Sedang: 30 sampai 69%. Tua: 70% atau lebih. Garis tebal: kelas yang dipantau langsung.</p>
-      ${arti(`tinggi rendahnya respons ditentukan oleh ada tidaknya pemantauan di kelas, bukan oleh isi jawaban (skor pelaksanaan ${fmt(mo.enf.stats.ops_mean, 2)} dan ${fmt(mo.oth.stats.ops_mean, 2)}). Masalah di kelas yang sedikit respondennya bisa terlewat.`)}`,
+      ${closing(`${nolKelas} dari ${m.response.classes.length} kelas tidak punya responden, dan hanya ${lulusKelas} kelas melewati target. Skor pelaksanaan di kelas yang dipantau dan yang tidak hampir sama (${fmt(mo.enf.stats.ops_mean, 2)} dan ${fmt(mo.oth.stats.ops_mean, 2)}), jadi bedanya ada pada pemantauan, bukan pada jawaban. Hasil kelas yang sedikit respondennya baru gambaran awal.`)}`,
   },
-  vote('respons', 'v-respons', `Respons ${pc(m.response.rate, 1)} dari target 70%. Hanya ${m.response.classes.filter((c: any) => c.rate >= 70).length} dari ${m.response.classes.length} kelas yang melewati target.`),
+  vote('respons', 'v-respons', `Kelas yang dipantau mengisi ${pc(mo.enf.rate)}, kelas yang tidak dipantau ${pc(mo.oth.rate)}.`),
 
   // 2. beban
   problem({
@@ -163,25 +189,48 @@ const main: Slide[] = [
     stats: [
       { num: pc(m.workload_heavy_pct), label: 'mahasiswa menilai beban berat', tone: 'bad' },
       { num: pc(m.material[0].pct), label: 'menyebut tugas mata kuliah menambah beban di luar proyek', tone: 'bad' },
-      { num: fmt(grp(beban, 'Berat atau sangat berat').puas, 2), label: `kepuasan yang merasa berat (yang tidak: ${fmt(grp(beban, 'Ringan atau sesuai').puas, 2)})`, tone: 'bad' },
+      { num: fmt(grp(beban, 'Berat atau sangat berat').puas, 2), label: `kepuasan mahasiswa yang merasa berat (yang tidak: ${fmt(grp(beban, 'Ringan atau sesuai').puas, 2)})`, tone: 'bad' },
       { num: pc(l.workload_heavy_pct), label: 'dosen menilai beban berat', tone: 'good' },
     ],
     good: [
-      `<b>${pc(m.workload.items[1].pct)}</b> mahasiswa menilai beban sudah sesuai.`,
-      `TI Semester 3 paling ringan: <b>${pc(m.sem_stats[0].berat)}</b> menilai berat.`,
+      `${pc(m.workload.items[1].pct)} mahasiswa menilai beban sudah sesuai.`,
+      `TI Semester 3 paling ringan: ${pc(m.sem_stats[0].berat)} menilai berat.`,
     ],
     bad: [
-      `SIB Semester 3: <b>${pc(m.sem_stats[2].berat)}</b> menilai berat; TI Semester 5: <b>${pc(m.sem_stats[1].berat)}</b>.`,
-      `<b>${th('beban').subs[0].n}</b> komentar menyebut tugas praktikum, jobsheet, atau tugas besar terpisah dari PBL.`,
+      `Paling berat di SIB Semester 3 (${pc(m.sem_stats[2].berat)}) dan TI Semester 5 (${pc(m.sem_stats[1].berat)}).`,
+      `${th('beban').subs[0].n} komentar menyebut tugas praktikum, jobsheet, atau tugas besar yang terpisah dari PBL.`,
     ],
-    arti: 'dosen hanya melihat satu mata kuliah, mahasiswa merasakan semuanya sekaligus.',
+    closing: 'Dosen hanya melihat satu mata kuliah, sedangkan mahasiswa menanggung semua tugas sekaligus.',
   }),
-  vote('beban', 'v-beban', `${pc(m.workload_heavy_pct)} mahasiswa menilai beban berat; ${pc(m.coord[3].pct_oa)} sering atau selalu mengalami tenggat bertabrakan.`),
+  vote('beban', 'v-beban', `${pc(m.workload_heavy_pct)} mahasiswa menilai beban berat, dan ${pc(m.material[0].pct)} menyebut tugas mata kuliah sebagai penyebabnya.`),
 
-  // 3. keselarasan
+  // 3. jadwal (new, from the student interviews)
+  problem({
+    id: 'm-jadwal',
+    title: 'Masalah 3. Tenggat milestone berdekatan dengan kuis, UTS, dan UAS',
+    src: `wawancara langsung dengan mahasiswa; survei mahasiswa (n = ${m.n}), butir tenggat dan pilihan masalah; komentar bebas (${tema.substantive})`,
+    stats: [
+      { num: 'Wawancara', label: 'mahasiswa mengeluh milestone berdekatan dengan kuis, UTS, dan UAS', tone: 'bad' },
+      { num: pc(m.coord[3].pct_oa), label: 'sering atau selalu mengalami tenggat antar mata kuliah bertabrakan (survei)', tone: 'bad' },
+      { num: pc(imp('Waktu dan beban kerja').pct), label: 'memilih waktu dan beban kerja sebagai masalah, pilihan terbanyak', tone: 'bad' },
+      { num: pc(m.workload.items[1].pct), label: 'menilai beban sudah sesuai', tone: 'good' },
+    ],
+    good: [
+      `Lebih dari separuh mahasiswa (${pc(m.workload.items[1].pct)}) menilai beban sudah sesuai.`,
+      `Dosen sudah tahu topik proyek tiap tim (${pc(l.coord_yn[0].ya)}), jadi jadwal bisa disusun dari data yang ada.`,
+    ],
+    bad: [
+      `${us('Perpanjang waktu atau durasi PBL')} komentar mahasiswa meminta waktu atau durasi PBL diperpanjang.`,
+      `Survei tidak menanyakan jadwal kuis dan ujian. Keluhan ini datang dari wawancara, dan angka tenggat bertabrakan sejalan dengannya.`,
+    ],
+    closing: 'Beban terasa berat ketika tenggat milestone, kuis, dan ujian jatuh di pekan yang sama.',
+  }),
+  vote('jadwal', 'v-jadwal', `${pc(m.coord[3].pct_oa)} mahasiswa sering atau selalu mengalami tenggat bertabrakan, dan dalam wawancara mereka menyebut kuis, UTS, dan UAS.`),
+
+  // 4. keselarasan
   problem({
     id: 'm-selaras',
-    title: 'Masalah 3. Dokumennya sudah sejalan dengan proyek, tugasnya baru setengah',
+    title: 'Masalah 4. Tugas mata kuliah belum menjadi bagian dari proyek',
     src: `survei mahasiswa (n = ${m.n}) dan dosen (n = ${l.n}), butir keselarasan mata kuliah`,
     stats: [
       { num: pc(m.pooled.bc[3].ya), label: `menjawab tugas mata kuliah bagian dari proyek (dosen: ${pc(l.align[3].ya)})`, tone: 'bad' },
@@ -190,44 +239,44 @@ const main: Slide[] = [
       { num: pc(m.pooled.bc[0].ya), label: 'menjawab kontrak kuliah memuat kaitan dengan proyek', tone: 'good' },
     ],
     good: [
-      `<b>${pc(m.pooled.bc[8].ya)}</b> menjawab dosen tahu topik proyek tim.`,
-      `<b>${pc(pick(m.pooled.type, 'Deliverable proyek').pct)}</b> tugas utama berupa hasil kerja proyek.`,
+      `${pc(m.pooled.bc[8].ya)} menjawab dosen tahu topik proyek tim.`,
+      `${pc(pick(m.pooled.type, 'Deliverable proyek').pct)} tugas utama berupa hasil kerja proyek.`,
     ],
     bad: [
-      `Hanya <b>${pc(m.pooled.bc[3].ya)}</b> menjawab tugas mata kuliah bagian dari proyek.`,
-      `Bobot nilai PBL tidak disampaikan pada <b>${pc(pick(m.pooled.share, 'Tidak disampaikan').pct)}</b> jawaban.`,
+      `Hanya ${pc(m.pooled.bc[3].ya)} menjawab tugas mata kuliah bagian dari proyek.`,
+      `Bobot nilai PBL tidak disampaikan pada ${pc(pick(m.pooled.share, 'Tidak disampaikan').pct)} jawaban.`,
     ],
-    arti: 'tugas yang tidak sejalan dengan proyek memicu keluhan beban, dan dosen mengakuinya.',
+    closing: 'Dokumennya sudah mengarah ke proyek, tetapi tugasnya belum. Tugas yang terpisah dari proyek memicu keluhan beban.',
   }),
-  vote('selaras', 'v-selaras', `Hanya ${pc(m.pooled.bc[3].ya)} mahasiswa menjawab tugas mata kuliah bagian dari proyek; bobot nilai tidak disampaikan pada ${pc(pick(m.pooled.share, 'Tidak disampaikan').pct)} jawaban.`),
+  vote('selaras', 'v-selaras', `Hanya ${pc(m.pooled.bc[3].ya)} mahasiswa menjawab tugas mata kuliah bagian dari proyek (dosen: ${pc(l.align[3].ya)}).`),
 
-  // 4. koordinasi
+  // 5. koordinasi
   problem({
     id: 'm-koordinasi',
-    title: 'Masalah 4. Koordinasi antar dosen: mahasiswa merasakan akibatnya, dosen mengakui penyebabnya',
+    title: 'Masalah 5. Arahan antar dosen berbeda-beda',
     src: `survei mahasiswa (n = ${m.n}) dan dosen (n = ${l.n}); komentar bebas tema koordinasi (${th('koordinasi').n})`,
     stats: [
-      { num: pc(m.coord[1].ya), label: 'mahasiswa menilai arahan antar dosen sama', tone: 'bad' },
+      { num: pc(m.coord[1].ya), label: 'mahasiswa menilai arahan antar dosen konsisten', tone: 'bad' },
       { num: pc(l.coord_yn[2].ya), label: 'dosen punya kesepakatan peran', tone: 'bad' },
       { num: `${l.meeting.items[0].count} dari ${l.n}`, label: 'dosen selalu hadir di rapat', tone: 'bad' },
-      { num: pc(l.coord_yn[0].ya), label: 'dosen saling tahu topik proyek tim', tone: 'good' },
+      { num: pc(l.coord_yn[0].ya), label: 'dosen tahu topik proyek tiap tim', tone: 'good' },
     ],
     good: [
-      `Informasi dari koordinator jelas dan tepat waktu (<b>${fmt(l.ops_extra[2].mean, 2)}</b> dari 5).`,
-      `<b>${pc(m.coord[2].ya)}</b> mahasiswa tahu harus bertanya ke dosen siapa.`,
+      `Informasi dari koordinator dinilai jelas dan tepat waktu (${fmt(l.ops_extra[2].mean, 2)} dari 5).`,
+      `${pc(m.coord[2].ya)} mahasiswa tahu harus bertanya ke dosen siapa.`,
     ],
     bad: [
-      `<b>${th('koordinasi').n}</b> komentar mahasiswa membahas arahan yang berbeda antar dosen.`,
-      `Hambatan dosen: beban mengajar dan administrasi (<b>${pick(l.barriers, 'Beban mengajar dan administrasi lain').count}</b>) dan tidak ada jadwal rapat (<b>${pick(l.barriers, 'Tidak ada jadwal rapat rutin').count}</b>).`,
+      `${th('koordinasi').n} komentar mahasiswa membahas arahan yang berbeda antar dosen.`,
+      `Hambatan dosen: beban mengajar dan administrasi (${bar('Beban mengajar dan administrasi lain')} dari ${l.n}) dan tidak ada jadwal rapat (${bar('Tidak ada jadwal rapat rutin')}).`,
     ],
-    arti: 'dua pihak melihat masalah yang sama. Penyebabnya ada pada cara kerja: tidak ada jadwal rapat dan pembagian peran.',
+    closing: 'Mahasiswa dan dosen melihat masalah yang sama. Penyebabnya ada pada cara kerja: belum ada jadwal rapat dan pembagian peran.',
   }),
-  vote('koordinasi', 'v-koordinasi', `Hanya ${pc(m.coord[1].ya)} mahasiswa menilai arahan dosen sama, dan hambatan utama dosen adalah beban mengajar dan administrasi.`),
+  vote('koordinasi', 'v-koordinasi', `Hanya ${pc(m.coord[1].ya)} mahasiswa menilai arahan dosen konsisten, dan hambatan utama dosen adalah beban mengajar dan administrasi.`),
 
-  // 5. penilaian
+  // 6. penilaian
   problem({
     id: 'm-nilai',
-    title: 'Masalah 5. Panduan membantu, tetapi rubrik dan keadilan nilai belum meyakinkan',
+    title: 'Masalah 6. Rubrik dan penilaian belum dianggap adil',
     src: `survei mahasiswa (n = ${m.n}) dan dosen (n = ${l.n}); komentar bebas tema tim dan nilai`,
     stats: [
       { num: pc(m.ops[5].pct_agree), label: 'setuju rubrik jelas', tone: 'bad' },
@@ -236,42 +285,42 @@ const main: Slide[] = [
       { num: pc(m.ops[1].pct_agree), label: 'menilai SOP dan template membantu', tone: 'good' },
     ],
     good: [
-      `SOP dan template adalah skor tertinggi di butir pelaksanaan (<b>${pc(m.ops[1].pct_agree)}</b>).`,
-      `Bimbingan dosen dinilai memadai oleh <b>${pc(m.ops[3].pct_agree)}</b>.`,
+      `SOP dan template adalah butir pelaksanaan dengan skor tertinggi (${pc(m.ops[1].pct_agree)}).`,
+      `Bimbingan dosen dinilai memadai oleh ${pc(m.ops[3].pct_agree)}.`,
     ],
     bad: [
-      `Rubrik jelas dan penilaian adil sangat berhubungan dengan kepuasan (r = <b>${fmt(dr.corr[1].r_puas, 2)}</b> dan <b>${fmt(dr.corr[2].r_puas, 2)}</b>).`,
-      `Kontribusi tim tidak bisa dibuktikan dari laporan.`,
+      `Rubrik jelas dan penilaian adil sangat berkaitan dengan kepuasan (r = ${fmt(dr.corr[1].r_puas, 2)} dan ${fmt(dr.corr[2].r_puas, 2)}).`,
+      'Kontribusi tiap anggota tidak bisa dibuktikan dari laporan.',
     ],
-    arti: 'rubrik yang jelas dan penilaian yang adil menentukan kepuasan, dan itu belum dirasakan mahasiswa.',
+    closing: 'Selama mahasiswa belum merasa nilainya adil, kepuasan mereka terhadap PBL ikut turun.',
   }),
-  vote('nilai', 'v-nilai', `Hanya ${pc(m.ops[5].pct_agree)} setuju rubrik jelas dan ${pc(m.ops[6].pct_agree)} setuju penilaian adil.`),
+  vote('nilai', 'v-nilai', `Hanya ${pc(m.ops[5].pct_agree)} mahasiswa setuju rubrik jelas dan ${pc(m.ops[6].pct_agree)} setuju penilaian adil.`),
 
-  // 6. fasilitas
+  // 7. fasilitas
   problem({
     id: 'm-fasilitas',
-    title: 'Masalah 6. Bimbingan cepat, tetapi fasilitas lemah dan sebagian tim belum dibimbing',
+    title: 'Masalah 7. Bimbingan cepat, tetapi sebagian tim belum dibimbing dan fasilitas lemah',
     src: `survei mahasiswa (n = ${m.n}); komentar bebas tema fasilitas (${th('fasilitas').n}) dan bimbingan (${th('bimbingan').n})`,
     stats: [
-      { num: fmt(m.ops[7].mean, 2), label: `skor fasilitas, terendah; hubungan dengan kepuasan paling kuat (r = ${fmt(dr.corr[0].r_puas, 2)})`, tone: 'bad' },
+      { num: fmt(m.ops[7].mean, 2), label: `skor fasilitas, terendah; hubungannya dengan kepuasan paling kuat (r = ${fmt(dr.corr[0].r_puas, 2)})`, tone: 'bad' },
       { num: pc(m.consult_freq.items[0].pct), label: 'tim belum pernah berkonsultasi', tone: 'bad' },
       { num: pc(pick(m.material, 'Materi terlambat dibanding kebutuhan milestone').pct), label: 'menyebut materi terlambat', tone: 'bad' },
       { num: pc(cepat), label: 'mengatakan dosen menjawab dalam kurang dari sehari', tone: 'good' },
     ],
     good: [
-      `Konsultasi biasanya dimulai oleh mahasiswa maupun dosen (<b>${pc(pick(m.consult_init.items, 'Keduanya').pct)}</b>).`,
-      `Dosen cepat menanggapi pertanyaan mahasiswa.`,
+      `Konsultasi biasanya dimulai oleh mahasiswa maupun dosen (${pc(pick(m.consult_init.items, 'Keduanya').pct)}).`,
+      'Dosen cepat menanggapi pertanyaan mahasiswa.',
     ],
     bad: [
-      `<b>${th('bimbingan').subs[0].n}</b> komentar menyebut sulit mendapat waktu bimbingan.`,
-      `Semua komentar fasilitas (<b>${th('fasilitas').n}</b>) dari SIB: server dan jaringan.`,
+      `${th('bimbingan').subs[0].n} komentar menyebut sulit mendapat waktu bimbingan.`,
+      `Semua komentar fasilitas (${th('fasilitas').n}) dari SIB, soal server dan jaringan.`,
     ],
-    arti: 'dosen cepat menanggapi, tetapi sebagian tim belum dibimbing. Fasilitas perlu keputusan di luar kelas.',
+    closing: 'Dosen cepat menanggapi, tetapi sebagian tim belum dibimbing. Soal fasilitas perlu keputusan di luar kelas.',
   }),
-  vote('fasilitas', 'v-fasilitas', `Fasilitas bernilai terendah (${fmt(m.ops[7].mean, 2)}) dan ${pc(m.consult_freq.items[0].pct)} tim belum pernah berkonsultasi.`),
+  vote('fasilitas', 'v-fasilitas', `Fasilitas bernilai terendah (${fmt(m.ops[7].mean, 2)} dari 5), dan ${pc(m.consult_freq.items[0].pct)} tim belum pernah berkonsultasi.`),
 
-  // closing votes
-  vote('prioritas', 'v-prioritas', 'Dari enam masalah yang baru dibahas, tidak semua bisa dikerjakan sekaligus. Pilih dua yang paling perlu didahulukan.'),
+  // closing polls
+  vote('prioritas', 'v-prioritas', 'Tidak semua masalah bisa dikerjakan sekaligus. Pilih dua yang paling perlu didahulukan.'),
   {
     id: 'v-komitmen',
     title: 'Kesediaan Bapak/Ibu dosen',
@@ -279,7 +328,7 @@ const main: Slide[] = [
     render: (c) => `
       <div class="lv-votegrid">
         <div>
-          <p class="lv-recapline">Sebagian solusi tadi hanya berjalan kalau dosen pengampu ikut. Hanya ${pc(l.coord_yn[3].ya)} dosen menyatakan dosen rujukan utama tim sudah jelas.</p>
+          <p class="lv-recapline">Sebagian solusi hanya berjalan kalau dosen pengampu ikut. Baru ${pc(l.coord_yn[3].ya)} dosen yang menyatakan dosen rujukan utama tim sudah jelas.</p>
           <div class="lv-opts" data-q="komitmen"></div>
         </div>
         ${joinPanel(c, 'Pilih yang bersedia di ponsel Anda')}
@@ -300,10 +349,10 @@ const main: Slide[] = [
   },
   {
     id: 'rekap',
-    title: 'Hasil pilihan Bapak/Ibu',
+    title: 'Solusi yang dipilih Bapak/Ibu',
     recap: true,
     render: () => `<div class="lv-recap" data-recap><p class="lv-note">Memuat hasil…</p></div>
-      <p class="lv-arti"><b>Langkah berikutnya:</b> solusi dengan suara terbanyak masuk rencana tindak lanjut, dengan waktu: minggu ini, setelah Milestone 2, atau semester depan.</p>`,
+      ${closing('Solusi dengan suara terbanyak masuk rencana tindak lanjut. Usulan di kolom Lainnya dibahas bersama sebelum jadwalnya ditetapkan.')}`,
   },
 ]
 
@@ -348,6 +397,14 @@ const appendix: Slide[] = [
       </div>`,
   },
   {
+    id: 'a-dukungan',
+    title: 'Dukungan yang diminta dosen',
+    appendix: true,
+    src: `survei dosen (n = ${l.n}); jumlah dosen`,
+    render: () => `${bars(l.support.map((x: any) => [x.label, x.count, 'good']), { max: 12, unit: 'n', lw: 620, size: 26 })}
+      ${closing('Dasar pilihan solusi: yang diminta dosen dibandingkan dengan hambatan yang mereka sebut.')}`,
+  },
+  {
     id: 'a-butir',
     title: 'Semua butir penilaian: mahasiswa dan dosen',
     appendix: true,
@@ -364,7 +421,7 @@ const appendix: Slide[] = [
     src: `komentar bebas mahasiswa TI dan SIB (${tema.substantive} komentar bermakna), dikelompokkan per tema dan subtema`,
     render: () => `<div class="lv-cols">${[...tema.themes]
       .sort((a: any, b: any) => b.n - a.n)
-      .map((t: any) => `<div class="lv-theme ${t.key === 'baik' ? 'is-ok' : ''}"><b>${esc(t.label)}</b> <small>(${t.n}; TI ${t.ti}, SIB ${t.sib})</small>${t.subs.map((s: any) => `<div class="lv-sub-item">– ${esc(s.label)} (${s.n})</div>`).join('')}</div>`)
+      .map((t: any) => `<div class="lv-theme ${t.key === 'baik' ? 'is-ok' : ''}"><b>${esc(t.label)}</b> <small>(${t.n}; TI ${t.ti}, SIB ${t.sib})</small>${t.subs.map((s: any) => `<div class="lv-sub-item">${esc(s.label)} (${s.n})</div>`).join('')}</div>`)
       .join('')}</div>`,
   },
   {
@@ -382,7 +439,7 @@ export const slides: Slide[] = [...main, ...appendix]
 
 // ------------------------------------------------------------------ recap
 export function paintRecap(el: HTMLElement, all: Record<string, Results>) {
-  const solved = ['respons', 'beban', 'selaras', 'koordinasi', 'nilai', 'fasilitas']
+  const solved = ['respons', 'beban', 'jadwal', 'selaras', 'koordinasi', 'nilai', 'fasilitas']
   const prio = all['prioritas']
   const komit = all['komitmen']
   const card = (k: string) => {
@@ -390,9 +447,10 @@ export function paintRecap(el: HTMLElement, all: Record<string, Results>) {
     const r = all[k]
     const ranked = q.options.map((o) => ({ o, c: r?.counts[o.key] ?? 0 })).sort((a, b) => b.c - a.c)
     const first = ranked[0]
+    const other = r?.n_other ? `<p class="is-second">${r.n_other} usulan di kolom Lainnya</p>` : ''
     return `<div class="lv-rc"><h4>${esc(q.area)}${prio ? `<em>prioritas ${pc(prio.n ? ((prio.counts[k] ?? 0) / prio.n) * 100 : 0)}</em>` : ''}</h4>
-      ${first && first.c > 0 ? `<p><b>${esc(first.o.label)}</b><small>${first.c} dari ${r.n} pemilih</small></p>` : '<p><small>Belum ada suara</small></p>'}
-      ${ranked[1] && ranked[1].c > 0 ? `<p class="is-second">${esc(ranked[1].o.label)}<small>${ranked[1].c} suara</small></p>` : ''}</div>`
+      ${first && first.c > 0 ? `<p>${esc(first.o.label)}<small>${first.c} dari ${r.n} pemilih</small></p>` : '<p><small>Belum ada suara</small></p>'}
+      ${ranked[1] && ranked[1].c > 0 ? `<p class="is-second">${esc(ranked[1].o.label)}<small>${ranked[1].c} suara</small></p>` : ''}${other}</div>`
   }
   const kom = komit
     ? `<div class="lv-rc is-wide"><h4>Kesediaan dosen<em>${komit.n} pemilih</em></h4>${Q('komitmen')
@@ -401,5 +459,3 @@ export function paintRecap(el: HTMLElement, all: Record<string, Results>) {
     : ''
   el.innerHTML = solved.map(card).join('') + kom
 }
-
-export { paintOptions }
