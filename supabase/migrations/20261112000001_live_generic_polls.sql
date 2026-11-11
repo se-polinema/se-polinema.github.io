@@ -10,6 +10,7 @@
 -- ============================================================
 
 ALTER TABLE monev.questions ADD COLUMN IF NOT EXISTS deck TEXT;
+ALTER TABLE monev.questions ADD COLUMN IF NOT EXISTS area TEXT;
 ALTER TABLE monev.sessions ADD COLUMN IF NOT EXISTS deck TEXT;
 ALTER TABLE monev.suggestions ADD COLUMN IF NOT EXISTS question_key TEXT;
 
