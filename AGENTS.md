@@ -220,7 +220,8 @@ Markdown/reveal.js decks under `/present/`). A deck is TypeScript, not Markdown:
   from the database, so this is what makes deck edits, including "Lainnya", reach
   existing sessions. The session picker can delete sessions (votes and
   suggestions cascade).
-- `npm run smoke:decks` renders every slide and validates question keys.
+- `npm run smoke:decks` renders every slide, validates question keys, and runs the
+  deck's own `validate()` (the Monev deck checks its PIC courses against the survey data).
 
 ## Adding a Research Tool / Artifact
 

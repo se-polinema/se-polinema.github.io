@@ -82,6 +82,8 @@ export interface Deck {
   slides: Slide[]
   /** Fill a recap slide's `[data-recap]` element. Keys are local question keys. */
   paintRecap?: (el: HTMLElement, results: Record<string, Results>) => void
+  /** Deck-specific data checks. Return one message per problem; `npm run smoke:decks` fails on any. */
+  validate?: () => string[]
 }
 
 export type LiveErrorCode =
