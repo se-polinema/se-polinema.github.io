@@ -90,266 +90,11 @@
       "classes": 7
      }
     ],
-    "classes": [
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2A",
-      "n": 1,
-      "roster": 28,
-      "rate": 3.6
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2B",
-      "n": 26,
-      "roster": 28,
-      "rate": 92.9
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2C",
-      "n": 4,
-      "roster": 27,
-      "rate": 14.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2D",
-      "n": 0,
-      "roster": 27,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2E",
-      "n": 0,
-      "roster": 27,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2F",
-      "n": 3,
-      "roster": 27,
-      "rate": 11.1
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2G",
-      "n": 3,
-      "roster": 30,
-      "rate": 10
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2H",
-      "n": 3,
-      "roster": 27,
-      "rate": 11.1
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2I",
-      "n": 4,
-      "roster": 27,
-      "rate": 14.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3A",
-      "n": 0,
-      "roster": 26,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3B",
-      "n": 0,
-      "roster": 26,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3C",
-      "n": 8,
-      "roster": 26,
-      "rate": 30.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3D",
-      "n": 0,
-      "roster": 25,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3E",
-      "n": 1,
-      "roster": 26,
-      "rate": 3.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3F",
-      "n": 5,
-      "roster": 26,
-      "rate": 19.2
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3G",
-      "n": 2,
-      "roster": 25,
-      "rate": 8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3H",
-      "n": 4,
-      "roster": 26,
-      "rate": 15.4
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3I",
-      "n": 5,
-      "roster": 24,
-      "rate": 20.8
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2A",
-      "n": 0,
-      "roster": 26,
-      "rate": 0
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2B",
-      "n": 0,
-      "roster": 25,
-      "rate": 0
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2C",
-      "n": 6,
-      "roster": 25,
-      "rate": 24
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2D",
-      "n": 0,
-      "roster": 25,
-      "rate": 0
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2E",
-      "n": 1,
-      "roster": 25,
-      "rate": 4
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2F",
-      "n": 11,
-      "roster": 25,
-      "rate": 44
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2G",
-      "n": 3,
-      "roster": 22,
-      "rate": 13.6
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3A",
-      "n": 19,
-      "roster": 24,
-      "rate": 79.2
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3B",
-      "n": 20,
-      "roster": 24,
-      "rate": 83.3
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3C",
-      "n": 19,
-      "roster": 21,
-      "rate": 90.5
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3D",
-      "n": 13,
-      "roster": 22,
-      "rate": 59.1
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3E",
-      "n": 5,
-      "roster": 21,
-      "rate": 23.8
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3F",
-      "n": 2,
-      "roster": 22,
-      "rate": 9.1
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3G",
-      "n": 9,
-      "roster": 21,
-      "rate": 42.9
-     }
-    ],
     "roster": 806,
-    "rate": 22
+    "rate": 22,
+    "kelas_total": 32,
+    "kelas_nol": 8,
+    "kelas_min5": 12
    },
    "ops": [
     {
@@ -949,735 +694,6 @@
     ]
    },
    "workload_heavy_pct": 40.7,
-   "courses": [
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Manajemen Proyek",
-     "n": 44,
-     "acts": [
-      79.5,
-      52.3,
-      54.5,
-      56.8,
-      52.3
-     ],
-     "acts_mean": 59.1,
-     "bc_ya": [
-      70.5,
-      54.5,
-      72.7,
-      72.7,
-      81.8,
-      52.3,
-      50,
-      65.9,
-      86.4
-     ],
-     "bc_ya_mean": 67.4,
-     "bc_tidak_mean": 5.5,
-     "att_all": 63.6,
-     "att_n": 44,
-     "expl_ya": 93.2,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 31,
-       "pct": 70.5
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 7,
-       "pct": 15.9
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 9.1
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      }
-     ],
-     "share_not_stated": 20.5,
-     "share_over50": 34.1
-    },
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Desain dan Pemrograman Web",
-     "n": 44,
-     "acts": [
-      75,
-      79.5,
-      86.4,
-      81.8,
-      79.5
-     ],
-     "acts_mean": 80.4,
-     "bc_ya": [
-      68.2,
-      72.7,
-      45.5,
-      40.9,
-      59.1,
-      52.3,
-      36.4,
-      61.4,
-      79.5
-     ],
-     "bc_ya_mean": 57.3,
-     "bc_tidak_mean": 7.1,
-     "att_all": 81.8,
-     "att_n": 44,
-     "expl_ya": 95.5,
-     "type": [
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 18,
-       "pct": 40.9
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 13,
-       "pct": 29.5
-      },
-      {
-       "label": "Latihan umum",
-       "count": 10,
-       "pct": 22.7
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 2.3
-      }
-     ],
-     "share_not_stated": 18.2,
-     "share_over50": 22.7
-    },
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Basis Data Lanjut",
-     "n": 44,
-     "acts": [
-      79.5,
-      59.1,
-      65.9,
-      68.2,
-      59.1
-     ],
-     "acts_mean": 66.4,
-     "bc_ya": [
-      75,
-      68.2,
-      65.9,
-      45.5,
-      61.4,
-      65.9,
-      52.3,
-      70.5,
-      77.3
-     ],
-     "bc_ya_mean": 64.7,
-     "bc_tidak_mean": 8.1,
-     "att_all": 68.2,
-     "att_n": 44,
-     "expl_ya": 90.9,
-     "type": [
-      {
-       "label": "Latihan umum",
-       "count": 16,
-       "pct": 36.4
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 12,
-       "pct": 27.3
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 8,
-       "pct": 18.2
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 6,
-       "pct": 13.6
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      }
-     ],
-     "share_not_stated": 15.9,
-     "share_over50": 34.1
-    },
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Sistem Informasi Manajemen",
-     "n": 44,
-     "acts": [
-      65.9,
-      56.8,
-      61.4,
-      59.1,
-      59.1
-     ],
-     "acts_mean": 60.5,
-     "bc_ya": [
-      65.9,
-      50,
-      50,
-      56.8,
-      63.6,
-      43.2,
-      52.3,
-      68.2,
-      81.8
-     ],
-     "bc_ya_mean": 59.1,
-     "bc_tidak_mean": 10.6,
-     "att_all": 68.2,
-     "att_n": 44,
-     "expl_ya": 81.8,
-     "type": [
-      {
-       "label": "Latihan umum",
-       "count": 16,
-       "pct": 36.4
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 14,
-       "pct": 31.8
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 8,
-       "pct": 18.2
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 4,
-       "pct": 9.1
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      }
-     ],
-     "share_not_stated": 18.2,
-     "share_over50": 27.3
-    },
-    {
-     "prodi": "TI",
-     "sem": 5,
-     "course": "Pemrograman Mobile",
-     "n": 25,
-     "acts": [
-      80,
-      68,
-      76,
-      76,
-      68
-     ],
-     "acts_mean": 73.6,
-     "bc_ya": [
-      80,
-      48,
-      36,
-      32,
-      48,
-      52,
-      40,
-      44,
-      92
-     ],
-     "bc_ya_mean": 52.4,
-     "bc_tidak_mean": 9.8,
-     "att_all": 76,
-     "att_n": 25,
-     "expl_ya": 100,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 11,
-       "pct": 44
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 9,
-       "pct": 36
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 16
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 4
-      }
-     ],
-     "share_not_stated": 20,
-     "share_over50": 48
-    },
-    {
-     "prodi": "TI",
-     "sem": 5,
-     "course": "Pembelajaran Mesin",
-     "n": 25,
-     "acts": [
-      80,
-      80,
-      76,
-      76,
-      76
-     ],
-     "acts_mean": 77.6,
-     "bc_ya": [
-      72,
-      64,
-      64,
-      48,
-      60,
-      76,
-      68,
-      68,
-      88
-     ],
-     "bc_ya_mean": 67.6,
-     "bc_tidak_mean": 7.6,
-     "att_all": 80,
-     "att_n": 25,
-     "expl_ya": 96,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 12,
-       "pct": 48
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 9,
-       "pct": 36
-      },
-      {
-       "label": "Latihan umum",
-       "count": 3,
-       "pct": 12
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 4
-      }
-     ],
-     "share_not_stated": 24,
-     "share_over50": 32
-    },
-    {
-     "prodi": "TI",
-     "sem": 5,
-     "course": "Penjaminan Mutu Perangkat Lunak",
-     "n": 25,
-     "acts": [
-      32,
-      32,
-      24,
-      20,
-      20
-     ],
-     "acts_mean": 25.6,
-     "bc_ya": [
-      48,
-      20,
-      36,
-      44,
-      40,
-      20,
-      16,
-      32,
-      48
-     ],
-     "bc_ya_mean": 33.8,
-     "bc_tidak_mean": 12,
-     "att_all": 40,
-     "att_n": 25,
-     "expl_ya": 84,
-     "type": [
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 10,
-       "pct": 40
-      },
-      {
-       "label": "Latihan umum",
-       "count": 7,
-       "pct": 28
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 4,
-       "pct": 16
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 3,
-       "pct": 12
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 4
-      }
-     ],
-     "share_not_stated": 28,
-     "share_over50": 20
-    },
-    {
-     "prodi": "SIB",
-     "sem": 3,
-     "course": "Pemrograman Web",
-     "n": 21,
-     "acts": [
-      85.7,
-      95.2,
-      95.2,
-      85.7,
-      81
-     ],
-     "acts_mean": 88.6,
-     "bc_ya": [
-      76.2,
-      61.9,
-      76.2,
-      52.4,
-      61.9,
-      66.7,
-      71.4,
-      66.7,
-      90.5
-     ],
-     "bc_ya_mean": 69.3,
-     "bc_tidak_mean": 8.5,
-     "att_all": 85.7,
-     "att_n": 21,
-     "expl_ya": 81,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 10,
-       "pct": 47.6
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 7,
-       "pct": 33.3
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 19
-      }
-     ],
-     "share_not_stated": 52.4,
-     "share_over50": 38.1
-    },
-    {
-     "prodi": "SIB",
-     "sem": 3,
-     "course": "Basis Data Lanjut",
-     "n": 21,
-     "acts": [
-      38.1,
-      42.9,
-      23.8,
-      38.1,
-      33.3
-     ],
-     "acts_mean": 35.2,
-     "bc_ya": [
-      42.9,
-      42.9,
-      38.1,
-      28.6,
-      52.4,
-      38.1,
-      23.8,
-      38.1,
-      66.7
-     ],
-     "bc_ya_mean": 41.3,
-     "bc_tidak_mean": 14.8,
-     "att_all": 52.4,
-     "att_n": 21,
-     "expl_ya": 47.6,
-     "type": [
-      {
-       "label": "Latihan umum",
-       "count": 9,
-       "pct": 42.9
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 5,
-       "pct": 23.8
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 4,
-       "pct": 19
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 2,
-       "pct": 9.5
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 4.8
-      }
-     ],
-     "share_not_stated": 52.4,
-     "share_over50": 28.6
-    },
-    {
-     "prodi": "SIB",
-     "sem": 3,
-     "course": "Desain UI/UX",
-     "n": 21,
-     "acts": [
-      71.4,
-      76.2,
-      76.2,
-      76.2,
-      76.2
-     ],
-     "acts_mean": 75.2,
-     "bc_ya": [
-      66.7,
-      66.7,
-      52.4,
-      66.7,
-      52.4,
-      61.9,
-      57.1,
-      66.7,
-      81
-     ],
-     "bc_ya_mean": 63.5,
-     "bc_tidak_mean": 5.3,
-     "att_all": 76.2,
-     "att_n": 21,
-     "expl_ya": 85.7,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 9,
-       "pct": 42.9
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 6,
-       "pct": 28.6
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 19
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 4.8
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 4.8
-      }
-     ],
-     "share_not_stated": 52.4,
-     "share_over50": 38.1
-    },
-    {
-     "prodi": "SIB",
-     "sem": 5,
-     "course": "Pemrograman Web Lanjut",
-     "n": 87,
-     "acts": [
-      94.3,
-      85.1,
-      87.4,
-      89.7,
-      86.2
-     ],
-     "acts_mean": 88.5,
-     "bc_ya": [
-      85.1,
-      69,
-      62.1,
-      35.6,
-      60.9,
-      64.4,
-      57.5,
-      63.2,
-      95.4
-     ],
-     "bc_ya_mean": 65.9,
-     "bc_tidak_mean": 6.2,
-     "att_all": 94.3,
-     "att_n": 87,
-     "expl_ya": 100,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 42,
-       "pct": 48.3
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 38,
-       "pct": 43.7
-      },
-      {
-       "label": "Latihan umum",
-       "count": 7,
-       "pct": 8
-      }
-     ],
-     "share_not_stated": 14.9,
-     "share_over50": 65.5
-    },
-    {
-     "prodi": "SIB",
-     "sem": 5,
-     "course": "Manajemen Proyek Sistem Informasi",
-     "n": 87,
-     "acts": [
-      74.7,
-      65.5,
-      56.3,
-      57.5,
-      48.3
-     ],
-     "acts_mean": 60.5,
-     "bc_ya": [
-      66.7,
-      49.4,
-      49.4,
-      62.1,
-      65.5,
-      42.5,
-      34.5,
-      57.5,
-      72.4
-     ],
-     "bc_ya_mean": 55.6,
-     "bc_tidak_mean": 10.7,
-     "att_all": 60.9,
-     "att_n": 87,
-     "expl_ya": 82.8,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 44,
-       "pct": 50.6
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 30,
-       "pct": 34.5
-      },
-      {
-       "label": "Latihan umum",
-       "count": 10,
-       "pct": 11.5
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 3,
-       "pct": 3.4
-      }
-     ],
-     "share_not_stated": 32.2,
-     "share_over50": 39.1
-    },
-    {
-     "prodi": "SIB",
-     "sem": 5,
-     "course": "Penjaminan Mutu Perangkat Lunak",
-     "n": 87,
-     "acts": [
-      71.3,
-      71.3,
-      66.7,
-      70.1,
-      65.5
-     ],
-     "acts_mean": 69,
-     "bc_ya": [
-      78.2,
-      56.3,
-      49.4,
-      52.9,
-      54,
-      44.8,
-      49.4,
-      64.4,
-      69
-     ],
-     "bc_ya_mean": 57.6,
-     "bc_tidak_mean": 9.1,
-     "att_all": 63.2,
-     "att_n": 87,
-     "expl_ya": 93.1,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 38,
-       "pct": 43.7
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 26,
-       "pct": 29.9
-      },
-      {
-       "label": "Latihan umum",
-       "count": 21,
-       "pct": 24.1
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 1.1
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 1.1
-      }
-     ],
-     "share_not_stated": 28.7,
-     "share_over50": 40.2
-    }
-   ],
    "act_labels": [
     "Mengaitkan materi dengan proyek",
     "Menyediakan waktu diskusi proyek",
@@ -1697,13 +713,6 @@
     "Dosen mengetahui topik proyek tim"
    ],
    "monitored": {
-    "classes": [
-     "SIB-3A",
-     "SIB-3B",
-     "SIB-3C",
-     "SIB-3D",
-     "TI-2B"
-    ],
     "enf": {
      "n": 97,
      "roster": 119,
@@ -2283,7 +1292,74 @@
      }
     ],
     "n": 575
-   }
+   },
+   "mata_kuliah": [
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Manajemen Proyek"
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Desain dan Pemrograman Web"
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Basis Data Lanjut"
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Sistem Informasi Manajemen"
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pemrograman Mobile"
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pembelajaran Mesin"
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Pemrograman Web"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Basis Data Lanjut"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Desain UI/UX"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Pemrograman Web Lanjut"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Manajemen Proyek Sistem Informasi"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak"
+    }
+   ]
   },
   "dosen": {
    "n": 22,
@@ -3438,154 +2514,11 @@
       "classes": 9
      }
     ],
-    "classes": [
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2A",
-      "n": 1,
-      "roster": 28,
-      "rate": 3.6
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2B",
-      "n": 26,
-      "roster": 28,
-      "rate": 92.9
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2C",
-      "n": 4,
-      "roster": 27,
-      "rate": 14.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2D",
-      "n": 0,
-      "roster": 27,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2E",
-      "n": 0,
-      "roster": 27,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2F",
-      "n": 3,
-      "roster": 27,
-      "rate": 11.1
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2G",
-      "n": 3,
-      "roster": 30,
-      "rate": 10
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2H",
-      "n": 3,
-      "roster": 27,
-      "rate": 11.1
-     },
-     {
-      "prodi": "TI",
-      "sem": 3,
-      "label": "TI-2I",
-      "n": 4,
-      "roster": 27,
-      "rate": 14.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3A",
-      "n": 0,
-      "roster": 26,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3B",
-      "n": 0,
-      "roster": 26,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3C",
-      "n": 8,
-      "roster": 26,
-      "rate": 30.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3D",
-      "n": 0,
-      "roster": 25,
-      "rate": 0
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3E",
-      "n": 1,
-      "roster": 26,
-      "rate": 3.8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3F",
-      "n": 5,
-      "roster": 26,
-      "rate": 19.2
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3G",
-      "n": 2,
-      "roster": 25,
-      "rate": 8
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3H",
-      "n": 4,
-      "roster": 26,
-      "rate": 15.4
-     },
-     {
-      "prodi": "TI",
-      "sem": 5,
-      "label": "TI-3I",
-      "n": 5,
-      "roster": 24,
-      "rate": 20.8
-     }
-    ],
     "roster": 478,
-    "rate": 14.4
+    "rate": 14.4,
+    "kelas_total": 18,
+    "kelas_nol": 5,
+    "kelas_min5": 4
    },
    "ops": [
     {
@@ -4180,406 +3113,6 @@
     ]
    },
    "workload_heavy_pct": 36.2,
-   "courses": [
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Manajemen Proyek",
-     "n": 44,
-     "acts": [
-      79.5,
-      52.3,
-      54.5,
-      56.8,
-      52.3
-     ],
-     "acts_mean": 59.1,
-     "bc_ya": [
-      70.5,
-      54.5,
-      72.7,
-      72.7,
-      81.8,
-      52.3,
-      50,
-      65.9,
-      86.4
-     ],
-     "bc_ya_mean": 67.4,
-     "bc_tidak_mean": 5.5,
-     "att_all": 63.6,
-     "att_n": 44,
-     "expl_ya": 93.2,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 31,
-       "pct": 70.5
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 7,
-       "pct": 15.9
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 9.1
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      }
-     ],
-     "share_not_stated": 20.5,
-     "share_over50": 34.1
-    },
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Desain dan Pemrograman Web",
-     "n": 44,
-     "acts": [
-      75,
-      79.5,
-      86.4,
-      81.8,
-      79.5
-     ],
-     "acts_mean": 80.4,
-     "bc_ya": [
-      68.2,
-      72.7,
-      45.5,
-      40.9,
-      59.1,
-      52.3,
-      36.4,
-      61.4,
-      79.5
-     ],
-     "bc_ya_mean": 57.3,
-     "bc_tidak_mean": 7.1,
-     "att_all": 81.8,
-     "att_n": 44,
-     "expl_ya": 95.5,
-     "type": [
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 18,
-       "pct": 40.9
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 13,
-       "pct": 29.5
-      },
-      {
-       "label": "Latihan umum",
-       "count": 10,
-       "pct": 22.7
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 2.3
-      }
-     ],
-     "share_not_stated": 18.2,
-     "share_over50": 22.7
-    },
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Basis Data Lanjut",
-     "n": 44,
-     "acts": [
-      79.5,
-      59.1,
-      65.9,
-      68.2,
-      59.1
-     ],
-     "acts_mean": 66.4,
-     "bc_ya": [
-      75,
-      68.2,
-      65.9,
-      45.5,
-      61.4,
-      65.9,
-      52.3,
-      70.5,
-      77.3
-     ],
-     "bc_ya_mean": 64.7,
-     "bc_tidak_mean": 8.1,
-     "att_all": 68.2,
-     "att_n": 44,
-     "expl_ya": 90.9,
-     "type": [
-      {
-       "label": "Latihan umum",
-       "count": 16,
-       "pct": 36.4
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 12,
-       "pct": 27.3
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 8,
-       "pct": 18.2
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 6,
-       "pct": 13.6
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      }
-     ],
-     "share_not_stated": 15.9,
-     "share_over50": 34.1
-    },
-    {
-     "prodi": "TI",
-     "sem": 3,
-     "course": "Sistem Informasi Manajemen",
-     "n": 44,
-     "acts": [
-      65.9,
-      56.8,
-      61.4,
-      59.1,
-      59.1
-     ],
-     "acts_mean": 60.5,
-     "bc_ya": [
-      65.9,
-      50,
-      50,
-      56.8,
-      63.6,
-      43.2,
-      52.3,
-      68.2,
-      81.8
-     ],
-     "bc_ya_mean": 59.1,
-     "bc_tidak_mean": 10.6,
-     "att_all": 68.2,
-     "att_n": 44,
-     "expl_ya": 81.8,
-     "type": [
-      {
-       "label": "Latihan umum",
-       "count": 16,
-       "pct": 36.4
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 14,
-       "pct": 31.8
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 8,
-       "pct": 18.2
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 4,
-       "pct": 9.1
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 2,
-       "pct": 4.5
-      }
-     ],
-     "share_not_stated": 18.2,
-     "share_over50": 27.3
-    },
-    {
-     "prodi": "TI",
-     "sem": 5,
-     "course": "Pemrograman Mobile",
-     "n": 25,
-     "acts": [
-      80,
-      68,
-      76,
-      76,
-      68
-     ],
-     "acts_mean": 73.6,
-     "bc_ya": [
-      80,
-      48,
-      36,
-      32,
-      48,
-      52,
-      40,
-      44,
-      92
-     ],
-     "bc_ya_mean": 52.4,
-     "bc_tidak_mean": 9.8,
-     "att_all": 76,
-     "att_n": 25,
-     "expl_ya": 100,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 11,
-       "pct": 44
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 9,
-       "pct": 36
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 16
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 4
-      }
-     ],
-     "share_not_stated": 20,
-     "share_over50": 48
-    },
-    {
-     "prodi": "TI",
-     "sem": 5,
-     "course": "Pembelajaran Mesin",
-     "n": 25,
-     "acts": [
-      80,
-      80,
-      76,
-      76,
-      76
-     ],
-     "acts_mean": 77.6,
-     "bc_ya": [
-      72,
-      64,
-      64,
-      48,
-      60,
-      76,
-      68,
-      68,
-      88
-     ],
-     "bc_ya_mean": 67.6,
-     "bc_tidak_mean": 7.6,
-     "att_all": 80,
-     "att_n": 25,
-     "expl_ya": 96,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 12,
-       "pct": 48
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 9,
-       "pct": 36
-      },
-      {
-       "label": "Latihan umum",
-       "count": 3,
-       "pct": 12
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 4
-      }
-     ],
-     "share_not_stated": 24,
-     "share_over50": 32
-    },
-    {
-     "prodi": "TI",
-     "sem": 5,
-     "course": "Penjaminan Mutu Perangkat Lunak",
-     "n": 25,
-     "acts": [
-      32,
-      32,
-      24,
-      20,
-      20
-     ],
-     "acts_mean": 25.6,
-     "bc_ya": [
-      48,
-      20,
-      36,
-      44,
-      40,
-      20,
-      16,
-      32,
-      48
-     ],
-     "bc_ya_mean": 33.8,
-     "bc_tidak_mean": 12,
-     "att_all": 40,
-     "att_n": 25,
-     "expl_ya": 84,
-     "type": [
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 10,
-       "pct": 40
-      },
-      {
-       "label": "Latihan umum",
-       "count": 7,
-       "pct": 28
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 4,
-       "pct": 16
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 3,
-       "pct": 12
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 4
-      }
-     ],
-     "share_not_stated": 28,
-     "share_over50": 20
-    }
-   ],
    "act_labels": [
     "Mengaitkan materi dengan proyek",
     "Menyediakan waktu diskusi proyek",
@@ -4599,9 +3132,6 @@
     "Dosen mengetahui topik proyek tim"
    ],
    "monitored": {
-    "classes": [
-     "TI-2B"
-    ],
     "enf": {
      "n": 26,
      "roster": 28,
@@ -5131,7 +3661,44 @@
      }
     ],
     "n": 251
-   }
+   },
+   "mata_kuliah": [
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Manajemen Proyek"
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Desain dan Pemrograman Web"
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Basis Data Lanjut"
+    },
+    {
+     "prodi": "TI",
+     "sem": 3,
+     "course": "Sistem Informasi Manajemen"
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pemrograman Mobile"
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Pembelajaran Mesin"
+    },
+    {
+     "prodi": "TI",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak"
+    }
+   ]
   },
   "dosen": {
    "n": 17,
@@ -6273,122 +4840,11 @@
       "classes": 7
      }
     ],
-    "classes": [
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2A",
-      "n": 0,
-      "roster": 26,
-      "rate": 0
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2B",
-      "n": 0,
-      "roster": 25,
-      "rate": 0
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2C",
-      "n": 6,
-      "roster": 25,
-      "rate": 24
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2D",
-      "n": 0,
-      "roster": 25,
-      "rate": 0
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2E",
-      "n": 1,
-      "roster": 25,
-      "rate": 4
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2F",
-      "n": 11,
-      "roster": 25,
-      "rate": 44
-     },
-     {
-      "prodi": "SIB",
-      "sem": 3,
-      "label": "SIB-2G",
-      "n": 3,
-      "roster": 22,
-      "rate": 13.6
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3A",
-      "n": 19,
-      "roster": 24,
-      "rate": 79.2
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3B",
-      "n": 20,
-      "roster": 24,
-      "rate": 83.3
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3C",
-      "n": 19,
-      "roster": 21,
-      "rate": 90.5
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3D",
-      "n": 13,
-      "roster": 22,
-      "rate": 59.1
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3E",
-      "n": 5,
-      "roster": 21,
-      "rate": 23.8
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3F",
-      "n": 2,
-      "roster": 22,
-      "rate": 9.1
-     },
-     {
-      "prodi": "SIB",
-      "sem": 5,
-      "label": "SIB-3G",
-      "n": 9,
-      "roster": 21,
-      "rate": 42.9
-     }
-    ],
     "roster": 328,
-    "rate": 32.9
+    "rate": 32.9,
+    "kelas_total": 14,
+    "kelas_nol": 3,
+    "kelas_min5": 8
    },
    "ops": [
     {
@@ -6983,337 +5439,6 @@
     ]
    },
    "workload_heavy_pct": 43.5,
-   "courses": [
-    {
-     "prodi": "SIB",
-     "sem": 3,
-     "course": "Pemrograman Web",
-     "n": 21,
-     "acts": [
-      85.7,
-      95.2,
-      95.2,
-      85.7,
-      81
-     ],
-     "acts_mean": 88.6,
-     "bc_ya": [
-      76.2,
-      61.9,
-      76.2,
-      52.4,
-      61.9,
-      66.7,
-      71.4,
-      66.7,
-      90.5
-     ],
-     "bc_ya_mean": 69.3,
-     "bc_tidak_mean": 8.5,
-     "att_all": 85.7,
-     "att_n": 21,
-     "expl_ya": 81,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 10,
-       "pct": 47.6
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 7,
-       "pct": 33.3
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 19
-      }
-     ],
-     "share_not_stated": 52.4,
-     "share_over50": 38.1
-    },
-    {
-     "prodi": "SIB",
-     "sem": 3,
-     "course": "Basis Data Lanjut",
-     "n": 21,
-     "acts": [
-      38.1,
-      42.9,
-      23.8,
-      38.1,
-      33.3
-     ],
-     "acts_mean": 35.2,
-     "bc_ya": [
-      42.9,
-      42.9,
-      38.1,
-      28.6,
-      52.4,
-      38.1,
-      23.8,
-      38.1,
-      66.7
-     ],
-     "bc_ya_mean": 41.3,
-     "bc_tidak_mean": 14.8,
-     "att_all": 52.4,
-     "att_n": 21,
-     "expl_ya": 47.6,
-     "type": [
-      {
-       "label": "Latihan umum",
-       "count": 9,
-       "pct": 42.9
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 5,
-       "pct": 23.8
-      },
-      {
-       "label": "Deliverable proyek",
-       "count": 4,
-       "pct": 19
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 2,
-       "pct": 9.5
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 4.8
-      }
-     ],
-     "share_not_stated": 52.4,
-     "share_over50": 28.6
-    },
-    {
-     "prodi": "SIB",
-     "sem": 3,
-     "course": "Desain UI/UX",
-     "n": 21,
-     "acts": [
-      71.4,
-      76.2,
-      76.2,
-      76.2,
-      76.2
-     ],
-     "acts_mean": 75.2,
-     "bc_ya": [
-      66.7,
-      66.7,
-      52.4,
-      66.7,
-      52.4,
-      61.9,
-      57.1,
-      66.7,
-      81
-     ],
-     "bc_ya_mean": 63.5,
-     "bc_tidak_mean": 5.3,
-     "att_all": 76.2,
-     "att_n": 21,
-     "expl_ya": 85.7,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 9,
-       "pct": 42.9
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 6,
-       "pct": 28.6
-      },
-      {
-       "label": "Latihan umum",
-       "count": 4,
-       "pct": 19
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 4.8
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 4.8
-      }
-     ],
-     "share_not_stated": 52.4,
-     "share_over50": 38.1
-    },
-    {
-     "prodi": "SIB",
-     "sem": 5,
-     "course": "Pemrograman Web Lanjut",
-     "n": 87,
-     "acts": [
-      94.3,
-      85.1,
-      87.4,
-      89.7,
-      86.2
-     ],
-     "acts_mean": 88.5,
-     "bc_ya": [
-      85.1,
-      69,
-      62.1,
-      35.6,
-      60.9,
-      64.4,
-      57.5,
-      63.2,
-      95.4
-     ],
-     "bc_ya_mean": 65.9,
-     "bc_tidak_mean": 6.2,
-     "att_all": 94.3,
-     "att_n": 87,
-     "expl_ya": 100,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 42,
-       "pct": 48.3
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 38,
-       "pct": 43.7
-      },
-      {
-       "label": "Latihan umum",
-       "count": 7,
-       "pct": 8
-      }
-     ],
-     "share_not_stated": 14.9,
-     "share_over50": 65.5
-    },
-    {
-     "prodi": "SIB",
-     "sem": 5,
-     "course": "Manajemen Proyek Sistem Informasi",
-     "n": 87,
-     "acts": [
-      74.7,
-      65.5,
-      56.3,
-      57.5,
-      48.3
-     ],
-     "acts_mean": 60.5,
-     "bc_ya": [
-      66.7,
-      49.4,
-      49.4,
-      62.1,
-      65.5,
-      42.5,
-      34.5,
-      57.5,
-      72.4
-     ],
-     "bc_ya_mean": 55.6,
-     "bc_tidak_mean": 10.7,
-     "att_all": 60.9,
-     "att_n": 87,
-     "expl_ya": 82.8,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 44,
-       "pct": 50.6
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 30,
-       "pct": 34.5
-      },
-      {
-       "label": "Latihan umum",
-       "count": 10,
-       "pct": 11.5
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 3,
-       "pct": 3.4
-      }
-     ],
-     "share_not_stated": 32.2,
-     "share_over50": 39.1
-    },
-    {
-     "prodi": "SIB",
-     "sem": 5,
-     "course": "Penjaminan Mutu Perangkat Lunak",
-     "n": 87,
-     "acts": [
-      71.3,
-      71.3,
-      66.7,
-      70.1,
-      65.5
-     ],
-     "acts_mean": 69,
-     "bc_ya": [
-      78.2,
-      56.3,
-      49.4,
-      52.9,
-      54,
-      44.8,
-      49.4,
-      64.4,
-      69
-     ],
-     "bc_ya_mean": 57.6,
-     "bc_tidak_mean": 9.1,
-     "att_all": 63.2,
-     "att_n": 87,
-     "expl_ya": 93.1,
-     "type": [
-      {
-       "label": "Deliverable proyek",
-       "count": 38,
-       "pct": 43.7
-      },
-      {
-       "label": "Latihan dengan konteks proyek",
-       "count": 26,
-       "pct": 29.9
-      },
-      {
-       "label": "Latihan umum",
-       "count": 21,
-       "pct": 24.1
-      },
-      {
-       "label": "Kuis atau ujian",
-       "count": 1,
-       "pct": 1.1
-      },
-      {
-       "label": "Tidak tahu",
-       "count": 1,
-       "pct": 1.1
-      }
-     ],
-     "share_not_stated": 28.7,
-     "share_over50": 40.2
-    }
-   ],
    "act_labels": [
     "Mengaitkan materi dengan proyek",
     "Menyediakan waktu diskusi proyek",
@@ -7333,12 +5458,6 @@
     "Dosen mengetahui topik proyek tim"
    ],
    "monitored": {
-    "classes": [
-     "SIB-3A",
-     "SIB-3B",
-     "SIB-3C",
-     "SIB-3D"
-    ],
     "enf": {
      "n": 71,
      "roster": 91,
@@ -7868,7 +5987,39 @@
      }
     ],
     "n": 324
-   }
+   },
+   "mata_kuliah": [
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Pemrograman Web"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Basis Data Lanjut"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 3,
+     "course": "Desain UI/UX"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Pemrograman Web Lanjut"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Manajemen Proyek Sistem Informasi"
+    },
+    {
+     "prodi": "SIB",
+     "sem": 5,
+     "course": "Penjaminan Mutu Perangkat Lunak"
+    }
+   ]
   },
   "dosen": {
    "n": 11,

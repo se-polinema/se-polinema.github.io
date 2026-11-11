@@ -14,7 +14,7 @@ export const picRows: PicRow[] = [
 ]
 
 type SurveyCourse = { prodi: string; sem: number; course: string }
-const surveyCourses = (): SurveyCourse[] => (agregat as any).all.mhs.courses
+const surveyCourses = (): SurveyCourse[] => (agregat as any).all.mhs.mata_kuliah
 
 /** Other integrated courses of the same program and semester, with the names the survey used. */
 export const supporting = (r: PicRow): string[] =>

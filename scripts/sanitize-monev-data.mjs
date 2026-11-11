@@ -30,6 +30,29 @@ if (suspicious.length) {
   process.exit(1)
 }
 
+// Public site: program and semester level only. Class tables, class lists and per-course tables are dropped;
+// the few counts the slides need (how many classes had no respondents) are kept as plain numbers.
+for (const scope of ['all', 'ti', 'sib']) {
+  const mhs = agregat[scope]?.mhs
+  if (!mhs) continue
+  const classes = mhs.response?.classes ?? []
+  if (mhs.response) {
+    mhs.response.kelas_total = classes.length
+    mhs.response.kelas_nol = classes.filter((c) => c.n === 0).length
+    mhs.response.kelas_min5 = classes.filter((c) => c.n >= 5).length
+    delete mhs.response.classes
+  }
+  // course names only (program, semester, name); the per-course results are dropped
+  mhs.mata_kuliah = (mhs.courses ?? []).map(({ prodi, sem, course }) => ({ prodi, sem, course }))
+  delete mhs.courses
+  if (mhs.monitored) delete mhs.monitored.classes
+}
+const agregatLeaks = JSON.stringify(agregat).match(/\b(TI|SIB)-\d[A-Z]\b/g)
+if (agregatLeaks) {
+  console.error('agregat.json still names classes, refusing to publish:', [...new Set(agregatLeaks)].slice(0, 5))
+  process.exit(1)
+}
+
 const sub = (s) => pickKeys(s, ['label', 'n', 'ti', 'sib'])
 const tema = read('tema.json')
 const temaOut = {
@@ -47,8 +70,31 @@ const tdOut = {
   themes: td.themes.map((t) => pickKeys(t, ['key', 'kind', 'label', 'n', 'ti', 'sib'])),
 }
 
+// analisis.json (monev/analisis/data/analisis.json in the survey repo): aggregates of the problem analysis.
+// The site is public, so it keeps program and semester level results only. Everything that names a class
+// (per_kelas, kelas) or a course (per_mata_kuliah) is removed, as are the course names of the PIC mapping.
+const analisisPath = resolve(src, '../../analisis/data/analisis.json')
+const DROP_KEYS = /^(per_kelas.*|kelas|per_mata_kuliah|pemeriksaan|pic)$/
+function scrub(o) {
+  if (Array.isArray(o)) return o.map(scrub)
+  if (o && typeof o === 'object') {
+    return Object.fromEntries(Object.entries(o).filter(([k]) => !DROP_KEYS.test(k)).map(([k, v]) => [k, scrub(v)]))
+  }
+  return o
+}
+const analisis = scrub(JSON.parse(readFileSync(analisisPath, 'utf8')))
+if (analisis.p4_selaras?.pic_vs_pendukung) delete analisis.p4_selaras.pic_vs_pendukung.per_semester // names a PIC course
+delete analisis.p4_selaras?.jenis_tugas_utama
+const text = JSON.stringify(analisis)
+const leaks = text.match(/\b(TI|SIB)-\d[A-Z]\b/g)
+if (leaks) {
+  console.error('analisis.json still names classes, refusing to publish:', [...new Set(leaks)].slice(0, 5))
+  process.exit(1)
+}
+
 const w = (f, o) => writeFileSync(resolve(out, f), JSON.stringify(o, null, 1) + '\n')
 w('agregat.json', agregat)
 w('tema.json', temaOut)
 w('tema_dosen.json', tdOut)
-console.log(`wrote 3 files to ${out}`)
+w('analisis.json', analisis)
+console.log(`wrote 4 files to ${out}`)

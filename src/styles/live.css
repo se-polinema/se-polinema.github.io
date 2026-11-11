@@ -205,3 +205,15 @@
 .lv-row { display: flex; gap: 8px; align-items: stretch; }
 .lv-row .lv-btn:first-child { flex: 1; }
 .lv-btn.is-danger { width: auto; border-color: var(--color-error); color: var(--color-error); padding-inline: 14px; }
+
+/* Milestone timeline and open-discussion cards (Monev PBL deck) */
+.lv-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.lv-tl { border-top: 6px solid var(--lv-accent, #1d4ed8); background: var(--lv-card, rgba(127,127,127,.1)); padding: 14px 18px; border-radius: 0 0 10px 10px; display: flex; flex-direction: column; gap: 4px; }
+.lv-tl small { opacity: .7; font-size: 22px; }
+.lv-tl b { font-size: 32px; }
+.lv-tl span { font-size: 22px; opacity: .85; }
+.lv-disc { display: grid; gap: 20px; }
+.lv-disc-card { background: var(--lv-card, rgba(127,127,127,.1)); border-radius: 12px; padding: 20px 28px; }
+.lv-disc-card h3 { margin: 0 0 8px; font-size: 32px; }
+.lv-disc-card p { margin: 4px 0; font-size: 26px; }
+.lv-disc-card .lv-unknown { opacity: .85; }

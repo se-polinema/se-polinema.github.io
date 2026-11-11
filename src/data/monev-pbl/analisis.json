@@ -1,0 +1,3200 @@
+{
+ "meta": {
+  "dibuat": "2026-11-11",
+  "n_mahasiswa": 177,
+  "n_dosen": 22,
+  "min_kelompok": 5,
+  "seed": 20261111,
+  "bootstrap": 2000,
+  "bootstrap_model": 600,
+  "catatan": "Hanya agregat. Kelompok di bawah n minimum disembunyikan. Asosiasi bukan bukti sebab-akibat."
+ },
+ "umum": {
+  "model_pendorong": {
+   "puas": {
+    "n": 153,
+    "r2": 0.4,
+    "koef": [
+     {
+      "nama": "Alur dan target milestone dijelaskan jelas",
+      "beta": -0.05,
+      "beta_ci": [
+       -0.27,
+       0.19
+      ],
+      "b": -0.05,
+      "b_ci": [
+       -0.29,
+       0.2
+      ]
+     },
+     {
+      "nama": "SOP dan template laporan membantu",
+      "beta": -0.14,
+      "beta_ci": [
+       -0.36,
+       0.14
+      ],
+      "b": -0.13,
+      "b_ci": [
+       -0.34,
+       0.14
+      ]
+     },
+     {
+      "nama": "Jadwal dan tenggat milestone realistis",
+      "beta": 0.24,
+      "beta_ci": [
+       0.02,
+       0.47
+      ],
+      "b": 0.25,
+      "b_ci": [
+       0.03,
+       0.49
+      ]
+     },
+     {
+      "nama": "Bimbingan dosen memadai",
+      "beta": 0.15,
+      "beta_ci": [
+       -0.08,
+       0.39
+      ],
+      "b": 0.16,
+      "b_ci": [
+       -0.08,
+       0.41
+      ]
+     },
+     {
+      "nama": "Tugas dan penilaian antar-mata kuliah selaras",
+      "beta": -0.03,
+      "beta_ci": [
+       -0.22,
+       0.13
+      ],
+      "b": -0.03,
+      "b_ci": [
+       -0.23,
+       0.16
+      ]
+     },
+     {
+      "nama": "Rubrik dan kriteria penilaian jelas",
+      "beta": 0.12,
+      "beta_ci": [
+       -0.11,
+       0.31
+      ],
+      "b": 0.14,
+      "b_ci": [
+       -0.11,
+       0.35
+      ]
+     },
+     {
+      "nama": "Penilaian adil terhadap kontribusi anggota",
+      "beta": 0.09,
+      "beta_ci": [
+       -0.12,
+       0.31
+      ],
+      "b": 0.1,
+      "b_ci": [
+       -0.12,
+       0.32
+      ]
+     },
+     {
+      "nama": "Fasilitas dan sumber daya memadai",
+      "beta": 0.33,
+      "beta_ci": [
+       0.14,
+       0.51
+      ],
+      "b": 0.3,
+      "b_ci": [
+       0.13,
+       0.48
+      ]
+     },
+     {
+      "nama": "Beban berat",
+      "beta": -0.12,
+      "beta_ci": [
+       -0.28,
+       0.05
+      ],
+      "b": -0.23,
+      "b_ci": [
+       -0.56,
+       0.1
+      ]
+     },
+     {
+      "nama": "Belum pernah konsultasi",
+      "beta": 0.11,
+      "beta_ci": [
+       -0.03,
+       0.24
+      ],
+      "b": 0.25,
+      "b_ci": [
+       -0.07,
+       0.55
+      ]
+     },
+     {
+      "nama": "Arahan dosen konsisten",
+      "beta": 0.05,
+      "beta_ci": [
+       -0.07,
+       0.18
+      ],
+      "b": 0.1,
+      "b_ci": [
+       -0.13,
+       0.35
+      ]
+     },
+     {
+      "nama": "Tim tahu harus menghubungi dosen siapa",
+      "beta": -0.05,
+      "beta_ci": [
+       -0.2,
+       0.12
+      ],
+      "b": -0.11,
+      "b_ci": [
+       -0.41,
+       0.23
+      ]
+     },
+     {
+      "nama": "Tenggat sering bertabrakan",
+      "beta": 0.04,
+      "beta_ci": [
+       -0.11,
+       0.17
+      ],
+      "b": 0.07,
+      "b_ci": [
+       -0.21,
+       0.34
+      ]
+     }
+    ]
+   },
+   "lanjut": {
+    "n": 150,
+    "r2": 0.32,
+    "koef": [
+     {
+      "nama": "Alur dan target milestone dijelaskan jelas",
+      "beta": 0.06,
+      "beta_ci": [
+       -0.2,
+       0.26
+      ],
+      "b": 0.08,
+      "b_ci": [
+       -0.28,
+       0.33
+      ]
+     },
+     {
+      "nama": "SOP dan template laporan membantu",
+      "beta": -0.12,
+      "beta_ci": [
+       -0.34,
+       0.12
+      ],
+      "b": -0.16,
+      "b_ci": [
+       -0.43,
+       0.15
+      ]
+     },
+     {
+      "nama": "Jadwal dan tenggat milestone realistis",
+      "beta": 0.36,
+      "beta_ci": [
+       0.15,
+       0.6
+      ],
+      "b": 0.48,
+      "b_ci": [
+       0.21,
+       0.8
+      ]
+     },
+     {
+      "nama": "Bimbingan dosen memadai",
+      "beta": -0.1,
+      "beta_ci": [
+       -0.3,
+       0.18
+      ],
+      "b": -0.14,
+      "b_ci": [
+       -0.4,
+       0.23
+      ]
+     },
+     {
+      "nama": "Tugas dan penilaian antar-mata kuliah selaras",
+      "beta": 0.02,
+      "beta_ci": [
+       -0.19,
+       0.25
+      ],
+      "b": 0.03,
+      "b_ci": [
+       -0.27,
+       0.36
+      ]
+     },
+     {
+      "nama": "Rubrik dan kriteria penilaian jelas",
+      "beta": 0.15,
+      "beta_ci": [
+       -0.1,
+       0.4
+      ],
+      "b": 0.21,
+      "b_ci": [
+       -0.13,
+       0.59
+      ]
+     },
+     {
+      "nama": "Penilaian adil terhadap kontribusi anggota",
+      "beta": -0.11,
+      "beta_ci": [
+       -0.38,
+       0.15
+      ],
+      "b": -0.15,
+      "b_ci": [
+       -0.5,
+       0.2
+      ]
+     },
+     {
+      "nama": "Fasilitas dan sumber daya memadai",
+      "beta": 0.24,
+      "beta_ci": [
+       0.02,
+       0.44
+      ],
+      "b": 0.28,
+      "b_ci": [
+       0.02,
+       0.52
+      ]
+     },
+     {
+      "nama": "Beban berat",
+      "beta": -0.15,
+      "beta_ci": [
+       -0.32,
+       0.03
+      ],
+      "b": -0.39,
+      "b_ci": [
+       -0.83,
+       0.07
+      ]
+     },
+     {
+      "nama": "Belum pernah konsultasi",
+      "beta": 0.23,
+      "beta_ci": [
+       0.11,
+       0.34
+      ],
+      "b": 0.69,
+      "b_ci": [
+       0.34,
+       1.04
+      ]
+     },
+     {
+      "nama": "Arahan dosen konsisten",
+      "beta": -0.03,
+      "beta_ci": [
+       -0.15,
+       0.12
+      ],
+      "b": -0.07,
+      "b_ci": [
+       -0.4,
+       0.29
+      ]
+     },
+     {
+      "nama": "Tim tahu harus menghubungi dosen siapa",
+      "beta": 0,
+      "beta_ci": [
+       -0.14,
+       0.15
+      ],
+      "b": 0.01,
+      "b_ci": [
+       -0.38,
+       0.41
+      ]
+     },
+     {
+      "nama": "Tenggat sering bertabrakan",
+      "beta": -0.03,
+      "beta_ci": [
+       -0.17,
+       0.12
+      ],
+      "b": -0.06,
+      "b_ci": [
+       -0.4,
+       0.31
+      ]
+     }
+    ]
+   }
+  },
+  "prioritas": {
+   "puas": {
+    "n": 156,
+    "r2": 0.25,
+    "baris": [
+     {
+      "masalah": "fasilitas",
+      "definisi": "Tidak setuju fasilitas memadai",
+      "prevalensi": {
+       "n": 172,
+       "k": 82,
+       "pct": 47.7,
+       "ci": [
+        40.3,
+        55.1
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 81,
+       "n_tidak": 89,
+       "mean_ya": 3.12,
+       "mean_tidak": 3.82,
+       "selisih": -0.7,
+       "ci": [
+        -0.966,
+        -0.431
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.45,
+       "ci": [
+        -0.75,
+        -0.17
+       ]
+      },
+      "skor": 0.215
+     },
+     {
+      "masalah": "beban",
+      "definisi": "Beban berat atau sangat berat",
+      "prevalensi": {
+       "n": 177,
+       "k": 72,
+       "pct": 40.7,
+       "ci": [
+        33.7,
+        48
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 72,
+       "n_tidak": 103,
+       "mean_ya": 3.14,
+       "mean_tidak": 3.72,
+       "selisih": -0.58,
+       "ci": [
+        -0.854,
+        -0.288
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.36,
+       "ci": [
+        -0.66,
+        -0.02
+       ]
+      },
+      "skor": 0.147
+     },
+     {
+      "masalah": "koordinasi",
+      "definisi": "Arahan dosen antar mata kuliah tidak konsisten",
+      "prevalensi": {
+       "n": 177,
+       "k": 121,
+       "pct": 68.4,
+       "ci": [
+        61.2,
+        74.8
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 120,
+       "n_tidak": 55,
+       "mean_ya": 3.41,
+       "mean_tidak": 3.64,
+       "selisih": -0.23,
+       "ci": [
+        -0.53,
+        0.084
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.13,
+       "ci": [
+        -0.42,
+        0.15
+       ]
+      },
+      "skor": 0.089
+     },
+     {
+      "masalah": "bimbingan_kurang",
+      "definisi": "Tidak setuju bimbingan dosen memadai",
+      "prevalensi": {
+       "n": 177,
+       "k": 55,
+       "pct": 31.1,
+       "ci": [
+        24.7,
+        38.2
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 54,
+       "n_tidak": 121,
+       "mean_ya": 2.96,
+       "mean_tidak": 3.71,
+       "selisih": -0.75,
+       "ci": [
+        -1.051,
+        -0.445
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.27,
+       "ci": [
+        -0.68,
+        0.11
+       ]
+      },
+      "skor": 0.084
+     },
+     {
+      "masalah": "jadwal_realistis",
+      "definisi": "Tidak setuju jadwal dan tenggat milestone realistis",
+      "prevalensi": {
+       "n": 172,
+       "k": 61,
+       "pct": 35.5,
+       "ci": [
+        28.7,
+        42.9
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 59,
+       "n_tidak": 111,
+       "mean_ya": 3.1,
+       "mean_tidak": 3.72,
+       "selisih": -0.62,
+       "ci": [
+        -0.917,
+        -0.321
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.15,
+       "ci": [
+        -0.56,
+        0.22
+       ]
+      },
+      "skor": 0.053
+     },
+     {
+      "masalah": "penilaian",
+      "definisi": "Tidak setuju penilaian adil",
+      "prevalensi": {
+       "n": 168,
+       "k": 72,
+       "pct": 42.9,
+       "ci": [
+        35.6,
+        50.4
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 72,
+       "n_tidak": 94,
+       "mean_ya": 3.15,
+       "mean_tidak": 3.81,
+       "selisih": -0.66,
+       "ci": [
+        -0.929,
+        -0.374
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.12,
+       "ci": [
+        -0.47,
+        0.22
+       ]
+      },
+      "skor": 0.051
+     },
+     {
+      "masalah": "selaras",
+      "definisi": "Tidak setuju tugas dan penilaian antar mata kuliah selaras",
+      "prevalensi": {
+       "n": 165,
+       "k": 73,
+       "pct": 44.2,
+       "ci": [
+        36.9,
+        51.9
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 73,
+       "n_tidak": 90,
+       "mean_ya": 3.23,
+       "mean_tidak": 3.78,
+       "selisih": -0.54,
+       "ci": [
+        -0.833,
+        -0.257
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.05,
+       "ci": [
+        -0.31,
+        0.24
+       ]
+      },
+      "skor": 0.022
+     },
+     {
+      "masalah": "jadwal",
+      "definisi": "Tenggat antar mata kuliah sering/selalu bertabrakan",
+      "prevalensi": {
+       "n": 177,
+       "k": 71,
+       "pct": 40.1,
+       "ci": [
+        33.2,
+        47.5
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 71,
+       "n_tidak": 104,
+       "mean_ya": 3.31,
+       "mean_tidak": 3.6,
+       "selisih": -0.29,
+       "ci": [
+        -0.572,
+        0.009
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.01,
+       "ci": [
+        -0.31,
+        0.3
+       ]
+      },
+      "skor": 0.004
+     },
+     {
+      "masalah": "rujukan",
+      "definisi": "Tim tidak tahu harus menghubungi dosen siapa",
+      "prevalensi": {
+       "n": 177,
+       "k": 54,
+       "pct": 30.5,
+       "ci": [
+        24.2,
+        37.6
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 53,
+       "n_tidak": 122,
+       "mean_ya": 3.21,
+       "mean_tidak": 3.6,
+       "selisih": -0.39,
+       "ci": [
+        -0.724,
+        -0.075
+       ]
+      },
+      "koef_terkontrol": {
+       "b": 0.01,
+       "ci": [
+        -0.32,
+        0.37
+       ]
+      },
+      "skor": -0.003
+     },
+     {
+      "masalah": "bimbingan",
+      "definisi": "Tim belum pernah berkonsultasi",
+      "prevalensi": {
+       "n": 177,
+       "k": 41,
+       "pct": 23.2,
+       "ci": [
+        17.6,
+        29.9
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 41,
+       "n_tidak": 134,
+       "mean_ya": 3.51,
+       "mean_tidak": 3.47,
+       "selisih": 0.04,
+       "ci": [
+        -0.299,
+        0.386
+       ]
+      },
+      "koef_terkontrol": {
+       "b": 0.26,
+       "ci": [
+        -0.1,
+        0.6
+       ]
+      },
+      "skor": -0.06
+     }
+    ]
+   },
+   "lanjut": {
+    "n": 152,
+    "r2": 0.27,
+    "baris": [
+     {
+      "masalah": "fasilitas",
+      "definisi": "Tidak setuju fasilitas memadai",
+      "prevalensi": {
+       "n": 172,
+       "k": 82,
+       "pct": 47.7,
+       "ci": [
+        40.3,
+        55.1
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 80,
+       "n_tidak": 86,
+       "mean_ya": 3.06,
+       "mean_tidak": 3.71,
+       "selisih": -0.65,
+       "ci": [
+        -0.99,
+        -0.288
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.59,
+       "ci": [
+        -0.97,
+        -0.18
+       ]
+      },
+      "skor": 0.281
+     },
+     {
+      "masalah": "beban",
+      "definisi": "Beban berat atau sangat berat",
+      "prevalensi": {
+       "n": 177,
+       "k": 72,
+       "pct": 40.7,
+       "ci": [
+        33.7,
+        48
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 67,
+       "n_tidak": 103,
+       "mean_ya": 2.96,
+       "mean_tidak": 3.68,
+       "selisih": -0.72,
+       "ci": [
+        -1.072,
+        -0.384
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.56,
+       "ci": [
+        -0.94,
+        -0.16
+       ]
+      },
+      "skor": 0.228
+     },
+     {
+      "masalah": "jadwal_realistis",
+      "definisi": "Tidak setuju jadwal dan tenggat milestone realistis",
+      "prevalensi": {
+       "n": 172,
+       "k": 61,
+       "pct": 35.5,
+       "ci": [
+        28.7,
+        42.9
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 56,
+       "n_tidak": 109,
+       "mean_ya": 2.91,
+       "mean_tidak": 3.65,
+       "selisih": -0.74,
+       "ci": [
+        -1.118,
+        -0.361
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.39,
+       "ci": [
+        -0.86,
+        0.05
+       ]
+      },
+      "skor": 0.138
+     },
+     {
+      "masalah": "bimbingan_kurang",
+      "definisi": "Tidak setuju bimbingan dosen memadai",
+      "prevalensi": {
+       "n": 177,
+       "k": 55,
+       "pct": 31.1,
+       "ci": [
+        24.7,
+        38.2
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 50,
+       "n_tidak": 120,
+       "mean_ya": 2.9,
+       "mean_tidak": 3.6,
+       "selisih": -0.7,
+       "ci": [
+        -1.1,
+        -0.317
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.31,
+       "ci": [
+        -0.79,
+        0.25
+       ]
+      },
+      "skor": 0.096
+     },
+     {
+      "masalah": "selaras",
+      "definisi": "Tidak setuju tugas dan penilaian antar mata kuliah selaras",
+      "prevalensi": {
+       "n": 165,
+       "k": 73,
+       "pct": 44.2,
+       "ci": [
+        36.9,
+        51.9
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 71,
+       "n_tidak": 87,
+       "mean_ya": 3.11,
+       "mean_tidak": 3.69,
+       "selisih": -0.58,
+       "ci": [
+        -0.928,
+        -0.223
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.16,
+       "ci": [
+        -0.54,
+        0.23
+       ]
+      },
+      "skor": 0.071
+     },
+     {
+      "masalah": "jadwal",
+      "definisi": "Tenggat antar mata kuliah sering/selalu bertabrakan",
+      "prevalensi": {
+       "n": 177,
+       "k": 71,
+       "pct": 40.1,
+       "ci": [
+        33.2,
+        47.5
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 69,
+       "n_tidak": 101,
+       "mean_ya": 3.13,
+       "mean_tidak": 3.57,
+       "selisih": -0.44,
+       "ci": [
+        -0.81,
+        -0.083
+       ]
+      },
+      "koef_terkontrol": {
+       "b": -0.13,
+       "ci": [
+        -0.5,
+        0.22
+       ]
+      },
+      "skor": 0.052
+     },
+     {
+      "masalah": "rujukan",
+      "definisi": "Tim tidak tahu harus menghubungi dosen siapa",
+      "prevalensi": {
+       "n": 177,
+       "k": 54,
+       "pct": 30.5,
+       "ci": [
+        24.2,
+        37.6
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 52,
+       "n_tidak": 118,
+       "mean_ya": 3.23,
+       "mean_tidak": 3.47,
+       "selisih": -0.24,
+       "ci": [
+        -0.64,
+        0.163
+       ]
+      },
+      "koef_terkontrol": {
+       "b": 0.07,
+       "ci": [
+        -0.32,
+        0.44
+       ]
+      },
+      "skor": -0.021
+     },
+     {
+      "masalah": "koordinasi",
+      "definisi": "Arahan dosen antar mata kuliah tidak konsisten",
+      "prevalensi": {
+       "n": 177,
+       "k": 121,
+       "pct": 68.4,
+       "ci": [
+        61.2,
+        74.8
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 117,
+       "n_tidak": 53,
+       "mean_ya": 3.38,
+       "mean_tidak": 3.43,
+       "selisih": -0.06,
+       "ci": [
+        -0.441,
+        0.342
+       ]
+      },
+      "koef_terkontrol": {
+       "b": 0.1,
+       "ci": [
+        -0.28,
+        0.48
+       ]
+      },
+      "skor": -0.068
+     },
+     {
+      "masalah": "penilaian",
+      "definisi": "Tidak setuju penilaian adil",
+      "prevalensi": {
+       "n": 168,
+       "k": 72,
+       "pct": 42.9,
+       "ci": [
+        35.6,
+        50.4
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 70,
+       "n_tidak": 92,
+       "mean_ya": 3.13,
+       "mean_tidak": 3.61,
+       "selisih": -0.48,
+       "ci": [
+        -0.856,
+        -0.128
+       ]
+      },
+      "koef_terkontrol": {
+       "b": 0.25,
+       "ci": [
+        -0.18,
+        0.68
+       ]
+      },
+      "skor": -0.107
+     },
+     {
+      "masalah": "bimbingan",
+      "definisi": "Tim belum pernah berkonsultasi",
+      "prevalensi": {
+       "n": 177,
+       "k": 41,
+       "pct": 23.2,
+       "ci": [
+        17.6,
+        29.9
+       ]
+      },
+      "selisih_mentah": {
+       "n_ya": 40,
+       "n_tidak": 130,
+       "mean_ya": 3.77,
+       "mean_tidak": 3.28,
+       "selisih": 0.5,
+       "ci": [
+        0.138,
+        0.856
+       ]
+      },
+      "koef_terkontrol": {
+       "b": 0.67,
+       "ci": [
+        0.3,
+        1.08
+       ]
+      },
+      "skor": -0.155
+     }
+    ]
+   }
+  }
+ },
+ "p1_respons": {
+  "komposisi": [
+   {
+    "sel": "TI Sem 3",
+    "n": 44,
+    "roster": 248,
+    "pct_responden": 24.9,
+    "pct_populasi": 30.8,
+    "bobot": 5.64
+   },
+   {
+    "sel": "TI Sem 5",
+    "n": 25,
+    "roster": 230,
+    "pct_responden": 14.1,
+    "pct_populasi": 28.5,
+    "bobot": 9.2
+   },
+   {
+    "sel": "SIB Sem 3",
+    "n": 21,
+    "roster": 173,
+    "pct_responden": 11.9,
+    "pct_populasi": 21.5,
+    "bobot": 8.24
+   },
+   {
+    "sel": "SIB Sem 5",
+    "n": 87,
+    "roster": 155,
+    "pct_responden": 49.2,
+    "pct_populasi": 19.2,
+    "bobot": 1.78
+   }
+  ],
+  "pasca_stratifikasi": [
+   {
+    "indikator": "Rata-rata kepuasan (1-5)",
+    "mentah": 3.48,
+    "pasca_strat": 3.48,
+    "ci_pasca_strat": [
+     3.299,
+     3.663
+    ],
+    "bergeser": 0
+   },
+   {
+    "indikator": "% puas (setuju atau sangat setuju)",
+    "mentah": 48.57,
+    "pasca_strat": 51.21,
+    "ci_pasca_strat": [
+     42.822,
+     59.83
+    ],
+    "bergeser": 2.63
+   },
+   {
+    "indikator": "% beban berat",
+    "mentah": 40.68,
+    "pasca_strat": 42.35,
+    "ci_pasca_strat": [
+     34.375,
+     51.598
+    ],
+    "bergeser": 1.67
+   },
+   {
+    "indikator": "% tenggat sering bertabrakan",
+    "mentah": 40.11,
+    "pasca_strat": 42.52,
+    "ci_pasca_strat": [
+     33.407,
+     50.117
+    ],
+    "bergeser": 2.41
+   },
+   {
+    "indikator": "% arahan dosen konsisten",
+    "mentah": 31.64,
+    "pasca_strat": 36.75,
+    "ci_pasca_strat": [
+     28.783,
+     45.252
+    ],
+    "bergeser": 5.12
+   },
+   {
+    "indikator": "% setuju fasilitas memadai",
+    "mentah": 52.33,
+    "pasca_strat": 51.74,
+    "ci_pasca_strat": [
+     43.405,
+     60.568
+    ],
+    "bergeser": -0.59
+   },
+   {
+    "indikator": "% belum pernah konsultasi",
+    "mentah": 23.16,
+    "pasca_strat": 26.02,
+    "ci_pasca_strat": [
+     18.598,
+     33.021
+    ],
+    "bergeser": 2.85
+   }
+  ],
+  "dipantau_vs_lain": {
+   "puas": {
+    "n_ya": 95,
+    "n_tidak": 80,
+    "mean_ya": 3.48,
+    "mean_tidak": 3.48,
+    "selisih": 0.01,
+    "ci": [
+     -0.279,
+     0.31
+    ]
+   },
+   "beban berat": {
+    "n_ya": 97,
+    "n_tidak": 80,
+    "mean_ya": 0.4,
+    "mean_tidak": 0.41,
+    "selisih": -0.01,
+    "ci": [
+     -0.153,
+     0.133
+    ]
+   },
+   "tenggat bertabrakan": {
+    "n_ya": 97,
+    "n_tidak": 80,
+    "mean_ya": 0.37,
+    "mean_tidak": 0.44,
+    "selisih": -0.07,
+    "ci": [
+     -0.206,
+     0.08
+    ]
+   },
+   "arahan konsisten": {
+    "n_ya": 97,
+    "n_tidak": 80,
+    "mean_ya": 0.3,
+    "mean_tidak": 0.34,
+    "selisih": -0.04,
+    "ci": [
+     -0.178,
+     0.095
+    ]
+   },
+   "fasilitas (skor)": {
+    "n_ya": 94,
+    "n_tidak": 78,
+    "mean_ya": 3.43,
+    "mean_tidak": 3.46,
+    "selisih": -0.04,
+    "ci": [
+     -0.342,
+     0.241
+    ]
+   },
+   "belum pernah konsultasi": {
+    "n_ya": 97,
+    "n_tidak": 80,
+    "mean_ya": 0.16,
+    "mean_tidak": 0.31,
+    "selisih": -0.15,
+    "ci": [
+     -0.277,
+     -0.022
+    ]
+   }
+  }
+ },
+ "p2_beban": {
+  "prevalensi": {
+   "n": 177,
+   "k": 72,
+   "pct": 40.7,
+   "ci": [
+    33.7,
+    48
+   ]
+  },
+  "per_semester": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 21,
+    "k": 12,
+    "pct": 57.1,
+    "ci": [
+     36.5,
+     75.5
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 87,
+    "k": 35,
+    "pct": 40.2,
+    "ci": [
+     30.6,
+     50.7
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 44,
+    "k": 14,
+    "pct": 31.8,
+    "ci": [
+     20,
+     46.6
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 25,
+    "k": 11,
+    "pct": 44,
+    "ci": [
+     26.7,
+     62.9
+    ]
+   }
+  ],
+  "tugas_tambahan_dipilih": {
+   "n": 177,
+   "k": 117,
+   "pct": 66.1,
+   "ci": [
+    58.9,
+    72.7
+   ]
+  },
+  "berat_jika_tugas_tambahan": {
+   "n_ya": 117,
+   "n_tidak": 60,
+   "mean_ya": 0.46,
+   "mean_tidak": 0.3,
+   "selisih": 0.16,
+   "ci": [
+    0.007,
+    0.308
+   ]
+  },
+  "berat_vs_tenggat": {
+   "n_ya": 71,
+   "n_tidak": 106,
+   "mean_ya": 0.58,
+   "mean_tidak": 0.29,
+   "selisih": 0.29,
+   "ci": [
+    0.144,
+    0.421
+   ]
+  },
+  "berat_vs_kontribusi_timpang": {
+   "n_ya": 58,
+   "n_tidak": 119,
+   "mean_ya": 0.48,
+   "mean_tidak": 0.37,
+   "selisih": 0.11,
+   "ci": [
+    -0.045,
+    0.272
+   ]
+  },
+  "berat_vs_belum_konsultasi": {
+   "n_ya": 41,
+   "n_tidak": 136,
+   "mean_ya": 0.39,
+   "mean_tidak": 0.41,
+   "selisih": -0.02,
+   "ci": [
+    -0.192,
+    0.153
+   ]
+  },
+  "korelasi_berat_dengan_porsi_tugas_bagian_proyek": {
+   "r": -0.05,
+   "ci": [
+    -0.2,
+    0.095
+   ],
+   "n": 177
+  },
+  "korelasi_berat_dengan_porsi_latihan_umum": {
+   "r": -0.05,
+   "ci": [
+    -0.191,
+    0.095
+   ],
+   "n": 177
+  },
+  "model_beban_berat": {
+   "n": 177,
+   "r2": 0.14,
+   "koef": [
+    {
+     "nama": "Tugas mata kuliah menambah beban",
+     "beta": 0.11,
+     "beta_ci": [
+      -0.04,
+      0.24
+     ],
+     "b": 0.11,
+     "b_ci": [
+      -0.04,
+      0.25
+     ]
+    },
+    {
+     "nama": "Tenggat sering bertabrakan",
+     "beta": 0.28,
+     "beta_ci": [
+      0.14,
+      0.43
+     ],
+     "b": 0.28,
+     "b_ci": [
+      0.14,
+      0.44
+     ]
+    },
+    {
+     "nama": "Kontribusi tim tidak seimbang",
+     "beta": 0.17,
+     "beta_ci": [
+      0.01,
+      0.32
+     ],
+     "b": 0.17,
+     "b_ci": [
+      0.01,
+      0.33
+     ]
+    },
+    {
+     "nama": "Porsi tugas bagian dari proyek",
+     "beta": 0.02,
+     "beta_ci": [
+      -0.14,
+      0.16
+     ],
+     "b": 0.02,
+     "b_ci": [
+      -0.21,
+      0.25
+     ]
+    },
+    {
+     "nama": "Porsi tugas utama latihan umum",
+     "beta": -0.05,
+     "beta_ci": [
+      -0.2,
+      0.09
+     ],
+     "b": -0.06,
+     "b_ci": [
+      -0.26,
+      0.13
+     ]
+    },
+    {
+     "nama": "Belum pernah konsultasi",
+     "beta": -0.08,
+     "beta_ci": [
+      -0.21,
+      0.07
+     ],
+     "b": -0.09,
+     "b_ci": [
+      -0.24,
+      0.08
+     ]
+    },
+    {
+     "nama": "TI Sem 5",
+     "beta": 0.07,
+     "beta_ci": [
+      -0.11,
+      0.23
+     ],
+     "b": 0.09,
+     "b_ci": [
+      -0.16,
+      0.34
+     ]
+    },
+    {
+     "nama": "SIB Sem 3",
+     "beta": 0.19,
+     "beta_ci": [
+      0.02,
+      0.36
+     ],
+     "b": 0.29,
+     "b_ci": [
+      0.03,
+      0.55
+     ]
+    },
+    {
+     "nama": "SIB Sem 5",
+     "beta": 0.14,
+     "beta_ci": [
+      -0.03,
+      0.28
+     ],
+     "b": 0.14,
+     "b_ci": [
+      -0.03,
+      0.28
+     ]
+    }
+   ]
+  },
+  "dampak_pada_kepuasan": {
+   "n_ya": 72,
+   "n_tidak": 103,
+   "mean_ya": 3.14,
+   "mean_tidak": 3.72,
+   "selisih": -0.58,
+   "ci": [
+    -0.854,
+    -0.288
+   ]
+  },
+  "dampak_pada_keinginan_lanjut": {
+   "n_ya": 67,
+   "n_tidak": 103,
+   "mean_ya": 2.96,
+   "mean_tidak": 3.68,
+   "selisih": -0.72,
+   "ci": [
+    -1.072,
+    -0.384
+   ]
+  }
+ },
+ "p3_jadwal": {
+  "prevalensi": {
+   "n": 177,
+   "k": 71,
+   "pct": 40.1,
+   "ci": [
+    33.2,
+    47.5
+   ]
+  },
+  "sebaran_skor_1_5": {
+   "1": 12,
+   "2": 26,
+   "3": 68,
+   "4": 60,
+   "5": 11
+  },
+  "per_semester": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 21,
+    "k": 9,
+    "pct": 42.9,
+    "ci": [
+     24.5,
+     63.5
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 87,
+    "k": 33,
+    "pct": 37.9,
+    "ci": [
+     28.5,
+     48.4
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 44,
+    "k": 16,
+    "pct": 36.4,
+    "ci": [
+     23.8,
+     51.1
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 25,
+    "k": 13,
+    "pct": 52,
+    "ci": [
+     33.5,
+     70
+    ]
+   }
+  ],
+  "kendala_baru_diketahui_saat_review": {
+   "n": 177,
+   "k": 57,
+   "pct": 32.2,
+   "ci": [
+    25.8,
+    39.4
+   ]
+  },
+  "per_semester_kendala_review": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 21,
+    "k": 7,
+    "pct": 33.3,
+    "ci": [
+     17.2,
+     54.6
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 87,
+    "k": 28,
+    "pct": 32.2,
+    "ci": [
+     23.3,
+     42.6
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 44,
+    "k": 16,
+    "pct": 36.4,
+    "ci": [
+     23.8,
+     51.1
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 25,
+    "k": 6,
+    "pct": 24,
+    "ci": [
+     11.5,
+     43.4
+    ]
+   }
+  ],
+  "berat_jika_tenggat_bertabrakan": {
+   "n_ya": 71,
+   "n_tidak": 106,
+   "mean_ya": 0.58,
+   "mean_tidak": 0.29,
+   "selisih": 0.29,
+   "ci": [
+    0.144,
+    0.421
+   ]
+  },
+  "jadwal_realistis_jika_tenggat_bertabrakan": {
+   "n_ya": 69,
+   "n_tidak": 103,
+   "mean_ya": 3.36,
+   "mean_tidak": 3.96,
+   "selisih": -0.6,
+   "ci": [
+    -0.868,
+    -0.324
+   ]
+  },
+  "puas_jika_tenggat_bertabrakan": {
+   "n_ya": 71,
+   "n_tidak": 104,
+   "mean_ya": 3.31,
+   "mean_tidak": 3.6,
+   "selisih": -0.29,
+   "ci": [
+    -0.572,
+    0.009
+   ]
+  },
+  "lanjut_jika_tenggat_bertabrakan": {
+   "n_ya": 69,
+   "n_tidak": 101,
+   "mean_ya": 3.13,
+   "mean_tidak": 3.57,
+   "selisih": -0.44,
+   "ci": [
+    -0.81,
+    -0.083
+   ]
+  },
+  "korelasi_tenggat_dengan_jadwal_realistis": {
+   "r": -0.25,
+   "ci": [
+    -0.399,
+    -0.099
+   ],
+   "n": 172
+  },
+  "jadwal_tidak_realistis": {
+   "n": 172,
+   "k": 61,
+   "pct": 35.5,
+   "ci": [
+    28.7,
+    42.9
+   ]
+  },
+  "per_semester_tidak_realistis": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 20,
+    "k": 9,
+    "pct": 45,
+    "ci": [
+     25.8,
+     65.8
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 86,
+    "k": 33,
+    "pct": 38.4,
+    "ci": [
+     28.8,
+     48.9
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 42,
+    "k": 14,
+    "pct": 33.3,
+    "ci": [
+     21,
+     48.4
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 24,
+    "k": 5,
+    "pct": 20.8,
+    "ci": [
+     9.2,
+     40.5
+    ]
+   }
+  ],
+  "lanjut_jika_jadwal_tidak_realistis": {
+   "n_ya": 56,
+   "n_tidak": 109,
+   "mean_ya": 2.91,
+   "mean_tidak": 3.65,
+   "selisih": -0.74,
+   "ci": [
+    -1.118,
+    -0.361
+   ]
+  },
+  "puas_jika_jadwal_tidak_realistis": {
+   "n_ya": 59,
+   "n_tidak": 111,
+   "mean_ya": 3.1,
+   "mean_tidak": 3.72,
+   "selisih": -0.62,
+   "ci": [
+    -0.917,
+    -0.321
+   ]
+  },
+  "berat_jika_jadwal_tidak_realistis": {
+   "n_ya": 61,
+   "n_tidak": 111,
+   "mean_ya": 0.62,
+   "mean_tidak": 0.28,
+   "selisih": 0.34,
+   "ci": [
+    0.187,
+    0.492
+   ]
+  },
+  "pilih_waktu_beban_sebagai_masalah": {
+   "n": 177,
+   "k": 72,
+   "pct": 40.7,
+   "ci": [
+    33.7,
+    48
+   ]
+  },
+  "waktu_beban_jika_tenggat": {
+   "n_ya": 71,
+   "n_tidak": 106,
+   "mean_ya": 0.54,
+   "mean_tidak": 0.32,
+   "selisih": 0.21,
+   "ci": [
+    0.071,
+    0.355
+   ]
+  },
+  "dosen_menyelaraskan": [
+   {
+    "butir": "Menyelaraskan tenggat dengan dosen lain",
+    "n": 22,
+    "tidak_pernah_atau_jarang": 11,
+    "kadang": 6,
+    "sering_atau_selalu": 5
+   },
+   {
+    "butir": "Menyelaraskan rubrik/penilaian dengan dosen lain",
+    "n": 22,
+    "tidak_pernah_atau_jarang": 11,
+    "kadang": 7,
+    "sering_atau_selalu": 4
+   },
+   {
+    "butir": "Berbagi progres/kendala tim dengan dosen lain",
+    "n": 22,
+    "tidak_pernah_atau_jarang": 13,
+    "kadang": 5,
+    "sering_atau_selalu": 4
+   },
+   {
+    "butir": "Membahas tim bermasalah bersama dosen lain",
+    "n": 22,
+    "tidak_pernah_atau_jarang": 13,
+    "kadang": 5,
+    "sering_atau_selalu": 4
+   },
+   {
+    "butir": "Baru tahu kendala tim saat review milestone",
+    "n": 22,
+    "tidak_pernah_atau_jarang": 11,
+    "kadang": 7,
+    "sering_atau_selalu": 4
+   }
+  ],
+  "dosen_jadwal_realistis": {
+   "mahasiswa": 3.72,
+   "dosen": 4.27
+  },
+  "tenggat_vs_porsi_deliverable": {
+   "r": -0.03,
+   "ci": [
+    -0.178,
+    0.113
+   ],
+   "n": 177
+  },
+  "tenggat_vs_porsi_latihan": {
+   "r": 0.05,
+   "ci": [
+    -0.096,
+    0.193
+   ],
+   "n": 177
+  },
+  "tenggat_vs_porsi_tugas_bagian_proyek": {
+   "r": -0.17,
+   "ci": [
+    -0.317,
+    -0.029
+   ],
+   "n": 177
+  },
+  "tidak_realistis_vs_porsi_deliverable": {
+   "r": -0.02,
+   "ci": [
+    -0.166,
+    0.13
+   ],
+   "n": 172
+  },
+  "tidak_realistis_vs_porsi_latihan": {
+   "r": 0,
+   "ci": [
+    -0.149,
+    0.152
+   ],
+   "n": 172
+  },
+  "responden_dengan_kuis_atau_ujian_sebagai_tugas_utama": {
+   "n": 177,
+   "k": 16,
+   "pct": 9,
+   "ci": [
+    5.6,
+    14.2
+   ]
+  },
+  "tenggat_jika_ada_kuis_atau_ujian_sebagai_tugas_utama": {
+   "n_ya": 16,
+   "n_tidak": 161,
+   "mean_ya": 0.56,
+   "mean_tidak": 0.39,
+   "selisih": 0.18,
+   "ci": [
+    -0.091,
+    0.442
+   ]
+  },
+  "tenggat_empat_vs_tiga_mata_kuliah": {
+   "n_ya": 44,
+   "n_tidak": 133,
+   "mean_ya": 0.36,
+   "mean_tidak": 0.41,
+   "selisih": -0.05,
+   "ci": [
+    -0.211,
+    0.115
+   ]
+  }
+ },
+ "p4_selaras": {
+  "pic_vs_pendukung": {
+   "tugas_bagian_proyek": {
+    "n": 177,
+    "pendukung": 51.1,
+    "selisih_poin": -2.5,
+    "ci": [
+     -12.1,
+     6.7
+    ]
+   },
+   "kriteria_sejalan": {
+    "n": 177,
+    "pendukung": 57.1,
+    "selisih_poin": 9,
+    "ci": [
+     0.9,
+     16.6
+    ]
+   },
+   "kegiatan_pbl_sering": {
+    "n": 177,
+    "pendukung": 62.5,
+    "selisih_poin": 17.1,
+    "ci": [
+     11.3,
+     22.9
+    ]
+   }
+  },
+  "selaras_dinilai_setuju": {
+   "n": 165,
+   "k": 92,
+   "pct": 55.8,
+   "ci": [
+    48.1,
+    63.1
+   ]
+  },
+  "per_semester": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 19,
+    "k": 11,
+    "pct": 57.9,
+    "ci": [
+     36.3,
+     76.9
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 81,
+    "k": 46,
+    "pct": 56.8,
+    "ci": [
+     45.9,
+     67
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 42,
+    "k": 24,
+    "pct": 57.1,
+    "ci": [
+     42.2,
+     70.9
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 23,
+    "k": 11,
+    "pct": 47.8,
+    "ci": [
+     29.2,
+     67
+    ]
+   }
+  ],
+  "porsi_tugas_bagian_proyek_vs_berat": {
+   "r": -0.05,
+   "ci": [
+    -0.2,
+    0.095
+   ],
+   "n": 177
+  },
+  "porsi_tugas_bagian_proyek_vs_puas": {
+   "r": 0.06,
+   "ci": [
+    -0.101,
+    0.208
+   ],
+   "n": 175
+  },
+  "porsi_tugas_bagian_proyek_vs_selaras": {
+   "r": 0.24,
+   "ci": [
+    0.094,
+    0.386
+   ],
+   "n": 165
+  },
+  "dosen_vs_mahasiswa": {
+   "dosen_tugas_bagian_deliverable_ya": 36.4,
+   "mahasiswa_tugas_bagian_proyek_ya": 50.1
+  }
+ },
+ "p5_koordinasi": {
+  "konsisten_ya": {
+   "n": 177,
+   "k": 56,
+   "pct": 31.6,
+   "ci": [
+    25.2,
+    38.8
+   ]
+  },
+  "per_semester": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 21,
+    "k": 7,
+    "pct": 33.3,
+    "ci": [
+     17.2,
+     54.6
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 87,
+    "k": 19,
+    "pct": 21.8,
+    "ci": [
+     14.5,
+     31.6
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 44,
+    "k": 20,
+    "pct": 45.5,
+    "ci": [
+     31.7,
+     59.9
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 25,
+    "k": 10,
+    "pct": 40,
+    "ci": [
+     23.4,
+     59.3
+    ]
+   }
+  ],
+  "tahu_hubungi_ya": {
+   "n": 177,
+   "k": 123,
+   "pct": 69.5,
+   "ci": [
+    62.4,
+    75.8
+   ]
+  },
+  "dosen_tahu_progres_ya": {
+   "n": 177,
+   "k": 80,
+   "pct": 45.2,
+   "ci": [
+    38,
+    52.6
+   ]
+  },
+  "tidak_jelas_rujukan_dipilih": {
+   "n": 177,
+   "k": 9,
+   "pct": 5.1,
+   "ci": [
+    2.7,
+    9.4
+   ]
+  },
+  "arahan_tidak_terkoordinasi_dipilih": {
+   "n": 177,
+   "k": 53,
+   "pct": 29.9,
+   "ci": [
+    23.7,
+    37.1
+   ]
+  },
+  "puas_jika_tidak_konsisten": {
+   "n_ya": 120,
+   "n_tidak": 55,
+   "mean_ya": 3.41,
+   "mean_tidak": 3.64,
+   "selisih": -0.23,
+   "ci": [
+    -0.53,
+    0.084
+   ]
+  },
+  "lanjut_jika_tidak_konsisten": {
+   "n_ya": 117,
+   "n_tidak": 53,
+   "mean_ya": 3.38,
+   "mean_tidak": 3.43,
+   "selisih": -0.06,
+   "ci": [
+    -0.441,
+    0.342
+   ]
+  },
+  "puas_jika_tidak_tahu_hubungi": {
+   "n_ya": 53,
+   "n_tidak": 122,
+   "mean_ya": 3.21,
+   "mean_tidak": 3.6,
+   "selisih": -0.39,
+   "ci": [
+    -0.724,
+    -0.075
+   ]
+  },
+  "konsisten_jika_tahu_hubungi": {
+   "n_ya": 123,
+   "n_tidak": 54,
+   "mean_ya": 0.38,
+   "mean_tidak": 0.17,
+   "selisih": 0.22,
+   "ci": [
+    0.076,
+    0.346
+   ]
+  },
+  "tenggat_bertabrakan_jika_tidak_konsisten": {
+   "n_ya": 121,
+   "n_tidak": 56,
+   "mean_ya": 0.43,
+   "mean_tidak": 0.34,
+   "selisih": 0.09,
+   "ci": [
+    -0.061,
+    0.237
+   ]
+  },
+  "dipantau_vs_lain_konsisten": {
+   "n_ya": 97,
+   "n_tidak": 80,
+   "mean_ya": 0.3,
+   "mean_tidak": 0.34,
+   "selisih": -0.04,
+   "ci": [
+    -0.178,
+    0.095
+   ]
+  },
+  "dosen": {
+   "n": 22,
+   "rujukan_utama_jelas": {
+    "n": 22,
+    "ya": 36.4,
+    "sebagian": 27.3,
+    "tidak": 36.4,
+    "tidak_tahu": 0
+   },
+   "kesepakatan_peran": {
+    "n": 22,
+    "ya": 18.2,
+    "sebagian": 31.8,
+    "tidak": 50,
+    "tidak_tahu": 0
+   },
+   "mengetahui_dosen_lain": {
+    "n": 22,
+    "ya": 63.6,
+    "sebagian": 27.3,
+    "tidak": 9.1,
+    "tidak_tahu": 0
+   },
+   "saling_mengetahui_perkembangan": {
+    "n": 22,
+    "ya": 36.4,
+    "sebagian": 22.7,
+    "tidak": 18.2,
+    "tidak_tahu": 22.7
+   },
+   "kehadiran_rapat": [
+    {
+     "label": "Selalu hadir",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Hadir sebagian",
+     "count": 12,
+     "pct": 54.5
+    },
+    {
+     "label": "Tidak pernah hadir",
+     "count": 5,
+     "pct": 22.7
+    }
+   ],
+   "wa": [
+    {
+     "label": "Membaca tetapi jarang menanggapi",
+     "count": 14,
+     "pct": 63.6
+    },
+    {
+     "label": "Kadang menanggapi atau berbagi informasi",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Jarang membuka",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Aktif menanggapi dan berbagi informasi",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "frekuensi_koordinasi": [
+    {
+     "label": "Tidak pernah",
+     "count": 4,
+     "pct": 18.2
+    },
+    {
+     "label": "1-2 kali",
+     "count": 13,
+     "pct": 59.1
+    },
+    {
+     "label": "3-5 kali",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Lebih dari 5 kali",
+     "count": 2,
+     "pct": 9.1
+    }
+   ],
+   "hambatan": [
+    {
+     "label": "Beban mengajar dan administrasi lain",
+     "count": 16,
+     "pct": 72.7
+    },
+    {
+     "label": "Tidak ada jadwal rapat rutin",
+     "count": 16,
+     "pct": 72.7
+    },
+    {
+     "label": "Tidak ada pembagian peran yang jelas antar dosen dalam satu kelas",
+     "count": 9,
+     "pct": 40.9
+    },
+    {
+     "label": "Tidak tahu dosen lain yang mengampu kelas yang sama",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Diskusi di grup WhatsApp kurang terarah",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "dukungan_diminta": [
+    {
+     "label": "Rapat koordinasi dosen rutin",
+     "count": 10,
+     "pct": 45.5
+    },
+    {
+     "label": "Pembagian peran dosen yang tertulis",
+     "count": 10,
+     "pct": 45.5
+    },
+    {
+     "label": "Panduan dan contoh penilaian",
+     "count": 9,
+     "pct": 40.9
+    },
+    {
+     "label": "PIC dosen per kelas",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Pelatihan PBL",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Pembaruan progres tim terjadwal di grup WhatsApp",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Penyesuaian beban kerja",
+     "count": 4,
+     "pct": 18.2
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 4.5
+    }
+   ]
+  },
+  "dosen_per_kelompok": {
+   "mengampu TI": {
+    "n": 17,
+    "rujukan_jelas_ya": 47.1,
+    "kesepakatan_peran_ya": 23.5,
+    "selalu_hadir_rapat": 17.6,
+    "hambatan_beban": 76.5
+   },
+   "mengampu SIB": {
+    "n": 11,
+    "rujukan_jelas_ya": 18.2,
+    "kesepakatan_peran_ya": 9.1,
+    "selalu_hadir_rapat": 36.4,
+    "hambatan_beban": 81.8
+   },
+   "pertama kali mengampu PBL": {
+    "n": 5,
+    "rujukan_jelas_ya": 60,
+    "kesepakatan_peran_ya": 0,
+    "selalu_hadir_rapat": 40,
+    "hambatan_beban": 40
+   },
+   "sudah pernah mengampu PBL": {
+    "n": 17,
+    "rujukan_jelas_ya": 29.4,
+    "kesepakatan_peran_ya": 23.5,
+    "selalu_hadir_rapat": 17.6,
+    "hambatan_beban": 82.4
+   }
+  }
+ },
+ "p6_penilaian": {
+  "adil_setuju": {
+   "n": 168,
+   "k": 96,
+   "pct": 57.1,
+   "ci": [
+    49.6,
+    64.4
+   ]
+  },
+  "rubrik_jelas_setuju": {
+   "n": 171,
+   "k": 100,
+   "pct": 58.5,
+   "ci": [
+    51,
+    65.6
+   ]
+  },
+  "per_semester_adil": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 20,
+    "k": 12,
+    "pct": 60,
+    "ci": [
+     38.7,
+     78.1
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 85,
+    "k": 46,
+    "pct": 54.1,
+    "ci": [
+     43.6,
+     64.3
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 41,
+    "k": 22,
+    "pct": 53.7,
+    "ci": [
+     38.7,
+     67.9
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 22,
+    "k": 16,
+    "pct": 72.7,
+    "ci": [
+     51.8,
+     86.8
+    ]
+   }
+  ],
+  "per_semester_rubrik": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 19,
+    "k": 10,
+    "pct": 52.6,
+    "ci": [
+     31.7,
+     72.7
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 85,
+    "k": 45,
+    "pct": 52.9,
+    "ci": [
+     42.4,
+     63.2
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 43,
+    "k": 28,
+    "pct": 65.1,
+    "ci": [
+     50.2,
+     77.6
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 24,
+    "k": 17,
+    "pct": 70.8,
+    "ci": [
+     50.8,
+     85.1
+    ]
+   }
+  ],
+  "kontribusi_timpang_dipilih": {
+   "n": 177,
+   "k": 58,
+   "pct": 32.8,
+   "ci": [
+    26.3,
+    40
+   ]
+  },
+  "per_semester_timpang": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 21,
+    "k": 8,
+    "pct": 38.1,
+    "ci": [
+     20.8,
+     59.1
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 87,
+    "k": 18,
+    "pct": 20.7,
+    "ci": [
+     13.5,
+     30.4
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 44,
+    "k": 24,
+    "pct": 54.5,
+    "ci": [
+     40.1,
+     68.3
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 25,
+    "k": 8,
+    "pct": 32,
+    "ci": [
+     17.2,
+     51.6
+    ]
+   }
+  ],
+  "adil_jika_timpang": {
+   "n_ya": 53,
+   "n_tidak": 115,
+   "mean_ya": 3.3,
+   "mean_tidak": 3.82,
+   "selisih": -0.52,
+   "ci": [
+    -0.831,
+    -0.212
+   ]
+  },
+  "puas_jika_timpang": {
+   "n_ya": 58,
+   "n_tidak": 117,
+   "mean_ya": 3.31,
+   "mean_tidak": 3.56,
+   "selisih": -0.25,
+   "ci": [
+    -0.573,
+    0.08
+   ]
+  },
+  "puas_jika_tidak_adil": {
+   "n_ya": 72,
+   "n_tidak": 94,
+   "mean_ya": 3.15,
+   "mean_tidak": 3.81,
+   "selisih": -0.66,
+   "ci": [
+    -0.929,
+    -0.374
+   ]
+  },
+  "lanjut_jika_tidak_adil": {
+   "n_ya": 70,
+   "n_tidak": 92,
+   "mean_ya": 3.13,
+   "mean_tidak": 3.61,
+   "selisih": -0.48,
+   "ci": [
+    -0.856,
+    -0.128
+   ]
+  },
+  "model_penilaian_adil": {
+   "n": 165,
+   "r2": 0.61,
+   "koef": [
+    {
+     "nama": "Rubrik jelas",
+     "beta": 0.62,
+     "beta_ci": [
+      0.47,
+      0.76
+     ],
+     "b": 0.68,
+     "b_ci": [
+      0.52,
+      0.81
+     ]
+    },
+    {
+     "nama": "Kontribusi tim tidak seimbang",
+     "beta": -0.16,
+     "beta_ci": [
+      -0.27,
+      -0.06
+     ],
+     "b": -0.33,
+     "b_ci": [
+      -0.54,
+      -0.13
+     ]
+    },
+    {
+     "nama": "Bimbingan dosen memadai",
+     "beta": 0.24,
+     "beta_ci": [
+      0.08,
+      0.4
+     ],
+     "b": 0.25,
+     "b_ci": [
+      0.08,
+      0.43
+     ]
+    },
+    {
+     "nama": "Arahan dosen konsisten",
+     "beta": 0.11,
+     "beta_ci": [
+      -0.01,
+      0.23
+     ],
+     "b": 0.23,
+     "b_ci": [
+      -0.01,
+      0.47
+     ]
+    },
+    {
+     "nama": "Tenggat sering bertabrakan",
+     "beta": 0.05,
+     "beta_ci": [
+      -0.07,
+      0.16
+     ],
+     "b": 0.09,
+     "b_ci": [
+      -0.14,
+      0.31
+     ]
+    },
+    {
+     "nama": "Beban berat",
+     "beta": 0.07,
+     "beta_ci": [
+      -0.04,
+      0.18
+     ],
+     "b": 0.14,
+     "b_ci": [
+      -0.07,
+      0.35
+     ]
+    },
+    {
+     "nama": "SOP dan template membantu",
+     "beta": -0.07,
+     "beta_ci": [
+      -0.2,
+      0.1
+     ],
+     "b": -0.07,
+     "b_ci": [
+      -0.2,
+      0.09
+     ]
+    }
+   ]
+  },
+  "korelasi_rubrik_adil": {
+   "r": 0.73,
+   "ci": [
+    0.611,
+    0.812
+   ],
+   "n": 165
+  },
+  "dosen": {
+   "n": 22,
+   "kontribusi_timpang_dipilih": {
+    "n": 22,
+    "k": 7,
+    "pct": 31.8,
+    "ci": [
+     16.4,
+     52.7
+    ]
+   },
+   "rubrik_jelas_rata": 4.05,
+   "adil_rata": 4.32,
+   "mahasiswa_rubrik_rata": 3.67,
+   "mahasiswa_adil_rata": 3.65,
+   "meminta_panduan_contoh": {
+    "n": 22,
+    "k": 9,
+    "pct": 40.9,
+    "ci": [
+     23.3,
+     61.3
+    ]
+   }
+  }
+ },
+ "p7_fasilitas_bimbingan": {
+  "fasilitas_setuju": {
+   "n": 172,
+   "k": 90,
+   "pct": 52.3,
+   "ci": [
+    44.9,
+    59.7
+   ]
+  },
+  "fasilitas_skor": {
+   "mean": 3.44
+  },
+  "per_semester_fasilitas": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 20,
+    "mean": 3.35,
+    "ci": [
+     2.85,
+     3.8
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 85,
+    "mean": 3.48,
+    "ci": [
+     3.306,
+     3.671
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 43,
+    "mean": 3.42,
+    "ci": [
+     3.116,
+     3.721
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 24,
+    "mean": 3.42,
+    "ci": [
+     2.958,
+     3.833
+    ]
+   }
+  ],
+  "per_prodi_fasilitas": [
+   {
+    "kelompok": "SIB",
+    "n": 105,
+    "mean": 3.46,
+    "ci": [
+     3.276,
+     3.638
+    ]
+   },
+   {
+    "kelompok": "TI",
+    "n": 67,
+    "mean": 3.42,
+    "ci": [
+     3.149,
+     3.657
+    ]
+   }
+  ],
+  "fasilitas_ti_vs_sib": {
+   "n_ya": 67,
+   "n_tidak": 105,
+   "mean_ya": 3.42,
+   "mean_tidak": 3.46,
+   "selisih": -0.04,
+   "ci": [
+    -0.345,
+    0.262
+   ]
+  },
+  "fasilitas_pilih_masalah": {
+   "n": 177,
+   "k": 35,
+   "pct": 19.8,
+   "ci": [
+    14.6,
+    26.3
+   ]
+  },
+  "per_prodi_fasilitas_masalah": [
+   {
+    "kelompok": "SIB",
+    "n": 108,
+    "k": 24,
+    "pct": 22.2,
+    "ci": [
+     15.4,
+     30.9
+    ]
+   },
+   {
+    "kelompok": "TI",
+    "n": 69,
+    "k": 11,
+    "pct": 15.9,
+    "ci": [
+     9.1,
+     26.3
+    ]
+   }
+  ],
+  "belum_konsultasi": {
+   "n": 177,
+   "k": 41,
+   "pct": 23.2,
+   "ci": [
+    17.6,
+    29.9
+   ]
+  },
+  "per_semester_belum_konsultasi": [
+   {
+    "kelompok": "SIB Sem 3",
+    "n": 21,
+    "k": 10,
+    "pct": 47.6,
+    "ci": [
+     28.3,
+     67.6
+    ]
+   },
+   {
+    "kelompok": "SIB Sem 5",
+    "n": 87,
+    "k": 16,
+    "pct": 18.4,
+    "ci": [
+     11.6,
+     27.8
+    ]
+   },
+   {
+    "kelompok": "TI Sem 3",
+    "n": 44,
+    "k": 11,
+    "pct": 25,
+    "ci": [
+     14.6,
+     39.4
+    ]
+   },
+   {
+    "kelompok": "TI Sem 5",
+    "n": 25,
+    "k": 4,
+    "pct": 16,
+    "ci": [
+     6.4,
+     34.7
+    ]
+   }
+  ],
+  "dipantau_vs_lain_belum_konsultasi": {
+   "n_ya": 97,
+   "n_tidak": 80,
+   "mean_ya": 0.16,
+   "mean_tidak": 0.31,
+   "selisih": -0.15,
+   "ci": [
+    -0.277,
+    -0.022
+   ]
+  },
+  "puas_jika_belum_konsultasi": {
+   "n_ya": 41,
+   "n_tidak": 134,
+   "mean_ya": 3.51,
+   "mean_tidak": 3.47,
+   "selisih": 0.04,
+   "ci": [
+    -0.299,
+    0.386
+   ]
+  },
+  "bimbingan_memadai_jika_belum_konsultasi": {
+   "n_ya": 41,
+   "n_tidak": 136,
+   "mean_ya": 3.49,
+   "mean_tidak": 3.85,
+   "selisih": -0.37,
+   "ci": [
+    -0.681,
+    -0.067
+   ]
+  },
+  "puas_jika_fasilitas_rendah": {
+   "n_ya": 81,
+   "n_tidak": 89,
+   "mean_ya": 3.12,
+   "mean_tidak": 3.82,
+   "selisih": -0.7,
+   "ci": [
+    -0.966,
+    -0.431
+   ]
+  },
+  "korelasi_fasilitas_puas": {
+   "r": 0.48,
+   "ci": [
+    0.329,
+    0.601
+   ],
+   "n": 170
+  },
+  "respons_dosen": [
+   {
+    "label": "Kurang dari 1 hari",
+    "n": 94
+   },
+   {
+    "label": "1-2 hari",
+    "n": 53
+   },
+   {
+    "label": "Belum pernah bertanya",
+    "n": 18
+   },
+   {
+    "label": "3-7 hari",
+    "n": 5
+   }
+  ],
+  "materi_terlambat_dipilih": {
+   "n": 177,
+   "k": 35,
+   "pct": 19.8,
+   "ci": [
+    14.6,
+    26.3
+   ]
+  },
+  "materi_tidak_sebelum_milestone": {
+   "n": 575,
+   "k": 36,
+   "pct": 6.3,
+   "ci": [
+    4.6,
+    8.5
+   ]
+  },
+  "materi_terlambat_jika_ada_mk_tidak": {
+   "n_ya": 35,
+   "n_tidak": 142,
+   "mean_ya": 0.31,
+   "mean_tidak": 0.17,
+   "selisih": 0.15,
+   "ci": [
+    -0.013,
+    0.315
+   ]
+  },
+  "fasilitas_semester_pmpl_vs_tanpa": {
+   "n_ya": 109,
+   "n_tidak": 63,
+   "mean_ya": 3.47,
+   "mean_tidak": 3.4,
+   "selisih": 0.07,
+   "ci": [
+    -0.235,
+    0.403
+   ]
+  },
+  "fasilitas_semester_web_vs_mobile": {
+   "n_ya": 148,
+   "n_tidak": 24,
+   "mean_ya": 3.45,
+   "mean_tidak": 3.42,
+   "selisih": 0.03,
+   "ci": [
+    -0.451,
+    0.493
+   ]
+  },
+  "dosen": {
+   "n": 22,
+   "frekuensi_konsultasi": [
+    {
+     "label": "0 kali",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "1-2 kali",
+     "count": 11,
+     "pct": 50
+    },
+    {
+     "label": "3-5 kali",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Lebih dari 5 kali",
+     "count": 1,
+     "pct": 4.5
+    }
+   ],
+   "fasilitas_rata_dosen": 3.77,
+   "fasilitas_rata_mahasiswa": 3.44,
+   "hambatan_materi": [
+    {
+     "label": "Waktu persiapan terbatas",
+     "count": 8,
+     "pct": 36.4
+    },
+    {
+     "label": "Topik proyek antar tim terlalu beragam",
+     "count": 7,
+     "pct": 31.8
+    },
+    {
+     "label": "Kurang informasi tentang kebutuhan setiap milestone",
+     "count": 5,
+     "pct": 22.7
+    },
+    {
+     "label": "Capaian pembelajaran atau RPS sulit disesuaikan",
+     "count": 4,
+     "pct": 18.2
+    },
+    {
+     "label": "Tidak ada kendala",
+     "count": 3,
+     "pct": 13.6
+    },
+    {
+     "label": "Belum ada panduan atau contoh",
+     "count": 2,
+     "pct": 9.1
+    },
+    {
+     "label": "Lainnya",
+     "count": 1,
+     "pct": 4.5
+    }
+   ]
+  }
+ },
+ "sensitivitas": {
+  "semua": {
+   "top_driver_puas": [
+    [
+     "Fasilitas dan sumber daya memadai",
+     0.33
+    ],
+    [
+     "Jadwal dan tenggat milestone realistis",
+     0.24
+    ],
+    [
+     "Bimbingan dosen memadai",
+     0.15
+    ],
+    [
+     "SOP dan template laporan membantu",
+     -0.14
+    ]
+   ],
+   "efek_terhadap_puas": {
+    "beban": -0.58,
+    "jadwal": -0.29,
+    "selaras": -0.54,
+    "koordinasi": -0.23,
+    "penilaian": -0.66,
+    "fasilitas": -0.7,
+    "bimbingan": 0.04,
+    "jadwal_realistis": -0.62,
+    "bimbingan_kurang": -0.75,
+    "rujukan": -0.39
+   }
+  },
+  "tanpa_SIB_Sem5": {
+   "n": 90,
+   "top_driver_puas": [
+    [
+     "Rubrik dan kriteria penilaian jelas",
+     0.28
+    ],
+    [
+     "Jadwal dan tenggat milestone realistis",
+     0.27
+    ],
+    [
+     "Fasilitas dan sumber daya memadai",
+     0.25
+    ],
+    [
+     "Bimbingan dosen memadai",
+     0.2
+    ]
+   ],
+   "efek_terhadap_puas": {
+    "beban": -0.74,
+    "jadwal": -0.35,
+    "selaras": -0.64,
+    "koordinasi": -0.27,
+    "penilaian": -0.86,
+    "fasilitas": -0.75,
+    "bimbingan": -0.01,
+    "jadwal_realistis": -0.79,
+    "bimbingan_kurang": -0.91,
+    "rujukan": -0.37
+   }
+  }
+ },
+ "ukuran_keberhasilan": [
+  {
+   "ukuran": "Beban berat atau sangat berat",
+   "arah": "turun",
+   "n": 177,
+   "persen": 40.7,
+   "ci": [
+    33.7,
+    48
+   ],
+   "target_persen": 33.7,
+   "selisih_terkecil_terbukti_poin": 14.6
+  },
+  {
+   "ukuran": "Tenggat antar mata kuliah sering atau selalu bertabrakan",
+   "arah": "turun",
+   "n": 177,
+   "persen": 40.1,
+   "ci": [
+    33.2,
+    47.5
+   ],
+   "target_persen": 33.2,
+   "selisih_terkecil_terbukti_poin": 14.6
+  },
+  {
+   "ukuran": "Tidak setuju jadwal dan tenggat milestone realistis",
+   "arah": "turun",
+   "n": 172,
+   "persen": 35.5,
+   "ci": [
+    28.7,
+    42.9
+   ],
+   "target_persen": 28.7,
+   "selisih_terkecil_terbukti_poin": 14.4
+  },
+  {
+   "ukuran": "Setuju fasilitas dan sumber daya memadai",
+   "arah": "naik",
+   "n": 172,
+   "persen": 52.3,
+   "ci": [
+    44.9,
+    59.7
+   ],
+   "target_persen": 59.7,
+   "selisih_terkecil_terbukti_poin": 15.1
+  },
+  {
+   "ukuran": "Setuju rubrik dan kriteria penilaian jelas",
+   "arah": "naik",
+   "n": 171,
+   "persen": 58.5,
+   "ci": [
+    51,
+    65.6
+   ],
+   "target_persen": 65.6,
+   "selisih_terkecil_terbukti_poin": 14.9
+  },
+  {
+   "ukuran": "Setuju penilaian adil terhadap kontribusi anggota",
+   "arah": "naik",
+   "n": 168,
+   "persen": 57.1,
+   "ci": [
+    49.6,
+    64.4
+   ],
+   "target_persen": 64.4,
+   "selisih_terkecil_terbukti_poin": 15.1
+  },
+  {
+   "ukuran": "Arahan dosen antar mata kuliah konsisten (Ya)",
+   "arah": "naik",
+   "n": 177,
+   "persen": 31.6,
+   "ci": [
+    25.2,
+    38.8
+   ],
+   "target_persen": 38.8,
+   "selisih_terkecil_terbukti_poin": 13.8
+  },
+  {
+   "ukuran": "Tim tahu harus menghubungi dosen siapa (Ya)",
+   "arah": "naik",
+   "n": 177,
+   "persen": 69.5,
+   "ci": [
+    62.4,
+    75.8
+   ],
+   "target_persen": 75.8,
+   "selisih_terkecil_terbukti_poin": 13.7
+  },
+  {
+   "ukuran": "Setuju tugas dan penilaian antar mata kuliah selaras",
+   "arah": "naik",
+   "n": 165,
+   "persen": 55.8,
+   "ci": [
+    48.1,
+    63.1
+   ],
+   "target_persen": 63.1,
+   "selisih_terkecil_terbukti_poin": 15.3
+  },
+  {
+   "ukuran": "Dosen: jelas dosen rujukan utama tim (Ya)",
+   "arah": "naik",
+   "n": 22,
+   "persen": 36.4,
+   "ci": [
+    19.7,
+    57
+   ],
+   "target_persen": 57,
+   "selisih_terkecil_terbukti_poin": 40.6,
+   "catatan": "n = 22: perubahan kecil tidak bisa dibuktikan; pantau angka mentah dan cerita dosen"
+  },
+  {
+   "ukuran": "Dosen: ada kesepakatan pembagian peran antar dosen (Ya)",
+   "arah": "naik",
+   "n": 22,
+   "persen": 18.2,
+   "ci": [
+    7.3,
+    38.5
+   ],
+   "target_persen": 38.5,
+   "selisih_terkecil_terbukti_poin": 32.6,
+   "catatan": "n = 22: perubahan kecil tidak bisa dibuktikan; pantau angka mentah dan cerita dosen"
+  },
+  {
+   "ukuran": "Tingkat respons mahasiswa",
+   "arah": "naik",
+   "n": 806,
+   "persen": 22,
+   "target_persen": 70,
+   "catatan": "Target 70% ditetapkan program, bukan dari selang"
+  },
+  {
+   "ukuran": "Kelas dengan sedikitnya 5 responden",
+   "arah": "naik",
+   "n": 32,
+   "nilai": 12,
+   "target": 32
+  }
+ ]
+}

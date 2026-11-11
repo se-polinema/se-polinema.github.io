@@ -1,4 +1,5 @@
 import type { Deck } from '../../lib/live/types'
+import { validateAnalysis } from './analysis'
 import { validatePic } from './pic'
 import { questions } from './questions'
 import { paintRecap, slides } from './slides'
@@ -11,5 +12,5 @@ export const deck: Deck = {
   questions,
   slides,
   paintRecap,
-  validate: validatePic,
+  validate: () => [...validatePic(), ...validateAnalysis()],
 }
