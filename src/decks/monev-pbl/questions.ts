@@ -99,7 +99,8 @@ export const questions: Question[] = [
     options: [
       { key: 'pic', label: 'PIC (pengampu mata kuliah inti) diumumkan ke dosen dan mahasiswa, lengkap per kelas', note: `PIC sudah ada menurut mata kuliah, tetapi hanya ${rujukanJelas} dosen menyatakan dosen rujukan jelas, dan ${sup('PIC dosen per kelas')} meminta PIC per kelas. Pastikan dulu PIC tahu perannya` },
       { key: 'peran', label: 'Tugas PIC dan dosen mata kuliah pendukung ditulis di juknis PBL Jurusan', note: `${sup('Pembagian peran dosen yang tertulis')} dosen memintanya, dan hanya ${sepakatPeran} punya kesepakatan peran` },
-      { key: 'wa', label: 'PIC mengirim catatan milestone di WhatsApp, dosen lain mengonfirmasi dengan satu kata', note: `${pc(pick(l.wa.items, 'Membaca tetapi jarang menanggapi').pct)} dosen membaca grup tetapi jarang menanggapi, jadi konfirmasi perlu` },
+      { key: 'wa', label: 'PIC mengumumkan rencana tiap milestone di grup dosen kelas (tanggal, luaran, fokus penilaian); dosen cukup membalas bila ada bentrok sebelum batas tanggal', note: `${pc(pick(l.wa.items, 'Membaca tetapi jarang menanggapi').pct)} dosen membaca grup tetapi jarang menanggapi, jadi cara ini tidak menuntut balasan dari semua dosen` },
+      { key: 'form', label: 'Di awal semester dosen mata kuliah pendukung mengisi satu formulir: tenggat tugas dan kapan tim butuh server; PIC menyusun kalender kelas', note: `Hambatan utama dosen adalah beban mengajar dan administrasi (${bebanDosen}), jadi satu isian per semester, bukan balasan di tiap milestone` },
       { key: 'rapat', label: 'PIC mengadakan rapat singkat daring sekali per milestone', note: `${sup('Rapat koordinasi dosen rutin')} dosen memintanya, tetapi ${bebanDosen} terkendala beban dan hanya ${pc(l.meeting.items[0].pct)} selalu hadir. Uji dulu` },
     ],
   },
@@ -157,10 +158,10 @@ export const questions: Question[] = [
     prompt: 'Saya bersedia (boleh pilih lebih dari satu):',
     options: [
       { key: 'pic', label: 'Menjalankan tugas PIC di kelas yang saya ampu (bagi pengampu mata kuliah inti)' },
-      { key: 'kirim', label: 'Menyampaikan tanggal pengumpulan tugas mata kuliah saya ke PIC kelas (bagi pengampu mata kuliah pendukung)' },
+      { key: 'kirim', label: 'Mengisi formulir tenggat tugas di awal semester untuk PIC kelas (bagi pengampu mata kuliah pendukung)' },
       { key: 'server', label: 'Menyampaikan sejak awal kapan tim perlu server untuk mata kuliah saya (bagi pengampu aplikasi web dan Penjaminan Mutu)' },
       { key: 'notask', label: 'Tidak menambah tugas baru di luar proyek selama pekan Milestone 2' },
-      { key: 'wa', label: 'Mengonfirmasi catatan PIC di WhatsApp dengan satu kata atau reaksi' },
+      { key: 'wa', label: 'Membalas pengumuman milestone PIC bila tugas mata kuliah saya bentrok' },
     ],
   },
   {
