@@ -320,6 +320,7 @@ const main: Slide[] = [
     ],
     bad: [
       `Paling rendah di SIB Semester 5 (${pctSem(bySem(p5.per_semester, 'SIB Sem 5'))}), tertinggi di TI Semester 3 (${pc(bySem(p5.per_semester, 'TI Sem 3').pct)}).`,
+      `${pick(l.wa.items, 'Membaca tetapi jarang menanggapi').count} dari ${l.n} dosen membaca grup WhatsApp tetapi jarang menanggapi; hanya ${pick(l.wa.items, 'Aktif menanggapi dan berbagi informasi').count} yang aktif.`,
       `Hambatan dosen: beban mengajar dan administrasi (${bar('Beban mengajar dan administrasi lain')} dari ${l.n}) dan tidak ada jadwal rapat rutin (${bar('Tidak ada jadwal rapat rutin')}); hanya ${rapatSelalu} dari ${l.n} selalu hadir di rapat.`,
     ],
     closing: `Pengaruh arahan yang berbeda pada kepuasan belum terbukti setelah faktor lain dikontrol. Yang berkaitan dengan kepuasan adalah mengetahui harus bertanya ke dosen siapa (${sg(p5.puas_jika_tidak_tahu_hubungi.selisih)} poin ${ci(p5.puas_jika_tidak_tahu_hubungi.ci, 2)}).`,
@@ -455,6 +456,16 @@ const main: Slide[] = [
           q: 'Apakah PIC tiap kelas sudah diberi tahu perannya?',
           known: `PIC adalah pengampu mata kuliah inti. Baru ${pc(l.coord_yn[3].ya)} dosen menyatakan dosen rujukan utama tim jelas.`,
           unknown: 'Belum dipastikan apakah PIC sudah diberi tahu.',
+        },
+        {
+          q: 'Bagaimana pengumuman milestone PIC dan formulir awal semester dijalankan?',
+          known: `${pick(l.wa.items, 'Membaca tetapi jarang menanggapi').count} dari ${l.n} dosen membaca grup WhatsApp tetapi jarang menanggapi, jadi PIC mengumumkan rencana dan dosen membalas hanya bila ada bentrok; tenggat tugas dikumpulkan sekali lewat formulir.`,
+          unknown: 'Grup mana yang dipakai, berapa hari sebelum milestone pengumuman dikirim, apa yang dilakukan PIC bila bentrok datang terlambat, dan siapa yang menyiapkan formulir.',
+        },
+        {
+          q: 'Apakah peran PIC diakui secara resmi, misalnya di juknis atau dalam beban kerja dosen?',
+          known: `Beban mengajar dan administrasi adalah hambatan koordinasi yang paling banyak disebut dosen (${bar('Beban mengajar dan administrasi lain')} dari ${l.n}).`,
+          unknown: 'Apakah pengakuan seperti itu dimungkinkan menurut aturan Jurusan.',
         },
         {
           q: 'Data apa yang perlu dikumpulkan sebelum keputusan diambil?',
