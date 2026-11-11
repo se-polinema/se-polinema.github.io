@@ -1178,7 +1178,13 @@
       "ended": "Session ended",
       "hide": "Hide panel (H)",
       "saveFailed": "Could not save the change",
-      "others": "{n} other"
+      "others": "{n} other",
+      "delete": "Delete",
+      "deleteConfirm": "Delete session {code}? All votes and suggestions in it are deleted too. Download the CSV first if you need it.",
+      "deleteAllEnded": "Delete all ended sessions ({n})",
+      "deleteAllConfirm": "Delete {n} ended sessions? Their votes and suggestions are deleted too. This cannot be undone.",
+      "deleteFailed": "Could not delete. Check that you are an admin.",
+      "legacy": "old session"
     },
     "errors": {
       "voting_closed": "Voting for this question is closed.",

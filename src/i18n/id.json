@@ -1178,7 +1178,13 @@
       "ended": "Sesi diakhiri",
       "hide": "Sembunyikan panel (H)",
       "saveFailed": "Perubahan tidak dapat disimpan",
-      "others": "{n} lainnya"
+      "others": "{n} lainnya",
+      "delete": "Hapus",
+      "deleteConfirm": "Hapus sesi {code}? Semua suara dan saran di dalamnya ikut terhapus. Unduh CSV dulu jika perlu.",
+      "deleteAllEnded": "Hapus semua sesi selesai ({n})",
+      "deleteAllConfirm": "Hapus {n} sesi selesai? Suara dan saran di dalamnya ikut terhapus. Tindakan ini tidak bisa dibatalkan.",
+      "deleteFailed": "Gagal menghapus. Pastikan Anda admin.",
+      "legacy": "sesi lama"
     },
     "errors": {
       "voting_closed": "Voting untuk pertanyaan ini sudah ditutup.",

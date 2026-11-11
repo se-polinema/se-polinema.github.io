@@ -242,8 +242,13 @@ async function sendSuggestion() {
 
 async function sync() {
   if (!session.value) return
-  const s = await getSession(session.value.id)
-  if (s) apply(s)
+  try {
+    const s = await getSession(session.value.id)
+    // A deleted (or ended, hence hidden) session no longer exists for a voter: show the ended card.
+    apply(s ?? { ...session.value, is_open: false, voting_open: false })
+  } catch {
+    /* transient network error: keep the current state and retry on the next tick */
+  }
 }
 
 onMounted(async () => {

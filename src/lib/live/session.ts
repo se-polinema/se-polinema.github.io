@@ -41,23 +41,41 @@ export async function findSession(code: string): Promise<Session | null> {
   return (data as Session) ?? null
 }
 
+/** Returns null when the row does not exist (or is no longer visible); throws on a request error. */
 export async function getSession(id: string): Promise<Session | null> {
-  const { data } = await db().from('sessions').select('*').eq('id', id).maybeSingle()
+  const { data, error } = await db().from('sessions').select('*').eq('id', id).maybeSingle()
+  if (error) throw error
   return (data as Session) ?? null
 }
 
+/** Admin picker list: this deck's sessions plus legacy ones with no deck (made before decks existed). */
 export async function listSessions(deck: string): Promise<Session[]> {
   const { data } = await db()
     .from('sessions')
     .select('*')
-    .eq('deck', deck)
+    .or(`deck.eq.${deck},deck.is.null`)
     .order('created_at', { ascending: false })
-    .limit(6)
+    .limit(30)
   return (data as Session[]) ?? []
 }
 
-/** Admin only (RLS). Upserts the deck's questions, then creates a session with a fresh join code. */
-export async function createSession(deck: Deck): Promise<Session> {
+/** Admin only (RLS). Votes and suggestions go with the session (ON DELETE CASCADE). */
+export async function deleteSessions(ids: string[]): Promise<number> {
+  if (!ids.length) return 0
+  const { data, error } = await db().from('sessions').delete().in('id', ids).select('id')
+  if (error) throw error
+  // RLS hides rows from non-admins instead of failing, so an empty result means nothing was deleted.
+  if (!data?.length) throw new Error('nothing deleted')
+  return data.length
+}
+
+/**
+ * Admin only (RLS). Saves the deck's questions to the database. The voter page reads questions from
+ * there, so this runs whenever a session starts or resumes: otherwise a session made by an older build
+ * keeps old prompts and no "Lainnya" field. Questions no longer in the deck are left alone because
+ * deleting them would cascade-delete their votes.
+ */
+export async function syncQuestions(deck: Deck): Promise<void> {
   const rows = deck.questions.map((q, i) => ({
     key: qid(deck.slug, q.key),
     deck: deck.slug,
@@ -71,6 +89,11 @@ export async function createSession(deck: Deck): Promise<Session> {
   }))
   const up = await db().from('questions').upsert(rows, { onConflict: 'key' })
   if (up.error) throw up.error
+}
+
+/** Admin only (RLS). Syncs the deck's questions, then creates a session with a fresh join code. */
+export async function createSession(deck: Deck): Promise<Session> {
+  await syncQuestions(deck)
   const { data, error } = await db()
     .from('sessions')
     .insert({ code: newCode(), title: deck.title, deck: deck.slug })
