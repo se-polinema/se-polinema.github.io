@@ -3,7 +3,7 @@ project_id = "polinema"
 [api]
 enabled = true
 port = 54321
-schemas = ["public", "graphql_public", "se"]
+schemas = ["public", "graphql_public", "se", "monev"]
 extra_search_path = ["public", "extensions"]
 max_rows = 1000
 
@@ -16,7 +16,7 @@ major_version = 15
 enabled = true
 port = 54323
 
-[inbucket]
+[local_smtp]
 enabled = true
 port = 54324
 

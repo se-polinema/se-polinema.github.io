@@ -11,6 +11,11 @@ on:
       - 'scripts/sync-static-projects.mjs'
       - 'src/content/projects/**'
   workflow_dispatch:
+    inputs:
+      reload_postgrest:
+        description: 'Re-save PostgREST db_schema (monev moved to 2nd place) to force PostgREST to reload its exposed schemas'
+        type: boolean
+        default: false
 
 jobs:
   deploy:
@@ -177,8 +182,52 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
 
+      - name: Ensure monev schema is exposed via PostgREST
+        # Live-voting schema for the Monev PBL presentation (sibling of "se").
+        # Same merge-don't-overwrite approach as the "se" step above, so the
+        # other app's schemas (dosen4) are preserved. Must run before the
+        # migration push so Realtime/PostgREST can serve monev right away.
+        run: |
+          current=$(curl --fail-with-body -sS \
+            "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/postgrest" \
+            -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" | jq -r '.db_schema')
+          echo "Current db_schema: $current"
+          if [ -z "$current" ] || [ "$current" = "null" ]; then
+            echo "Could not read current db_schema config, refusing to guess and overwrite it" >&2
+            exit 1
+          fi
+          if echo ",$current," | grep -q ',monev,' && [ "$FORCE_RELOAD" != "true" ]; then
+            echo "monev already exposed, nothing to do"
+          else
+            if echo ",$current," | grep -q ',monev,'; then
+              # Forced reload: the config already lists monev but PostgREST did
+              # not pick it up (it was saved before the schema existed). Saving
+              # an identical value is a no-op, so reorder: monev goes 2nd, the
+              # first schema stays first because it is PostgREST's default.
+              base=$(echo "$current" | tr ',' '\n' | grep -vx 'monev' | paste -sd, -)
+              updated=$(echo "$base" | awk -F, '{ printf "%s,monev", $1; for (i = 2; i <= NF; i++) printf ",%s", $i; print "" }')
+            else
+              updated="${current},monev"
+            fi
+            patch_status=$(curl -sS -o /tmp/postgrest-patch-response.json -w '%{http_code}' -X PATCH \
+              "https://api.supabase.com/v1/projects/$SUPABASE_PROJECT_REF/postgrest" \
+              -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"db_schema\": \"$updated\"}")
+            if [ "$patch_status" -lt 200 ] || [ "$patch_status" -ge 300 ]; then
+              echo "PostgREST config PATCH failed with HTTP $patch_status:" >&2
+              cat /tmp/postgrest-patch-response.json >&2
+              exit 1
+            fi
+            echo "Updated db_schema to: $updated (HTTP $patch_status)"
+          fi
+        env:
+          FORCE_RELOAD: ${{ inputs.reload_postgrest }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+
       - name: Push database migrations
-        run: supabase db push
+        run: supabase db push --remote --include-all --yes
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
@@ -191,8 +240,8 @@ jobs:
         # gateway; reused here for suggest-project-content rather than
         # provisioning a new AI provider.
         run: |
-          supabase secrets set TURNSTILE_SECRET_KEY="$TURNSTILE_SECRET_KEY"
-          supabase secrets set OPENCODE_GO_API_KEY="$OPENCODE_GO_API_KEY"
+          supabase secrets set --yes TURNSTILE_SECRET_KEY="$TURNSTILE_SECRET_KEY"
+          supabase secrets set --yes OPENCODE_GO_API_KEY="$OPENCODE_GO_API_KEY"
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
@@ -200,7 +249,7 @@ jobs:
           OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
 
       - name: Deploy Edge Functions
-        run: supabase functions deploy
+        run: supabase functions deploy --yes
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}

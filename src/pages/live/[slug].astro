@@ -1,0 +1,24 @@
+---
+import PresentationLayout from '../../layouts/PresentationLayout.astro'
+import LivePresenter from '../../components/live/LivePresenter.vue'
+import { decks } from '../../decks'
+
+// One presenter page per registered live deck (src/decks/index.ts).
+export function getStaticPaths() {
+  return decks.map((deck) => ({
+    params: { slug: deck.slug },
+    props: { slug: deck.slug, title: deck.title },
+  }))
+}
+
+const { slug, title } = Astro.props
+---
+
+<PresentationLayout title={title} lang="id">
+  <!--
+    LivePresenter gates on the Supabase admin role (UI only; the database enforces it via
+    RLS / monev.is_admin()), then runs the scaled-stage deck with live voting.
+    The deck content is built from src/data/monev-pbl/*.json (sanitized, public aggregates).
+  -->
+  <LivePresenter client:only="vue" slug={slug} />
+</PresentationLayout>

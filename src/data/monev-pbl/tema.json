@@ -1,0 +1,308 @@
+{
+ "total_answers": 107,
+ "substantive": 81,
+ "substantive_ti": 27,
+ "substantive_sib": 54,
+ "themes": [
+  {
+   "key": "koordinasi",
+   "kind": "masalah",
+   "label": "Koordinasi dan konsistensi antar dosen",
+   "n": 19,
+   "ti": 4,
+   "sib": 15,
+   "subs": [
+    {
+     "label": "Arahan, permintaan, atau masukan berbeda antar dosen",
+     "n": 13,
+     "ti": 3,
+     "sib": 10
+    },
+    {
+     "label": "Arah baru jelas setelah semester berjalan",
+     "n": 3,
+     "ti": 1,
+     "sib": 2
+    },
+    {
+     "label": "Kekompakan dan pembagian peran dosen",
+     "n": 3,
+     "ti": 0,
+     "sib": 3
+    }
+   ]
+  },
+  {
+   "key": "beban",
+   "kind": "masalah",
+   "label": "Tugas di luar proyek dan tenggat yang memberatkan",
+   "n": 20,
+   "ti": 9,
+   "sib": 11,
+   "subs": [
+    {
+     "label": "Tugas praktikum, jobsheet, atau tugas besar yang terpisah dari PBL",
+     "n": 14,
+     "ti": 6,
+     "sib": 8
+    },
+    {
+     "label": "Tenggat dan waktu pengerjaan terasa kurang",
+     "n": 6,
+     "ti": 3,
+     "sib": 3
+    }
+   ]
+  },
+  {
+   "key": "tim",
+   "kind": "masalah",
+   "label": "Kontribusi anggota tim dan cara membentuk tim",
+   "n": 13,
+   "ti": 6,
+   "sib": 7,
+   "subs": [
+    {
+     "label": "Anggota kurang berkontribusi",
+     "n": 5,
+     "ti": 2,
+     "sib": 3
+    },
+    {
+     "label": "Cara membentuk tim (pendapat terbelah: pilih sendiri atau diatur dosen)",
+     "n": 8,
+     "ti": 3,
+     "sib": 5
+    },
+    {
+     "label": "Perlu cara memantau kontribusi tiap anggota",
+     "n": 2,
+     "ti": 1,
+     "sib": 1
+    }
+   ]
+  },
+  {
+   "key": "kejelasan",
+   "kind": "masalah",
+   "label": "Alur, milestone, dan template harus jelas sejak awal semester",
+   "n": 11,
+   "ti": 2,
+   "sib": 9,
+   "subs": [
+    {
+     "label": "Template dan dokumen terlambat atau terpisah per mata kuliah",
+     "n": 5,
+     "ti": 0,
+     "sib": 5
+    },
+    {
+     "label": "Alur dan target milestone kurang jelas di awal",
+     "n": 5,
+     "ti": 2,
+     "sib": 3
+    },
+    {
+     "label": "Milestone belum ada di LMS",
+     "n": 1,
+     "ti": 0,
+     "sib": 1
+    }
+   ]
+  },
+  {
+   "key": "bimbingan",
+   "kind": "masalah",
+   "label": "Bimbingan dan ketepatan waktu materi",
+   "n": 11,
+   "ti": 5,
+   "sib": 6,
+   "subs": [
+    {
+     "label": "Sulit berkonsultasi atau dosen jarang hadir",
+     "n": 5,
+     "ti": 1,
+     "sib": 4
+    },
+    {
+     "label": "Kelas hanya berisi jobsheet atau penjelasan kurang",
+     "n": 3,
+     "ti": 2,
+     "sib": 1
+    },
+    {
+     "label": "Materi terlambat atau tidak sesuai kebutuhan proyek",
+     "n": 3,
+     "ti": 2,
+     "sib": 1
+    }
+   ]
+  },
+  {
+   "key": "nilai",
+   "kind": "masalah",
+   "label": "Transparansi penilaian dan umpan balik",
+   "n": 9,
+   "ti": 1,
+   "sib": 8,
+   "subs": [
+    {
+     "label": "Nilai transparan, umpan balik jelas dan cepat",
+     "n": 5,
+     "ti": 0,
+     "sib": 5
+    },
+    {
+     "label": "Penilaian jelas dan adil",
+     "n": 3,
+     "ti": 1,
+     "sib": 2
+    },
+    {
+     "label": "Menilai proses dan analisis, bukan hanya produk",
+     "n": 1,
+     "ti": 0,
+     "sib": 1
+    }
+   ]
+  },
+  {
+   "key": "fasilitas",
+   "kind": "masalah",
+   "label": "Fasilitas: server untuk deployment dan jaringan wifi",
+   "n": 7,
+   "ti": 0,
+   "sib": 7,
+   "subs": [
+    {
+     "label": "Server untuk deployment",
+     "n": 3,
+     "ti": 0,
+     "sib": 3
+    },
+    {
+     "label": "Jaringan wifi dan perangkat",
+     "n": 4,
+     "ti": 0,
+     "sib": 4
+    }
+   ]
+  },
+  {
+   "key": "perubahan",
+   "kind": "masalah",
+   "label": "Dosen menambah atau mengubah permintaan setelah proposal disetujui",
+   "n": 2,
+   "ti": 2,
+   "sib": 0,
+   "subs": [
+    {
+     "label": "Permintaan fitur atau alur baru setelah proposal disetujui",
+     "n": 2,
+     "ti": 2,
+     "sib": 0
+    }
+   ]
+  },
+  {
+   "key": "baik",
+   "kind": "baik",
+   "label": "Hal baik yang ingin dipertahankan",
+   "n": 18,
+   "ti": 6,
+   "sib": 12,
+   "subs": [
+    {
+     "label": "Manfaat PBL (pengalaman, kerja sama, bekal kerja)",
+     "n": 7,
+     "ti": 2,
+     "sib": 5
+    },
+    {
+     "label": "Pelaksanaan lebih rapi dari sebelumnya",
+     "n": 5,
+     "ti": 1,
+     "sib": 4
+    },
+    {
+     "label": "Bimbingan dan konsultasi dosen",
+     "n": 4,
+     "ti": 2,
+     "sib": 2
+    },
+    {
+     "label": "Baik secara umum",
+     "n": 2,
+     "ti": 1,
+     "sib": 1
+    }
+   ]
+  }
+ ],
+ "usulan": [
+  {
+   "label": "Berikan template dan ketentuan sejak awal, dalam satu dokumen",
+   "n": 8,
+   "ti": 0,
+   "sib": 8
+  },
+  {
+   "label": "Kurangi atau gabungkan tugas di luar PBL",
+   "n": 8,
+   "ti": 3,
+   "sib": 5
+  },
+  {
+   "label": "Bagi tim lebih seimbang atau lebih terarah",
+   "n": 6,
+   "ti": 2,
+   "sib": 4
+  },
+  {
+   "label": "Sediakan server kampus untuk deployment dan perbaiki jaringan",
+   "n": 6,
+   "ti": 0,
+   "sib": 6
+  },
+  {
+   "label": "Sediakan sistem pemantau progres dan kontribusi (termasuk milestone di LMS)",
+   "n": 5,
+   "ti": 1,
+   "sib": 4
+  },
+  {
+   "label": "Buat nilai transparan dan umpan balik jelas",
+   "n": 5,
+   "ti": 0,
+   "sib": 5
+  },
+  {
+   "label": "Perpanjang waktu atau durasi PBL",
+   "n": 4,
+   "ti": 2,
+   "sib": 2
+  },
+  {
+   "label": "Beri materi sebelum milestone dan sesuai kebutuhan proyek",
+   "n": 3,
+   "ti": 2,
+   "sib": 1
+  },
+  {
+   "label": "Minta masukan dosen atau mitra untuk topik proyek dari dunia kerja",
+   "n": 3,
+   "ti": 1,
+   "sib": 2
+  }
+ ],
+ "sib_info": {
+  "n": 5,
+  "ti": 0,
+  "sib": 5
+ },
+ "membaik": {
+  "n": 3,
+  "ti": 0,
+  "sib": 3
+ }
+}
