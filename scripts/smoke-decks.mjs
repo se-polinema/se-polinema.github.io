@@ -20,10 +20,11 @@ try {
       if (!/^[a-z0-9_.-]{2,64}$/.test(`${deck.slug}.${q.key}`)) fail(`${deck.slug}.${q.key}: key format`)
       if (q.kind !== 'text' && (q.options.length < 2 || q.max < 1 || q.max > q.options.length)) fail(`${deck.slug}.${q.key}: options/max`)
     }
+    for (const msg of deck.validate?.() ?? []) fail(`${deck.slug}: ${msg}`)
     deck.slides.forEach((s, i) => {
       if (s.question && !keys.includes(s.question)) fail(`${deck.slug} slide ${i + 1} (${s.id}): unknown question ${s.question}`)
       const html = s.title + s.render(ctx) + (s.src ?? '')
-      const hit = html.match(/undefined|NaN|\[object|null%/g)
+      const hit = html.match(/undefined|NaN|\[object|null%|[\u2013\u2014]/g)
       if (hit) fail(`${deck.slug} slide ${i + 1} (${s.id}): ${[...new Set(hit)].join(', ')}`)
     })
     console.log(`${deck.slug}: ${deck.slides.length} slides, ${deck.questions.length} questions`)

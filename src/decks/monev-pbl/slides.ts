@@ -7,6 +7,7 @@ import temaDosenJson from '../../data/monev-pbl/tema_dosen.json'
 import { esc, fmt, pc, pick, sgn } from '../../lib/live/format'
 import { withBase } from '../../lib/paths'
 import type { Results, Slide, SlideCtx } from '../../lib/live/types'
+import { picRows, supporting } from './pic'
 import { questions } from './questions'
 
 const D: any = agregat
@@ -217,7 +218,7 @@ const main: Slide[] = [
     ],
     good: [
       `Lebih dari separuh mahasiswa (${pc(m.workload.items[1].pct)}) menilai beban sudah sesuai.`,
-      `Dosen sudah tahu topik proyek tiap tim (${pc(l.coord_yn[0].ya)}), jadi jadwal bisa disusun dari data yang ada.`,
+      'Tiap kelas sudah punya PIC, yaitu pengampu mata kuliah inti, jadi jadwal bisa dikoordinasikan lewat satu dosen.',
     ],
     bad: [
       `${us('Perpanjang waktu atau durasi PBL')} komentar mahasiswa meminta waktu atau durasi PBL diperpanjang.`,
@@ -271,7 +272,26 @@ const main: Slide[] = [
     ],
     closing: 'Mahasiswa dan dosen melihat masalah yang sama. Penyebabnya ada pada cara kerja: belum ada jadwal rapat dan pembagian peran.',
   }),
-  vote('koordinasi', 'v-koordinasi', `Hanya ${pc(m.coord[1].ya)} mahasiswa menilai arahan dosen konsisten, dan hambatan utama dosen adalah beban mengajar dan administrasi.`),
+  // PIC already exists by course; the gap is that the role is not stated or used
+  {
+    id: 'm-pic',
+    title: 'Dosen rujukan (PIC) sudah ada: pengampu mata kuliah inti di tiap kelas',
+    src: `Sosialisasi PBL TI dan SIB (mata kuliah inti dan pendukung tiap semester); survei mahasiswa (n = ${m.n}) dan dosen (n = ${l.n})`,
+    render: () => `
+      <div class="lv-stats">
+        ${stat({ num: pc(l.coord_yn[3].ya), label: 'dosen menyatakan dosen rujukan utama tim sudah jelas', tone: 'bad' })}
+        ${stat({ num: pc(m.coord[2].ya), label: 'mahasiswa tahu harus bertanya ke dosen siapa', tone: 'good' })}
+        ${stat({ num: pc(imp('Tidak jelas dosen yang menjadi rujukan tim').pct), label: 'mahasiswa memilih "tidak jelas dosen rujukan" sebagai masalah', tone: 'good' })}
+      </div>
+      <table class="lv-tbl">
+        <thead><tr><th>Program dan semester</th><th>PIC: pengampu mata kuliah</th><th>Mata kuliah pendukung</th></tr></thead>
+        <tbody>${picRows
+          .map((r) => `<tr><td>${r.prodi} Semester ${r.sem}</td><td><b>${esc(r.course)}</b></td><td>${supporting(r).map(esc).join(', ')}</td></tr>`)
+          .join('')}</tbody>
+      </table>
+      ${closing('Perannya sudah ada, jadi yang perlu diputuskan adalah cara memakainya.')}`,
+  },
+  vote('koordinasi', 'v-koordinasi', `Hanya ${pc(m.coord[1].ya)} mahasiswa menilai arahan dosen konsisten. PIC kelas sudah ada, tetapi baru ${pc(l.coord_yn[3].ya)} dosen yang menyatakan dosen rujukan jelas, dan hambatan utama dosen adalah beban mengajar dan administrasi.`),
 
   // 6. penilaian
   problem({
@@ -328,7 +348,7 @@ const main: Slide[] = [
     render: (c) => `
       <div class="lv-votegrid">
         <div>
-          <p class="lv-recapline">Sebagian solusi hanya berjalan kalau dosen pengampu ikut. Baru ${pc(l.coord_yn[3].ya)} dosen yang menyatakan dosen rujukan utama tim sudah jelas.</p>
+          <p class="lv-recapline">Sebagian solusi hanya berjalan kalau dosen ikut. PIC kelas adalah pengampu mata kuliah inti, dan baru ${pc(l.coord_yn[3].ya)} dosen yang menyatakan dosen rujukan utama tim sudah jelas.</p>
           <div class="lv-opts" data-q="komitmen"></div>
         </div>
         ${joinPanel(c, 'Pilih yang bersedia di ponsel Anda')}
