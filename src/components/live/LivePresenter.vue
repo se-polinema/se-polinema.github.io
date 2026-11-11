@@ -29,9 +29,18 @@
         <button class="lv-btn is-primary" :disabled="starting" @click="startNew">{{ t.live.presenter.newSession }}</button>
         <template v-if="past.length">
           <h2 class="lv-gate-sub">{{ t.live.presenter.resume }}</h2>
-          <button v-for="s in past" :key="s.id" class="lv-btn" @click="resumeSession(s)">
-            {{ s.code }} · {{ new Date(s.created_at ?? '').toLocaleString() }}
-            <span v-if="!s.is_open">({{ t.live.presenter.sessionEnded }})</span>
+          <div v-for="s in past" :key="s.id" class="lv-row">
+            <button class="lv-btn" :disabled="starting" @click="resumeSession(s)">
+              {{ s.code }} · {{ new Date(s.created_at ?? '').toLocaleString() }}
+              <span v-if="!s.deck">({{ t.live.presenter.legacy }})</span>
+              <span v-if="!s.is_open">({{ t.live.presenter.sessionEnded }})</span>
+            </button>
+            <button class="lv-btn is-danger" :disabled="starting" :title="t.live.presenter.delete" @click="removeSession(s)">
+              {{ t.live.presenter.delete }}
+            </button>
+          </div>
+          <button v-if="endedCount" class="lv-link" :disabled="starting" @click="removeEnded">
+            {{ fmtN(t.live.presenter.deleteAllEnded, endedCount) }}
           </button>
         </template>
         <p v-if="startError" class="lv-error">{{ startError }}</p>
@@ -79,12 +88,14 @@ import { withBase } from '../../lib/paths'
 import { paintOptions, paintSuggestions } from '../../lib/live/paint'
 import {
   createSession,
+  deleteSessions,
   exportCsv,
   getResults,
   listSessions,
   listSuggestions,
   patchSession,
   qid,
+  syncQuestions,
 } from '../../lib/live/session'
 import type { Results, Session } from '../../lib/live/types'
 import GitHubSignInButton from '../GitHubSignInButton.vue'
@@ -152,7 +163,47 @@ async function startNew() {
   }
 }
 
-const resumeSession = (s: Session) => begin(s, Math.min(s.current_slide ?? 0, deck.slides.length - 1))
+// Resuming re-saves the deck's questions first, so an older session picks up current prompts and "Lainnya".
+async function resumeSession(s: Session) {
+  starting.value = true
+  startError.value = ''
+  try {
+    await syncQuestions(deck)
+    await begin(s, Math.min(s.current_slide ?? 0, deck.slides.length - 1))
+  } catch (e) {
+    console.error('[LivePresenter] resume', e)
+    startError.value = t.value.live.presenter.startError
+  } finally {
+    starting.value = false
+  }
+}
+
+const endedCount = computed(() => past.value.filter((s) => !s.is_open).length)
+
+async function removeSession(s: Session) {
+  if (!confirm(t.value.live.presenter.deleteConfirm.replace('{code}', s.code))) return
+  await removeByIds([s.id])
+}
+
+async function removeEnded() {
+  const ids = past.value.filter((s) => !s.is_open).map((s) => s.id)
+  if (!confirm(fmtN(t.value.live.presenter.deleteAllConfirm, ids.length))) return
+  await removeByIds(ids)
+}
+
+async function removeByIds(ids: string[]) {
+  starting.value = true
+  startError.value = ''
+  try {
+    await deleteSessions(ids)
+    past.value = past.value.filter((x) => !ids.includes(x.id))
+  } catch (e) {
+    console.error('[LivePresenter] delete', e)
+    startError.value = t.value.live.presenter.deleteFailed
+  } finally {
+    starting.value = false
+  }
+}
 
 async function begin(s: Session, at: number) {
   joinUrl.value = `${location.origin}${withBase('/vote/')}?code=${s.code}`

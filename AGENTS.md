@@ -215,6 +215,11 @@ Markdown/reveal.js decks under `/present/`). A deck is TypeScript, not Markdown:
   `get_results`; everyone else only gets the count. Option `note`s in a deck
   should quote the survey, including what makes a solution hard (see
   `src/decks/monev-pbl/questions.ts`).
+- Starting or resuming a session re-saves the deck's questions to `monev.questions`
+  (`syncQuestions` in `src/lib/live/session.ts`); the voter page reads questions
+  from the database, so this is what makes deck edits, including "Lainnya", reach
+  existing sessions. The session picker can delete sessions (votes and
+  suggestions cascade).
 - `npm run smoke:decks` renders every slide and validates question keys.
 
 ## Adding a Research Tool / Artifact
