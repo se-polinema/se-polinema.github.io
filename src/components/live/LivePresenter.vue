@@ -57,7 +57,7 @@
           <button :class="{ 'is-on': session.reveal }" @click="toggleReveal">
             {{ session.reveal ? t.live.presenter.revealed : t.live.presenter.reveal }}
           </button>
-          <span class="lv-pos">{{ fmtN(currentQuestion.kind === 'text' ? t.live.presenter.suggestions : t.live.presenter.votes, liveN) }}</span>
+          <span class="lv-pos">{{ fmtN(currentQuestion.kind === 'text' ? t.live.presenter.suggestions : t.live.presenter.votes, liveN) }}<template v-if="liveOther"> · {{ fmtN(t.live.presenter.others, liveOther) }}</template></span>
         </template>
         <span class="lv-sep"></span>
         <button @click="downloadCsv">{{ t.live.presenter.csv }}</button>
@@ -100,6 +100,7 @@ const session = ref<Session | null>(null)
 const past = ref<Session[]>([])
 const idx = ref(0)
 const liveN = ref(0)
+const liveOther = ref(0)
 const qrUrl = ref('')
 const joinUrl = ref('')
 const toast = ref('')
@@ -192,6 +193,7 @@ async function goto(i: number) {
 /** Paint the plain (pre-vote) state into freshly rendered slide HTML; recap slides fetch everything. */
 async function afterRender() {
   liveN.value = 0
+  liveOther.value = 0
   const q = currentQuestion.value
   const el = stageEl.value
   if (!el) return
@@ -233,6 +235,7 @@ async function refresh() {
     } else {
       const res = await getResults(s.id, id)
       liveN.value = res.n
+      liveOther.value = res.n_other ?? 0
       const target = el.querySelector<HTMLElement>('.lv-opts')
       if (target) paintOptions(target, q, res, s.reveal)
     }

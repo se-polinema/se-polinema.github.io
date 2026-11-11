@@ -210,6 +210,11 @@ Markdown/reveal.js decks under `/present/`). A deck is TypeScript, not Markdown:
 - Deck data is public. `npm run sync:monev-data` copies the survey aggregates
   through an allowlist (`scripts/sanitize-monev-data.mjs`) that drops student
   quote excerpts and free-text fields; never commit raw survey exports.
+- A choice poll with `other: true` shows an optional "Lainnya" free-text field
+  (stored in `monev.votes.other_text`, max 300 chars). Admins get the texts from
+  `get_results`; everyone else only gets the count. Option `note`s in a deck
+  should quote the survey, including what makes a solution hard (see
+  `src/decks/monev-pbl/questions.ts`).
 - `npm run smoke:decks` renders every slide and validates question keys.
 
 ## Adding a Research Tool / Artifact

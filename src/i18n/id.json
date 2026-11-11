@@ -1149,7 +1149,9 @@
       "suggestionSent": "Saran terkirim. Terima kasih.",
       "suggestionEmpty": "Tulis saran terlebih dahulu.",
       "suggestionClosed": "Pengiriman saran ditutup.",
-      "sentFromDevice": "terkirim dari perangkat ini: {n}/5"
+      "sentFromDevice": "terkirim dari perangkat ini: {n}/5",
+      "otherLabel": "Lainnya (opsional)",
+      "otherPlaceholder": "Tulis usulan solusi lain di sini, jika tidak ada pilihan yang cocok"
     },
     "presenter": {
       "loading": "Memuat...",
@@ -1175,7 +1177,8 @@
       "endConfirm": "Akhiri sesi? Peserta tidak bisa memilih lagi.",
       "ended": "Sesi diakhiri",
       "hide": "Sembunyikan panel (H)",
-      "saveFailed": "Perubahan tidak dapat disimpan"
+      "saveFailed": "Perubahan tidak dapat disimpan",
+      "others": "{n} lainnya"
     },
     "errors": {
       "voting_closed": "Voting untuk pertanyaan ini sudah ditutup.",
