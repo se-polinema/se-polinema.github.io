@@ -188,14 +188,14 @@ const main: Slide[] = [
     src: `survei mahasiswa (${m.n}) dan dosen (${l.n}); wawancara mahasiswa (dipilih acak) untuk masalah jadwal`,
     render: () => `
       <div class="lv-stats">
-        ${stat({ num: pc(m.response.rate), label: '1. Respons: mahasiswa yang mengisi survei (target 70%)', tone: 'bad' })}
+        ${stat({ num: pc(100 - m.response.rate), label: '1. Respons: mahasiswa yang tidak mengisi survei (target: di bawah 30%)', tone: 'bad' })}
         ${stat({ num: pp(p2.prevalensi), label: '2. Beban: mahasiswa yang menilai PBL berat', tone: 'bad' })}
         ${stat({ num: pp(p3.prevalensi), label: '3. Jadwal: sering atau selalu mengalami deadline bertabrakan', tone: 'bad' })}
-        ${stat({ num: pc(m.pooled.bc[3].ya), label: '4. Kesesuaian: menjawab tugas mata kuliah bagian dari proyek', tone: 'bad' })}
+        ${stat({ num: pc(PRI('selaras').prevalensi.pct), label: '4. Kesesuaian: menilai tugas dan penilaian antar mata kuliah tidak sejalan', tone: 'bad' })}
       </div>
       <div class="lv-stats">
-        ${stat({ num: pp(p5.konsisten_ya), label: '5. Koordinasi: menilai arahan antar dosen konsisten', tone: 'bad' })}
-        ${stat({ num: pp(p6.adil_setuju), label: '6. Penilaian: setuju penilaian adil', tone: 'bad' })}
+        ${stat({ num: pc(PRI('koordinasi').prevalensi.pct), label: '5. Koordinasi: menilai arahan antar dosen tidak konsisten', tone: 'bad' })}
+        ${stat({ num: pc(PRI('penilaian').prevalensi.pct), label: '6. Penilaian: menilai penilaian tidak adil', tone: 'bad' })}
         ${stat({ num: pc(100 - m.ops[7].pct_agree), label: '7. Fasilitas: tidak setuju fasilitas dan server memadai', tone: 'bad' })}
       </div>
       ${closing('Berikutnya: seberapa kuat tiap masalah memengaruhi kepuasan. Setelah itu, setiap masalah dibahas satu per satu dan diikuti satu pemungutan suara.')}`,
