@@ -21,7 +21,7 @@ try {
       if (q.kind !== 'text' && (q.options.length < 2 || q.max < 1 || q.max > q.options.length)) fail(`${deck.slug}.${q.key}: options/max`)
     }
     // Plain language: statistics terms belong in the appendix only (slides) and nowhere in poll text.
-    const STATS = /\bselang\b|koefisien|regresi|\br = |R²|\[\d|tenggat/i
+    const STATS = /\bselang\b|koefisien|regresi|\br = |R²|\[\d|tenggat|skala 1 sampai 5|\d,\d poin/i
     for (const q of deck.questions) {
       const hit = (q.prompt + q.options.map((o) => o.label + (o.note ?? '')).join(' ')).match(STATS)
       if (hit) fail(`${deck.slug}.${q.key}: statistics term in poll text: ${hit[0]}`)
