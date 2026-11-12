@@ -29,7 +29,7 @@ export const target = (label: string) => AN.ukuran_keberhasilan.find((u: any) =>
  */
 export const plainEffect = (k: string, out: 'puas' | 'lanjut'): string => {
   const r = PRI(k, out).koef_terkontrol
-  if (sure(r.ci)) return `<b>jelas berpengaruh</b>, lebih rendah sekitar ${fmt(Math.abs(r.b), 1)} poin`
+  if (sure(r.ci)) return '<b>jelas berpengaruh</b>, lebih rendah'
   if (k === 'selaras') return 'tidak terlihat kaitannya'
   if (k === 'jadwal_realistis' && out === 'lanjut') return 'ada tanda, belum pasti'
   return 'belum pasti'
