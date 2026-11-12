@@ -9,7 +9,7 @@ import temaDosenJson from '../../data/monev-pbl/tema_dosen.json'
 import { esc, fmt, pc, pick, sgn } from '../../lib/live/format'
 import { withBase } from '../../lib/paths'
 import type { Results, Slide, SlideCtx } from '../../lib/live/types'
-import { AN, PRI, bySem, ci, plainEffect, pp, sg, sure, target } from './analysis'
+import { AN, PRI, bySem, plainEffect, pp, target } from './analysis'
 import { picRows, supporting } from './pic'
 import { questions } from './questions'
 
@@ -37,7 +37,6 @@ const p6 = AN.p6_penilaian
 const p7 = AN.p7_fasilitas_bimbingan
 const pctSem = (g: any) => pc(g.pct)
 const d1 = (x: number) => fmt(x, 1)
-const poin = (b: number) => `sekitar ${fmt(Math.abs(b), 1)} poin`
 
 // ------------------------------------------------------------------ building blocks
 type Tone = 'good' | 'bad'
@@ -113,9 +112,6 @@ const disc = (qs: { q: string; known: string; unknown: string }[]) =>
     .map((x) => `<div class="lv-disc-card"><h3>${x.q}</h3><p><b>Sudah jelas.</b> ${x.known}</p><p class="lv-unknown"><b>Perlu diputuskan.</b> ${x.unknown}</p></div>`)
     .join('')}</div>`
 
-/** Appendix only: effect with its interval. */
-const effCell = (b: number, c: number[]) => (sure(c) ? `<b>${sg(b)}</b>` : sg(b)) + ` <small>${ci(c, 2)}</small>`
-
 /** One box per class, no names: whole-percent response rate, thick outline for monitored classes. */
 function responseGrid() {
   const tile = (k: any) => {
@@ -133,15 +129,11 @@ function responseGrid() {
 // ------------------------------------------------------------------ main slides
 const komposisi: any[] = p1.komposisi
 const sib5 = komposisi.find((k) => k.sel === 'SIB Sem 5')
-const geserMax = Math.max(...p1.pasca_stratifikasi.map((x: any) => Math.abs(x.bergeser)))
 const beratTenggat = p2.berat_vs_tenggat
 const dosenSelaras = p3.dosen_menyelaraskan[0]
-const lanjutJadwal = p3.lanjut_jika_jadwal_tidak_realistis
 const rapatSelalu = p5.dosen.kehadiran_rapat.find((i: any) => i.label === 'Selalu hadir').count
-const pmpl = p7.fasilitas_semester_pmpl_vs_tanpa
 const prodiFas = (k: string) => p7.per_prodi_fasilitas.find((g: any) => g.kelompok === k).mean
 const picKegiatan = p4.pic_vs_pendukung.kegiatan_pbl_sering
-const adaTugasPic = p4.pic_vs_pendukung.tugas_bagian_proyek
 
 const main: Slide[] = [
   {
@@ -203,7 +195,7 @@ const main: Slide[] = [
   {
     id: 'prioritas-data',
     title: 'Dari tujuh masalah, fasilitas dan beban paling jelas memengaruhi kepuasan',
-    src: `analisis survei mahasiswa (${m.n} responden); poin pada skala 1 sampai 5`,
+    src: `analisis survei mahasiswa (${m.n} responden)`,
     render: () => {
       const rows: [number, string, string, boolean][] = [
         [7, 'fasilitas', 'Fasilitas (server deployment)', true],
@@ -244,7 +236,7 @@ const main: Slide[] = [
       { num: pc(mo.oth.rate), label: `respons di ${mo.oth.n_classes} kelas yang tidak dipantau`, tone: 'bad' },
     ],
     good: [
-      `Hasilnya tetap bisa dipercaya untuk gambaran umum: saat dihitung ulang agar sesuai ukuran tiap program dan semester, angka utama paling jauh bergeser ${fmt(geserMax, 0)} poin.`,
+      `Hasilnya tetap bisa dipercaya untuk gambaran umum: saat dihitung ulang agar sesuai ukuran tiap program dan semester, hasil utamanya hampir sama.`,
       'Kelas yang dipantau dan yang tidak dipantau menjawab dengan pola yang sama tentang kepuasan, beban, deadline, dan konsistensi arahan.',
     ],
     bad: [
@@ -272,11 +264,11 @@ const main: Slide[] = [
   problem({
     id: 'm-beban',
     title: 'Masalah 2. Beban terasa berat terutama saat deadline bertabrakan',
-    src: `survei mahasiswa (${m.n}) dan dosen (${l.n}). Poin pada skala 1 sampai 5`,
+    src: `survei mahasiswa (${m.n}) dan dosen (${l.n})`,
     stats: [
       { num: pp(p2.prevalensi), label: 'mahasiswa menilai beban berat', tone: 'bad' },
       { num: `${pc(beratTenggat.mean_ya * 100)} melawan ${pc(beratTenggat.mean_tidak * 100)}`, label: 'menilai beban berat: yang sering mengalami deadline bertabrakan, dan yang tidak', tone: 'bad' },
-      { num: `-${fmt(Math.abs(PRI('beban').koef_terkontrol.b), 1)}`, label: 'poin kepuasan pada yang menilai beban berat, dibandingkan mahasiswa yang kondisinya sama dalam hal lain. Jelas berpengaruh', tone: 'bad' },
+      { num: 'Lebih rendah', label: 'kepuasan pada yang menilai beban berat, dibandingkan mahasiswa yang kondisinya sama dalam hal lain. Jelas berpengaruh', tone: 'bad' },
       { num: pc(l.workload_heavy_pct), label: 'dosen menilai beban berat', tone: 'good' },
     ],
     good: [
@@ -308,8 +300,8 @@ const main: Slide[] = [
     stats: [
       { num: pp(p3.prevalensi), label: 'sering atau selalu mengalami deadline antar mata kuliah bertabrakan', tone: 'bad' },
       { num: pp(p3.jadwal_tidak_realistis), label: 'tidak setuju jadwal dan deadline milestone realistis', tone: 'bad' },
-      { num: `${d1(lanjutJadwal.mean_ya)} melawan ${d1(lanjutJadwal.mean_tidak)}`, label: 'skor keinginan melanjutkan PBL (skala 1 sampai 5): yang menilai jadwal tidak realistis, dan yang tidak', tone: 'bad' },
-      { num: `${d1(p3.dosen_jadwal_realistis.dosen)} melawan ${d1(p3.dosen_jadwal_realistis.mahasiswa)}`, label: 'skor jadwal realistis menurut dosen dan menurut mahasiswa', tone: 'bad' },
+      { num: 'Lebih rendah', label: 'keinginan melanjutkan PBL pada yang menilai jadwal tidak realistis', tone: 'bad' },
+      { num: 'Lebih tinggi', label: 'dosen menilai jadwal lebih realistis daripada mahasiswa', tone: 'bad' },
     ],
     good: [
       'Jumlah mata kuliah yang ikut PBL (empat atau tiga) tidak berpengaruh pada deadline bertabrakan.',
@@ -336,11 +328,11 @@ const main: Slide[] = [
     ],
     good: [
       `${pc(l.align[0].ya)} dosen menyatakan RPS sudah disesuaikan untuk mendukung PBL.`,
-      `Mata kuliah PIC punya kegiatan PBL di kelas jauh lebih sering: ${pc(picKegiatan.pendukung + picKegiatan.selisih_poin)} melawan ${pc(picKegiatan.pendukung)} pada mata kuliah pendukung (selisih ${fmt(picKegiatan.selisih_poin, 0)} poin).`,
+      `Mata kuliah PIC punya kegiatan PBL di kelas jauh lebih sering: ${pc(picKegiatan.pendukung + picKegiatan.selisih_poin)} melawan ${pc(picKegiatan.pendukung)} pada mata kuliah pendukung.`,
     ],
     bad: [
       `Hanya separuh jawaban mahasiswa (${pc(m.pooled.bc[3].ya)}) dan ${pc(l.align[3].ya)} jawaban dosen menyatakan tugas menjadi bagian proyek.`,
-      `Mata kuliah PIC tidak lebih sering menjadikan tugasnya bagian proyek (selisih sekitar ${fmt(Math.abs(adaTugasPic.selisih_poin), 1)} poin, tidak berarti).`,
+      'Mata kuliah PIC tidak lebih sering menjadikan tugasnya bagian proyek dibanding mata kuliah pendukung.',
     ],
     closing: 'Di data ini kesesuaian tugas dengan proyek tidak menjelaskan beban atau kepuasan. Satu-satunya kaitannya adalah deadline yang lebih jarang bertabrakan. Pekerjaan ini bisa menunggu semester depan.',
   }),
@@ -366,7 +358,7 @@ const main: Slide[] = [
       `Hambatan dosen: beban mengajar dan administrasi (${bar('Beban mengajar dan administrasi lain')} dari ${l.n}) dan tidak ada jadwal rapat rutin (${bar('Tidak ada jadwal rapat rutin')} dari ${l.n}). Hanya ${rapatSelalu} dari ${l.n} selalu hadir di rapat.`,
       `${wa('Membaca tetapi jarang menanggapi')} dari ${l.n} dosen membaca grup WhatsApp tetapi jarang menanggapi; hanya ${wa('Aktif menanggapi dan berbagi informasi')} yang aktif.`,
     ],
-    closing: `Pengaruh arahan yang berbeda pada kepuasan belum pasti. Yang jelas berkaitan dengan kepuasan adalah tahu harus bertanya ke dosen siapa: yang tidak tahu kepuasannya lebih rendah ${poin(p5.puas_jika_tidak_tahu_hubungi.selisih)}.`,
+    closing: `Pengaruh arahan yang berbeda pada kepuasan belum pasti. Yang jelas berkaitan dengan kepuasan adalah tahu harus bertanya ke dosen siapa: yang tidak tahu kepuasannya lebih rendah.`,
   }),
   {
     id: 'm-pic',
@@ -413,12 +405,12 @@ const main: Slide[] = [
   problem({
     id: 'm-fasilitas',
     title: 'Masalah 7. Server untuk deployment wajib, dan mahasiswa membeli VPS sendiri',
-    src: `survei mahasiswa (${m.n}); keterangan koordinator PBL; komentar bebas tentang fasilitas (${th('fasilitas').n}). Poin pada skala 1 sampai 5`,
+    src: `survei mahasiswa (${m.n}); keterangan koordinator PBL; komentar bebas tentang fasilitas (${th('fasilitas').n})`,
     stats: [
       { num: pc(100 - m.ops[7].pct_agree), label: 'tidak setuju fasilitas dan sumber daya (server, data, perangkat) memadai', tone: 'bad' },
-      { num: `-${fmt(Math.abs(PRI('fasilitas').koef_terkontrol.b), 1)}`, label: 'poin kepuasan pada yang menilai fasilitas kurang, dibandingkan mahasiswa yang kondisinya sama dalam hal lain. Jelas berpengaruh', tone: 'bad' },
-      { num: `${d1(prodiFas('TI'))} dan ${d1(prodiFas('SIB'))}`, label: 'skor fasilitas TI dan SIB: sama rendah', tone: 'bad' },
-      { num: 'Sama', label: `skor fasilitas semester dengan dan tanpa mata kuliah Penjaminan Mutu (${d1(pmpl.mean_ya)} dan ${d1(pmpl.mean_tidak)})`, tone: 'bad' },
+      { num: 'Lebih rendah', label: 'kepuasan pada yang menilai fasilitas kurang, dibandingkan mahasiswa yang kondisinya sama dalam hal lain. Jelas berpengaruh', tone: 'bad' },
+      { num: 'Sama rendah', label: `skor fasilitas TI (${d1(prodiFas('TI'))}) dan SIB (${d1(prodiFas('SIB'))})`, tone: 'bad' },
+      { num: 'Sama', label: 'skor fasilitas semester dengan dan tanpa mata kuliah Penjaminan Mutu', tone: 'bad' },
     ],
     good: [
       'Kebutuhannya jelas: aplikasi web dan pengujian Penjaminan Mutu Perangkat Lunak (TI dan SIB Semester 5) mensyaratkan aplikasi yang sudah di-deploy.',
@@ -434,11 +426,11 @@ const main: Slide[] = [
   problem({
     id: 'm-konsultasi',
     title: 'Satu temuan yang mengubah usulan: konsultasi yang jarang tidak menurunkan kepuasan',
-    src: `survei mahasiswa (${m.n}); butir konsultasi dan bimbingan dosen. Poin pada skala 1 sampai 5`,
+    src: `survei mahasiswa (${m.n}); butir konsultasi dan bimbingan dosen`,
     stats: [
       { num: pp(p7.belum_konsultasi), label: 'tim belum pernah berkonsultasi dengan dosen di luar jam kuliah', tone: 'bad' },
       { num: 'Sama saja', label: 'kepuasan tim yang belum berkonsultasi dibanding yang sudah: tidak terlihat bedanya', tone: 'good' },
-      { num: `-${fmt(Math.abs(p7.bimbingan_memadai_jika_belum_konsultasi.selisih), 1)}`, label: 'poin penilaian bimbingan pada tim yang belum berkonsultasi', tone: 'bad' },
+      { num: 'Lebih rendah', label: 'penilaian bimbingan pada tim yang belum berkonsultasi', tone: 'bad' },
       { num: pc(cepat), label: 'mengatakan dosen menjawab dalam kurang dari sehari', tone: 'good' },
     ],
     good: ['Dosen cepat menanggapi pertanyaan mahasiswa.', 'Tim yang belum berkonsultasi tidak lebih rendah kepuasannya.'],
@@ -592,24 +584,6 @@ const appendix: Slide[] = [
         'Dosen yang mengisi sedikit, jadi baca sebagai gambaran, bukan hasil pasti.',
         'Wawancara memakai mahasiswa yang dipilih acak, dan dipakai sebagai keterangan tambahan.',
       ])}</div></div>`,
-  },
-  {
-    id: 'a-pendorong',
-    title: 'Pendorong kepuasan dan keinginan melanjutkan',
-    appendix: true,
-    src: `regresi pada ${AN.umum.model_pendorong.puas.n} mahasiswa; R² ${fmt(AN.umum.model_pendorong.puas.r2, 2)} (kepuasan) dan ${fmt(AN.umum.model_pendorong.lanjut.r2, 2)} (melanjutkan); b = poin skor per kenaikan satu poin`,
-    render: () => {
-      const pu: any[] = AN.umum.model_pendorong.puas.koef
-      const la: any[] = AN.umum.model_pendorong.lanjut.koef
-      const rows = [...pu].sort((a, b) => Math.abs(b.beta) - Math.abs(a.beta)).slice(0, 8)
-      return `${table(
-        ['Faktor', 'Kepuasan: b [rentang]', 'Melanjutkan: b [rentang]'],
-        rows.map((r) => {
-          const o = la.find((x) => x.nama === r.nama)
-          return [esc(r.nama), effCell(r.b, r.b_ci), effCell(o.b, o.b_ci)]
-        }),
-      )}<p class="lv-note">Tebal: rentang tidak mencakup nol. Faktor yang saling berkaitan berbagi pengaruh dalam model.</p>`
-    },
   },
   {
     id: 'a-masalah-mhs',
