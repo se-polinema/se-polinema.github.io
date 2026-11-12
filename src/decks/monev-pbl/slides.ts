@@ -42,7 +42,7 @@ const poin = (b: number) => `sekitar ${fmt(Math.abs(b), 1)} poin`
 // ------------------------------------------------------------------ building blocks
 type Tone = 'good' | 'bad'
 type Stat = { num: string; label: string; tone: Tone }
-const stat = (s: Stat) => `<div class="lv-stat is-${s.tone}"><div class="lv-num">${s.num}</div><div class="lv-lab">${s.label}</div></div>`
+const stat = (s: Stat) => `<div class="lv-stat is-${s.tone}"><div class="lv-num">${s.num.replace(' melawan ', ' <span class="lv-vs">melawan</span> ')}</div><div class="lv-lab">${s.label}</div></div>`
 const li = (xs: string[]) => `<ul>${xs.map((x) => `<li>${x}</li>`).join('')}</ul>`
 const bb = (good: string[], bad: string[]) => `
   <div class="lv-bb">
@@ -78,7 +78,7 @@ function problem(o: { id: string; title: string; stats: Stat[]; good: string[]; 
 
 /** QR, session code, copyable link row and a hint. The copy button is wired by LivePresenter (data-copy-link). */
 function joinPanel(c: SlideCtx, hint: string, big = false) {
-  const short = c.joinUrl.replace(/^https?:\/\//, '')
+  const short = c.joinUrl.replace(/^https?:\/\//, '').replace(/\?.*$/, '')
   return `<aside class="lv-join ${big ? 'is-big' : ''}">
     <img src="${c.qr}" alt="QR" />
     <div class="lv-code">${esc(c.code)}</div>
@@ -110,7 +110,7 @@ function vote(qkey: string, id: string, lead: string): Slide {
 /** Open-discussion card: the question to the room, what is known, what is not. */
 const disc = (qs: { q: string; known: string; unknown: string }[]) =>
   `<div class="lv-disc">${qs
-    .map((x) => `<div class="lv-disc-card"><h3>${x.q}</h3><p><b>Yang sudah diketahui.</b> ${x.known}</p><p class="lv-unknown"><b>Yang belum diketahui.</b> ${x.unknown}</p></div>`)
+    .map((x) => `<div class="lv-disc-card"><h3>${x.q}</h3><p><b>Sudah jelas.</b> ${x.known}</p><p class="lv-unknown"><b>Perlu diputuskan.</b> ${x.unknown}</p></div>`)
     .join('')}</div>`
 
 /** Appendix only: effect with its interval. */
@@ -203,7 +203,7 @@ const main: Slide[] = [
   {
     id: 'prioritas-data',
     title: 'Dari tujuh masalah, fasilitas dan beban paling jelas memengaruhi kepuasan',
-    src: `analisis survei mahasiswa (${m.n} responden). Tiap masalah dibandingkan dengan mahasiswa yang kondisinya sama dalam hal lain. Poin pada skala 1 sampai 5`,
+    src: `analisis survei mahasiswa (${m.n} responden); poin pada skala 1 sampai 5`,
     render: () => {
       const rows: [number, string, string, boolean][] = [
         [7, 'fasilitas', 'Fasilitas (server deployment)', true],
@@ -227,7 +227,7 @@ const main: Slide[] = [
           ['1', 'Respons survei rendah', pc(100 - m.response.rate) + ' tidak mengisi', 'tidak berlaku', 'tidak berlaku'],
         ],
       )}
-      <p class="lv-note">Nomor mengikuti slide sebelumnya. Masalah 1 menyangkut survei itu sendiri, jadi tidak diukur terhadap kepuasan. "Belum pasti" berarti masalahnya nyata dikeluhkan, tetapi dengan ${m.n} responden belum bisa dipisahkan dari masalah lain yang saling terkait.</p>
+      <p class="lv-note">Nomor mengikuti slide sebelumnya. Tiap masalah dibandingkan dengan mahasiswa yang kondisinya sama dalam hal lain. Masalah 1 menyangkut survei itu sendiri, jadi tidak diukur terhadap kepuasan. "Belum pasti" berarti masalahnya nyata dikeluhkan, tetapi dengan ${m.n} responden belum bisa dipisahkan dari masalah lain yang saling terkait.</p>
       ${closing('Dari tujuh masalah, hanya fasilitas (7) dan beban (2) yang pengaruhnya pasti, baik pada kepuasan maupun keinginan melanjutkan. Jadwal milestone (3) tampak menurunkan keinginan melanjutkan, tetapi belum pasti.')}`
     },
   },
@@ -463,57 +463,57 @@ const main: Slide[] = [
   },
   {
     id: 'd-jadwal',
-    title: 'Untuk dibahas bersama: jadwal milestone',
+    title: 'Untuk diputuskan bersama: jadwal milestone',
     src: 'jadwal dari koordinator PBL; survei mahasiswa; wawancara mahasiswa (dipilih acak)',
     render: () =>
       disc([
         {
           q: 'Ke minggu berapa tiap milestone dipindah?',
-          known: 'Proposal (minggu 4), Milestone 1 (minggu 8), dan Milestone 2 (minggu 12) bersamaan dengan kuis 1, UTS, dan kuis 2 mata kuliah lain. Tanggal kuis dan ujian sudah tetap, jadi hanya milestone yang bisa bergeser.',
-          unknown: 'Minggu baru untuk tiap milestone, dan apakah ada minggu yang bebas kuis di semua mata kuliah dalam satu semester.',
+          known: 'Proposal (minggu 4), Milestone 1 (minggu 8), dan Milestone 2 (minggu 12) bersamaan dengan kuis 1, UTS, dan kuis 2. Tanggal kuis dan ujian sudah tetap, jadi hanya milestone yang bisa bergeser.',
+          unknown: 'Minggu baru untuk tiap milestone, dan apakah ada minggu yang bebas kuis di semua mata kuliah.',
         },
         {
-          q: 'Apakah Milestone 2 masih bisa dipindah atau diberi tambahan waktu pengumpulan semester ini?',
+          q: 'Apakah Milestone 2 masih bisa dipindah semester ini?',
           known: `Milestone 2 jatuh di minggu yang sama dengan kuis 2, dan ${pp(p3.prevalensi)} mahasiswa sering mengalami deadline bertabrakan.`,
-          unknown: 'Apakah tim dan penilai masih bisa menyesuaikan.',
+          unknown: 'Apakah tim dan penilai masih bisa menyesuaikan, atau cukup diberi tambahan waktu pengumpulan.',
         },
         {
-          q: 'Apakah Milestone 3 tetap di minggu UAS atau dipindah ke minggu sebelum atau sesudahnya?',
-          known: 'Menurut jadwal sekarang keduanya di minggu 16, dan tanggal UAS sudah tetap.',
-          unknown: 'Minggu yang cocok untuk Milestone 3, dan dampaknya pada waktu penilaian akhir.',
+          q: 'Apakah Milestone 3 tetap di minggu UAS?',
+          known: 'Keduanya sekarang di minggu 16, dan tanggal UAS sudah tetap.',
+          unknown: 'Milestone 3 dipindah sebelum atau sesudah UAS, dan apa dampaknya pada waktu penilaian akhir.',
         },
       ]),
   },
   {
     id: 'd-server',
-    title: 'Untuk dibahas bersama: server dan peran PIC',
+    title: 'Untuk diputuskan bersama: server dan peran PIC',
     src: 'keterangan koordinator PBL; survei mahasiswa dan dosen; Sosialisasi PBL TI dan SIB',
     render: () =>
       disc([
         {
-          q: 'Siapa yang menyediakan lingkungan deployment dan uji, dan sejak tahap mana?',
-          known: `Aplikasi web wajib di-deploy dan pengujian Penjaminan Mutu mensyaratkan aplikasi sudah di-deploy. Mahasiswa membeli VPS sendiri. ${pc(100 - m.ops[7].pct_agree)} tidak setuju fasilitas memadai.`,
-          unknown: 'Biaya per tim, siapa yang membayar, dan sejak milestone mana server dibutuhkan untuk pengujian.',
+          q: 'Siapa menyediakan server, dan mulai kapan?',
+          known: `Aplikasi web dan pengujian Penjaminan Mutu wajib di-deploy. Mahasiswa sekarang membeli VPS sendiri, dan ${pc(100 - m.ops[7].pct_agree)} menilai fasilitas kurang.`,
+          unknown: 'Siapa yang menyediakan, mulai milestone mana, dan berapa biaya per tim.',
         },
         {
-          q: 'Apakah PIC tiap kelas sudah diberi tahu perannya?',
-          known: `PIC adalah pengampu mata kuliah inti. Baru ${pc(l.coord_yn[3].ya)} dosen menyatakan dosen rujukan utama tim jelas.`,
-          unknown: 'Belum dipastikan apakah PIC sudah diberi tahu.',
+          q: 'Apakah PIC sudah tahu perannya?',
+          known: `PIC adalah pengampu mata kuliah inti, tetapi hanya ${pc(l.coord_yn[3].ya)} dosen menilai dosen rujukan tim jelas.`,
+          unknown: 'Siapa yang memberi tahu PIC, dan kapan.',
         },
         {
-          q: 'Bagaimana pengumuman milestone PIC dan formulir awal semester dijalankan?',
-          known: `${wa('Membaca tetapi jarang menanggapi')} dari ${l.n} dosen membaca grup WhatsApp tetapi jarang menanggapi, jadi PIC mengumumkan rencana dan dosen membalas hanya bila ada deadline yang bertabrakan; deadline tugas dikumpulkan sekali lewat formulir.`,
-          unknown: 'Grup mana yang dipakai, berapa hari sebelum milestone pengumuman dikirim, apa yang dilakukan PIC bila kabar deadline bertabrakan datang terlambat, dan siapa yang menyiapkan formulir.',
+          q: 'Bagaimana PIC mengumumkan rencana milestone?',
+          known: `${wa('Membaca tetapi jarang menanggapi')} dari ${l.n} dosen membaca grup WhatsApp tetapi jarang membalas. Usulan: PIC mengumumkan rencana, dosen membalas hanya bila deadline tugasnya bertabrakan, dan deadline tugas dikumpulkan sekali lewat formulir di awal semester.`,
+          unknown: 'Grup mana yang dipakai, berapa hari sebelum milestone, dan siapa yang menyiapkan formulir.',
         },
         {
-          q: 'Apakah peran PIC diakui secara resmi, misalnya di juknis atau dalam beban kerja dosen?',
-          known: `Beban mengajar dan administrasi adalah hambatan koordinasi yang paling banyak disebut dosen (${bar('Beban mengajar dan administrasi lain')} dari ${l.n}).`,
-          unknown: 'Apakah pengakuan seperti itu dimungkinkan menurut aturan Jurusan.',
+          q: 'Apakah peran PIC diakui secara resmi?',
+          known: `${bar('Beban mengajar dan administrasi lain')} dari ${l.n} dosen terkendala beban mengajar dan administrasi.`,
+          unknown: 'Apakah peran PIC bisa masuk juknis atau beban kerja dosen.',
         },
         {
-          q: 'Data apa yang perlu dikumpulkan sebelum keputusan diambil?',
-          known: 'Survei lanjutan singkat tentang server dan biaya sudah dirancang (10 pertanyaan). Wawancara dilakukan pada mahasiswa yang dipilih acak.',
-          unknown: 'Siapa yang menjalankan survei lanjutan dan kapan; jumlah mahasiswa yang diwawancarai tidak tercatat.',
+          q: 'Data apa yang dikumpulkan dulu?',
+          known: 'Survei lanjutan singkat tentang server dan biaya sudah dirancang (10 pertanyaan). Jumlah mahasiswa yang diwawancarai tidak tercatat.',
+          unknown: 'Siapa yang menjalankannya, dan kapan.',
         },
       ]),
   },
@@ -552,7 +552,7 @@ const main: Slide[] = [
         ['Ukuran', 'Sekarang', 'Target'],
         rows.map((r: any) => [esc(r.lab), pc(r.t.persen), `${r.t.arah === 'turun' ? 'di bawah' : 'di atas'} ${pc(r.t.target_persen)}`]),
       )}
-      ${closing(`Targetnya hanya sedikit di atas atau di bawah angka sekarang. Dengan responden sebanyak ini, perubahan di bawah sekitar ${fmt(Math.max(...mdds), 0)} poin belum bisa dibedakan dari kebetulan. Melihat perubahan 10 poin butuh sekitar ${n10} responden, dan respons 70% (sekitar ${n70} mahasiswa) cukup untuk perubahan sekitar 8 poin. Karena itu Masalah 1 harus beres lebih dulu.`)}`
+      ${closing(`Target ini hanya selangkah dari angka sekarang. Dengan ${m.n} responden, perubahan di bawah sekitar ${fmt(Math.max(...mdds), 0)} poin bisa saja kebetulan. Untuk memastikan perubahan 10 poin, kita butuh sekitar ${n10} responden. Kalau 70% mahasiswa mengisi (sekitar ${n70} orang), perubahan sekitar 8 poin sudah terlihat. Jadi respons survei harus naik lebih dulu.`)}`
     },
   },
   {
@@ -576,29 +576,28 @@ const appendix: Slide[] = [
   },
   {
     id: 'a-metode',
-    title: 'Cara membaca angka dan keterbatasannya',
+    title: 'Seberapa yakin dengan angka ini?',
     appendix: true,
-    src: `analisis survei monev PBL; mahasiswa ${m.n} dari ${m.response.roster}, dosen ${l.n} dari ${l.roster}`,
+    src: 'analisis survei monev PBL',
     render: () => `<div class="lv-bb">
       <div class="lv-panel is-good"><h3>Cara membaca</h3>${li([
-        '<b>Jelas berpengaruh</b>: perbedaannya terlalu besar untuk dianggap kebetulan. Secara teknis, rentang kemungkinan nilai sebenarnya (selang kepercayaan 95%) tidak mencakup nol.',
-        '<b>Ada tanda, belum pasti</b>: tampak berpengaruh, tetapi rentang kemungkinannya masih mencakup nol.',
-        '<b>Tidak terlihat kaitannya</b>: hubungannya mendekati nol.',
-        '"Dibandingkan dengan mahasiswa yang kondisinya sama dalam hal lain" berarti perhitungan regresi yang memperhitungkan semua faktor bersamaan. Skor 1 sampai 5 diperlakukan sebagai angka biasa, jadi ini pendekatan.',
-        'Angka dihitung ulang agar sesuai ukuran tiap program dan semester, untuk memeriksa apakah asal responden menggeser hasil.',
+        '<b>Jelas berpengaruh</b>: perbedaannya cukup besar, jadi hampir pasti bukan kebetulan.',
+        '<b>Ada tanda, belum pasti</b>: tampak berpengaruh, tetapi datanya belum cukup untuk memastikan.',
+        '<b>Tidak terlihat kaitannya</b>: di data ini tidak ada hubungan yang terlihat.',
+        '<b>Dibandingkan dengan mahasiswa yang kondisinya sama</b>: kita membandingkan yang mengalami masalah dengan yang tidak, sementara hal lain dibuat setara.',
       ])}</div>
-      <div class="lv-panel is-bad"><h3>Keterbatasan</h3>${li([
-        'Survei dilakukan satu kali dan berisi jawaban diri sendiri, jadi yang ditemukan adalah kaitan. Sebab-akibat belum terbukti.',
-        `Respons ${pc(m.response.rate)}: ketepatan terbatas, dan perbedaan antara yang mengisi dan tidak mengisi tidak bisa diuji.`,
-        `Dosen hanya ${l.n} orang; perubahan kecil tidak bisa dibuktikan, jadi baca angka mentahnya.`,
-        'Wawancara dilakukan pada mahasiswa yang dipilih acak, jumlahnya tidak tercatat; dipakai sebagai keterangan pendukung.',
+      <div class="lv-panel is-bad"><h3>Yang perlu diingat</h3>${li([
+        'Survei dilakukan sekali dan berisi penilaian pribadi, jadi kita melihat kaitan, belum sebab-akibat.',
+        'Baru sekitar seperlima mahasiswa mengisi, jadi angkanya perkiraan.',
+        'Dosen yang mengisi sedikit, jadi baca sebagai gambaran, bukan hasil pasti.',
+        'Wawancara memakai mahasiswa yang dipilih acak, dan dipakai sebagai keterangan tambahan.',
       ])}</div></div>`,
   },
   {
     id: 'a-pendorong',
     title: 'Pendorong kepuasan dan keinginan melanjutkan',
     appendix: true,
-    src: `regresi pada ${AN.umum.model_pendorong.puas.n} mahasiswa (kepuasan, R² = ${fmt(AN.umum.model_pendorong.puas.r2, 2)}; kemampuan model menjelaskan variasi jawaban) dan ${AN.umum.model_pendorong.lanjut.n} (melanjutkan, R² = ${fmt(AN.umum.model_pendorong.lanjut.r2, 2)}); b = poin skor per kenaikan satu poin`,
+    src: `regresi pada ${AN.umum.model_pendorong.puas.n} mahasiswa; R² ${fmt(AN.umum.model_pendorong.puas.r2, 2)} (kepuasan) dan ${fmt(AN.umum.model_pendorong.lanjut.r2, 2)} (melanjutkan); b = poin skor per kenaikan satu poin`,
     render: () => {
       const pu: any[] = AN.umum.model_pendorong.puas.koef
       const la: any[] = AN.umum.model_pendorong.lanjut.koef

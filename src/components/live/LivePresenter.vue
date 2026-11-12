@@ -85,6 +85,7 @@ import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useAdminGate } from '../../composables/useAdminGate'
 import { useI18n } from '../../composables/useI18n'
 import { getDeck } from '../../decks'
+import { slideHtml } from '../../lib/live/stage'
 import { withBase } from '../../lib/paths'
 import { paintOptions, paintSuggestions } from '../../lib/live/paint'
 import {
@@ -128,12 +129,7 @@ const code = computed(() => session.value?.code ?? '')
 // Depends only on slide, code and QR (not on session state), so poll updates never wipe painted results.
 const stageHtml = computed(() => {
   if (!code.value) return ''
-  const sl = slide.value
-  const body = sl.render({ qr: qrUrl.value, joinUrl: joinUrl.value, code: code.value })
-  const foot = `<footer><span>${sl.src ? 'Sumber: ' + sl.src : deck.title}</span><span>${sl.appendix ? 'Lampiran · ' : ''}${idx.value + 1}/${deck.slides.length}</span></footer>`
-  return `<section class="lv-sl ${sl.bare ? 'is-bare' : ''} ${sl.appendix ? 'is-appx' : ''}">${
-    sl.bare ? '' : `<header><h1>${sl.title}</h1></header>`
-  }<div class="lv-body">${body}</div>${foot}</section>`
+  return slideHtml(deck, idx.value, { qr: qrUrl.value, joinUrl: joinUrl.value, code: code.value })
 })
 
 const fmtN = (s: string, n: number) => s.replace('{n}', String(n))
@@ -282,6 +278,21 @@ async function goto(i: number) {
   refresh()
 }
 
+/**
+ * Safety net: if the slide body is taller than its space (for example many "Lainnya" answers after reveal), shrink it a
+ * little so nothing runs into the footer. `npm run check:fit` keeps slides from needing this in the normal case.
+ */
+function fitBody() {
+  const body = stageEl.value?.querySelector<HTMLElement>('.lv-body')
+  if (!body) return
+  const kids = Array.from(body.children) as HTMLElement[]
+  kids.forEach((k) => (k.style.zoom = ''))
+  if (body.scrollHeight > body.clientHeight) {
+    const z = Math.max(0.75, body.clientHeight / body.scrollHeight)
+    kids.forEach((k) => (k.style.zoom = String(z)))
+  }
+}
+
 /** Paint the plain (pre-vote) state into freshly rendered slide HTML; recap slides fetch everything. */
 async function afterRender() {
   liveN.value = 0
@@ -309,6 +320,7 @@ async function afterRender() {
     const target = stageEl.value?.querySelector<HTMLElement>('[data-recap]')
     if (target && slide.value.recap) deck.paintRecap(target, all)
   }
+  fitBody()
 }
 
 let poll: number | undefined
@@ -334,6 +346,7 @@ async function refresh() {
   } catch {
     /* transient: next tick retries */
   }
+  fitBody()
   el.querySelectorAll('[data-live]').forEach((n) => {
     n.textContent = fmtN(q.kind === 'text' ? t.value.live.presenter.suggestions : t.value.live.presenter.votes, liveN.value)
   })

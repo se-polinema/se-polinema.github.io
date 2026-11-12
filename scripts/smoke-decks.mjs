@@ -21,7 +21,7 @@ try {
       if (q.kind !== 'text' && (q.options.length < 2 || q.max < 1 || q.max > q.options.length)) fail(`${deck.slug}.${q.key}: options/max`)
     }
     // Plain language: statistics terms belong in the appendix only (slides) and nowhere in poll text.
-    const STATS = /selang|koefisien|regresi|\br = |R²|\[\d|tenggat/i
+    const STATS = /\bselang\b|koefisien|regresi|\br = |R²|\[\d|tenggat/i
     for (const q of deck.questions) {
       const hit = (q.prompt + q.options.map((o) => o.label + (o.note ?? '')).join(' ')).match(STATS)
       if (hit) fail(`${deck.slug}.${q.key}: statistics term in poll text: ${hit[0]}`)
@@ -30,7 +30,7 @@ try {
     deck.slides.forEach((s, i) => {
       if (s.question && !keys.includes(s.question)) fail(`${deck.slug} slide ${i + 1} (${s.id}): unknown question ${s.question}`)
       const html = s.title + s.render(ctx) + (s.src ?? '')
-      const stats = s.appendix ? null : html.replace(/<[^>]+>/g, ' ').match(STATS)
+      const stats = s.appendix && s.id !== 'a-metode' ? null : html.replace(/<[^>]+>/g, ' ').match(STATS)
       if (stats) fail(`${deck.slug} slide ${i + 1} (${s.id}): statistics term on a main slide: ${stats[0]}`)
       const hit = html.match(/undefined|NaN|\[object|null%|[\u2013\u2014]/g)
       if (hit) fail(`${deck.slug} slide ${i + 1} (${s.id}): ${[...new Set(hit)].join(', ')}`)
