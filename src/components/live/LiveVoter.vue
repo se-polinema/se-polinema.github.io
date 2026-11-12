@@ -36,50 +36,66 @@
       </div>
 
       <!-- free text -->
-      <div v-else-if="question.kind === 'text'" class="lv-card">
-        <span v-if="question.area" class="lv-chip">{{ question.area }}</span>
-        <h2 class="lv-title">{{ question.prompt }}</h2>
-        <p class="lv-muted">{{ t.live.voter.suggestionHint }}</p>
-        <textarea v-model="draft" class="lv-input" rows="6" maxlength="1000" :placeholder="t.live.voter.suggestionPlaceholder" :disabled="!session.voting_open"></textarea>
-        <p class="lv-muted">{{ draft.length }}/1000 · {{ fmtN(t.live.voter.sentFromDevice, mySug) }}</p>
-        <button v-if="session.voting_open" class="lv-btn is-primary is-big" :disabled="busy" @click="sendSuggestion">{{ t.live.voter.suggestionSend }}</button>
-        <p v-else class="lv-muted">{{ t.live.voter.suggestionClosed }}</p>
-        <p :class="flashOk ? 'lv-muted' : 'lv-error'">{{ flash }}</p>
-      </div>
+      <template v-else-if="question.kind === 'text'">
+        <div class="lv-card lv-qcard">
+          <span v-if="question.area" class="lv-chip">{{ question.area }}</span>
+          <h2 class="lv-title">{{ question.prompt }}</h2>
+          <p class="lv-muted">{{ t.live.voter.suggestionHint }}</p>
+          <textarea v-model="draft" class="lv-input" rows="6" maxlength="1000" :placeholder="t.live.voter.suggestionPlaceholder" :disabled="!session.voting_open"></textarea>
+          <p class="lv-muted">{{ draft.length }}/1000 · {{ fmtN(t.live.voter.sentFromDevice, mySug) }}</p>
+          <p v-if="!session.voting_open" class="lv-muted">{{ t.live.voter.suggestionClosed }}</p>
+        </div>
+        <div v-if="session.voting_open" class="lv-sendbar">
+          <p v-if="flash" :class="flashOk ? 'lv-ok' : 'lv-error'">{{ flash }}</p>
+          <button class="lv-btn is-primary is-big" :disabled="busy" @click="sendSuggestion">{{ t.live.voter.suggestionSend }}</button>
+        </div>
+      </template>
 
       <!-- choice -->
-      <div v-else class="lv-card">
-        <span v-if="question.area" class="lv-chip">{{ question.area }}</span>
-        <h2 class="lv-title">{{ question.prompt }}</h2>
-        <p class="lv-muted">{{ maxChoices > 1 ? fmtN(t.live.voter.pickMax, maxChoices) : t.live.voter.pickOne }}</p>
+      <template v-else>
+        <div class="lv-card lv-qcard">
+          <span v-if="question.area" class="lv-chip">{{ question.area }}</span>
+          <h2 class="lv-title">{{ question.prompt }}</h2>
+          <p class="lv-pill">
+            <span>{{ maxChoices > 1 ? fmtN(t.live.voter.pickMax, maxChoices) : t.live.voter.pickOne }}</span>
+            <b v-if="maxChoices > 1 && !(session.reveal && results)">{{ t.live.voter.selectedCount.replace('{n}', String(chosen.length)).replace('{max}', String(maxChoices)) }}</b>
+          </p>
 
-        <div class="lv-vopts">
-          <template v-if="session.reveal && results">
-            <div v-for="o in question.options" :key="o.key" class="lv-vopt is-res" :class="{ 'is-mine': mine.includes(o.key) }">
-              <i :style="{ width: pct(o.key) + '%' }"></i>
-              <span>{{ o.label }} <em v-if="mine.includes(o.key)">{{ t.live.voter.yourChoice }}</em></span>
-              <b>{{ Math.round(pct(o.key)) }}%</b>
-            </div>
-            <p class="lv-muted">{{ fmtN(t.live.voter.voters, results.n) }}</p>
-          </template>
-          <template v-else>
-            <button v-for="o in question.options" :key="o.key" class="lv-vopt" :class="{ 'is-on': chosen.includes(o.key) }" :disabled="!session.voting_open" @click="toggle(o.key)">
-              <span class="lv-box">{{ chosen.includes(o.key) ? '✓' : '' }}</span>
-              <span>{{ o.label }}<small v-if="o.note" class="lv-vnote">{{ o.note }}</small></span>
-            </button>
-          </template>
+          <div class="lv-vopts">
+            <template v-if="session.reveal && results">
+              <div v-for="o in question.options" :key="o.key" class="lv-vopt is-res" :class="{ 'is-mine': mine.includes(o.key) }">
+                <i :style="{ width: pct(o.key) + '%' }"></i>
+                <span class="lv-vtext">{{ o.label }} <em v-if="mine.includes(o.key)">{{ t.live.voter.yourChoice }}</em></span>
+                <b>{{ Math.round(pct(o.key)) }}%</b>
+              </div>
+              <p class="lv-muted">{{ fmtN(t.live.voter.voters, results.n) }}</p>
+            </template>
+            <template v-else>
+              <button v-for="o in question.options" :key="o.key" type="button" class="lv-vopt" :class="{ 'is-on': chosen.includes(o.key) }" :disabled="!session.voting_open" :aria-pressed="chosen.includes(o.key)" @click="toggle(o.key)">
+                <span class="lv-vtext">{{ o.label }}<small v-if="o.note" class="lv-vnote">{{ o.note }}</small></span>
+                <span class="lv-box" aria-hidden="true">{{ chosen.includes(o.key) ? '✓' : '' }}</span>
+              </button>
+            </template>
+          </div>
+
+          <div v-if="question.allow_other && !(session.reveal && results)" class="lv-other-box">
+            <button v-if="!otherVisible" type="button" class="lv-other-toggle" :disabled="!session.voting_open" @click="otherOpen = true">+ {{ t.live.voter.otherToggle }}</button>
+            <template v-else>
+              <label>{{ t.live.voter.otherLabel }}</label>
+              <textarea v-model="otherText" class="lv-input" rows="3" maxlength="300" :placeholder="t.live.voter.otherPlaceholder" :disabled="!session.voting_open"></textarea>
+            </template>
+          </div>
+          <p v-if="session.reveal || !session.voting_open" class="lv-muted">{{ status }}</p>
         </div>
 
-        <div v-if="question.allow_other && !(session.reveal && results)" class="lv-other-box">
-          <label>{{ t.live.voter.otherLabel }}</label>
-          <textarea v-model="otherText" class="lv-input" rows="3" maxlength="300" :placeholder="t.live.voter.otherPlaceholder" :disabled="!session.voting_open"></textarea>
+        <div v-if="session.voting_open && !session.reveal" class="lv-sendbar">
+          <p v-if="flash" class="lv-error">{{ flash }}</p>
+          <p v-else-if="sent" class="lv-ok">✓ {{ t.live.voter.sent }}</p>
+          <button class="lv-btn is-primary is-big" :disabled="busy || (!chosen.length && !otherText.trim()) || !changed" @click="send">
+            {{ sent ? t.live.voter.change : t.live.voter.submit }}
+          </button>
         </div>
-
-        <button v-if="session.voting_open && !session.reveal" class="lv-btn is-primary is-big" :disabled="busy || (!chosen.length && !otherText.trim()) || !changed" @click="send">
-          {{ sent ? t.live.voter.change : t.live.voter.submit }}
-        </button>
-        <p :class="flash ? 'lv-error' : 'lv-muted'">{{ flash || status }}</p>
-      </div>
+      </template>
     </template>
   </div>
 </template>
@@ -121,6 +137,7 @@ const mySug = ref(0)
 const flash = ref('')
 const flashOk = ref(false)
 const busy = ref(false)
+const otherOpen = ref(false)
 const backHref = withBase('/vote/')
 
 let sig = ''
@@ -136,6 +153,7 @@ const otherText = computed({
   get: () => otherMap.value[qkey.value] ?? '',
   set: (v: string) => (otherMap.value = { ...otherMap.value, [qkey.value]: v }),
 })
+const otherVisible = computed(() => otherOpen.value || otherText.value.trim() !== '')
 const changed = computed(
   () =>
     !sent.value ||
@@ -164,6 +182,7 @@ async function apply(next: Session) {
   if (s === sig) return
   sig = s
   flash.value = ''
+  otherOpen.value = false
   question.value = next.active_question ? await getQuestion(next.active_question) : null
   const q = question.value
   if (q) {

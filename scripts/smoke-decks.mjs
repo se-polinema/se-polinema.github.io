@@ -30,7 +30,7 @@ try {
     deck.slides.forEach((s, i) => {
       if (s.question && !keys.includes(s.question)) fail(`${deck.slug} slide ${i + 1} (${s.id}): unknown question ${s.question}`)
       const html = s.title + s.render(ctx) + (s.src ?? '')
-      const stats = s.appendix && s.id !== 'a-metode' ? null : html.replace(/<[^>]+>/g, ' ').match(STATS)
+      const stats = s.appendix ? null : html.replace(/<[^>]+>/g, ' ').match(STATS)
       if (stats) fail(`${deck.slug} slide ${i + 1} (${s.id}): statistics term on a main slide: ${stats[0]}`)
       const hit = html.match(/undefined|NaN|\[object|null%|[\u2013\u2014]/g)
       if (hit) fail(`${deck.slug} slide ${i + 1} (${s.id}): ${[...new Set(hit)].join(', ')}`)
@@ -41,4 +41,4 @@ try {
   await vite.close()
 }
 console.log(bad ? `${bad} problem(s)` : 'ok')
-process.exit(bad ? 1 : 0)
+process.exitCode = bad ? 1 : 0

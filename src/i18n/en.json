@@ -1151,7 +1151,9 @@
       "suggestionClosed": "Suggestions are closed.",
       "sentFromDevice": "sent from this device: {n}/5",
       "otherLabel": "Other (optional)",
-      "otherPlaceholder": "Write another solution here, if none of the options fits"
+      "otherPlaceholder": "Write another solution here, if none of the options fits",
+      "selectedCount": "{n}/{max} chosen",
+      "otherToggle": "Write another suggestion"
     },
     "presenter": {
       "loading": "Loading...",
