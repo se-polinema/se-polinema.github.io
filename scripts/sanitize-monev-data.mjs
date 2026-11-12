@@ -40,6 +40,19 @@ for (const scope of ['all', 'ti', 'sib']) {
     mhs.response.kelas_total = classes.length
     mhs.response.kelas_nol = classes.filter((c) => c.n === 0).length
     mhs.response.kelas_min5 = classes.filter((c) => c.n >= 5).length
+    // Spread of response per class WITHOUT names: one whole-percent rate per class, sorted high to low,
+    // grouped by program and semester. No labels, counts or class sizes, so no class can be identified.
+    const monitored = new Set(mhs.monitored?.classes ?? [])
+    mhs.response.sebaran = (mhs.response.sems ?? []).map((sm) => ({
+      label: sm.label,
+      n: sm.n,
+      roster: sm.roster,
+      rate: sm.rate,
+      kelas: classes
+        .filter((c) => `${c.prodi} Semester ${c.sem}` === sm.label)
+        .map((c) => ({ rate: Math.round(c.rate), dipantau: monitored.has(c.label) }))
+        .sort((a, b) => b.rate - a.rate),
+    }))
     delete mhs.response.classes
   }
   // course names only (program, semester, name); the per-course results are dropped

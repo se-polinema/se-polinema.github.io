@@ -51,7 +51,7 @@
     <!-- Stage -->
     <template v-else>
       <LiveStage>
-        <div ref="stageEl" v-html="stageHtml"></div>
+        <div ref="stageEl" v-html="stageHtml" @click="onStageClick"></div>
       </LiveStage>
 
       <div class="lv-bar" :class="{ 'is-hidden': barHidden }">
@@ -72,6 +72,7 @@
         <button @click="downloadCsv">{{ t.live.presenter.csv }}</button>
         <button @click="endSession">{{ t.live.presenter.end }}</button>
         <span class="lv-pos lv-code-chip">{{ session.code }}</span>
+        <button :title="t.live.presenter.copyLink" @click="copyLink()">{{ t.live.presenter.copyLink }}</button>
         <button :title="t.live.presenter.hide" @click="barHidden = true">✕</button>
       </div>
       <div class="lv-toast" :class="{ 'is-on': !!toast }">{{ toast }}</div>
@@ -140,6 +141,46 @@ const reload = () => location.reload()
 const say = (m: string) => {
   toast.value = m
   setTimeout(() => (toast.value = ''), 2500)
+}
+
+// Copy the vote link. Clipboard API first; a hidden textarea covers http pages and older browsers.
+async function copyLink(btn?: HTMLElement | null) {
+  const url = joinUrl.value
+  if (!url) return
+  let ok = false
+  try {
+    await navigator.clipboard.writeText(url)
+    ok = true
+  } catch {
+    const ta = document.createElement('textarea')
+    ta.value = url
+    ta.style.position = 'fixed'
+    ta.style.opacity = '0'
+    document.body.appendChild(ta)
+    ta.select()
+    try {
+      ok = document.execCommand('copy')
+    } catch {
+      ok = false
+    }
+    ta.remove()
+  }
+  say(ok ? t.value.live.presenter.linkCopied : url)
+  if (ok && btn) {
+    const old = btn.textContent
+    btn.textContent = t.value.live.presenter.copied
+    btn.classList.add('is-done')
+    setTimeout(() => {
+      btn.textContent = old
+      btn.classList.remove('is-done')
+    }, 1800)
+  }
+}
+
+// The slide HTML is injected with v-html, so the copy button is handled by delegation.
+function onStageClick(e: MouseEvent) {
+  const btn = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-copy-link]')
+  if (btn) copyLink(btn)
 }
 
 // ---- session lifecycle -------------------------------------------------------

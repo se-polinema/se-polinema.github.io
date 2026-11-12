@@ -143,12 +143,18 @@
 .lv-sub { margin: 0 0 36px; font-size: 36px; }
 .lv-how { font-size: 32px; padding: 18px 26px; background: var(--lv-good-bg); border-left: 8px solid var(--lv-good); }
 
-.lv-join { text-align: center; padding: 20px; border: 2px solid var(--lv-line); background: #fff; color: #0b1b33; align-self: start; }
+.lv-join { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding: 20px; border: 2px solid var(--lv-line); background: #fff; color: #0b1b33; align-self: start; min-width: 0; }
 .lv-join img { width: 100%; display: block; }
 .lv-code { font: 700 66px/1.1 var(--font-mono); letter-spacing: .14em; color: var(--color-primary-600); }
-.lv-hint { font-size: 22px; color: #5b6678; word-break: break-all; }
-.lv-live { margin-top: 8px; font-size: 28px; font-weight: 700; color: var(--color-accent-700); min-height: 1.2em; }
+.lv-link-row { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 100%; padding: 6px 6px 6px 18px; border: 1px solid var(--lv-line); border-radius: 999px; background: #f5f7fb; }
+.lv-url { flex: 1 1 auto; min-width: 0; font: 22px var(--font-mono); color: #0b1b33; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lv-copy { flex: none; border: 0; border-radius: 999px; padding: 8px 20px; font: 700 20px var(--font-sans, system-ui); background: var(--color-primary-600); color: #fff; cursor: pointer; }
+.lv-copy:hover { filter: brightness(1.1); }
+.lv-copy.is-done { background: var(--color-accent-700); }
+.lv-hint { font-size: 22px; color: #5b6678; }
+.lv-live { margin-top: 4px; font-size: 28px; font-weight: 700; color: var(--color-accent-700); min-height: 1.2em; }
 .lv-join.is-big { padding: 28px; }
+.lv-join.is-big .lv-url { font-size: 26px; }
 
 .lv-votegrid { flex: 1; display: grid; grid-template-columns: 1fr 380px; gap: 44px; min-height: 0; }
 .lv-opts { display: grid; gap: 14px; }
@@ -217,3 +223,4 @@
 .lv-disc-card h3 { margin: 0 0 6px; font-size: 28px; }
 .lv-disc-card p { margin: 3px 0; font-size: 22px; }
 .lv-disc-card .lv-unknown { opacity: .85; }
+.lv-tile > span:only-child { margin: auto; }

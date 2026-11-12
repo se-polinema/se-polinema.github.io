@@ -94,7 +94,169 @@
     "rate": 22,
     "kelas_total": 32,
     "kelas_nol": 8,
-    "kelas_min5": 12
+    "kelas_min5": 12,
+    "sebaran": [
+     {
+      "label": "TI Semester 3",
+      "n": 44,
+      "roster": 248,
+      "rate": 17.7,
+      "kelas": [
+       {
+        "rate": 93,
+        "dipantau": true
+       },
+       {
+        "rate": 15,
+        "dipantau": false
+       },
+       {
+        "rate": 15,
+        "dipantau": false
+       },
+       {
+        "rate": 11,
+        "dipantau": false
+       },
+       {
+        "rate": 11,
+        "dipantau": false
+       },
+       {
+        "rate": 10,
+        "dipantau": false
+       },
+       {
+        "rate": 4,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       }
+      ]
+     },
+     {
+      "label": "TI Semester 5",
+      "n": 25,
+      "roster": 230,
+      "rate": 10.9,
+      "kelas": [
+       {
+        "rate": 31,
+        "dipantau": false
+       },
+       {
+        "rate": 21,
+        "dipantau": false
+       },
+       {
+        "rate": 19,
+        "dipantau": false
+       },
+       {
+        "rate": 15,
+        "dipantau": false
+       },
+       {
+        "rate": 8,
+        "dipantau": false
+       },
+       {
+        "rate": 4,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       }
+      ]
+     },
+     {
+      "label": "SIB Semester 3",
+      "n": 21,
+      "roster": 173,
+      "rate": 12.1,
+      "kelas": [
+       {
+        "rate": 44,
+        "dipantau": false
+       },
+       {
+        "rate": 24,
+        "dipantau": false
+       },
+       {
+        "rate": 14,
+        "dipantau": false
+       },
+       {
+        "rate": 4,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       }
+      ]
+     },
+     {
+      "label": "SIB Semester 5",
+      "n": 87,
+      "roster": 155,
+      "rate": 56.1,
+      "kelas": [
+       {
+        "rate": 91,
+        "dipantau": true
+       },
+       {
+        "rate": 83,
+        "dipantau": true
+       },
+       {
+        "rate": 79,
+        "dipantau": true
+       },
+       {
+        "rate": 59,
+        "dipantau": true
+       },
+       {
+        "rate": 43,
+        "dipantau": false
+       },
+       {
+        "rate": 24,
+        "dipantau": false
+       },
+       {
+        "rate": 9,
+        "dipantau": false
+       }
+      ]
+     }
+    ]
    },
    "ops": [
     {
@@ -2518,7 +2680,97 @@
     "rate": 14.4,
     "kelas_total": 18,
     "kelas_nol": 5,
-    "kelas_min5": 4
+    "kelas_min5": 4,
+    "sebaran": [
+     {
+      "label": "TI Semester 3",
+      "n": 44,
+      "roster": 248,
+      "rate": 17.7,
+      "kelas": [
+       {
+        "rate": 93,
+        "dipantau": true
+       },
+       {
+        "rate": 15,
+        "dipantau": false
+       },
+       {
+        "rate": 15,
+        "dipantau": false
+       },
+       {
+        "rate": 11,
+        "dipantau": false
+       },
+       {
+        "rate": 11,
+        "dipantau": false
+       },
+       {
+        "rate": 10,
+        "dipantau": false
+       },
+       {
+        "rate": 4,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       }
+      ]
+     },
+     {
+      "label": "TI Semester 5",
+      "n": 25,
+      "roster": 230,
+      "rate": 10.9,
+      "kelas": [
+       {
+        "rate": 31,
+        "dipantau": false
+       },
+       {
+        "rate": 21,
+        "dipantau": false
+       },
+       {
+        "rate": 19,
+        "dipantau": false
+       },
+       {
+        "rate": 15,
+        "dipantau": false
+       },
+       {
+        "rate": 8,
+        "dipantau": false
+       },
+       {
+        "rate": 4,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       }
+      ]
+     }
+    ]
    },
    "ops": [
     {
@@ -4844,7 +5096,81 @@
     "rate": 32.9,
     "kelas_total": 14,
     "kelas_nol": 3,
-    "kelas_min5": 8
+    "kelas_min5": 8,
+    "sebaran": [
+     {
+      "label": "SIB Semester 3",
+      "n": 21,
+      "roster": 173,
+      "rate": 12.1,
+      "kelas": [
+       {
+        "rate": 44,
+        "dipantau": false
+       },
+       {
+        "rate": 24,
+        "dipantau": false
+       },
+       {
+        "rate": 14,
+        "dipantau": false
+       },
+       {
+        "rate": 4,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       },
+       {
+        "rate": 0,
+        "dipantau": false
+       }
+      ]
+     },
+     {
+      "label": "SIB Semester 5",
+      "n": 87,
+      "roster": 155,
+      "rate": 56.1,
+      "kelas": [
+       {
+        "rate": 91,
+        "dipantau": true
+       },
+       {
+        "rate": 83,
+        "dipantau": true
+       },
+       {
+        "rate": 79,
+        "dipantau": true
+       },
+       {
+        "rate": 59,
+        "dipantau": true
+       },
+       {
+        "rate": 43,
+        "dipantau": false
+       },
+       {
+        "rate": 24,
+        "dipantau": false
+       },
+       {
+        "rate": 9,
+        "dipantau": false
+       }
+      ]
+     }
+    ]
    },
    "ops": [
     {
