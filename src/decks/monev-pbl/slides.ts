@@ -190,7 +190,7 @@ const main: Slide[] = [
         ${stat({ num: pc(PRI('penilaian').prevalensi.pct), label: '6. Penilaian: menilai penilaian tidak adil', tone: 'bad' })}
         ${stat({ num: pc(100 - m.ops[7].pct_agree), label: '7. Fasilitas: tidak setuju fasilitas dan server memadai', tone: 'bad' })}
       </div>
-      ${closing('Berikutnya: seberapa kuat tiap masalah memengaruhi kepuasan. Setelah itu, setiap masalah dibahas satu per satu dan diikuti satu pemungutan suara.')}`,
+      ${closing('Berikutnya: seberapa kuat tiap masalah memengaruhi kepuasan. Setelah itu, setiap masalah dibahas satu per satu dan diikuti satu voting.')}`,
   },
   {
     id: 'prioritas-data',
@@ -251,7 +251,7 @@ const main: Slide[] = [
   }),
   {
     id: 'm-sebaran',
-    title: 'Sebaran respons: banyak kelas tidak punya suara',
+    title: 'Sebaran respons: banyak kelas tanpa responden',
     src: `survei mahasiswa (${m.n} dari ${m.response.roster}); satu kotak mewakili satu kelas, nama kelas tidak ditampilkan`,
     render: () => `
       <div class="lv-grid">${responseGrid()}</div>
@@ -552,7 +552,7 @@ const main: Slide[] = [
     title: 'Solusi yang dipilih Bapak/Ibu',
     recap: true,
     render: () => `<div class="lv-recap" data-recap><p class="lv-note">Memuat hasil…</p></div>
-      ${closing('Solusi dengan suara terbanyak masuk rencana tindak lanjut. Usulan di kolom Lainnya dan hasil diskusi dibahas bersama sebelum jadwalnya ditetapkan.')}`,
+      ${closing('Solusi dengan vote terbanyak masuk rencana tindak lanjut. Usulan di kolom Lainnya dan hasil diskusi dibahas bersama sebelum jadwalnya ditetapkan.')}`,
   },
 ]
 
@@ -560,31 +560,6 @@ const main: Slide[] = [
 const masalahKecil = (lab: string) => ['Tidak ada masalah berarti', 'Tidak ada kendala'].includes(lab)
 
 const appendix: Slide[] = [
-  {
-    id: 'a-divider',
-    title: 'Lampiran: data lengkap',
-    appendix: true,
-    render: () => `<p class="lv-recapline">Slide berikut adalah cadangan untuk menjawab pertanyaan. Semua pilihan ditampilkan tanpa disaring. Hasil per kelas dan per mata kuliah tidak ditampilkan.</p>`,
-  },
-  {
-    id: 'a-metode',
-    title: 'Seberapa yakin dengan angka ini?',
-    appendix: true,
-    src: 'analisis survei monev PBL',
-    render: () => `<div class="lv-bb">
-      <div class="lv-panel is-good"><h3>Cara membaca</h3>${li([
-        '<b>Jelas berpengaruh</b>: perbedaannya cukup besar, jadi hampir pasti bukan kebetulan.',
-        '<b>Ada tanda, belum pasti</b>: tampak berpengaruh, tetapi datanya belum cukup untuk memastikan.',
-        '<b>Tidak terlihat kaitannya</b>: di data ini tidak ada hubungan yang terlihat.',
-        '<b>Dibandingkan dengan mahasiswa yang kondisinya sama</b>: kita membandingkan yang mengalami masalah dengan yang tidak, sementara hal lain dibuat setara.',
-      ])}</div>
-      <div class="lv-panel is-bad"><h3>Yang perlu diingat</h3>${li([
-        'Survei dilakukan sekali dan berisi penilaian pribadi, jadi kita melihat kaitan, belum sebab-akibat.',
-        'Baru sekitar seperlima mahasiswa mengisi, jadi angkanya perkiraan.',
-        'Dosen yang mengisi sedikit, jadi baca sebagai gambaran, bukan hasil pasti.',
-        'Wawancara memakai mahasiswa yang dipilih acak, dan dipakai sebagai keterangan tambahan.',
-      ])}</div></div>`,
-  },
   {
     id: 'a-masalah-mhs',
     title: 'Semua masalah yang dipilih mahasiswa',
@@ -668,8 +643,8 @@ export function paintRecap(el: HTMLElement, all: Record<string, Results>) {
     const first = ranked[0]
     const other = r?.n_other ? `<p class="is-second">${r.n_other} usulan di kolom Lainnya</p>` : ''
     return `<div class="lv-rc"><h4>${esc(q.area)}${prio ? `<em>prioritas ${pc(prio.n ? ((prio.counts[k] ?? 0) / prio.n) * 100 : 0)}</em>` : ''}</h4>
-      ${first && first.c > 0 ? `<p>${esc(first.o.label)}<small>${first.c} dari ${r.n} pemilih</small></p>` : '<p><small>Belum ada suara</small></p>'}
-      ${ranked[1] && ranked[1].c > 0 ? `<p class="is-second">${esc(ranked[1].o.label)}<small>${ranked[1].c} suara</small></p>` : ''}${other}</div>`
+      ${first && first.c > 0 ? `<p>${esc(first.o.label)}<small>${first.c} dari ${r.n} pemilih</small></p>` : '<p><small>Belum ada vote</small></p>'}
+      ${ranked[1] && ranked[1].c > 0 ? `<p class="is-second">${esc(ranked[1].o.label)}<small>${ranked[1].c} vote</small></p>` : ''}${other}</div>`
   }
   const kom = komit
     ? `<div class="lv-rc is-wide"><h4>Kesediaan dosen<em>${komit.n} pemilih</em></h4>${Q('komitmen')

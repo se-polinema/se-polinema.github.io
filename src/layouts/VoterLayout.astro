@@ -1,0 +1,61 @@
+---
+// Minimal shell for the live-poll voter page, used on phones: no announcement banner, cookie banner, analytics or
+// site chrome that could cover the poll. The page scrolls normally and respects notches (viewport-fit=cover).
+import '../styles/global.css'
+import { withBase } from '../lib/paths'
+
+export interface Props {
+  title: string
+  lang?: 'en' | 'id'
+}
+
+const { title, lang = 'id' } = Astro.props as Props
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#004EA2" />
+    <title>{title} | SE Lab</title>
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon.png')} />
+    <link rel="apple-touch-icon" href={withBase('/icons/apple-touch-icon.png')} />
+
+    <!-- Apply dark mode before paint (mirrors Default.astro) -->
+    <script is:inline>
+      (function() {
+        try {
+          var theme = localStorage.getItem('se-lab-theme');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else if (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch(e) {}
+        try {
+          const lang = localStorage.getItem('se-lab-lang');
+          if (lang === 'en' || lang === 'id') document.documentElement.lang = lang;
+        } catch {}
+      })();
+    </script>
+  </head>
+  <body class="voter-body">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  .voter-body {
+    margin: 0;
+    min-height: 100dvh;
+    background: #f8f7f4;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+  }
+  html.dark .voter-body {
+    background: #0a1020;
+  }
+</style>

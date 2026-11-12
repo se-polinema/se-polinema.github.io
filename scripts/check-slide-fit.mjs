@@ -132,4 +132,4 @@ for (const r of res) {
   }
 }
 console.log(bad ? `${bad} slide state(s) overflow (${cases.length} checked)` : `ok, ${cases.length} slide states fit`)
-process.exit(bad ? 1 : 0)
+process.exitCode = bad ? 1 : 0

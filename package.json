@@ -17,6 +17,7 @@
     "sync:dois": "node scripts/enrich-dois.mjs",
     "smoke:decks": "node scripts/smoke-decks.mjs",
     "check:fit": "node scripts/check-slide-fit.mjs",
+    "check:voter": "node scripts/check-voter-mobile.mjs",
     "sync:monev-data": "node scripts/sanitize-monev-data.mjs"
   },
   "dependencies": {
