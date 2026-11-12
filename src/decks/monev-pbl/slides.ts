@@ -155,7 +155,11 @@ const main: Slide[] = [
           <p class="lv-kicker">Monitoring dan Evaluasi PBL · Semester Ganjil 2026/2027</p>
           <h1>Hasil Survei Monev PBL</h1>
           <p class="lv-sub">Program Studi Sarjana Terapan Teknik Informatika dan Sistem Informasi Bisnis</p>
-          <p class="lv-how">Ada tujuh masalah. Untuk tiap masalah, Bapak/Ibu memilih solusi lewat ponsel, atau menulis usulan sendiri di kolom Lainnya. Dua slide menjelang akhir dibuka untuk diskusi.</p>
+          <ol class="lv-steps">
+            <li>Pindai QR atau salin tautan di sebelah kanan.</li>
+            <li>Untuk tiap dari tujuh masalah, pilih solusi di ponsel. Tidak ada yang cocok? Tulis usulan sendiri di kolom Lainnya.</li>
+            <li>Di akhir, kita diskusi dua hal yang belum diputuskan: jadwal milestone, serta server dan peran PIC.</li>
+          </ol>
         </div>
         ${joinPanel(c, 'Pindai QR atau buka tautan untuk ikut memilih', true)}
       </div>`,
@@ -179,27 +183,6 @@ const main: Slide[] = [
       ${closing(`Mahasiswa mengeluh tentang cara PBL dijalankan, sedangkan manfaatnya dinilai baik oleh ${pc(m.ben[2].pct_agree)} sampai ${pc(m.ben[0].pct_agree)}. Yang pernah ikut PBL sama puasnya dengan yang belum (${pc(m.by_experience[1].sat_agree)} dan ${pc(m.by_experience[0].sat_agree)}).`)}`,
   },
   {
-    id: 'prioritas-data',
-    title: 'Dua masalah paling memengaruhi kepuasan: fasilitas dan beban',
-    src: `analisis survei mahasiswa (${m.n} responden). Tiap masalah dibandingkan dengan mahasiswa yang kondisinya sama dalam hal lain. Poin pada skala 1 sampai 5`,
-    render: () => {
-      const rows: [string, string][] = [
-        ['fasilitas', 'Fasilitas tidak memadai (server deployment)'],
-        ['beban', 'Beban berat'],
-        ['jadwal_realistis', 'Jadwal milestone tidak realistis'],
-        ['koordinasi', 'Arahan dosen tidak konsisten'],
-        ['penilaian', 'Penilaian tidak adil'],
-        ['selaras', 'Tugas dan penilaian tidak sejalan'],
-      ]
-      return `${table(
-        ['Masalah', 'Yang mengalami', 'Pengaruh pada kepuasan', 'Pengaruh pada keinginan melanjutkan'],
-        rows.map(([k, lab]) => [esc(lab), pc(PRI(k, 'puas').prevalensi.pct), plainEffect(k, 'puas'), plainEffect(k, 'lanjut')]),
-      )}
-      <p class="lv-note">"Belum pasti" berarti masalahnya nyata dikeluhkan, tetapi dengan ${m.n} responden belum bisa dipisahkan dari masalah lain yang saling terkait.</p>
-      ${closing('Hanya fasilitas dan beban yang pengaruhnya pasti, baik pada kepuasan maupun keinginan melanjutkan. Jadwal milestone yang tidak realistis juga tampak menurunkan keinginan melanjutkan, tetapi belum pasti.')}`
-    },
-  },
-  {
     id: 'peta',
     title: 'Tujuh masalah yang dibahas hari ini',
     src: `survei mahasiswa (${m.n}) dan dosen (${l.n}); wawancara mahasiswa (dipilih acak) untuk masalah jadwal`,
@@ -215,7 +198,38 @@ const main: Slide[] = [
         ${stat({ num: pp(p6.adil_setuju), label: '6. Penilaian: setuju penilaian adil', tone: 'bad' })}
         ${stat({ num: pc(100 - m.ops[7].pct_agree), label: '7. Fasilitas: tidak setuju fasilitas dan server memadai', tone: 'bad' })}
       </div>
-      ${closing('Setiap masalah diikuti satu pemungutan suara. Pilihan solusi disertai data yang mendukung atau menyulitkannya.')}`,
+      ${closing('Berikutnya: seberapa kuat tiap masalah memengaruhi kepuasan. Setelah itu, setiap masalah dibahas satu per satu dan diikuti satu pemungutan suara.')}`,
+  },
+  {
+    id: 'prioritas-data',
+    title: 'Dari tujuh masalah, fasilitas dan beban paling jelas memengaruhi kepuasan',
+    src: `analisis survei mahasiswa (${m.n} responden). Tiap masalah dibandingkan dengan mahasiswa yang kondisinya sama dalam hal lain. Poin pada skala 1 sampai 5`,
+    render: () => {
+      const rows: [number, string, string, boolean][] = [
+        [7, 'fasilitas', 'Fasilitas (server deployment)', true],
+        [2, 'beban', 'Beban berat', true],
+        [3, 'jadwal_realistis', 'Jadwal milestone tidak realistis', false],
+        [5, 'koordinasi', 'Arahan dosen tidak konsisten', false],
+        [6, 'penilaian', 'Penilaian tidak adil', false],
+        [4, 'selaras', 'Tugas dan penilaian tidak sejalan', false],
+      ]
+      const hi = (x: string, on: boolean) => (on ? `<b>${x}</b>` : x)
+      return `${table(
+        ['No.', 'Masalah', 'Yang mengalami', 'Pengaruh pada kepuasan', 'Pengaruh pada keinginan melanjutkan'],
+        [
+          ...rows.map(([no, k, lab, on]) => [
+            hi(String(no), on),
+            hi(esc(lab), on),
+            pc(PRI(k, 'puas').prevalensi.pct),
+            plainEffect(k, 'puas'),
+            plainEffect(k, 'lanjut'),
+          ]),
+          ['1', 'Respons survei rendah', pc(100 - m.response.rate) + ' tidak mengisi', 'tidak berlaku', 'tidak berlaku'],
+        ],
+      )}
+      <p class="lv-note">Nomor mengikuti slide sebelumnya. Masalah 1 menyangkut survei itu sendiri, jadi tidak diukur terhadap kepuasan. "Belum pasti" berarti masalahnya nyata dikeluhkan, tetapi dengan ${m.n} responden belum bisa dipisahkan dari masalah lain yang saling terkait.</p>
+      ${closing('Dari tujuh masalah, hanya fasilitas (7) dan beban (2) yang pengaruhnya pasti, baik pada kepuasan maupun keinginan melanjutkan. Jadwal milestone (3) tampak menurunkan keinginan melanjutkan, tetapi belum pasti.')}`
+    },
   },
 
   // 1. respons
