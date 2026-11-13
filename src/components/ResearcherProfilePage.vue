@@ -174,7 +174,7 @@
                       <a :href="book.url" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.books.viewBookSite }} ↗</a>
                     </div>
                     <div v-if="book.playstoreUrl" class="mt-1.5">
-                      <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">Buy on Google Play Books →</a>
+                      <a :href="book.playstoreUrl" target="_blank" rel="noopener" class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors">{{ t.books.buyOnPlayStore }} →</a>
                     </div>
                   </div>
                 </li>

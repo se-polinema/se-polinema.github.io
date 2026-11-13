@@ -47,7 +47,7 @@
                 target="_blank"
                 rel="noopener"
                 class="text-[13px] text-primary dark:text-blue-300 hover:text-accent-700 dark:hover:text-accent-400 transition-colors"
-              >Buy on Google Play Books →</a>
+              >{{ t.books.buyOnPlayStore }} →</a>
             </div>
             <div class="flex items-center gap-1.5 mt-auto pt-1 border-t border-primary/5 dark:border-gray-600 flex-wrap">
               <span class="text-[12px] text-neutral-400 dark:text-gray-500">{{ t.books.by }}</span>
