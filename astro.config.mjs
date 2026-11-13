@@ -8,11 +8,18 @@ import { rehypeGlossary } from './src/utils/rehype-glossary'
 import { rehypeBasePaths } from './src/utils/rehype-base-paths'
 import { remarkPlantuml } from './src/utils/remark-plantuml'
 import { remarkMermaid } from './src/utils/remark-mermaid'
+import { readFileSync } from 'node:fs'
 
 // BASE_PATH selects the deploy target: unset (or '/') for production at the
 // site root, '/beta/' for the beta build served from the develop branch.
 const base = process.env.BASE_PATH ?? '/'
 const isBeta = base !== '/'
+// Catalog pages with no entries yet stay reachable but are kept out of the sitemap.
+const isEmptyData = (file) => JSON.parse(readFileSync(new URL(`./src/data/${file}`, import.meta.url), 'utf8')).length === 0
+const emptyPages = [
+  ...(isEmptyData('tools.json') ? ['/tools/'] : []),
+  ...(isEmptyData('achievements.json') ? ['/achievements/'] : []),
+]
 const site = 'https://se.polinema.ac.id' + (isBeta ? base.replace(/\/$/, '') : '')
 
 export default defineConfig({
@@ -26,7 +33,7 @@ export default defineConfig({
       : [
           sitemap({
             filter: (page) => {
-              const excluded = ['/404', '/admin/', '/login/', '/register/', '/checkin/', '/alumni/submit/', '/members/submit/', '/showcase/submit/', '/account/']
+              const excluded = [...emptyPages, '/404', '/admin/', '/login/', '/register/', '/checkin/', '/alumni/submit/', '/members/submit/', '/showcase/submit/', '/account/']
               if (/\/researchers\/[^/]+\/slides\/?$/.test(page)) return false
               return !excluded.some((path) => page.includes(path))
             },
