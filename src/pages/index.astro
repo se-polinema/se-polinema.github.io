@@ -134,14 +134,14 @@ const organizationJsonLd = {
 <VSCodeLayout title="Software Engineering Laboratory">
   <JsonLd slot="head" data={organizationJsonLd} />
   <Hero client:load researchers={labStats.researchers} focusAreas={labStats.focusAreas} publications={labStats.publications} />
-  <Research client:load />
-  <Projects client:load projects={projects} />
-  <Books client:load books={books} />
-  <Team client:load researchers={featuredResearchers} />
-  <Publications client:load publications={featuredPublications} />
-  <JoinLab client:load />
-  <Achievements client:load achievements={recentAchievements} />
-  <News client:load posts={sortedPosts} />
+  <Research client:visible />
+  <Projects client:visible projects={projects} />
+  <Books client:visible books={books} />
+  <Team client:visible researchers={featuredResearchers} />
+  <Publications client:visible publications={featuredPublications} />
+  <JoinLab client:visible />
+  <Achievements client:visible achievements={recentAchievements} />
+  <News client:visible posts={sortedPosts} />
   <div class="px-8">
     <EditOnGitHub filePath="src/pages/index.astro" />
   </div>

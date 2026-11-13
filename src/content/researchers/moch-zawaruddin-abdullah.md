@@ -55,7 +55,7 @@ projects:
 books:
   - title: "Konsep Teknologi Informasi"
     url: "https://polinemapress21.com/produk/konsep-teknologi-informasi/"
-    coverImage: "/images/books/konsep-teknologi-informasi.png"
+    coverImage: "/images/books/konsep-teknologi-informasi.webp"
     year: 2025
     isbn: "978-634-7040-71-8"
     description: "A comprehensive guide to information technology concepts, covering hardware and software fundamentals, computer networks, information systems, and emerging trends such as cloud computing, big data, artificial intelligence, and cybersecurity. Explores IT's role in social, business, and educational transformation."
@@ -70,7 +70,7 @@ books:
     descriptionId: "Buku ini menyajikan panduan komprehensif dalam membangun aplikasi e-learning modern dengan memanfaatkan framework PHP populer, Laravel. Materi yang disajikan mencakup konsep dasar e-learning, perancangan arsitektur sistem, manajemen basis data, autentikasi pengguna, pengelolaan konten pembelajaran, hingga implementasi fitur interaktif seperti forum diskusi, kuis, dan laporan kemajuan belajar."
   - title: "Pemrograman Web Lanjut (Laravel 10)"
     url: "https://polinemapress21.com/produk/pemrograman-web-lanjut-laravel-10/"
-    coverImage: "/images/books/pemrograman-web-lanjut-laravel-10.png"
+    coverImage: "/images/books/pemrograman-web-lanjut-laravel-10.webp"
     publisher: "Polinema Press"
     isbn: "978-634-7040-51-0"
     description: "A comprehensive guide for advanced web development using Laravel 10, covering routing, middleware, Eloquent ORM, authentication, and RESTful API project management. Includes case studies, exercises, and code examples focused on best practices and production efficiency."
