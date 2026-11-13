@@ -10,6 +10,7 @@ authors:
   - "M Afif Hendrawan"
   - "Dodit Suprianto"
 url: "https://journal.isas.or.id/index.php/JACE/article/view/1425"
+doi: "10.52158/jace.v6i1.1425"
 googleScholarUrl: "https://scholar.google.com/citations?user=cduv_fAAAAAJ&hl=en"
 citedByCount: 0
 researchers:
