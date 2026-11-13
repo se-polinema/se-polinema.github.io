@@ -140,7 +140,7 @@ const organizationJsonLd = {
   <Team client:load researchers={featuredResearchers} />
   <Publications client:load publications={featuredPublications} />
   <JoinLab client:load />
-  <Achievements client:load achievements={recentAchievements} />
+  {recentAchievements.length > 0 && <Achievements client:load achievements={recentAchievements} />}
   <News client:load posts={sortedPosts} />
   <div class="px-8">
     <EditOnGitHub filePath="src/pages/index.astro" />
