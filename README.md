@@ -87,7 +87,9 @@ The site deploys two environments from one GitHub Pages site (`.github/workflows
 - **Production**: builds from `main`, served at the site root (`https://se.polinema.ac.id/`).
 - **Beta**: builds from `develop`, served under `https://se.polinema.ac.id/beta/`.
 
-Every push to either branch rebuilds both and redeploys the merged artifact, so the two environments are always in sync with their respective branch tips. A missing or broken `develop` branch never blocks the production deploy (the beta build job is non-blocking).
+A push to `develop` builds only beta and a push to `main` builds only production. Pages publishes one artifact for the whole site, so the other half is reused from the build saved by the last deploy of that branch's current commit (artifact `site-<env>-<sha>`, kept 90 days); if none exists (first run, expired, or the branch moved while a run was queued) it is built too. The two environments therefore always match their branch tips. A missing or broken `develop` branch never blocks the production deploy, and a deploy never goes out without a production build. To force a full rebuild of both, run the workflow manually with `rebuild_all`.
+
+Every pull request into `main` or `develop` is also built by `.github/workflows/pr-check.yml` (validate-publications, `astro check`, `astro build`, with the base path of its target branch). Nothing is deployed from PRs.
 
 Rule for shipping a change:
 
