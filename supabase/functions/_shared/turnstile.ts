@@ -50,3 +50,18 @@ export function corsHeaders(req: Request): Record<string, string> {
 export function jsonResponse(body: unknown, status: number, headers: Record<string, string>): Response {
   return new Response(JSON.stringify(body), { status, headers })
 }
+
+// Optional URL field: blank becomes null, anything that is not an absolute
+// http(s) URL (javascript:, data:, ...) is rejected, since these values end
+// up as <a href> on public pages. Returns undefined when invalid.
+export function httpUrlOrNull(value: string | null | undefined): string | null | undefined {
+  const trimmed = value?.trim()
+  if (!trimmed) return null
+  if (trimmed.length > 500) return undefined
+  try {
+    const { protocol } = new URL(trimmed)
+    return protocol === 'http:' || protocol === 'https:' ? trimmed : undefined
+  } catch {
+    return undefined
+  }
+}
