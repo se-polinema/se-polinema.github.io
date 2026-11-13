@@ -18,7 +18,18 @@ jobs:
     # (e.g. [self-hosted, linux]) if the org has several runners.
     runs-on: self-hosted
     timeout-minutes: 120
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
     steps:
+      - name: Use a writable global git config
+        # The runner's ~/.config/git/config is a read-only home-manager (nix)
+        # symlink; create-pull-request needs `git config --global` to work.
+        run: |
+          touch "$RUNNER_TEMP/gitconfig"
+          echo "GIT_CONFIG_GLOBAL=$RUNNER_TEMP/gitconfig" >> "$GITHUB_ENV"
+
       - uses: actions/checkout@v4
         with:
           # Sync PRs follow the same beta-first flow as every other change.
@@ -86,6 +97,6 @@ jobs:
               title: `Update Publications workflow failed on ${new Date().toISOString().split('T')[0]}`,
               body: `The [Update Publications workflow](${process.env.GITHUB_SERVER_URL}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) failed.
 
-            Please review the logs and create a `/plan` comment on this issue to resolve it.`,
+            Please review the logs and create a \`/plan\` comment on this issue to resolve it.`,
               labels: ['automated']
             })
