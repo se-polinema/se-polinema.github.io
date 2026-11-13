@@ -73,7 +73,12 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'bad_request' }, 400, headers)
   }
 
-  if (!payload.title?.trim() || !payload.brief?.trim()) {
+  // Size caps: any signed-in user can call this and it spends the paid AI quota.
+  if (
+    !payload.title?.trim() || !payload.brief?.trim() ||
+    payload.title.length > 200 || payload.brief.length > 2000 ||
+    (payload.repo_url?.length ?? 0) > 500
+  ) {
     return jsonResponse({ error: 'invalid_request' }, 400, headers)
   }
 
