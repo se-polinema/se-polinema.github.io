@@ -100,6 +100,11 @@ node scripts/update-publications.mjs
   (same shape as below); falls back gracefully per-researcher if Google Scholar
   blocks a request (stores zero values + an `_error` field, never crashes the sync)
 - Rate-limited: 5-second delay between researcher fetches, 15s timeout, 2 retries
+  on the author fetch. The per-publication `fill()` request (needed for authors,
+  venue, and the publisher URL) runs only for publications that are new or still
+  carry a Scholar URL, with a 10-30s jittered delay and 60s/120s/240s backoff. Three
+  publications in a row failing all retries trips a circuit breaker that skips
+  further `fill()` calls for the run (metrics and citations are still saved).
 
 **`_scholar-metrics.json` shape:**
 
