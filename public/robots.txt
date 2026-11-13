@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /account/
+Disallow: /login/
+Disallow: /register/
+
+Sitemap: https://se.polinema.ac.id/sitemap-index.xml

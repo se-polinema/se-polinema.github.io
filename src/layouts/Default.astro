@@ -22,14 +22,18 @@ const {
   lang = 'en',
 } = Astro.props as Props
 
-const fullTitle = `${title} | SE Lab — JTI Polinema`
-const siteName = 'SE Lab — JTI Polinema'
+// Many pages already end their title with "— SE Lab"; strip that so the
+// site suffix is not doubled.
+const pageTitle = title.replace(/\s+[—|-]\s+SE Lab.*$/, '')
+const fullTitle = `${pageTitle} | SE Lab JTI Polinema`
+const siteName = 'SE Lab JTI Polinema'
 const ogLocale = lang === 'id' ? 'id_ID' : 'en_US'
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const canonical = new URL(Astro.url.pathname, origin).href
-const ogImage = image ?? '/og-default.svg'
+// Social platforms do not render SVG share images, hence a PNG default.
+const ogImage = image ?? '/og-default.png'
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(withBase(ogImage), origin).href
-const twitterCard = image ? 'summary_large_image' : 'summary'
+const twitterCard = 'summary_large_image'
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
@@ -79,7 +83,7 @@ const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
     <link rel="alternate" type="application/rss+xml" title="SE Lab Blog" href={withBase('/rss.xml')} />
     <link rel="alternate" type="application/rss+xml" title="SE Lab Publications" href={withBase('/publications.xml')} />
 
-    {!IS_BASE_DEPLOY && <link rel="sitemap" type="application/xml" href="/sitemap.xml" />}
+    {!IS_BASE_DEPLOY && <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />}
 
     <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon.png')} />
@@ -179,7 +183,7 @@ const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
     </script>
   </head>
   <body>
-    <a href="#hero" class="skip-to-content">Skip to content</a>
+    <a href="#editor" class="skip-to-content">Skip to content</a>
     <AnnouncementBanner client:load />
     <slot />
     <CookieConsent client:load />

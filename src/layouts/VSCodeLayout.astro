@@ -75,7 +75,7 @@ const { title, description, image, type, lang } = Astro.props
           The gutter is absolutely positioned inside .editor-wrap, which is driven by content height,
           so the gutter never makes the page taller than the content itself.
         -->
-        <main id="editor" class="flex-1 overflow-y-auto bg-white dark:bg-gray-900">
+        <main id="editor" tabindex="-1" class="flex-1 overflow-y-auto bg-white dark:bg-gray-900">
           <div class="editor-wrap">
             <!-- Line-number gutter -->
             <div class="editor-gutter" id="editor-gutter" aria-hidden="true">
