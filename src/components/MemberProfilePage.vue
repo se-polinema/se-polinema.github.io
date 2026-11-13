@@ -10,7 +10,7 @@
 
     <template v-else>
       <a
-        :href="member.status === 'alumni' ? '/members?filter=alumni' : '/members?filter=students'"
+        :href="withBase(member.status === 'alumni' ? '/members?filter=alumni' : '/members?filter=students')"
         class="inline-flex items-center gap-1 text-sm font-mono text-primary/50 dark:text-gray-400 hover:text-primary dark:hover:text-gray-100 transition-colors mb-6"
       >
         ← {{ t.memberProfile.backToMembers }}
@@ -129,6 +129,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { withBase } from '../lib/paths'
 import research from '../data/research.json'
 
 interface MemberRow {
