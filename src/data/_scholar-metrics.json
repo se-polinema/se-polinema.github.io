@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-07-17T00:25:05.761Z",
+  "lastUpdated": "2026-11-13T07:29:59.081Z",
   "labMetrics": {
-    "totalCitations": 1348,
-    "totalCitations5y": 1081,
-    "totalCitedPublications": 0,
-    "totalPublicationCitations": 0,
-    "avgCitationsPerPublication": 0
+    "totalCitations": 1404,
+    "totalCitations5y": 1139,
+    "totalCitedPublications": 72,
+    "totalPublicationCitations": 302,
+    "avgCitationsPerPublication": 4.19
   },
   "researcherMetrics": [
     {
       "researcher": "ariadi-retno-tri-hayati-ririd",
       "name": "Ariadi Retno Tri Hayati Ririd",
       "scholarId": "qoWiXaQAAAAJ",
-      "citedby": 30,
-      "citedby5y": 21,
+      "citedby": 32,
+      "citedby5y": 22,
       "hindex": 4,
       "hindex5y": 3,
       "i10index": 1,
@@ -23,10 +23,10 @@
       "researcher": "dian-hanifudin-subhi",
       "name": "Dian Hanifudin Subhi",
       "scholarId": "pR2Dn7MAAAAJ",
-      "citedby": 65,
-      "citedby5y": 58,
+      "citedby": 70,
+      "citedby5y": 62,
       "hindex": 4,
-      "hindex5y": 3,
+      "hindex5y": 4,
       "i10index": 1,
       "i10index5y": 1
     },
@@ -34,47 +34,469 @@
       "researcher": "elok-nur-hamdana",
       "name": "Elok Nur Hamdana",
       "scholarId": "cduv_fAAAAAJ",
-      "citedby": 209,
-      "citedby5y": 188,
+      "citedby": 235,
+      "citedby5y": 218,
       "hindex": 8,
       "hindex5y": 8,
-      "i10index": 6,
-      "i10index5y": 6
+      "i10index": 5,
+      "i10index5y": 4
     },
     {
       "researcher": "imam-fahrur-rozi",
       "name": "Imam Fahrur Rozi",
       "scholarId": "WwrDWnEAAAAJ",
-      "citedby": 622,
-      "citedby5y": 437,
-      "hindex": 10,
+      "citedby": 644,
+      "citedby5y": 460,
+      "hindex": 11,
       "hindex5y": 9,
       "i10index": 11,
-      "i10index5y": 8
+      "i10index5y": 9
     },
     {
       "researcher": "moch-zawaruddin-abdullah",
       "name": "Moch. Zawaruddin Abdullah",
       "scholarId": "0uPC_KcAAAAJ",
-      "citedby": 217,
-      "citedby5y": 203,
+      "citedby": 227,
+      "citedby5y": 212,
       "hindex": 7,
       "hindex5y": 7,
-      "i10index": 3,
-      "i10index5y": 3
+      "i10index": 4,
+      "i10index5y": 4
     },
     {
       "researcher": "ridwan-rismanto",
       "name": "Ridwan Rismanto",
       "scholarId": "fJc_GegAAAAJ",
-      "citedby": 205,
-      "citedby5y": 174,
+      "citedby": 196,
+      "citedby5y": 165,
       "hindex": 8,
       "hindex5y": 7,
       "i10index": 5,
       "i10index5y": 4
     }
   ],
-  "publicationCitations": {},
-  "mostCitedPublications": []
+  "publicationCitations": {
+    "pelatihan dan pembangunan animasi construct berbasis web dengan tematik lingkungan sekitar di tk arrohmah karangjuwet-2025": {
+      "title": "PELATIHAN DAN PEMBANGUNAN ANIMASI CONSTRUCT BERBASIS WEB DENGAN TEMATIK LINGKUNGAN SEKITAR DI TK ARROHMAH KARANGJUWET",
+      "year": 2025,
+      "citedByCount": 0
+    },
+    "sentiment analysis of visitor reviews on google maps at kampung coklat tourism-2025": {
+      "title": "Sentiment analysis of visitor reviews on Google Maps at Kampung Coklat Tourism",
+      "year": 2025,
+      "citedByCount": 6
+    },
+    "building accounting cost production using analytic network process and full costing method for leather industry craft in malang-2025": {
+      "title": "Building Accounting Cost Production Using Analytic Network Process and Full Costing Method for Leather Industry Craft in Malang",
+      "year": 2025,
+      "citedByCount": 0
+    },
+    "pembangunan dan pelatihan aplikasi katalog dan pemesanan ukm kerajinan kulit suyteestore karangploso berbasis web-2024": {
+      "title": "PEMBANGUNAN DAN PELATIHAN APLIKASI KATALOG DAN PEMESANAN UKM KERAJINAN KULIT SUYTEESTORE KARANGPLOSO BERBASIS WEB",
+      "year": 2024,
+      "citedByCount": 0
+    },
+    "tool image searching based canopy k means clustering using web programming study case mnc publishing-2024": {
+      "title": "Tool Image Searching Based Canopy K Means Clustering Using Web Programming Study Case MNC Publishing",
+      "year": 2024,
+      "citedByCount": 0
+    },
+    "membandingkan analisa kesalahan metode kmeans clustering dan canopy kmeans clustering dengan data gambar terfilter-2024": {
+      "title": "Membandingkan Analisa Kesalahan Metode K-Means Clustering dan Canopy K-Means Clustering Dengan Data Gambar Terfilter",
+      "year": 2024,
+      "citedByCount": 0
+    },
+    "implementasi aplikasi bantuan sebagai pemahaman pengguna pada web ukm suyteestore-2024": {
+      "title": "IMPLEMENTASI APLIKASI BANTUAN SEBAGAI PEMAHAMAN PENGGUNA PADA WEB UKM SUYTEESTORE",
+      "year": 2024,
+      "citedByCount": 0
+    },
+    "aplikasi dataset filter gambar berwarna data cover buku di mnc publishing berbasis program php hypertext prepocessor-2023": {
+      "title": "Aplikasi Dataset Filter Gambar Berwarna Data Cover Buku di MNC Publishing Berbasis Program PHP Hypertext Prepocessor",
+      "year": 2023,
+      "citedByCount": 0
+    },
+    "desain dan analisa pengklasifikasian data wajah menggunakan metode incremental radial basis function dengan modifikasi unit hidden-2021": {
+      "title": "Desain dan Analisa Pengklasifikasian Data Wajah Menggunakan Metode Incremental Radial Basis Function dengan Modifikasi Unit Hidden",
+      "year": 2021,
+      "citedByCount": 0
+    },
+    "simulasi grafik bangun ruang dengan scilab-2021": {
+      "title": "Simulasi Grafik Bangun Ruang dengan  Scilab",
+      "year": 2021,
+      "citedByCount": 0
+    },
+    "analisis sentimen opini masyarakat terhadap pembangunan infrastruktur kota malang melalui twiter dengan menggunakan metode support vector machine-2020": {
+      "title": "Analisis Sentimen Opini Masyarakat Terhadap Pembangunan Infrastruktur Kota Malang Melalui Twiter Dengan Menggunakan Metode Support Vector Machine",
+      "year": 2020,
+      "citedByCount": 2
+    },
+    "comparison of result clustering study case posyandu with the scalable k means clustering method-2020": {
+      "title": "Comparison of Result Clustering Study Case  Posyandu With The Scalable K Means ++  Clustering Method",
+      "year": 2020,
+      "citedByCount": 2
+    },
+    "analisa different inertia weight untuk optimasi feature selection dengan particle swarm optimization with time varying acceleration ant colony clustering dokumen teks indonesia-2019": {
+      "title": "ANALISA DIFFERENT INERTIA WEIGHT UNTUK OPTIMASI FEATURE SELECTION DENGAN PARTICLE SWARM OPTIMIZATION WITH TIME VARYING ACCELERATION ANT COLONY CLUSTERING DOKUMEN TEKS INDONESIA",
+      "year": 2019,
+      "citedByCount": 0
+    },
+    "micro expression comparison of speed and marking accuracy in facial component detection-2018": {
+      "title": "Micro Expression: Comparison of Speed and Marking Accuracy in Facial Component Detection",
+      "year": 2018,
+      "citedByCount": 10
+    },
+    "pengaruh variable acceleration factor pada pengelompokan dokumen text berbahasa indonesia dengan darwinian particle swarm optimization ant colony clustering-2017": {
+      "title": "PENGARUH VARIABLE ACCELERATION FACTOR PADA PENGELOMPOKAN DOKUMEN TEXT BERBAHASA INDONESIA DENGAN DARWINIAN PARTICLE SWARM OPTIMIZATION ANT COLONY CLUSTERING",
+      "year": 2017,
+      "citedByCount": 0
+    },
+    "sistem pakar diagnosa 33 macam penyakit kulit dan kelamin dengan metode fuzzy inference tsukamoto-2016": {
+      "title": "Sistem Pakar Diagnosa 33 Macam Penyakit Kulit Dan Kelamin Dengan Metode Fuzzy Inference Tsukamoto",
+      "year": 2016,
+      "citedByCount": 6
+    },
+    "optimasi metode discriminatively regularized least square classification dengan algoritma genetika-2010": {
+      "title": "Optimasi Metode Discriminatively Regularized Least Square Classification Dengan Algoritma Genetika",
+      "year": 2010,
+      "citedByCount": 0
+    },
+    "analisa pengembangan model kualitas berstruktur hirarki dengan kustomisasi iso 9126 untuk evaluasi aplikasi perangkat lunak b2b-2009": {
+      "title": "Analisa Pengembangan Model Kualitas Berstruktur Hirarki Dengan Kustomisasi Iso 9126 Untuk Evaluasi Aplikasi Perangkat Lunak B2B",
+      "year": 2009,
+      "citedByCount": 4
+    },
+    "pelatihan dan pembuatan brosur untuk meningkatkan penjualan produk umkm desa wringinsongo kecamatan tumpang kabupaten malang-2026": {
+      "title": "Pelatihan dan Pembuatan Brosur untuk Meningkatkan Penjualan Produk UMKM Desa Wringinsongo Kecamatan Tumpang Kabupaten Malang",
+      "year": 2026,
+      "citedByCount": 0
+    },
+    "evaluasi penilaian otomatis pemrograman web laravel pada platform laiba-2025": {
+      "title": "Evaluasi Penilaian Otomatis Pemrograman Web Laravel pada Platform LAIBA",
+      "year": 2025,
+      "citedByCount": 0
+    },
+    "inovasi pengelolaan lomba pramuka berbasis website dalam rangka penerapan konsep smart school-2025": {
+      "title": "Inovasi Pengelolaan Lomba Pramuka Berbasis Website dalam Rangka Penerapan Konsep Smart School.",
+      "year": 2025,
+      "citedByCount": 1
+    },
+    "implementasi clean architecture pada sistem manajemen tiket penanganan insiden-2025": {
+      "title": "Implementasi Clean Architecture pada Sistem Manajemen Tiket Penanganan Insiden",
+      "year": 2025,
+      "citedByCount": 0
+    },
+    "usability evaluation of railway component supply chain management information system using system usability scale-2024": {
+      "title": "Usability Evaluation of Railway Component Supply Chain Management Information System Using System Usability Scale",
+      "year": 2024,
+      "citedByCount": 0
+    },
+    "sistem penentu penerimaan bantuan sosial bltdd untuk keluarga kurang mampu-2024": {
+      "title": "Sistem Penentu Penerimaan Bantuan Sosial (BLT-DD) untuk Keluarga Kurang Mampu",
+      "year": 2024,
+      "citedByCount": 0
+    },
+    "penerapan metode waspas pada sistem pendukung keputusan pemilihan perusahaan sekuritas-2024": {
+      "title": "Penerapan Metode WASPAS pada Sistem Pendukung Keputusan Pemilihan Perusahaan Sekuritas",
+      "year": 2024,
+      "citedByCount": 1
+    },
+    "a scalable simulation testbed for oran-2023": {
+      "title": "A Scalable Simulation Testbed for O-RAN",
+      "year": 2023,
+      "citedByCount": 0
+    },
+    "pelatihan kemasan produk anyaman bambu untuk pengaruh display produk dalam promosi terhadap pembelian konsumen di desa duwet kecamatan tumpang kabupaten malang-2022": {
+      "title": "Pelatihan Kemasan Produk Anyaman Bambu Untuk Pengaruh Display Produk Dalam Promosi Terhadap Pembelian Konsumen Di Desa Duwet Kecamatan Tumpang Kabupaten Malang",
+      "year": 2022,
+      "citedByCount": 0
+    },
+    "sistem kontrol dan pemberitahuan status peladen jarak jauh berbasis chatbot-2021": {
+      "title": "SISTEM KONTROL DAN PEMBERITAHUAN STATUS PELADEN JARAK JAUH BERBASIS CHATBOT",
+      "year": 2021,
+      "citedByCount": 0
+    },
+    "pengembangan analisis sentimen pada twitter untuk layanan ojek online menggunakan rule based-2020": {
+      "title": "Pengembangan Analisis Sentimen Pada Twitter Untuk Layanan Ojek Online Menggunakan Rule Based",
+      "year": 2020,
+      "citedByCount": 4
+    },
+    "simulasi pembelajaran berternak burung puyuh menggunakan metode finite state machine berbasis android-2019": {
+      "title": "Simulasi Pembelajaran Berternak Burung Puyuh Menggunakan Metode Finite State Machine Berbasis Android",
+      "year": 2019,
+      "citedByCount": 4
+    },
+    "pendistribusian elpiji menggunakan metode floyd warshall studi kasus pt sulusindo innovative-2019": {
+      "title": "PENDISTRIBUSIAN ELPIJI MENGGUNAKAN METODE FLOYD WARSHALL (Studi Kasus: PT Sulusindo Innovative)",
+      "year": 2019,
+      "citedByCount": 3
+    },
+    "implementasi sentimen analisis komentar channel video pelayanan pemerintah di youtube menggunakan algoritma nave bayes-2019": {
+      "title": "Implementasi sentimen analisis komentar channel video pelayanan pemerintah di Youtube menggunakan algoritma Naïve Bayes",
+      "year": 2019,
+      "citedByCount": 40
+    },
+    "sistem analisis jumlah kunjungan wisatawan pada hawai waterpark malang menggunakan metode least square weighted moving average-2019": {
+      "title": "Sistem Analisis Jumlah Kunjungan Wisatawan pada Hawai Waterpark Malang Menggunakan Metode Least Square & Weighted Moving Average",
+      "year": 2019,
+      "citedByCount": 2
+    },
+    "implementasi metode fuzzy multiple attribute decision makingweighted product untuk penentuan bonus karyawan-2019": {
+      "title": "Implementasi Metode Fuzzy Multiple Attribute Decision Making–Weighted Product Untuk Penentuan Bonus Karyawan",
+      "year": 2019,
+      "citedByCount": 0
+    },
+    "implementasi semantic web pada pencarian makalah skripsi di jti polinema-2018": {
+      "title": "IMPLEMENTASI SEMANTIC WEB PADA PENCARIAN MAKALAH SKRIPSI DI JTI POLINEMA",
+      "year": 2018,
+      "citedByCount": 0
+    },
+    "pengembangan game marine ecosystem hero menggunakan fuzzy logic-2017": {
+      "title": "Pengembangan Game Marine Ecosystem Hero Menggunakan Fuzzy Logic",
+      "year": 2017,
+      "citedByCount": 1
+    },
+    "efisiensi tracking multi target dengan model interaksi publishsubscribe adaptif pada lingkungan bergerak-2016": {
+      "title": "Efisiensi Tracking Multi Target dengan Model Interaksi Publish-Subscribe Adaptif pada Lingkungan Bergerak",
+      "year": 2016,
+      "citedByCount": 1
+    },
+    "levenshtein and similar text php functions for correcting typographical errors-2026": {
+      "title": "Levenshtein and Similar Text PHP Functions for Correcting Typographical Errors",
+      "year": 2026,
+      "citedByCount": 0
+    },
+    "peningkatan brand awareness melalui redesain kemasan pendampingan umkm pandawa food cookies bunulrejo-2026": {
+      "title": "PENINGKATAN BRAND AWARENESS MELALUI REDESAIN KEMASAN: PENDAMPINGAN UMKM PANDAWA FOOD & COOKIES BUNULREJO",
+      "year": 2026,
+      "citedByCount": 0
+    },
+    "pengembangan alat peraga edukatif untuk guru kbtk persatuan istri guru malang-2026": {
+      "title": "Pengembangan Alat Peraga Edukatif untuk Guru KB-TK Persatuan Istri Guru Malang",
+      "year": 2026,
+      "citedByCount": 0
+    },
+    "penerapan teknologi cloud untuk pengembangan website resmi yayasan pendidikan daarul faroh solihin-2025": {
+      "title": "Penerapan Teknologi Cloud Untuk Pengembangan Website Resmi Yayasan Pendidikan Daarul Faroh Solihin",
+      "year": 2025,
+      "citedByCount": 2
+    },
+    "monitoring suhu dan gas amonia untuk kandang close house-2025": {
+      "title": "Monitoring Suhu dan Gas Amonia untuk Kandang Close House",
+      "year": 2025,
+      "citedByCount": 0
+    },
+    "optimalisasi produksi dan pemasaran jamu tradisional melalui dehydrator pencacah jamu dan digital marketing pengabdian-2025": {
+      "title": "Optimalisasi Produksi dan Pemasaran Jamu Tradisional melalui Dehydrator, Pencacah Jamu, dan Digital Marketing: Pengabdian",
+      "year": 2025,
+      "citedByCount": 3
+    },
+    "realtime evaluation of clientside dtln noise suppression for webrtc in diverse noise environments-2025": {
+      "title": "Real-Time Evaluation of Client-Side DTLN Noise Suppression for WebRTC in Diverse Noise Environments",
+      "year": 2025,
+      "citedByCount": 1
+    },
+    "pengembangan aplikasi absensi berbasis website sebagai solusi administrasi di smk widyagama-2025": {
+      "title": "Pengembangan Aplikasi Absensi Berbasis Website sebagai Solusi Administrasi di SMK Widyagama",
+      "year": 2025,
+      "citedByCount": 1
+    },
+    "penerapan metode electre untuk optimalisasi sistem rekomendasi dalam pemilihan topik skripsi-2025": {
+      "title": "PENERAPAN METODE ELECTRE UNTUK OPTIMALISASI SISTEM REKOMENDASI DALAM PEMILIHAN TOPIK SKRIPSI",
+      "year": 2025,
+      "citedByCount": 0
+    },
+    "pengembangan aplikasi helpdesk ticketing system berbasis framework laravel-2025": {
+      "title": "Pengembangan Aplikasi Helpdesk Ticketing System Berbasis Framework Laravel",
+      "year": 2025,
+      "citedByCount": 4
+    },
+    "penilaian ecommerce terbaik menggunakan metode kombinasi smart dan topsis berbasis web-2025": {
+      "title": "PENILAIAN E-COMMERCE TERBAIK MENGGUNAKAN METODE KOMBINASI SMART DAN TOPSIS BERBASIS WEB",
+      "year": 2025,
+      "citedByCount": 1
+    },
+    "implementasi sistem erp modul pos dan manajemen karyawan di kbtk alfath malang-2024": {
+      "title": "Implementasi Sistem ERP Modul Pos Dan Manajemen Karyawan di KB/TK Alfath Malang",
+      "year": 2024,
+      "citedByCount": 0
+    },
+    "pengembangan wearable heart rate monitoring system berbasis iot-2024": {
+      "title": "Pengembangan Wearable Heart Rate Monitoring System Berbasis IoT",
+      "year": 2024,
+      "citedByCount": 2
+    },
+    "perancangan platform pembelajaran kelas online untuk mamina mom dan baby treatment malang-2023": {
+      "title": "Perancangan Platform Pembelajaran Kelas Online untuk Mamina Mom dan Baby Treatment Malang",
+      "year": 2023,
+      "citedByCount": 0
+    },
+    "development of learning innovation using augmented reality technology with a learning management system as a learning supplement-2023": {
+      "title": "Development of learning innovation using augmented reality technology with a learning management system as a learning supplement",
+      "year": 2023,
+      "citedByCount": 4
+    },
+    "natural language processing based chatbot for customer support system on higher education institution-2023": {
+      "title": "Natural language processing based chatbot for customer support system on higher education institution",
+      "year": 2023,
+      "citedByCount": 3
+    },
+    "rancang bangun dan implementasi aplikasi internal meeting-2023": {
+      "title": "Rancang Bangun dan Implementasi Aplikasi Internal Meeting",
+      "year": 2023,
+      "citedByCount": 9
+    },
+    "performance testing sistem ujian online menggunakan jmeter pada lingkungan virtual-2023": {
+      "title": "Performance testing sistem ujian online menggunakan jmeter pada lingkungan virtual",
+      "year": 2023,
+      "citedByCount": 36
+    },
+    "pemberdayaan ibuibu pkk bunulrejo dalam kerajinan kreatif rumah tangga serta pemasaran online-2023": {
+      "title": "Pemberdayaan Ibu-Ibu PKK Bunulrejo Dalam Kerajinan Kreatif Rumah Tangga Serta Pemasaran Online",
+      "year": 2023,
+      "citedByCount": 6
+    },
+    "penerapan metode waspas pada sistem pendukung keputusan penentuan tempat wisata kuliner-2023": {
+      "title": "Penerapan Metode WASPAS Pada Sistem Pendukung Keputusan Penentuan Tempat Wisata Kuliner",
+      "year": 2023,
+      "citedByCount": 4
+    },
+    "sistem informasi sekolah kbtk alfath bunulrejo malang-2022": {
+      "title": "Sistem Informasi Sekolah KB/TK Alfath Bunulrejo Malang",
+      "year": 2022,
+      "citedByCount": 9
+    },
+    "pembuatan sistem informasi untuk yayasan anak yatim at taufiq malang-2022": {
+      "title": "Pembuatan Sistem Informasi Untuk Yayasan Anak Yatim At Taufiq Malang",
+      "year": 2022,
+      "citedByCount": 5
+    },
+    "design online learning system for kampus merdeka a case study web programming course-2021": {
+      "title": "Design online learning system for kampus merdeka: A case study web programming course",
+      "year": 2021,
+      "citedByCount": 6
+    },
+    "analisis penentuan lokasi user station menggunakan signal strength di jaringan seluler-2021": {
+      "title": "ANALISIS PENENTUAN LOKASI USER STATION MENGGUNAKAN SIGNAL STRENGTH di JARINGAN SELULER",
+      "year": 2021,
+      "citedByCount": 0
+    },
+    "pelatihan pembuatan video pembelajaran bagi guru kbtk alfath bunulrejo kota malang-2021": {
+      "title": "Pelatihan Pembuatan Video Pembelajaran Bagi Guru KB/TK Alfath Bunulrejo Kota Malang",
+      "year": 2021,
+      "citedByCount": 3
+    },
+    "pengembangan sistem analisis sentimen berbasis java pada data twitter terhadap omnibus law menggunakan algoritma nave bayes dan knearst neighbor knn-2021": {
+      "title": "Pengembangan Sistem Analisis Sentimen Berbasis Java Pada Data Twitter Terhadap Omnibus Law Menggunakan Algoritma Naïve Bayes dan K-Nearst Neighbor (K-NN)",
+      "year": 2021,
+      "citedByCount": 13
+    },
+    "comparison of feature extraction in support vector machine svm based sentiment analysis system-2025": {
+      "title": "Comparison of feature extraction in support vector machine (SVM) based sentiment analysis system",
+      "year": 2025,
+      "citedByCount": 7
+    },
+    "enhancing aspectbased sentiment analysis for radio station public opinion evaluating preprocessing strategies and imbalanced data handling-2024": {
+      "title": "Enhancing Aspect-Based Sentiment Analysis for Radio Station Public Opinion: Evaluating Preprocessing Strategies and Imbalanced Data Handling",
+      "year": 2024,
+      "citedByCount": 2
+    },
+    "fake news detection using sentiment analysis approach in indonesian language-2023": {
+      "title": "Fake news detection using sentiment analysis approach in Indonesian language",
+      "year": 2023,
+      "citedByCount": 14
+    },
+    "the development of meta data extractor plugin for open journal system-2024": {
+      "title": "The Development of Meta data Extractor Plugin for Open Journal System",
+      "year": 2024,
+      "citedByCount": 5
+    },
+    "google trends and technical indicator based machine learning for stock market prediction-2023": {
+      "title": "Google trends and technical indicator based machine learning for stock market prediction",
+      "year": 2023,
+      "citedByCount": 14
+    },
+    "sentence extraction based on sentence distribution and part of speech tagging for multidocument summarization-2018": {
+      "title": "Sentence Extraction Based on Sentence Distribution and Part of Speech Tagging for Multi-Document Summarization",
+      "year": 2018,
+      "citedByCount": 16
+    },
+    "the evaluation of concept map recomposition order and its effect on learning outcomes-2026": {
+      "title": "The evaluation of concept map recomposition order and its effect on learning outcomes",
+      "year": 2026,
+      "citedByCount": 1
+    },
+    "evaluating the kitbuild concept mapping process using submap scoring-2024": {
+      "title": "Evaluating the kit-build concept mapping process using sub-map scoring",
+      "year": 2024,
+      "citedByCount": 16
+    },
+    "research supervisor recommendation system based on topic conformity-2020": {
+      "title": "Research supervisor recommendation system based on topic conformity",
+      "year": 2020,
+      "citedByCount": 28
+    }
+  },
+  "mostCitedPublications": [
+    {
+      "key": "implementasi sentimen analisis komentar channel video pelayanan pemerintah di youtube menggunakan algoritma nave bayes-2019",
+      "title": "Implementasi sentimen analisis komentar channel video pelayanan pemerintah di Youtube menggunakan algoritma Naïve Bayes",
+      "year": 2019,
+      "citedByCount": 40
+    },
+    {
+      "key": "performance testing sistem ujian online menggunakan jmeter pada lingkungan virtual-2023",
+      "title": "Performance testing sistem ujian online menggunakan jmeter pada lingkungan virtual",
+      "year": 2023,
+      "citedByCount": 36
+    },
+    {
+      "key": "research supervisor recommendation system based on topic conformity-2020",
+      "title": "Research supervisor recommendation system based on topic conformity",
+      "year": 2020,
+      "citedByCount": 28
+    },
+    {
+      "key": "sentence extraction based on sentence distribution and part of speech tagging for multidocument summarization-2018",
+      "title": "Sentence Extraction Based on Sentence Distribution and Part of Speech Tagging for Multi-Document Summarization",
+      "year": 2018,
+      "citedByCount": 16
+    },
+    {
+      "key": "evaluating the kitbuild concept mapping process using submap scoring-2024",
+      "title": "Evaluating the kit-build concept mapping process using sub-map scoring",
+      "year": 2024,
+      "citedByCount": 16
+    },
+    {
+      "key": "fake news detection using sentiment analysis approach in indonesian language-2023",
+      "title": "Fake news detection using sentiment analysis approach in Indonesian language",
+      "year": 2023,
+      "citedByCount": 14
+    },
+    {
+      "key": "google trends and technical indicator based machine learning for stock market prediction-2023",
+      "title": "Google trends and technical indicator based machine learning for stock market prediction",
+      "year": 2023,
+      "citedByCount": 14
+    },
+    {
+      "key": "pengembangan sistem analisis sentimen berbasis java pada data twitter terhadap omnibus law menggunakan algoritma nave bayes dan knearst neighbor knn-2021",
+      "title": "Pengembangan Sistem Analisis Sentimen Berbasis Java Pada Data Twitter Terhadap Omnibus Law Menggunakan Algoritma Naïve Bayes dan K-Nearst Neighbor (K-NN)",
+      "year": 2021,
+      "citedByCount": 13
+    },
+    {
+      "key": "micro expression comparison of speed and marking accuracy in facial component detection-2018",
+      "title": "Micro Expression: Comparison of Speed and Marking Accuracy in Facial Component Detection",
+      "year": 2018,
+      "citedByCount": 10
+    },
+    {
+      "key": "rancang bangun dan implementasi aplikasi internal meeting-2023",
+      "title": "Rancang Bangun dan Implementasi Aplikasi Internal Meeting",
+      "year": 2023,
+      "citedByCount": 9
+    }
+  ]
 }
