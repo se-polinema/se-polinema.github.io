@@ -48,7 +48,7 @@ books:
     descriptionId: "Struktur data bukan sekadar istilah teknis dalam dunia komputasi. Ia adalah cara berpikir. Buku Penuntun Praktikum Struktur Data hadir sebagai sahabat belajar yang mengajak pembaca menelusuri fondasi penting dalam pemrograman dengan alur yang runtut, jernih, dan membumi. Pembahasan dimulai dari class dan objek, pengelolaan array, pencarian dan pengurutan (sequential search, bubble sort, selection sort, insertion sort, merge sort), stack dan queue, linked list, binary tree, binary search tree, hingga graph."
   - title: "Animasi Blender: Sebuah Pengantar"
     url: "https://polinemapress21.com/produk/animasi-blender-sebuah-pengantar/"
-    coverImage: "/images/books/animasi-blender-sebuah-pengantar.png"
+    coverImage: "/images/books/animasi-blender-sebuah-pengantar.webp"
     year: 2019
     isbn: "978-623-7408-74-1"
     description: "An inviting introduction to 3D animation using Blender, starting from workspace orientation through practical projects: modeling a simple cart, a teddy bear character, a dancing can, and a traffic light scene. Uses storytelling to teach form, texture, and motion with an intuitive, creative approach suitable for readers of all backgrounds."

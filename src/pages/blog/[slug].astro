@@ -218,11 +218,11 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
         seriesTitleId={seriesTitleId}
       />
       <CodeCopyButtons client:load />
-      <ShareButtons client:load url={postUrl} title={title} description={post.data.excerpt} lang={post.data.lang as 'en' | 'id'} />
+      <ShareButtons client:visible url={postUrl} title={title} description={post.data.excerpt} lang={post.data.lang as 'en' | 'id'} />
       <EditOnGitHub filePath={`src/content/blog/${post.id}.md`} />
-      <RelatedContent client:load items={relatedItems} context="blog" />
-      <PageComments client:load slug={post.id} contentLang={post.data.lang as 'en' | 'id'} />
-      <PageFeedback client:load pageType={category === 'tutorial' ? 'tutorial' : 'blog'} slug={post.id} contentLang={post.data.lang as 'en' | 'id'} />
+      <RelatedContent client:visible items={relatedItems} context="blog" />
+      <PageComments client:visible slug={post.id} contentLang={post.data.lang as 'en' | 'id'} />
+      <PageFeedback client:visible pageType={category === 'tutorial' ? 'tutorial' : 'blog'} slug={post.id} contentLang={post.data.lang as 'en' | 'id'} />
       <script>
         // ── PlantUML diagram viewer ───────────────────────────────────────
         // Diagrams are rendered as inline SVG at build time by the rehype-plantuml
