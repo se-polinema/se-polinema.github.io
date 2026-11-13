@@ -2,13 +2,25 @@ name: Deploy to GitHub Pages
 
 # Production builds from main and serves at the site root. Beta builds from
 # develop and serves under /beta/ on the same Pages site (see BASE_PATH in
-# astro.config.mjs and src/lib/paths.ts). Every push to either branch rebuilds
-# both, so the merged artifact is always current for both environments.
+# astro.config.mjs and src/lib/paths.ts).
+#
+# Pages publishes one artifact for the whole site, but each push only rebuilds
+# its own environment: a push to develop builds beta, a push to main builds
+# prod. The other half is reused from the artifact saved by the last deploy
+# that published it, found by the commit it was built from
+# (site-<env>-<sha>), so a reused half is never stale. If no such artifact
+# exists (first run, expired after 90 days, or the branch moved on while a run
+# was queued) that environment is built as well.
 
 on:
   push:
     branches: [main, develop]
   workflow_dispatch:
+    inputs:
+      rebuild_all:
+        description: Rebuild both environments instead of reusing the last build of the other one
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -20,18 +32,90 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-prod:
+  # Decides which environments to build and which to reuse.
+  plan:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      trigger: ${{ steps.plan.outputs.trigger }}
+      build: ${{ steps.plan.outputs.build }}
+      prod_sha: ${{ steps.plan.outputs.prod_sha }}
+      beta_sha: ${{ steps.plan.outputs.beta_sha }}
+      prod_reuse_run: ${{ steps.plan.outputs.prod_reuse_run }}
+      beta_reuse_run: ${{ steps.plan.outputs.beta_reuse_run }}
+    steps:
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          REF_NAME: ${{ github.ref_name }}
+          REBUILD_ALL: ${{ inputs.rebuild_all }}
+        run: |
+          set -euo pipefail
+
+          case "$REF_NAME" in
+            main) trigger=prod ;;
+            develop) trigger=beta ;;
+            *) trigger=both ;;
+          esac
+          [ "$REBUILD_ALL" = "true" ] && trigger=both
+
+          build=()
+          for env in prod beta; do
+            branch=main
+            [ "$env" = beta ] && branch=develop
+
+            # Pin to the branch head as of now so the build and the artifact
+            # name refer to the same commit.
+            sha=$(gh api "repos/$REPO/branches/$branch" --jq .commit.sha 2>/dev/null || true)
+            reuse=""
+            if [ -z "$sha" ]; then
+              echo "$env: branch $branch not found, skipping"
+            else
+              if [ "$trigger" != both ] && [ "$trigger" != "$env" ]; then
+                reuse=$(gh api "repos/$REPO/actions/artifacts?name=site-$env-$sha" \
+                  --jq '[.artifacts[] | select(.expired == false)][0].workflow_run.id // empty')
+              fi
+              if [ -n "$reuse" ]; then
+                echo "$env: reusing site-$env-$sha from run $reuse"
+              else
+                echo "$env: building $sha"
+                build+=("$env")
+              fi
+            fi
+            echo "${env}_sha=$sha" >> "$GITHUB_OUTPUT"
+            echo "${env}_reuse_run=$reuse" >> "$GITHUB_OUTPUT"
+          done
+
+          echo "trigger=$trigger" >> "$GITHUB_OUTPUT"
+          printf 'build=%s\n' "$(printf '%s\n' "${build[@]:-}" | jq -R . | jq -sc 'map(select(. != ""))')" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: plan
+    if: needs.plan.outputs.build != '[]'
+    runs-on: ubuntu-latest
+    # A broken beta must never block a production deploy, unless beta is what
+    # this run is for. Prod failures always fail the run.
+    continue-on-error: ${{ matrix.env == 'beta' && needs.plan.outputs.trigger != 'beta' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        env: ${{ fromJSON(needs.plan.outputs.build) }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ matrix.env == 'prod' && needs.plan.outputs.prod_sha || needs.plan.outputs.beta_sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run build
+
+      - name: Build prod
+        if: matrix.env == 'prod'
+        run: npm run build
         env:
           PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
@@ -39,29 +123,13 @@ jobs:
           PUBLIC_GISCUS_REPO_ID: ${{ secrets.PUBLIC_GISCUS_REPO_ID }}
           PUBLIC_GISCUS_CATEGORY_ID: ${{ secrets.PUBLIC_GISCUS_CATEGORY_ID }}
           PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.PUBLIC_GOOGLE_ANALYTICS_ID }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dist-prod
-          path: dist
-          retention-days: 1
 
-  # Non-blocking: a broken or missing develop branch must never stop the
-  # production deploy triggered by a push to main.
-  build-beta:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: develop
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-        # No PUBLIC_GOOGLE_ANALYTICS_ID here: beta traffic (already noindexed,
-        # sitemap-less) shouldn't mix into production analytics.
+      # No PUBLIC_GOOGLE_ANALYTICS_ID here: beta traffic (already noindexed,
+      # sitemap-less) shouldn't mix into production analytics. BASE_PATH must
+      # stay unset for prod (an empty string is not "/"), hence two steps.
+      - name: Build beta
+        if: matrix.env == 'beta'
+        run: npm run build
         env:
           BASE_PATH: /beta/
           PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
@@ -69,31 +137,87 @@ jobs:
           PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
           PUBLIC_GISCUS_REPO_ID: ${{ secrets.PUBLIC_GISCUS_REPO_ID }}
           PUBLIC_GISCUS_CATEGORY_ID: ${{ secrets.PUBLIC_GISCUS_CATEGORY_ID }}
+
       - uses: actions/upload-artifact@v4
         with:
-          name: dist-beta
+          name: dist-${{ matrix.env }}
           path: dist
           retention-days: 1
 
   deploy:
-    needs: [build-prod, build-beta]
-    if: always() && needs.build-prod.result == 'success'
+    needs: [plan, build]
+    # `build` is skipped when both halves are reused (not expected, but harmless);
+    # the assemble step below refuses to publish without a prod half.
+    if: ${{ !cancelled() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Each half comes either from this run's build or from the artifact the
+      # last deploy of that commit saved.
       - uses: actions/download-artifact@v4
+        if: contains(fromJSON(needs.plan.outputs.build), 'prod')
         with:
           name: dist-prod
-          path: site
+          path: halves/prod
       - uses: actions/download-artifact@v4
+        if: needs.plan.outputs.prod_reuse_run != ''
+        with:
+          name: site-prod-${{ needs.plan.outputs.prod_sha }}
+          run-id: ${{ needs.plan.outputs.prod_reuse_run }}
+          github-token: ${{ github.token }}
+          path: halves/prod
+      - uses: actions/download-artifact@v4
+        if: contains(fromJSON(needs.plan.outputs.build), 'beta')
         continue-on-error: true
         with:
           name: dist-beta
-          path: site/beta
+          path: halves/beta
+      - uses: actions/download-artifact@v4
+        if: needs.plan.outputs.beta_reuse_run != ''
+        continue-on-error: true
+        with:
+          name: site-beta-${{ needs.plan.outputs.beta_sha }}
+          run-id: ${{ needs.plan.outputs.beta_reuse_run }}
+          github-token: ${{ github.token }}
+          path: halves/beta
+
+      - name: Assemble site
+        run: |
+          # Publishing replaces the whole site, so never deploy without prod.
+          test -f halves/prod/index.html || { echo "::error::No production build available, refusing to deploy"; exit 1; }
+          mkdir -p site
+          cp -a halves/prod/. site/
+          if [ -d halves/beta ] && [ -n "$(ls -A halves/beta)" ]; then
+            mkdir -p site/beta
+            cp -a halves/beta/. site/beta/
+          else
+            echo "::warning::No beta build available, deploying production only"
+          fi
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
       - uses: actions/deploy-pages@v4
         id: deployment
+
+      # Saved only after the deploy succeeded, so site-<env>-<sha> exists iff
+      # that build is (or was) live. Re-saved on every deploy to reset the
+      # 90-day retention of the half that was reused.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-prod-${{ needs.plan.outputs.prod_sha }}
+          path: halves/prod
+          retention-days: 90
+      - uses: actions/upload-artifact@v4
+        if: hashFiles('halves/beta/**') != ''
+        with:
+          name: site-beta-${{ needs.plan.outputs.beta_sha }}
+          path: halves/beta
+          retention-days: 90
