@@ -20,10 +20,46 @@ const REQUEST_DELAY_MS = 5000
 // down to individual publications; it only fills author-level fields like
 // h-index). This delay is between those per-publication fill() calls,
 // distinct from REQUEST_DELAY_MS which is between researchers.
-const FILL_DELAY_MS = 2000
+// Jittered so the request cadence doesn't look machine-regular to Scholar.
+const FILL_DELAY_MIN_MS = 10000
+const FILL_DELAY_MAX_MS = 30000
+// A failed fill() is retried with exponential backoff (60s, 120s, 240s).
+const FILL_BACKOFF_MS = [60000, 120000, 240000]
+// After this many publications in a row fail all their retries, Scholar is
+// treated as blocking us: stop filling for the rest of the run (metrics and
+// citations are still recorded) instead of hammering it with more requests.
+const FILL_BLOCK_THRESHOLD = 3
 
 scholarly.setTimeout(15000)
 scholarly.setRetries(2)
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+const jitteredFillDelay = () =>
+  FILL_DELAY_MIN_MS + Math.random() * (FILL_DELAY_MAX_MS - FILL_DELAY_MIN_MS)
+
+const fillStats = { filled: 0, skippedExisting: 0, failed: 0, skippedBlocked: 0 }
+let consecutiveFillFailures = 0
+let scholarBlocked = false
+
+// scholarly.fill() with the library's own immediate retries turned off (they
+// fire within seconds and keep the IP rate-limited) and our own backoff
+// instead. Throws the last error once every attempt has failed.
+async function fillWithBackoff(pub) {
+  scholarly.setRetries(0)
+  try {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        return await scholarly.fill(pub)
+      } catch (err) {
+        if (attempt >= FILL_BACKOFF_MS.length) throw err
+        console.warn(`  fill() failed (${err.message}); retrying in ${FILL_BACKOFF_MS[attempt] / 1000}s`)
+        await sleep(FILL_BACKOFF_MS[attempt])
+      }
+    }
+  } finally {
+    scholarly.setRetries(2)
+  }
+}
 
 function slugify(text) {
   return text
@@ -199,7 +235,7 @@ ${pub.title}
   return frontmatter
 }
 
-async function fetchPublicationsForResearcher(researcher, allResearchers) {
+async function fetchPublicationsForResearcher(researcher, allResearchers, existingKeys, existingByKey) {
   console.log(`Fetching publications for ${researcher.name} (${researcher.slug})...`)
 
   try {
@@ -229,18 +265,37 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
       // fill() is required before bib.author (and pub_url/eprint_url) are
       // populated at all: the unfilled publication object from
       // searchAuthorId() only has title/pub_year/citation, no authors.
-      // This is why the author/venue check below used to skip every
-      // single publication: it was reading an object that never had
-      // authors in the first place. One extra Scholar request per
-      // publication; degrade gracefully (skip via the author check below,
-      // same as always) if it fails rather than aborting the whole sync.
+      // That is one extra Scholar request per publication, so only pay for it
+      // when the result is needed: a publication that is new, or already on
+      // disk but still carrying a Scholar URL that a real publisher link
+      // could replace. Title/year/citations are all on the unfilled object.
+      const rawTitle = (pub.bib?.title || '').trim()
+      const rawYear = pub.bib?.pub_year ? parseInt(pub.bib.pub_year, 10) : null
+      const rawKey = rawTitle && rawYear ? `${normalizeTitle(rawTitle)}-${rawYear}` : null
+      const existingEntry = rawKey ? existingByKey.get(rawKey) : null
+      const needsFill = !rawKey || !existingKeys.has(rawKey) ||
+        (existingEntry && typeof existingEntry.url === 'string' && existingEntry.url.includes('scholar.google.com'))
+
       let filled = pub
-      try {
-        filled = await scholarly.fill(pub)
-      } catch (err) {
-        console.warn(`  Warning: fill() failed for "${(pub.bib?.title || 'untitled').trim()}": ${err.message}`)
+      if (!needsFill) {
+        fillStats.skippedExisting++
+      } else if (scholarBlocked) {
+        fillStats.skippedBlocked++
+      } else {
+        try {
+          filled = await fillWithBackoff(pub)
+          fillStats.filled++
+          consecutiveFillFailures = 0
+        } catch (err) {
+          console.warn(`  Warning: fill() failed for "${rawTitle || 'untitled'}": ${err.message}`)
+          fillStats.failed++
+          if (++consecutiveFillFailures >= FILL_BLOCK_THRESHOLD) {
+            scholarBlocked = true
+            console.warn(`  Scholar appears to be blocking us (${consecutiveFillFailures} fills failed in a row); skipping further fill() calls this run.`)
+          }
+        }
+        await sleep(jitteredFillDelay())
       }
-      await new Promise(resolve => setTimeout(resolve, FILL_DELAY_MS))
 
       const bib = filled.bib || {}
       const title = (bib.title || '').trim()
@@ -258,6 +313,10 @@ async function fetchPublicationsForResearcher(researcher, allResearchers) {
       if (citedByCount != null) {
         citations.push({ key: `${normalizeTitle(title)}-${pubYear}`, title, year: pubYear, citedByCount })
       }
+
+      // Already on disk and nothing to patch: citations are recorded above,
+      // there is nothing else to do with an unfilled result.
+      if (!needsFill) continue
 
       const venue = bib.venue || bib.journal || bib.conference || ''
       const hasVenue = venue.trim().length > 0
@@ -364,7 +423,7 @@ async function main() {
   const allPublicationCitations = {}
 
   for (const researcher of researchers) {
-    const { publications: pubs, metrics, citations } = await fetchPublicationsForResearcher(researcher, researchers)
+    const { publications: pubs, metrics, citations } = await fetchPublicationsForResearcher(researcher, researchers, existingKeys, existingByKey)
     totalFetched += pubs.length
     researcherMetrics.push(metrics)
 
@@ -416,7 +475,9 @@ async function main() {
     }
   }
 
-  console.log(`\nTotal fetched: ${totalFetched} publications across all researchers`)
+  console.log(`\nfill() requests: ${fillStats.filled} filled, ${fillStats.skippedExisting} skipped (already on disk), ` +
+    `${fillStats.failed} failed, ${fillStats.skippedBlocked} not attempted (Scholar blocking)`)
+  console.log(`Total fetched: ${totalFetched} publications across all researchers`)
   console.log(`New publications to add: ${allNew.length}`)
   console.log(`Existing publications patched with a real URL: ${totalPatched}\n`)
 
