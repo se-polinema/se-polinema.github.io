@@ -239,7 +239,7 @@ function onKeydown(e: KeyboardEvent) {
 
 function navigateTo(href: string) {
   emit('close')
-  window.location.href = href
+  window.location.href = withBase(href)
 }
 
 async function loadIndex() {

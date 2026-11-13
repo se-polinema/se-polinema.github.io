@@ -18,3 +18,4 @@ graphify-out/*
 .fit-tmp/
 .fit-shots/
 .voter-shots/
+src/graphify-out/

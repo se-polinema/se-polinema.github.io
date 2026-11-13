@@ -612,7 +612,8 @@
     "streamsLabel": "Stream Riset",
     "submitBtn": "Kirim untuk Ditinjau",
     "submittingLabel": "Mengirim...",
-    "genericError": "Terjadi kesalahan. Silakan coba lagi."
+    "genericError": "Terjadi kesalahan. Silakan coba lagi.",
+    "invalidUrl": "Tautan harus diawali http:// atau https://."
   },
   "members": {
     "heading": "Mahasiswa",
@@ -759,6 +760,7 @@
     "submitBtn": "Kirim untuk Ditinjau",
     "submittingLabel": "Mengirim...",
     "genericError": "Terjadi kesalahan. Silakan coba lagi.",
+    "invalidUrl": "Tautan harus diawali http:// atau https://.",
     "viewLink": "Lihat"
   },
   "membersAdmin": {

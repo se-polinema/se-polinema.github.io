@@ -402,9 +402,19 @@ jobs:
               owner, repo, issue_number: issueNum, per_page: 100
             })
 
+            // Only text written by org members/collaborators (or this workflow's own
+            // bot, which posts the plan) may reach the agent prompt. The agent runs
+            // with shell access, so anything an outsider writes in an issue or comment
+            // would be prompt injection. The person who typed /build is verified
+            // separately in check-auth; that does not make the rest of the thread safe.
+            const isTrusted = o =>
+              ['OWNER', 'MEMBER', 'COLLABORATOR'].includes(o.author_association) ||
+              o.user?.login === 'github-actions[bot]'
+            const issueTrusted = isTrusted(issue)
+
             let allTexts = [
-              { body: issue.body || '', ts: issue.created_at },
-              ...issueComments.map(c => ({ body: c.body || '', ts: c.created_at }))
+              ...(issueTrusted ? [{ body: issue.body || '', ts: issue.created_at }] : []),
+              ...issueComments.filter(isTrusted).map(c => ({ body: c.body || '', ts: c.created_at }))
             ]
 
             // If triggered from a PR review, also pull the PR thread
@@ -420,9 +430,9 @@ jobs:
               })
               allTexts = [
                 ...allTexts,
-                ...prComments.map(c => ({ body: c.body || '', ts: c.created_at })),
-                ...reviewComments.map(c => ({ body: c.body || '', ts: c.created_at })),
-                ...reviews.map(r => ({ body: r.body || '', ts: r.submitted_at }))
+                ...prComments.filter(isTrusted).map(c => ({ body: c.body || '', ts: c.created_at })),
+                ...reviewComments.filter(isTrusted).map(c => ({ body: c.body || '', ts: c.created_at })),
+                ...reviews.filter(isTrusted).map(r => ({ body: r.body || '', ts: r.submitted_at }))
               ]
             }
 
@@ -432,7 +442,7 @@ jobs:
             for (const t of allTexts) {
               if (t.body.includes('<!-- opencode-plan -->')) planText = t.body
             }
-            if (!planText) planText = issue.body || ''  // plan-optional fallback
+            if (!planText && issueTrusted) planText = issue.body || ''  // plan-optional fallback
 
             // Extract screenshot routes from the last "Screenshot routes:" line
             let routes = null
@@ -444,15 +454,15 @@ jobs:
               if (candidates.length) routes = candidates
             }
             if (!routes) {
-              const m = (issue.body || '').match(/(?:route|path|url|page|screenshot)[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
+              const m = (issueTrusted ? (issue.body || '') : '').match(/(?:route|path|url|page|screenshot)[:\s]+(\/[a-zA-Z0-9\-_\/]*)/)
               routes = m ? [m[1]] : ['/']
             }
 
             // Compose the full implementation prompt
             const discussion = allTexts.map(t => t.body).filter(Boolean).join('\n\n---\n\n')
             let prompt = 'You are implementing a GitHub issue in this repository.\n\n'
-            prompt += 'Issue #' + issueNum + ': ' + issue.title + '\n\n'
-            prompt += '## Issue description\n' + (issue.body || '(no body)') + '\n\n'
+            prompt += 'Issue #' + issueNum + ': ' + (issueTrusted ? issue.title : '(title omitted: issue not opened by an org member)') + '\n\n'
+            prompt += '## Issue description\n' + (issueTrusted ? (issue.body || '(no body)') : '(omitted: issue not opened by an org member; follow the maintainers\' comments below)') + '\n\n'
             prompt += '## Full discussion and approved plan\n' + discussion + '\n\n'
             if (isPrEvent && extraContext) {
               prompt += '## Reviewer feedback to address\n' + extraContext + '\n\n'
@@ -467,12 +477,14 @@ jobs:
             fs.writeFileSync('/tmp/oc-prompt.txt', prompt)
             core.setOutput('routes', JSON.stringify(routes))
 
+      # The PAT is deliberately not persisted into .git/config: the agent step
+      # below has shell access and must not be able to read it. The push step
+      # passes it per command instead.
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: true
-          token: ${{ secrets.GH_WORKFLOW_PAT }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -529,15 +541,22 @@ jobs:
         id: pr
         run: |
           BRANCH="opencode/issue-${ISSUE_NUMBER}"
-          git add -A
-          if git diff --cached --quiet; then
+          # The agent had shell access to this checkout and this step's env holds
+          # the PAT, so neutralise repo-local hooks and fsmonitor (both can run
+          # arbitrary commands from .git/) for every git call here.
+          GIT="git -c core.hooksPath=/dev/null -c core.fsmonitor=false"
+          $GIT add -A
+          if $GIT diff --cached --quiet; then
             echo "No file changes produced by OpenCode"
           else
             TITLE=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE_NUMBER}" --jq '.title')
-            git commit -m "${TITLE} (implements #${ISSUE_NUMBER})"
+            $GIT commit -m "${TITLE} (implements #${ISSUE_NUMBER})"
           fi
+          # The PAT is not persisted by checkout; pass it for this push only.
           # --force-with-lease is correct post-rebase; guards concurrent pushes
-          git push --force-with-lease -u origin "${BRANCH}"
+          AUTH=$(printf 'x-access-token:%s' "${GITHUB_TOKEN}" | base64 -w0)
+          $GIT -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${AUTH}" \
+            push --force-with-lease -u origin "${BRANCH}"
           # Find open PR for this branch, or create one. Targets develop (beta)
           # first; promotion to main is a separate, manual PR after beta
           # validation, matching the repo's release flow (see README.md).

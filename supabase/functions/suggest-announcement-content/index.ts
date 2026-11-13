@@ -55,12 +55,13 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'bad_request' }, 400, headers)
   }
 
-  if (!payload.brief?.trim()) {
+  if (!payload.brief?.trim() || payload.brief.length > 1000) {
     return jsonResponse({ error: 'invalid_request' }, 400, headers)
   }
 
   // Anon key + the caller's own Authorization header: this is the auth
-  // gate. We don't need the user's role, just proof of a real session.
+  // gate, and the caller must be an admin (this endpoint spends the paid AI
+  // quota and only feeds the admin-only Announcements tab).
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_ANON_KEY')!,
@@ -70,6 +71,11 @@ Deno.serve(async (req) => {
   const { data: { user }, error: userError } = await supabase.auth.getUser()
   if (userError || !user) {
     return jsonResponse({ error: 'not_authenticated' }, 401, headers)
+  }
+
+  const { data: role } = await supabase.schema('se').rpc('get_user_role')
+  if (role !== 'admin') {
+    return jsonResponse({ error: 'forbidden' }, 403, headers)
   }
 
   const apiKey = Deno.env.get('OPENCODE_GO_API_KEY')

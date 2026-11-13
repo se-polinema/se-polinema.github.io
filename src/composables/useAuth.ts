@@ -25,6 +25,10 @@ function init() {
   supabase.auth.getSession().then(({ data }) => {
     user.value = data.session?.user ?? null
     ready.value = true
+  }).catch(() => {
+    // Without this, a failed session read leaves `ready` false forever and
+    // the account item never renders its signed-out state.
+    ready.value = true
   })
 
   supabase.auth.onAuthStateChange((_event, session) => {

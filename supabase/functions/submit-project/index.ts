@@ -1,16 +1,15 @@
 // Turnstile-gated self-submission for the Showcase (Projects/Products).
-// Clone of submit-member/index.ts's exact pattern: forwards the caller's
-// own JWT (not the service role) so the projects_insert_self RLS policy
-// (auth.uid() = user_id AND approved = false, plus every curatorial field:
-// featured/private/status/stream/researchers/contributors/video_url/
-// slug, pinned to its default; see 20260722031833_projects.sql and
-// 20260722082908_projects_extend.sql) keeps doing the real identity and
-// scope enforcement; this function only adds the Turnstile gate in front
-// of the same insert the client used to perform directly. Unlike
-// se.members, a user may submit more than one project; there is no
-// existing-row check here, every call is a fresh insert.
+// Clone of submit-member/index.ts's pattern: the caller's JWT only identifies
+// them, and the insert runs with the service role because the
+// projects_insert_self RLS policy was dropped
+// (20261113000001_security_hardening.sql): with it in place a signed-in user
+// could POST straight to PostgREST and skip Turnstile. The row is pinned here
+// to user_id = the verified caller and approved = false; every curatorial
+// field (featured/private/status/stream/researchers/contributors/video_url/
+// slug) stays at its column default. Unlike se.members, a user may submit
+// more than one project; every call is a fresh insert.
 import { createClient } from 'npm:@supabase/supabase-js@2'
-import { verifyTurnstile, corsHeaders, jsonResponse } from '../_shared/turnstile.ts'
+import { verifyTurnstile, corsHeaders, jsonResponse, httpUrlOrNull } from '../_shared/turnstile.ts'
 
 interface ProjectPayload {
   turnstileToken?: string
@@ -58,18 +57,27 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'captcha_failed' }, 400, headers)
   }
 
-  // Anon key + the caller's own Authorization header: RLS runs as this
-  // user, exactly as it did for the client's old direct insert.
-  const supabase = createClient(
+  const caller = createClient(
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_ANON_KEY')!,
     { global: { headers: { Authorization: authHeader } } }
   )
 
-  const { data: { user }, error: userError } = await supabase.auth.getUser()
+  const { data: { user }, error: userError } = await caller.auth.getUser()
   if (userError || !user) {
     return jsonResponse({ error: 'not_authenticated' }, 401, headers)
   }
+
+  const repoUrl = httpUrlOrNull(payload.repo_url)
+  const demoUrl = httpUrlOrNull(payload.demo_url)
+  if (repoUrl === undefined || demoUrl === undefined) {
+    return jsonResponse({ error: 'invalid_url' }, 400, headers)
+  }
+
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+  )
 
   const { error } = await supabase
     .schema('se')
@@ -83,14 +91,14 @@ Deno.serve(async (req) => {
       description_en: payload.description_en?.trim() || null,
       description_id: payload.description_id?.trim() || null,
       tags: payload.tags ?? [],
-      repo_url: payload.repo_url?.trim() || null,
-      demo_url: payload.demo_url?.trim() || null,
+      repo_url: repoUrl,
+      demo_url: demoUrl,
       images: payload.images ?? [],
     })
 
   if (error) {
     console.error('submit-project insert failed', error)
-    return jsonResponse({ error: error.message }, 400, headers)
+    return jsonResponse({ error: 'insert_failed' }, 400, headers)
   }
 
   return jsonResponse({ success: true }, 200, headers)

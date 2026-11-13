@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { withBase } from '../lib/paths'
 import { useConsent } from '../composables/useConsent'
@@ -49,18 +49,21 @@ const mounted = ref(false)
 const bannerRef = ref<HTMLElement | null>(null)
 const acceptBtn = ref<HTMLButtonElement | null>(null)
 
+function handleKeydown(e: KeyboardEvent) {
+  if (!bannerRef.value) return
+  if (e.key === 'Escape') {
+    handleDismiss()
+  }
+}
+
 onMounted(() => {
   mounted.value = true
   acceptBtn.value?.focus()
-
-  function handleKeydown(e: KeyboardEvent) {
-    if (!bannerRef.value) return
-    if (e.key === 'Escape') {
-      handleDismiss()
-    }
-  }
-
   document.addEventListener('keydown', handleKeydown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleKeydown)
 })
 
 function handleAccept() {
