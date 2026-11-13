@@ -612,7 +612,8 @@
     "streamsLabel": "Research Streams",
     "submitBtn": "Submit for Review",
     "submittingLabel": "Submitting...",
-    "genericError": "Something went wrong. Please try again."
+    "genericError": "Something went wrong. Please try again.",
+    "invalidUrl": "Links must start with http:// or https://."
   },
   "members": {
     "heading": "Students",
@@ -759,6 +760,7 @@
     "submitBtn": "Submit for Review",
     "submittingLabel": "Submitting...",
     "genericError": "Something went wrong. Please try again.",
+    "invalidUrl": "Links must start with http:// or https://.",
     "viewLink": "View"
   },
   "membersAdmin": {

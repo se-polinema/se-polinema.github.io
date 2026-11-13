@@ -1870,13 +1870,21 @@ watch(
 async function loadData() {
   loadingData.value = true
 
-  const { data: eventsData } = await supabase
-    .schema('se')
-    .from('events')
-    .select('*')
-    .order('created_at', { ascending: false })
+  // check_in_code is not selectable by clients (20261113000001_security_hardening.sql);
+  // admins get it from an admin-only RPC and merge it in by slug.
+  const [{ data: eventsData }, { data: codesData }] = await Promise.all([
+    supabase
+      .schema('se')
+      .from('events')
+      .select('slug, title, registration_open, capacity')
+      .order('created_at', { ascending: false }),
+    supabase.schema('se').rpc('get_event_check_in_codes'),
+  ])
 
-  events.value = eventsData ?? []
+  const codeBySlug = new Map<string, string>(
+    ((codesData ?? []) as { slug: string; check_in_code: string }[]).map(c => [c.slug, c.check_in_code]),
+  )
+  events.value = (eventsData ?? []).map(e => ({ ...e, check_in_code: codeBySlug.get(e.slug) ?? '' }))
 
   const { data: participantsData } = await supabase
     .schema('se')

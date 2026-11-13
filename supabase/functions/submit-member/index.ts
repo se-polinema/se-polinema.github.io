@@ -2,16 +2,14 @@
 // always creates a status='student' row: becoming an alumnus is a
 // graduation event on an existing row (see se.graduate_member,
 // 20260722023755_member_graduation.sql), not a second registration form.
-// Forwards the caller's own JWT (not the service role) so the existing
-// members_insert_self RLS policy (auth.uid() = user_id AND approved =
-// false AND status = 'student': 013_alumni_self_service.sql, widened
-// to include alumni in 20260722011948_widen_member_self_insert.sql,
-// then narrowed back to student-only in
-// 20260722023755_member_graduation.sql) keeps doing the real identity
-// enforcement; this function only adds the Turnstile gate in front of
-// the same insert the client used to perform directly.
+// The caller's JWT only identifies them; the insert runs with the service
+// role because the members_insert_self RLS policy was dropped
+// (20261113000001_security_hardening.sql): with it in place a signed-in user
+// could POST straight to PostgREST and skip Turnstile. The row is pinned
+// here to user_id = the verified caller, approved = false, status =
+// 'student', so nothing is widened.
 import { createClient } from 'npm:@supabase/supabase-js@2'
-import { verifyTurnstile, corsHeaders, jsonResponse } from '../_shared/turnstile.ts'
+import { verifyTurnstile, corsHeaders, jsonResponse, httpUrlOrNull } from '../_shared/turnstile.ts'
 
 interface MemberPayload {
   turnstileToken?: string
@@ -72,18 +70,28 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'captcha_failed' }, 400, headers)
   }
 
-  // Anon key + the caller's own Authorization header: RLS runs as this
-  // user, exactly as it did for the client's old direct insert.
-  const supabase = createClient(
+  const caller = createClient(
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_ANON_KEY')!,
     { global: { headers: { Authorization: authHeader } } }
   )
 
-  const { data: { user }, error: userError } = await supabase.auth.getUser()
+  const { data: { user }, error: userError } = await caller.auth.getUser()
   if (userError || !user) {
     return jsonResponse({ error: 'not_authenticated' }, 401, headers)
   }
+
+  const linkedinUrl = httpUrlOrNull(payload.linkedin_url)
+  const profileUrl = httpUrlOrNull(payload.profile_url)
+  const githubUrl = httpUrlOrNull(payload.github_url)
+  if (linkedinUrl === undefined || profileUrl === undefined || githubUrl === undefined) {
+    return jsonResponse({ error: 'invalid_url' }, 400, headers)
+  }
+
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+  )
 
   const { error } = await supabase
     .schema('se')
@@ -102,9 +110,9 @@ Deno.serve(async (req) => {
       current_role_en: payload.current_role_en?.trim() || null,
       current_organization_id: payload.current_organization_id?.trim() || null,
       current_organization_en: payload.current_organization_en?.trim() || null,
-      linkedin_url: payload.linkedin_url?.trim() || null,
-      profile_url: payload.profile_url?.trim() || null,
-      github_url: payload.github_url?.trim() || null,
+      linkedin_url: linkedinUrl,
+      profile_url: profileUrl,
+      github_url: githubUrl,
       streams: payload.streams ?? [],
       research_topics: payload.research_topics?.trim() || null,
       career_update: payload.career_update?.trim() || null,
@@ -112,7 +120,7 @@ Deno.serve(async (req) => {
 
   if (error) {
     console.error('submit-member insert failed', error)
-    return jsonResponse({ error: error.message }, 400, headers)
+    return jsonResponse({ error: 'insert_failed' }, 400, headers)
   }
 
   return jsonResponse({ success: true }, 200, headers)
