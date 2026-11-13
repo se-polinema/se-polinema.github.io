@@ -1,4 +1,11 @@
 ---
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/600.css'
+import '@fontsource/jetbrains-mono/400.css'
+import '@fontsource/jetbrains-mono/500.css'
+import '@fontsource/dm-serif-display/400.css'
+import '@fontsource/dm-serif-display/400-italic.css'
 import '../styles/global.css'
 import JsonLd from '../components/JsonLd.astro'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
@@ -71,10 +78,6 @@ const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=DM+Serif+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
 
     <title>{fullTitle}</title>
 
@@ -186,6 +189,6 @@ const shouldRegisterServiceWorker = import.meta.env.PROD && !IS_BASE_DEPLOY
     <a href="#editor" class="skip-to-content">Skip to content</a>
     <AnnouncementBanner client:load />
     <slot />
-    <CookieConsent client:load />
+    <CookieConsent client:idle />
   </body>
 </html>

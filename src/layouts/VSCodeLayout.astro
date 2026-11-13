@@ -35,7 +35,7 @@ const { title, description, image, type, lang } = Astro.props
       class="flex items-center px-3 flex-shrink-0 relative"
       style="height: 28px; background: var(--color-vscode-workspace); border-bottom: 1px solid var(--color-vscode-chrome-border);"
     >
-      <WorkspaceMenu client:load />
+      <WorkspaceMenu client:idle />
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div
           class="flex items-center gap-1.5 px-2 h-[18px] text-[11px] font-mono text-[color:var(--color-vscode-chrome-fg)]"
@@ -87,13 +87,13 @@ const { title, description, image, type, lang } = Astro.props
           </div>
         </main>
 
-        <BottomPanel client:load />
+        <BottomPanel client:idle />
       </div>
     </div>
 
     <StatusBar client:load />
-    <QuickInputOverlays client:load />
-    <ConfirmDialog client:load />
+    <QuickInputOverlays client:idle />
+    <ConfirmDialog client:idle />
   </div>
 
   <script>
