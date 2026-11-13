@@ -469,21 +469,32 @@ onMounted(async () => {
 
   currentPath.value = stripBase(window.location.pathname)
 
-  if (currentPage.value === 'members') {
-    researcherList.value = await fetch(withBase('/api/researchers.json')).then(r => r.json())
-  } else if (currentPage.value === 'publications') {
-    const meta = await fetch(withBase('/api/publications-meta.json')).then(r => r.json())
-    pubYears.value = meta.years
-    pubTypes.value = meta.types
-    pubStreams.value = meta.streams ?? []
-  } else if (currentPage.value === 'blog') {
-    const meta = await fetch(withBase('/api/posts-meta.json')).then(r => r.json())
-    blogCategories.value = meta.categories
-    blogTagsByLang.value = meta.tags || { en: [], id: [] }
-  } else if (currentPage.value === 'decks') {
-    const meta = await fetch(withBase('/api/decks-meta.json')).then(r => r.json())
-    deckMembers.value = meta.members
-    deckTypes.value = meta.types
+  // The filter lists are an enhancement: a failed fetch leaves them empty
+  // instead of throwing out of onMounted.
+  const getJson = async (path: string) => {
+    const res = await fetch(withBase(path))
+    if (!res.ok) throw new Error(`${path}: ${res.status}`)
+    return res.json()
+  }
+  try {
+    if (currentPage.value === 'members') {
+      researcherList.value = await getJson('/api/researchers.json')
+    } else if (currentPage.value === 'publications') {
+      const meta = await getJson('/api/publications-meta.json')
+      pubYears.value = meta.years
+      pubTypes.value = meta.types
+      pubStreams.value = meta.streams ?? []
+    } else if (currentPage.value === 'blog') {
+      const meta = await getJson('/api/posts-meta.json')
+      blogCategories.value = meta.categories
+      blogTagsByLang.value = meta.tags || { en: [], id: [] }
+    } else if (currentPage.value === 'decks') {
+      const meta = await getJson('/api/decks-meta.json')
+      deckMembers.value = meta.members
+      deckTypes.value = meta.types
+    }
+  } catch (err) {
+    console.warn('Sidebar: could not load filter data', err)
   }
 })
 </script>

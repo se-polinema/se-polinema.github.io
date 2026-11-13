@@ -40,7 +40,10 @@ onMounted(() => {
 const oauthRedirectTo = typeof window !== 'undefined'
   ? (() => {
       const redirect = new URLSearchParams(window.location.search).get('redirect')
-      return redirect ? new URL(redirect, window.location.origin).toString() : window.location.origin + BASE
+      // Only same-origin targets: an absolute ?redirect=https://evil.example
+      // must not become the post-login destination.
+      const target = redirect ? new URL(redirect, window.location.origin) : null
+      return target && target.origin === window.location.origin ? target.toString() : window.location.origin + BASE
     })()
   : undefined
 </script>

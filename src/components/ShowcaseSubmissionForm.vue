@@ -340,7 +340,7 @@ async function handleSubmit() {
     turnstileToken.value = ''
     // functions.invoke() surfaces non-2xx responses as a generic SDK error
     // without parsing the JSON body, so recover the actual server message
-    // (submit-project returns { error: <postgres error message> }) from
+    // (submit-project returns { error: <error code> }) from
     // the raw Response on error.context.
     let serverMessage: string | null = null
     try {
@@ -349,7 +349,9 @@ async function handleSubmit() {
     } catch {
       // ignore, fall through to the generic error below
     }
-    errorMessage.value = serverMessage || t.value.showcaseSubmit.genericError
+    errorMessage.value = serverMessage === 'invalid_url'
+      ? t.value.showcaseSubmit.invalidUrl
+      : t.value.showcaseSubmit.genericError
     return
   }
 
