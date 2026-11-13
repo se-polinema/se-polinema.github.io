@@ -1,0 +1,44 @@
+name: PR Check
+
+# Builds every pull request (validate-publications + astro check + astro
+# build) so a broken change is caught before it is merged. PRs into develop
+# are built with the beta base path, PRs into main with the production one,
+# matching what deploy.yml will build after the merge. Nothing is deployed.
+#
+# No secrets are used: src/lib/supabase.ts falls back to placeholder values at
+# build time, so this also works for pull requests from forks.
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-check-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Build (production base)
+        if: github.base_ref == 'main'
+        run: npm run build
+
+      # BASE_PATH must stay unset for the production build (an empty string
+      # is not "/"), hence two steps.
+      - name: Build (beta base)
+        if: github.base_ref == 'develop'
+        run: npm run build
+        env:
+          BASE_PATH: /beta/
