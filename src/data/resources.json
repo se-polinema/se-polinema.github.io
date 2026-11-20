@@ -361,5 +361,16 @@
     "level": "beginner",
     "url": "https://www.coursera.org/professional-certificates/google-it-automation",
     "internal": false
+  },
+  {
+    "title": "Recommender Systems Fundamentals with PHP",
+    "titleId": "Dasar-Dasar Sistem Rekomendasi dengan PHP",
+    "description": "Learn user-based collaborative filtering, Pearson similarity, rating prediction, and offline evaluation with a PHP course recommendation example.",
+    "descriptionId": "Pelajari collaborative filtering berbasis pengguna, kemiripan Pearson, prediksi rating, dan evaluasi offline melalui contoh rekomendasi mata kuliah dengan PHP.",
+    "stream": "requirements-decision-support",
+    "type": "tutorial",
+    "level": "intermediate",
+    "url": "/blog/recommender-systems-fundamentals-php",
+    "internal": true
   }
 ]

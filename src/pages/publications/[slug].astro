@@ -21,6 +21,7 @@ export async function getStaticPaths() {
 
 const { publication } = Astro.props
 const { title, year, type, venue, authors, url, doi, abstract, pdfUrl, googleScholarUrl, language } = publication.data
+const metaDescription = abstract?.trim() || `${title}. ${venue} (${year}).`
 
 const origin = Astro.site?.origin ?? 'https://se.polinema.ac.id'
 const pubUrl = new URL(Astro.url.pathname, origin).href
@@ -154,7 +155,7 @@ const relatedItems: RelatedContentItem[] = scored.map((item) => {
 })
 ---
 
-<VSCodeLayout title={title} lang={language as 'en' | 'id'} image={`/og/publications/${publication.id}.png`}>
+<VSCodeLayout title={title} description={metaDescription} type="article" lang={language as 'en' | 'id'} image={`/og/publications/${publication.id}.png`}>
   <JsonLd slot="head" data={scholarlyArticleJsonLd} />
   <div class="px-8 py-8">
     <article class="max-w-3xl">
